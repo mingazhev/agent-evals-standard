@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:governance-resolution-ledger:1",
+  "title": "Authenticated governance resolution ledger",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "ledgerId",
+    "policyInstanceHash",
+    "matrixInstanceHash",
+    "initialRoot",
+    "currentRoot",
+    "externalAnchor",
+    "evidenceManifest",
+    "events",
+    "issuer",
+    "issuedAt",
+    "signature"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-governance-resolution-ledger-1" },
+    "ledgerId": { "type": "string", "minLength": 1 },
+    "policyInstanceHash": { "$ref": "#/$defs/digest" },
+    "matrixInstanceHash": { "$ref": "#/$defs/digest" },
+    "initialRoot": { "$ref": "#/$defs/digest" },
+    "currentRoot": { "$ref": "#/$defs/digest" },
+    "externalAnchor": { "$ref": "#/$defs/artifactRef" },
+    "evidenceManifest": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/evidenceArtifact" }
+    },
+    "events": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/ledgerEvent" }
+    },
+    "issuer": {
+      "type": "object",
+      "required": ["id", "role"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "issuedAt": { "type": "string", "format": "date-time" },
+    "signature": { "$ref": "#/$defs/signature" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "artifactRef": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "signature": {
+      "type": "object",
+      "required": ["algorithm", "keyId", "value"],
+      "properties": {
+        "algorithm": { "type": "string", "minLength": 1 },
+        "keyId": { "type": "string", "minLength": 1 },
+        "value": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "evidenceArtifact": {
+      "type": "object",
+      "required": ["id", "uri", "digest", "mediaType", "sizeBytes", "producer", "createdAt", "attestation"],
+      "properties": {
+        "id": { "$ref": "#/$defs/artifactRef" },
+        "uri": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" },
+        "mediaType": { "type": "string", "minLength": 1 },
+        "sizeBytes": { "type": "integer", "minimum": 0 },
+        "producer": {
+          "type": "object",
+          "required": ["id", "role"],
+          "properties": {
+            "id": { "type": "string", "minLength": 1 },
+            "role": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "attestation": { "$ref": "#/$defs/signature" }
+      },
+      "additionalProperties": false
+    },
+    "ledgerEvent": {
+      "type": "object",
+      "required": ["sequence", "eventId", "eventType", "payloadHash", "previousEventHash", "eventHash", "timestamp", "payload", "signature"],
+      "properties": {
+        "sequence": { "type": "integer", "minimum": 1 },
+        "eventId": { "type": "string", "minLength": 1 },
+        "eventType": { "enum": ["escalation", "resolution"] },
+        "payloadHash": { "$ref": "#/$defs/digest" },
+        "previousEventHash": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/digest" }
+          ]
+        },
+        "eventHash": { "$ref": "#/$defs/digest" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "payload": {
+          "oneOf": [
+            { "$ref": "urn:agent-evals-standard:schema:escalation-event:1" },
+            { "$ref": "urn:agent-evals-standard:schema:governance-resolution:1" }
+          ]
+        },
+        "signature": { "$ref": "#/$defs/signature" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

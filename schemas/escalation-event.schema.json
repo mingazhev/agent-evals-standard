@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:escalation-event:1",
+  "title": "Operational escalation event",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "eventId",
+    "matrixVersion",
+    "matrixHash",
+    "matrixRowHash",
+    "triggeredAt",
+    "state",
+    "claimEffect",
+    "governanceStatus",
+    "stopAction",
+    "scopeAction",
+    "owner",
+    "sla",
+    "evidence",
+    "terminalDisposition",
+    "resumeConditions"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-escalation-event-1" },
+    "id": { "type": "string", "minLength": 1 },
+    "eventId": {
+      "enum": [
+        "hardGateRegression",
+        "untriagedCriticalScannerFinding",
+        "heldOutLeakage",
+        "escapedCriticalDefect",
+        "repeatedReviewRejection",
+        "staleMeasurement",
+        "measurementErrorThreshold",
+        "suiteHealthDegradation",
+        "decisionExpired",
+        "reviewDue",
+        "measurementBoundaryCompromise",
+        "irreversibleCriticalOperation",
+        "productionCredentialsProhibited"
+      ]
+    },
+    "matrixVersion": { "type": "string", "minLength": 1 },
+    "matrixHash": { "$ref": "#/$defs/digest" },
+    "matrixRowHash": { "$ref": "#/$defs/digest" },
+    "triggeredAt": { "type": "string", "format": "date-time" },
+    "state": { "enum": ["open", "resolved"] },
+    "claimEffect": { "enum": ["insufficient_evidence", "not_applicable"] },
+    "governanceStatus": { "enum": ["security_review_required", "manual_review_required"] },
+    "stopAction": {
+      "enum": ["close_run", "block_acceptance", "stop_governance_use", "freeze_scope", "block_scope_expansion", "block_metric", "block_suite", "revoke_approval", "block_renewal_expansion"]
+    },
+    "scopeAction": {
+      "enum": ["reject_or_reduce", "revoke_affected_scope", "rollback_or_reduce", "retain_or_reduce", "retain_valid_only", "reduce_affected", "revoke_expired", "continue_until_expiry"]
+    },
+    "owner": { "type": "string", "minLength": 1 },
+    "sla": { "type": "string", "minLength": 1 },
+    "evidence": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+    "terminalDisposition": { "type": ["string", "null"] },
+    "resumeConditions": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+    "resolvedAt": { "type": "string", "format": "date-time" },
+    "resolutionEvidence": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "state": { "const": "resolved" } }, "required": ["state"] },
+      "then": {
+        "required": ["resolvedAt", "resolutionEvidence"],
+        "properties": { "terminalDisposition": { "type": "string", "minLength": 1 } }
+      }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+  }
+}

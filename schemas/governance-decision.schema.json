@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:governance-decision:1",
+  "title": "Governance decision record",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "decisionId",
+    "decisionType",
+    "verdict",
+    "riskTier",
+    "policyInstance",
+    "matrixInstance",
+    "preRunDecisionPlan",
+    "scorecards",
+    "resolutionLedger",
+    "effectiveAt",
+    "reviewAt",
+    "expiresAt",
+    "roles",
+    "separationOfDutiesEvidence",
+    "conditionTrace",
+    "approvalEnvelope",
+    "signature"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-governance-decision-1" },
+    "decisionId": { "type": "string", "minLength": 1 },
+    "decisionType": { "enum": ["autonomy", "release", "risk_acceptance"] },
+    "verdict": { "enum": ["approve", "reject", "insufficient_evidence"] },
+    "riskTier": { "enum": ["low", "medium", "high", "critical"] },
+    "policyInstance": { "$ref": "#/$defs/artifact" },
+    "matrixInstance": { "$ref": "#/$defs/artifact" },
+    "preRunDecisionPlan": { "$ref": "#/$defs/artifact" },
+    "scorecards": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/artifact" } },
+    "resolutionLedger": { "$ref": "#/$defs/artifact" },
+    "effectiveAt": { "type": "string", "format": "date-time" },
+    "reviewAt": { "type": "string", "format": "date-time" },
+    "expiresAt": { "type": "string", "format": "date-time" },
+    "roles": {
+      "type": "object",
+      "required": ["operator", "evidenceProducer", "approver", "securityApprover", "riskOwner", "statusResolver", "waiverAuthority", "rollbackVerifier"],
+      "properties": {
+        "operator": { "$ref": "#/$defs/actor" },
+        "evidenceProducer": { "$ref": "#/$defs/actor" },
+        "approver": { "$ref": "#/$defs/actor" },
+        "securityApprover": { "$ref": "#/$defs/actor" },
+        "riskOwner": { "$ref": "#/$defs/actor" },
+        "statusResolver": { "$ref": "#/$defs/actor" },
+        "waiverAuthority": { "$ref": "#/$defs/actor" },
+        "rollbackVerifier": { "$ref": "#/$defs/actor" }
+      },
+      "additionalProperties": false
+    },
+    "separationOfDutiesEvidence": { "$ref": "#/$defs/artifact" },
+    "conditionTrace": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["conditionId", "sealedRequirement", "observedValue", "evidence", "evaluator", "verdict", "failureEffect"],
+        "properties": {
+          "conditionId": { "type": "string", "minLength": 1 },
+          "sealedRequirement": { "type": "string", "minLength": 1 },
+          "observedValue": {},
+          "evidence": { "$ref": "#/$defs/artifact" },
+          "evaluator": { "$ref": "#/$defs/actor" },
+          "verdict": { "enum": ["pass", "fail", "insufficient_evidence"] },
+          "failureEffect": { "enum": ["reject", "insufficient_evidence"] }
+        },
+        "additionalProperties": false
+      }
+    },
+    "approvalEnvelope": {
+      "type": "object",
+      "required": ["configurationHash", "taskScope", "repositoryScope", "environmentScope", "targetPopulation", "representedStrata", "exclusions", "tools", "autonomy"],
+      "properties": {
+        "configurationHash": { "$ref": "#/$defs/digest" },
+        "taskScope": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "repositoryScope": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "environmentScope": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "targetPopulation": { "type": "string", "minLength": 1 },
+        "representedStrata": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "exclusions": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "tools": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "autonomy": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "signature": { "$ref": "#/$defs/signature" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "verdict": { "const": "approve" } }, "required": ["verdict"] },
+      "then": { "properties": { "conditionTrace": { "items": { "properties": { "verdict": { "const": "pass" } } } } } }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "artifact": {
+      "type": "object",
+      "required": ["id", "location", "digest"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "location": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "actor": {
+      "type": "object",
+      "required": ["id", "role"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "signature": {
+      "type": "object",
+      "required": ["algorithm", "keyId", "value"],
+      "properties": {
+        "algorithm": { "type": "string", "minLength": 1 },
+        "keyId": { "type": "string", "minLength": 1 },
+        "value": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    }
+  }
+}
