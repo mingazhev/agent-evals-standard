@@ -1,6 +1,7 @@
 # Case QA Playbook
 
 - Status: current
+- Contract version: 3.0.0
 - Purpose: the operational process for activating an evaluation case. I12 of
   the [Agent Evals Golden Standard](standard.md) requires QA evidence before a
   case can enter the active suite. This playbook specifies the stages, checks,
@@ -53,6 +54,8 @@ The author confirms that the case contract includes a pinned base snapshot,
 task description, profile, setup and validation commands, hidden checks,
 scoring rules, risk tier, ambiguity label, tags, owner, review date, canary
 marker, and contamination metadata.
+The author also inventories every material decision surface and, for an
+interactive case, pins the typed actor protocol and simulator components.
 
 ### Stage 1 — Automated Case Lint
 
@@ -68,6 +71,9 @@ A deterministic linter verifies at least the following:
   branches, or remotes;
 - a canary marker is present in the case artifacts;
 - every required case-contract field is present and schema-valid.
+- decision-surface IDs and actor IDs are unique; every check reference resolves;
+  an interactive protocol has exactly one evaluated agent; and the sealed
+  clarification policy references that protocol.
 
 ### Stage 2 — Semantic Review
 
@@ -83,6 +89,8 @@ For an `ambiguous` case, the activation evidence lists the defensible
 resolutions and proves that deterministic checks accept each one. A case that
 requires an unavailable interactive requester remains `candidate`; reviewer
 intuition is not a substitute for that protocol.
+The review challenges every `covered_by_final_state` assertion and records a
+claim restriction for any material `coverage_gap`.
 
 ### Stage 3 — Independent QA Run
 
@@ -103,6 +111,13 @@ verdict for the resulting solution.
   the case requires a change;
 - policy and security gates have positive controls: known prohibited behavior
   triggers the gate.
+- each decision surface has known-good and known-bad controls. A `checked`
+  surface also has an alternate valid trajectory that passes; a
+  `covered_by_final_state` surface has a proof that an incorrect material
+  decision cannot hide behind an accepted final state.
+  Each control records its input digest, bound check IDs and component digests,
+  expected and observed verdicts, and execution evidence; a label without a
+  recomputable execution is not a control proof.
 
 ### Stage 5 — Trivial-Strategy Battery
 
@@ -130,6 +145,27 @@ manipulation, including prompt injection addressed to a model-based grader
 through a
 diff, comment, commit message, or log. Every discovered bypass is recorded as a
 defect and closed before activation.
+
+When a model grader is enabled, Stage 6 seals an identity-relevance rule and
+records blinding as `pass` or justified `not_applicable`, then runs
+counterbalanced presentation-order controls, and meaning-preserving verbosity
+controls. For each bias test, seal the method and threshold before observation
+and retain the estimand, unit, direction, randomization or pairing design,
+minimum-sample rule, versioned calculation contract, sample size, estimate,
+uncertainty interval, verdict, and raw evidence. Human calibration records
+typed model-to-human, inter-rater, and self-consistency statistics, adjudication,
+and expiry. `breach` or `insufficient_evidence` blocks activation for that grader
+use. Model graders remain auxiliary and require human-labeled calibration.
+
+For every interactive model simulator, Stage 6 probes goal persistence,
+required disclosure, terminal behavior, refusal boundaries, and collusion with
+the evaluated agent. Stage 8 establishes simulator stability and variance with
+declared sampling units, strata, seeds, repetitions, estimates, uncertainty,
+thresholds, raw evidence, and versioned calculation contracts.
+Failure or insufficient evidence keeps the case `candidate`.
+Every simulator actor has its own component-bound validation record.
+Interactive QA also verifies the evaluated-agent responsibility predicate and
+runs the no-op-agent/co-actor control; the control must fail to achieve success.
 
 ### Stage 7 — Alternative-Solution Probe
 
@@ -159,6 +195,12 @@ in reporting:
 - require a stability proof before a potentially flaky check can become a hard
   gate. Record the repetition count, environment, observed failure rate,
   permitted threshold, and quarantine trigger.
+- verify that the runner preserves the append-only pre-transform event stream
+  across compaction, summarization, tool-output clearing, and agent-authored
+  memory; omission, rewriting, or reliance on those derived views is a blocking
+  capture defect;
+- for interactive cases, verify actor attribution, shared-state hashes,
+  terminal rules, and zero unattributed mutations across repeated trials.
 
 ## Defect Taxonomy
 
@@ -205,7 +247,7 @@ Severity levels:
 ## Activation Record
 
 Activation is recorded in a machine-readable Case QA record with
-`schemaVersion: case-qa-record-2`, stored beside the case. The record includes:
+`schemaVersion: case-qa-record-3`, stored beside the case. The record includes:
 
 - case ID, version, hash, and lifecycle transition;
 - the Golden Standard, case, environment, scorecard-contract, risk-policy,
@@ -221,6 +263,15 @@ Activation is recorded in a machine-readable Case QA record with
   thresholds, threshold rules, raw adjudication evidence, versioned calculation
   contract, verdicts, and semantic-validation result evidence;
 - control-proof and alternative-solution evidence;
+- one validation result for every decision surface, including alternate-path
+  or final-state coverage evidence as applicable;
+- model-grader identity-blinding, order-bias, verbosity-bias, and human
+  calibration evidence, or a typed `not_applicable` reason;
+- interaction actor bindings, evaluated-agent responsibility evidence, and the
+  no-op-agent control, or a typed `not_applicable` reason;
+- for every simulator actor, its component, goal-persistence, disclosure,
+  termination, refusal, anti-collusion, stability, and variance evidence, or a typed
+  `not_applicable` reason;
 - unresolved defects, final activation decision, approver, and decision
   timestamp;
 - `recordHash`, invalidation state and reason, and superseding record where
@@ -247,6 +298,10 @@ Invalidate the QA record and repeat the applicable stages when:
 
 - the task description, hidden checks, environment contract, or grader version
   changes;
+- a decision-surface inventory or applicability rule, interactive actor
+  protocol, simulator component, or simulator policy changes;
+- model-grader prompt, model, identity-blinding, presentation-order, or
+  verbosity-control method changes;
 - production provides a false-positive or false-negative signal;
 - contamination is suspected or a canary is detected;
 - a saturation review moves the case into the regression suite.
@@ -275,6 +330,10 @@ than normative by themselves.
 
 ## Changelog
 
+- 3.0.0 — added activation-blocking validation for conditional decision
+  surfaces, model-grader order and verbosity bias, append-only pre-transform
+  transcript capture, and typed interactive simulators. The machine-readable
+  activation record discriminator is `case-qa-record-3`.
 - Documentation (2026-07-22) — added an informative Mermaid diagram of the
   Stage 0–8 activation pipeline. Stages, defect taxonomy, and record shape are
   unchanged.

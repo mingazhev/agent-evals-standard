@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agent-evals-standard:schema:scorecard:3",
+  "$id": "urn:agent-evals-standard:schema:scorecard:4",
   "title": "Agent evaluation sealed-run scorecard",
   "type": "object",
   "required": [
@@ -14,7 +14,7 @@
     "provenance"
   ],
   "properties": {
-    "schemaVersion": { "const": "agent-eval-scorecard-3" },
+    "schemaVersion": { "const": "agent-eval-scorecard-4" },
     "run": {
       "type": "object",
       "required": [
@@ -252,8 +252,8 @@
       "type": "object",
       "required": ["id", "version"],
       "properties": {
-        "id": { "enum": ["functional-outcome-v1", "accepted-outcome-v1"] },
-        "version": { "const": "1.0.0" }
+        "id": { "enum": ["functional-outcome-v2", "accepted-outcome-v2"] },
+        "version": { "const": "2.0.0" }
       },
       "additionalProperties": false
     },
@@ -320,7 +320,7 @@
     },
     "trialResult": {
       "type": "object",
-      "required": ["attemptId", "validity", "accepted", "primaryOutcome", "failureCauses", "hardGates", "governanceStatuses", "metrics", "artifacts"],
+      "required": ["attemptId", "validity", "accepted", "primaryOutcome", "failureCauses", "hardGates", "governanceStatuses", "decisionSurfaceResults", "metrics", "artifacts"],
       "properties": {
         "attemptId": { "type": "string", "minLength": 1 },
         "validity": {
@@ -337,6 +337,7 @@
         "failureCauses": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
         "hardGates": { "type": "array", "minItems": 15, "items": { "$ref": "#/$defs/hardGate" } },
         "governanceStatuses": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/governanceStatus" } },
+        "decisionSurfaceResults": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/decisionSurfaceResult" } },
         "metrics": { "$ref": "#/$defs/trialMetrics" },
         "artifacts": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/artifactRef" }, "uniqueItems": true }
       },
@@ -360,9 +361,91 @@
               "validity": { "properties": { "status": { "const": "valid" } } },
               "primaryOutcome": { "enum": ["solved", "correct_refusal", "already_solved"] },
               "hardGates": { "items": { "properties": { "status": { "const": "pass" } } } },
-              "governanceStatuses": { "items": { "properties": { "state": { "enum": ["not_applicable", "resolved", "waived"] } } } }
+              "governanceStatuses": { "items": { "properties": { "state": { "enum": ["not_applicable", "resolved", "waived"] } } } },
+              "decisionSurfaceResults": { "items": { "properties": { "status": { "enum": ["pass", "not_applicable"] } } } },
+              "metrics": {
+                "properties": {
+                  "transcriptEvidence": { "properties": { "status": { "const": "complete" } } },
+                  "interaction": { "properties": { "status": { "enum": ["complete", "not_applicable"] } } }
+                }
+              }
             }
           }
+        },
+        {
+          "if": {
+            "properties": {
+              "metrics": {
+                "properties": { "transcriptEvidence": { "properties": { "status": { "enum": ["partial", "unavailable"] } }, "required": ["status"] } },
+                "required": ["transcriptEvidence"]
+              }
+            },
+            "required": ["metrics"]
+          },
+          "then": {
+            "properties": {
+              "validity": { "properties": { "status": { "const": "invalid" } } },
+              "accepted": { "const": false },
+              "primaryOutcome": { "const": "infra_failure" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "metrics": {
+                "properties": { "interaction": { "properties": { "status": { "const": "partial" } }, "required": ["status"] } },
+                "required": ["interaction"]
+              }
+            },
+            "required": ["metrics"]
+          },
+          "then": {
+            "properties": {
+              "validity": { "properties": { "status": { "const": "invalid" } } },
+              "accepted": { "const": false },
+              "primaryOutcome": { "const": "infra_failure" }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "decisionSurfaceResult": {
+      "type": "object",
+      "required": ["surfaceId", "applicability", "assignmentEvidence", "triggerEvidence", "coverage", "status", "evidence", "rationale"],
+      "properties": {
+        "surfaceId": { "type": "string", "minLength": 1 },
+        "applicability": { "enum": ["applicable", "not_applicable", "unknown"] },
+        "assignmentEvidence": { "$ref": "#/$defs/artifactRef" },
+        "triggerEvidence": { "$ref": "#/$defs/artifactRef" },
+        "coverage": { "enum": ["checked", "covered_by_final_state", "not_applicable", "coverage_gap"] },
+        "status": { "enum": ["pass", "fail", "not_applicable", "insufficient_evidence"] },
+        "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/artifactRef" }, "uniqueItems": true },
+        "rationale": { "type": "string", "minLength": 1 }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "applicability": { "const": "unknown" } }, "required": ["applicability"] },
+          "then": {
+            "properties": {
+              "coverage": { "const": "coverage_gap" },
+              "status": { "const": "insufficient_evidence" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "applicability": { "const": "not_applicable" } }, "required": ["applicability"] },
+          "then": {
+            "properties": {
+              "coverage": { "const": "not_applicable" },
+              "status": { "const": "not_applicable" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "applicability": { "const": "applicable" } }, "required": ["applicability"] },
+          "then": { "properties": { "coverage": { "not": { "const": "not_applicable" } } } }
         }
       ],
       "additionalProperties": false
@@ -577,7 +660,7 @@
     },
     "trialMetrics": {
       "type": "object",
-      "required": ["telemetry", "execution", "trajectory", "economics"],
+      "required": ["telemetry", "execution", "trajectory", "transcriptEvidence", "interaction", "economics"],
       "properties": {
         "telemetry": {
           "type": "object",
@@ -613,6 +696,91 @@
             "toolCallDefinition": { "type": ["string", "null"] },
             "toolCallBreakdown": { "type": ["object", "null"] }
           },
+          "additionalProperties": false
+        },
+        "transcriptEvidence": {
+          "type": "object",
+          "required": ["status", "rawEventStream", "appendOnlyRoot", "preTransformCapture", "contextEvents", "contextEventCount", "agentMemoryTrust", "errors"],
+          "properties": {
+            "status": { "enum": ["complete", "partial", "unavailable"] },
+            "rawEventStream": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/artifactRef" }] },
+            "appendOnlyRoot": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/digest" }] },
+            "preTransformCapture": { "type": "boolean" },
+            "contextEvents": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/artifactRef" }] },
+            "contextEventCount": { "type": "integer", "minimum": 0 },
+            "agentMemoryTrust": { "const": "untrusted" },
+            "errors": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+          },
+          "allOf": [
+            {
+              "if": { "properties": { "status": { "const": "complete" } }, "required": ["status"] },
+              "then": {
+                "properties": {
+                  "rawEventStream": { "$ref": "#/$defs/artifactRef" },
+                  "appendOnlyRoot": { "$ref": "#/$defs/digest" },
+                  "preTransformCapture": { "const": true }
+                }
+              }
+            }
+          ],
+          "additionalProperties": false
+        },
+        "interaction": {
+          "type": "object",
+          "required": ["status", "protocol", "eventLedger", "initialSharedStateHash", "finalSharedStateHash", "actorIds", "actorComponents", "unattributedMutationCount", "errors"],
+          "properties": {
+            "status": { "enum": ["not_applicable", "complete", "partial"] },
+            "protocol": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/component" }] },
+            "eventLedger": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/artifactRef" }] },
+            "initialSharedStateHash": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/digest" }] },
+            "finalSharedStateHash": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/digest" }] },
+            "actorIds": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+            "actorComponents": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["actorId", "role", "component"],
+                "properties": {
+                  "actorId": { "type": "string", "minLength": 1 },
+                  "role": { "enum": ["evaluated_agent", "requester", "simulator", "human", "helper", "environment"] },
+                  "component": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/component" }] }
+                },
+                "additionalProperties": false
+              }
+            },
+            "unattributedMutationCount": { "type": "integer", "minimum": 0 },
+            "errors": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+          },
+          "allOf": [
+            {
+              "if": { "properties": { "status": { "const": "complete" } }, "required": ["status"] },
+              "then": {
+                "properties": {
+                  "protocol": { "$ref": "#/$defs/component" },
+                  "eventLedger": { "$ref": "#/$defs/artifactRef" },
+                  "initialSharedStateHash": { "$ref": "#/$defs/digest" },
+                  "finalSharedStateHash": { "$ref": "#/$defs/digest" },
+                  "actorIds": { "minItems": 2 },
+                  "actorComponents": { "minItems": 2 },
+                  "unattributedMutationCount": { "const": 0 }
+                }
+              }
+            },
+            {
+              "if": { "properties": { "status": { "const": "not_applicable" } }, "required": ["status"] },
+              "then": {
+                "properties": {
+                  "protocol": { "type": "null" },
+                  "eventLedger": { "type": "null" },
+                  "initialSharedStateHash": { "type": "null" },
+                  "finalSharedStateHash": { "type": "null" },
+                  "actorIds": { "maxItems": 0 },
+                  "actorComponents": { "maxItems": 0 },
+                  "unattributedMutationCount": { "const": 0 }
+                }
+              }
+            }
+          ],
           "additionalProperties": false
         },
         "economics": {
@@ -767,8 +935,8 @@
           "type": "object",
           "required": ["version", "tag", "commit"],
           "properties": {
-            "version": { "const": "3.0.1" },
-            "tag": { "const": "v3.0.1" },
+            "version": { "const": "4.0.0" },
+            "tag": { "const": "v4.0.0" },
             "commit": { "type": "string", "pattern": "^[a-f0-9]{40,64}$" }
           },
           "additionalProperties": false
@@ -780,7 +948,7 @@
             "scorecard": {
               "allOf": [
                 { "$ref": "#/$defs/component" },
-                { "properties": { "id": { "const": "scorecard-contract" }, "version": { "const": "2.0.0" } } }
+                { "properties": { "id": { "const": "scorecard-contract" }, "version": { "const": "3.0.0" } } }
               ]
             },
             "governancePolicy": { "$ref": "#/$defs/component" },
@@ -788,14 +956,14 @@
             "case": {
               "allOf": [
                 { "$ref": "#/$defs/component" },
-                { "properties": { "id": { "const": "case-contract" }, "version": { "const": "2.0.0" } } }
+                { "properties": { "id": { "const": "case-contract" }, "version": { "const": "3.0.0" } } }
               ]
             },
             "environment": { "$ref": "#/$defs/component" },
             "semanticValidation": {
               "allOf": [
                 { "$ref": "#/$defs/component" },
-                { "properties": { "id": { "const": "semantic-validation" }, "version": { "const": "semantic-validation-1.0.0" } } }
+                { "properties": { "id": { "const": "semantic-validation" }, "version": { "const": "semantic-validation-2.0.0" } } }
               ]
             }
           },
@@ -818,7 +986,7 @@
           "required": ["id", "version", "implementationDigest", "resultEvidence"],
           "properties": {
             "id": { "const": "agent-evals-semantic-validator" },
-            "version": { "const": "semantic-validation-1.0.0" },
+            "version": { "const": "semantic-validation-2.0.0" },
             "implementationDigest": { "$ref": "#/$defs/digest" },
             "resultEvidence": { "$ref": "#/$defs/artifactRef" }
           },

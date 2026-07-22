@@ -12,6 +12,8 @@ This Markdown file is its authoring view.
 - Pre-run decision-plan ID:
 - Pre-run decision-plan hash:
 - Pre-run decision-plan timestamp:
+- Post-decision assurance-plan ID/version/location/hash:
+- Post-decision assurance-plan approval location/hash:
 - Decision type: autonomy | release | risk acceptance
 - Decision timestamp (UTC):
 - Case-set membership:
@@ -41,6 +43,20 @@ This Markdown file is its authoring view.
 - Accountable risk owner:
 - False-positive owner:
 - False-negative owner:
+
+## Post-Decision Assurance
+
+- Production-concordance signal IDs, outcomes, sources, units, directions, and
+  signal/calculation/threshold contract hashes:
+- Schema-bound, versioned, digest-pinned sampling contract and verifier; target
+  population, frame, cadence, window, UTC anchor, first half-open window,
+  alignment rule, lateness, missingness rule, and minimum sample:
+- Assurance owner and SLA:
+- Missing-evidence action: suspend
+
+| Change trigger | Threshold contract | Claim effect | Stop action | Scope action | Rollback conditions | Revalidation conditions | Resume conditions |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+|  |  |  |  |  |  |  |  |
 
 ## Policy Condition Trace
 

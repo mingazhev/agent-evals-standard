@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agent-evals-standard:schema:case-qa-record:2",
+  "$id": "urn:agent-evals-standard:schema:case-qa-record:3",
   "title": "Agent eval case QA activation record",
   "type": "object",
   "required": [
@@ -13,11 +13,15 @@
     "alternativeSolutionEvidence",
     "stabilityProofs",
     "measurementValidation",
+    "decisionSurfaceValidation",
+    "modelGraderValidation",
+    "interactionValidation",
+    "simulatorValidation",
     "decision",
     "recordHash"
   ],
   "properties": {
-    "schemaVersion": { "const": "case-qa-record-2" },
+    "schemaVersion": { "const": "case-qa-record-3" },
     "case": {
       "type": "object",
       "required": ["id", "version", "hash", "fromState", "toState"],
@@ -44,15 +48,15 @@
         "semanticValidationVersion"
       ],
       "properties": {
-        "goldenStandardVersion": { "const": "3.0.1" },
-        "scorecardContractVersion": { "const": "2.0.0" },
-        "caseContractVersion": { "const": "2.0.0" },
+        "goldenStandardVersion": { "const": "4.0.0" },
+        "scorecardContractVersion": { "const": "3.0.0" },
+        "caseContractVersion": { "const": "3.0.0" },
         "environmentContractVersion": { "type": "string", "minLength": 1 },
         "governancePolicyVersion": { "type": "string", "minLength": 1 },
         "escalationStopMatrixVersion": { "type": "string", "minLength": 1 },
         "profileVersion": { "type": "string", "minLength": 1 },
         "graderSetHash": { "$ref": "#/$defs/digest" },
-        "semanticValidationVersion": { "const": "semantic-validation-1.0.0" }
+        "semanticValidationVersion": { "const": "semantic-validation-2.0.0" }
       },
       "additionalProperties": true
     },
@@ -117,6 +121,116 @@
         "semanticValidationEvidence": { "$ref": "#/$defs/evidence" }
       },
       "additionalProperties": false
+    },
+    "decisionSurfaceValidation": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["surfaceId", "coverage", "status", "applicabilityEvidence", "knownGoodEvidence", "knownBadEvidence"],
+        "properties": {
+          "surfaceId": { "type": "string", "minLength": 1 },
+          "coverage": { "enum": ["checked", "covered_by_final_state", "not_applicable", "coverage_gap"] },
+          "status": { "enum": ["pass", "breach", "insufficient_evidence", "not_applicable"] },
+          "applicabilityEvidence": { "$ref": "#/$defs/evidence" },
+          "knownGoodEvidence": { "$ref": "#/$defs/passingControl" },
+          "knownBadEvidence": { "$ref": "#/$defs/failingControl" },
+          "alternatePathEvidence": { "$ref": "#/$defs/passingControl" },
+          "finalStateCoverageProof": { "$ref": "#/$defs/evidence" },
+          "claimRestriction": { "type": "string", "minLength": 1 }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "coverage": { "const": "checked" } }, "required": ["coverage"] },
+            "then": { "required": ["alternatePathEvidence"] }
+          },
+          {
+            "if": { "properties": { "coverage": { "const": "covered_by_final_state" } }, "required": ["coverage"] },
+            "then": { "required": ["finalStateCoverageProof"] }
+          },
+          {
+            "if": { "properties": { "coverage": { "const": "coverage_gap" } }, "required": ["coverage"] },
+            "then": { "required": ["claimRestriction"] }
+          },
+          {
+            "if": { "properties": { "coverage": { "const": "not_applicable" } }, "required": ["coverage"] },
+            "then": { "properties": { "status": { "const": "not_applicable" } } }
+          }
+        ],
+        "additionalProperties": false
+      }
+    },
+    "modelGraderValidation": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["status", "reason"],
+          "properties": {
+            "status": { "const": "not_applicable" },
+            "reason": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["status", "humanCalibration", "graders"],
+          "properties": {
+            "status": { "const": "validated" },
+            "humanCalibration": { "$ref": "#/$defs/humanCalibration" },
+            "graders": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/modelGraderControl" } }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "simulatorValidation": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["status", "reason"],
+          "properties": {
+            "status": { "const": "not_applicable" },
+            "reason": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["status", "simulators"],
+          "properties": {
+            "status": { "const": "validated" },
+            "simulators": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/simulatorControl" } }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "interactionValidation": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["status", "reason"],
+          "properties": {
+            "status": { "const": "not_applicable" },
+            "reason": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["status", "protocolId", "evaluatedAgentId", "responsibilitySurfaceId", "actorBindingEvidence", "responsibilityEvidence", "noOpAgentControl"],
+          "properties": {
+            "status": { "const": "validated" },
+            "protocolId": { "type": "string", "minLength": 1 },
+            "evaluatedAgentId": { "type": "string", "minLength": 1 },
+            "responsibilitySurfaceId": { "type": "string", "minLength": 1 },
+            "actorBindingEvidence": { "$ref": "#/$defs/evidence" },
+            "responsibilityEvidence": { "$ref": "#/$defs/evidence" },
+            "noOpAgentControl": { "$ref": "#/$defs/validationCheck" }
+          },
+          "additionalProperties": false
+        }
+      ]
     },
     "decision": {
       "type": "object",
@@ -210,6 +324,71 @@
               "falsePositive": { "properties": { "status": { "const": "pass" } } },
               "falseNegative": { "properties": { "status": { "const": "pass" } } }
             }
+          },
+          "decisionSurfaceValidation": {
+            "items": { "properties": { "status": { "enum": ["pass", "not_applicable"] } } }
+          },
+          "modelGraderValidation": {
+            "oneOf": [
+              { "properties": { "status": { "const": "not_applicable" } }, "required": ["status"] },
+              {
+                "properties": {
+                  "status": { "const": "validated" },
+                  "humanCalibration": {
+                    "properties": {
+                      "modelToHuman": { "properties": { "status": { "const": "pass" } } },
+                      "interRater": { "properties": { "status": { "const": "pass" } } },
+                      "selfConsistency": { "properties": { "status": { "const": "pass" } } }
+                    }
+                  },
+                  "graders": {
+                    "items": {
+                      "properties": {
+                        "orderBias": { "properties": { "status": { "const": "pass" } } },
+                        "verbosityBias": { "properties": { "status": { "const": "pass" } } }
+                      }
+                    }
+                  }
+                },
+                "required": ["status"]
+              }
+            ]
+          },
+          "simulatorValidation": {
+            "oneOf": [
+              { "properties": { "status": { "const": "not_applicable" } }, "required": ["status"] },
+              {
+                "properties": {
+                  "status": { "const": "validated" },
+                  "simulators": {
+                    "items": {
+                      "properties": {
+                        "goalPersistence": { "properties": { "status": { "const": "pass" } } },
+                        "disclosure": { "properties": { "status": { "const": "pass" } } },
+                        "termination": { "properties": { "status": { "const": "pass" } } },
+                        "refusal": { "properties": { "status": { "const": "pass" } } },
+                        "antiCollusion": { "properties": { "status": { "const": "pass" } } },
+                        "stability": { "properties": { "status": { "const": "pass" } } },
+                        "variance": { "properties": { "status": { "const": "pass" } } }
+                      }
+                    }
+                  }
+                },
+                "required": ["status"]
+              }
+            ]
+          },
+          "interactionValidation": {
+            "oneOf": [
+              { "properties": { "status": { "const": "not_applicable" } }, "required": ["status"] },
+              {
+                "properties": {
+                  "status": { "const": "validated" },
+                  "noOpAgentControl": { "properties": { "status": { "const": "pass" } } }
+                },
+                "required": ["status"]
+              }
+            ]
           }
         }
       }
@@ -268,6 +447,175 @@
         "lower": { "type": "number", "minimum": 0, "maximum": 1 },
         "upper": { "type": "number", "minimum": 0, "maximum": 1 },
         "threshold": { "type": "number", "minimum": 0, "maximum": 1 },
+        "thresholdRule": { "type": "string", "minLength": 1 },
+        "status": { "enum": ["pass", "breach", "insufficient_evidence"] },
+        "rawEvidence": { "$ref": "#/$defs/evidence" },
+        "calculationContract": { "$ref": "#/$defs/evidence" }
+      },
+      "additionalProperties": false
+    },
+    "validationCheck": {
+      "type": "object",
+      "required": ["status", "method", "evidence"],
+      "properties": {
+        "status": { "enum": ["pass", "breach", "insufficient_evidence"] },
+        "method": { "type": "string", "minLength": 1 },
+        "evidence": { "$ref": "#/$defs/evidence" }
+      },
+      "additionalProperties": false
+    },
+    "controlResult": {
+      "type": "object",
+      "required": ["inputDigest", "checkIds", "componentDigests", "expectedVerdict", "observedVerdict", "executionEvidence"],
+      "properties": {
+        "inputDigest": { "$ref": "#/$defs/digest" },
+        "checkIds": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "componentDigests": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/digest" }, "uniqueItems": true },
+        "expectedVerdict": { "enum": ["pass", "fail"] },
+        "observedVerdict": { "enum": ["pass", "fail"] },
+        "executionEvidence": { "$ref": "#/$defs/evidence" }
+      },
+      "additionalProperties": false
+    },
+    "passingControl": {
+      "allOf": [
+        { "$ref": "#/$defs/controlResult" },
+        { "properties": { "expectedVerdict": { "const": "pass" }, "observedVerdict": { "const": "pass" } } }
+      ]
+    },
+    "failingControl": {
+      "allOf": [
+        { "$ref": "#/$defs/controlResult" },
+        { "properties": { "expectedVerdict": { "const": "fail" }, "observedVerdict": { "const": "fail" } } }
+      ]
+    },
+    "modelGraderControl": {
+      "type": "object",
+      "required": ["graderId", "graderVersion", "allowedUse", "mode", "identityBlinding", "orderBias", "verbosityBias"],
+      "properties": {
+        "graderId": { "type": "string", "minLength": 1 },
+        "graderVersion": { "type": "string", "minLength": 1 },
+        "allowedUse": { "const": "auxiliary" },
+        "mode": { "enum": ["pairwise", "pointwise", "reference_guided", "other"] },
+        "identityBlinding": { "$ref": "#/$defs/identityBlinding" },
+        "orderBias": { "$ref": "#/$defs/biasControl" },
+        "verbosityBias": { "$ref": "#/$defs/biasControl" }
+      },
+      "additionalProperties": false
+    },
+    "identityBlinding": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["status", "relevanceRule", "evidence"],
+          "properties": {
+            "status": { "const": "pass" },
+            "relevanceRule": { "type": "string", "minLength": 1 },
+            "evidence": { "$ref": "#/$defs/evidence" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["status", "reason", "relevanceRule", "evidence"],
+          "properties": {
+            "status": { "const": "not_applicable" },
+            "reason": { "type": "string", "minLength": 1 },
+            "relevanceRule": { "type": "string", "minLength": 1 },
+            "evidence": { "$ref": "#/$defs/evidence" }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "simulatorControl": {
+      "type": "object",
+      "required": ["protocolId", "simulatorId", "component", "goalPersistence", "disclosure", "termination", "refusal", "antiCollusion", "stability", "variance"],
+      "properties": {
+        "protocolId": { "type": "string", "minLength": 1 },
+        "simulatorId": { "type": "string", "minLength": 1 },
+        "component": { "$ref": "#/$defs/evidence" },
+        "goalPersistence": { "$ref": "#/$defs/validationCheck" },
+        "disclosure": { "$ref": "#/$defs/validationCheck" },
+        "termination": { "$ref": "#/$defs/validationCheck" },
+        "refusal": { "$ref": "#/$defs/validationCheck" },
+        "antiCollusion": { "$ref": "#/$defs/validationCheck" },
+        "stability": { "$ref": "#/$defs/stabilityValidation" },
+        "variance": { "$ref": "#/$defs/stabilityValidation" }
+      },
+      "additionalProperties": false
+    },
+    "biasControl": {
+      "type": "object",
+      "required": ["estimand", "unit", "direction", "design", "minimumSampleRule", "method", "sampleSize", "estimate", "intervalMethod", "confidenceLevel", "lower", "upper", "threshold", "thresholdRule", "status", "rawEvidence", "calculationContract"],
+      "properties": {
+        "estimand": { "type": "string", "minLength": 1 },
+        "unit": { "type": "string", "minLength": 1 },
+        "direction": { "enum": ["absolute_lower_is_better", "lower_is_better", "higher_is_better"] },
+        "design": { "type": "string", "minLength": 1 },
+        "minimumSampleRule": { "type": "string", "minLength": 1 },
+        "method": { "type": "string", "minLength": 1 },
+        "sampleSize": { "type": "integer", "minimum": 1 },
+        "estimate": { "type": "number", "minimum": -1, "maximum": 1 },
+        "intervalMethod": { "type": "string", "minLength": 1 },
+        "confidenceLevel": { "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1 },
+        "lower": { "type": "number", "minimum": -1, "maximum": 1 },
+        "upper": { "type": "number", "minimum": -1, "maximum": 1 },
+        "threshold": { "type": "number", "minimum": 0, "maximum": 1 },
+        "thresholdRule": { "type": "string", "minLength": 1 },
+        "status": { "enum": ["pass", "breach", "insufficient_evidence"] },
+        "rawEvidence": { "$ref": "#/$defs/evidence" },
+        "calculationContract": { "$ref": "#/$defs/evidence" }
+      },
+      "additionalProperties": false
+    },
+    "humanCalibration": {
+      "type": "object",
+      "required": ["validationDate", "expiresAt", "modelToHuman", "interRater", "selfConsistency", "adjudicationRule", "evidence"],
+      "properties": {
+        "validationDate": { "type": "string", "format": "date-time" },
+        "expiresAt": { "type": "string", "format": "date-time" },
+        "modelToHuman": { "$ref": "#/$defs/agreementValidation" },
+        "interRater": { "$ref": "#/$defs/agreementValidation" },
+        "selfConsistency": { "$ref": "#/$defs/agreementValidation" },
+        "adjudicationRule": { "type": "string", "minLength": 1 },
+        "evidence": { "$ref": "#/$defs/evidence" }
+      },
+      "additionalProperties": false
+    },
+    "agreementValidation": {
+      "type": "object",
+      "required": ["statistic", "sampleSize", "estimate", "intervalMethod", "confidenceLevel", "lower", "upper", "threshold", "thresholdRule", "status", "calculationContract"],
+      "properties": {
+        "statistic": { "type": "string", "minLength": 1 },
+        "sampleSize": { "type": "integer", "minimum": 1 },
+        "estimate": { "type": "number", "minimum": -1, "maximum": 1 },
+        "intervalMethod": { "type": "string", "minLength": 1 },
+        "confidenceLevel": { "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1 },
+        "lower": { "type": "number", "minimum": -1, "maximum": 1 },
+        "upper": { "type": "number", "minimum": -1, "maximum": 1 },
+        "threshold": { "type": "number", "minimum": -1, "maximum": 1 },
+        "thresholdRule": { "type": "string", "minLength": 1 },
+        "status": { "enum": ["pass", "breach", "insufficient_evidence"] },
+        "calculationContract": { "$ref": "#/$defs/evidence" }
+      },
+      "additionalProperties": false
+    },
+    "stabilityValidation": {
+      "type": "object",
+      "required": ["targetBehavior", "samplingUnit", "strata", "seeds", "repetitionCount", "estimate", "intervalMethod", "confidenceLevel", "lower", "upper", "threshold", "thresholdRule", "status", "rawEvidence", "calculationContract"],
+      "properties": {
+        "targetBehavior": { "type": "string", "minLength": 1 },
+        "samplingUnit": { "type": "string", "minLength": 1 },
+        "strata": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "seeds": { "type": "array", "minItems": 2, "items": { "type": "integer" }, "uniqueItems": true },
+        "repetitionCount": { "type": "integer", "minimum": 2 },
+        "estimate": { "type": "number" },
+        "intervalMethod": { "type": "string", "minLength": 1 },
+        "confidenceLevel": { "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1 },
+        "lower": { "type": "number" },
+        "upper": { "type": "number" },
+        "threshold": { "type": "number" },
         "thresholdRule": { "type": "string", "minLength": 1 },
         "status": { "enum": ["pass", "breach", "insufficient_evidence"] },
         "rawEvidence": { "$ref": "#/$defs/evidence" },

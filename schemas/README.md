@@ -1,17 +1,18 @@
 # Normative Schemas
 
-These JSON Schemas are normative documents for Golden Standard 3.0.1:
+These JSON Schemas are normative documents for Golden Standard 4.0.0:
 
 | Schema | Discriminator or identity |
 | --- | --- |
-| `case.schema.json` | `urn:agent-evals-standard:schema:case:2` |
-| `case-qa-record.schema.json` | `urn:agent-evals-standard:schema:case-qa-record:2` |
-| `conformance-statement.schema.json` | `urn:agent-evals-standard:schema:conformance-statement:1` |
-| `escalation-event.schema.json` | `urn:agent-evals-standard:schema:escalation-event:1` |
-| `governance-resolution.schema.json` | `urn:agent-evals-standard:schema:governance-resolution:1` |
-| `governance-resolution-ledger.schema.json` | `urn:agent-evals-standard:schema:governance-resolution-ledger:1` |
-| `governance-decision.schema.json` | `urn:agent-evals-standard:schema:governance-decision:1` |
-| `scorecard.schema.json` | `urn:agent-evals-standard:schema:scorecard:3` |
+| `case.schema.json` | `urn:agent-evals-standard:schema:case:3` |
+| `case-qa-record.schema.json` | `urn:agent-evals-standard:schema:case-qa-record:3` |
+| `conformance-statement.schema.json` | `urn:agent-evals-standard:schema:conformance-statement:2` |
+| `escalation-event.schema.json` | `urn:agent-evals-standard:schema:escalation-event:2` |
+| `assurance-observation.schema.json` | `urn:agent-evals-standard:schema:assurance-observation:1` |
+| `governance-resolution.schema.json` | `urn:agent-evals-standard:schema:governance-resolution:2` |
+| `governance-resolution-ledger.schema.json` | `urn:agent-evals-standard:schema:governance-resolution-ledger:2` |
+| `governance-decision.schema.json` | `urn:agent-evals-standard:schema:governance-decision:2` |
+| `scorecard.schema.json` | `urn:agent-evals-standard:schema:scorecard:4` |
 
 Schema discriminators evolve independently from prose contract versions. A
 prose-only version bump does not require a new discriminator when the accepted

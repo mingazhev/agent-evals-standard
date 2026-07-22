@@ -1,7 +1,7 @@
 # Conformance Contract
 
 - Status: current
-- Golden Standard version: 3.0.1
+- Golden Standard version: 4.0.0
 - Purpose: define what a public conformance claim means.
 
 The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHOULD**, **SHOULD NOT**,
@@ -42,6 +42,7 @@ A public conformance statement MUST contain:
   resulting claim restriction;
 - for decision/full claims, the decision-record, approval-envelope, policy, and
   matrix hashes, effective timestamp, review timestamp, and expiry timestamp;
+  a positive approval also includes its post-decision assurance-plan reference;
 - a resolvable issuer identity and signature over the RFC 8785 canonical
   statement, with the signature field omitted.
 

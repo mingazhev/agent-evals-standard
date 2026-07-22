@@ -1,7 +1,7 @@
 # Governance Policy Contract and Non-Operational Template
 
 - Status: normative contract; bundled policy instance is non-operational
-- Version: governance-policy-template-1.0.0
+- Version: governance-policy-template-2.0.0
 - Owner: adopter-defined; a conforming policy instance requires a resolvable
   team identifier or email before any held-out, release, or autonomy decision.
 - Scope: risk classification for every evaluation case and pre-registered
@@ -27,8 +27,9 @@ differences, permitted grounds, original and new tiers, scope, expiry,
 supporting evidence, and an independent approver. The tier must never change
 after results are observed. The following identifiers are non-waivable: every
 `baseline-hard-gates-3` gate; `productionCredentialsProhibited`;
-`heldOutLeakage`; `measurementBoundaryCompromise`; and
-`irreversibleCriticalOperation`. Unknown identifiers are non-waivable until a
+`heldOutLeakage`; `measurementBoundaryCompromise`;
+`irreversibleCriticalOperation`; `approvedConfigurationChanged`; and
+`assuranceEvidenceMissing`. Unknown identifiers are non-waivable until a
 versioned policy classifies them. An operational policy may authorize overrides
 only from an explicit allowlist; free-text requirements are never implicitly
 overridable.
@@ -85,8 +86,24 @@ For each risk tier, the policy version used for a decision must define:
 - incompatible-role rules and stable identities for evidence producer,
   operator, status resolver, waiver authority, ordinary approver, security
   approver, risk owner, and rollback verifier;
+- incompatible-role rules also covering every decision-affecting interactive
+  requester, simulator, human, or helper and the post-decision assurance owner;
 - the append-only governance-resolution ledger used after the immutable run
   scorecard closes.
+- an immutable post-decision assurance-plan ID, version, hash, and approval;
+- material-change triggers covering model, agent configuration, prompt,
+  harness, adapter, tool schema and implementation, permissions, environment,
+  profile, grader, retrieval, and application scope;
+- production-concordance signals and outcomes with schema-bound, versioned,
+  digest-pinned signal, calculation, and threshold contracts and verifier;
+  a typed sampling schedule with a schema-bound, versioned, digest-pinned
+  contract and verifier, target population, frame, cadence, window, UTC anchor,
+  first half-open window, alignment rule, lateness, missingness, and minimum
+  sample; accountable owner, SLA, and evidence retention;
+- an explicit claim-effect mapping for review, narrowing, suspension, and
+  revocation, including `suspend` when required assurance evidence is missing;
+- rollback, stop, revalidation, and resume conditions for every assurance
+  trigger.
 
 ## Risk-Tier Table
 
@@ -116,6 +133,11 @@ For each risk tier, the policy version used for a decision must define:
   and security approvers are distinct people; neither may be the risk owner,
   waiver authority, status resolver, or rollback verifier. Every resolution,
   waiver, renewal, and rollback verification records a role-conflict check.
+- No ordinary or security approver, risk owner, waiver authority, status
+  resolver, or rollback verifier may also be a decision-affecting interactive
+  actor or assurance-evidence producer for that decision. Stable IDs are
+  cross-checked across the case protocol, evidence manifest, assurance plan,
+  and decision record.
 - A decision becomes ineffective at its UTC expiry timestamp. Reaching the UTC
   review timestamp blocks new acceptance, renewal, and scope expansion but does
   not revoke already-authorized execution before expiry unless the operational
@@ -132,13 +154,38 @@ For each risk tier, the policy version used for a decision must define:
   immutable scorecard and ledger roots rather than mutating or circularly
   linking either artifact.
 
+## Post-Decision Assurance
+
+Approval is conditional on the continued applicability of the evidence, not a
+permanent property of an agent label. The decision record binds the sealed
+assurance plan and its exact approved envelope. A material change triggers
+revalidation or revocation for the affected scope; nominal version equality is
+not evidence that behavior is unchanged.
+
+The operational policy MUST define production-concordance signals that are
+observable without treating user harm as an experiment. Sampling and thresholds
+are pre-registered, include uncertainty treatment, and identify the action at
+breach. Missing, delayed, unauthenticated, or materially incomplete required
+evidence triggers `assuranceEvidenceMissing` and suspends the affected approval.
+Every expected monitoring window is appended as a typed assurance observation,
+including the plan hash, scope, signal, sample, estimate, uncertainty,
+threshold, verdict, producer, reviewer, and evidence. Monitoring and later
+evidence never rewrite the original run or decision rationale.
+
 Resolution events use
 [`schemas/governance-resolution.schema.json`](../schemas/governance-resolution.schema.json)
+and monitoring windows use
+[`schemas/assurance-observation.schema.json`](../schemas/assurance-observation.schema.json)
 inside the authenticated
 [`governance-resolution-ledger.schema.json`](../schemas/governance-resolution-ledger.schema.json).
 
 ## Changelog
 
+- governance-policy-template-2.0.0 — made post-decision assurance mandatory:
+  sealed material-change triggers, production-concordance monitoring,
+  uncertainty-aware thresholds, ownership and SLA, explicit claim effects, and
+  fail-closed suspension for missing evidence. The bundled template remains
+  non-operational.
 - governance-policy-template-1.0.0 — separated the public normative policy
   contract from adopter-owned operational thresholds and ownership. The bundled
   instance remains fail-closed and authorizes no governance decision.

@@ -1,7 +1,7 @@
 # Agent Evals Golden Standard
 
 - Status: current
-- Standard version: 3.0.1
+- Standard version: 4.0.0
 - Purpose: the authoritative, implementation-independent standard for evaluating
   software-development lifecycle (SDLC) agents.
 
@@ -58,10 +58,14 @@ These invariants are non-negotiable and non-compensable. Each is stated exactly
 once; all later sections and child documents refer to them by identifier.
 
 - **I1. Acceptance is non-compensable.** An accepted outcome requires
-  `validity: valid`; every automated hard gate required by the baseline,
+  `validity: valid`; a `solved`, `correct_refusal`, or `already_solved` primary
+  outcome under its registered deterministic rule; every automated hard gate required by the baseline,
   risk-tier, profile, case, and sealed post-diff applicability rules to be
-  backed and passed; and every expected blocking governance status to be
-  `not_applicable`, `resolved`, or policy-validly `waived`. This predicate is
+  backed and passed; every applicable `outcome` or `risk` decision surface to
+  pass with known applicability; every expected blocking governance status to be
+  `not_applicable`, `resolved`, or policy-validly `waived`; complete append-only
+  pre-transform transcript evidence; and complete interaction evidence for an
+  interactive case or a typed `not_applicable` interaction state otherwise. This predicate is
   **trial acceptance** only. Run claim eligibility additionally requires I5,
   I6, and the sealed statistical plan; governance approval is a later decision
   under the adopter-owned policy. Quality,
@@ -325,6 +329,25 @@ allow more than one correct solution.
   quarantine of flaky cases, and check updates when production feedback reveals
   a false positive or false negative.
 
+### Conditional Decision-Surface Coverage
+
+Every case MUST inventory the material decisions whose correctness is not
+necessarily implied by the final workspace: instruction following, tool and
+argument selection, stop or escalation, handoff, context management, and any
+profile-specific decision that can change outcome or risk. Each surface is
+typed as `outcome`, `risk`, or `diagnostic`, binds a deterministic
+applicability rule with a versioned schema and verifier, and is classified as `checked`, `covered_by_final_state`,
+`not_applicable`, or `coverage_gap`. Unknown applicability fails closed as a
+coverage gap.
+
+A `checked` surface binds executable checks and verifier-backed evidence that all declared
+valid alternative paths can pass; a grader MUST NOT require the reference
+trajectory. `covered_by_final_state` requires a proof that no materially wrong
+decision on that surface can produce an accepted final state. A material
+`coverage_gap` is explicit and restricts the affected claim; it cannot be
+silently treated as success. Case QA validates the inventory with known-good,
+known-bad, and alternative-path controls before activation.
+
 **Related rules.** I2, I3, and I12 define oracle, pre-registration, and check
 quality requirements. The normative machine-readable shape is
 [`schemas/case.schema.json`](../schemas/case.schema.json); profiles may extend
@@ -426,6 +449,32 @@ application domain and a particular agent harness.
 **Related rules.** The core/profile boundary is mandatory. Concrete interfaces
 belong in implementation and profile documentation.
 
+### Interactive Actors and Simulators
+
+Every case declares `interactive` or `non_interactive`. An interactive case
+MUST pin a typed protocol with actor IDs and roles,
+permissions, tool policies, observation projections, scheduler, shared-state
+contract, terminal rules, attribution rules, and an event contract. Each core
+protocol artifact identifies a versioned schema, deterministic verifier, and
+immutable digest. Exactly one
+actor is the evaluated agent. Every state mutation and message is attributed
+to an actor in an append-only event ledger; unattributed mutation makes the
+interaction evidence incomplete.
+The protocol also binds an evaluated-agent responsibility predicate over
+outcome-relevant events and mutations. An interactive success requires the
+runner to prove that predicate through exactly one named, applicable,
+material, `checked` responsibility surface whose verifier consumes the trial's
+actor event ledger; attribution alone is insufficient. A Case QA
+control in which the evaluated agent is replaced by a no-op while co-actors
+retain their behavior MUST fail.
+
+Human, scripted, and model-simulated requesters are distinct protocol modes.
+A model simulator is a versioned evaluation component, not ground truth. Case
+QA MUST validate its goal persistence, required disclosure behavior,
+termination, refusal boundaries, anti-collusion controls, stability, and
+variance. An unvalidated simulator cannot support activation of an interactive
+case.
+
 ### Versioned Contracts and Immutability
 
 **Purpose.** Runs must be reproducible, and measurement-stack changes must be
@@ -512,8 +561,12 @@ flowchart TD
    that projection.
 4. Durably append the `started` transition, then invoke the adapter with the
    fixed budget and tool policy.
-5. Capture the trajectory: commands, tool calls, approvals, stdout and stderr,
-   transcript, files read and written, and diff.
+5. Durably append the runner-observed event stream before any compaction,
+   summarization, tool-output clearing, filtering, or display transformation.
+   Capture commands, tool calls and results, approvals, stdout and stderr,
+   messages, actor-attributed interaction events, context-management events,
+   files read and written, and diff. Derived views may be stored separately but
+   never replace the pre-transform stream.
 6. Terminate the agent boundary; revoke every local and remote delegate,
    session, and callback; verify the teardown contract; and capture an immutable
    grading snapshot. If this cannot be established, do not expose oracle
@@ -537,7 +590,7 @@ into the run-level scorecard. Aggregation is a run step, not part of a trial.
 - Agent-attributed interference with graders, logs, or artifact capture yields
   `unsafe_policy_violation`. When attribution cannot be established, use
   `validity: invalid`; the primary outcome must not be interpreted as agent
-  success or failure. Under Scorecard Contract schema v3, its required primary
+  success or failure. Under Scorecard Contract schema v4, its required primary
   outcome is the `infra_failure` umbrella while validity remains authoritative.
 - An invalid or missing-capture attempt remains present after a retry. The
   run-level scorecard records scheduled, started, completed, invalid, and
@@ -664,6 +717,13 @@ without replacing deterministic measurement with informal opinion.
 - Model-grader and rubric calibration reports model-to-human and inter-rater agreement,
   self-consistency, statistic, threshold, sample size, adjudication rule, and
   validation date.
+- A model-grader is auxiliary under I9. Case QA seals an identity-relevance
+  rule and records identity blinding as `pass` or justified `not_applicable`;
+  when identity is irrelevant the grader MUST be blinded. Case QA measures order bias using
+  counterbalanced presentation and verbosity bias using meaning-preserving
+  length controls. Each report includes the method, sample, estimate,
+  uncertainty interval, sealed threshold, verdict, and raw evidence; a breach
+  or insufficient evidence blocks activation for the affected use.
 - Calibrated human annotation does not assign acceptance, primary outcome, or
   composite value and does not replace deterministic checks. Any
   decision-bearing human requirement uses the separate governance-status field.
@@ -725,6 +785,17 @@ pre-registered, auditable, and reversible when a high-risk signal appears.
   defects, repeated review rejection, stale suites, FP/FN threshold breaches,
   and suite-health degradation. Each event has an owner, SLA, triage artifact,
   rollback or scope-reduction action, and resume condition.
+- Every approval cites a sealed post-decision assurance plan. It covers changes
+  to the model, configuration, prompt, harness, adapter, tools, permissions,
+  environment, profile, grader, retrieval, and application scope; defines
+  production-concordance signals, sampling cadence, uncertainty-aware
+  thresholds, owner, SLA, and claim effects; and maps breaches to review,
+  narrowing, suspension, or revocation. Missing required assurance evidence
+  suspends the affected approval. Production monitoring validates continued
+  applicability; it does not retroactively rewrite the sealed scorecard.
+- The matrix MUST include approved-configuration change, production-
+  concordance degradation, and missing-assurance-evidence events with explicit
+  stop, scope, rollback, and resume actions.
 - No metric, including a composite score, is a final decision by itself. An
   autonomy decision considers outcome, security, cost, and review burden.
 
@@ -756,9 +827,10 @@ requires monitoring as regular as agent-quality measurement.
 - contamination: canary detections, memorization-probe results, and proportion
   of cases with contamination flags in clean reporting;
 - when a model-based grader is enabled, model-grader health: agreement drift
-  against the calibration set, where lower is better, and prompt-injection
-  detection rate on positive controls, where higher is better (I13); otherwise
-  the report records `not_applicable` and the reason;
+  against the calibration set, order- and verbosity-bias drift, where lower is
+  better, and prompt-injection detection rate on positive controls, where
+  higher is better (I13); otherwise the report records `not_applicable` and the
+  reason;
 - degradation thresholds and responses. A threshold breach is a blocking event
   for governance use of the suite, not merely an informational finding.
 
@@ -782,6 +854,14 @@ The sources that informed this release are listed in
 
 ## Changelog
 
+- 4.0.0 (2026-07-22) — added conditional decision-surface coverage, typed
+  interactive actors and simulator validation, append-only pre-transform
+  transcript evidence, model-grader order and verbosity bias controls, and
+  post-decision assurance with fail-closed escalation events. Released Case,
+  Case QA, Scorecard, semantic-validation, governance-decision, escalation,
+  assurance-observation, governance-resolution, and conformance schema
+  revisions. This is a major release because these
+  additions strengthen mandatory conformance and decision semantics.
 - 3.0.1 (2026-07-22) — dedicated the repository contents to the public domain
   under CC0 1.0 Universal. No evaluation, conformance, or component-contract
   requirements changed.

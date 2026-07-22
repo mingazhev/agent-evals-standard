@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agent-evals-standard:schema:escalation-event:1",
+  "$id": "urn:agent-evals-standard:schema:escalation-event:2",
   "title": "Operational escalation event",
   "type": "object",
   "required": [
@@ -23,7 +23,7 @@
     "resumeConditions"
   ],
   "properties": {
-    "schemaVersion": { "const": "agent-eval-escalation-event-1" },
+    "schemaVersion": { "const": "agent-eval-escalation-event-2" },
     "id": { "type": "string", "minLength": 1 },
     "eventId": {
       "enum": [
@@ -39,7 +39,10 @@
         "reviewDue",
         "measurementBoundaryCompromise",
         "irreversibleCriticalOperation",
-        "productionCredentialsProhibited"
+        "productionCredentialsProhibited",
+        "approvedConfigurationChanged",
+        "productionConcordanceDegraded",
+        "assuranceEvidenceMissing"
       ]
     },
     "matrixVersion": { "type": "string", "minLength": 1 },
@@ -50,10 +53,10 @@
     "claimEffect": { "enum": ["insufficient_evidence", "not_applicable"] },
     "governanceStatus": { "enum": ["security_review_required", "manual_review_required"] },
     "stopAction": {
-      "enum": ["close_run", "block_acceptance", "stop_governance_use", "freeze_scope", "block_scope_expansion", "block_metric", "block_suite", "revoke_approval", "block_renewal_expansion"]
+      "enum": ["close_run", "block_acceptance", "stop_governance_use", "freeze_scope", "block_scope_expansion", "block_metric", "block_suite", "revoke_approval", "block_renewal_expansion", "block_changed_scope", "suspend_approval"]
     },
     "scopeAction": {
-      "enum": ["reject_or_reduce", "revoke_affected_scope", "rollback_or_reduce", "retain_or_reduce", "retain_valid_only", "reduce_affected", "revoke_expired", "continue_until_expiry"]
+      "enum": ["reject_or_reduce", "revoke_affected_scope", "rollback_or_reduce", "retain_or_reduce", "retain_valid_only", "reduce_affected", "revoke_expired", "continue_until_expiry", "revalidate_or_revoke", "narrow_suspend_or_revoke"]
     },
     "owner": { "type": "string", "minLength": 1 },
     "sla": { "type": "string", "minLength": 1 },

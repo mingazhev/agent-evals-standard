@@ -10,11 +10,13 @@ grader, benchmark cases, provider integrations, or reference implementation.
 
 ## Current release
 
-- Golden Standard: **3.0.1**
-- Scorecard Contract: **2.0.0**
-- Semantic Validation Contract: **semantic-validation-1.0.0**
-- Governance Policy template: **governance-policy-template-1.0.0**
-- Escalation and Stop Matrix template: **escalation-stop-matrix-template-1.0.0**
+- Golden Standard: **4.0.0**
+- Case Contract: **3.0.0**
+- Case QA Contract: **3.0.0**
+- Scorecard Contract: **3.0.0**
+- Semantic Validation Contract: **semantic-validation-2.0.0**
+- Governance Policy template: **governance-policy-template-2.0.0**
+- Escalation and Stop Matrix template: **escalation-stop-matrix-template-2.0.0**
 
 Start with [the Golden Standard](standard/standard.md), then read the
 [glossary](standard/glossary.md) and

@@ -1,7 +1,7 @@
 # Escalation and Stop Matrix Contract and Non-Operational Template
 
 - Status: normative contract; bundled matrix instance is non-operational
-- Version: escalation-stop-matrix-template-1.0.0
+- Version: escalation-stop-matrix-template-2.0.0
 - Owner: adopter-defined; a conforming matrix instance requires a resolvable
   team identifier or email before any held-out, release, or autonomy decision.
 - Storage: the adopter policy instance must define the decision-record location.
@@ -26,6 +26,9 @@ scope-reduction action, evidence, terminal disposition, and resume conditions.
 | `measurementBoundaryCompromise` | authenticated measurement boundary is compromised | `insufficient_evidence` | `security_review_required` | `stop_governance_use` | `revoke_affected_scope` | unset | unset | incident, trust-domain evidence, affected-run analysis | root cause closed, credentials/keys rotated, boundary revalidated, new sealed run |
 | `irreversibleCriticalOperation` | critical irreversible operation is proposed or observed | `insufficient_evidence` | `security_review_required` | `block_acceptance` | `reject_or_reduce` | unset | unset | operation plan, blast-radius evidence, explicit authority | only a new policy-compliant decision may proceed; the trigger itself is never waived |
 | `productionCredentialsProhibited` | production credential use or exposure is observed | `insufficient_evidence` | `security_review_required` | `stop_governance_use` | `revoke_affected_scope` | unset | unset | credential incident and revocation evidence | revoke/rotate credentials, contain exposure, review historical results, new sealed run |
+| `approvedConfigurationChanged` | a material change crosses the sealed approval envelope | `insufficient_evidence` for changed scope | `manual_review_required` | `block_changed_scope` | `revalidate_or_revoke` | unset | unset | old and new component digests, change classification, affected-scope analysis | equivalence evidence or a new conforming run and decision for the changed scope |
+| `productionConcordanceDegraded` | a sealed production-concordance threshold is breached | `insufficient_evidence` for affected scope | `manual_review_required` | `suspend_approval` | `narrow_suspend_or_revoke` | unset | unset | sampled production evidence, estimate, uncertainty interval, threshold, affected-scope analysis | breach disposition, verified mitigation, and policy-required revalidation or new run |
+| `assuranceEvidenceMissing` | required assurance evidence is missing, late, unauthenticated, or materially incomplete | `insufficient_evidence` for affected scope | `manual_review_required` | `suspend_approval` | `narrow_suspend_or_revoke` | unset | immediate | missing-evidence inventory, collection audit, affected-scope analysis | authenticated complete evidence and independent review; otherwise revalidation or revocation |
 
 Unset owner, SLA, or rollback/scope-action values are deliberate blockers. A governance decision
 cannot cite this matrix as operationally ready until the accountable owner has
@@ -39,6 +42,10 @@ earlier escalation payload hash in the same chain.
 
 ## Changelog
 
+- escalation-stop-matrix-template-2.0.0 — added fail-closed post-decision
+  assurance events for approved-configuration change, production-concordance
+  degradation, and missing assurance evidence, including typed stop and scope
+  actions. The bundled matrix remains non-operational.
 - escalation-stop-matrix-template-1.0.0 — separated the public matrix contract
   from adopter-owned operational owners, SLAs, and response procedures.
 - escalation-stop-matrix-0.1.0 — established a versioned baseline and added

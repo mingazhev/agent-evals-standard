@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:assurance-observation:1",
+  "title": "Post-decision assurance observation",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "observationId",
+    "assurancePlanHash",
+    "decisionId",
+    "scope",
+    "window",
+    "signalId",
+    "signalContract",
+    "calculationContract",
+    "targetPopulation",
+    "samplingFrame",
+    "missingnessPolicy",
+    "unit",
+    "direction",
+    "sample",
+    "estimate",
+    "uncertainty",
+    "threshold",
+    "verdict",
+    "producer",
+    "reviewer",
+    "evidence",
+    "observedAt"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-assurance-observation-1" },
+    "observationId": { "type": "string", "minLength": 1 },
+    "assurancePlanHash": { "$ref": "#/$defs/digest" },
+    "decisionId": { "type": "string", "minLength": 1 },
+    "scope": { "type": "string", "minLength": 1 },
+    "window": {
+      "type": "object",
+      "required": ["startedAt", "endedAt"],
+      "properties": {
+        "startedAt": { "type": "string", "format": "date-time" },
+        "endedAt": { "type": "string", "format": "date-time" }
+      },
+      "additionalProperties": false
+    },
+    "signalId": { "type": "string", "minLength": 1 },
+    "signalContract": { "$ref": "#/$defs/artifactRef" },
+    "calculationContract": { "$ref": "#/$defs/artifactRef" },
+    "targetPopulation": { "type": "string", "minLength": 1 },
+    "samplingFrame": { "type": "string", "minLength": 1 },
+    "missingnessPolicy": { "enum": ["fail_closed", "pre_registered_bound"] },
+    "unit": { "type": "string", "minLength": 1 },
+    "direction": { "enum": ["lower_is_better", "higher_is_better", "two_sided"] },
+    "sample": {
+      "type": "object",
+      "required": ["method", "size", "evidence"],
+      "properties": {
+        "method": { "type": "string", "minLength": 1 },
+        "size": { "type": "integer", "minimum": 1 },
+        "evidence": { "$ref": "#/$defs/artifactRef" }
+      },
+      "additionalProperties": false
+    },
+    "estimate": { "type": "number" },
+    "uncertainty": {
+      "type": "object",
+      "required": ["method", "confidenceLevel", "lower", "upper"],
+      "properties": {
+        "method": { "type": "string", "minLength": 1 },
+        "confidenceLevel": { "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1 },
+        "lower": { "type": "number" },
+        "upper": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "threshold": {
+      "type": "object",
+      "required": ["rule", "value", "contract"],
+      "properties": {
+        "rule": { "type": "string", "minLength": 1 },
+        "value": { "type": "number" },
+        "contract": { "$ref": "#/$defs/artifactRef" }
+      },
+      "additionalProperties": false
+    },
+    "verdict": { "enum": ["pass", "breach", "insufficient_evidence"] },
+    "producer": { "$ref": "#/$defs/actor" },
+    "reviewer": { "$ref": "#/$defs/actor" },
+    "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/artifactRef" }, "uniqueItems": true },
+    "observedAt": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "artifactRef": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "actor": {
+      "type": "object",
+      "required": ["id", "role"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    }
+  }
+}

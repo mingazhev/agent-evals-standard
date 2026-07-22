@@ -26,9 +26,13 @@ definitions but must not introduce local definitions with different semantics.
 - **Primary outcome** — the Scorecard Contract's mutually exclusive trial
   classification derived from task outcome, trajectory, policy evidence, and
   measurement validity. It is broader than the final environment state.
-- **Transcript (trace or trajectory)** — the complete record of a trial,
-  including model outputs, tool calls, intermediate results, and other
-  interactions.
+- **Transcript evidence** — the runner-captured append-only event stream of a
+  trial as observed before compaction, summarization, filtering, tool-output
+  clearing, or display transformation. It includes model-visible messages,
+  tool calls and results, approvals, context-management events, and typed
+  actor interactions. Derived views and agent-authored memory are untrusted
+  supplements and never replace the pre-transform stream. Hidden chain of
+  thought is neither required nor inferred.
 - **Evaluation harness** — the infrastructure that runs evaluations end to end:
   it provides instructions and tools, isolates and executes trials, records
   traces and artifacts, invokes graders, and aggregates results.

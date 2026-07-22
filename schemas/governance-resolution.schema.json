@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agent-evals-standard:schema:governance-resolution:1",
+  "$id": "urn:agent-evals-standard:schema:governance-resolution:2",
   "title": "Governance resolution payload",
   "type": "object",
   "required": [
@@ -24,13 +24,13 @@
     "timestamp"
   ],
   "properties": {
-    "schemaVersion": { "const": "agent-eval-governance-resolution-1" },
+    "schemaVersion": { "const": "agent-eval-governance-resolution-2" },
     "eventId": { "type": "string", "minLength": 1 },
     "action": { "enum": ["resolve", "waive", "expire", "narrow", "renew", "rollback", "supersede"] },
     "sourceEventId": {
       "oneOf": [
         {
-          "enum": ["hardGateRegression", "untriagedCriticalScannerFinding", "heldOutLeakage", "escapedCriticalDefect", "repeatedReviewRejection", "staleMeasurement", "measurementErrorThreshold", "suiteHealthDegradation", "decisionExpired", "reviewDue", "measurementBoundaryCompromise", "irreversibleCriticalOperation", "productionCredentialsProhibited"]
+          "enum": ["hardGateRegression", "untriagedCriticalScannerFinding", "heldOutLeakage", "escapedCriticalDefect", "repeatedReviewRejection", "staleMeasurement", "measurementErrorThreshold", "suiteHealthDegradation", "decisionExpired", "reviewDue", "measurementBoundaryCompromise", "irreversibleCriticalOperation", "productionCredentialsProhibited", "approvedConfigurationChanged", "productionConcordanceDegraded", "assuranceEvidenceMissing"]
         },
         { "type": "string", "pattern": "^baselineGate:[A-Za-z0-9][A-Za-z0-9_.-]*$" }
       ]
@@ -72,6 +72,37 @@
     {
       "if": { "properties": { "action": { "const": "waive" } }, "required": ["action"] },
       "then": { "properties": { "waivability": { "const": "waivable" } } }
+    },
+    {
+      "if": { "properties": { "sourceEventId": { "enum": ["approvedConfigurationChanged", "assuranceEvidenceMissing"] } }, "required": ["sourceEventId"] },
+      "then": {
+        "properties": {
+          "waivability": { "const": "non_waivable" },
+          "action": { "enum": ["resolve", "narrow", "rollback", "supersede"] }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "sourceEventId": { "enum": ["heldOutLeakage", "measurementBoundaryCompromise", "irreversibleCriticalOperation", "productionCredentialsProhibited"] } }, "required": ["sourceEventId"] },
+      "then": {
+        "properties": {
+          "waivability": { "const": "non_waivable" },
+          "action": { "not": { "const": "waive" } }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "sourceEventId": { "type": "string", "pattern": "^baselineGate:" } }, "required": ["sourceEventId"] },
+      "then": {
+        "properties": {
+          "waivability": { "const": "non_waivable" },
+          "action": { "not": { "const": "waive" } }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "sourceEventId": { "const": "productionConcordanceDegraded" } }, "required": ["sourceEventId"] },
+      "then": { "properties": { "action": { "enum": ["resolve", "narrow", "rollback", "supersede"] } } }
     }
   ],
   "additionalProperties": false,

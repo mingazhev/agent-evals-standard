@@ -10,6 +10,9 @@ and do not transfer their benchmark-specific rules into this standard.
 - [Terminal-Bench 2.0 announcement](https://www.tbench.ai/news/announcement-2-0) and [official harness documentation](https://www.tbench.ai/docs/run-terminal-bench-2-0) — task packaging, environment isolation, and verification workflow.
 - [METR public tasks and Task Standard](https://github.com/METR/public-tasks) — reproducible task packaging and independent task execution.
 - [Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) — agent-evaluation architecture, grader roles, transcripts, and task-quality failure modes.
+- [OpenAI Evaluation best practices](https://developers.openai.com/api/docs/guides/evaluation-best-practices) — production-aligned datasets, human calibration, and explicit position- and verbosity-bias controls for model graders.
+- [Agent Evaluation: A Detailed Guide](https://cameronrwolfe.substack.com/p/agent-evals) — separation of transcript and outcome, trajectory-aware graders, and interactive user-simulator architecture.
+- [The Golden Rule of AI Agent Evaluation](https://www.replicant.com/blog/ai-agent-evaluation-metrics) — production concordance, distribution shift, asymmetric error costs, and the need for component-specific metrics.
 
 References are dated by the tagged release. A later change to an external page
 does not silently change this standard.

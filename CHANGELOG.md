@@ -3,6 +3,25 @@
 All normative changes to the Agent Evals Golden Standard are recorded here.
 Versions follow Semantic Versioning.
 
+## 4.0.0 — 2026-07-22
+
+- added conditional decision-surface inventories and activation controls that
+  cover valid alternative paths without prescribing a reference trajectory;
+- added Case QA controls for model-grader identity, order, and verbosity bias;
+- defined transcript evidence as an append-only pre-transform runner stream;
+- introduced typed interactive actors, event attribution, and model-simulator
+  validation;
+- required post-decision assurance plans and fail-closed escalation for changed
+  configurations, degraded production concordance, and missing evidence;
+- released Case Contract 3.0.0 (`agent-eval-case-3`), Case QA Contract 3.0.0
+  (`case-qa-record-3`), Scorecard Contract 3.0.0
+  (`agent-eval-scorecard-4`), semantic-validation-2.0.0, and associated
+  governance and conformance schema revisions, including typed assurance
+  observations and Governance Resolution v2.
+
+This is a major release because the new evidence and post-decision assurance
+requirements strengthen mandatory conformance and decision semantics.
+
 ## 3.0.1 — 2026-07-22
 
 - dedicated the repository contents to the public domain under CC0 1.0

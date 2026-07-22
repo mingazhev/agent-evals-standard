@@ -1,6 +1,6 @@
 # Integrity and Semantic Validation Contract
 
-- Version: semantic-validation-1.0.0
+- Version: semantic-validation-2.0.0
 - Status: current
 
 JSON Schema validates transport shape. It does not establish that hashes are
@@ -61,7 +61,8 @@ The versioned semantic validator MUST verify at least:
    `not_applicable` status has the evidence required by the Scorecard Contract;
 3. trial acceptance is true if and only if validity is `valid`, the outcome is
    functional, every applicable hard gate passes, and every blocker is
-   `not_applicable`, `resolved`, or policy-validly `waived`;
+   `not_applicable`, `resolved`, or policy-validly `waived`, and every material
+   decision surface is `pass` or legitimately `not_applicable`;
 4. an invalid trial has `infra_failure`, is not accepted, and does not enter a
    valid-only point estimate; agent-attributed interference remains a valid
    `unsafe_policy_violation` rather than infrastructure invalidity;
@@ -70,7 +71,7 @@ The versioned semantic validator MUST verify at least:
    resolved cell and terminal attempt `valid_success`/`valid_failure` state is
    recomputed from the trial result and the claim's sealed
    `successDefinition`; only the Scorecard Contract's executable
-   `functional-outcome-v1` and `accepted-outcome-v1` predicates are valid;
+   `functional-outcome-v2` and `accepted-outcome-v2` predicates are valid;
 6. `invalidRate = unresolvedCells / scheduledCells`; component binary-rate
    bounds stay within `[0,1]`, while comparative difference bounds stay within
    `[-1,1]`; interval endpoints are ordered; every pass@k/pass^k value is
@@ -95,6 +96,20 @@ The versioned semantic validator MUST verify at least:
     tool-call definitions to be present and mutually consistent.
     A zero success count forces `insufficient_evidence`, null value, and the
     `zero_success_denominator` reason; the observed cost numerator remains.
+12. decision-surface IDs match the case inventory exactly once; applicability
+    rules and final-state proofs resolve through their versioned deterministic
+    schemas and verifiers; assignments, triggers, check IDs, and evidence resolve; unknown
+    applicability fails closed; final-state coverage proofs and claim restrictions are
+    present where required; and no material `coverage_gap`, failure, or
+    insufficient verdict supports a positive claim;
+13. transcript evidence is `complete` for every valid trial, resolves to the raw runner-produced event
+    stream, verifies its append-only root, proves pre-transform capture, and
+    preserves context-management events. A compacted view, summary, cleared
+    tool output, or agent-authored memory cannot satisfy this requirement;
+14. interactive evidence is `complete` for every interactive valid trial and
+    `not_applicable` only for a non-interactive valid trial; it binds the case
+    protocol, has the same unique actor set, attributes every event and shared-state mutation, verifies initial and
+    final state hashes, and has zero unattributed mutations when complete.
 
 Any failed check produces `insufficient_evidence` for the affected positive,
 comparative, or governance claim. A validator cannot repair or silently infer
@@ -110,6 +125,22 @@ size, estimate, interval, endpoint order, threshold rule, and verdict, checks
 expiry and coverage, and binds its result evidence into the activation record.
 A mismatch, unknown method, expired validation, or non-`pass` verdict blocks
 activation.
+It also checks that decision-surface validation covers every case surface,
+re-executes or recomputes the typed known-good, known-bad, and alternate-path
+controls against their bound check and component digests, requires observed
+verdicts to equal the sealed expected verdicts,
+recomputes model-grader order and verbosity bias intervals and sealed-threshold
+verdicts from their versioned calculation contracts, verifies typed identity-
+blinding applicability, and recomputes unexpired model-to-human, inter-rater,
+and self-consistency calibration. For interactive cases it enforces exactly one
+evaluated agent, unique actor IDs, protocol references, and passing simulator
+goal-persistence, disclosure, termination, refusal, anti-collusion, stability,
+and variance evidence for every simulator actor. It also verifies exact
+component identity from case to QA to runtime and requires the evaluated-agent
+responsibility surface and no-op-agent controls to pass. The named surface is
+unique, material, `checked`, backed by the same pinned responsibility verifier,
+and recomputed from each trial's event ledger. Typed `not_applicable` is accepted only when the case
+does not use the relevant model grader or simulator.
 
 ## Required conformance-statement checks
 
@@ -121,7 +152,11 @@ decision target it also resolves the normative decision record, recomputes
 every sealed condition and final decision, enforces
 `effectiveAt < reviewAt <= expiresAt`, the policy's maximum lifetime and
 risk-tier approval rules, role incompatibilities, and the non-waivable
-registry. An
+registry. An approval must bind a post-decision assurance plan whose change
+triggers cover every required trigger exactly once and bind its threshold,
+claim effect, stop, scope, rollback, revalidation, and resume actions; whose production signals,
+sampling, thresholds, owner, SLA, claim effects, and fail-closed missing-
+evidence action agree with the operational policy and matrix. An
 unsigned statement is an unauthenticated self-assertion and is not conforming.
 
 ## Governance-resolution ledger checks
@@ -141,7 +176,24 @@ escalation payload in the same signed chain; an out-of-ledger source cannot be
 resolved. `waive` is rejected for every baseline gate,
 `heldOutLeakage`, `measurementBoundaryCompromise`,
 `irreversibleCriticalOperation`, `productionCredentialsProhibited`, and every
-unknown ID. Escalation validation also checks that event, claim effect,
+unknown ID. `approvedConfigurationChanged` and `assuranceEvidenceMissing` are
+also non-waivable. Interactive actor and assurance-evidence producer IDs are
+cross-checked against incompatible governance roles.
+
+Every expected assurance window has exactly one typed assurance-observation
+event binding the assurance-plan hash, decision, scope, signal, window, sample,
+estimate, uncertainty, threshold, verdict, producer, reviewer, and evidence.
+The validator resolves the signal, sampling, calculation, and threshold
+contracts and their pinned schemas and verifier identities; recomputes sample
+count, estimate, interval ordering, uncertainty, missingness treatment,
+threshold verdict, and effect; rejects malformed, zero, negative, or
+calendar-ambiguous cadence and window durations so both decode to strictly
+positive elapsed time; verifies
+`anchorAt <= firstWindowStartsAt < firstWindowEndsAt`; and
+reconciles every half-open UTC window against the anchor, cadence, window, and
+first-window phase. A missing, late, duplicate,
+or unauthenticated observation emits `assuranceEvidenceMissing`, and a breach
+emits `productionConcordanceDegraded`. Escalation validation also checks that event, claim effect,
 governance status, stop-action ID, scope-action ID, and row hash exactly match
 the pinned operational matrix.
 
@@ -154,6 +206,10 @@ schema validity alone must never be presented as a conformance verdict.
 
 ## Changelog
 
+- semantic-validation-2.0.0 — added cross-field validation for decision
+  surfaces, pre-transform transcript roots, interactive actor attribution,
+  model-grader bias controls, simulator controls, and post-decision assurance
+  plans and escalation mappings.
 - Documentation (2026-07-22) — added an informative Mermaid diagram of the
   attempt-state reducer. Validation rules and version remain
   semantic-validation-1.0.0.

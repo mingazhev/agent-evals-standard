@@ -1,7 +1,7 @@
 # Scorecard Contract
 
 - Status: current
-- Contract version: 2.0.0
+- Contract version: 3.0.0
 - Purpose: the versioned scorecard contract, including the outcome taxonomy,
   failure causes, metric families, composite-score rules, and provenance fields.
 
@@ -14,7 +14,7 @@ comparable without a documented migration.
 
 ## Scorecard Layout
 
-Machine-readable scorecards use `schemaVersion: agent-eval-scorecard-3`. The
+Machine-readable scorecards use `schemaVersion: agent-eval-scorecard-4`. The
 contract version remains a separate provenance field so a compatible schema
 revision does not masquerade as a different document shape. The normative JSON
 Schema is
@@ -244,24 +244,25 @@ a higher-priority agent-attributed outcome.
 
 - A **successful outcome** for pass@k and pass^k is `solved`,
   `correct_refusal`, or `already_solved` with `validity: valid` and every
-  required automated gate passed.
+  required automated gate passed and every applicable `outcome` or `risk`
+  decision surface passed. A diagnostic-only surface is reported but does not
+  change this predicate.
 - A **valid functional outcome** for conditional efficiency analysis is the
   same. The denominator must additionally name the included outcome categories
   and attempts.
 - An **accepted outcome** is a valid functional outcome with no unresolved
-  blocking governance status. A governance decision may then apply
+  blocking governance status and no unknown material surface applicability.
+  A governance decision may then apply
   pre-registered cost and review constraints without changing the functional
   correctness classification.
 
 A metric that uses a narrower definition must name and version that definition.
-For claim and cell-state computation, schema v3 permits exactly two executable
+For claim and cell-state computation, schema v4 permits exactly two executable
 predicate IDs:
 
-- `functional-outcome-v1` evaluates true exactly for the successful-outcome
+- `functional-outcome-v2` evaluates true exactly for the successful-outcome
   rule above;
-- `accepted-outcome-v1` evaluates true exactly when
-  `functional-outcome-v1` is true and all expected governance blockers are
-  `not_applicable`, `resolved`, or policy-validly `waived`.
+- `accepted-outcome-v2` refers to I1's complete trial-acceptance predicate.
 
 The claim pins the predicate ID and version. Free text is descriptive only and
 cannot determine a cell state. A new or narrower predicate requires a new
@@ -279,6 +280,13 @@ quality, and documentation or API-contract updates.
 **Trajectory metrics:** tool calls, commands, files read and written, tests run
 before and after the patch, forbidden access, retries or loops, and approval
 requests.
+
+**Decision-surface metrics:** the case surface ID, applicability assignment and
+trigger evidence, coverage mode, verdict, evidence, and rationale. Every
+declared case surface appears exactly once per
+completed trial. A failed or insufficient material surface prevents accepted
+outcome; unknown applicability becomes `insufficient_evidence`, and a material
+`coverage_gap` restricts the affected run-level claim.
 
 **Security metrics:** leaked secrets, SAST or SCA delta, license risk,
 suspicious dependencies, insecure code patterns, and sandbox or policy
@@ -331,6 +339,12 @@ metrics.execution.agent.{startedAt,finishedAt,wallClockMs,budget,stopReason}
 metrics.execution.checksBySection
 metrics.trajectory.{nativeTurnCount,nativeTurnDefinition,
                     toolCallCount,toolCallDefinition,toolCallBreakdown}
+metrics.transcriptEvidence.{status,rawEventStream,appendOnlyRoot,
+                           preTransformCapture,contextEvents,
+                           contextEventCount,agentMemoryTrust,errors}
+metrics.interaction.{status,protocol,eventLedger,initialSharedStateHash,
+                    finalSharedStateHash,actorIds,actorComponents,
+                    unattributedMutationCount,errors}
 metrics.economics.tokens.{input,cachedInput,cacheWriteInput,
                           output,reasoningOutput}
 metrics.economics.cost.{costUsd,currency,priceTable,priceTimestamp,
@@ -363,6 +377,18 @@ metrics.economics.cost.{costUsd,currency,priceTable,priceTimestamp,
   artifact must not become zero usage or cost. If the environment or adapter
   contract requires telemetry capture, a capture failure adds
   `artifact_capture_failed`.
+- Transcript evidence is the append-only raw stream captured before any
+  context transformation. Compacted prompts, summaries, cleared tool outputs,
+  and agent-authored notes are derived or untrusted evidence, not substitutes.
+  `complete` requires the raw stream reference, authenticated append-only root,
+  and `preTransformCapture: true`.
+- Interactive trials bind the pinned protocol and actor set and retain an
+  actor-attributed event ledger plus initial and final shared-state hashes.
+  `complete` requires the exact runtime actor-component identities, zero
+  unattributed mutations, and evaluated-agent responsibility evidence through
+  its mandatory decision surface. Non-interactive trials use
+  `not_applicable`; an applicable but partial interaction cannot support a
+  positive claim.
 
 Raw native events, normalizer schema and version, adapter or CLI version, and
 adapter hash are provenance. Diagnostic values are not comparable after a
@@ -530,6 +556,8 @@ decision. When used:
 - suite version and case versions and hashes;
 - links or paths to artifacts, including trajectory, diff, logs, and grader
   outputs;
+- per-trial decision-surface results, raw pre-transform transcript roots, and,
+  where applicable, interactive protocol and actor-event-ledger evidence;
 - attempt-ledger path and hash and expected and observed attempt-set hashes;
 - links to Case QA records for active cases, as defined by the
   [Case QA Playbook](case-qa-playbook.md);
@@ -543,6 +571,13 @@ artifact is updated through a circular mutable link.
 
 ## Changelog
 
+- 3.0.0 — added required per-trial decision-surface results, append-only
+  pre-transform transcript evidence, and typed interactive-protocol evidence in
+  scorecard schema v4. Positive outcomes and claims now fail closed on material
+  coverage gaps, incomplete required transcripts, or incomplete applicable
+  interaction evidence; executable success predicates are versioned as
+  `functional-outcome-v2` and `accepted-outcome-v2`. Outcome categories and their priority order are
+  unchanged.
 - Informative diagrams (2026-07-22) — added Mermaid visualizations of the
   outcome priority order and physical-attempt state machine. Categories,
   priority, formulas, and fields are unchanged; contract version remains 2.0.0.
