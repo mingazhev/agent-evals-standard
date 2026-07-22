@@ -10,7 +10,7 @@ grader, benchmark cases, provider integrations, or reference implementation.
 
 ## Current release
 
-- Golden Standard: **3.0.0**
+- Golden Standard: **3.0.1**
 - Scorecard Contract: **2.0.0**
 - Semantic Validation Contract: **semantic-validation-1.0.0**
 - Governance Policy template: **governance-policy-template-1.0.0**
@@ -64,4 +64,6 @@ decision contracts that independent implementations can satisfy.
 
 ## License
 
-Licensed under [CC BY 4.0](LICENSE).
+Dedicated to the public domain under [CC0 1.0 Universal](LICENSE). You may
+copy, modify, distribute, and use this work, including commercially, without
+asking permission or providing attribution.

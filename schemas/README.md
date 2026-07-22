@@ -1,6 +1,6 @@
 # Normative Schemas
 
-These JSON Schemas are normative documents for Golden Standard 3.0.0:
+These JSON Schemas are normative documents for Golden Standard 3.0.1:
 
 | Schema | Discriminator or identity |
 | --- | --- |

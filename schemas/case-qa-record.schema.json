@@ -44,7 +44,7 @@
         "semanticValidationVersion"
       ],
       "properties": {
-        "goldenStandardVersion": { "const": "3.0.0" },
+        "goldenStandardVersion": { "const": "3.0.1" },
         "scorecardContractVersion": { "const": "2.0.0" },
         "caseContractVersion": { "const": "2.0.0" },
         "environmentContractVersion": { "type": "string", "minLength": 1 },

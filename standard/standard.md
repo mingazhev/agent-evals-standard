@@ -1,7 +1,7 @@
 # Agent Evals Golden Standard
 
 - Status: current
-- Standard version: 3.0.0
+- Standard version: 3.0.1
 - Purpose: the authoritative, implementation-independent standard for evaluating
   software-development lifecycle (SDLC) agents.
 
@@ -782,9 +782,12 @@ The sources that informed this release are listed in
 
 ## Changelog
 
+- 3.0.1 (2026-07-22) — dedicated the repository contents to the public domain
+  under CC0 1.0 Universal. No evaluation, conformance, or component-contract
+  requirements changed.
 - Documentation (2026-07-22) — added informative Mermaid diagrams for the
-  system under evaluation, case lifecycle states, and run protocol. Normative
-  requirements and the standard version remain 3.0.0.
+  system under evaluation, case lifecycle states, and run protocol. This did
+  not independently change normative requirements or the standard version.
 - 3.0.0 (2026-07-21) — created the first standalone public release; added a
   conformance contract; separated normative requirements from implementation
   status; and adopted technology-neutral execution and control-plane gate IDs.
