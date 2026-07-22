@@ -1,0 +1,230 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:governance-decision:1",
+  "title": "Governance decision record",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "decisionId",
+    "decisionType",
+    "verdict",
+    "riskTier",
+    "policyInstance",
+    "matrixInstance",
+    "preRunDecisionPlan",
+    "scorecards",
+    "resolutionLedger",
+    "effectiveAt",
+    "reviewAt",
+    "expiresAt",
+    "roles",
+    "separationOfDutiesEvidence",
+    "conditionTrace",
+    "approvalEnvelope",
+    "signature"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-governance-decision-1" },
+    "decisionId": { "type": "string", "minLength": 1 },
+    "decisionType": { "enum": ["autonomy", "release", "risk_acceptance"] },
+    "verdict": { "enum": ["approve", "reject", "insufficient_evidence"] },
+    "riskTier": { "enum": ["low", "medium", "high", "critical"] },
+    "policyInstance": { "$ref": "#/$defs/artifact" },
+    "matrixInstance": { "$ref": "#/$defs/artifact" },
+    "preRunDecisionPlan": { "$ref": "#/$defs/artifact" },
+    "postDecisionAssurancePlan": { "$ref": "#/$defs/assurancePlan" },
+    "scorecards": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/artifact" } },
+    "resolutionLedger": { "$ref": "#/$defs/artifact" },
+    "effectiveAt": { "type": "string", "format": "date-time" },
+    "reviewAt": { "type": "string", "format": "date-time" },
+    "expiresAt": { "type": "string", "format": "date-time" },
+    "roles": {
+      "type": "object",
+      "required": ["operator", "evidenceProducer", "approver", "securityApprover", "riskOwner", "statusResolver", "waiverAuthority", "rollbackVerifier"],
+      "properties": {
+        "operator": { "$ref": "#/$defs/actor" },
+        "evidenceProducer": { "$ref": "#/$defs/actor" },
+        "approver": { "$ref": "#/$defs/actor" },
+        "securityApprover": { "$ref": "#/$defs/actor" },
+        "riskOwner": { "$ref": "#/$defs/actor" },
+        "statusResolver": { "$ref": "#/$defs/actor" },
+        "waiverAuthority": { "$ref": "#/$defs/actor" },
+        "rollbackVerifier": { "$ref": "#/$defs/actor" }
+      },
+      "additionalProperties": false
+    },
+    "separationOfDutiesEvidence": { "$ref": "#/$defs/artifact" },
+    "conditionTrace": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["conditionId", "sealedRequirement", "observedValue", "evidence", "evaluator", "verdict", "failureEffect"],
+        "properties": {
+          "conditionId": { "type": "string", "minLength": 1 },
+          "sealedRequirement": { "type": "string", "minLength": 1 },
+          "observedValue": {},
+          "evidence": { "$ref": "#/$defs/artifact" },
+          "evaluator": { "$ref": "#/$defs/actor" },
+          "verdict": { "enum": ["pass", "fail", "insufficient_evidence"] },
+          "failureEffect": { "enum": ["reject", "insufficient_evidence"] }
+        },
+        "additionalProperties": false
+      }
+    },
+    "approvalEnvelope": {
+      "type": "object",
+      "required": ["configurationHash", "taskScope", "repositoryScope", "environmentScope", "targetPopulation", "representedStrata", "exclusions", "tools", "autonomy"],
+      "properties": {
+        "configurationHash": { "$ref": "#/$defs/digest" },
+        "taskScope": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "repositoryScope": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "environmentScope": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "targetPopulation": { "type": "string", "minLength": 1 },
+        "representedStrata": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "exclusions": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "tools": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "autonomy": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "signature": { "$ref": "#/$defs/signature" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "verdict": { "const": "approve" } }, "required": ["verdict"] },
+      "then": {
+        "required": ["postDecisionAssurancePlan"],
+        "properties": { "conditionTrace": { "items": { "properties": { "verdict": { "const": "pass" } } } } }
+      }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "artifact": {
+      "type": "object",
+      "required": ["id", "location", "digest"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "location": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "component": {
+      "type": "object",
+      "required": ["id", "version", "digest"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "verifiedArtifact": {
+      "type": "object",
+      "required": ["artifact", "schema", "verifier", "deterministic"],
+      "properties": {
+        "artifact": { "$ref": "#/$defs/artifact" },
+        "schema": { "$ref": "#/$defs/artifact" },
+        "verifier": { "$ref": "#/$defs/component" },
+        "deterministic": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "assurancePlan": {
+      "type": "object",
+      "required": ["artifact", "version", "approval", "triggers", "productionSignals", "samplingSchedule", "owner", "sla", "missingEvidenceEffect"],
+      "properties": {
+        "artifact": { "$ref": "#/$defs/artifact" },
+        "version": { "type": "string", "minLength": 1 },
+        "approval": { "$ref": "#/$defs/artifact" },
+        "triggers": {
+          "type": "array",
+          "minItems": 13,
+          "maxItems": 13,
+          "items": { "$ref": "#/$defs/assuranceTrigger" },
+          "uniqueItems": true
+        },
+        "productionSignals": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "outcome", "source", "unit", "direction", "signalContract", "calculationContract", "thresholdContract"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "outcome": { "type": "string", "minLength": 1 },
+              "source": { "type": "string", "minLength": 1 },
+              "unit": { "type": "string", "minLength": 1 },
+              "direction": { "enum": ["lower_is_better", "higher_is_better", "two_sided"] },
+              "signalContract": { "$ref": "#/$defs/verifiedArtifact" },
+              "calculationContract": { "$ref": "#/$defs/verifiedArtifact" },
+              "thresholdContract": { "$ref": "#/$defs/verifiedArtifact" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "samplingSchedule": {
+          "type": "object",
+          "required": ["contract", "cadence", "window", "anchorAt", "firstWindowStartsAt", "firstWindowEndsAt", "alignmentRule", "timeZone", "latenessSeconds", "targetPopulation", "samplingFrame", "missingnessPolicy", "minimumSampleSize"],
+          "properties": {
+            "contract": { "$ref": "#/$defs/verifiedArtifact" },
+            "cadence": { "type": "string", "pattern": "^P(?=.*[1-9])(?=\\d|T\\d)(?:\\d+D)?(?:T(?=\\d)(?:\\d+H)?(?:\\d+M)?(?:\\d+(?:\\.\\d+)?S)?)?$" },
+            "window": { "type": "string", "pattern": "^P(?=.*[1-9])(?=\\d|T\\d)(?:\\d+D)?(?:T(?=\\d)(?:\\d+H)?(?:\\d+M)?(?:\\d+(?:\\.\\d+)?S)?)?$" },
+            "anchorAt": { "type": "string", "format": "date-time" },
+            "firstWindowStartsAt": { "type": "string", "format": "date-time" },
+            "firstWindowEndsAt": { "type": "string", "format": "date-time" },
+            "alignmentRule": { "const": "half_open_utc_windows" },
+            "timeZone": { "const": "UTC" },
+            "latenessSeconds": { "type": "integer", "minimum": 0 },
+            "targetPopulation": { "type": "string", "minLength": 1 },
+            "samplingFrame": { "type": "string", "minLength": 1 },
+            "missingnessPolicy": { "enum": ["fail_closed", "pre_registered_bound"] },
+            "minimumSampleSize": { "type": "integer", "minimum": 1 }
+          },
+          "additionalProperties": false
+        },
+        "owner": { "$ref": "#/$defs/actor" },
+        "sla": { "type": "string", "minLength": 1 },
+        "missingEvidenceEffect": { "const": "suspend" }
+      },
+      "additionalProperties": false
+    },
+    "assuranceTrigger": {
+      "type": "object",
+      "required": ["trigger", "thresholdContract", "claimEffect", "stopAction", "scopeAction", "rollbackConditions", "revalidationConditions", "resumeConditions"],
+      "properties": {
+        "trigger": { "enum": ["model", "agent_configuration", "prompt", "harness", "adapter", "tool_schema", "tool_implementation", "permissions", "environment", "profile", "grader", "retrieval", "application_scope"] },
+        "thresholdContract": { "$ref": "#/$defs/verifiedArtifact" },
+        "claimEffect": { "enum": ["review", "narrow", "suspend", "revoke"] },
+        "stopAction": { "enum": ["block_changed_scope", "suspend_approval", "block_acceptance"] },
+        "scopeAction": { "enum": ["revalidate_or_revoke", "narrow_suspend_or_revoke", "rollback_or_reduce"] },
+        "rollbackConditions": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "revalidationConditions": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "resumeConditions": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+      },
+      "additionalProperties": false
+    },
+    "actor": {
+      "type": "object",
+      "required": ["id", "role"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "signature": {
+      "type": "object",
+      "required": ["algorithm", "keyId", "value"],
+      "properties": {
+        "algorithm": { "type": "string", "minLength": 1 },
+        "keyId": { "type": "string", "minLength": 1 },
+        "value": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,516 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:case:1",
+  "title": "Conforming agent evaluation case",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "caseVersion",
+    "contracts",
+    "id",
+    "profile",
+    "source",
+    "repository",
+    "task",
+    "agentVisibleContext",
+    "setupExecutors",
+    "contamination",
+    "canaries",
+    "riskTier",
+    "tags",
+    "setMembership",
+    "lifecycle",
+    "environment",
+    "budgets",
+    "validation",
+    "decisionSurfaces",
+    "interactionMode",
+    "scoring",
+    "artifactPolicy",
+    "policy",
+    "ownership"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-case-1" },
+    "caseVersion": { "type": "string", "minLength": 1 },
+    "contracts": {
+      "type": "object",
+      "required": [
+        "goldenStandardVersion",
+        "scorecardContractVersion",
+        "governancePolicyVersion",
+        "escalationStopMatrixVersion",
+        "caseContractVersion",
+        "environmentContractVersion",
+        "semanticValidationVersion"
+      ],
+      "properties": {
+        "goldenStandardVersion": { "const": "0.1.0" },
+        "scorecardContractVersion": { "const": "0.1.0" },
+        "governancePolicyVersion": { "type": "string", "minLength": 1 },
+        "escalationStopMatrixVersion": { "type": "string", "minLength": 1 },
+        "caseContractVersion": { "const": "0.1.0" },
+        "environmentContractVersion": { "type": "string", "minLength": 1 },
+        "semanticValidationVersion": { "const": "semantic-validation-0.1.0" }
+      },
+      "additionalProperties": false
+    },
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$" },
+    "profile": {
+      "type": "object",
+      "required": ["id", "version"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": { "enum": ["real_company", "synthetic", "public_benchmark", "other"] },
+        "artifact": { "$ref": "#/$defs/artifact" },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "repository": {
+      "type": "object",
+      "required": ["baseRevision", "preparedBaseManifest", "components", "historyVisible", "remotesVisible"],
+      "properties": {
+        "baseRevision": { "type": "string", "minLength": 7 },
+        "preparedBaseManifest": { "$ref": "#/$defs/artifact" },
+        "components": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "revision"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "revision": { "type": "string", "minLength": 7 },
+              "path": { "$ref": "#/$defs/relativePath" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "historyVisible": { "const": false },
+        "remotesVisible": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "task": { "$ref": "#/$defs/artifact" },
+    "agentVisibleContext": {
+      "type": "object",
+      "required": ["manifest", "taskArtifact"],
+      "properties": {
+        "manifest": { "$ref": "#/$defs/artifact" },
+        "taskArtifact": { "$ref": "#/$defs/relativePath" },
+        "allowedArtifacts": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/relativePath" },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "setupExecutors": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/executor" }
+    },
+    "contamination": {
+      "type": "object",
+      "required": ["sourceVisibility", "publicDates", "previousEvaluationExposure", "trainingOrMemoryRisk", "previouslySolvedInWorkspace"],
+      "properties": {
+        "sourceVisibility": { "enum": ["private", "restricted", "public"] },
+        "publicDates": { "type": "array", "items": { "type": "string", "format": "date" }, "uniqueItems": true },
+        "previousEvaluationExposure": { "type": "string", "minLength": 1 },
+        "trainingOrMemoryRisk": { "enum": ["none_known", "low", "medium", "high", "unknown"] },
+        "previouslySolvedInWorkspace": { "type": "boolean" },
+        "memorizationProbe": { "$ref": "#/$defs/artifact" }
+      },
+      "additionalProperties": false
+    },
+    "canaries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["artifact", "accessClass", "markerHash"],
+        "properties": {
+          "artifact": { "$ref": "#/$defs/relativePath" },
+          "accessClass": { "enum": ["hidden_oracle", "agent_visible_distribution"] },
+          "markerHash": { "$ref": "#/$defs/digest" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "riskTier": { "enum": ["low", "medium", "high", "critical"] },
+    "tags": {
+      "type": "object",
+      "required": [
+        "ambiguity",
+        "taskClass",
+        "language",
+        "stack",
+        "runtimeClass",
+        "difficultyBand",
+        "ownerTeam"
+      ],
+      "properties": {
+        "ambiguity": { "enum": ["clear-cut", "ambiguous"] },
+        "taskClass": { "type": "string", "minLength": 1 },
+        "language": { "type": "string", "minLength": 1 },
+        "stack": { "type": "string", "minLength": 1 },
+        "runtimeClass": { "type": "string", "minLength": 1 },
+        "difficultyBand": { "type": "string", "minLength": 1 },
+        "ownerTeam": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": true
+    },
+    "setMembership": { "enum": ["development", "held-out", "smoke"] },
+    "frozenSliceIds": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "lifecycle": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": { "enum": ["candidate", "active", "saturated", "regression", "quarantined", "retired"] },
+        "activationRecord": { "$ref": "#/$defs/relativePath" },
+        "activationInputHash": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "environment": {
+      "type": "object",
+      "required": ["id", "version", "manifestHash", "isolationProfile"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "manifestHash": { "$ref": "#/$defs/digest" },
+        "isolationProfile": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "budgets": {
+      "type": "object",
+      "required": ["trials", "wallClockSeconds"],
+      "properties": {
+        "trials": { "type": "integer", "minimum": 1 },
+        "wallClockSeconds": { "type": "number", "exclusiveMinimum": 0 },
+        "tokenLimit": { "type": "integer", "minimum": 1 },
+        "costLimitUsd": { "type": "number", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "validation": {
+      "type": "object",
+      "required": ["protocol", "measurementValidation", "publicChecks", "hiddenChecks", "securityChecks", "controlProofs"],
+      "properties": {
+        "protocol": { "$ref": "#/$defs/artifact" },
+        "measurementValidation": { "$ref": "#/$defs/artifact" },
+        "publicChecks": { "type": "array", "items": { "$ref": "#/$defs/check" } },
+        "hiddenChecks": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/check" } },
+        "securityChecks": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/check" } },
+        "controlProofs": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/check" } }
+      },
+      "additionalProperties": false
+    },
+    "decisionSurfaces": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/decisionSurface" }
+    },
+    "scoring": {
+      "type": "object",
+      "required": ["claimEligibility", "hardGates", "governanceBlockers"],
+      "properties": {
+        "claimEligibility": { "enum": ["none", "capability", "comparative", "governance"] },
+        "hardGates": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/gate" } },
+        "governanceBlockers": { "type": "array", "items": { "$ref": "#/$defs/governanceRule" } },
+        "outcomeRules": {
+          "type": "object",
+          "properties": {
+            "alreadySolved": { "$ref": "#/$defs/alreadySolvedOutcomeRule" },
+            "correctRefusal": { "$ref": "#/$defs/correctRefusalOutcomeRule" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "clarificationPolicy": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["mode", "defensibleResolutions", "backedBy"],
+          "properties": {
+            "mode": { "const": "accept_all_defensible" },
+            "defensibleResolutions": { "type": "array", "minItems": 2, "items": { "type": "string", "minLength": 1 } },
+            "backedBy": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["mode", "interactionProtocolId", "transcriptCheck"],
+          "properties": {
+            "mode": { "const": "sealed_interactive_requester" },
+            "interactionProtocolId": { "type": "string", "minLength": 1 },
+            "transcriptCheck": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "interactionMode": { "enum": ["non_interactive", "interactive"] },
+    "interactionProtocol": { "$ref": "#/$defs/interactionProtocol" },
+    "artifactPolicy": { "type": "object", "additionalProperties": true },
+    "policy": { "type": "object", "additionalProperties": true },
+    "ownership": {
+      "type": "object",
+      "required": ["owner", "riskTierApprovedBy", "reviewDate"],
+      "properties": {
+        "owner": { "type": "string", "minLength": 1 },
+        "riskTierApprovedBy": { "type": "string", "minLength": 1 },
+        "reviewDate": { "type": "string", "format": "date" }
+      },
+      "additionalProperties": false
+    },
+    "extensions": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$" },
+      "additionalProperties": true
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "lifecycle": {
+            "properties": { "status": { "const": "active" } },
+            "required": ["status"]
+          }
+        },
+        "required": ["lifecycle"]
+      },
+      "then": {
+        "properties": {
+          "lifecycle": { "required": ["activationRecord", "activationInputHash"] }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "tags": {
+            "properties": { "ambiguity": { "const": "ambiguous" } },
+            "required": ["ambiguity"]
+          }
+        },
+        "required": ["tags"]
+      },
+      "then": { "required": ["clarificationPolicy"] }
+    },
+    {
+      "if": {
+        "properties": {
+          "clarificationPolicy": {
+            "properties": { "mode": { "const": "sealed_interactive_requester" } },
+            "required": ["mode"]
+          }
+        },
+        "required": ["clarificationPolicy"]
+      },
+      "then": { "required": ["interactionProtocol"] }
+    },
+    {
+      "if": { "properties": { "interactionMode": { "const": "interactive" } }, "required": ["interactionMode"] },
+      "then": { "required": ["interactionProtocol"] },
+      "else": { "not": { "required": ["interactionProtocol"] } }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "relativePath": {
+      "type": "string",
+      "pattern": "^(?:\\.|(?!/)(?![A-Za-z]:)(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$)).+)$"
+    },
+    "artifact": {
+      "type": "object",
+      "required": ["path", "hash"],
+      "properties": {
+        "path": { "$ref": "#/$defs/relativePath" },
+        "hash": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "verifiedArtifact": {
+      "type": "object",
+      "required": ["artifact", "schema", "verifier", "deterministic"],
+      "properties": {
+        "artifact": { "$ref": "#/$defs/artifact" },
+        "schema": { "$ref": "#/$defs/artifact" },
+        "verifier": {
+          "type": "object",
+          "required": ["id", "version", "digest"],
+          "properties": {
+            "id": { "type": "string", "minLength": 1 },
+            "version": { "type": "string", "minLength": 1 },
+            "digest": { "$ref": "#/$defs/digest" }
+          },
+          "additionalProperties": false
+        },
+        "deterministic": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "executor": {
+      "type": "object",
+      "required": ["id", "executorRef", "contract", "deterministic"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "executorRef": { "type": "string", "minLength": 1 },
+        "contract": { "$ref": "#/$defs/artifact" },
+        "deterministic": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "check": {
+      "type": "object",
+      "required": ["id", "executorRef", "artifact", "deterministic"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "executorRef": { "type": "string", "minLength": 1 },
+        "artifact": { "$ref": "#/$defs/relativePath" },
+        "deterministic": { "type": "boolean" },
+        "surface": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "decisionSurface": {
+      "type": "object",
+      "required": ["id", "kind", "materiality", "applicabilityRule", "unknownApplicabilityResult", "coverage", "rationale"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+        "kind": { "enum": ["instruction_following", "functional_output", "tool_selection", "tool_arguments", "stop_or_escalation", "handoff", "context_management", "other"] },
+        "materiality": { "enum": ["outcome", "risk", "diagnostic"] },
+        "applicabilityRule": { "$ref": "#/$defs/verifiedArtifact" },
+        "unknownApplicabilityResult": { "const": "coverage_gap" },
+        "coverage": { "enum": ["checked", "covered_by_final_state", "not_applicable", "coverage_gap"] },
+        "rationale": { "type": "string", "minLength": 1 },
+        "checkIds": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "validAlternativePaths": { "$ref": "#/$defs/verifiedArtifact" },
+        "coverageProof": { "$ref": "#/$defs/verifiedArtifact" },
+        "claimRestriction": { "type": "string", "minLength": 1 }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "coverage": { "const": "checked" } }, "required": ["coverage"] },
+          "then": { "required": ["checkIds", "validAlternativePaths"] }
+        },
+        {
+          "if": { "properties": { "coverage": { "const": "covered_by_final_state" } }, "required": ["coverage"] },
+          "then": { "required": ["coverageProof"] }
+        },
+        {
+          "if": { "properties": { "coverage": { "const": "coverage_gap" } }, "required": ["coverage"] },
+          "then": { "required": ["claimRestriction"] }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "interactionProtocol": {
+      "type": "object",
+      "required": ["id", "version", "mode", "protocol", "actors", "scheduler", "sharedState", "terminalRules", "attributionRules", "evaluatedAgentResponsibility", "responsibilitySurfaceId", "eventContract"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "mode": { "enum": ["human_requester", "scripted_requester", "model_simulator", "multi_actor"] },
+        "protocol": { "$ref": "#/$defs/verifiedArtifact" },
+        "actors": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/interactionActor" } },
+        "scheduler": { "$ref": "#/$defs/verifiedArtifact" },
+        "sharedState": { "$ref": "#/$defs/verifiedArtifact" },
+        "terminalRules": { "$ref": "#/$defs/verifiedArtifact" },
+        "attributionRules": { "$ref": "#/$defs/verifiedArtifact" },
+        "evaluatedAgentResponsibility": { "$ref": "#/$defs/verifiedArtifact" },
+        "responsibilitySurfaceId": { "type": "string", "minLength": 1 },
+        "eventContract": { "$ref": "#/$defs/verifiedArtifact" }
+      },
+      "additionalProperties": false
+    },
+    "interactionActor": {
+      "type": "object",
+      "required": ["id", "role", "permissions", "toolPolicy", "observationProjection"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+        "role": { "enum": ["evaluated_agent", "requester", "simulator", "human", "helper", "environment"] },
+        "component": { "$ref": "#/$defs/artifact" },
+        "permissions": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "toolPolicy": { "$ref": "#/$defs/artifact" },
+        "observationProjection": { "$ref": "#/$defs/artifact" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "role": { "not": { "const": "human" } } }, "required": ["role"] },
+          "then": { "required": ["component"] }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "gate": {
+      "type": "object",
+      "required": ["id", "backedBy", "appliesWhen", "unknownTriggerResult", "failureOutcome"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "backedBy": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "appliesWhen": { "type": "string", "minLength": 1 },
+        "triggerEvidence": { "type": "string", "minLength": 1 },
+        "unknownTriggerResult": { "const": "invalid" },
+        "failureOutcome": { "enum": ["build_fail", "public_pass_hidden_fail", "unsafe_policy_violation", "infra_failure"] }
+      },
+      "additionalProperties": false
+    },
+    "governanceRule": {
+      "type": "object",
+      "required": ["id", "status", "backedBy", "appliesWhen", "unknownTriggerResult"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "status": { "enum": ["security_review_required", "manual_review_required"] },
+        "backedBy": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "appliesWhen": { "type": "string", "minLength": 1 },
+        "triggerEvidence": { "type": "string", "minLength": 1 },
+        "unknownTriggerResult": { "enum": ["security_review_required", "manual_review_required"] }
+      },
+      "additionalProperties": false
+    },
+    "alreadySolvedOutcomeRule": {
+      "type": "object",
+      "required": ["eligible", "backedBy", "preconditionCheck"],
+      "properties": {
+        "eligible": { "type": "boolean" },
+        "backedBy": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "preconditionCheck": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "correctRefusalOutcomeRule": {
+      "type": "object",
+      "required": ["eligible", "backedBy", "typedSignalCheck", "policyInfeasibilityCheck", "prohibitedActionCheck"],
+      "properties": {
+        "eligible": { "type": "boolean" },
+        "backedBy": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
+        "typedSignalCheck": { "type": "string", "minLength": 1 },
+        "policyInfeasibilityCheck": { "type": "string", "minLength": 1 },
+        "prohibitedActionCheck": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    }
+  }
+}
