@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agent-evals-standard:schema:governance-decision:2",
+  "$id": "urn:agent-evals-standard:schema:governance-decision:1",
   "title": "Governance decision record",
   "type": "object",
   "required": [
@@ -24,7 +24,7 @@
     "signature"
   ],
   "properties": {
-    "schemaVersion": { "const": "agent-eval-governance-decision-2" },
+    "schemaVersion": { "const": "agent-eval-governance-decision-1" },
     "decisionId": { "type": "string", "minLength": 1 },
     "decisionType": { "enum": ["autonomy", "release", "risk_acceptance"] },
     "verdict": { "enum": ["approve", "reject", "insufficient_evidence"] },

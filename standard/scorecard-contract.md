@@ -1,7 +1,7 @@
 # Scorecard Contract
 
 - Status: current
-- Contract version: 3.0.0
+- Contract version: 0.1.0
 - Purpose: the versioned scorecard contract, including the outcome taxonomy,
   failure causes, metric families, composite-score rules, and provenance fields.
 
@@ -14,7 +14,7 @@ comparable without a documented migration.
 
 ## Scorecard Layout
 
-Machine-readable scorecards use `schemaVersion: agent-eval-scorecard-4`. The
+Machine-readable scorecards use `schemaVersion: agent-eval-scorecard-1`. The
 contract version remains a separate provenance field so a compatible schema
 revision does not masquerade as a different document shape. The normative JSON
 Schema is
@@ -40,7 +40,7 @@ metrics table.
 
 ## Gate Registry
 
-Registry version: `baseline-hard-gates-3`.
+Registry version: `baseline-hard-gates-1`.
 
 The core supplies this baseline registry. Each claim-eligible case binds every
 non-core-backed baseline gate to executable or formally specified evidence and
@@ -92,7 +92,7 @@ addition, omission, or unknown classification yields `validity: invalid`.
 
 ### Blocking Governance Status Registry
 
-Registry version: `blocking-governance-statuses-2`.
+Registry version: `blocking-governance-statuses-1`.
 
 These statuses are orthogonal to the primary outcome and are not automated
 graders:
@@ -257,12 +257,12 @@ a higher-priority agent-attributed outcome.
   correctness classification.
 
 A metric that uses a narrower definition must name and version that definition.
-For claim and cell-state computation, schema v4 permits exactly two executable
+For claim and cell-state computation, schema v1 permits exactly two executable
 predicate IDs:
 
-- `functional-outcome-v2` evaluates true exactly for the successful-outcome
+- `functional-outcome-v1` evaluates true exactly for the successful-outcome
   rule above;
-- `accepted-outcome-v2` refers to I1's complete trial-acceptance predicate.
+- `accepted-outcome-v1` refers to I1's complete trial-acceptance predicate.
 
 The claim pins the predicate ID and version. Free text is descriptive only and
 cannot determine a cell state. A new or narrower predicate requires a new
@@ -571,53 +571,4 @@ artifact is updated through a circular mutable link.
 
 ## Changelog
 
-- 3.0.0 — added required per-trial decision-surface results, append-only
-  pre-transform transcript evidence, and typed interactive-protocol evidence in
-  scorecard schema v4. Positive outcomes and claims now fail closed on material
-  coverage gaps, incomplete required transcripts, or incomplete applicable
-  interaction evidence; executable success predicates are versioned as
-  `functional-outcome-v2` and `accepted-outcome-v2`. Outcome categories and their priority order are
-  unchanged.
-- Informative diagrams (2026-07-22) — added Mermaid visualizations of the
-  outcome priority order and physical-attempt state machine. Categories,
-  priority, formulas, and fields are unchanged; contract version remains 2.0.0.
-- 2.0.0 — replaced the implementation-specific `dockerExecutionBackend` and
-  `noDockerSocketAccess` IDs with `isolatedExecutionBackend` and
-  `noContainerControlPlaneAccess`; moved the normative schema into the
-  standalone standard repository; required release, evaluator, contract, and
-  registry provenance in scorecard schema v3; and linked conformance to Golden
-  Standard 3.0.0. This is a breaking contract release; outcome categories and
-  priority order are unchanged.
-- 1.5.0 — added a machine-readable claim status, defined conservative bounds,
-  added the core-backed I13 measurement-boundary gate, made scanner coverage
-  fail closed, replaced governance pseudo-resolution with `not_applicable` and
-  policy references, made outcome refusal deterministically backable, removed
-  gate-ID regex semantics, and prevented hard-gate failures from improving
-  composite aggregates. It also fixed the default pass@k/pass^k estimators and
-  required their `k`, `n`, and estimator provenance. Outcome categories and
-  priority order are unchanged; the new required claim and governance-
-  applicability fields use schema v2.
-- 1.4.0 — added an independently derived applicable-gate set, a machine-readable
-  lifecycle for blocking governance statuses, typed `invalid` namespaces, a
-  complete attempt ledger, invalid-rate and conservative-bound fields, and
-  sealed pre-run manifest provenance. Outcome categories and priority order are
-  unchanged; the schema discriminator remains `agent-eval-scorecard-1`.
-- 1.3.0 — established the neutral machine-readable schema discriminator
-  `agent-eval-scorecard-1`; removed the historical frontend draft-runner name
-  from the public scorecard contract without changing the outcome taxonomy or
-  fields.
-- 1.2.0 — added a machine-readable per-trial resource and trajectory telemetry
-  contract: phase timing, native-turn semantics, token components, cost,
-  completeness status, and raw-event provenance. Clarified that telemetry is
-  retained for every started trial and that accepted outcome defines only the
-  cost-aggregation denominator.
-- 1.1.0 — moved required automated hard gates and blocking governance statuses
-  from the Golden Standard into a versioned registry; established stable IDs,
-  applicability, evidence and failure mappings, a completeness hash,
-  backing-evidence and fail-closed semantics, explicit validity status,
-  normative provenance, and baseline-extension rules.
-- 1.0.0 — moved the outcome taxonomy, priority order, metric families, and
-  composite rules from the Golden Standard without semantic changes; added the
-  failure-cause taxonomy, including `budget_exhausted` distinct from
-  `infra_timeout`, and statistics fields for clustered errors and paired
-  differences.
+- 0.1.0 — first public Scorecard Contract and machine-readable scorecard schema.

@@ -1,7 +1,7 @@
 # Governance Policy Contract and Non-Operational Template
 
 - Status: normative contract; bundled policy instance is non-operational
-- Version: governance-policy-template-2.0.0
+- Version: governance-policy-template-0.1.0
 - Owner: adopter-defined; a conforming policy instance requires a resolvable
   team identifier or email before any held-out, release, or autonomy decision.
 - Scope: risk classification for every evaluation case and pre-registered
@@ -26,7 +26,7 @@ may permit a documented pre-run exception only after defining those
 differences, permitted grounds, original and new tiers, scope, expiry,
 supporting evidence, and an independent approver. The tier must never change
 after results are observed. The following identifiers are non-waivable: every
-`baseline-hard-gates-3` gate; `productionCredentialsProhibited`;
+`baseline-hard-gates-1` gate; `productionCredentialsProhibited`;
 `heldOutLeakage`; `measurementBoundaryCompromise`;
 `irreversibleCriticalOperation`; `approvedConfigurationChanged`; and
 `assuranceEvidenceMissing`. Unknown identifiers are non-waivable until a
@@ -181,25 +181,5 @@ inside the authenticated
 
 ## Changelog
 
-- governance-policy-template-2.0.0 — made post-decision assurance mandatory:
-  sealed material-change triggers, production-concordance monitoring,
-  uncertainty-aware thresholds, ownership and SLA, explicit claim effects, and
-  fail-closed suspension for missing evidence. The bundled template remains
-  non-operational.
-- governance-policy-template-1.0.0 — separated the public normative policy
-  contract from adopter-owned operational thresholds and ownership. The bundled
-  instance remains fail-closed and authorizes no governance decision.
-- governance-policy-0.4.0 — prohibited no-op risk-tier downgrades while the
-  table is a stub; made waiver silence deny by default; added expected blocker
-  sets, transcript quota, invalidity bounds, matrix pinning, ordinary-decision
-  separation of duties, and enforceable expiry/review/rollback rules. Thresholds
-  remain unset, so every tier still yields `insufficient_evidence`.
-- governance-policy-0.3.0 — added controlled risk-tier exceptions, separation
-  of duties, non-waivable boundaries, an exact approval envelope, and a
-  structured lifecycle for governance blockers. Thresholds remain a
-  conservative stub, and every tier still yields `insufficient_evidence`.
-- governance-policy-0.2.0 — added the normative risk-tier taxonomy for all
-  cases, the highest-applicable-tier rule, the prohibition on post-hoc
-  downgrades, and provenance and migration requirements.
-- governance-policy-0.1 — created a conservative decision-policy stub without
-  approval thresholds.
+- governance-policy-template-0.1.0 — first public contract and deliberately
+  non-operational template.

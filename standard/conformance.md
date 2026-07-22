@@ -1,7 +1,7 @@
 # Conformance Contract
 
 - Status: current
-- Golden Standard version: 4.0.0
+- Golden Standard version: 0.1.0
 - Purpose: define what a public conformance claim means.
 
 The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHOULD**, **SHOULD NOT**,

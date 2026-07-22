@@ -26,7 +26,8 @@ Normative pull requests should include:
 
 Do not rewrite a released tag. A correction that can change whether a case,
 run, scorecard, or decision conforms is not editorial and cannot be a patch.
-Renaming stable IDs or changing outcome priority requires a major release.
+Before `1.0.0`, renaming stable IDs or changing outcome priority requires the
+next minor release; from `1.0.0` onward, it requires a major release.
 
 ## Style
 

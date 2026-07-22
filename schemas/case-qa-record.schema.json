@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agent-evals-standard:schema:case-qa-record:3",
+  "$id": "urn:agent-evals-standard:schema:case-qa-record:1",
   "title": "Agent eval case QA activation record",
   "type": "object",
   "required": [
@@ -21,7 +21,7 @@
     "recordHash"
   ],
   "properties": {
-    "schemaVersion": { "const": "case-qa-record-3" },
+    "schemaVersion": { "const": "case-qa-record-1" },
     "case": {
       "type": "object",
       "required": ["id", "version", "hash", "fromState", "toState"],
@@ -48,15 +48,15 @@
         "semanticValidationVersion"
       ],
       "properties": {
-        "goldenStandardVersion": { "const": "4.0.0" },
-        "scorecardContractVersion": { "const": "3.0.0" },
-        "caseContractVersion": { "const": "3.0.0" },
+        "goldenStandardVersion": { "const": "0.1.0" },
+        "scorecardContractVersion": { "const": "0.1.0" },
+        "caseContractVersion": { "const": "0.1.0" },
         "environmentContractVersion": { "type": "string", "minLength": 1 },
         "governancePolicyVersion": { "type": "string", "minLength": 1 },
         "escalationStopMatrixVersion": { "type": "string", "minLength": 1 },
         "profileVersion": { "type": "string", "minLength": 1 },
         "graderSetHash": { "$ref": "#/$defs/digest" },
-        "semanticValidationVersion": { "const": "semantic-validation-2.0.0" }
+        "semanticValidationVersion": { "const": "semantic-validation-0.1.0" }
       },
       "additionalProperties": true
     },

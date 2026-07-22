@@ -10,13 +10,13 @@ grader, benchmark cases, provider integrations, or reference implementation.
 
 ## Current release
 
-- Golden Standard: **4.0.0**
-- Case Contract: **3.0.0**
-- Case QA Contract: **3.0.0**
-- Scorecard Contract: **3.0.0**
-- Semantic Validation Contract: **semantic-validation-2.0.0**
-- Governance Policy template: **governance-policy-template-2.0.0**
-- Escalation and Stop Matrix template: **escalation-stop-matrix-template-2.0.0**
+- Golden Standard: **0.1.0**
+- Case Contract: **0.1.0**
+- Case QA Contract: **0.1.0**
+- Scorecard Contract: **0.1.0**
+- Semantic Validation Contract: **semantic-validation-0.1.0**
+- Governance Policy template: **governance-policy-template-0.1.0**
+- Escalation and Stop Matrix template: **escalation-stop-matrix-template-0.1.0**
 
 Start with [the Golden Standard](standard/standard.md), then read the
 [glossary](standard/glossary.md) and
@@ -44,10 +44,11 @@ Releases use semantic versioning for the Golden Standard. Every release is an
 immutable Git tag named `vMAJOR.MINOR.PATCH`. Component contracts retain their
 own versions and are pinned by each conforming case and scorecard.
 
-- **MAJOR**: incompatible normative change, including renamed stable IDs,
-  changed outcome taxonomy, or weaker/stronger required decision semantics.
-- **MINOR**: backward-compatible normative addition.
-- **PATCH**: editorial correction that cannot change a conforming verdict.
+Before `1.0.0`, the standard is explicitly unstable: **MINOR** may include an
+incompatible normative change, while **PATCH** remains limited to an editorial
+correction that cannot change a conforming verdict. From `1.0.0` onward,
+**MAJOR** denotes an incompatible normative change and **MINOR** a
+backward-compatible normative addition.
 
 See [CHANGELOG.md](CHANGELOG.md) and [CONTRIBUTING.md](CONTRIBUTING.md).
 

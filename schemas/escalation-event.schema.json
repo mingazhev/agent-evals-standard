@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agent-evals-standard:schema:escalation-event:2",
+  "$id": "urn:agent-evals-standard:schema:escalation-event:1",
   "title": "Operational escalation event",
   "type": "object",
   "required": [
@@ -23,7 +23,7 @@
     "resumeConditions"
   ],
   "properties": {
-    "schemaVersion": { "const": "agent-eval-escalation-event-2" },
+    "schemaVersion": { "const": "agent-eval-escalation-event-1" },
     "id": { "type": "string", "minLength": 1 },
     "eventId": {
       "enum": [

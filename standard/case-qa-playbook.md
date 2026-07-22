@@ -1,7 +1,7 @@
 # Case QA Playbook
 
 - Status: current
-- Contract version: 3.0.0
+- Contract version: 0.1.0
 - Purpose: the operational process for activating an evaluation case. I12 of
   the [Agent Evals Golden Standard](standard.md) requires QA evidence before a
   case can enter the active suite. This playbook specifies the stages, checks,
@@ -247,7 +247,7 @@ Severity levels:
 ## Activation Record
 
 Activation is recorded in a machine-readable Case QA record with
-`schemaVersion: case-qa-record-3`, stored beside the case. The record includes:
+`schemaVersion: case-qa-record-1`, stored beside the case. The record includes:
 
 - case ID, version, hash, and lifecycle transition;
 - the Golden Standard, case, environment, scorecard-contract, risk-policy,
@@ -330,10 +330,4 @@ than normative by themselves.
 
 ## Changelog
 
-- 3.0.0 — added activation-blocking validation for conditional decision
-  surfaces, model-grader order and verbosity bias, append-only pre-transform
-  transcript capture, and typed interactive simulators. The machine-readable
-  activation record discriminator is `case-qa-record-3`.
-- Documentation (2026-07-22) — added an informative Mermaid diagram of the
-  Stage 0–8 activation pipeline. Stages, defect taxonomy, and record shape are
-  unchanged.
+- 0.1.0 — first public Case QA Contract and activation-record schema.

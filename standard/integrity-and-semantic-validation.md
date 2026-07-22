@@ -1,6 +1,6 @@
 # Integrity and Semantic Validation Contract
 
-- Version: semantic-validation-2.0.0
+- Version: semantic-validation-0.1.0
 - Status: current
 
 JSON Schema validates transport shape. It does not establish that hashes are
@@ -71,7 +71,7 @@ The versioned semantic validator MUST verify at least:
    resolved cell and terminal attempt `valid_success`/`valid_failure` state is
    recomputed from the trial result and the claim's sealed
    `successDefinition`; only the Scorecard Contract's executable
-   `functional-outcome-v2` and `accepted-outcome-v2` predicates are valid;
+   `functional-outcome-v1` and `accepted-outcome-v1` predicates are valid;
 6. `invalidRate = unresolvedCells / scheduledCells`; component binary-rate
    bounds stay within `[0,1]`, while comparative difference bounds stay within
    `[-1,1]`; interval endpoints are ordered; every pass@k/pass^k value is
@@ -206,10 +206,4 @@ schema validity alone must never be presented as a conformance verdict.
 
 ## Changelog
 
-- semantic-validation-2.0.0 — added cross-field validation for decision
-  surfaces, pre-transform transcript roots, interactive actor attribution,
-  model-grader bias controls, simulator controls, and post-decision assurance
-  plans and escalation mappings.
-- Documentation (2026-07-22) — added an informative Mermaid diagram of the
-  attempt-state reducer. Validation rules and version remain
-  semantic-validation-1.0.0.
+- semantic-validation-0.1.0 — first public semantic-validation contract.

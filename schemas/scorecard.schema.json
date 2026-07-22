@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agent-evals-standard:schema:scorecard:4",
+  "$id": "urn:agent-evals-standard:schema:scorecard:1",
   "title": "Agent evaluation sealed-run scorecard",
   "type": "object",
   "required": [
@@ -14,7 +14,7 @@
     "provenance"
   ],
   "properties": {
-    "schemaVersion": { "const": "agent-eval-scorecard-4" },
+    "schemaVersion": { "const": "agent-eval-scorecard-1" },
     "run": {
       "type": "object",
       "required": [
@@ -252,8 +252,8 @@
       "type": "object",
       "required": ["id", "version"],
       "properties": {
-        "id": { "enum": ["functional-outcome-v2", "accepted-outcome-v2"] },
-        "version": { "const": "2.0.0" }
+        "id": { "enum": ["functional-outcome-v1", "accepted-outcome-v1"] },
+        "version": { "const": "0.1.0" }
       },
       "additionalProperties": false
     },
@@ -501,7 +501,7 @@
       "type": "object",
       "required": ["registryVersion", "expectedIds", "expectedHash", "rulesHash", "postDiffAdditions", "evaluatedIds", "evaluatedHash"],
       "properties": {
-        "registryVersion": { "const": "baseline-hard-gates-3" },
+        "registryVersion": { "const": "baseline-hard-gates-1" },
         "expectedIds": { "type": "array", "minItems": 15, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
         "expectedHash": { "$ref": "#/$defs/digest" },
         "rulesHash": { "$ref": "#/$defs/digest" },
@@ -515,7 +515,7 @@
       "type": "object",
       "required": ["registryVersion", "expectedIds", "expectedHash", "rulesHash", "evaluatedIds", "evaluatedHash"],
       "properties": {
-        "registryVersion": { "const": "blocking-governance-statuses-2" },
+        "registryVersion": { "const": "blocking-governance-statuses-1" },
         "expectedIds": { "type": "array", "minItems": 2, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
         "expectedHash": { "$ref": "#/$defs/digest" },
         "rulesHash": { "$ref": "#/$defs/digest" },
@@ -935,8 +935,8 @@
           "type": "object",
           "required": ["version", "tag", "commit"],
           "properties": {
-            "version": { "const": "4.0.0" },
-            "tag": { "const": "v4.0.0" },
+            "version": { "const": "0.1.0" },
+            "tag": { "const": "v0.1.0" },
             "commit": { "type": "string", "pattern": "^[a-f0-9]{40,64}$" }
           },
           "additionalProperties": false
@@ -948,7 +948,7 @@
             "scorecard": {
               "allOf": [
                 { "$ref": "#/$defs/component" },
-                { "properties": { "id": { "const": "scorecard-contract" }, "version": { "const": "3.0.0" } } }
+                { "properties": { "id": { "const": "scorecard-contract" }, "version": { "const": "0.1.0" } } }
               ]
             },
             "governancePolicy": { "$ref": "#/$defs/component" },
@@ -956,14 +956,14 @@
             "case": {
               "allOf": [
                 { "$ref": "#/$defs/component" },
-                { "properties": { "id": { "const": "case-contract" }, "version": { "const": "3.0.0" } } }
+                { "properties": { "id": { "const": "case-contract" }, "version": { "const": "0.1.0" } } }
               ]
             },
             "environment": { "$ref": "#/$defs/component" },
             "semanticValidation": {
               "allOf": [
                 { "$ref": "#/$defs/component" },
-                { "properties": { "id": { "const": "semantic-validation" }, "version": { "const": "semantic-validation-2.0.0" } } }
+                { "properties": { "id": { "const": "semantic-validation" }, "version": { "const": "semantic-validation-0.1.0" } } }
               ]
             }
           },
@@ -986,7 +986,7 @@
           "required": ["id", "version", "implementationDigest", "resultEvidence"],
           "properties": {
             "id": { "const": "agent-evals-semantic-validator" },
-            "version": { "const": "semantic-validation-2.0.0" },
+            "version": { "const": "semantic-validation-0.1.0" },
             "implementationDigest": { "$ref": "#/$defs/digest" },
             "resultEvidence": { "$ref": "#/$defs/artifactRef" }
           },

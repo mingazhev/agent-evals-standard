@@ -1,7 +1,7 @@
 # Escalation and Stop Matrix Contract and Non-Operational Template
 
 - Status: normative contract; bundled matrix instance is non-operational
-- Version: escalation-stop-matrix-template-2.0.0
+- Version: escalation-stop-matrix-template-0.1.0
 - Owner: adopter-defined; a conforming matrix instance requires a resolvable
   team identifier or email before any held-out, release, or autonomy decision.
 - Storage: the adopter policy instance must define the decision-record location.
@@ -42,12 +42,5 @@ earlier escalation payload hash in the same chain.
 
 ## Changelog
 
-- escalation-stop-matrix-template-2.0.0 — added fail-closed post-decision
-  assurance events for approved-configuration change, production-concordance
-  degradation, and missing assurance evidence, including typed stop and scope
-  actions. The bundled matrix remains non-operational.
-- escalation-stop-matrix-template-1.0.0 — separated the public matrix contract
-  from adopter-owned operational owners, SLAs, and response procedures.
-- escalation-stop-matrix-0.1.0 — established a versioned baseline and added
-  executable expiry and next-review-date events. The unset operational owners
-  and SLAs remain deliberate blockers.
+- escalation-stop-matrix-template-0.1.0 — first public contract and deliberately
+  non-operational template.

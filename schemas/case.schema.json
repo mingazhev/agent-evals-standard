@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agent-evals-standard:schema:case:3",
+  "$id": "urn:agent-evals-standard:schema:case:1",
   "title": "Conforming agent evaluation case",
   "type": "object",
   "required": [
@@ -31,7 +31,7 @@
     "ownership"
   ],
   "properties": {
-    "schemaVersion": { "const": "agent-eval-case-3" },
+    "schemaVersion": { "const": "agent-eval-case-1" },
     "caseVersion": { "type": "string", "minLength": 1 },
     "contracts": {
       "type": "object",
@@ -45,13 +45,13 @@
         "semanticValidationVersion"
       ],
       "properties": {
-        "goldenStandardVersion": { "const": "4.0.0" },
-        "scorecardContractVersion": { "const": "3.0.0" },
+        "goldenStandardVersion": { "const": "0.1.0" },
+        "scorecardContractVersion": { "const": "0.1.0" },
         "governancePolicyVersion": { "type": "string", "minLength": 1 },
         "escalationStopMatrixVersion": { "type": "string", "minLength": 1 },
-        "caseContractVersion": { "const": "3.0.0" },
+        "caseContractVersion": { "const": "0.1.0" },
         "environmentContractVersion": { "type": "string", "minLength": 1 },
-        "semanticValidationVersion": { "const": "semantic-validation-2.0.0" }
+        "semanticValidationVersion": { "const": "semantic-validation-0.1.0" }
       },
       "additionalProperties": false
     },

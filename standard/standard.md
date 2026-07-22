@@ -1,7 +1,7 @@
 # Agent Evals Golden Standard
 
 - Status: current
-- Standard version: 4.0.0
+- Standard version: 0.1.0
 - Purpose: the authoritative, implementation-independent standard for evaluating
   software-development lifecycle (SDLC) agents.
 
@@ -590,7 +590,7 @@ into the run-level scorecard. Aggregation is a run step, not part of a trial.
 - Agent-attributed interference with graders, logs, or artifact capture yields
   `unsafe_policy_violation`. When attribution cannot be established, use
   `validity: invalid`; the primary outcome must not be interpreted as agent
-  success or failure. Under Scorecard Contract schema v4, its required primary
+  success or failure. Under Scorecard Contract schema v1, its required primary
   outcome is the `infra_failure` umbrella while validity remains authoritative.
 - An invalid or missing-capture attempt remains present after a retry. The
   run-level scorecard records scheduled, started, completed, invalid, and
@@ -854,41 +854,4 @@ The sources that informed this release are listed in
 
 ## Changelog
 
-- 4.0.0 (2026-07-22) — added conditional decision-surface coverage, typed
-  interactive actors and simulator validation, append-only pre-transform
-  transcript evidence, model-grader order and verbosity bias controls, and
-  post-decision assurance with fail-closed escalation events. Released Case,
-  Case QA, Scorecard, semantic-validation, governance-decision, escalation,
-  assurance-observation, governance-resolution, and conformance schema
-  revisions. This is a major release because these
-  additions strengthen mandatory conformance and decision semantics.
-- 3.0.1 (2026-07-22) — dedicated the repository contents to the public domain
-  under CC0 1.0 Universal. No evaluation, conformance, or component-contract
-  requirements changed.
-- Documentation (2026-07-22) — added informative Mermaid diagrams for the
-  system under evaluation, case lifecycle states, and run protocol. This did
-  not independently change normative requirements or the standard version.
-- 3.0.0 (2026-07-21) — created the first standalone public release; added a
-  conformance contract; separated normative requirements from implementation
-  status; and adopted technology-neutral execution and control-plane gate IDs.
-  This is a major release because stable identifiers changed.
-- 2.1.0 (2026-07-21) — reconciled gate pre-registration with sealed post-diff
-  expansion, made governance applicability explicit, defined lifecycle-wide
-  oracle isolation through process termination, required an I13 baseline gate,
-  reconciled dependence and comparability rules, repaired lifecycle and run
-  protocol semantics, required deterministic coverage of ambiguous-case
-  resolutions, and removed duplicated operational restatements.
-- 2.0.0 (2026-07-21) — retained stable IDs I1–I13 while clarifying their
-  boundaries. Added sealed pre-run selection, complete attempt accounting,
-  evidence-bounded claims, and a runner-owned measurement boundary. Moved
-  confidentiality into I2; made I8 an enforceable optimization-objective rule;
-  removed run-order semantics from I9; limited I10 to required decision paths;
-  required causal comparability in I11; and required task and check validity
-  plus atomic quarantine in I12. Resolved the read-only oracle-mount
-  contradiction.
-- 1.0.0 (2026-07-16) — established the first versioned baseline; moved
-  definitions into the shared glossary; added role-based reading paths and a
-  common requirements template; delegated the gate registry to the Scorecard
-  Contract and the risk-tier taxonomy to the Governance Policy; and clarified
-  normative provenance and attribution for interference with the measurement
-  system.
+- 0.1.0 (2026-07-22) — first public version of the complete normative standard.

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agent-evals-standard:schema:conformance-statement:2",
+  "$id": "urn:agent-evals-standard:schema:conformance-statement:1",
   "title": "Agent Evals Golden Standard signed conformance statement",
   "type": "object",
   "required": [
@@ -21,13 +21,13 @@
     "signature"
   ],
   "properties": {
-    "schemaVersion": { "const": "agent-eval-conformance-statement-2" },
+    "schemaVersion": { "const": "agent-eval-conformance-statement-1" },
     "standardRelease": {
       "type": "object",
       "required": ["version", "tag", "commit"],
       "properties": {
-        "version": { "const": "4.0.0" },
-        "tag": { "const": "v4.0.0" },
+        "version": { "const": "0.1.0" },
+        "tag": { "const": "v0.1.0" },
         "commit": { "type": "string", "pattern": "^[a-f0-9]{40,64}$" }
       },
       "additionalProperties": false
@@ -39,7 +39,7 @@
         "scorecard": {
           "allOf": [
             { "$ref": "#/$defs/contractArtifact" },
-            { "properties": { "id": { "const": "scorecard-contract" }, "version": { "const": "3.0.0" }, "kind": { "const": "standard" } } }
+            { "properties": { "id": { "const": "scorecard-contract" }, "version": { "const": "0.1.0" }, "kind": { "const": "standard" } } }
           ]
         },
         "governancePolicy": { "$ref": "#/$defs/contractArtifact" },
@@ -47,14 +47,14 @@
         "case": {
           "allOf": [
             { "$ref": "#/$defs/contractArtifact" },
-            { "properties": { "id": { "const": "case-contract" }, "version": { "const": "3.0.0" }, "kind": { "const": "standard" } } }
+            { "properties": { "id": { "const": "case-contract" }, "version": { "const": "0.1.0" }, "kind": { "const": "standard" } } }
           ]
         },
         "environment": { "$ref": "#/$defs/contractArtifact" },
         "semanticValidation": {
           "allOf": [
             { "$ref": "#/$defs/contractArtifact" },
-            { "properties": { "id": { "const": "semantic-validation" }, "version": { "const": "semantic-validation-2.0.0" }, "kind": { "const": "standard" } } }
+            { "properties": { "id": { "const": "semantic-validation" }, "version": { "const": "semantic-validation-0.1.0" }, "kind": { "const": "standard" } } }
           ]
         }
       },
@@ -64,15 +64,15 @@
       "type": "object",
       "required": ["case", "caseQaRecord", "scorecard", "conformanceStatement", "escalationEvent", "assuranceObservation", "governanceResolution", "governanceResolutionLedger", "governanceDecision"],
       "properties": {
-        "case": { "const": "agent-eval-case-3" },
-        "caseQaRecord": { "const": "case-qa-record-3" },
-        "scorecard": { "const": "agent-eval-scorecard-4" },
-        "conformanceStatement": { "const": "agent-eval-conformance-statement-2" },
-        "escalationEvent": { "const": "agent-eval-escalation-event-2" },
+        "case": { "const": "agent-eval-case-1" },
+        "caseQaRecord": { "const": "case-qa-record-1" },
+        "scorecard": { "const": "agent-eval-scorecard-1" },
+        "conformanceStatement": { "const": "agent-eval-conformance-statement-1" },
+        "escalationEvent": { "const": "agent-eval-escalation-event-1" },
         "assuranceObservation": { "const": "agent-eval-assurance-observation-1" },
-        "governanceResolution": { "const": "agent-eval-governance-resolution-2" },
-        "governanceResolutionLedger": { "const": "agent-eval-governance-resolution-ledger-2" },
-        "governanceDecision": { "const": "agent-eval-governance-decision-2" }
+        "governanceResolution": { "const": "agent-eval-governance-resolution-1" },
+        "governanceResolutionLedger": { "const": "agent-eval-governance-resolution-ledger-1" },
+        "governanceDecision": { "const": "agent-eval-governance-decision-1" }
       },
       "additionalProperties": false
     },

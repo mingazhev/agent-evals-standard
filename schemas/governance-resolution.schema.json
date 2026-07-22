@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agent-evals-standard:schema:governance-resolution:2",
+  "$id": "urn:agent-evals-standard:schema:governance-resolution:1",
   "title": "Governance resolution payload",
   "type": "object",
   "required": [
@@ -24,7 +24,7 @@
     "timestamp"
   ],
   "properties": {
-    "schemaVersion": { "const": "agent-eval-governance-resolution-2" },
+    "schemaVersion": { "const": "agent-eval-governance-resolution-1" },
     "eventId": { "type": "string", "minLength": 1 },
     "action": { "enum": ["resolve", "waive", "expire", "narrow", "renew", "rollback", "supersede"] },
     "sourceEventId": {

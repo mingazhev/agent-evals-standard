@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agent-evals-standard:schema:governance-resolution-ledger:2",
+  "$id": "urn:agent-evals-standard:schema:governance-resolution-ledger:1",
   "title": "Authenticated governance resolution ledger",
   "type": "object",
   "required": [
@@ -18,7 +18,7 @@
     "signature"
   ],
   "properties": {
-    "schemaVersion": { "const": "agent-eval-governance-resolution-ledger-2" },
+    "schemaVersion": { "const": "agent-eval-governance-resolution-ledger-1" },
     "ledgerId": { "type": "string", "minLength": 1 },
     "policyInstanceHash": { "$ref": "#/$defs/digest" },
     "matrixInstanceHash": { "$ref": "#/$defs/digest" },
@@ -101,9 +101,9 @@
         "timestamp": { "type": "string", "format": "date-time" },
         "payload": {
           "oneOf": [
-            { "$ref": "urn:agent-evals-standard:schema:escalation-event:2" },
+            { "$ref": "urn:agent-evals-standard:schema:escalation-event:1" },
             { "$ref": "urn:agent-evals-standard:schema:assurance-observation:1" },
-            { "$ref": "urn:agent-evals-standard:schema:governance-resolution:2" }
+            { "$ref": "urn:agent-evals-standard:schema:governance-resolution:1" }
           ]
         },
         "signature": { "$ref": "#/$defs/signature" }
@@ -111,7 +111,7 @@
       "allOf": [
         {
           "if": { "properties": { "eventType": { "const": "escalation" } }, "required": ["eventType"] },
-          "then": { "properties": { "payload": { "$ref": "urn:agent-evals-standard:schema:escalation-event:2" } } }
+          "then": { "properties": { "payload": { "$ref": "urn:agent-evals-standard:schema:escalation-event:1" } } }
         },
         {
           "if": { "properties": { "eventType": { "const": "assurance_observation" } }, "required": ["eventType"] },
@@ -119,7 +119,7 @@
         },
         {
           "if": { "properties": { "eventType": { "const": "resolution" } }, "required": ["eventType"] },
-          "then": { "properties": { "payload": { "$ref": "urn:agent-evals-standard:schema:governance-resolution:2" } } }
+          "then": { "properties": { "payload": { "$ref": "urn:agent-evals-standard:schema:governance-resolution:1" } } }
         }
       ],
       "additionalProperties": false
