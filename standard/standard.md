@@ -57,124 +57,196 @@ engineering rules, and production feedback.
 These invariants are non-negotiable and non-compensable. Each is stated exactly
 once; all later sections and child documents refer to them by identifier.
 
-- **I1. Acceptance is non-compensable.** An accepted outcome requires
-  `validity: valid`; a `solved`, `correct_refusal`, or `already_solved` primary
-  outcome under its registered deterministic rule; every automated hard gate required by the baseline,
-  risk-tier, profile, case, and sealed post-diff applicability rules to be
-  backed and passed; every applicable `outcome` or `risk` decision surface to
-  pass with known applicability; every expected blocking governance status to be
-  `not_applicable`, `resolved`, or policy-validly `waived`; complete append-only
-  pre-transform transcript evidence; and complete interaction evidence for an
-  interactive case or a typed `not_applicable` interaction state otherwise. This predicate is
-  **trial acceptance** only. Run claim eligibility additionally requires I5,
-  I6, and the sealed statistical plan; governance approval is a later decision
-  under the adopter-owned policy. Quality,
-  efficiency, cost, and a composite score cannot compensate for an acceptance,
-  security, or policy boundary violation.
-- **I2. Lifecycle-wide oracle isolation.** The reference solution, hidden
-  checks, grader fixtures, scoring internals, and all artifacts or state derived
-  from them—including QA notes, previous hidden outputs, caches, retrieval
-  indexes, and provider sessions—must remain inaccessible to the agent before
-  and during a trial through the checkout, Git history, remotes, network, or
-  tools, until the agent process and all delegated processes have terminated
-  and their access has been revoked. Non-agent-visible held-out material must
-  not be sent to external APIs or used in tuning, development loops, or
-  training. Agent-visible held-out task input may be sent only to the declared
-  agent provider under pre-approved data-owner and provider controls; doing so
-  does not make oracle material exportable.
-  Agent-attributed access is a hard-gate violation. Accidental exposure without
-  established attribution yields `validity: invalid` and triggers the
-  leakage-response process.
-- **I3. No post-hoc adaptation or selection.** Before a run, a sealed pre-run
-  manifest fixes suite and case membership, exclusions, quarantine criteria,
-  risk tiers, ambiguity labels, allowed context, budgets, retry and stopping
-  rules, the expected gate and governance-status sets, sealed post-diff
-  applicability rules, success criteria, the scoring and statistical plan,
-  thresholds, and decision rules. The only exception is an approved pre-run
-  delta. A versioned migration applies only to future runs or an explicitly
-  rebased comparison; it never rewrites the original scorecard or decision
-  record.
-- **I4. Reconstructible conditions and provenance.** Each trial starts from a
-  clean environment with isolated filesystem, process, cache, retrieval,
-  provider-session, and harness state. Any intentionally shared state is a
-  declared treatment; affected observations must not be called independent,
-  and the statistical plan must model or bound the dependence. The environment,
-  tool policy, allowed context, agent configuration, and measurement stack are part
-  of the evaluation identity. Machine-readable contracts are versioned, the
-  complete manifest of identity-critical artifacts is content-hashed, and the
-  deterministic baseline is periodically reconstructed in a clean environment.
-- **I5. Attribution and complete attempt accounting.** Measurement-system
-  failures must not be misclassified as agent failures. Every scheduled and
-  started attempt—including invalid, interrupted, and missing-capture
-  attempts—must appear in a runner-owned append-only ledger. Every replacement
-  or retry links to the original attempt. Invalid attempts must not be silently
-  removed from attempt accounting or eligibility decisions; any valid-only
-  estimate is accompanied by the invalid rate and the pre-registered
-  conservative bound defined in the Scorecard Contract. A
-  pre-registered invalid-rate or differential-invalidity threshold breach yields
-  `insufficient_evidence` for the affected claim.
-- **I6. Claims are bounded by evidence.** Positive capability, comparative, and
-  autonomy claims are limited to the pre-declared target population,
-  represented strata, and multi-case statistical plan. Stochastic
-  configurations require repeated trials with stated state-reset and
-  dependence assumptions; independence may be claimed only when I4 permits it.
-  An incomplete plan yields `insufficient_evidence`.
-  One confirmed zero-tolerance security or policy incident can justify stopping
-  or rejecting a run, but cannot support a broader positive or comparative
-  claim.
-- **I7. Enforced least privilege.** An evaluation must not use production
-  credentials. Permissions, egress, and resource boundaries are declared in
-  advance, limited to what the task requires, and independently audited. An
-  unauthorized security or policy violation is a hard failure. The environment
-  and risk contract defines the concrete sandbox, network, and logging controls;
-  those controls cannot be replaced by a single post-hoc diagnostic.
-- **I8. Optimization objectives are declared.** Diagnostic and cost telemetry
-  is retained for every attempt. An efficiency metric becomes a tuning,
-  ranking, or governance objective only through a pre-registered versioned
-  rule with an explicit denominator and eligibility predicate.
-  Conditional-on-success efficiency uses only valid functional outcomes;
-  total-resource-per-success metrics retain the cost of every attempt and must
-  not silently condition away failures or invalidity.
-- **I9. Verifiable evidence; model-based graders are auxiliary.** Correctness,
-  security, and production readiness require backed, auditable evidence.
-  Model-based graders, including LLM-as-a-judge graders, and calibrated human
-  annotation are auxiliary quality layers with published calibration. They
-  cannot supply deterministic correctness or hard-gate evidence. A human
-  governance gate is stored separately from annotation or score and must not be
-  represented as an informal automated grader.
-- **I10. Required decision paths fail closed.** If a required gate or detector
-  cannot determine whether it applies or was triggered, the measurement path
-  yields `validity: invalid`. If any required governance requirement—including
-  human review, policy authorization, required evidence, or a decision-rule
-  condition—is missing or indeterminate, it yields an `open` blocking
-  governance status. Neither condition may become a silent pass or no-op.
-  Failure of an optional auxiliary grader is recorded as unavailable and does
-  not change deterministic correctness. If auxiliary evidence was
-  pre-registered for a quality or statistical claim, its absence yields
-  `insufficient_evidence` for that claim; it never becomes hard-gate evidence.
-- **I11. Causal comparability of a living set.** A direct comparison requires
-  the same suite version, case set, and pre-declared treatment difference; every
-  other measurement-defining component in I4 remains fixed. A frozen common
-  slice supports comparison only within that slice. A cross-version rebased
-  comparison requires an equivalence study and documented migration with a
-  changelog entry. Matching suite versions is necessary but not sufficient.
-- **I12. Only validated measurement enters claims.** Every active case has a
-  current machine-verifiable Case QA record. Its checks require only behavior
-  inferable from the task description, distinguish known-good from known-bad
-  controls, and accept a correct non-reference solution. Invalidating the QA
-  record atomically moves the case to `quarantined` until re-QA completes.
-  Grader false-positive and false-negative rates are estimated under a
-  versioned validation protocol with uncertainty and thresholds. Suite health
-  is evaluated regularly; a threshold breach blocks affected claims.
-- **I13. Trusted measurement boundary.** Everything produced or influenced by
-  the agent—including diffs, code, hooks, logs, result files, comments, and
-  commit messages—is untrusted input. Graders, validation commands and
-  toolchains, the base manifest, result channels, and artifact capture belong
-  to a runner-owned trust domain. Evidence has typed, authenticated provenance
-  and is processed with bounded parsing, contextual escaping, and
-  injection-resistant controls. The baseline gate registry includes a
-  runner-backed measurement-boundary gate with positive controls for
-  instruction injection and mutation during grading.
+| ID | Name |
+| --- | --- |
+| I1 | Acceptance is non-compensable |
+| I2 | Lifecycle-wide oracle isolation |
+| I3 | No post-hoc adaptation or selection |
+| I4 | Reconstructible conditions and provenance |
+| I5 | Attribution and complete attempt accounting |
+| I6 | Claims are bounded by evidence |
+| I7 | Enforced least privilege |
+| I8 | Optimization objectives are declared |
+| I9 | Verifiable evidence; model-based graders are auxiliary |
+| I10 | Required decision paths fail closed |
+| I11 | Causal comparability of a living set |
+| I12 | Only validated measurement enters claims |
+| I13 | Trusted measurement boundary |
+
+### I1. Acceptance is non-compensable
+
+An accepted outcome requires all of the following:
+
+- `validity: valid`;
+- a `solved`, `correct_refusal`, or `already_solved` primary outcome under its
+  registered deterministic rule;
+- every automated hard gate required by the baseline, risk-tier, profile, case,
+  and sealed post-diff applicability rules to be backed and passed;
+- every applicable `outcome` or `risk` decision surface to pass with known
+  applicability;
+- every expected blocking governance status to be `not_applicable`, `resolved`,
+  or policy-validly `waived`;
+- complete append-only pre-transform transcript evidence; and
+- complete interaction evidence for an interactive case, or a typed
+  `not_applicable` interaction state otherwise.
+
+This predicate is **trial acceptance** only. Run claim eligibility additionally
+requires I5, I6, and the sealed statistical plan; governance approval is a later
+decision under the adopter-owned policy. Quality, efficiency, cost, and a
+composite score cannot compensate for an acceptance, security, or policy
+boundary violation.
+
+### I2. Lifecycle-wide oracle isolation
+
+The reference solution, hidden checks, grader fixtures, scoring internals, and
+all artifacts or state derived from them—including QA notes, previous hidden
+outputs, caches, retrieval indexes, and provider sessions—must remain
+inaccessible to the agent before and during a trial through the checkout, Git
+history, remotes, network, or tools, until the agent process and all delegated
+processes have terminated and their access has been revoked.
+
+Non-agent-visible held-out material must not be sent to external APIs or used in
+tuning, development loops, or training. Agent-visible held-out task input may be
+sent only to the declared agent provider under pre-approved data-owner and
+provider controls; doing so does not make oracle material exportable.
+
+Agent-attributed access is a hard-gate violation. Accidental exposure without
+established attribution yields `validity: invalid` and triggers the
+leakage-response process.
+
+### I3. No post-hoc adaptation or selection
+
+Before a run, a sealed pre-run manifest fixes:
+
+- suite and case membership;
+- exclusions and quarantine criteria;
+- risk tiers and ambiguity labels;
+- allowed context, budgets, and retry and stopping rules;
+- the expected gate and governance-status sets;
+- sealed post-diff applicability rules;
+- success criteria;
+- the scoring and statistical plan, thresholds, and decision rules.
+
+The only exception is an approved pre-run delta. A versioned migration applies
+only to future runs or an explicitly rebased comparison; it never rewrites the
+original scorecard or decision record.
+
+### I4. Reconstructible conditions and provenance
+
+Each trial starts from a clean environment with isolated filesystem, process,
+cache, retrieval, provider-session, and harness state. Any intentionally shared
+state is a declared treatment; affected observations must not be called
+independent, and the statistical plan must model or bound the dependence.
+
+The environment, tool policy, allowed context, agent configuration, and
+measurement stack are part of the evaluation identity. Machine-readable
+contracts are versioned, the complete manifest of identity-critical artifacts is
+content-hashed, and the deterministic baseline is periodically reconstructed in
+a clean environment.
+
+### I5. Attribution and complete attempt accounting
+
+Measurement-system failures must not be misclassified as agent failures. Every
+scheduled and started attempt—including invalid, interrupted, and
+missing-capture attempts—must appear in a runner-owned append-only ledger.
+Every replacement or retry links to the original attempt.
+
+Invalid attempts must not be silently removed from attempt accounting or
+eligibility decisions; any valid-only estimate is accompanied by the invalid
+rate and the pre-registered conservative bound defined in the Scorecard
+Contract. A pre-registered invalid-rate or differential-invalidity threshold
+breach yields `insufficient_evidence` for the affected claim.
+
+### I6. Claims are bounded by evidence
+
+Positive capability, comparative, and autonomy claims are limited to the
+pre-declared target population, represented strata, and multi-case statistical
+plan. Stochastic configurations require repeated trials with stated state-reset
+and dependence assumptions; independence may be claimed only when I4 permits it.
+An incomplete plan yields `insufficient_evidence`.
+
+One confirmed zero-tolerance security or policy incident can justify stopping or
+rejecting a run, but cannot support a broader positive or comparative claim.
+
+### I7. Enforced least privilege
+
+An evaluation must not use production credentials. Permissions, egress, and
+resource boundaries are declared in advance, limited to what the task requires,
+and independently audited. An unauthorized security or policy violation is a
+hard failure.
+
+The environment and risk contract defines the concrete sandbox, network, and
+logging controls; those controls cannot be replaced by a single post-hoc
+diagnostic.
+
+### I8. Optimization objectives are declared
+
+Diagnostic and cost telemetry is retained for every attempt. An efficiency
+metric becomes a tuning, ranking, or governance objective only through a
+pre-registered versioned rule with an explicit denominator and eligibility
+predicate.
+
+Conditional-on-success efficiency uses only valid functional outcomes.
+Total-resource-per-success metrics retain the cost of every attempt and must not
+silently condition away failures or invalidity.
+
+### I9. Verifiable evidence; model-based graders are auxiliary
+
+Correctness, security, and production readiness require backed, auditable
+evidence. Model-based graders, including LLM-as-a-judge graders, and calibrated
+human annotation are auxiliary quality layers with published calibration. They
+cannot supply deterministic correctness or hard-gate evidence.
+
+A human governance gate is stored separately from annotation or score and must
+not be represented as an informal automated grader.
+
+### I10. Required decision paths fail closed
+
+If a required gate or detector cannot determine whether it applies or was
+triggered, the measurement path yields `validity: invalid`. If any required
+governance requirement—including human review, policy authorization, required
+evidence, or a decision-rule condition—is missing or indeterminate, it yields an
+`open` blocking governance status. Neither condition may become a silent pass or
+no-op.
+
+Failure of an optional auxiliary grader is recorded as unavailable and does not
+change deterministic correctness. If auxiliary evidence was pre-registered for a
+quality or statistical claim, its absence yields `insufficient_evidence` for that
+claim; it never becomes hard-gate evidence.
+
+### I11. Causal comparability of a living set
+
+A direct comparison requires the same suite version, case set, and pre-declared
+treatment difference; every other measurement-defining component in I4 remains
+fixed. A frozen common slice supports comparison only within that slice.
+
+A cross-version rebased comparison requires an equivalence study and documented
+migration with a changelog entry. Matching suite versions is necessary but not
+sufficient.
+
+### I12. Only validated measurement enters claims
+
+Every active case has a current machine-verifiable Case QA record. Its checks
+require only behavior inferable from the task description, distinguish
+known-good from known-bad controls, and accept a correct non-reference solution.
+Invalidating the QA record atomically moves the case to `quarantined` until
+re-QA completes.
+
+Grader false-positive and false-negative rates are estimated under a versioned
+validation protocol with uncertainty and thresholds. Suite health is evaluated
+regularly; a threshold breach blocks affected claims.
+
+### I13. Trusted measurement boundary
+
+Everything produced or influenced by the agent—including diffs, code, hooks,
+logs, result files, comments, and commit messages—is untrusted input. Graders,
+validation commands and toolchains, the base manifest, result channels, and
+artifact capture belong to a runner-owned trust domain.
+
+Evidence has typed, authenticated provenance and is processed with bounded
+parsing, contextual escaping, and injection-resistant controls. The baseline
+gate registry includes a runner-backed measurement-boundary gate with positive
+controls for instruction injection and mutation during grading.
 
 ## Reading Paths
 
