@@ -19,6 +19,29 @@ false failures and false successes.
 A case proceeds through the stages in order. A failed stage returns the case to
 `candidate` with a recorded defect from the Defect Taxonomy.
 
+```mermaid
+flowchart TD
+  s0[Stage 0: Author Self-Check] --> s1[Stage 1: Automated Case Lint]
+  s1 --> s2[Stage 2: Semantic Review]
+  s2 --> s3[Stage 3: Independent QA Run]
+  s3 --> s4[Stage 4: Control Proofs]
+  s4 --> s5[Stage 5: Trivial-Strategy Battery]
+  s5 --> s6[Stage 6: Adversarial Exploit Pass]
+  s6 --> s7[Stage 7: Alternative-Solution Probe]
+  s7 --> s8[Stage 8: Pilot Runs and Stability]
+  s8 --> active[Activation record / active]
+
+  s0 -.->|fail| cand[Return to candidate]
+  s1 -.->|fail| cand
+  s2 -.->|fail| cand
+  s3 -.->|fail| cand
+  s4 -.->|fail| cand
+  s5 -.->|fail| cand
+  s6 -.->|fail| cand
+  s7 -.->|fail| cand
+  s8 -.->|fail| cand
+```
+
 Any change to the task description, checks, graders, environment, profile, or
 case contract invalidates every earlier stage whose evidence depends on that
 input and all downstream stages. Bind each stage artifact to the final sealed
@@ -249,3 +272,9 @@ control proofs and outlier inspection; METR task QA for independent non-author
 review; and Anthropic guidance on agent evaluations for transcript review,
 trivial baselines, and saturation. The external sources are informative rather
 than normative by themselves.
+
+## Changelog
+
+- Documentation (2026-07-22) — added an informative Mermaid diagram of the
+  Stage 0–8 activation pipeline. Stages, defect taxonomy, and record shape are
+  unchanged.
