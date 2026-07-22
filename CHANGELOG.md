@@ -3,6 +3,15 @@
 All normative changes to the Agent Evals Golden Standard are recorded here.
 Versions follow Semantic Versioning.
 
+## Documentation — 2026-07-22
+
+Informative Mermaid diagrams only; no normative change and no version bump.
+
+- `standard/standard.md` — system under evaluation, case lifecycle, run protocol;
+- `standard/case-qa-playbook.md` — Case QA activation pipeline;
+- `standard/scorecard-contract.md` — outcome priority order and attempt states;
+- `standard/integrity-and-semantic-validation.md` — ledger attempt reducer.
+
 ## 3.0.0 — 2026-07-21
 
 First public, implementation-independent release.

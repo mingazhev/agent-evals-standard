@@ -37,7 +37,17 @@ lineages. For each `attemptId`, the reducer starts at `null`, requires
 `null -> scheduled -> started -> terminal`, and requires every event's
 `fromState` to equal the previously reduced `toState`. The terminal attempt
 record must match that reduction, and every started attempt has exactly one
-terminal record. Rewriting a ledger and recomputing an unauthenticated hash is not
+terminal record.
+
+```mermaid
+stateDiagram-v2
+  [*] --> null
+  null --> scheduled
+  scheduled --> started
+  started --> terminal
+```
+
+Rewriting a ledger and recomputing an unauthenticated hash is not
 append-only evidence.
 
 ## Required scorecard checks
@@ -141,3 +151,9 @@ Results identify the semantic-validator ID, version, implementation digest,
 validation timestamp, input digest, output digest, and evidence manifest. A
 validator implementation is testable against positive and negative fixtures;
 schema validity alone must never be presented as a conformance verdict.
+
+## Changelog
+
+- Documentation (2026-07-22) — added an informative Mermaid diagram of the
+  attempt-state reducer. Validation rules and version remain
+  semantic-validation-1.0.0.

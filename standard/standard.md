@@ -20,8 +20,10 @@ consequences and reference invariants by identifier. Terms are defined in the
 An evaluation must measure more than whether a model can write code. It must
 measure the complete system:
 
-```text
-task -> agent -> tools -> sandbox -> diff/MR -> checks -> review -> feedback
+```mermaid
+flowchart LR
+  task --> agent --> tools --> sandbox --> diffMR["diff / MR"] --> checks --> review --> feedback
+  feedback -.->|suite update| task
 ```
 
 An SDLC agent is evaluated as a composite system consisting of:
@@ -195,14 +197,21 @@ regression monitoring, defective cases, and historical archives.
 
 **Requirements.** Each case has exactly one lifecycle state:
 
-```text
-candidate -> active -> saturated -> regression -> retired
-candidate -> quarantined
-active -> quarantined
-saturated -> quarantined
-regression -> quarantined
-quarantined -> active
-quarantined -> retired
+```mermaid
+stateDiagram-v2
+  [*] --> candidate
+  candidate --> active
+  active --> saturated
+  saturated --> regression
+  regression --> retired
+
+  candidate --> quarantined
+  active --> quarantined
+  saturated --> quarantined
+  regression --> quarantined
+
+  quarantined --> active
+  quarantined --> retired
 ```
 
 - `candidate` — prepared but not activated; excluded from reporting;
@@ -482,6 +491,20 @@ runner-signed ledger root. Each scheduled cell receives a durable ledger entry
 before execution. Each physical attempt follows this ordered protocol;
 explicitly conditional steps run only when their sealed rule applies:
 
+```mermaid
+flowchart TD
+  seal[Seal pre-run manifest and ledger root] --> checkout[Fresh checkout / sandbox]
+  checkout --> bootstrap[Profile bootstrap]
+  bootstrap --> invoke[Invoke agent with sealed context]
+  invoke --> capture[Capture trajectory]
+  capture --> teardown[Terminate boundary and grading snapshot]
+  teardown --> grade[Deterministic / hidden / security graders]
+  grade --> optional[Optional quality rubric]
+  optional --> artifacts[Capture authenticated artifacts]
+  artifacts --> terminal[Append terminal ledger state]
+  terminal --> aggregate[Run-level scorecard aggregation]
+```
+
 1. Create a fresh checkout or sandbox at the base snapshot using the complete
    agent-visible projection required by I2.
 2. Run profile bootstrap.
@@ -759,6 +782,9 @@ The sources that informed this release are listed in
 
 ## Changelog
 
+- Documentation (2026-07-22) — added informative Mermaid diagrams for the
+  system under evaluation, case lifecycle states, and run protocol. Normative
+  requirements and the standard version remain 3.0.0.
 - 3.0.0 (2026-07-21) — created the first standalone public release; added a
   conformance contract; separated normative requirements from implementation
   status; and adopted technology-neutral execution and control-plane gate IDs.
