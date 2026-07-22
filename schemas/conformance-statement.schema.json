@@ -26,8 +26,8 @@
       "type": "object",
       "required": ["version", "tag", "commit"],
       "properties": {
-        "version": { "const": "3.0.0" },
-        "tag": { "const": "v3.0.0" },
+        "version": { "const": "3.0.1" },
+        "tag": { "const": "v3.0.1" },
         "commit": { "type": "string", "pattern": "^[a-f0-9]{40,64}$" }
       },
       "additionalProperties": false

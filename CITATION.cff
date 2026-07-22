@@ -1,10 +1,10 @@
 cff-version: 1.2.0
-message: "If you use this standard, cite the tagged release and commit."
+message: "Citation is optional; when citing, identify the tagged release and commit."
 title: "Agent Evals Golden Standard"
 type: standard
-version: 3.0.0
-date-released: 2026-07-21
-license: CC-BY-4.0
+version: 3.0.1
+date-released: 2026-07-22
+license: CC0-1.0
 repository-code: "https://github.com/mingazhev/agent-evals-standard"
 authors:
   - family-names: Mingazhev

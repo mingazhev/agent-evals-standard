@@ -3,9 +3,16 @@
 All normative changes to the Agent Evals Golden Standard are recorded here.
 Versions follow Semantic Versioning.
 
+## 3.0.1 — 2026-07-22
+
+- dedicated the repository contents to the public domain under CC0 1.0
+  Universal, removing the previous attribution requirement;
+- made no normative changes to the standard or its component contracts.
+
 ## Documentation — 2026-07-22
 
-Informative Mermaid diagrams only; no normative change and no version bump.
+Informative Mermaid diagrams only; no normative change and no independent
+version bump.
 
 - `standard/standard.md` — system under evaluation, case lifecycle, run protocol;
 - `standard/case-qa-playbook.md` — Case QA activation pipeline;
