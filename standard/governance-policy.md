@@ -1,7 +1,7 @@
 # Governance Policy Contract and Non-Operational Template
 
 - Status: normative contract; bundled policy instance is non-operational
-- Version: governance-policy-template-0.1.0
+- Version: governance-policy-template-0.2.0
 - Owner: adopter-defined; a conforming policy instance requires a resolvable
   team identifier or email before any held-out, release, or autonomy decision.
 - Scope: risk classification for every evaluation case and pre-registered
@@ -67,7 +67,10 @@ For each risk tier, the policy version used for a decision must define:
 - acceptable review burden and a cost ceiling;
 - transcript-review sampling frame, minimum quota, reviewer independence, and
   adjudication rule;
-- invalid-rate and differential-invalidity thresholds and the named
+- a measurement-maintenance schedule: baseline reconstruction cadence and
+  event triggers; suite-health cadence and event triggers; transcript-audit
+  cadence; and risk-tier Case QA review SLAs;
+- unresolved-cell-rate and differential-unresolved-cell-rate thresholds and the named
   conservative-bound method;
 - approve, reject, and insufficient-evidence conditions;
 - the required approver and security approver, where applicable;
@@ -96,10 +99,12 @@ For each risk tier, the policy version used for a decision must define:
   profile, grader, retrieval, and application scope;
 - production-concordance signals and outcomes with schema-bound, versioned,
   digest-pinned signal, calculation, and threshold contracts and verifier;
-  a typed sampling schedule with a schema-bound, versioned, digest-pinned
-  contract and verifier, target population, frame, cadence, window, UTC anchor,
-  first half-open window, alignment rule, lateness, missingness, and minimum
-  sample; accountable owner, SLA, and evidence retention;
+- a typed sampling schedule with a schema-bound, versioned, digest-pinned
+  contract and verifier;
+- for each sampling schedule: target population, frame, cadence, window, UTC
+  anchor, first half-open window, alignment rule, lateness, missingness, and
+  minimum sample;
+- for each sampling schedule: accountable owner, SLA, and evidence retention;
 - an explicit claim-effect mapping for review, narrowing, suspension, and
   revocation, including `suspend` when required assurance evidence is missing;
 - rollback, stop, revalidation, and resume conditions for every assurance
@@ -116,7 +121,7 @@ For each risk tier, the policy version used for a decision must define:
 
 ## Eligibility Rules
 
-- Sanity-only scorecards are never governance-eligible.
+- Smoke-set scorecards are never governance-eligible.
 - Scorecards from the `development` set are not evidence for release or
   autonomy decisions.
 - Any unresolved blocking governance status makes acceptance impossible until
@@ -181,5 +186,8 @@ inside the authenticated
 
 ## Changelog
 
+- governance-policy-template-0.2.0 — requires versioned, risk-tier maintenance
+  schedules and authenticated assurance-observation/ledger provenance while
+  preserving the non-operational template.
 - governance-policy-template-0.1.0 — first public contract and deliberately
   non-operational template.

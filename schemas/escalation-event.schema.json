@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agent-evals-standard:schema:escalation-event:1",
+  "$id": "urn:agent-evals-standard:schema:escalation-event:2",
   "title": "Operational escalation event",
   "type": "object",
   "required": [
@@ -18,12 +18,14 @@
     "scopeAction",
     "owner",
     "sla",
+    "triageArtifact",
+    "findingRef",
     "evidence",
     "terminalDisposition",
     "resumeConditions"
   ],
   "properties": {
-    "schemaVersion": { "const": "agent-eval-escalation-event-1" },
+    "schemaVersion": { "const": "agent-eval-escalation-event-2" },
     "id": { "type": "string", "minLength": 1 },
     "eventId": {
       "enum": [
@@ -60,6 +62,8 @@
     },
     "owner": { "type": "string", "minLength": 1 },
     "sla": { "type": "string", "minLength": 1 },
+    "triageArtifact": { "type": "string", "minLength": 1 },
+    "findingRef": { "type": "string", "minLength": 1 },
     "evidence": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
     "terminalDisposition": { "type": ["string", "null"] },
     "resumeConditions": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } },
@@ -72,6 +76,18 @@
       "then": {
         "required": ["resolvedAt", "resolutionEvidence"],
         "properties": { "terminalDisposition": { "type": "string", "minLength": 1 } }
+      }
+    },
+    {
+      "if": { "properties": { "state": { "const": "open" } }, "required": ["state"] },
+      "then": {
+        "properties": { "terminalDisposition": { "type": "null" } },
+        "not": {
+          "anyOf": [
+            { "required": ["resolvedAt"] },
+            { "required": ["resolutionEvidence"] }
+          ]
+        }
       }
     }
   ],

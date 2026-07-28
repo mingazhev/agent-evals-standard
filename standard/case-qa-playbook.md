@@ -1,19 +1,18 @@
 # Case QA Playbook
 
 - Status: current
-- Contract version: 0.1.0
+- Contract version: 0.2.0
 - Purpose: the operational process for activating an evaluation case. I12 of
   the [Agent Evals Golden Standard](standard.md) requires QA evidence before a
   case can enter the active suite. This playbook specifies the stages, checks,
   and artifacts that provide that evidence.
 
-The motivation is both external and local. Public audits of software-engineering
+The motivation is practical. Public audits of software-engineering
 benchmarks have found that many apparent agent failures were defects in tasks
 or tests: underspecified task descriptions, tests that reject correct solutions
 because of unstated implementation details, and incomplete oracle isolation.
-The same defect class appeared locally when hidden backend tests were adapted
-to a renamed API surface. Case QA protects the signal in both directions: from
-false failures and false successes.
+Case QA protects the signal in both directions: from false failures and false
+successes.
 
 ## Activation Pipeline
 
@@ -54,8 +53,9 @@ The author confirms that the case contract includes a pinned base snapshot,
 task description, profile, setup and validation commands, hidden checks,
 scoring rules, risk tier, ambiguity label, tags, owner, review date, canary
 marker, and contamination metadata.
-The author also inventories every material decision surface and, for an
-interactive case, pins the typed actor protocol and simulator components.
+The author also inventories every material decision surface, registers the
+closed claim IDs it may support in `claimRegistry`, and, for an interactive
+case, pins the typed actor protocol and simulator components.
 
 ### Stage 1 — Automated Case Lint
 
@@ -74,6 +74,10 @@ A deterministic linter verifies at least the following:
 - decision-surface IDs and actor IDs are unique; every check reference resolves;
   an interactive protocol has exactly one evaluated agent; and the sealed
   clarification policy references that protocol.
+- an activated Case QA record resolves every decision-surface ID through its
+  pinned case hash and preserves the sealed coverage mode and, for a declared
+  gap, the exact typed claim restriction; no post-hoc `not_applicable` or
+  `declared_gap` reclassification is permitted.
 
 ### Stage 2 — Semantic Review
 
@@ -89,8 +93,10 @@ For an `ambiguous` case, the activation evidence lists the defensible
 resolutions and proves that deterministic checks accept each one. A case that
 requires an unavailable interactive requester remains `candidate`; reviewer
 intuition is not a substitute for that protocol.
-The review challenges every `covered_by_final_state` assertion and records a
-claim restriction for any material `coverage_gap`.
+The review challenges every `covered_by_final_state` assertion. A material
+`declared_gap` records its typed claim restriction and prevents the activation
+evidence from supporting every affected claim; indeterminate applicability fails closed as
+`insufficient_evidence`.
 
 ### Stage 3 — Independent QA Run
 
@@ -240,14 +246,14 @@ Severity levels:
   description alone, without repository access. Reproduction of the reference
   patch or distinctive details marks the case as `contaminated`; it must not
   enter a clean reporting slice.
-- **Contamination-risk metadata.** `contaminationRisk` is required and records
-  source visibility, public dates, previous evaluation exposure, and whether an
-  agent has previously solved the task in the same workspace.
+- **Contamination metadata.** The `contamination` object is required and records
+  risk level, source visibility, public dates, previous evaluation exposure, and
+  whether an agent has previously solved the task in the same workspace.
 
 ## Activation Record
 
 Activation is recorded in a machine-readable Case QA record with
-`schemaVersion: case-qa-record-1`, stored beside the case. The record includes:
+`schemaVersion: case-qa-record-2`, stored beside the case. The record includes:
 
 - case ID, version, hash, and lifecycle transition;
 - the Golden Standard, case, environment, scorecard-contract, risk-policy,
@@ -277,8 +283,8 @@ Activation is recorded in a machine-readable Case QA record with
 - `recordHash`, invalidation state and reason, and superseding record where
   applicable.
 
-`case.hash` equals `lifecycle.activationInputHash`, the hash of the sealed
-activation-input manifest: the case contract, environment, profile, graders,
+The Case QA record's `case.hash` equals `lifecycle.activationInputHash`, the hash
+of the sealed activation-input manifest: the case contract, environment, profile, graders,
 and checks before the activation record is added. `recordHash` is computed from
 RFC 8785 canonical JSON with the `recordHash` field omitted, as defined by the
 [Integrity and Semantic Validation Contract](integrity-and-semantic-validation.md).
@@ -306,28 +312,28 @@ Invalidate the QA record and repeat the applicable stages when:
 - contamination is suspected or a canary is detected;
 - a saturation review moves the case into the regression suite.
 
-Record the invalidation and move the case from `active` to `quarantined` in one
-atomic state transition. A case returns to `active` only after a new
-valid QA record is issued; a suite-health report does not replace this
-enforcement.
+Record the invalidation and move the case from its eligible lifecycle state to
+`quarantined` in one atomic state transition, preserving that predecessor in
+`case.lifecycle.preQuarantineEligibleState` and binding the transition record in
+`case.lifecycle.quarantineRecord`. That record has `decision.status: quarantined`.
+A case with a failed re-QA returns to `candidate`. A case with a new
+valid QA record returns to its recorded predecessor (`active`, `saturated`, or
+`regression`); a suite-health report does not replace this enforcement.
 
 An activated case follows the lifecycle defined by the Golden Standard
 (`candidate -> active -> saturated -> regression -> retired`, with invalidated
-cases moving from an eligible state to `quarantined` and returning to `active`
-only through re-QA). This
-playbook applies on entry to `active` and whenever re-QA is triggered.
+eligible cases moving to `quarantined`, failed re-QA returning to `candidate`,
+and successful re-QA restoring the recorded predecessor). This playbook applies
+on entry to `active` and whenever re-QA is triggered.
 
-## External References
+## Informative Sources
 
-These practices were synthesized from sources that changed local requirements:
-the SWE-bench Verified postmortem and SWE-bench Pro audit for task-defect and
-false-negative taxonomies; the Terminal-Bench 2.0 verification process for
-staged review, adversarial exploit agents, and canaries; the ABC checklist for
-control proofs and outlier inspection; METR task QA for independent non-author
-review; and Anthropic guidance on agent evaluations for transcript review,
-trivial baselines, and saturation. The external sources are informative rather
-than normative by themselves.
+The sources for these practices are centralized in
+[Informative References](references.md). They are informative rather than
+normative and do not create local requirements by themselves.
 
 ## Changelog
 
+- 0.2.0 — removes repository-specific narrative and defines lifecycle-preserving
+  re-QA recovery.
 - 0.1.0 — first public Case QA Contract and activation-record schema.

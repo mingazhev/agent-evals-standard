@@ -1,6 +1,6 @@
 # Integrity and Semantic Validation Contract
 
-- Version: semantic-validation-0.1.0
+- Version: semantic-validation-0.2.0
 - Status: current
 
 JSON Schema validates transport shape. It does not establish that hashes are
@@ -59,20 +59,21 @@ The versioned semantic validator MUST verify at least:
    backed by nonempty, valid evidence references;
 2. governance-status sets obey the sealed trigger rules, and every terminal or
    `not_applicable` status has the evidence required by the Scorecard Contract;
-3. trial acceptance is true if and only if validity is `valid`, the outcome is
-   functional, every applicable hard gate passes, and every blocker is
-   `not_applicable`, `resolved`, or policy-validly `waived`, and every material
-   decision surface is `pass` or legitimately `not_applicable`;
+3. trial acceptance and every selected predicate are recomputed exclusively from
+   the Scorecard Contract's `functional-outcome-v2` and `accepted-outcome-v2`
+   definitions, including transcript and interaction evidence;
 4. an invalid trial has `infra_failure`, is not accepted, and does not enter a
    valid-only point estimate; agent-attributed interference remains a valid
    `unsafe_policy_violation` rather than infrastructure invalidity;
 5. scheduled-cell, physical-attempt, retry-lineage, and mutually exclusive
    state counts equal the ledger; every nonterminal entry is reconciled; every
-   resolved cell and terminal attempt `valid_success`/`valid_failure` state is
-   recomputed from the trial result and the claim's sealed
-   `successDefinition`; only the Scorecard Contract's executable
-   `functional-outcome-v1` and `accepted-outcome-v1` predicates are valid;
-6. `invalidRate = unresolvedCells / scheduledCells`; component binary-rate
+   `resolved_success`/`resolved_failure` cell is recomputed from its selected
+   trial result and the claim's sealed `successDefinition`; `completed` attempts
+   have `measurementValidity.status` `valid` or `invalid`, while `interrupted`
+   and `missing_capture` attempts are `not_assessable`; only the Scorecard
+   Contract's executable `functional-outcome-v2` and `accepted-outcome-v2`
+   predicates may resolve a cell;
+6. `unresolvedCellRate = unresolvedCells / scheduledCells`; component binary-rate
    bounds stay within `[0,1]`, while comparative difference bounds stay within
    `[-1,1]`; interval endpoints are ordered; every pass@k/pass^k value is
    recomputed from consistent `validN`, `validSuccesses`, and `k`;
@@ -82,8 +83,10 @@ The versioned semantic validator MUST verify at least:
    plan, all required Case QA evidence with passing FP/FN validation whose
    intervals and threshold verdicts recompute, no coverage or telemetry gap material
    to the claim, and a recomputed decision rule that passes;
-9. a blocked trial makes every containing composite blocked and unusable for
-   ranking, tuning, capability, governance, or autonomy selection;
+9. a hard-gate failure in any trial included by a declared composite makes that
+   composite `blocked` with `value: null`; it is unusable for ranking, tuning,
+   capability, governance, or autonomy selection, while the trial remains in
+   the ledger and failure-aware statistics;
 10. all identity-critical contract, suite, case, model, agent, environment,
     evaluator, grader, and formula versions resolve to authenticated digests.
 11. both cost estimands are recomputed from every physical attempt record; the
@@ -96,17 +99,29 @@ The versioned semantic validator MUST verify at least:
     tool-call definitions to be present and mutually consistent.
     A zero success count forces `insufficient_evidence`, null value, and the
     `zero_success_denominator` reason; the observed cost numerator remains.
-12. decision-surface IDs match the case inventory exactly once; applicability
-    rules and final-state proofs resolve through their versioned deterministic
-    schemas and verifiers; assignments, triggers, check IDs, and evidence resolve; unknown
-    applicability fails closed; final-state coverage proofs and claim restrictions are
-    present where required; and no material `coverage_gap`, failure, or
-    insufficient verdict supports a positive claim;
-13. transcript evidence is `complete` for every valid trial, resolves to the raw runner-produced event
+12. decision-surface IDs, materialities, coverage modes, and typed declared-gap
+    claim restrictions match the sealed case inventory exactly once in every
+    activated Case QA record and scorecard result; applicability rules and
+    final-state proofs resolve through their versioned deterministic schemas and
+    verifiers; assignments, triggers, check IDs, and evidence resolve. The only
+    runtime exception is `not_determined` caused by indeterminate applicability,
+    which fails closed. No material `declared_gap`, failure, or insufficient
+    verdict supports an affected positive, comparative, or governance claim.
+    Every declared-gap affected claim ID resolves to the sealed case
+    `claimRegistry`; the selected scorecard claim ID resolves to that registry,
+    and a listed material restriction requires its claim status to be
+    `insufficient_evidence`;
+13. a Case QA record that quarantines a case binds an eligible source state,
+    identical `preQuarantineEligibleState`, and invalidation record; a re-QA
+    record for a quarantined case resolves the pinned case hash and its
+    lifecycle predecessor, returns to that predecessor only when activated, and
+    returns to `candidate` when rejected; rejected transitions from every other
+    lifecycle state are invalid;
+14. transcript evidence is `complete` for every valid trial, resolves to the raw runner-produced event
     stream, verifies its append-only root, proves pre-transform capture, and
     preserves context-management events. A compacted view, summary, cleared
     tool output, or agent-authored memory cannot satisfy this requirement;
-14. interactive evidence is `complete` for every interactive valid trial and
+15. interactive evidence is `complete` for every interactive valid trial and
     `not_applicable` only for a non-interactive valid trial; it binds the case
     protocol, has the same unique actor set, attributes every event and shared-state mutation, verifies initial and
     final state hashes, and has zero unattributed mutations when complete.
@@ -152,10 +167,13 @@ decision target it also resolves the normative decision record, recomputes
 every sealed condition and final decision, enforces
 `effectiveAt < reviewAt <= expiresAt`, the policy's maximum lifetime and
 risk-tier approval rules, role incompatibilities, and the non-waivable
-registry. An approval must bind a post-decision assurance plan whose change
-triggers cover every required trigger exactly once and bind its threshold,
+registry, and verifies that the decision-envelope verdict equals the signed
+decision verdict. An approval must bind a post-decision assurance plan; a
+rejected or insufficient-evidence decision must not bind one. Its reference is
+present in the statement evidence manifest and resolves to the signed plan
+artifact. Its change triggers cover every required trigger exactly once and bind its threshold,
 claim effect, stop, scope, rollback, revalidation, and resume actions; whose production signals,
-sampling, thresholds, owner, SLA, claim effects, and fail-closed missing-
+sampling, evidence-retention, thresholds, owner, SLA, claim effects, and fail-closed missing-
 evidence action agree with the operational policy and matrix. An
 unsigned statement is an unauthenticated self-assertion and is not conforming.
 
@@ -169,10 +187,11 @@ authorization, role conflicts, and the effective blocker state over the
 immutable scorecard. It rejects truncated, rewritten, reordered, forked, or
 dangling history.
 
-Every resolution binds a typed source event, its hash, governance-status ID,
-risk tier, and registry-derived waivability. A claimed classification is
-recomputed, not trusted. The `sourceEventHash` must resolve to an earlier
-escalation payload in the same signed chain; an out-of-ledger source cannot be
+Every resolution binds a typed source event, its hash, triage artifact, finding
+reference, governance-status ID, risk tier, and registry-derived waivability. A
+claimed classification is recomputed, not trusted. The source hash, triage
+artifact, and finding reference must resolve to the same earlier escalation
+payload in the signed chain; an out-of-ledger source cannot be
 resolved. `waive` is rejected for every baseline gate,
 `heldOutLeakage`, `measurementBoundaryCompromise`,
 `irreversibleCriticalOperation`, `productionCredentialsProhibited`, and every
@@ -206,4 +225,6 @@ schema validity alone must never be presented as a conformance verdict.
 
 ## Changelog
 
+- semantic-validation-0.2.0 — validates the canonical acceptance predicate,
+  separated decision-surface states, attempt validity, and composite semantics.
 - semantic-validation-0.1.0 — first public semantic-validation contract.
