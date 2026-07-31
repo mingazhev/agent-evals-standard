@@ -3,6 +3,19 @@
 All normative changes to the Agent Evals Golden Standard are recorded here.
 Versions follow Semantic Versioning.
 
+## 0.2.0 — 2026-07-28
+
+- resolves acceptance-predicate and run-level composite semantics;
+- makes scheduled-cell accounting, retry lineage, physical-attempt terminal
+  states, unresolved cells, and measurement validity schema-enforceable;
+- separates decision-surface applicability from coverage and binds declared gaps
+  to typed affected-claim restrictions;
+- requires schema-bound post-decision evidence-retention, escalation triage, and
+  finding references; resolution records bind those source fields;
+- releases the version-2 case, Case QA, conformance, escalation, governance
+  decision, governance resolution, and resolution-ledger schemas, plus the
+  version-2 scorecard schema (`agent-eval-scorecard-2`).
+
 ## 0.1.0 — 2026-07-22
 
 First public, implementation-independent release.

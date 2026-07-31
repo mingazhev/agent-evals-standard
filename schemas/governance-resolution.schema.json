@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agent-evals-standard:schema:governance-resolution:1",
+  "$id": "urn:agent-evals-standard:schema:governance-resolution:2",
   "title": "Governance resolution payload",
   "type": "object",
   "required": [
@@ -9,6 +9,8 @@
     "action",
     "sourceEventId",
     "sourceEventHash",
+    "sourceTriageArtifact",
+    "sourceFindingRef",
     "governanceStatusId",
     "riskTier",
     "waivability",
@@ -24,18 +26,13 @@
     "timestamp"
   ],
   "properties": {
-    "schemaVersion": { "const": "agent-eval-governance-resolution-1" },
+    "schemaVersion": { "const": "agent-eval-governance-resolution-2" },
     "eventId": { "type": "string", "minLength": 1 },
     "action": { "enum": ["resolve", "waive", "expire", "narrow", "renew", "rollback", "supersede"] },
-    "sourceEventId": {
-      "oneOf": [
-        {
-          "enum": ["hardGateRegression", "untriagedCriticalScannerFinding", "heldOutLeakage", "escapedCriticalDefect", "repeatedReviewRejection", "staleMeasurement", "measurementErrorThreshold", "suiteHealthDegradation", "decisionExpired", "reviewDue", "measurementBoundaryCompromise", "irreversibleCriticalOperation", "productionCredentialsProhibited", "approvedConfigurationChanged", "productionConcordanceDegraded", "assuranceEvidenceMissing"]
-        },
-        { "type": "string", "pattern": "^baselineGate:[A-Za-z0-9][A-Za-z0-9_.-]*$" }
-      ]
-    },
+    "sourceEventId": { "enum": ["hardGateRegression", "untriagedCriticalScannerFinding", "heldOutLeakage", "escapedCriticalDefect", "repeatedReviewRejection", "staleMeasurement", "measurementErrorThreshold", "suiteHealthDegradation", "decisionExpired", "reviewDue", "measurementBoundaryCompromise", "irreversibleCriticalOperation", "productionCredentialsProhibited", "approvedConfigurationChanged", "productionConcordanceDegraded", "assuranceEvidenceMissing"] },
     "sourceEventHash": { "$ref": "#/$defs/digest" },
+    "sourceTriageArtifact": { "type": "string", "minLength": 1 },
+    "sourceFindingRef": { "type": "string", "minLength": 1 },
     "governanceStatusId": { "enum": ["security_review_required", "manual_review_required"] },
     "riskTier": { "enum": ["low", "medium", "high", "critical"] },
     "waivability": { "enum": ["waivable", "non_waivable"] },
@@ -90,15 +87,7 @@
           "action": { "not": { "const": "waive" } }
         }
       }
-    },
-    {
-      "if": { "properties": { "sourceEventId": { "type": "string", "pattern": "^baselineGate:" } }, "required": ["sourceEventId"] },
-      "then": {
-        "properties": {
-          "waivability": { "const": "non_waivable" },
-          "action": { "not": { "const": "waive" } }
-        }
-      }
+
     },
     {
       "if": { "properties": { "sourceEventId": { "const": "productionConcordanceDegraded" } }, "required": ["sourceEventId"] },

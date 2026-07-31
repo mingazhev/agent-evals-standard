@@ -51,6 +51,7 @@ This Markdown file is its authoring view.
 - Schema-bound, versioned, digest-pinned sampling contract and verifier; target
   population, frame, cadence, window, UTC anchor, first half-open window,
   alignment rule, lateness, missingness rule, and minimum sample:
+- Evidence-retention contract, verifier, and hash:
 - Assurance owner and SLA:
 - Missing-evidence action: suspend
 
@@ -74,8 +75,8 @@ Record every sealed decision predicate; do not summarize it away.
 - Observed pass@k:
 - Confidence-interval method/level/observed interval:
 - Minimum sample and observed sample:
-- Invalid-rate threshold/observed rate:
-- Differential-invalidity threshold/observed interval/verdict:
+- Unresolved-cell-rate threshold/observed rate:
+- Differential-unresolved-cell-rate threshold/observed interval/verdict:
 - Conservative-bound method/observed bound:
 - Hard-gate status:
 - Governance statuses:

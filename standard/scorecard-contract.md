@@ -1,7 +1,7 @@
 # Scorecard Contract
 
 - Status: current
-- Contract version: 0.1.0
+- Contract version: 0.2.0
 - Purpose: the versioned scorecard contract, including the outcome taxonomy,
   failure causes, metric families, composite-score rules, and provenance fields.
 
@@ -14,7 +14,7 @@ comparable without a documented migration.
 
 ## Scorecard Layout
 
-Machine-readable scorecards use `schemaVersion: agent-eval-scorecard-1`. The
+Machine-readable scorecards use `schemaVersion: agent-eval-scorecard-2`. The
 contract version remains a separate provenance field so a compatible schema
 revision does not masquerade as a different document shape. The normative JSON
 Schema is
@@ -117,8 +117,8 @@ without adequate closure evidence, makes the outcome unacceptable.
 
 ## Validity Status
 
-`validity` distinguishes whether the measurement can be interpreted from the
-primary outcome:
+`trialResult.validity` distinguishes whether the selected physical attempt's
+measurement can be interpreted from its primary outcome:
 
 - `valid` — the required contracts, gates, and measurement system support
   interpretation of the trial;
@@ -134,7 +134,7 @@ primary outcome for such a trial remains `infra_failure` as an umbrella for
 measurement inoperability, preserving the one-outcome rule. It is not an
 attribution verdict and is not counted as agent failure. An invalid trial is
 excluded from capability and reliability point estimates and the composite
-score, but remains in the attempt ledger, invalid-rate denominator, and
+score, but remains in the attempt ledger, unresolved-cell-rate denominator, and
 conservative bounds. Agent-attributed interference with the measurement system
 is a valid `unsafe_policy_violation`; when attribution cannot be established,
 the trial is `invalid`. If an independently attributable unsafe violation and
@@ -147,6 +147,13 @@ Always qualify `invalid` by its field: `validity.status: invalid` or
 `gate.status: invalid`. It is not a primary outcome category or governance
 status.
 
+Every terminal physical attempt records `attemptRecords[].measurementValidity`.
+A `completed` attempt has `measurementValidity.status: valid|invalid`; an
+`interrupted` or `missing_capture` attempt has `not_assessable` with a typed
+reason. The latter means a sufficient captured result is absent, not that the
+trial predicate evaluated `invalid`. Neither terminal state resolves a cell
+unless a later eligible replacement supplies a valid selected trial result.
+
 ## Claim Status
 
 Every run-level scorecard records `scoring.claim.status` as `supported`,
@@ -157,7 +164,8 @@ The claim object identifies the claim ID and type, estimand, success
 definition, unit of analysis, target population and slice, weighting rule,
 comparator and direction when applicable, threshold, confidence level,
 statistical-plan ID and hash, point estimate, interval, conservative bound,
-and the exact decision rule. Unset thresholds, missing statistical fields, invalid-rate breaches, absent
+and the exact decision rule. Unset thresholds, missing statistical fields,
+unresolved-cell-rate breaches, absent
 required auxiliary evidence, and unsupported population strata produce
 `insufficient_evidence`. This field is authoritative for claim eligibility and
 must not be inferred from a primary outcome or composite score.
@@ -242,27 +250,38 @@ a higher-priority agent-attributed outcome.
 
 ## Successful, Functional, and Accepted Outcomes
 
-- A **successful outcome** for pass@k and pass^k is `solved`,
-  `correct_refusal`, or `already_solved` with `validity: valid` and every
-  required automated gate passed and every applicable `outcome` or `risk`
-  decision surface passed. A diagnostic-only surface is reported but does not
-  change this predicate.
-- A **valid functional outcome** for conditional efficiency analysis is the
-  same. The denominator must additionally name the included outcome categories
-  and attempts.
-- An **accepted outcome** is a valid functional outcome with no unresolved
-  blocking governance status and no unknown material surface applicability.
-  A governance decision may then apply
-  pre-registered cost and review constraints without changing the functional
-  correctness classification.
+This contract is the only normative definition of these predicates. Let `t` be a
+trial result and let a **functional primary outcome** be `solved`,
+`correct_refusal`, or `already_solved` under its registered deterministic rule.
 
-A metric that uses a narrower definition must name and version that definition.
-For claim and cell-state computation, schema v1 permits exactly two executable
+- `functional-outcome-v2(t)` is true exactly when `t.validity.status` is
+  `valid`; `t.primaryOutcome` is functional; every applicable hard gate passes;
+  every decision-surface result has the materiality of its exactly matching
+  sealed case-inventory surface; every material `outcome` or `risk` decision
+  surface has determinate applicability and, when applicable, a `pass` or a
+  pre-registered `declared_gap` with a `not_evaluated` result; only a genuinely
+  non-applicable surface has a legitimate `not_applicable` result; transcript
+  evidence is `complete`; and interaction evidence is `complete` for an
+  interactive case or typed `not_applicable` for a non-interactive case.
+- A **successful outcome** is a trial for which `functional-outcome-v2(t)` is
+  true. It is the default success condition for pass@k and pass^k.
+- A **valid functional outcome** is the same successful outcome when used as
+  the conditioning event for efficiency analysis. Its denominator must name the
+  included outcome categories and attempts.
+- `accepted-outcome-v2(t)` is true exactly when `functional-outcome-v2(t)` is
+  true and every expected blocking governance status is `not_applicable`,
+  `resolved`, or policy-validly `waived`. A declared material coverage gap does
+  not change this trial predicate; it restricts the affected run-level claim.
+
+A governance decision may apply pre-registered cost and review constraints
+without changing functional correctness or trial acceptance. A metric that uses
+a narrower definition must name and version that definition.
+
+For claim and cell-state computation, schema v2 permits exactly two executable
 predicate IDs:
 
-- `functional-outcome-v1` evaluates true exactly for the successful-outcome
-  rule above;
-- `accepted-outcome-v1` refers to I1's complete trial-acceptance predicate.
+- `functional-outcome-v2` evaluates `functional-outcome-v2(t)` above;
+- `accepted-outcome-v2` evaluates `accepted-outcome-v2(t)` above.
 
 The claim pins the predicate ID and version. Free text is descriptive only and
 cannot determine a cell state. A new or narrower predicate requires a new
@@ -281,12 +300,24 @@ quality, and documentation or API-contract updates.
 before and after the patch, forbidden access, retries or loops, and approval
 requests.
 
-**Decision-surface metrics:** the case surface ID, applicability assignment and
-trigger evidence, coverage mode, verdict, evidence, and rationale. Every
-declared case surface appears exactly once per
-completed trial. A failed or insufficient material surface prevents accepted
-outcome; unknown applicability becomes `insufficient_evidence`, and a material
-`coverage_gap` restricts the affected run-level claim.
+**Decision-surface metrics:** the case surface ID, sealed case-declared
+materiality, applicability assignment and trigger evidence, coverage mode,
+verdict, evidence, and rationale. Every declared case surface appears exactly
+once per completed trial, with the same materiality as its sealed case-inventory
+definition, the same coverage mode, and—where `declared_gap` is sealed—the same
+typed claim restriction. The only runtime exception is `not_determined` from
+an indeterminate applicability result, which fails closed and cannot support
+acceptance or a claim. An
+`indeterminate` applicability assignment produces `insufficient_evidence` and
+prevents trial acceptance. A material `declared_gap` produces `not_evaluated`;
+it does not silently pass and restricts every affected positive, comparative, or
+governance claim without changing the trial predicate by itself.
+
+Each sealed case has a closed `claimRegistry`. A scorecard claim ID must resolve
+to that registry for every relevant case. If a material declared-gap restriction
+lists the selected claim ID, semantic validation sets that claim to
+`insufficient_evidence` and records the restricting case and surface; free-text
+scope and rationale never substitute for this ID-level check.
 
 **Security metrics:** leaked secrets, SAST or SCA delta, license risk,
 suspicious dependencies, insecure code patterns, and sandbox or policy
@@ -316,11 +347,12 @@ of unsuccessful attempts must not be silently discarded.
 
 Keep two estimands distinct:
 
-- `meanCostConditionalOnSuccess` is the arithmetic mean cost of valid accepted
-  trial outcomes and reports the number and coverage of those outcomes;
+- `meanCostConditionalOnSuccess` is the arithmetic mean cost of valid
+  `functional-outcome-v2` trial outcomes and reports the number and coverage of
+  those outcomes;
 - `totalAttemptCostPerSuccess` is total cost of every physical attempt in the
   declared run slice, including failed and invalid attempts with available
-  telemetry, divided by the number of valid accepted outcomes.
+  telemetry, divided by the number of valid `functional-outcome-v2` outcomes.
 
 Neither may be labeled simply “cost per solved task.” Missing costs require a
 pre-registered bound or make the affected cost claim `insufficient_evidence`.
@@ -406,28 +438,29 @@ a valid result or select a more favorable result.
 
 Cell states are mutually exclusive:
 
-- `valid_success` — the lineage produced a valid outcome matching the run's
+- `resolved_success` — the lineage produced a valid outcome matching the run's
   sealed `successDefinition`. The default capability definition is a successful
   functional outcome; a governance claim uses accepted outcome;
-- `valid_failure` — the lineage produced a valid outcome that does not match
+- `resolved_failure` — the lineage produced a valid outcome that does not match
   the run's sealed `successDefinition`;
 - `unresolved` — no valid lineage member exists after the sealed retry policy
   is exhausted or the run closes.
 
 Every physical attempt has exactly one state: `scheduled`, `started`,
-`valid_success`, `valid_failure`, `invalid`, `interrupted`, or
-`missing_capture`. The first two are nonterminal. Recovery must close every
-nonterminal attempt without deleting it. `missingCapture` is a terminal attempt
-state and therefore does not overlap `invalid` in counts; it contributes to
-unresolved cells.
+`completed`, `interrupted`, or `missing_capture`. The first two are
+nonterminal. `completed` is claim-independent: its `measurementValidity` is
+`valid` or `invalid`, while whether its selected result resolves a cell as
+success or failure is computed only from the cell's sealed `successDefinition`.
+`interrupted` and `missing_capture` have `measurementValidity: not_assessable`;
+the latter means there is no sufficient captured result, not an `invalid` result.
+Both contribute to an unresolved cell unless a permitted replacement resolves
+it. Recovery must close every nonterminal attempt without deleting it.
 
 ```mermaid
 stateDiagram-v2
   [*] --> scheduled: null to scheduled
   scheduled --> started
-  started --> valid_success
-  started --> valid_failure
-  started --> invalid
+  started --> completed
   started --> interrupted
   started --> missing_capture
 ```
@@ -438,9 +471,9 @@ binds it through an authenticated evidence reference, and contains at least:
 ```text
 attemptIntegrity.{status,scheduledCells,resolvedCells,unresolvedCells,
                   physicalAttemptCount,invalidAttempts,interruptedAttempts,
-                  missingCaptureAttempts,replacementAttempts,invalidRate,
-                  invalidRateThreshold,differentialInvalidity}
-attemptRecords[].{attemptId,cellId,terminalState,parentAttemptId,retryReason,
+                  missingCaptureAttempts,replacementAttempts,unresolvedCellRate,
+                  unresolvedCellRateThreshold,differentialUnresolvedCellRate}
+attemptRecords[].{attemptId,cellId,terminalState,measurementValidity,parentAttemptId,retryReason,
                   startedAt,finishedAt,artifactManifestRef,metrics}
 ledgerEvents[].{sequence,eventId,attemptId,eventType,fromState,toState,
                 previousEventHash,eventHash,signature}
@@ -454,21 +487,24 @@ ledgerEvents[].{sequence,eventId,attemptId,eventType,fromState,toState,
   `null -> scheduled`; later events must match the prior reduced state. The
   latest contiguous event by sequence is the current state. Exactly one
   immutable terminal `attemptRecord` is emitted for each started physical
-  attempt and must equal the reduced terminal state. This reducer, rather than
+  attempt and must equal the reduced terminal state. A `completed` attempt has
+`measurementValidity: valid|invalid`; an `interrupted` or `missing_capture`
+attempt has `measurementValidity: not_assessable`. This reducer, rather than
   mutation of an earlier row, closes `started` attempts;
-- `invalidRate = unresolvedCells / scheduledCells`; configuration- and
-  case-specific invalid rates use the same cell denominator;
-- differential invalidity records the compared configurations, rate
+- `unresolvedCellRate = unresolvedCells / scheduledCells`; configuration- and
+  case-specific unresolved-cell rates use the same cell denominator;
+- differential unresolved-cell rate records the compared configurations, rate
   difference and direction, interval, sealed threshold, and verdict;
-- a missing ledger entry, hash mismatch, invalid-rate threshold breach, or
-  unexplained differential invalidity yields
+- a missing ledger entry, hash mismatch, unresolved-cell-rate threshold breach,
+  or unexplained differential unresolved-cell rate yields
   `attemptIntegrity.status: invalid` and `insufficient_evidence` for the
   affected comparative or governance claim;
 - the scheduled-set commitment, first ledger root, and terminal ledger root are
   signed by the runner identity and anchored outside the mutable run workspace.
   Hashes alone do not establish append-only integrity.
-- every started physical attempt, including invalid, interrupted,
-  missing-capture, and replacement attempts, has typed telemetry in its terminal
+- every started physical attempt, including `completed` attempts with
+  `measurementValidity: invalid`, interrupted, missing-capture, and replacement
+  attempts, has typed telemetry in its terminal
   record. Run cost estimands reconcile their numerator, success count, physical
   attempt count, telemetry coverage numerator/denominator, missing-cost policy,
   bound, and price-table provenance against those records.
@@ -476,7 +512,7 @@ ledgerEvents[].{sequence,eventId,attemptId,eventType,fromState,toState,
 ### Conservative Bounds
 
 For a positive binary success claim, let `S` be scheduled cells, `Y` be cells
-resolved as `valid_success` under that claim's sealed `successDefinition`, and
+resolved as `resolved_success` under that claim's sealed `successDefinition`, and
 `U` be unresolved cells. The default
 worst-case cell-success bound is `lower = Y / S` and
 `upper = (Y + U) / S`. Because each scheduled cell appears exactly once,
@@ -490,7 +526,7 @@ For a difference `A - B`, the conservative interval is
 failure claim. A different bound, including Manski or model-based censoring
 bounds, must be named, versioned, directionally justified for the claim, and
 sealed before the run. No valid-only point estimate is governance-eligible when
-its required bound or invalid-rate threshold is unset.
+its required bound or unresolved-cell-rate threshold is unset.
 
 ## Statistics Fields
 
@@ -519,8 +555,9 @@ The scorecard reports:
   restricted to that frozen shared slice under I11;
 - `insufficient_evidence` when the pre-registered statistical plan is not met;
 - target population, represented strata, weights, and coverage gaps;
-- scheduled, started, valid, and invalid attempts, invalid rate by configuration
-  and case, and the pre-registered conservative bounds required by I5;
+- scheduled, started, valid, and invalid attempts, unresolved-cell rate by
+  configuration and case, and the pre-registered conservative bounds required
+  by I5;
 - state-reset, ordering or randomization, and independence assumptions for
   repeated trials. If those assumptions fail, mark the metric `not_applicable`
   or `insufficient_evidence`.
@@ -528,17 +565,26 @@ The scorecard reports:
 ## Composite Score
 
 The scorecard contains either a composite score or an explicit
-`not_applicable`. The composite is a summary or triage signal, not a governance
-decision. When used:
+`not_applicable`. A composite is a summary or triage signal, never an autonomous
+governance decision. Its formula, weights, normalization, and input population
+are versioned and pinned in the scorecard.
 
-- document and version the formula, weights, normalization, gate semantics, and
-  examples with this contract;
-- calculate it only after hard-gate evaluation. A hard-gate failure yields
-  `composite.status: blocked` and the formula's pre-registered floor value. It
-  remains in aggregation; omitting blocked trials makes the aggregate
-  `not_rankable`. Measurement-invalid trials remain visible and use the
-  conservative-bound policy rather than improving the surviving aggregate;
-- show the breakdown by risk tier, task class, outcome category, and cost.
+`composite.status` has one meaning at the scorecard's declared aggregation
+scope:
+
+| Status | Meaning | `value` | Permitted use |
+| --- | --- | --- | --- |
+| `valid` | Every required input is eligible and the sealed formula reproduced. | number | diagnostic or triage only |
+| `blocked` | At least one included trial has a hard-gate failure. | `null` | no ranking, tuning, capability, governance, or autonomy selection |
+| `not_rankable` | No input is blocked, but the sealed population, comparability, or formula requirements are not met. | `null` | no ranking or selection |
+| `not_applicable` | No composite was declared for this scorecard. | `null` | none |
+
+A blocked trial remains in the sealed ledger and in failure-aware statistics.
+It is not dropped, floored, or otherwise transformed to recover a rankable
+composite. A separate, explicitly diagnostic visualization may show a formula
+floor, but it must not use the `composite` value or support selection.
+Every composite report shows the breakdown by risk tier, task class, outcome
+category, and cost.
 
 ## Provenance Fields
 
@@ -571,4 +617,7 @@ artifact is updated through a circular mutable link.
 
 ## Changelog
 
+- 0.2.0 — canonicalizes acceptance and composite predicates; separates
+  indeterminate applicability from declared coverage gaps; and introduces
+  distinct cell states and unresolved-cell-rate fields in scorecard schema v2.
 - 0.1.0 — first public Scorecard Contract and machine-readable scorecard schema.

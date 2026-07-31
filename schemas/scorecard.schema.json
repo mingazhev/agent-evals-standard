@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agent-evals-standard:schema:scorecard:1",
+  "$id": "urn:agent-evals-standard:schema:scorecard:2",
   "title": "Agent evaluation sealed-run scorecard",
   "type": "object",
   "required": [
@@ -14,7 +14,7 @@
     "provenance"
   ],
   "properties": {
-    "schemaVersion": { "const": "agent-eval-scorecard-1" },
+    "schemaVersion": { "const": "agent-eval-scorecard-2" },
     "run": {
       "type": "object",
       "required": [
@@ -216,7 +216,11 @@
         "decisionRule"
       ],
       "properties": {
-        "id": { "type": "string", "minLength": 1 },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Must resolve to a key in each relevant sealed case claimRegistry; semantic validation downgrades this claim when that ID is listed by a material declared-gap restriction."
+        },
         "type": { "enum": ["capability", "comparative", "governance"] },
         "status": { "enum": ["supported", "insufficient_evidence", "not_applicable"] },
         "reasons": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
@@ -246,14 +250,46 @@
         "value": { "type": ["number", "null"] },
         "formula": { "type": ["string", "null"] }
       },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "valid" } }, "required": ["status"] },
+          "then": { "properties": { "value": { "type": "number" }, "formula": { "type": "string", "minLength": 1 } } }
+        },
+        {
+          "if": { "properties": { "status": { "enum": ["blocked", "not_rankable"] } }, "required": ["status"] },
+          "then": { "properties": { "value": { "type": "null" }, "formula": { "type": "string", "minLength": 1 } } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "not_applicable" } }, "required": ["status"] },
+          "then": { "properties": { "value": { "type": "null" }, "formula": { "type": "null" } } }
+        }
+      ],
       "additionalProperties": false
     },
     "successDefinition": {
       "type": "object",
       "required": ["id", "version"],
       "properties": {
-        "id": { "enum": ["functional-outcome-v1", "accepted-outcome-v1"] },
-        "version": { "const": "0.1.0" }
+        "id": { "enum": ["functional-outcome-v2", "accepted-outcome-v2"] },
+        "version": { "const": "0.2.0" }
+      },
+      "additionalProperties": false
+    },
+    "validity": {
+      "type": "object",
+      "required": ["status", "reasons"],
+      "properties": {
+        "status": { "enum": ["valid", "invalid"] },
+        "reasons": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
+      },
+      "additionalProperties": false
+    },
+    "attemptValidity": {
+      "type": "object",
+      "required": ["status", "reasons"],
+      "properties": {
+        "status": { "enum": ["valid", "invalid", "not_assessable"] },
+        "reasons": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
       },
       "additionalProperties": false
     },
@@ -300,20 +336,21 @@
     },
     "cellResult": {
       "type": "object",
-      "required": ["cellId", "configurationId", "repetition", "state", "lineage", "trialResult"],
+      "required": ["cellId", "configurationId", "repetition", "state", "lineage", "resolvedAttemptId", "trialResult"],
       "properties": {
         "cellId": { "type": "string", "minLength": 1 },
         "configurationId": { "type": "string", "minLength": 1 },
         "repetition": { "type": "integer", "minimum": 1 },
-        "state": { "enum": ["valid_success", "valid_failure", "unresolved"] },
+        "state": { "enum": ["resolved_success", "resolved_failure", "unresolved"] },
         "lineage": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "resolvedAttemptId": { "type": ["string", "null"] },
         "trialResult": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/trialResult" }] }
       },
       "allOf": [
         {
           "if": { "properties": { "state": { "const": "unresolved" } }, "required": ["state"] },
-          "then": { "properties": { "trialResult": { "type": "null" } } },
-          "else": { "properties": { "trialResult": { "$ref": "#/$defs/trialResult" } } }
+          "then": { "properties": { "resolvedAttemptId": { "type": "null" }, "trialResult": { "type": "null" } } },
+          "else": { "properties": { "resolvedAttemptId": { "type": "string", "minLength": 1 }, "trialResult": { "$ref": "#/$defs/trialResult" } } }
         }
       ],
       "additionalProperties": false
@@ -323,15 +360,7 @@
       "required": ["attemptId", "validity", "accepted", "primaryOutcome", "failureCauses", "hardGates", "governanceStatuses", "decisionSurfaceResults", "metrics", "artifacts"],
       "properties": {
         "attemptId": { "type": "string", "minLength": 1 },
-        "validity": {
-          "type": "object",
-          "required": ["status", "reasons"],
-          "properties": {
-            "status": { "enum": ["valid", "invalid"] },
-            "reasons": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
-          },
-          "additionalProperties": false
-        },
+        "validity": { "$ref": "#/$defs/validity" },
         "accepted": { "type": "boolean" },
         "primaryOutcome": { "$ref": "#/$defs/primaryOutcome" },
         "failureCauses": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
@@ -362,7 +391,17 @@
               "primaryOutcome": { "enum": ["solved", "correct_refusal", "already_solved"] },
               "hardGates": { "items": { "properties": { "status": { "const": "pass" } } } },
               "governanceStatuses": { "items": { "properties": { "state": { "enum": ["not_applicable", "resolved", "waived"] } } } },
-              "decisionSurfaceResults": { "items": { "properties": { "status": { "enum": ["pass", "not_applicable"] } } } },
+              "decisionSurfaceResults": {
+                "not": {
+                  "contains": {
+                    "allOf": [
+                      { "properties": { "materiality": { "enum": ["outcome", "risk"] } }, "required": ["materiality"] },
+                      { "properties": { "status": { "not": { "enum": ["pass", "not_applicable"] } } }, "required": ["status"] },
+                      { "properties": { "coverage": { "not": { "const": "declared_gap" } } }, "required": ["coverage"] }
+                    ]
+                  }
+                }
+              },
               "metrics": {
                 "properties": {
                   "transcriptEvidence": { "properties": { "status": { "const": "complete" } } },
@@ -371,6 +410,20 @@
               }
             }
           }
+        },
+        {
+          "if": {
+            "properties": {
+              "decisionSurfaceResults": {
+                "contains": {
+                  "properties": { "applicability": { "const": "indeterminate" } },
+                  "required": ["applicability"]
+                }
+              }
+            },
+            "required": ["decisionSurfaceResults"]
+          },
+          "then": { "properties": { "accepted": { "const": false } } }
         },
         {
           "if": {
@@ -413,39 +466,65 @@
     },
     "decisionSurfaceResult": {
       "type": "object",
-      "required": ["surfaceId", "applicability", "assignmentEvidence", "triggerEvidence", "coverage", "status", "evidence", "rationale"],
+      "required": ["surfaceId", "materiality", "applicability", "assignmentEvidence", "triggerEvidence", "coverage", "status", "evidence", "rationale"],
       "properties": {
         "surfaceId": { "type": "string", "minLength": 1 },
-        "applicability": { "enum": ["applicable", "not_applicable", "unknown"] },
+        "materiality": {
+          "enum": ["outcome", "risk", "diagnostic"],
+          "description": "Must equal the materiality on the sealed case decision surface with the same surfaceId; semantic validation resolves the pinned case hash."
+        },
+        "applicability": { "enum": ["applicable", "not_applicable", "indeterminate"] },
         "assignmentEvidence": { "$ref": "#/$defs/artifactRef" },
         "triggerEvidence": { "$ref": "#/$defs/artifactRef" },
-        "coverage": { "enum": ["checked", "covered_by_final_state", "not_applicable", "coverage_gap"] },
-        "status": { "enum": ["pass", "fail", "not_applicable", "insufficient_evidence"] },
+        "coverage": {
+          "enum": ["checked", "covered_by_final_state", "not_applicable", "declared_gap", "not_determined"],
+          "description": "Must equal the coverage of the same-ID sealed case decision surface, except an indeterminate runtime applicability result which fails closed; semantic validation resolves the pinned case hash."
+        },
+        "status": { "enum": ["pass", "fail", "not_applicable", "insufficient_evidence", "not_evaluated"] },
         "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/artifactRef" }, "uniqueItems": true },
-        "rationale": { "type": "string", "minLength": 1 }
+        "rationale": { "type": "string", "minLength": 1 },
+        "claimRestriction": {
+          "type": "object",
+          "description": "Must equal the typed restriction on the same-ID sealed case decision surface when coverage is declared_gap.",
+          "required": ["effect", "affectedClaimIds", "scope", "rationale"],
+          "properties": {
+            "effect": { "const": "insufficient_evidence" },
+            "affectedClaimIds": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+            "scope": { "type": "string", "minLength": 1 },
+            "rationale": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        }
       },
       "allOf": [
         {
-          "if": { "properties": { "applicability": { "const": "unknown" } }, "required": ["applicability"] },
-          "then": {
-            "properties": {
-              "coverage": { "const": "coverage_gap" },
-              "status": { "const": "insufficient_evidence" }
-            }
-          }
+          "if": { "properties": { "applicability": { "const": "indeterminate" } }, "required": ["applicability"] },
+          "then": { "properties": { "coverage": { "const": "not_determined" }, "status": { "const": "insufficient_evidence" } } }
+        },
+        {
+          "if": { "properties": { "coverage": { "const": "not_determined" } }, "required": ["coverage"] },
+          "then": { "properties": { "applicability": { "const": "indeterminate" }, "status": { "const": "insufficient_evidence" } } }
         },
         {
           "if": { "properties": { "applicability": { "const": "not_applicable" } }, "required": ["applicability"] },
+          "then": { "properties": { "coverage": { "const": "not_applicable" }, "status": { "const": "not_applicable" } } }
+        },
+        {
+          "if": { "properties": { "applicability": { "const": "applicable" } }, "required": ["applicability"] },
           "then": {
             "properties": {
-              "coverage": { "const": "not_applicable" },
-              "status": { "const": "not_applicable" }
+              "coverage": { "not": { "const": "not_applicable" } },
+              "status": { "not": { "const": "not_applicable" } }
             }
           }
         },
         {
-          "if": { "properties": { "applicability": { "const": "applicable" } }, "required": ["applicability"] },
-          "then": { "properties": { "coverage": { "not": { "const": "not_applicable" } } } }
+          "if": { "properties": { "coverage": { "const": "declared_gap" } }, "required": ["coverage"] },
+          "then": { "required": ["claimRestriction"], "properties": { "applicability": { "const": "applicable" }, "status": { "const": "not_evaluated" } } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "not_evaluated" } }, "required": ["status"] },
+          "then": { "properties": { "coverage": { "const": "declared_gap" } } }
         }
       ],
       "additionalProperties": false
@@ -575,9 +654,9 @@
         "interruptedAttempts",
         "missingCaptureAttempts",
         "replacementAttempts",
-        "invalidRate",
-        "invalidRateThreshold",
-        "differentialInvalidity",
+        "unresolvedCellRate",
+        "unresolvedCellRateThreshold",
+        "differentialUnresolvedCellRate",
         "attemptRecords",
         "ledgerEvents"
       ],
@@ -595,9 +674,9 @@
         "interruptedAttempts": { "type": "integer", "minimum": 0 },
         "missingCaptureAttempts": { "type": "integer", "minimum": 0 },
         "replacementAttempts": { "type": "integer", "minimum": 0 },
-        "invalidRate": { "type": "number", "minimum": 0, "maximum": 1 },
-        "invalidRateThreshold": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
-        "differentialInvalidity": {
+        "unresolvedCellRate": { "type": "number", "minimum": 0, "maximum": 1 },
+        "unresolvedCellRateThreshold": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "differentialUnresolvedCellRate": {
           "oneOf": [
             { "type": "null" },
             {
@@ -623,11 +702,12 @@
     },
     "attemptRecord": {
       "type": "object",
-      "required": ["attemptId", "cellId", "terminalState", "parentAttemptId", "retryReason", "startedAt", "finishedAt", "artifactManifest", "metrics"],
+      "required": ["attemptId", "cellId", "terminalState", "measurementValidity", "parentAttemptId", "retryReason", "startedAt", "finishedAt", "artifactManifest", "metrics"],
       "properties": {
         "attemptId": { "type": "string", "minLength": 1 },
         "cellId": { "type": "string", "minLength": 1 },
-        "terminalState": { "enum": ["valid_success", "valid_failure", "invalid", "interrupted", "missing_capture"] },
+        "terminalState": { "enum": ["completed", "interrupted", "missing_capture"] },
+        "measurementValidity": { "$ref": "#/$defs/attemptValidity" },
         "parentAttemptId": { "type": ["string", "null"] },
         "retryReason": { "type": ["string", "null"] },
         "startedAt": { "type": "string", "format": "date-time" },
@@ -635,6 +715,16 @@
         "artifactManifest": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/artifactRef" }] },
         "metrics": { "$ref": "#/$defs/trialMetrics" }
       },
+      "allOf": [
+        {
+          "if": { "properties": { "terminalState": { "const": "completed" } }, "required": ["terminalState"] },
+          "then": { "properties": { "measurementValidity": { "properties": { "status": { "enum": ["valid", "invalid"] } } } } }
+        },
+        {
+          "if": { "properties": { "terminalState": { "enum": ["interrupted", "missing_capture"] } }, "required": ["terminalState"] },
+          "then": { "properties": { "measurementValidity": { "properties": { "status": { "const": "not_assessable" } } } } }
+        }
+      ],
       "additionalProperties": false
     },
     "ledgerEvent": {
@@ -649,7 +739,7 @@
           "enum": [null, "scheduled", "started"]
         },
         "toState": {
-          "enum": ["scheduled", "started", "valid_success", "valid_failure", "invalid", "interrupted", "missing_capture"]
+          "enum": ["scheduled", "started", "completed", "interrupted", "missing_capture"]
         },
         "timestamp": { "type": "string", "format": "date-time" },
         "previousEventHash": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/digest" }] },
@@ -856,7 +946,10 @@
       "properties": {
         "status": { "enum": ["supported", "insufficient_evidence"] },
         "reasons": { "type": "array", "items": { "type": "string", "minLength": 1 } },
-        "denominatorPredicate": { "type": "string", "minLength": 1 },
+        "denominatorPredicate": {
+          "const": "functional-outcome-v2",
+          "description": "Both cost estimands use valid functional outcomes as their denominator; total-resource cost still retains every physical attempt in its numerator."
+        },
         "valueUsd": { "type": ["number", "null"], "minimum": 0 },
         "numeratorCostUsd": { "type": ["number", "null"], "minimum": 0 },
         "successCount": { "type": "integer", "minimum": 0 },
@@ -935,8 +1028,8 @@
           "type": "object",
           "required": ["version", "tag", "commit"],
           "properties": {
-            "version": { "const": "0.1.0" },
-            "tag": { "const": "v0.1.0" },
+            "version": { "const": "0.2.0" },
+            "tag": { "const": "v0.2.0" },
             "commit": { "type": "string", "pattern": "^[a-f0-9]{40,64}$" }
           },
           "additionalProperties": false
@@ -948,7 +1041,7 @@
             "scorecard": {
               "allOf": [
                 { "$ref": "#/$defs/component" },
-                { "properties": { "id": { "const": "scorecard-contract" }, "version": { "const": "0.1.0" } } }
+                { "properties": { "id": { "const": "scorecard-contract" }, "version": { "const": "0.2.0" } } }
               ]
             },
             "governancePolicy": { "$ref": "#/$defs/component" },
@@ -956,14 +1049,14 @@
             "case": {
               "allOf": [
                 { "$ref": "#/$defs/component" },
-                { "properties": { "id": { "const": "case-contract" }, "version": { "const": "0.1.0" } } }
+                { "properties": { "id": { "const": "case-contract" }, "version": { "const": "0.2.0" } } }
               ]
             },
             "environment": { "$ref": "#/$defs/component" },
             "semanticValidation": {
               "allOf": [
                 { "$ref": "#/$defs/component" },
-                { "properties": { "id": { "const": "semantic-validation" }, "version": { "const": "semantic-validation-0.1.0" } } }
+                { "properties": { "id": { "const": "semantic-validation" }, "version": { "const": "semantic-validation-0.2.0" } } }
               ]
             }
           },
@@ -986,7 +1079,7 @@
           "required": ["id", "version", "implementationDigest", "resultEvidence"],
           "properties": {
             "id": { "const": "agent-evals-semantic-validator" },
-            "version": { "const": "semantic-validation-0.1.0" },
+            "version": { "const": "semantic-validation-0.2.0" },
             "implementationDigest": { "$ref": "#/$defs/digest" },
             "resultEvidence": { "$ref": "#/$defs/artifactRef" }
           },

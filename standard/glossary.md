@@ -9,13 +9,43 @@ definitions but must not introduce local definitions with different semantics.
 
 ## Terms
 
+- **Golden set** — the private, versioned collection of evaluation cases used by
+  an evaluator. It contains development, held-out, smoke, and frozen-comparison
+  slices as declared by the suite manifest.
 - **Case (task or test case)** — one evaluation task with a pinned snapshot,
   task description, setup and validation procedures, scoring rules, risk tier,
   and owner. `Case` is the local contract name for what evaluation literature
   commonly calls a task or test case.
-- **Trial** — one isolated attempt by one agent configuration to solve one case.
-- **Run** — a set of trials performed against a fixed case-set version with a
-  fixed agent configuration.
+- **Held-out set** — a non-agent-visible suite slice reserved for release,
+  governance, or autonomy evidence. It is not used in tuning, development, or
+  provider training and is governed by I2.
+- **Smoke set** — a small, fast suite slice for harness, prompt, or
+  infrastructure checks. It is not evidence for capability, release, or
+  autonomy claims.
+- **Trial** — the result selected from the retry lineage for one scheduled cell,
+  if a valid lineage member exists; otherwise the cell is unresolved.
+- **Scheduled cell** — one pre-registered case, agent configuration, and
+  repetition slot. It is the statistical sampling unit and is resolved once.
+- **Physical attempt** — one execution in a scheduled cell's retry lineage. It
+  is an accounting unit, never an additional statistical observation.
+- **Run** — a set of scheduled cells performed against a fixed case-set version
+  with a fixed agent configuration.
+- **Validity** — the `valid` or `invalid` interpretation status of a selected
+  trial. A physical attempt instead records `measurementValidity`:
+  `valid`, `invalid`, or `not_assessable` when it was interrupted or its capture
+  is insufficient. These fields answer whether measurement supports
+  attribution, not whether the agent succeeded.
+- **Decision surface** — a pre-registered decision whose correctness is not
+  necessarily implied by the final workspace, such as tool selection, stop or
+  escalation, handoff, or context management. It has materiality,
+  applicability, coverage, evidence, and a verdict.
+- **Indeterminate applicability** — a decision-surface applicability result that
+  cannot be resolved by its pinned verifier. It fails closed as
+  `insufficient_evidence` and prevents trial acceptance.
+- **Declared coverage gap** — an explicit, pre-registered `declared_gap` on an
+  applicable decision surface. It produces `not_evaluated`, never a silent pass,
+  and restricts each affected run-level claim; unlike indeterminate
+  applicability, it does not by itself change the trial predicate.
 - **Agent configuration** — the exact model, agent harness, prompts, tool
   access, budgets, safeguards, and other settings under evaluation.
 - **Grader** — logic that evaluates one aspect of agent performance. A grader
@@ -66,21 +96,25 @@ definitions but must not introduce local definitions with different semantics.
   `security_review_required`.
 - **Composite score** — a summary or triage signal calculated after hard gates;
   it is not an autonomous governance decision.
-- **Accepted outcome** — `solved`, `correct_refusal`, or `already_solved` after
-  all required automated hard gates pass and no unresolved blocking governance
-  status remains.
-- **Valid functional outcome** — a successful outcome with `validity: valid`
-  and all required automated hard gates passed. It is the conditioning event
-  for efficiency analysis. Governance acceptance additionally requires all
-  blocking statuses to be closed and may apply pre-registered cost or review
-  constraints.
+- **Successful outcome** — a trial for which the Scorecard Contract's
+  `functional-outcome-v2` predicate is true. It is the default success event for
+  pass@k and pass^k.
+- **Valid functional outcome** — a successful outcome used as the conditioning
+  event for efficiency analysis; its denominator names included outcome
+  categories and attempts.
+- **Accepted outcome** — a successful outcome for which
+  `accepted-outcome-v2` is true: all expected blocking governance statuses are
+  `not_applicable`, `resolved`, or policy-validly `waived`. This is a trial
+  predicate, not a release or autonomy decision; the full canonical definition
+  is in the Scorecard Contract.
 - **Invalid trial/run** — a trial or run whose result cannot be interpreted as
   agent success or failure because a case contract is violated, a required gate
   lacks backing evidence, oracle isolation is compromised, a trigger state is
   indeterminate, or the measurement system is corrupted.
-- **Attempt ledger** — a runner-owned, append-only record of every scheduled or
-  started attempt, including invalid, interrupted, missing-capture, and
-  replacement attempts, with retry lineage and artifact hashes.
+- **Attempt ledger (ledger)** — the runner-owned, append-only record of every
+  physical attempt and its `scheduled → started → completed|interrupted|missing_capture`
+  lifecycle, including replacements, measurement-validity reasons, retry
+  lineage, typed telemetry, and artifact hashes.
 - **Measurement trust domain** — runner-owned grader execution, commands,
   manifests, result channels, and artifact capture that agent-controlled code
   cannot modify and that remain distinct from agent-authored evidence.
@@ -98,8 +132,9 @@ definitions but must not introduce local definitions with different semantics.
   governance that is not changed retroactively after results are observed.
 - **Lifecycle state** — a case state: `candidate`, `active`, `saturated`,
   `regression`, `quarantined`, or `retired`.
-- **Regression case** — a saturated case moved into a must-pass suite to detect
-  regressions rather than measure capability gains.
+- **Regression case** — a case in lifecycle state `regression`, used to detect
+  regressions under its sealed reliability threshold and case-set membership;
+  it is not automatically a must-pass requirement.
 - **Case QA record** — a case-activation artifact containing evidence for the
   stages in the [Case QA Playbook](case-qa-playbook.md).
 - **Canary marker** — a unique string embedded in case artifacts to detect

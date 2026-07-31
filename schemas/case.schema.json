@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agent-evals-standard:schema:case:1",
+  "$id": "urn:agent-evals-standard:schema:case:2",
   "title": "Conforming agent evaluation case",
   "type": "object",
   "required": [
@@ -24,6 +24,7 @@
     "budgets",
     "validation",
     "decisionSurfaces",
+    "claimRegistry",
     "interactionMode",
     "scoring",
     "artifactPolicy",
@@ -31,7 +32,7 @@
     "ownership"
   ],
   "properties": {
-    "schemaVersion": { "const": "agent-eval-case-1" },
+    "schemaVersion": { "const": "agent-eval-case-2" },
     "caseVersion": { "type": "string", "minLength": 1 },
     "contracts": {
       "type": "object",
@@ -45,13 +46,13 @@
         "semanticValidationVersion"
       ],
       "properties": {
-        "goldenStandardVersion": { "const": "0.1.0" },
-        "scorecardContractVersion": { "const": "0.1.0" },
+        "goldenStandardVersion": { "const": "0.2.0" },
+        "scorecardContractVersion": { "const": "0.2.0" },
         "governancePolicyVersion": { "type": "string", "minLength": 1 },
         "escalationStopMatrixVersion": { "type": "string", "minLength": 1 },
-        "caseContractVersion": { "const": "0.1.0" },
+        "caseContractVersion": { "const": "0.2.0" },
         "environmentContractVersion": { "type": "string", "minLength": 1 },
-        "semanticValidationVersion": { "const": "semantic-validation-0.1.0" }
+        "semanticValidationVersion": { "const": "semantic-validation-0.2.0" }
       },
       "additionalProperties": false
     },
@@ -182,7 +183,9 @@
       "properties": {
         "status": { "enum": ["candidate", "active", "saturated", "regression", "quarantined", "retired"] },
         "activationRecord": { "$ref": "#/$defs/relativePath" },
-        "activationInputHash": { "$ref": "#/$defs/digest" }
+        "activationInputHash": { "$ref": "#/$defs/digest" },
+        "preQuarantineEligibleState": { "enum": ["active", "saturated", "regression"] },
+        "quarantineRecord": { "$ref": "#/$defs/relativePath" }
       },
       "additionalProperties": false
     },
@@ -225,6 +228,11 @@
       "type": "array",
       "minItems": 1,
       "items": { "$ref": "#/$defs/decisionSurface" }
+    },
+    "claimRegistry": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "$ref": "#/$defs/claimDefinition" }
     },
     "scoring": {
       "type": "object",
@@ -302,6 +310,22 @@
       "then": {
         "properties": {
           "lifecycle": { "required": ["activationRecord", "activationInputHash"] }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "lifecycle": {
+            "properties": { "status": { "const": "quarantined" } },
+            "required": ["status"]
+          }
+        },
+        "required": ["lifecycle"]
+      },
+      "then": {
+        "properties": {
+          "lifecycle": { "required": ["preQuarantineEligibleState", "quarantineRecord"] }
         }
       }
     },
@@ -394,6 +418,16 @@
       },
       "additionalProperties": false
     },
+    "claimDefinition": {
+      "type": "object",
+      "required": ["type", "targetPopulation", "scope"],
+      "properties": {
+        "type": { "enum": ["capability", "comparative", "governance"] },
+        "targetPopulation": { "type": "string", "minLength": 1 },
+        "scope": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
     "decisionSurface": {
       "type": "object",
       "required": ["id", "kind", "materiality", "applicabilityRule", "unknownApplicabilityResult", "coverage", "rationale"],
@@ -402,13 +436,24 @@
         "kind": { "enum": ["instruction_following", "functional_output", "tool_selection", "tool_arguments", "stop_or_escalation", "handoff", "context_management", "other"] },
         "materiality": { "enum": ["outcome", "risk", "diagnostic"] },
         "applicabilityRule": { "$ref": "#/$defs/verifiedArtifact" },
-        "unknownApplicabilityResult": { "const": "coverage_gap" },
-        "coverage": { "enum": ["checked", "covered_by_final_state", "not_applicable", "coverage_gap"] },
+        "unknownApplicabilityResult": { "const": "indeterminate" },
+        "coverage": { "enum": ["checked", "covered_by_final_state", "not_applicable", "declared_gap"] },
         "rationale": { "type": "string", "minLength": 1 },
         "checkIds": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
         "validAlternativePaths": { "$ref": "#/$defs/verifiedArtifact" },
         "coverageProof": { "$ref": "#/$defs/verifiedArtifact" },
-        "claimRestriction": { "type": "string", "minLength": 1 }
+        "claimRestriction": {
+          "type": "object",
+          "description": "Every affectedClaimIds entry must name a key in the sealed root claimRegistry; semantic validation resolves the selected scorecard claim against this registry.",
+          "required": ["effect", "affectedClaimIds", "scope", "rationale"],
+          "properties": {
+            "effect": { "const": "insufficient_evidence" },
+            "affectedClaimIds": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+            "scope": { "type": "string", "minLength": 1 },
+            "rationale": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        }
       },
       "allOf": [
         {
@@ -420,7 +465,7 @@
           "then": { "required": ["coverageProof"] }
         },
         {
-          "if": { "properties": { "coverage": { "const": "coverage_gap" } }, "required": ["coverage"] },
+          "if": { "properties": { "coverage": { "const": "declared_gap" } }, "required": ["coverage"] },
           "then": { "required": ["claimRestriction"] }
         }
       ],

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agent-evals-standard:schema:case-qa-record:1",
+  "$id": "urn:agent-evals-standard:schema:case-qa-record:2",
   "title": "Agent eval case QA activation record",
   "type": "object",
   "required": [
@@ -21,7 +21,7 @@
     "recordHash"
   ],
   "properties": {
-    "schemaVersion": { "const": "case-qa-record-1" },
+    "schemaVersion": { "const": "case-qa-record-2" },
     "case": {
       "type": "object",
       "required": ["id", "version", "hash", "fromState", "toState"],
@@ -30,7 +30,8 @@
         "version": { "type": "string", "minLength": 1 },
         "hash": { "$ref": "#/$defs/digest" },
         "fromState": { "enum": ["candidate", "active", "quarantined", "saturated", "regression"] },
-        "toState": { "enum": ["active", "candidate", "quarantined"] }
+        "toState": { "enum": ["active", "candidate", "quarantined", "saturated", "regression"] },
+        "preQuarantineEligibleState": { "enum": ["active", "saturated", "regression"] }
       },
       "additionalProperties": false
     },
@@ -48,15 +49,15 @@
         "semanticValidationVersion"
       ],
       "properties": {
-        "goldenStandardVersion": { "const": "0.1.0" },
-        "scorecardContractVersion": { "const": "0.1.0" },
-        "caseContractVersion": { "const": "0.1.0" },
+        "goldenStandardVersion": { "const": "0.2.0" },
+        "scorecardContractVersion": { "const": "0.2.0" },
+        "caseContractVersion": { "const": "0.2.0" },
         "environmentContractVersion": { "type": "string", "minLength": 1 },
         "governancePolicyVersion": { "type": "string", "minLength": 1 },
         "escalationStopMatrixVersion": { "type": "string", "minLength": 1 },
         "profileVersion": { "type": "string", "minLength": 1 },
         "graderSetHash": { "$ref": "#/$defs/digest" },
-        "semanticValidationVersion": { "const": "semantic-validation-0.1.0" }
+        "semanticValidationVersion": { "const": "semantic-validation-0.2.0" }
       },
       "additionalProperties": true
     },
@@ -130,27 +131,45 @@
         "required": ["surfaceId", "coverage", "status", "applicabilityEvidence", "knownGoodEvidence", "knownBadEvidence"],
         "properties": {
           "surfaceId": { "type": "string", "minLength": 1 },
-          "coverage": { "enum": ["checked", "covered_by_final_state", "not_applicable", "coverage_gap"] },
-          "status": { "enum": ["pass", "breach", "insufficient_evidence", "not_applicable"] },
+          "coverage": {
+            "enum": ["checked", "covered_by_final_state", "not_applicable", "declared_gap", "not_determined"],
+            "description": "For an activated record, must equal the coverage of the same-ID sealed case decision surface; semantic validation resolves case.hash."
+          },
+          "status": { "enum": ["pass", "breach", "insufficient_evidence", "not_applicable", "not_evaluated"] },
           "applicabilityEvidence": { "$ref": "#/$defs/evidence" },
           "knownGoodEvidence": { "$ref": "#/$defs/passingControl" },
           "knownBadEvidence": { "$ref": "#/$defs/failingControl" },
           "alternatePathEvidence": { "$ref": "#/$defs/passingControl" },
           "finalStateCoverageProof": { "$ref": "#/$defs/evidence" },
-          "claimRestriction": { "type": "string", "minLength": 1 }
+          "claimRestriction": {
+            "type": "object",
+            "description": "For an activated record, must equal the typed restriction on the same-ID sealed case decision surface.",
+            "required": ["effect", "affectedClaimIds", "scope", "rationale"],
+            "properties": {
+              "effect": { "const": "insufficient_evidence" },
+              "affectedClaimIds": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+              "scope": { "type": "string", "minLength": 1 },
+              "rationale": { "type": "string", "minLength": 1 }
+            },
+            "additionalProperties": false
+          }
         },
         "allOf": [
           {
             "if": { "properties": { "coverage": { "const": "checked" } }, "required": ["coverage"] },
-            "then": { "required": ["alternatePathEvidence"] }
+            "then": { "required": ["alternatePathEvidence"], "properties": { "status": { "const": "pass" } } }
           },
           {
             "if": { "properties": { "coverage": { "const": "covered_by_final_state" } }, "required": ["coverage"] },
-            "then": { "required": ["finalStateCoverageProof"] }
+            "then": { "required": ["finalStateCoverageProof"], "properties": { "status": { "const": "pass" } } }
           },
           {
-            "if": { "properties": { "coverage": { "const": "coverage_gap" } }, "required": ["coverage"] },
-            "then": { "required": ["claimRestriction"] }
+            "if": { "properties": { "coverage": { "const": "declared_gap" } }, "required": ["coverage"] },
+            "then": { "required": ["claimRestriction"], "properties": { "status": { "const": "not_evaluated" } } }
+          },
+          {
+            "if": { "properties": { "coverage": { "const": "not_determined" } }, "required": ["coverage"] },
+            "then": { "properties": { "status": { "const": "insufficient_evidence" } } }
           },
           {
             "if": { "properties": { "coverage": { "const": "not_applicable" } }, "required": ["coverage"] },
@@ -236,7 +255,7 @@
       "type": "object",
       "required": ["status", "approver", "timestamp", "unresolvedBlockingDefects"],
       "properties": {
-        "status": { "enum": ["activated", "rejected"] },
+        "status": { "enum": ["activated", "rejected", "quarantined"] },
         "approver": { "type": "string", "minLength": 1 },
         "timestamp": { "type": "string", "format": "date-time" },
         "unresolvedBlockingDefects": { "type": "integer", "minimum": 0 }
@@ -301,7 +320,10 @@
       "then": {
         "properties": {
           "case": {
-            "properties": { "toState": { "const": "active" } }
+            "properties": {
+              "fromState": { "enum": ["candidate", "quarantined"] },
+              "toState": { "enum": ["active", "saturated", "regression"] }
+            }
           },
           "stages": {
             "items": {
@@ -326,7 +348,18 @@
             }
           },
           "decisionSurfaceValidation": {
-            "items": { "properties": { "status": { "enum": ["pass", "not_applicable"] } } }
+            "items": {
+              "anyOf": [
+                { "properties": { "status": { "enum": ["pass", "not_applicable"] } }, "required": ["status"] },
+                {
+                  "properties": {
+                    "coverage": { "const": "declared_gap" },
+                    "status": { "const": "not_evaluated" }
+                  },
+                  "required": ["coverage", "status", "claimRestriction"]
+                }
+              ]
+            }
           },
           "modelGraderValidation": {
             "oneOf": [
@@ -392,6 +425,105 @@
           }
         }
       }
+    },
+    {
+      "if": {
+        "properties": {
+          "case": { "properties": { "fromState": { "const": "candidate" } }, "required": ["fromState"] },
+          "decision": { "properties": { "status": { "const": "activated" } }, "required": ["status"] }
+        },
+        "required": ["case", "decision"]
+      },
+      "then": { "properties": { "case": { "properties": { "toState": { "const": "active" } } } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "case": { "properties": { "fromState": { "const": "quarantined" } }, "required": ["fromState"] },
+          "decision": { "properties": { "status": { "const": "activated" } }, "required": ["status"] }
+        },
+        "required": ["case", "decision"]
+      },
+      "then": { "properties": { "case": { "required": ["preQuarantineEligibleState"] } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "case": { "properties": { "fromState": { "const": "quarantined" }, "preQuarantineEligibleState": { "const": "active" } }, "required": ["fromState", "preQuarantineEligibleState"] },
+          "decision": { "properties": { "status": { "const": "activated" } }, "required": ["status"] }
+        },
+        "required": ["case", "decision"]
+      },
+      "then": { "properties": { "case": { "properties": { "toState": { "const": "active" } } } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "case": { "properties": { "fromState": { "const": "quarantined" }, "preQuarantineEligibleState": { "const": "saturated" } }, "required": ["fromState", "preQuarantineEligibleState"] },
+          "decision": { "properties": { "status": { "const": "activated" } }, "required": ["status"] }
+        },
+        "required": ["case", "decision"]
+      },
+      "then": { "properties": { "case": { "properties": { "toState": { "const": "saturated" } } } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "case": { "properties": { "fromState": { "const": "quarantined" }, "preQuarantineEligibleState": { "const": "regression" } }, "required": ["fromState", "preQuarantineEligibleState"] },
+          "decision": { "properties": { "status": { "const": "activated" } }, "required": ["status"] }
+        },
+        "required": ["case", "decision"]
+      },
+      "then": { "properties": { "case": { "properties": { "toState": { "const": "regression" } } } } }
+    },
+    {
+      "if": { "properties": { "case": { "properties": { "fromState": { "const": "quarantined" } }, "required": ["fromState"] } }, "required": ["case"] },
+      "then": { "properties": { "case": { "required": ["preQuarantineEligibleState"] } } }
+    },
+    {
+      "if": { "properties": { "decision": { "properties": { "status": { "const": "rejected" } }, "required": ["status"] } }, "required": ["decision"] },
+      "then": {
+        "properties": {
+          "case": {
+            "properties": {
+              "fromState": { "enum": ["candidate", "quarantined"] },
+              "toState": { "const": "candidate" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "decision": { "properties": { "status": { "const": "quarantined" } }, "required": ["status"] } }, "required": ["decision"] },
+      "then": {
+        "required": ["invalidation"],
+        "properties": {
+          "invalidation": { "type": "object" },
+          "case": {
+            "properties": {
+              "fromState": { "enum": ["active", "saturated", "regression"] },
+              "toState": { "const": "quarantined" }
+            },
+            "required": ["preQuarantineEligibleState"]
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "case": { "properties": { "toState": { "const": "quarantined" } }, "required": ["toState"] } }, "required": ["case"] },
+      "then": { "properties": { "case": { "required": ["preQuarantineEligibleState"], "properties": { "fromState": { "enum": ["active", "saturated", "regression"] } } } } }
+    },
+    {
+      "if": { "properties": { "case": { "properties": { "toState": { "const": "quarantined" }, "fromState": { "const": "active" } }, "required": ["toState", "fromState"] } }, "required": ["case"] },
+      "then": { "properties": { "case": { "properties": { "preQuarantineEligibleState": { "const": "active" } } } } }
+    },
+    {
+      "if": { "properties": { "case": { "properties": { "toState": { "const": "quarantined" }, "fromState": { "const": "saturated" } }, "required": ["toState", "fromState"] } }, "required": ["case"] },
+      "then": { "properties": { "case": { "properties": { "preQuarantineEligibleState": { "const": "saturated" } } } } }
+    },
+    {
+      "if": { "properties": { "case": { "properties": { "toState": { "const": "quarantined" }, "fromState": { "const": "regression" } }, "required": ["toState", "fromState"] } }, "required": ["case"] },
+      "then": { "properties": { "case": { "properties": { "preQuarantineEligibleState": { "const": "regression" } } } } }
     }
   ],
   "additionalProperties": false,

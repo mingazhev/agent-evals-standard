@@ -1,7 +1,7 @@
 # Agent Evals Golden Standard
 
 - Status: current
-- Standard version: 0.1.0
+- Standard version: 0.2.0
 - Purpose: the authoritative, implementation-independent standard for evaluating
   software-development lifecycle (SDLC) agents.
 
@@ -75,26 +75,14 @@ once; all later sections and child documents refer to them by identifier.
 
 ### I1. Acceptance is non-compensable
 
-An accepted outcome requires all of the following:
-
-- `validity: valid`;
-- a `solved`, `correct_refusal`, or `already_solved` primary outcome under its
-  registered deterministic rule;
-- every automated hard gate required by the baseline, risk-tier, profile, case,
-  and sealed post-diff applicability rules to be backed and passed;
-- every applicable `outcome` or `risk` decision surface to pass with known
-  applicability;
-- every expected blocking governance status to be `not_applicable`, `resolved`,
-  or policy-validly `waived`;
-- complete append-only pre-transform transcript evidence; and
-- complete interaction evidence for an interactive case, or a typed
-  `not_applicable` interaction state otherwise.
-
-This predicate is **trial acceptance** only. Run claim eligibility additionally
-requires I5, I6, and the sealed statistical plan; governance approval is a later
-decision under the adopter-owned policy. Quality, efficiency, cost, and a
-composite score cannot compensate for an acceptance, security, or policy
-boundary violation.
+Trial acceptance is defined exclusively by the versioned
+`accepted-outcome-v2` predicate in the
+[Scorecard Contract](scorecard-contract.md#successful-functional-and-accepted-outcomes).
+It is a trial predicate only. Run claim eligibility additionally requires I5,
+I6, and the sealed statistical plan; governance approval is a later decision
+under the adopter-owned policy. Quality, efficiency, cost, and a composite
+score cannot compensate for a failed condition in that predicate, a security
+violation, or a policy boundary violation.
 
 ### I2. Lifecycle-wide oracle isolation
 
@@ -141,8 +129,9 @@ independent, and the statistical plan must model or bound the dependence.
 The environment, tool policy, allowed context, agent configuration, and
 measurement stack are part of the evaluation identity. Machine-readable
 contracts are versioned, the complete manifest of identity-critical artifacts is
-content-hashed, and the deterministic baseline is periodically reconstructed in
-a clean environment.
+content-hashed, and the deterministic baseline is reconstructed in a clean
+environment at the cadence and on the event triggers pinned by the adopter
+policy's measurement-maintenance schedule.
 
 ### I5. Attribution and complete attempt accounting
 
@@ -152,10 +141,11 @@ missing-capture attempts—must appear in a runner-owned append-only ledger.
 Every replacement or retry links to the original attempt.
 
 Invalid attempts must not be silently removed from attempt accounting or
-eligibility decisions; any valid-only estimate is accompanied by the invalid
-rate and the pre-registered conservative bound defined in the Scorecard
-Contract. A pre-registered invalid-rate or differential-invalidity threshold
-breach yields `insufficient_evidence` for the affected claim.
+eligibility decisions; any valid-only estimate is accompanied by the
+unresolved-cell rate and the pre-registered conservative bound defined in the
+Scorecard Contract. A pre-registered unresolved-cell-rate or differential
+unresolved-cell-rate threshold breach yields `insufficient_evidence` for the
+affected claim.
 
 ### I6. Claims are bounded by evidence
 
@@ -234,7 +224,8 @@ re-QA completes.
 
 Grader false-positive and false-negative rates are estimated under a versioned
 validation protocol with uncertainty and thresholds. Suite health is evaluated
-regularly; a threshold breach blocks affected claims.
+at the adopter policy's pinned cadence and event triggers; a threshold breach
+blocks affected claims.
 
 ### I13. Trusted measurement boundary
 
@@ -262,7 +253,7 @@ sections need not be read linearly:
   then the [Governance Policy](governance-policy.md);
 - platform engineers: [Execution Requirements](#execution-requirements), then
   the contracts and profile documentation listed in the
-  [documentation map](../README.md).
+  [Normative artifacts](../README.md#normative-artifacts).
 
 ## Case Lifecycle Requirements
 
@@ -281,13 +272,14 @@ stateDiagram-v2
   saturated --> regression
   regression --> retired
 
-  candidate --> quarantined
   active --> quarantined
   saturated --> quarantined
   regression --> quarantined
 
+  quarantined --> candidate
   quarantined --> active
-  quarantined --> retired
+  quarantined --> saturated
+  quarantined --> regression
 ```
 
 - `candidate` — prepared but not activated; excluded from reporting;
@@ -297,8 +289,15 @@ stateDiagram-v2
 - `regression` — a mutually exclusive lifecycle state for monitoring with a
   pre-registered reliability threshold and breach response;
 - `quarantined` — excluded from agent-failure aggregation until repaired,
-  retired, or migrated under a documented process;
+  or handled by a separately documented retirement or migration process;
 - `retired` — removed while preserving historical records.
+
+**Transition rules.** A failed activation or re-QA returns the case to
+`candidate`. A successful re-QA returns a quarantined case to its recorded
+pre-quarantine eligible state (`active`, `saturated`, or `regression`); it must
+not silently discard the prior suite role. A later pre-registered saturation or
+regression rule may then move the case under the normal lifecycle transitions.
+
 - The saturation policy defines the criterion in advance using a reliability
   estimand, minimum evidence requirement, and uncertainty threshold—for
   example, a lower confidence bound on pass^k above a stated threshold for
@@ -403,22 +402,26 @@ allow more than one correct solution.
 
 ### Conditional Decision-Surface Coverage
 
-Every case MUST inventory the material decisions whose correctness is not
-necessarily implied by the final workspace: instruction following, tool and
-argument selection, stop or escalation, handoff, context management, and any
-profile-specific decision that can change outcome or risk. Each surface is
-typed as `outcome`, `risk`, or `diagnostic`, binds a deterministic
-applicability rule with a versioned schema and verifier, and is classified as `checked`, `covered_by_final_state`,
-`not_applicable`, or `coverage_gap`. Unknown applicability fails closed as a
-coverage gap.
+Every case MUST inventory each material decision whose correctness is not
+necessarily implied by the final workspace. The inventory includes instruction
+following, tool and argument selection, stop or escalation, handoff, context
+management, and any profile-specific decision that can change outcome or risk.
+For every surface, the case records:
 
-A `checked` surface binds executable checks and verifier-backed evidence that all declared
-valid alternative paths can pass; a grader MUST NOT require the reference
-trajectory. `covered_by_final_state` requires a proof that no materially wrong
-decision on that surface can produce an accepted final state. A material
-`coverage_gap` is explicit and restricts the affected claim; it cannot be
-silently treated as success. Case QA validates the inventory with known-good,
-known-bad, and alternative-path controls before activation.
+| Field | Required meaning |
+| --- | --- |
+| Materiality | `outcome`, `risk`, or `diagnostic`. |
+| Applicability | A deterministic, versioned rule and verifier. `indeterminate` applicability fails closed and prevents trial acceptance. |
+| Coverage | `checked`, `covered_by_final_state`, `not_applicable`, or an explicit `declared_gap`. Only an applicable surface can have a declared gap. |
+| Claim effect | A material declared gap restricts the affected run-level claim but is not silently treated as a passing check. |
+
+A `checked` surface binds executable checks and verifier-backed evidence that all
+declared valid alternative paths can pass; a grader MUST NOT require the
+reference trajectory. `covered_by_final_state` requires a proof that no
+materially wrong decision on that surface can produce an accepted final state.
+Case QA validates the inventory with known-good, known-bad, and alternative-path
+controls before activation. The concrete result algebra is defined by the
+[Scorecard Contract](scorecard-contract.md#metric-families).
 
 **Related rules.** I2, I3, and I12 define oracle, pre-registration, and check
 quality requirements. The normative machine-readable shape is
@@ -458,22 +461,26 @@ the suite explicitly instead of accumulating as hidden noise.
 
 **Requirements.** The maintenance loop includes:
 
-- production revert -> new evaluation case or stronger existing case;
-- escaped defect -> hidden regression case;
-- security incident -> adversarial or security case;
-- repeated review rejection -> rubric or profile-grader update;
-- flaky infrastructure failure -> quarantine until stable;
-- obsolete dependency or setup -> case review;
-- recurring false positive or false negative -> scoring-rule and Case QA
-  review;
-- suspected held-out-set leakage -> case rotation and update.
+| Signal | Required update |
+| --- | --- |
+| production revert | new evaluation case or stronger existing case |
+| escaped defect | hidden regression case |
+| security incident | adversarial or security case |
+| repeated review rejection | rubric or profile-grader update |
+| flaky infrastructure failure | quarantine until stable |
+| obsolete dependency or setup | case review |
+| recurring false positive or false negative | scoring-rule and Case QA review |
+| suspected held-out-set leakage | case rotation and update |
+
+Enforcement rules:
+
 - Enforce the I12 quarantine transition in the same atomic operation that
   invalidates the QA record; use the Case QA Playbook for reactivation.
 - If the reference or baseline unexpectedly fails because of infrastructure,
   dependency drift, or an obsolete oracle, quarantine the case automatically
   and do not count the event as agent failure.
-- Define review SLAs by risk tier. Stale or repeatedly flaky cases must not
-  remain silently active.
+- The adopter policy's measurement-maintenance schedule defines review SLAs by
+  risk tier. Stale or repeatedly flaky cases must not remain silently active.
 - Changes to checks, environment, or graders; FP/FN signals; contamination; and
   saturation review invalidate the QA record and trigger the applicable re-QA
   stages.
@@ -659,17 +666,10 @@ into the run-level scorecard. Aggregation is a run step, not part of a trial.
 - An externally evidenced failure of checkout, bootstrap, registry, sandbox,
   grader, hidden-test harness, artifact capture, infrastructure quota, or an
   external dependency is an infrastructure failure, not an agent failure.
-- Agent-attributed interference with graders, logs, or artifact capture yields
-  `unsafe_policy_violation`. When attribution cannot be established, use
-  `validity: invalid`; the primary outcome must not be interpreted as agent
-  success or failure. Under Scorecard Contract schema v1, its required primary
-  outcome is the `infra_failure` umbrella while validity remains authoritative.
-- An invalid or missing-capture attempt remains present after a retry. The
-  run-level scorecard records scheduled, started, completed, invalid, and
-  replacement counts, invalid rate, and retry lineage (I5).
-- Store the primary outcome separately from non-exclusive failure causes. Do not
-  lose infrastructure causes during aggregation even when an agent-attributed
-  outcome has higher priority.
+- Apply the Scorecard Contract's attribution, validity, terminal-attempt, and
+  failure-cause rules. An invalid or missing-capture attempt remains present
+  after a retry; the scorecard records its lineage, attempt counts, and
+  unresolved-cell rate (I5).
 
 **Related rules.** I2, I5, and I13 define oracle isolation, attribution, and
 untrusted-output handling. This protocol remains normative until superseded by
@@ -718,13 +718,10 @@ diagnostic causes, governance blockers, or provenance.
   per-metric and per-trial results, applicable pass@k and pass^k/reliability@k
   with confidence intervals, cost and time, provenance, and links to artifacts,
   Case QA records, and the governance decision record.
-- A composite score is optional and supports only diagnostics after hard
-  gates. A hard-gate failure marks the trial composite `blocked`; any composite
-  aggregate containing it is non-rankable for capability, tuning, governance,
-  or autonomy decisions. This does not invalidate failure-aware pass rates,
-  pass@k/pass^k, uncertainty, or other non-compensating capability statistics,
-  which retain the failed trial. A separately named diagnostic visualization
-  may show a floor value but carries no selection or acceptance meaning.
+- Composite status and aggregation are defined exclusively by the
+  [Scorecard Contract](scorecard-contract.md#composite-score). A composite
+  cannot compensate for a hard-gate failure or be used as an autonomous
+  governance decision.
 
 **Related rules.** I1 and I4 define non-compensation and reproducibility. The
 versioned [Scorecard Contract](scorecard-contract.md) defines categories,
@@ -750,7 +747,8 @@ stochastic trials rather than a single lucky success.
   sample or power rule, handling of ambiguous, quarantined, and invalid
   attempts, retry policy, state reset, randomization or blocking, independence
   assumptions, and `insufficient_evidence` when the plan is not met.
-- Name the target population, represented strata, weighting, and coverage gaps.
+- Name the target population, represented strata, weighting, and declared
+  coverage gaps.
   Unsupported strata do not inherit the aggregate claim.
 
 **Related rules.** I3 and I6 define pre-registration and evidence sufficiency.
@@ -820,8 +818,9 @@ new failure modes that aggregate metrics cannot reveal.
 - Maintain a versioned failure-mode taxonomy. Convert findings into case defects
   under the [Case QA Playbook](case-qa-playbook.md), new cases, or grader
   changes.
-- Regularly audit grader false positives and false negatives and include the
-  results in suite-health reporting.
+- Audit grader false positives and false negatives at the adopter policy's
+  pinned measurement-maintenance cadence and include the results in suite-health
+  reporting.
 
 **Related rules.** The [Governance Policy template](governance-policy.md)
 requires the adopter policy instance to define the minimum governance quota;
@@ -847,11 +846,8 @@ pre-registered, auditable, and reversible when a high-risk signal appears.
   risks and mitigations; approvers; accountable risk owner; false-positive and
   false-negative owners; overrides; and next review date.
 - Preserve the original finding for every triggered blocking governance status
-  and track it as `open`, `resolved`, or `waived`; record untriggered expected
-  statuses as `not_applicable`. A terminal state requires a
-  disposition, authorized resolver, timestamp, and evidence. A waiver is valid
-  only when the adopter policy instance explicitly permits it for the status
-  and risk tier. Record the policy reference and named authority for any waiver.
+  and track it under the versioned Governance Status Registry in the
+  [Scorecard Contract](scorecard-contract.md#blocking-governance-status-registry).
 - The escalation and stop matrix covers hard-gate regression, untriaged high or
   critical security findings, held-out leakage, escaped high or critical
   defects, repeated review rejection, stale suites, FP/FN threshold breaches,
@@ -920,10 +916,13 @@ agent-visible projection under I2 is not such a submission. The
 real-company-work sourcing requirement excludes
 crowdsourced tasks from the primary golden set. Public leaderboards are omitted
 because they incentivize repeated adaptation to the held-out set. External
-methodologies become local requirements only when they change a local rule.
+methodologies become case- or adopter-specific requirements only when they are
+explicitly adopted into a versioned rule.
 The sources that informed this release are listed in
 [Informative References](references.md).
 
 ## Changelog
 
+- 0.2.0 — resolves predicate, aggregation, attempt-state, decision-surface,
+  assurance-retention, escalation-lineage, and schema-version contradictions.
 - 0.1.0 (2026-07-22) — first public version of the complete normative standard.

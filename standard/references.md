@@ -1,7 +1,7 @@
 # Informative References
 
-These sources informed local requirements. They are not normative by themselves
-and do not transfer their benchmark-specific rules into this standard.
+These sources informed versioned rules in this standard. They are not normative
+by themselves and do not transfer benchmark-specific rules into this standard.
 
 - [Introducing SWE-bench Verified](https://openai.com/index/introducing-swe-bench-verified/) — professional annotation, task feasibility, and test-specification review.
 - [Why SWE-bench Verified no longer measures frontier coding capabilities](https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/) — contamination and defective-task risks in a saturated benchmark.

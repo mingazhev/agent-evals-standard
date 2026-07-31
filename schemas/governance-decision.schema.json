@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agent-evals-standard:schema:governance-decision:1",
+  "$id": "urn:agent-evals-standard:schema:governance-decision:2",
   "title": "Governance decision record",
   "type": "object",
   "required": [
@@ -24,7 +24,7 @@
     "signature"
   ],
   "properties": {
-    "schemaVersion": { "const": "agent-eval-governance-decision-1" },
+    "schemaVersion": { "const": "agent-eval-governance-decision-2" },
     "decisionId": { "type": "string", "minLength": 1 },
     "decisionType": { "enum": ["autonomy", "release", "risk_acceptance"] },
     "verdict": { "enum": ["approve", "reject", "insufficient_evidence"] },
@@ -97,6 +97,10 @@
         "required": ["postDecisionAssurancePlan"],
         "properties": { "conditionTrace": { "items": { "properties": { "verdict": { "const": "pass" } } } } }
       }
+    },
+    {
+      "if": { "properties": { "verdict": { "enum": ["reject", "insufficient_evidence"] } }, "required": ["verdict"] },
+      "then": { "not": { "required": ["postDecisionAssurancePlan"] } }
     }
   ],
   "additionalProperties": false,
@@ -135,7 +139,7 @@
     },
     "assurancePlan": {
       "type": "object",
-      "required": ["artifact", "version", "approval", "triggers", "productionSignals", "samplingSchedule", "owner", "sla", "missingEvidenceEffect"],
+      "required": ["artifact", "version", "approval", "triggers", "productionSignals", "samplingSchedule", "evidenceRetention", "owner", "sla", "missingEvidenceEffect"],
       "properties": {
         "artifact": { "$ref": "#/$defs/artifact" },
         "version": { "type": "string", "minLength": 1 },
@@ -186,10 +190,26 @@
           },
           "additionalProperties": false
         },
+        "evidenceRetention": { "$ref": "#/$defs/verifiedArtifact" },
         "owner": { "$ref": "#/$defs/actor" },
         "sla": { "type": "string", "minLength": 1 },
         "missingEvidenceEffect": { "const": "suspend" }
       },
+      "allOf": [
+        { "properties": { "triggers": { "contains": { "properties": { "trigger": { "const": "model" } }, "required": ["trigger"] }, "minContains": 1, "maxContains": 1 } } },
+        { "properties": { "triggers": { "contains": { "properties": { "trigger": { "const": "agent_configuration" } }, "required": ["trigger"] }, "minContains": 1, "maxContains": 1 } } },
+        { "properties": { "triggers": { "contains": { "properties": { "trigger": { "const": "prompt" } }, "required": ["trigger"] }, "minContains": 1, "maxContains": 1 } } },
+        { "properties": { "triggers": { "contains": { "properties": { "trigger": { "const": "harness" } }, "required": ["trigger"] }, "minContains": 1, "maxContains": 1 } } },
+        { "properties": { "triggers": { "contains": { "properties": { "trigger": { "const": "adapter" } }, "required": ["trigger"] }, "minContains": 1, "maxContains": 1 } } },
+        { "properties": { "triggers": { "contains": { "properties": { "trigger": { "const": "tool_schema" } }, "required": ["trigger"] }, "minContains": 1, "maxContains": 1 } } },
+        { "properties": { "triggers": { "contains": { "properties": { "trigger": { "const": "tool_implementation" } }, "required": ["trigger"] }, "minContains": 1, "maxContains": 1 } } },
+        { "properties": { "triggers": { "contains": { "properties": { "trigger": { "const": "permissions" } }, "required": ["trigger"] }, "minContains": 1, "maxContains": 1 } } },
+        { "properties": { "triggers": { "contains": { "properties": { "trigger": { "const": "environment" } }, "required": ["trigger"] }, "minContains": 1, "maxContains": 1 } } },
+        { "properties": { "triggers": { "contains": { "properties": { "trigger": { "const": "profile" } }, "required": ["trigger"] }, "minContains": 1, "maxContains": 1 } } },
+        { "properties": { "triggers": { "contains": { "properties": { "trigger": { "const": "grader" } }, "required": ["trigger"] }, "minContains": 1, "maxContains": 1 } } },
+        { "properties": { "triggers": { "contains": { "properties": { "trigger": { "const": "retrieval" } }, "required": ["trigger"] }, "minContains": 1, "maxContains": 1 } } },
+        { "properties": { "triggers": { "contains": { "properties": { "trigger": { "const": "application_scope" } }, "required": ["trigger"] }, "minContains": 1, "maxContains": 1 } } }
+      ],
       "additionalProperties": false
     },
     "assuranceTrigger": {

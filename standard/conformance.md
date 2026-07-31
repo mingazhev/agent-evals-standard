@@ -1,12 +1,16 @@
 # Conformance Contract
 
 - Status: current
-- Golden Standard version: 0.1.0
+- Golden Standard version: 0.2.0
 - Purpose: define what a public conformance claim means.
 
 The key words **MUST**, **MUST NOT**, **REQUIRED**, **SHOULD**, **SHOULD NOT**,
-and **MAY** are interpreted as described by RFC 2119 and RFC 8174 when written
-in uppercase.
+and **MAY** are interpreted as described by RFC 2119 and RFC 8174. In this
+standard's normative Markdown artifacts, their lowercase equivalents carry the
+same meanings when they introduce a requirement; capitalization is not a
+strength distinction. Sections explicitly labeled `Informative`, examples, and
+quoted external sources use these words in their ordinary English sense unless
+they explicitly say otherwise.
 
 ## Conformance targets
 
@@ -42,7 +46,11 @@ A public conformance statement MUST contain:
   resulting claim restriction;
 - for decision/full claims, the decision-record, approval-envelope, policy, and
   matrix hashes, effective timestamp, review timestamp, and expiry timestamp;
-  a positive approval also includes its post-decision assurance-plan reference;
+  the envelope declares the resolved decision verdict and semantic validation
+  checks it against the signed decision record;
+- a positive approval—and only a positive approval—also includes its
+  post-decision assurance-plan reference, which resolves through the statement
+  evidence manifest;
 - a resolvable issuer identity and signature over the RFC 8785 canonical
   statement, with the signature field omitted.
 
