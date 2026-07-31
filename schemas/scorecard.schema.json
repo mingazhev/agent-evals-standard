@@ -256,8 +256,12 @@
           "then": { "properties": { "value": { "type": "number" }, "formula": { "type": "string", "minLength": 1 } } }
         },
         {
-          "if": { "properties": { "status": { "enum": ["blocked", "not_rankable", "not_applicable"] } }, "required": ["status"] },
-          "then": { "properties": { "value": { "type": "null" } } }
+          "if": { "properties": { "status": { "enum": ["blocked", "not_rankable"] } }, "required": ["status"] },
+          "then": { "properties": { "value": { "type": "null" }, "formula": { "type": "string", "minLength": 1 } } }
+        },
+        {
+          "if": { "properties": { "status": { "const": "not_applicable" } }, "required": ["status"] },
+          "then": { "properties": { "value": { "type": "null" }, "formula": { "type": "null" } } }
         }
       ],
       "additionalProperties": false
