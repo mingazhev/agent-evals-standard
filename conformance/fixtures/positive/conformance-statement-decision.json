@@ -10,8 +10,8 @@
     "id": "standard-contract-manifest",
     "version": "0.1.0",
     "uri": "contract-manifest.json",
-    "digest": "sha256:11b83fb67ccaf60e014d91f34990e857703ae5c9c3e2bdcc4d1683281791ad22",
-    "entriesDigest": "sha256:2622f0a5f167601a98de714d11af467860f3e5b3a3ee8f9c3b6830b7ba80ad6c"
+    "digest": "sha256:ae3eee23adb340d8852fb8eadddf75c5e955515604293b2d9c7bd371a9ff9f28",
+    "entriesDigest": "sha256:d1aaa2bd12dc09de0a4031a881bcdc121104a2e6c741b20cac91ea0f1774ef0a"
   },
   "schemas": {
     "id": "standard-schema-manifest",
@@ -821,6 +821,6 @@
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:27Z",
-    "value": "3c28AmL8-skNDTd_t_sSDszP6SZhj8aRxrtkqPmgLoF-bJIPSblb7fFwhEDvFRG-9hb72Jfe_wkFrhuYslnnBg"
+    "value": "6oxKnfXCVa0Z4qT1wE3-mVb2WxtM0R1UT3HIdvOPuvFtlJGO5axxq_g9B6ir2TGRzMG3tVLrodgyujCUgdtTBQ"
   }
 }
