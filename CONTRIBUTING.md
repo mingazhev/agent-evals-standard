@@ -27,7 +27,8 @@ Run the local checks before opening a pull request:
 
 - `npm ci` — install the pinned toolchain;
 - `npm run check` — repository consistency: schema well-formedness, `$ref`
-  resolution, generated-artifact freshness, and cross-document links;
+  resolution, and cross-document links;
+- `npm run check:generated` — generated-artifact freshness and idempotence;
 - `npm test` — the full corpus of conformance fixtures, vectors, and verifier
   tools, including schema validation of every fixture.
 

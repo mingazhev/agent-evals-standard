@@ -1,6 +1,7 @@
 # Adoption Guide
 
-- Status: current
+- Status: unpublished 0.1.0 publication candidate
+- Version: 0.1.0
 - Purpose: the shortest route from “nothing” to a draft-conforming case, run,
   scorecard, and conformance claim. It does not weaken any normative
   requirement; it only orders and stages them.
@@ -40,9 +41,9 @@ The repository validates itself with Node tooling:
 
 ```bash
 npm ci
-npm run check        # repository consistency: schemas, generated artifacts, links
-npm test             # full corpus: fixtures, vectors, and verifier tools
-npm run release:check  # pre-publication gate (freshness + tests + evidence readiness)
+npm run check          # repository consistency: schemas, $ref resolution, links
+npm test               # full corpus: fixtures, vectors, and verifier tools
+npm run release:check  # pre-publication gate (check:generated + tests + evidence readiness)
 ```
 
 Machine-verifiable expectations are captured as positive and negative
@@ -61,8 +62,8 @@ Saying “based on” the standard is not a conformance claim.
 
 ### 2. Author a case
 
-Read [Case Lifecycle Requirements](standard.md#case-lifecycle-requirements)
-and the [Case Authoring requirements](requirements.md) in the Golden Standard,
+Read the [Case Lifecycle Requirements](standard.md#case-lifecycle-requirements)
+and the [Authoring requirements](standard.md#authoring) in the core standard,
 then produce a `case.json` that satisfies
 [`schemas/case.schema.json`](../schemas/case.schema.json).
 
@@ -93,21 +94,25 @@ stages and record the result in a `case-qa-record.json`
 
 The minimum evidence for activation is: the reference solution passes a
 runner-owned control run; a known-bad control fails; policy gates have
-positive controls; no trivial strategy succeeds; at least one non-reference
-solution passes hidden checks; FP/FN validation passes; and no blocking defect
-is open. The semantic validator checks the record before the case loader
-permits `active`; the record cannot be deferred.
+positive controls; no trivial strategy succeeds; at least one independently
+produced non-reference solution passes the applicable checks (Stage 7, with a
+typed `not_applicable` alternative-solution record only under the
+authenticated singleton-validity path); grader FP/FN validation passes when a
+model grader is enabled (a typed `not_applicable` reason otherwise); and no
+blocking defect is open. The semantic validator checks the record before the
+case loader permits `active`; the record cannot be deferred.
 
 ### 4. Run and emit a scorecard
 
-One run = one sealed case set + one agent configuration + one scorecard
+One run = one sealed experiment with one or more arms + one scorecard
 ([`schemas/scorecard.schema.json`](../schemas/scorecard.schema.json)).
 
 Before the first trial, seal the pre-run manifest, the statistical plan, the
 risk assessment, and the scheduled-cell commitment. After the run, the
-scorecard must show, in order: validity, hard-gate and governance statuses;
-claims and claim results; per-case results; metrics and cost; provenance.
-Schema validation is necessary but not sufficient: the
+scorecard must show, in order: experiment identity, arms, and cells; validity,
+hard-gate and governance statuses; one trial result for each resolved cell;
+claims and claim results; metrics, cost, and provenance. Schema validation is
+necessary but not sufficient: the
 [Integrity and Semantic Validation Contract](integrity-and-semantic-validation.md)
 recomputes hashes, formulas, ledger continuity, verdict implications, and
 outcome replay for claim-bearing cells.
@@ -122,13 +127,24 @@ Publish a signed statement
 ([`schemas/conformance-statement.schema.json`](../schemas/conformance-statement.schema.json))
 that names the version and commit pins, the targets it covers, typed evidence
 locations and hashes, deviations with claim restrictions, and the issuer
-identity. An unsigned statement is an unauthenticated self-assertion.
+identity. Every target record must also contain the closed
+requirement-coverage matrix required by `CONF-002`: exactly the requirements
+whose authenticated [requirement-registry](requirement-registry.json) entry
+includes the claimed target, each with a signed
+`conformance-applicability-contract-1` whose rule predicate binds the digest of
+that registry entry.
 
-You can claim `case`, `evaluator`, or `run` conformance independently.
-`evaluator` additionally requires the implementation to enforce the invariant,
-gate, evidence, and trust-boundary requirements registered for the evaluator
-target; `run` additionally requires a schema-valid scorecard and complete
-evidence ledger.
+A conforming claim is the signed statement plus a separate signed
+`validation-envelope-1` whose subject digest equals the statement digest; an
+unsigned statement or a missing envelope is an unauthenticated assertion, not
+conformance.
+
+You can claim `suite`, `case`, `evaluator`, `experiment`, or `decision`
+conformance independently. `evaluator` additionally requires the implementation
+to enforce the invariant, gate, evidence, and trust-boundary requirements
+registered for the evaluator target; `experiment` additionally requires a
+conforming suite and cases, a conforming evaluator, and an immutable scorecard
+with authenticated ledgers.
 
 ## Governance path (decisions)
 
@@ -177,9 +193,11 @@ approval.
 - **Evidence bounds claims (I6).** Positive, comparative, and governance claims
   are limited to the pre-declared target population, strata, and statistical
   plan; `insufficient_evidence` is a verdict, not a failure.
-- **Evidence fits the construct (I9).** Claims are limited to the capability
-  families and work-artifact types actually measured; incidental actions add
-  no capability.
+- **Evidence fits the construct (I9).** Correctness and quality must use the
+  strongest evidence that directly measures the declared construct;
+  deterministic verification is required when the outcome is objectively
+  executable or mechanically inspectable, and model-based grading cannot be the
+  sole evidence for a hard safety gate or deterministic fact.
 
 ## What the standard deliberately does not do
 

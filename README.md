@@ -165,8 +165,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 The repository validates itself. Machine-verifiable expectations are captured
 as positive and negative [conformance fixtures](conformance/fixtures/) and
 checked by `npm test`, which runs every verifier tool in `tools/` and every
-profile test. `npm run check` verifies repository consistency (schemas,
-`$ref` resolution, generated-artifact freshness, cross-document links), and
+profile test. `npm run check` verifies repository consistency (schema
+well-formedness, `$ref` resolution, cross-document links);
+`npm run check:generated` verifies generated-artifact freshness; and
 `npm run release:check` adds evidence-readiness and cleanliness checks for the
 publication candidate. The same checks run in CI on every pull request, on
 `main`, and on version tags.

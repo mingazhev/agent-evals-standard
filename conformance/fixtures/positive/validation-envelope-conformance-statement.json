@@ -5,7 +5,7 @@
     "type": "conformance_statement",
     "id": "conformance-decision-fixture-1",
     "claimTarget": "decision",
-    "digest": "sha256:2472eeb056c50bec2fa4095e7b181fa1b0610356da366e9cd92abe07409e0289",
+    "digest": "sha256:0bfbc29adb230d8abdf26f096b794db147b2998c488ac551acb4f77fbca22556",
     "projection": "full_document_without_digest_and_signature",
     "targetSubject": {
       "id": "governance-decision-fixture-1",
@@ -431,6 +431,6 @@
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:30Z",
-    "value": "vq9MEat56SguNOip9eIhIYH_feAdas3kT3Rwgm1iRMLHGhDVbh4Rg1vI7BErKcDOU_EqMQ6TU5rSV9mlozEbCg"
+    "value": "0c8-cVp-Fa5l8hrrAfIEmEpnNo5iJ062ndJ_R2EaKxjdSIa0YCN-6OVMNC6LyklIiGQ7t9YMxNrQVkrF6_XDBA"
   }
 }
