@@ -3,6 +3,25 @@
 All normative changes to the Agent Evals Golden Standard are recorded here.
 Versions follow Semantic Versioning.
 
+## 0.1.1 — unreleased
+
+No normative change. Usability and tooling:
+
+- adds machine-validatable examples of every Core-path artifact
+  (`examples/`): case, Case QA record, scorecard, conformance statement, and
+  governance decision;
+- adds `scripts/validate.sh` and CI: schema well-formedness and
+  cross-reference resolution, example validation, prose/schema consistency for
+  registries and enums, and semantic coherence of the examples;
+- adds `versions.json` as the single source of truth for release, contract,
+  registry, and schema versions, with CI verification against the schemas;
+- adds the [Adoption Guide](standard/adoption-guide.md) with staged Core and
+  Governance paths;
+- reformats the required scorecard checks in
+  `standard/integrity-and-semantic-validation.md` as a checklist table;
+- rewrites the README with an artifact-flow diagram, reading times, and
+  pointers to the examples and adoption guide.
+
 ## 0.1.0 — 2026-07-22
 
 First public, implementation-independent release.

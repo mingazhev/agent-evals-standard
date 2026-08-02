@@ -1,0 +1,96 @@
+{
+  "schemaVersion": "agent-eval-governance-decision-1",
+  "decisionId": "decision-example-001",
+  "decisionType": "release",
+  "verdict": "reject",
+  "riskTier": "high",
+  "policyInstance": {
+    "id": "example-org-governance-policy",
+    "location": "https://example.com/evals/policy/example-org-governance-policy-1.0.0.json",
+    "digest": "sha256:af204d0781f2b7fe7e277aaa97aac0af003c753158f6b264981bd79a801b5221"
+  },
+  "matrixInstance": {
+    "id": "example-org-escalation-matrix",
+    "location": "https://example.com/evals/policy/example-org-escalation-matrix-1.0.0.json",
+    "digest": "sha256:af204d0781f2b7fe7e277aaa97aac0af003c753158f6b264981bd79a801b5221"
+  },
+  "preRunDecisionPlan": {
+    "id": "decision-plan-001",
+    "location": "https://example.com/evals/runs/run-example-001/decision-plan-001.json",
+    "digest": "sha256:910965cefb363bef1b9e5befa3371bb7ba64c756224e67202414737588b065c7"
+  },
+  "scorecards": [
+    {
+      "id": "run-example-001-scorecard",
+      "location": "https://example.com/evals/runs/run-example-001/scorecard.json",
+      "digest": "sha256:af204d0781f2b7fe7e277aaa97aac0af003c753158f6b264981bd79a801b5221"
+    }
+  ],
+  "resolutionLedger": {
+    "id": "resolution-ledger-example-001",
+    "location": "https://example.com/evals/runs/run-example-001/resolution-ledger.json",
+    "digest": "sha256:0508deee3fd363dbfe1ca372561f3426fdfcafe42de2c93073c0665e97c5d79c"
+  },
+  "effectiveAt": "2026-07-22T12:00:00Z",
+  "reviewAt": "2026-09-22T12:00:00Z",
+  "expiresAt": "2026-10-22T12:00:00Z",
+  "roles": {
+    "operator": { "id": "operator-01", "role": "experiment_operator" },
+    "evidenceProducer": { "id": "evidence-01", "role": "evidence_producer" },
+    "approver": { "id": "approver-01", "role": "approver" },
+    "securityApprover": { "id": "security-approver-01", "role": "security_approver" },
+    "riskOwner": { "id": "risk-owner-01", "role": "risk_owner" },
+    "statusResolver": { "id": "resolver-01", "role": "status_resolver" },
+    "waiverAuthority": { "id": "waiver-authority-01", "role": "waiver_authority" },
+    "rollbackVerifier": { "id": "rollback-verifier-01", "role": "rollback_verifier" }
+  },
+  "separationOfDutiesEvidence": {
+    "id": "separation-of-duties-check-001",
+    "location": "https://example.com/evals/runs/run-example-001/separation-of-duties.json",
+    "digest": "sha256:0508deee3fd363dbfe1ca372561f3426fdfcafe42de2c93073c0665e97c5d79c"
+  },
+  "conditionTrace": [
+    {
+      "conditionId": "cond-001",
+      "sealedRequirement": "hold-out suite membership is required for release decisions",
+      "observedValue": "development",
+      "evidence": {
+        "id": "scorecard-case-set-evidence",
+        "location": "https://example.com/evals/runs/run-example-001/case-set.json",
+        "digest": "sha256:d013f3b37d63c23c4d175d2741649fcd8626cef833db5badfff6a2a9442de4be"
+      },
+      "evaluator": { "id": "evidence-01", "role": "evidence_producer" },
+      "verdict": "fail",
+      "failureEffect": "reject"
+    },
+    {
+      "conditionId": "cond-002",
+      "sealedRequirement": "pass^k lower bound at or above 0.9 for the frozen slice",
+      "observedValue": "single-case estimate 1.0, interval [0.025, 1.0]",
+      "evidence": {
+        "id": "scorecard-statistics-evidence",
+        "location": "https://example.com/evals/runs/run-example-001/statistics.json",
+        "digest": "sha256:af204d0781f2b7fe7e277aaa97aac0af003c753158f6b264981bd79a801b5221"
+      },
+      "evaluator": { "id": "evidence-01", "role": "evidence_producer" },
+      "verdict": "insufficient_evidence",
+      "failureEffect": "insufficient_evidence"
+    }
+  ],
+  "approvalEnvelope": {
+    "configurationHash": "sha256:af204d0781f2b7fe7e277aaa97aac0af003c753158f6b264981bd79a801b5221",
+    "taskScope": ["dependency_upgrade"],
+    "repositoryScope": ["example-repo/app"],
+    "environmentScope": ["env-example-python-3.12"],
+    "targetPopulation": "internal SDLC agents on private golden set tasks",
+    "representedStrata": ["dependency_upgrade"],
+    "exclusions": ["security boundary tasks"],
+    "tools": ["shell", "git"],
+    "autonomy": "no autonomous merge; human review required"
+  },
+  "signature": {
+    "algorithm": "ed25519",
+    "keyId": "example-org-evals-2026-07",
+    "value": "base64-encoded-signature-over-rfc8785-canonical-record-with-signature-field-omitted"
+  }
+}

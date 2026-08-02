@@ -1,0 +1,113 @@
+{
+  "schemaVersion": "agent-eval-conformance-statement-1",
+  "standardRelease": {
+    "version": "0.1.0",
+    "tag": "v0.1.0",
+    "commit": "8578b3a6a9f3c2e1d0b4a5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6"
+  },
+  "contracts": {
+    "scorecard": {
+      "id": "scorecard-contract",
+      "version": "0.1.0",
+      "kind": "standard",
+      "location": "https://github.com/mingazhev/agent-evals-standard/blob/v0.1.0/standard/scorecard-contract.md",
+      "digest": "sha256:af204d0781f2b7fe7e277aaa97aac0af003c753158f6b264981bd79a801b5221"
+    },
+    "governancePolicy": {
+      "id": "governance-policy-template",
+      "version": "governance-policy-template-0.1.0",
+      "kind": "template",
+      "location": "https://github.com/mingazhev/agent-evals-standard/blob/v0.1.0/standard/governance-policy.md",
+      "digest": "sha256:af204d0781f2b7fe7e277aaa97aac0af003c753158f6b264981bd79a801b5221"
+    },
+    "escalationStopMatrix": {
+      "id": "escalation-stop-matrix-template",
+      "version": "escalation-stop-matrix-template-0.1.0",
+      "kind": "template",
+      "location": "https://github.com/mingazhev/agent-evals-standard/blob/v0.1.0/standard/escalation-stop-matrix.md",
+      "digest": "sha256:af204d0781f2b7fe7e277aaa97aac0af003c753158f6b264981bd79a801b5221"
+    },
+    "case": {
+      "id": "case-contract",
+      "version": "0.1.0",
+      "kind": "standard",
+      "location": "https://github.com/mingazhev/agent-evals-standard/blob/v0.1.0/standard/standard.md",
+      "digest": "sha256:af204d0781f2b7fe7e277aaa97aac0af003c753158f6b264981bd79a801b5221"
+    },
+    "environment": {
+      "id": "environment-contract-example",
+      "version": "1.2.3",
+      "kind": "standard",
+      "location": "https://example.com/contracts/environment-contract/1.2.3",
+      "digest": "sha256:b0012942b3d95c864e991b38eab9d4a195ce4e563773326987d622d5ecd7bb63"
+    },
+    "semanticValidation": {
+      "id": "semantic-validation",
+      "version": "semantic-validation-0.1.0",
+      "kind": "standard",
+      "location": "https://github.com/mingazhev/agent-evals-standard/blob/v0.1.0/standard/integrity-and-semantic-validation.md",
+      "digest": "sha256:af204d0781f2b7fe7e277aaa97aac0af003c753158f6b264981bd79a801b5221"
+    }
+  },
+  "schemas": {
+    "case": "agent-eval-case-1",
+    "caseQaRecord": "case-qa-record-1",
+    "scorecard": "agent-eval-scorecard-1",
+    "conformanceStatement": "agent-eval-conformance-statement-1",
+    "escalationEvent": "agent-eval-escalation-event-1",
+    "assuranceObservation": "agent-eval-assurance-observation-1",
+    "governanceResolution": "agent-eval-governance-resolution-1",
+    "governanceResolutionLedger": "agent-eval-governance-resolution-ledger-1",
+    "governanceDecision": "agent-eval-governance-decision-1"
+  },
+  "claim": "case",
+  "scope": "The case package `example-py-dependency-fix` version 1.0.0, including its agent-visible projection, hidden checks, and Case QA record.",
+  "implementation": {
+    "name": "example-evaluator",
+    "version": "1.0.0",
+    "commit": "e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e",
+    "digest": "sha256:af204d0781f2b7fe7e277aaa97aac0af003c753158f6b264981bd79a801b5221"
+  },
+  "targetEvidence": {
+    "case": {
+      "status": "conforming",
+      "evidence": [
+        "art_case",
+        "art_case_qa_record"
+      ]
+    }
+  },
+  "evidenceManifest": [
+    {
+      "id": "art_case",
+      "location": "https://example.com/evals/cases/example-py-dependency-fix/case.json",
+      "digest": "sha256:d013f3b37d63c23c4d175d2741649fcd8626cef833db5badfff6a2a9442de4be",
+      "mediaType": "application/json",
+      "issuer": "example-org-evals",
+      "createdAt": "2026-07-22T10:00:00Z"
+    },
+    {
+      "id": "art_case_qa_record",
+      "location": "https://example.com/evals/cases/example-py-dependency-fix/case-qa-record.json",
+      "digest": "sha256:1004b18e58fb2019baab9db874a8d5292c352d88a04efc91170069ca7472cd81",
+      "mediaType": "application/json",
+      "issuer": "example-org-evals",
+      "createdAt": "2026-07-21T10:00:00Z"
+    }
+  ],
+  "extensions": [],
+  "deviations": [],
+  "claimRestrictions": [],
+  "issuer": {
+    "id": "example-org-evals",
+    "name": "Example Org Evaluation Team",
+    "verificationMethod": "https://example.com/.well-known/evals-keys/current.pem"
+  },
+  "issuedAt": "2026-07-22T12:00:00Z",
+  "reviewAt": "2026-10-22T12:00:00Z",
+  "signature": {
+    "algorithm": "ed25519",
+    "keyId": "example-org-evals-2026-07",
+    "value": "base64-encoded-signature-over-rfc8785-canonical-statement-with-signature-field-omitted"
+  }
+}

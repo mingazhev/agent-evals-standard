@@ -21,5 +21,10 @@ JSON shape remains compatible.
 Validators load every schema in this directory into a registry keyed by its
 absolute `$id` before resolving cross-schema references.
 
+Schema version constants are declared once in [`versions.json`](../versions.json)
+and verified by `scripts/validate.sh`. Machine-validatable example instances
+live in [`examples/`](../examples/README.md); every schema change must update
+the affected examples in the same pull request.
+
 The schemas and Markdown requirements are jointly normative. Conflict handling
 is defined by the [Conformance Contract](../standard/conformance.md).

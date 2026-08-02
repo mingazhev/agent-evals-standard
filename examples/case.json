@@ -1,0 +1,252 @@
+{
+  "schemaVersion": "agent-eval-case-1",
+  "caseVersion": "1.0.0",
+  "contracts": {
+    "goldenStandardVersion": "0.1.0",
+    "scorecardContractVersion": "0.1.0",
+    "governancePolicyVersion": "governance-policy-template-0.1.0",
+    "escalationStopMatrixVersion": "escalation-stop-matrix-template-0.1.0",
+    "caseContractVersion": "0.1.0",
+    "environmentContractVersion": "1.2.3",
+    "semanticValidationVersion": "semantic-validation-0.1.0"
+  },
+  "id": "example-py-dependency-fix",
+  "profile": {
+    "id": "example-profile",
+    "version": "1.0.0"
+  },
+  "source": {
+    "type": "real_company",
+    "artifact": {
+      "path": "cases/example-py-dependency-fix/original-commit.json",
+      "hash": "sha256:28ccc745c59af90d24961e36cb5deb1f0feecf8c75a71dbc7ed5d14677698549"
+    },
+    "notes": "Internal monorepo commit that upgraded a transitive dependency pin."
+  },
+  "repository": {
+    "baseRevision": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2",
+    "preparedBaseManifest": {
+      "path": "cases/example-py-dependency-fix/prepared-base-manifest.json",
+      "hash": "sha256:ffe48d17744bb98d03d77064c40b1e13900048fa7330acaa43c8599ef154ff10"
+    },
+    "components": [
+      {
+        "id": "app",
+        "revision": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2"
+      }
+    ],
+    "historyVisible": false,
+    "remotesVisible": false
+  },
+  "task": {
+    "path": "cases/example-py-dependency-fix/task.md",
+    "hash": "sha256:28ccc745c59af90d24961e36cb5deb1f0feecf8c75a71dbc7ed5d14677698549"
+  },
+  "agentVisibleContext": {
+    "manifest": {
+      "path": "cases/example-py-dependency-fix/agent-visible-manifest.json",
+      "hash": "sha256:910965cefb363bef1b9e5befa3371bb7ba64c756224e67202414737588b065c7"
+    },
+    "taskArtifact": "cases/example-py-dependency-fix/task.md",
+    "allowedArtifacts": [
+      "app/pyproject.toml",
+      "app/requirements.txt"
+    ]
+  },
+  "setupExecutors": [
+    {
+      "id": "setup-venv",
+      "executorRef": "executors/setup-venv/v1",
+      "contract": {
+        "path": "cases/example-py-dependency-fix/setup-contract.json",
+        "hash": "sha256:8e9f04b9b4bf067119b4043ef46bc38d5f11b6366d6b642d7a39f972826dabca"
+      },
+      "deterministic": true
+    }
+  ],
+  "contamination": {
+    "sourceVisibility": "private",
+    "publicDates": [],
+    "previousEvaluationExposure": "none",
+    "trainingOrMemoryRisk": "none_known",
+    "previouslySolvedInWorkspace": false,
+    "memorizationProbe": {
+      "path": "cases/example-py-dependency-fix/memorization-probe.json",
+      "hash": "sha256:8ddc901b1ee03b9fdf16bc4617d71471838b9c52fefd86c3dda150bf0870341a"
+    }
+  },
+  "canaries": [
+    {
+      "artifact": "oracle/checks/canary.txt",
+      "accessClass": "hidden_oracle",
+      "markerHash": "sha256:a2ad73a290055179ca1f3316ed6d6ff684f8bbee89895025bc836a3266ed1da9"
+    }
+  ],
+  "riskTier": "medium",
+  "tags": {
+    "ambiguity": "clear-cut",
+    "taskClass": "dependency_upgrade",
+    "language": "python",
+    "stack": "pip",
+    "runtimeClass": "ci",
+    "difficultyBand": "easy",
+    "ownerTeam": "platform-evals"
+  },
+  "setMembership": "development",
+  "frozenSliceIds": [
+    "frozen-slice-2026-07"
+  ],
+  "lifecycle": {
+    "status": "active",
+    "activationRecord": "cases/example-py-dependency-fix/case-qa-record.json",
+    "activationInputHash": "sha256:d013f3b37d63c23c4d175d2741649fcd8626cef833db5badfff6a2a9442de4be"
+  },
+  "environment": {
+    "id": "env-example-python-3.12",
+    "version": "1.2.3",
+    "manifestHash": "sha256:b0012942b3d95c864e991b38eab9d4a195ce4e563773326987d622d5ecd7bb63",
+    "isolationProfile": "ephemeral-container"
+  },
+  "budgets": {
+    "trials": 1,
+    "wallClockSeconds": 1800,
+    "tokenLimit": 200000,
+    "costLimitUsd": 5.0
+  },
+  "validation": {
+    "protocol": {
+      "path": "cases/example-py-dependency-fix/validation-protocol.json",
+      "hash": "sha256:3086426091e6ac3c4bdc95789d8f3ef1dd0ba1ac6ed6f66078a60c64ca71107f"
+    },
+    "measurementValidation": {
+      "path": "cases/example-py-dependency-fix/measurement-validation.json",
+      "hash": "sha256:363811df9f53cbac8d1a0e3b9f63755550799b715095a70bae2dc4ec16048731"
+    },
+    "publicChecks": [
+      {
+        "id": "public-check-pip-check",
+        "executorRef": "executors/pip-check/v1",
+        "artifact": "checks/public/pip-check.sh",
+        "deterministic": true
+      }
+    ],
+    "hiddenChecks": [
+      {
+        "id": "hidden-check-acceptance",
+        "executorRef": "executors/hidden-acceptance/v1",
+        "artifact": "checks/hidden/acceptance.sh",
+        "deterministic": true
+      }
+    ],
+    "securityChecks": [
+      {
+        "id": "security-check-no-secret",
+        "executorRef": "executors/secret-scan/v1",
+        "artifact": "checks/security/secret-scan.sh",
+        "deterministic": true
+      }
+    ],
+    "controlProofs": [
+      {
+        "id": "control-known-good",
+        "executorRef": "executors/hidden-acceptance/v1",
+        "artifact": "checks/controls/known-good.sh",
+        "deterministic": true
+      },
+      {
+        "id": "control-known-bad",
+        "executorRef": "executors/hidden-acceptance/v1",
+        "artifact": "checks/controls/known-bad.sh",
+        "deterministic": true
+      }
+    ]
+  },
+  "decisionSurfaces": [
+    {
+      "id": "instruction-following-1",
+      "kind": "instruction_following",
+      "materiality": "outcome",
+      "applicabilityRule": {
+        "artifact": {
+          "path": "cases/example-py-dependency-fix/surfaces/instruction-following-rule.json",
+          "hash": "sha256:b51998dfb52fab7604bac8867e44922d354c5470019613a18f998e71aa82b6d7"
+        },
+        "schema": {
+          "path": "schemas/decision-surface-rule.schema.json",
+          "hash": "sha256:b51998dfb52fab7604bac8867e44922d354c5470019613a18f998e71aa82b6d7"
+        },
+        "verifier": {
+          "id": "surface-applicability-verifier",
+          "version": "1.0.0",
+          "digest": "sha256:b51998dfb52fab7604bac8867e44922d354c5470019613a18f998e71aa82b6d7"
+        },
+        "deterministic": true
+      },
+      "unknownApplicabilityResult": "coverage_gap",
+      "coverage": "checked",
+      "rationale": "The task explicitly requires the agent to modify the dependency pin; whether it did so is verifiable from the diff.",
+      "checkIds": [
+        "hidden-check-acceptance"
+      ],
+      "validAlternativePaths": {
+        "artifact": {
+          "path": "cases/example-py-dependency-fix/surfaces/alternative-paths.json",
+          "hash": "sha256:e8ad08f07086fbc81c3ed9d06ad21191060e142bf820b3c19161bcd76ed5f2b5"
+        },
+        "schema": {
+          "path": "schemas/decision-surface-path.schema.json",
+          "hash": "sha256:e8ad08f07086fbc81c3ed9d06ad21191060e142bf820b3c19161bcd76ed5f2b5"
+        },
+        "verifier": {
+          "id": "surface-path-verifier",
+          "version": "1.0.0",
+          "digest": "sha256:e8ad08f07086fbc81c3ed9d06ad21191060e142bf820b3c19161bcd76ed5f2b5"
+        },
+        "deterministic": true
+      }
+    }
+  ],
+  "interactionMode": "non_interactive",
+  "scoring": {
+    "claimEligibility": "capability",
+    "hardGates": [
+      {
+        "id": "baseline-hiddenAcceptance",
+        "backedBy": [
+          "checks/hidden/acceptance.sh",
+          "cases/example-py-dependency-fix/validation-protocol.json"
+        ],
+        "appliesWhen": "case requires a change",
+        "triggerEvidence": "cases/example-py-dependency-fix/trigger-evidence.json",
+        "unknownTriggerResult": "invalid",
+        "failureOutcome": "public_pass_hidden_fail"
+      }
+    ],
+    "governanceBlockers": [
+      {
+        "id": "security-review-rule",
+        "status": "security_review_required",
+        "backedBy": [
+          "cases/example-py-dependency-fix/validation-protocol.json"
+        ],
+        "appliesWhen": "a high or critical scanner finding is untriaged",
+        "triggerEvidence": "cases/example-py-dependency-fix/trigger-evidence.json",
+        "unknownTriggerResult": "security_review_required"
+      }
+    ]
+  },
+  "artifactPolicy": {
+    "retentionDays": 90
+  },
+  "policy": {
+    "allowedCommands": [
+      "pip",
+      "git"
+    ]
+  },
+  "ownership": {
+    "owner": "platform-evals-owner",
+    "riskTierApprovedBy": "security-owner",
+    "reviewDate": "2026-10-22"
+  }
+}

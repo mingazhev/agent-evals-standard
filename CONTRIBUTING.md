@@ -22,6 +22,23 @@ Normative pull requests should include:
 - migration impact for existing conformance statements and scorecards;
 - verification evidence, including schema and local-link validation.
 
+## Validation
+
+Run `./scripts/validate.sh` (requires the `jsonschema` Python package) before
+opening a pull request. It checks that:
+
+- every schema in `schemas/` is valid JSON with a unique `$id`, and every
+  `$ref` resolves;
+- every example in `examples/` validates against its schema and is
+  semantically coherent;
+- prose registries and enums (gate IDs, outcome categories, lifecycle states,
+  escalation event IDs, conformance targets) match the schemas;
+- `versions.json` agrees with the schema constants and the `VERSION` file.
+
+The same checks run in CI. When you change a schema, update the affected
+examples and `versions.json` in the same pull request; when you add a
+contract version, bump `versions.json` first.
+
 ## Version discipline
 
 Do not rewrite a released tag. A correction that can change whether a case,

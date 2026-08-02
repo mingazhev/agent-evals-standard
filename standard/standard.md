@@ -253,6 +253,8 @@ controls for instruction injection and mutation during grading.
 The system under evaluation and I1–I13 apply to every path. The remaining
 sections need not be read linearly:
 
+- first-time adopters: [Adoption Guide](adoption-guide.md), then the path for
+  your role below;
 - case authors: [Case Lifecycle Requirements](#case-lifecycle-requirements),
   then the [Case QA Playbook](case-qa-playbook.md);
 - run reviewers: [Judgment Requirements](#judgment-requirements), then the
