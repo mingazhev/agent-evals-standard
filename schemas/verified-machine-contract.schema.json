@@ -1,0 +1,406 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:verified-machine-contract:1",
+  "title": "Resolvable content-addressed machine-contract binding",
+  "$comment": "Verification resolves every locator relative to the document containing the binding, checks stored-byte digest and byteLength, checks artifact:sha256 URI equality, validates the resolved contract under schemaId, resolves and authenticates verifier and resolutionContract the same way, and fails closed on any unknown or unavailable step.",
+  "$ref": "#/$defs/verifiedContract",
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "artifactUri": {
+      "type": "string",
+      "pattern": "^artifact:sha256:[a-f0-9]{64}$"
+    },
+    "repositoryRelativeLocator": {
+      "type": "object",
+      "required": [
+        "kind",
+        "base",
+        "path"
+      ],
+      "properties": {
+        "kind": {
+          "const": "repository_relative"
+        },
+        "base": {
+          "const": "binding_document"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?!/)(?![A-Za-z]:).+$"
+        }
+      },
+      "additionalProperties": false
+    },
+    "immutableExternalLocator": {
+      "type": "object",
+      "required": [
+        "kind",
+        "retrievalUri"
+      ],
+      "properties": {
+        "kind": {
+          "const": "immutable_external"
+        },
+        "retrievalUri": {
+          "type": "string",
+          "pattern": "^https://"
+        }
+      },
+      "additionalProperties": false
+    },
+    "locator": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/repositoryRelativeLocator"
+        },
+        {
+          "$ref": "#/$defs/immutableExternalLocator"
+        }
+      ]
+    },
+    "contentAddressedComponent": {
+      "type": "object",
+      "required": [
+        "id",
+        "version",
+        "uri",
+        "digest",
+        "byteLength",
+        "mediaType",
+        "locator"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "version": {
+          "const": "0.1.0"
+        },
+        "uri": {
+          "$ref": "#/$defs/artifactUri"
+        },
+        "digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "byteLength": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "mediaType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "locator": {
+          "$ref": "#/$defs/locator"
+        },
+        "schemaId": {
+          "$ref": "#/$defs/id"
+        },
+        "entrypoint": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "componentAuthority": {
+      "type": "object",
+      "required": [
+        "policyId",
+        "policyVersion",
+        "policyDigest"
+      ],
+      "properties": {
+        "policyId": {
+          "$ref": "#/$defs/id"
+        },
+        "policyVersion": {
+          "const": "0.1.0"
+        },
+        "policyDigest": {
+          "$ref": "#/$defs/digest"
+        }
+      },
+      "additionalProperties": false
+    },
+    "verifierComponent": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/contentAddressedComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "entrypoint": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "entrypoint"
+          ]
+        }
+      ]
+    },
+    "resolutionContractComponent": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/contentAddressedComponent"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "schemaId": {
+              "$ref": "#/$defs/id"
+            }
+          },
+          "required": [
+            "schemaId"
+          ]
+        }
+      ]
+    },
+    "verifiedContract": {
+      "type": "object",
+      "required": [
+        "contractType",
+        "id",
+        "version",
+        "schemaId",
+        "uri",
+        "digest",
+        "byteLength",
+        "mediaType",
+        "locator",
+        "verifier",
+        "resolutionContract",
+        "componentAuthority"
+      ],
+      "properties": {
+        "contractType": {
+          "enum": [
+            "validity_argument",
+            "evaluation_threat_model",
+            "held_out_exposure_budget",
+            "held_out_exposure_ledger",
+            "evaluation_control_bindings",
+            "evaluation_control_authority_evidence",
+            "generic_machine_contract"
+          ]
+        },
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "version": {
+          "const": "0.1.0"
+        },
+        "schemaId": {
+          "$ref": "#/$defs/id"
+        },
+        "uri": {
+          "$ref": "#/$defs/artifactUri"
+        },
+        "digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "byteLength": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "mediaType": {
+          "const": "application/json"
+        },
+        "locator": {
+          "$ref": "#/$defs/locator"
+        },
+        "verifier": {
+          "$ref": "#/$defs/verifierComponent"
+        },
+        "resolutionContract": {
+          "$ref": "#/$defs/resolutionContractComponent"
+        },
+        "componentAuthority": {
+          "$ref": "#/$defs/componentAuthority"
+        }
+      },
+      "additionalProperties": false
+    },
+    "validityArgumentBinding": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/verifiedContract"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "contractType": {
+              "const": "validity_argument"
+            },
+            "schemaId": {
+              "const": "urn:agent-evals-standard:schema:validity-argument:1"
+            }
+          }
+        }
+      ]
+    },
+    "evaluationThreatModelBinding": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/verifiedContract"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "contractType": {
+              "const": "evaluation_threat_model"
+            },
+            "schemaId": {
+              "const": "urn:agent-evals-standard:schema:evaluation-threat-model:1"
+            }
+          }
+        }
+      ]
+    },
+    "heldOutExposureBudgetBinding": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/verifiedContract"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "contractType": {
+              "const": "held_out_exposure_budget"
+            },
+            "schemaId": {
+              "const": "urn:agent-evals-standard:schema:held-out-exposure-budget:1"
+            }
+          }
+        }
+      ]
+    },
+    "heldOutExposureLedgerBinding": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/verifiedContract"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "contractType": {
+              "const": "held_out_exposure_ledger"
+            },
+            "schemaId": {
+              "const": "urn:agent-evals-standard:schema:held-out-exposure-ledger:1"
+            }
+          }
+        }
+      ]
+    },
+    "evaluationControlBindingsBinding": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/verifiedContract"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "contractType": {
+              "const": "evaluation_control_bindings"
+            },
+            "schemaId": {
+              "const": "urn:agent-evals-standard:schema:evaluation-control-bindings:1"
+            }
+          }
+        }
+      ]
+    },
+    "evaluationControlAuthorityEvidenceBinding": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/verifiedContract"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "contractType": {
+              "const": "evaluation_control_authority_evidence"
+            },
+            "schemaId": {
+              "const": "urn:agent-evals-standard:schema:evaluation-control-authority-evidence:1"
+            }
+          }
+        }
+      ]
+    },
+    "evaluationControlAuthorityPolicyBinding": {
+      "type": "object",
+      "required": [
+        "contractType",
+        "id",
+        "version",
+        "schemaId",
+        "uri",
+        "digest",
+        "byteLength",
+        "mediaType",
+        "locator"
+      ],
+      "properties": {
+        "contractType": {
+          "const": "evaluation_control_authority_policy"
+        },
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "version": {
+          "const": "0.1.0"
+        },
+        "schemaId": {
+          "const": "urn:agent-evals-standard:schema:evaluation-control-authority-policy:1"
+        },
+        "uri": {
+          "$ref": "#/$defs/artifactUri"
+        },
+        "digest": {
+          "$ref": "#/$defs/digest"
+        },
+        "byteLength": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "mediaType": {
+          "const": "application/json"
+        },
+        "locator": {
+          "$ref": "#/$defs/locator"
+        }
+      },
+      "additionalProperties": false
+    },
+    "heldOutExposureControl": {
+      "type": "object",
+      "required": [
+        "budget",
+        "ledger"
+      ],
+      "properties": {
+        "budget": {
+          "$ref": "#/$defs/heldOutExposureBudgetBinding"
+        },
+        "ledger": {
+          "$ref": "#/$defs/heldOutExposureLedgerBinding"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

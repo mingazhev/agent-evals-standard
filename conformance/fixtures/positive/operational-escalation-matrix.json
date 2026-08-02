@@ -1,0 +1,579 @@
+{
+  "schemaVersion": "agent-eval-operational-escalation-matrix-1",
+  "id": "operational-escalation-matrix-fixture-1",
+  "version": "0.1.0",
+  "owner": {
+    "id": "fixture-governance-owner",
+    "role": "governance_owner"
+  },
+  "rows": [
+    {
+      "eventId": "hardGateRegression",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "close_run",
+      "scopeAction": "reject_or_reduce",
+      "waivable": false,
+      "triggerContract": {
+        "id": "trigger-contract-hardGateRegression",
+        "uri": "artifact:fixture:trigger-contract-hardGateRegression",
+        "digest": "sha256:0700880438272aeb67dc816cb04b74219cebd0f43619073869aefcf982987109"
+      },
+      "owner": {
+        "id": "fixture-governance-owner",
+        "role": "governance_owner"
+      },
+      "slaSeconds": 3600,
+      "requiredEvidenceKinds": [
+        "canonical_event_evidence"
+      ],
+      "terminalDisposition": "not_applicable_while_open",
+      "resumeContract": {
+        "id": "resume-contract-hardGateRegression",
+        "uri": "artifact:fixture:resume-contract-hardGateRegression",
+        "digest": "sha256:9d9354160687c721dd2ee70e73bd3b85cc4d659f5f95944dd9619968976948d7"
+      },
+      "rowDigest": "sha256:98b696457c5d6dae500df145c5d7adcd5ea816de99c1f060f9e230d36148702f"
+    },
+    {
+      "eventId": "untriagedCriticalScannerFinding",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "security_review_required",
+      "stopAction": "block_acceptance",
+      "scopeAction": "reject_or_reduce",
+      "waivable": true,
+      "triggerContract": {
+        "id": "trigger-contract-untriagedCriticalScannerFinding",
+        "uri": "artifact:fixture:trigger-contract-untriagedCriticalScannerFinding",
+        "digest": "sha256:538a71e46b030d988850ab132c9347a38a93b1cb5c7312d2c27c299b0b286ea4"
+      },
+      "owner": {
+        "id": "fixture-governance-owner",
+        "role": "governance_owner"
+      },
+      "slaSeconds": 3600,
+      "requiredEvidenceKinds": [
+        "canonical_event_evidence"
+      ],
+      "terminalDisposition": "not_applicable_while_open",
+      "resumeContract": {
+        "id": "resume-contract-untriagedCriticalScannerFinding",
+        "uri": "artifact:fixture:resume-contract-untriagedCriticalScannerFinding",
+        "digest": "sha256:a1f423717465d0952bbb5e7ec52cb20ec33f5ede94008fbc49d765f5e857fb01"
+      },
+      "rowDigest": "sha256:af70a890650fc65d2552d4d1f9d5de83a7861dcaddd48a67ecaa966d456b4e0a"
+    },
+    {
+      "eventId": "heldOutLeakage",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "security_review_required",
+      "stopAction": "stop_governance_use",
+      "scopeAction": "revoke_affected_scope",
+      "waivable": false,
+      "triggerContract": {
+        "id": "trigger-contract-heldOutLeakage",
+        "uri": "artifact:fixture:trigger-contract-heldOutLeakage",
+        "digest": "sha256:5ee7f8102c3e0f18456ed498ce1e1d87c679f4e0dd6889bf1df418aabec4be38"
+      },
+      "owner": {
+        "id": "fixture-governance-owner",
+        "role": "governance_owner"
+      },
+      "slaSeconds": 3600,
+      "requiredEvidenceKinds": [
+        "canonical_event_evidence"
+      ],
+      "terminalDisposition": "not_applicable_while_open",
+      "resumeContract": {
+        "id": "resume-contract-heldOutLeakage",
+        "uri": "artifact:fixture:resume-contract-heldOutLeakage",
+        "digest": "sha256:689649cad89e32bac388c384cdddb53d197cbe1112202bff401fccee8fe32957"
+      },
+      "rowDigest": "sha256:9949f69d77bcebe49b3da5a4b7319127bf8a8d9708b834d073416f2e0593c631"
+    },
+    {
+      "eventId": "escapedCriticalDefect",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "freeze_scope",
+      "scopeAction": "rollback_or_reduce",
+      "waivable": true,
+      "triggerContract": {
+        "id": "trigger-contract-escapedCriticalDefect",
+        "uri": "artifact:fixture:trigger-contract-escapedCriticalDefect",
+        "digest": "sha256:d1e8a826a57933f9bc84af05c45f89f9496d072e670d9aaebef490a0f7749e88"
+      },
+      "owner": {
+        "id": "fixture-governance-owner",
+        "role": "governance_owner"
+      },
+      "slaSeconds": 3600,
+      "requiredEvidenceKinds": [
+        "canonical_event_evidence"
+      ],
+      "terminalDisposition": "not_applicable_while_open",
+      "resumeContract": {
+        "id": "resume-contract-escapedCriticalDefect",
+        "uri": "artifact:fixture:resume-contract-escapedCriticalDefect",
+        "digest": "sha256:452e65c5c5a8c991776a2ff5d948b27f00a29e50cedf9324dc627b3de8411b03"
+      },
+      "rowDigest": "sha256:ff4745649e2cf738d5921c583ec080732b24dfda3f9c5321a8b3e3b64bd56ee9"
+    },
+    {
+      "eventId": "repeatedReviewRejection",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "block_scope_expansion",
+      "scopeAction": "retain_or_reduce",
+      "waivable": true,
+      "triggerContract": {
+        "id": "trigger-contract-repeatedReviewRejection",
+        "uri": "artifact:fixture:trigger-contract-repeatedReviewRejection",
+        "digest": "sha256:6a8be871fc890819200c10e3ece3a9d6ab85c46c27fc3c2f66f6dfe56758814d"
+      },
+      "owner": {
+        "id": "fixture-governance-owner",
+        "role": "governance_owner"
+      },
+      "slaSeconds": 3600,
+      "requiredEvidenceKinds": [
+        "canonical_event_evidence"
+      ],
+      "terminalDisposition": "not_applicable_while_open",
+      "resumeContract": {
+        "id": "resume-contract-repeatedReviewRejection",
+        "uri": "artifact:fixture:resume-contract-repeatedReviewRejection",
+        "digest": "sha256:3fb41e73e74fd516d8d48f7918d9e3482ab391fb06b84c4fe4a66678a0aa3fc6"
+      },
+      "rowDigest": "sha256:50ae78150641a2c8a705a8119a526c0bf7c79a5b58272ba03dd11eb4ed13be3b"
+    },
+    {
+      "eventId": "staleMeasurement",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "block_acceptance",
+      "scopeAction": "retain_valid_only",
+      "waivable": true,
+      "triggerContract": {
+        "id": "trigger-contract-staleMeasurement",
+        "uri": "artifact:fixture:trigger-contract-staleMeasurement",
+        "digest": "sha256:775d553101827f49247091f5952491f42ef6e98b7b602dcebef4ac43e1515c29"
+      },
+      "owner": {
+        "id": "fixture-governance-owner",
+        "role": "governance_owner"
+      },
+      "slaSeconds": 3600,
+      "requiredEvidenceKinds": [
+        "canonical_event_evidence"
+      ],
+      "terminalDisposition": "not_applicable_while_open",
+      "resumeContract": {
+        "id": "resume-contract-staleMeasurement",
+        "uri": "artifact:fixture:resume-contract-staleMeasurement",
+        "digest": "sha256:23cf2eb5f5504327050f1863dea6fb34bedd4837fc264696a8c44318ece12e15"
+      },
+      "rowDigest": "sha256:fed4b61021d005db94f0deb3b80c0820ed6c06e9dbbc5d2e87e46dfd9e5ea41a"
+    },
+    {
+      "eventId": "measurementErrorThreshold",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "block_metric",
+      "scopeAction": "reduce_affected",
+      "waivable": true,
+      "triggerContract": {
+        "id": "trigger-contract-measurementErrorThreshold",
+        "uri": "artifact:fixture:trigger-contract-measurementErrorThreshold",
+        "digest": "sha256:4ef30ac75f3753d88cfe07a1b7493e03980018593a3e0956ce177ee6d8d05b25"
+      },
+      "owner": {
+        "id": "fixture-governance-owner",
+        "role": "governance_owner"
+      },
+      "slaSeconds": 3600,
+      "requiredEvidenceKinds": [
+        "canonical_event_evidence"
+      ],
+      "terminalDisposition": "not_applicable_while_open",
+      "resumeContract": {
+        "id": "resume-contract-measurementErrorThreshold",
+        "uri": "artifact:fixture:resume-contract-measurementErrorThreshold",
+        "digest": "sha256:083c3672f75e77622998f478e7a6d4a403de3c89d2fce91f810372a34d6310a8"
+      },
+      "rowDigest": "sha256:04ba0684d478345595bd0f1322fe20cc7fad9b0ca8c3f43d50d6d9a77ecb6993"
+    },
+    {
+      "eventId": "suiteHealthDegradation",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "block_suite",
+      "scopeAction": "reduce_affected",
+      "waivable": true,
+      "triggerContract": {
+        "id": "trigger-contract-suiteHealthDegradation",
+        "uri": "artifact:fixture:trigger-contract-suiteHealthDegradation",
+        "digest": "sha256:487bb7b763e6c30b11f3cefa573769ccd7e923cfa9ab7b24cf04f3b3eaed28d8"
+      },
+      "owner": {
+        "id": "fixture-governance-owner",
+        "role": "governance_owner"
+      },
+      "slaSeconds": 3600,
+      "requiredEvidenceKinds": [
+        "canonical_event_evidence"
+      ],
+      "terminalDisposition": "not_applicable_while_open",
+      "resumeContract": {
+        "id": "resume-contract-suiteHealthDegradation",
+        "uri": "artifact:fixture:resume-contract-suiteHealthDegradation",
+        "digest": "sha256:ff3b05ae7e30ee81ec7485a4d1105ff475662f2fc8b911280c9d81a521c735be"
+      },
+      "rowDigest": "sha256:f52b0e2117bf0ad702986d3d40acba496d01566c384c132be39da66116e9c175"
+    },
+    {
+      "eventId": "decisionExpired",
+      "claimEffect": "not_applicable",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "revoke_approval",
+      "scopeAction": "revoke_expired",
+      "waivable": false,
+      "triggerContract": {
+        "id": "trigger-contract-decisionExpired",
+        "uri": "artifact:fixture:trigger-contract-decisionExpired",
+        "digest": "sha256:7a8f1c787a75a1c57929d792d0062a333bd88d4e2562fdfdc679fde94f7b0219"
+      },
+      "owner": {
+        "id": "fixture-governance-owner",
+        "role": "governance_owner"
+      },
+      "slaSeconds": 3600,
+      "requiredEvidenceKinds": [
+        "canonical_event_evidence"
+      ],
+      "terminalDisposition": "not_applicable_while_open",
+      "resumeContract": {
+        "id": "resume-contract-decisionExpired",
+        "uri": "artifact:fixture:resume-contract-decisionExpired",
+        "digest": "sha256:2f8fea41fef2cbf011673b6b0ec4bd082509b22c5b3a74c78dbfe039cc9688cc"
+      },
+      "rowDigest": "sha256:9a75afad16906be2deb3efc027f10498a2ad99ebee6ae279549c351c4da571b8"
+    },
+    {
+      "eventId": "reviewDue",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "block_renewal_expansion",
+      "scopeAction": "continue_until_expiry",
+      "waivable": false,
+      "triggerContract": {
+        "id": "trigger-contract-reviewDue",
+        "uri": "artifact:fixture:trigger-contract-reviewDue",
+        "digest": "sha256:6f05576f1ef2970be7716e13b626e20cb411cc58316a01269c708e1b855e0d10"
+      },
+      "owner": {
+        "id": "fixture-governance-owner",
+        "role": "governance_owner"
+      },
+      "slaSeconds": 3600,
+      "requiredEvidenceKinds": [
+        "canonical_event_evidence"
+      ],
+      "terminalDisposition": "not_applicable_while_open",
+      "resumeContract": {
+        "id": "resume-contract-reviewDue",
+        "uri": "artifact:fixture:resume-contract-reviewDue",
+        "digest": "sha256:339f72aa5b6da4d920d6eb298aba76754f8bcd265cd4a28d3e902bd269d340f9"
+      },
+      "rowDigest": "sha256:2cf03171c8cc62e05e4520e8c6e986758677c9c6101740a8c42a81a452bf6c3d"
+    },
+    {
+      "eventId": "measurementBoundaryCompromise",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "security_review_required",
+      "stopAction": "stop_governance_use",
+      "scopeAction": "revoke_affected_scope",
+      "waivable": false,
+      "triggerContract": {
+        "id": "trigger-contract-measurementBoundaryCompromise",
+        "uri": "artifact:fixture:trigger-contract-measurementBoundaryCompromise",
+        "digest": "sha256:85d22dd431834f391c91afb2ee8886d8b8a6889f2f0829e7dbcc8c0de988f8c9"
+      },
+      "owner": {
+        "id": "fixture-governance-owner",
+        "role": "governance_owner"
+      },
+      "slaSeconds": 3600,
+      "requiredEvidenceKinds": [
+        "canonical_event_evidence"
+      ],
+      "terminalDisposition": "not_applicable_while_open",
+      "resumeContract": {
+        "id": "resume-contract-measurementBoundaryCompromise",
+        "uri": "artifact:fixture:resume-contract-measurementBoundaryCompromise",
+        "digest": "sha256:9e784717924e6e88a0c0506297c99ecf2905e0a4b3253cd4cbcc4299238f5bff"
+      },
+      "rowDigest": "sha256:07376e634331df6614fccf03cb7053a9f49737d5da767f66af73ff38548f89c4"
+    },
+    {
+      "eventId": "irreversibleCriticalOperation",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "security_review_required",
+      "stopAction": "block_acceptance",
+      "scopeAction": "reject_or_reduce",
+      "waivable": false,
+      "triggerContract": {
+        "id": "trigger-contract-irreversibleCriticalOperation",
+        "uri": "artifact:fixture:trigger-contract-irreversibleCriticalOperation",
+        "digest": "sha256:eed6787b84b36d5a453f22f4be1f4b5d0c614a2c0bfd4fbe9e73f6e6f3f5da2a"
+      },
+      "owner": {
+        "id": "fixture-governance-owner",
+        "role": "governance_owner"
+      },
+      "slaSeconds": 3600,
+      "requiredEvidenceKinds": [
+        "canonical_event_evidence"
+      ],
+      "terminalDisposition": "not_applicable_while_open",
+      "resumeContract": {
+        "id": "resume-contract-irreversibleCriticalOperation",
+        "uri": "artifact:fixture:resume-contract-irreversibleCriticalOperation",
+        "digest": "sha256:171a13ac7aaf037b67e960d1803f71130b77191a5b5b88e2b9059e66f9e64ce4"
+      },
+      "rowDigest": "sha256:a9c9dcdc070deaac8cf71af96a6b5cf35edf3839750a38320e2a7f2ec0b2269a"
+    },
+    {
+      "eventId": "productionCredentialsProhibited",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "security_review_required",
+      "stopAction": "stop_governance_use",
+      "scopeAction": "revoke_affected_scope",
+      "waivable": false,
+      "triggerContract": {
+        "id": "trigger-contract-productionCredentialsProhibited",
+        "uri": "artifact:fixture:trigger-contract-productionCredentialsProhibited",
+        "digest": "sha256:5e477e64436c382fad560935512d1cd436a6d395bb3568c553295f3678b4c580"
+      },
+      "owner": {
+        "id": "fixture-governance-owner",
+        "role": "governance_owner"
+      },
+      "slaSeconds": 3600,
+      "requiredEvidenceKinds": [
+        "canonical_event_evidence"
+      ],
+      "terminalDisposition": "not_applicable_while_open",
+      "resumeContract": {
+        "id": "resume-contract-productionCredentialsProhibited",
+        "uri": "artifact:fixture:resume-contract-productionCredentialsProhibited",
+        "digest": "sha256:d983d03a6f8aba471f06be46a5d4824080f9d0d4f6126e95d6a937444c08a0a2"
+      },
+      "rowDigest": "sha256:8d1aea6593d8609292ad4c099b3f1d3e614fdfdac53c9298f1a7841cd6686d23"
+    },
+    {
+      "eventId": "approvedConfigurationChanged",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "block_changed_scope",
+      "scopeAction": "revalidate_or_revoke",
+      "waivable": false,
+      "triggerContract": {
+        "id": "trigger-contract-approvedConfigurationChanged",
+        "uri": "artifact:fixture:trigger-contract-approvedConfigurationChanged",
+        "digest": "sha256:7a0354abcb49428357ae9e46fba3c321ad34eac92b60117b0aebd2fd52a04999"
+      },
+      "owner": {
+        "id": "fixture-governance-owner",
+        "role": "governance_owner"
+      },
+      "slaSeconds": 3600,
+      "requiredEvidenceKinds": [
+        "canonical_event_evidence"
+      ],
+      "terminalDisposition": "not_applicable_while_open",
+      "resumeContract": {
+        "id": "resume-contract-approvedConfigurationChanged",
+        "uri": "artifact:fixture:resume-contract-approvedConfigurationChanged",
+        "digest": "sha256:a10f39a53a7f6f46026b51f16d5867bd4dc90cefe43088c46f8415908dbf80e2"
+      },
+      "rowDigest": "sha256:27ef9210f6fe00833c7c37c89493363b8c2285c3099a500bea769528118c4c0c"
+    },
+    {
+      "eventId": "productionMonitoringBreach",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "suspend_approval",
+      "scopeAction": "narrow_suspend_or_revoke",
+      "waivable": false,
+      "triggerContract": {
+        "id": "trigger-contract-productionMonitoringBreach",
+        "uri": "artifact:fixture:trigger-contract-productionMonitoringBreach",
+        "digest": "sha256:acdafa8361cdcf1d3b31b34b84a9820779cbefb38d9f9902d9b77ff456623fdc"
+      },
+      "owner": {
+        "id": "fixture-governance-owner",
+        "role": "governance_owner"
+      },
+      "slaSeconds": 3600,
+      "requiredEvidenceKinds": [
+        "canonical_event_evidence"
+      ],
+      "terminalDisposition": "not_applicable_while_open",
+      "resumeContract": {
+        "id": "resume-contract-productionMonitoringBreach",
+        "uri": "artifact:fixture:resume-contract-productionMonitoringBreach",
+        "digest": "sha256:de1631a023fdc78aa2ab6a03420d30f72e70740546d1df88f5b9caa9ef358ab7"
+      },
+      "rowDigest": "sha256:ab058e5c2f632fe81e39c9ebfce32d89eaee7135f7dce265dc50e55cd0885a11"
+    },
+    {
+      "eventId": "productionConcordanceDegraded",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "suspend_approval",
+      "scopeAction": "narrow_suspend_or_revoke",
+      "waivable": false,
+      "triggerContract": {
+        "id": "trigger-contract-productionConcordanceDegraded",
+        "uri": "artifact:fixture:trigger-contract-productionConcordanceDegraded",
+        "digest": "sha256:f99a5079901ae6b6b69b5d7f0a174755940f6ce0157a8d1f57f2ed2a45cd7364"
+      },
+      "owner": {
+        "id": "fixture-governance-owner",
+        "role": "governance_owner"
+      },
+      "slaSeconds": 3600,
+      "requiredEvidenceKinds": [
+        "canonical_event_evidence"
+      ],
+      "terminalDisposition": "not_applicable_while_open",
+      "resumeContract": {
+        "id": "resume-contract-productionConcordanceDegraded",
+        "uri": "artifact:fixture:resume-contract-productionConcordanceDegraded",
+        "digest": "sha256:56dd91d7af03721ada0b74c5df4287ab76ddcaab8954468b5e35520edd30da83"
+      },
+      "rowDigest": "sha256:33302e0f883931cb7c6f37609faefe3172180160dfa72485443daf182ac3f98d"
+    },
+    {
+      "eventId": "assuranceEvidenceMissing",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "suspend_approval",
+      "scopeAction": "narrow_suspend_or_revoke",
+      "waivable": false,
+      "triggerContract": {
+        "id": "trigger-contract-assuranceEvidenceMissing",
+        "uri": "artifact:fixture:trigger-contract-assuranceEvidenceMissing",
+        "digest": "sha256:0a424bfd0b48fb3a7c2149c0e0a774906a0e36264c6e8df87c1bc57b428df3fa"
+      },
+      "owner": {
+        "id": "fixture-governance-owner",
+        "role": "governance_owner"
+      },
+      "slaSeconds": 3600,
+      "requiredEvidenceKinds": [
+        "canonical_event_evidence"
+      ],
+      "terminalDisposition": "not_applicable_while_open",
+      "resumeContract": {
+        "id": "resume-contract-assuranceEvidenceMissing",
+        "uri": "artifact:fixture:resume-contract-assuranceEvidenceMissing",
+        "digest": "sha256:dfb43784474e525b38760a87d843cf9e5e12fb7e1b3f80969dcdac40e95f6ab2"
+      },
+      "rowDigest": "sha256:60b1663791c16dfeb01642f0a9e50cee3d3084ff4e5a371020392f961a4c3d47"
+    },
+    {
+      "eventId": "suspectedContamination",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "security_review_required",
+      "stopAction": "stop_governance_use",
+      "scopeAction": "quarantine_affected",
+      "waivable": false,
+      "triggerContract": {
+        "id": "trigger-contract-suspectedContamination",
+        "uri": "artifact:fixture:trigger-contract-suspectedContamination",
+        "digest": "sha256:c259668863d4c00b625ae182aae44740af5b44d15901a6921a70f6bc6756ed1b"
+      },
+      "owner": {
+        "id": "fixture-governance-owner",
+        "role": "governance_owner"
+      },
+      "slaSeconds": 3600,
+      "requiredEvidenceKinds": [
+        "canonical_event_evidence"
+      ],
+      "terminalDisposition": "not_applicable_while_open",
+      "resumeContract": {
+        "id": "resume-contract-suspectedContamination",
+        "uri": "artifact:fixture:resume-contract-suspectedContamination",
+        "digest": "sha256:cfc21a3d39a8adf5ebdb6a20aff34aa891fd1ac83c2dca23b9fcd3e30e778336"
+      },
+      "rowDigest": "sha256:c8c7c9678155287c0fd3f1d8d6771e22d9d908e04abda7ec47021ceee368b43d"
+    },
+    {
+      "eventId": "confirmedContamination",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "security_review_required",
+      "stopAction": "stop_governance_use",
+      "scopeAction": "revoke_affected_scope",
+      "waivable": false,
+      "triggerContract": {
+        "id": "trigger-contract-confirmedContamination",
+        "uri": "artifact:fixture:trigger-contract-confirmedContamination",
+        "digest": "sha256:d88c286629fa2468e7ec88e0fbbea9970b0851c3543093b1cef7037f836d79d8"
+      },
+      "owner": {
+        "id": "fixture-governance-owner",
+        "role": "governance_owner"
+      },
+      "slaSeconds": 3600,
+      "requiredEvidenceKinds": [
+        "canonical_event_evidence"
+      ],
+      "terminalDisposition": "not_applicable_while_open",
+      "resumeContract": {
+        "id": "resume-contract-confirmedContamination",
+        "uri": "artifact:fixture:resume-contract-confirmedContamination",
+        "digest": "sha256:6ca0e160d2f324fd7473740ae72b2f6472fbd7bad71b21b890b622a96c403b32"
+      },
+      "rowDigest": "sha256:d8a13e942f4eb4adfecdc136a3830545490276ba4dc857bb1bc66eae37b282ab"
+    },
+    {
+      "eventId": "privacyIpRetentionBreach",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "security_review_required",
+      "stopAction": "stop_governance_use",
+      "scopeAction": "quarantine_or_delete_affected",
+      "waivable": false,
+      "triggerContract": {
+        "id": "trigger-contract-privacyIpRetentionBreach",
+        "uri": "artifact:fixture:trigger-contract-privacyIpRetentionBreach",
+        "digest": "sha256:34add96a2d4867892252aed4177e5e539066a5bcb1559974f27336dda216677c"
+      },
+      "owner": {
+        "id": "fixture-governance-owner",
+        "role": "governance_owner"
+      },
+      "slaSeconds": 3600,
+      "requiredEvidenceKinds": [
+        "canonical_event_evidence"
+      ],
+      "terminalDisposition": "not_applicable_while_open",
+      "resumeContract": {
+        "id": "resume-contract-privacyIpRetentionBreach",
+        "uri": "artifact:fixture:resume-contract-privacyIpRetentionBreach",
+        "digest": "sha256:40b047831a775e44cab0aaed97eb47e8f3f0ae45ec6155e9170641591e5dc11a"
+      },
+      "rowDigest": "sha256:ddaf3511f3c69f73636db6c77cace3e0489c663fcaedff9b990ab1c96ba2ccb8"
+    }
+  ],
+  "digest": "sha256:35746a0015230a7dd56f9fe75a77f00e7ad0166a0403f0dce85df95d481f10f1",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:10Z",
+    "value": "ABBu60xmmySJwgJQCzkqKPl6yZakUIZdHhwyswq1VYxdR1XD71c_bLHY5jWG52ZWxXedfQrgooY6hEI-8pNqCg"
+  }
+}

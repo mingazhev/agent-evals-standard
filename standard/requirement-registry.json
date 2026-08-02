@@ -1,0 +1,1813 @@
+{
+  "schemaVersion": "agent-eval-requirement-registry-1",
+  "standardVersion": "0.1.0",
+  "requirements": [
+    {
+      "id": "ARCH-001",
+      "subject": "normative artifact and extension architecture",
+      "normativeReference": "requirements.md#traceability-rules",
+      "targets": [
+        "suite",
+        "case",
+        "evaluator",
+        "experiment",
+        "decision"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "conformance-validator",
+      "accountableReviewer": "conformance-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "interoperability and fail-closed design"
+      },
+      "applicability": {
+        "rule": "Applies when normative artifact and extension architecture can affect the declared suite, case, evaluator, experiment, decision target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "ARCH-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "requirements.md#traceability-rules",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of ARCH-001 at requirements.md#traceability-rules and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "TRACE-001",
+      "subject": "requirement-to-source evidence mapping",
+      "normativeReference": "requirements.md#traceability-rules",
+      "targets": [
+        "suite",
+        "case",
+        "evaluator",
+        "experiment",
+        "decision"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "conformance-validator",
+      "accountableReviewer": "conformance-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "evidence auditability"
+      },
+      "applicability": {
+        "rule": "Applies when requirement-to-source evidence mapping can affect the declared suite, case, evaluator, experiment, decision target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "TRACE-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "requirements.md#traceability-rules",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of TRACE-001 at requirements.md#traceability-rules and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "I1",
+      "subject": "non-compensable acceptance",
+      "normativeReference": "standard.md#i1-acceptance-is-non-compensable",
+      "targets": [
+        "evaluator",
+        "experiment",
+        "decision"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "scorecard-validator",
+      "accountableReviewer": "scorecard-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "safety and validity guardrails"
+      },
+      "applicability": {
+        "rule": "Applies when non-compensable acceptance can affect the declared evaluator, experiment, decision target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "I1.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#i1-acceptance-is-non-compensable",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of I1 at standard.md#i1-acceptance-is-non-compensable and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "I2",
+      "subject": "lifecycle-wide oracle isolation",
+      "normativeReference": "standard.md#i2-lifecycle-wide-oracle-isolation",
+      "targets": [
+        "case",
+        "evaluator",
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "run-validator",
+      "accountableReviewer": "run-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "contamination findings in Informative References"
+      },
+      "applicability": {
+        "rule": "Applies when lifecycle-wide oracle isolation can affect the declared case, evaluator, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "I2.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#i2-lifecycle-wide-oracle-isolation",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of I2 at standard.md#i2-lifecycle-wide-oracle-isolation and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "I3",
+      "subject": "no post-hoc adaptation or selection",
+      "normativeReference": "standard.md#i3-no-post-hoc-adaptation-or-selection",
+      "targets": [
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "run-validator",
+      "accountableReviewer": "run-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "pre-registration"
+      },
+      "applicability": {
+        "rule": "Applies when no post-hoc adaptation or selection can affect the declared experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "I3.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#i3-no-post-hoc-adaptation-or-selection",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of I3 at standard.md#i3-no-post-hoc-adaptation-or-selection and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "I4",
+      "subject": "reconstructible conditions and provenance",
+      "normativeReference": "standard.md#i4-reconstructible-conditions-and-provenance",
+      "targets": [
+        "evaluator",
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "run-validator",
+      "accountableReviewer": "run-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "reproducibility"
+      },
+      "applicability": {
+        "rule": "Applies when reconstructible conditions and provenance can affect the declared evaluator, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "I4.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#i4-reconstructible-conditions-and-provenance",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of I4 at standard.md#i4-reconstructible-conditions-and-provenance and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "I5",
+      "subject": "attribution and complete attempt accounting",
+      "normativeReference": "standard.md#i5-attribution-and-complete-attempt-accounting",
+      "targets": [
+        "evaluator",
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "ledger-validator",
+      "accountableReviewer": "ledger-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "retry and missingness control"
+      },
+      "applicability": {
+        "rule": "Applies when attribution and complete attempt accounting can affect the declared evaluator, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "I5.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#i5-attribution-and-complete-attempt-accounting",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of I5 at standard.md#i5-attribution-and-complete-attempt-accounting and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "I6",
+      "subject": "claims bounded by evidence",
+      "normativeReference": "standard.md#i6-claims-are-bounded-by-evidence",
+      "targets": [
+        "suite",
+        "experiment",
+        "decision"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "claim-validator",
+      "accountableReviewer": "claim-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "target-population inference"
+      },
+      "applicability": {
+        "rule": "Applies when claims bounded by evidence can affect the declared suite, experiment, decision target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "I6.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#i6-claims-are-bounded-by-evidence",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of I6 at standard.md#i6-claims-are-bounded-by-evidence and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "I7",
+      "subject": "enforced least privilege",
+      "normativeReference": "standard.md#i7-enforced-least-privilege",
+      "targets": [
+        "evaluator",
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "run-validator",
+      "accountableReviewer": "run-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "enterprise security controls"
+      },
+      "applicability": {
+        "rule": "Applies when enforced least privilege can affect the declared evaluator, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "I7.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#i7-enforced-least-privilege",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of I7 at standard.md#i7-enforced-least-privilege and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "I8",
+      "subject": "declared optimization objectives",
+      "normativeReference": "standard.md#i8-optimization-objectives-are-declared",
+      "targets": [
+        "suite",
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "metric-validator",
+      "accountableReviewer": "metric-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "denominator and selection integrity"
+      },
+      "applicability": {
+        "rule": "Applies when declared optimization objectives can affect the declared suite, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "I8.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#i8-optimization-objectives-are-declared",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of I8 at standard.md#i8-optimization-objectives-are-declared and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "I9",
+      "subject": "construct-fitting evidence",
+      "normativeReference": "standard.md#i9-evidence-fits-the-construct",
+      "targets": [
+        "case",
+        "evaluator"
+      ],
+      "verificationKind": "manual_governance",
+      "verificationOwner": "case-qa-validator",
+      "accountableReviewer": "independent-governance-reviewer",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "deterministic and expert evidence hierarchy"
+      },
+      "applicability": {
+        "rule": "Applies when construct-fitting evidence can affect the declared case, evaluator target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "I9.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#i9-evidence-fits-the-construct",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of I9 at standard.md#i9-evidence-fits-the-construct and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "accountable_review"
+        ]
+      }
+    },
+    {
+      "id": "I10",
+      "subject": "fail-closed required paths",
+      "normativeReference": "standard.md#i10-required-decision-paths-fail-closed",
+      "targets": [
+        "evaluator",
+        "experiment",
+        "decision"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "semantic-validator",
+      "accountableReviewer": "semantic-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "fail-closed design"
+      },
+      "applicability": {
+        "rule": "Applies when fail-closed required paths can affect the declared evaluator, experiment, decision target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "I10.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#i10-required-decision-paths-fail-closed",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of I10 at standard.md#i10-required-decision-paths-fail-closed and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "I11",
+      "subject": "causal comparability",
+      "normativeReference": "standard.md#i11-causal-comparability",
+      "targets": [
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "statistical-validator",
+      "accountableReviewer": "statistical-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "comparative experimental design"
+      },
+      "applicability": {
+        "rule": "Applies when causal comparability can affect the declared experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "I11.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#i11-causal-comparability",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of I11 at standard.md#i11-causal-comparability and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "I12",
+      "subject": "validated measurement only",
+      "normativeReference": "standard.md#i12-only-validated-measurement-enters-claims",
+      "targets": [
+        "case",
+        "suite",
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "case-qa-validator",
+      "accountableReviewer": "case-qa-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "task and grader validation"
+      },
+      "applicability": {
+        "rule": "Applies when validated measurement only can affect the declared case, suite, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "I12.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#i12-only-validated-measurement-enters-claims",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of I12 at standard.md#i12-only-validated-measurement-enters-claims and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "I13",
+      "subject": "trusted measurement boundary",
+      "normativeReference": "standard.md#i13-trusted-measurement-boundary",
+      "targets": [
+        "evaluator",
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "run-validator",
+      "accountableReviewer": "run-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "adversarial measurement-system design"
+      },
+      "applicability": {
+        "rule": "Applies when trusted measurement boundary can affect the declared evaluator, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "I13.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#i13-trusted-measurement-boundary",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of I13 at standard.md#i13-trusted-measurement-boundary and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "SCOPE-001",
+      "subject": "system-under-evaluation identity",
+      "normativeReference": "standard.md#system-under-evaluation",
+      "targets": [
+        "evaluator",
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "run-validator",
+      "accountableReviewer": "run-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "agent-evaluation architecture in Informative References"
+      },
+      "applicability": {
+        "rule": "Applies when system-under-evaluation identity can affect the declared evaluator, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "SCOPE-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#system-under-evaluation",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of SCOPE-001 at standard.md#system-under-evaluation and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "SCOPE-002",
+      "subject": "SDLC capability coverage",
+      "normativeReference": "standard.md#sdlc-capability-taxonomy",
+      "targets": [
+        "suite"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "suite-validator",
+      "accountableReviewer": "suite-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "closed taxonomy and explicit gap reporting prevent scope inflation and unsupported completeness claims"
+      },
+      "applicability": {
+        "rule": "Applies when sdlc capability coverage can affect the declared suite target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "SCOPE-002.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#sdlc-capability-taxonomy",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of SCOPE-002 at standard.md#sdlc-capability-taxonomy and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "SCOPE-003",
+      "subject": "repository-grounded applicability and profile selection",
+      "normativeReference": "standard.md#applicability-boundary-and-profiles",
+      "targets": [
+        "suite",
+        "case",
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "conformance-validator",
+      "accountableReviewer": "conformance-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "bounded standard architecture"
+      },
+      "applicability": {
+        "rule": "Applies when repository-grounded applicability and profile selection can affect the declared suite, case, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "SCOPE-003.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#applicability-boundary-and-profiles",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of SCOPE-003 at standard.md#applicability-boundary-and-profiles and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "PROFILE-001",
+      "subject": "evaluation-profile hierarchy and effective measurement identity",
+      "normativeReference": "standard.md#evaluation-profile-resolution",
+      "targets": [
+        "suite",
+        "case",
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "suite-and-case-validators",
+      "accountableReviewer": "suite-and-case-validators-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "deterministic specialization without weakening"
+      },
+      "applicability": {
+        "rule": "Applies when evaluation-profile hierarchy and effective measurement identity can affect the declared suite, case, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "PROFILE-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#evaluation-profile-resolution",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of PROFILE-001 at standard.md#evaluation-profile-resolution and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "OUTPROF-001",
+      "subject": "outcome-profile selection and compatibility",
+      "normativeReference": "standard.md#outcome-profiles",
+      "targets": [
+        "case",
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "case-validator",
+      "accountableReviewer": "case-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "artifact-appropriate evaluation without scope expansion"
+      },
+      "applicability": {
+        "rule": "Applies when outcome-profile selection and compatibility can affect the declared case, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "OUTPROF-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#outcome-profiles",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of OUTPROF-001 at standard.md#outcome-profiles and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "VALID-001",
+      "subject": "intended use and construct definition",
+      "normativeReference": "standard.md#intended-use-and-validity-argument",
+      "targets": [
+        "suite"
+      ],
+      "verificationKind": "manual_governance",
+      "verificationOwner": "suite-validator",
+      "accountableReviewer": "independent-governance-reviewer",
+      "evidenceBasis": {
+        "kind": "source_evidence",
+        "sourceIds": [
+          "SRC-NIST-AIRMF-2023"
+        ]
+      },
+      "applicability": {
+        "rule": "Applies when intended use and construct definition can affect the declared suite target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "VALID-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#intended-use-and-validity-argument",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of VALID-001 at standard.md#intended-use-and-validity-argument and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "accountable_review"
+        ]
+      }
+    },
+    {
+      "id": "VALID-002",
+      "subject": "validity argument and threats",
+      "normativeReference": "standard.md#intended-use-and-validity-argument",
+      "targets": [
+        "suite"
+      ],
+      "verificationKind": "manual_governance",
+      "verificationOwner": "suite-validator",
+      "accountableReviewer": "independent-governance-reviewer",
+      "evidenceBasis": {
+        "kind": "source_evidence",
+        "sourceIds": [
+          "SRC-NIST-AIRMF-2023"
+        ]
+      },
+      "applicability": {
+        "rule": "Applies when validity argument and threats can affect the declared suite target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "VALID-002.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#intended-use-and-validity-argument",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of VALID-002 at standard.md#intended-use-and-validity-argument and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "accountable_review"
+        ]
+      }
+    },
+    {
+      "id": "VALID-003",
+      "subject": "reference baselines",
+      "normativeReference": "standard.md#intended-use-and-validity-argument",
+      "targets": [
+        "suite",
+        "experiment"
+      ],
+      "verificationKind": "manual_governance",
+      "verificationOwner": "statistical-validator",
+      "accountableReviewer": "independent-governance-reviewer",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "current-workflow and human/tool comparison"
+      },
+      "applicability": {
+        "rule": "Applies when reference baselines can affect the declared suite, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "VALID-003.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#intended-use-and-validity-argument",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of VALID-003 at standard.md#intended-use-and-validity-argument and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "accountable_review"
+        ]
+      }
+    },
+    {
+      "id": "DATA-001",
+      "subject": "lawful source, data, IP, and privacy controls",
+      "normativeReference": "standard.md#data-ip-privacy-and-retention",
+      "targets": [
+        "suite",
+        "case"
+      ],
+      "verificationKind": "manual_governance",
+      "verificationOwner": "case-validator",
+      "accountableReviewer": "independent-governance-reviewer",
+      "evidenceBasis": {
+        "kind": "source_evidence",
+        "sourceIds": [
+          "SRC-NIST-AI6001-2024"
+        ]
+      },
+      "applicability": {
+        "rule": "Applies when lawful source, data, ip, and privacy controls can affect the declared suite, case target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "DATA-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#data-ip-privacy-and-retention",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of DATA-001 at standard.md#data-ip-privacy-and-retention and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "accountable_review"
+        ]
+      }
+    },
+    {
+      "id": "DATA-002",
+      "subject": "artifact access and retention",
+      "normativeReference": "evidence-and-validation-contract.md#evidence-minimization-and-retention",
+      "targets": [
+        "case",
+        "evaluator",
+        "experiment",
+        "decision"
+      ],
+      "verificationKind": "manual_governance",
+      "verificationOwner": "evidence-validator",
+      "accountableReviewer": "independent-governance-reviewer",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "least privilege and purpose limitation"
+      },
+      "applicability": {
+        "rule": "Applies when artifact access and retention can affect the declared case, evaluator, experiment, decision target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "DATA-002.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "evidence-and-validation-contract.md#evidence-minimization-and-retention",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of DATA-002 at evidence-and-validation-contract.md#evidence-minimization-and-retention and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "accountable_review"
+        ]
+      }
+    },
+    {
+      "id": "CASE-001",
+      "subject": "case contract and agent-visible projection",
+      "normativeReference": "standard.md#authoring",
+      "targets": [
+        "case"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "case-validator",
+      "accountableReviewer": "case-validator-owner",
+      "evidenceBasis": {
+        "kind": "source_evidence",
+        "sourceIds": [
+          "SRC-SWEBENCH-2024",
+          "SRC-METR-PUBLIC-TASKS-2024",
+          "SRC-METR-TASK-STANDARD-2024"
+        ]
+      },
+      "applicability": {
+        "rule": "Applies when case contract and agent-visible projection can affect the declared case target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "CASE-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#authoring",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of CASE-001 at standard.md#authoring and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "CASE-002",
+      "subject": "outcome profile and alternative valid outcomes",
+      "normativeReference": "standard.md#outcome-profiles",
+      "targets": [
+        "case"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "case-qa-validator",
+      "accountableReviewer": "case-qa-validator-owner",
+      "evidenceBasis": {
+        "kind": "source_evidence",
+        "sourceIds": [
+          "SRC-OPENAI-VERIFIED-AUDIT-2026",
+          "SRC-OPENAI-PRO-AUDIT-2026"
+        ]
+      },
+      "applicability": {
+        "rule": "Applies when outcome profile and alternative valid outcomes can affect the declared case target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "CASE-002.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#outcome-profiles",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of CASE-002 at standard.md#outcome-profiles and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "CASE-003",
+      "subject": "case lifecycle and retirement",
+      "normativeReference": "standard.md#lifecycle-states",
+      "targets": [
+        "suite",
+        "case"
+      ],
+      "verificationKind": "manual_governance",
+      "verificationOwner": "suite-validator",
+      "accountableReviewer": "independent-governance-reviewer",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "living-set maintenance"
+      },
+      "applicability": {
+        "rule": "Applies when case lifecycle and retirement can affect the declared suite, case target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "CASE-003.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#lifecycle-states",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of CASE-003 at standard.md#lifecycle-states and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "accountable_review"
+        ]
+      }
+    },
+    {
+      "id": "CASE-004",
+      "subject": "Case QA activation and revalidation",
+      "normativeReference": "standard.md#activation-and-maintenance",
+      "targets": [
+        "case"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "case-qa-validator",
+      "accountableReviewer": "case-qa-validator-owner",
+      "evidenceBasis": {
+        "kind": "source_evidence",
+        "sourceIds": [
+          "SRC-OPENAI-VERIFIED-2024",
+          "SRC-OPENAI-VERIFIED-AUDIT-2026",
+          "SRC-OPENAI-PRO-AUDIT-2026"
+        ]
+      },
+      "applicability": {
+        "rule": "Applies when case qa activation and revalidation can affect the declared case target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "CASE-004.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#activation-and-maintenance",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of CASE-004 at standard.md#activation-and-maintenance and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "CASE-005",
+      "subject": "decision-surface coverage",
+      "normativeReference": "standard.md#decision-surface-coverage",
+      "targets": [
+        "case"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "case-qa-validator",
+      "accountableReviewer": "case-qa-validator-owner",
+      "evidenceBasis": {
+        "kind": "source_evidence",
+        "sourceIds": [
+          "SRC-OPENAI-PRO-AUDIT-2026"
+        ]
+      },
+      "applicability": {
+        "rule": "Applies when decision-surface coverage can affect the declared case target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "CASE-005.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#decision-surface-coverage",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of CASE-005 at standard.md#decision-surface-coverage and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "HOLD-001",
+      "subject": "oracle isolation",
+      "normativeReference": "standard.md#i2-lifecycle-wide-oracle-isolation",
+      "targets": [
+        "case",
+        "evaluator",
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "run-validator",
+      "accountableReviewer": "run-validator-owner",
+      "evidenceBasis": {
+        "kind": "source_evidence",
+        "sourceIds": [
+          "SRC-OPENAI-VERIFIED-AUDIT-2026"
+        ]
+      },
+      "applicability": {
+        "rule": "Applies when oracle isolation can affect the declared case, evaluator, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "HOLD-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#i2-lifecycle-wide-oracle-isolation",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of HOLD-001 at standard.md#i2-lifecycle-wide-oracle-isolation and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "HOLD-002",
+      "subject": "held-out exposure and reuse budget",
+      "normativeReference": "standard.md#held-out-exposure-and-reuse",
+      "targets": [
+        "suite",
+        "case",
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "suite-validator",
+      "accountableReviewer": "suite-validator-owner",
+      "evidenceBasis": {
+        "kind": "source_evidence",
+        "sourceIds": [
+          "SRC-OPENAI-VERIFIED-AUDIT-2026"
+        ]
+      },
+      "applicability": {
+        "rule": "Applies when held-out exposure and reuse budget can affect the declared suite, case, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "HOLD-002.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#held-out-exposure-and-reuse",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of HOLD-002 at standard.md#held-out-exposure-and-reuse and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "EXP-001",
+      "subject": "sealed experiment and scheduled cells",
+      "normativeReference": "standard.md#sealed-experiment-contract",
+      "targets": [
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "run-validator",
+      "accountableReviewer": "run-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "reproducibility and pre-registration"
+      },
+      "applicability": {
+        "rule": "Applies when sealed experiment and scheduled cells can affect the declared experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "EXP-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#sealed-experiment-contract",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of EXP-001 at standard.md#sealed-experiment-contract and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "EXP-002",
+      "subject": "complete arm identity",
+      "normativeReference": "standard.md#sealed-experiment-contract",
+      "targets": [
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "run-validator",
+      "accountableReviewer": "run-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "causal comparability"
+      },
+      "applicability": {
+        "rule": "Applies when complete arm identity can affect the declared experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "EXP-002.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#sealed-experiment-contract",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of EXP-002 at standard.md#sealed-experiment-contract and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "EXP-003",
+      "subject": "comparative design",
+      "normativeReference": "standard.md#sealed-experiment-contract",
+      "targets": [
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "statistical-validator",
+      "accountableReviewer": "statistical-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "paired experimental design"
+      },
+      "applicability": {
+        "rule": "Applies when comparative design can affect the declared experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "EXP-003.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#sealed-experiment-contract",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of EXP-003 at standard.md#sealed-experiment-contract and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "RUN-001",
+      "subject": "isolation, execution, capture, and teardown",
+      "normativeReference": "standard.md#run-protocol",
+      "targets": [
+        "evaluator",
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "run-validator",
+      "accountableReviewer": "run-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "reproducible harness practice in Informative References"
+      },
+      "applicability": {
+        "rule": "Applies when isolation, execution, capture, and teardown can affect the declared evaluator, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "RUN-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#run-protocol",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of RUN-001 at standard.md#run-protocol and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "RUN-002",
+      "subject": "complete attempt accounting",
+      "normativeReference": "standard.md#i5-attribution-and-complete-attempt-accounting",
+      "targets": [
+        "evaluator",
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "ledger-validator",
+      "accountableReviewer": "ledger-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "missingness and retry-bias control"
+      },
+      "applicability": {
+        "rule": "Applies when complete attempt accounting can affect the declared evaluator, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "RUN-002.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#i5-attribution-and-complete-attempt-accounting",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of RUN-002 at standard.md#i5-attribution-and-complete-attempt-accounting and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "RUN-003",
+      "subject": "trusted measurement boundary",
+      "normativeReference": "standard.md#i13-trusted-measurement-boundary",
+      "targets": [
+        "evaluator",
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "run-validator",
+      "accountableReviewer": "run-validator-owner",
+      "evidenceBasis": {
+        "kind": "source_evidence",
+        "sourceIds": [
+          "SRC-NIST-AI6001-2024",
+          "SRC-AGENTDOJO-2024",
+          "SRC-AUTODOJO-2026",
+          "SRC-OWASP-AGENTIC-2026",
+          "SRC-MITRE-ATLAS",
+          "SRC-INTOTO-2019",
+          "SRC-NIST-SSDF-2022",
+          "SRC-RFC9162-2021"
+        ]
+      },
+      "applicability": {
+        "rule": "Applies when trusted measurement boundary can affect the declared evaluator, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "RUN-003.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#i13-trusted-measurement-boundary",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of RUN-003 at standard.md#i13-trusted-measurement-boundary and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "INT-001",
+      "subject": "interactive actor protocol",
+      "normativeReference": "standard.md#interactive-actors-and-simulators",
+      "targets": [
+        "case",
+        "evaluator",
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "case-qa-and-run-validators",
+      "accountableReviewer": "case-qa-and-run-validators-owner",
+      "evidenceBasis": {
+        "kind": "source_evidence",
+        "sourceIds": [
+          "SRC-TAUBENCH-2024",
+          "SRC-WORKARENA-2024"
+        ]
+      },
+      "applicability": {
+        "rule": "Applies when interactive actor protocol can affect the declared case, evaluator, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "INT-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#interactive-actors-and-simulators",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of INT-001 at standard.md#interactive-actors-and-simulators and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "EVID-001",
+      "subject": "canonical evidence artifacts",
+      "normativeReference": "evidence-and-validation-contract.md#canonical-evidence-artifact",
+      "targets": [
+        "suite",
+        "case",
+        "evaluator",
+        "experiment",
+        "decision"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "evidence-validator",
+      "accountableReviewer": "evidence-validator-owner",
+      "evidenceBasis": {
+        "kind": "source_evidence",
+        "sourceIds": [
+          "SRC-RFC8785-2020",
+          "SRC-RFC8032-2017",
+          "SRC-FIPS1865-2023",
+          "SRC-INTOTO-2019",
+          "SRC-RFC7518-2015",
+          "SRC-RFC9864-2025",
+          "SRC-RFC8017-2016",
+          "SRC-RFC9162-2021"
+        ]
+      },
+      "applicability": {
+        "rule": "Applies when canonical evidence artifacts can affect the declared suite, case, evaluator, experiment, decision target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "EVID-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "evidence-and-validation-contract.md#canonical-evidence-artifact",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of EVID-001 at evidence-and-validation-contract.md#canonical-evidence-artifact and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "EVID-002",
+      "subject": "detached validation envelope",
+      "normativeReference": "evidence-and-validation-contract.md#detached-validation-envelope",
+      "targets": [
+        "suite",
+        "case",
+        "evaluator",
+        "experiment",
+        "decision"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "conformance-validator",
+      "accountableReviewer": "conformance-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "detached validation avoids self-attested validity and cyclic subject/result authentication"
+      },
+      "applicability": {
+        "rule": "Applies when detached validation envelope can affect the declared suite, case, evaluator, experiment, decision target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "EVID-002.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "evidence-and-validation-contract.md#detached-validation-envelope",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of EVID-002 at evidence-and-validation-contract.md#detached-validation-envelope and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "JUDGE-001",
+      "subject": "evidence hierarchy",
+      "normativeReference": "standard.md#evidence-hierarchy",
+      "targets": [
+        "case",
+        "evaluator",
+        "experiment"
+      ],
+      "verificationKind": "manual_governance",
+      "verificationOwner": "case-qa-validator",
+      "accountableReviewer": "independent-governance-reviewer",
+      "evidenceBasis": {
+        "kind": "source_evidence",
+        "sourceIds": [
+          "SRC-LLM-JUDGE-2023"
+        ]
+      },
+      "applicability": {
+        "rule": "Applies when evidence hierarchy can affect the declared case, evaluator, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "JUDGE-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#evidence-hierarchy",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of JUDGE-001 at standard.md#evidence-hierarchy and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "accountable_review"
+        ]
+      }
+    },
+    {
+      "id": "JUDGE-002",
+      "subject": "deterministic verification",
+      "normativeReference": "standard.md#evidence-hierarchy",
+      "targets": [
+        "case",
+        "evaluator",
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "case-qa-validator",
+      "accountableReviewer": "case-qa-validator-owner",
+      "evidenceBasis": {
+        "kind": "source_evidence",
+        "sourceIds": [
+          "SRC-LLM-JUDGE-2023"
+        ]
+      },
+      "applicability": {
+        "rule": "Applies when deterministic verification can affect the declared case, evaluator, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "JUDGE-002.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#evidence-hierarchy",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of JUDGE-002 at standard.md#evidence-hierarchy and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "JUDGE-003",
+      "subject": "expert adjudication",
+      "normativeReference": "standard.md#evidence-hierarchy",
+      "targets": [
+        "case",
+        "evaluator",
+        "experiment"
+      ],
+      "verificationKind": "manual_governance",
+      "verificationOwner": "case-qa-validator",
+      "accountableReviewer": "independent-governance-reviewer",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "fail-closed protection against single-rater, order, identity, and conflict-of-interest effects in decision-bearing expert evidence"
+      },
+      "applicability": {
+        "rule": "Applies when expert adjudication can affect the declared case, evaluator, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "JUDGE-003.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#evidence-hierarchy",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of JUDGE-003 at standard.md#evidence-hierarchy and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "accountable_review"
+        ]
+      }
+    },
+    {
+      "id": "GATE-001",
+      "subject": "universal and profile gate registries",
+      "normativeReference": "scorecard-contract.md#gate-registry",
+      "targets": [
+        "case",
+        "evaluator",
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "scorecard-validator",
+      "accountableReviewer": "scorecard-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "non-compensable safety and validity"
+      },
+      "applicability": {
+        "rule": "Applies when universal and profile gate registries can affect the declared case, evaluator, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "GATE-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "scorecard-contract.md#gate-registry",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of GATE-001 at scorecard-contract.md#gate-registry and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "OUT-001",
+      "subject": "outcome taxonomy and predicates",
+      "normativeReference": "scorecard-contract.md#successful-functional-and-accepted-outcomes",
+      "targets": [
+        "case",
+        "evaluator",
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "scorecard-validator",
+      "accountableReviewer": "scorecard-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "explicit outcome contracts"
+      },
+      "applicability": {
+        "rule": "Applies when outcome taxonomy and predicates can affect the declared case, evaluator, experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "OUT-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "scorecard-contract.md#successful-functional-and-accepted-outcomes",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of OUT-001 at scorecard-contract.md#successful-functional-and-accepted-outcomes and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "CLAIM-001",
+      "subject": "closed claims registry and `claims[]`",
+      "normativeReference": "scorecard-contract.md#claims",
+      "targets": [
+        "suite",
+        "evaluator",
+        "experiment",
+        "decision"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "scorecard-validator",
+      "accountableReviewer": "scorecard-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "claim-bounded reporting"
+      },
+      "applicability": {
+        "rule": "Applies when closed claims registry and `claims[]` can affect the declared suite, evaluator, experiment, decision target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "CLAIM-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "scorecard-contract.md#claims",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of CLAIM-001 at scorecard-contract.md#claims and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "CLAIM-002",
+      "subject": "population and coverage limits",
+      "normativeReference": "standard.md#statistics-and-missingness",
+      "targets": [
+        "suite",
+        "experiment",
+        "decision"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "statistical-validator",
+      "accountableReviewer": "statistical-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "target-population inference"
+      },
+      "applicability": {
+        "rule": "Applies when population and coverage limits can affect the declared suite, experiment, decision target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "CLAIM-002.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#statistics-and-missingness",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of CLAIM-002 at standard.md#statistics-and-missingness and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "STAT-001",
+      "subject": "repeated trials and units",
+      "normativeReference": "standard.md#statistics-and-missingness",
+      "targets": [
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "statistical-validator",
+      "accountableReviewer": "statistical-validator-owner",
+      "evidenceBasis": {
+        "kind": "source_evidence",
+        "sourceIds": [
+          "SRC-HUMANEVAL-2021",
+          "SRC-TAUBENCH-2024"
+        ]
+      },
+      "applicability": {
+        "rule": "Applies when repeated trials and units can affect the declared experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "STAT-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#statistics-and-missingness",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of STAT-001 at standard.md#statistics-and-missingness and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "STAT-002",
+      "subject": "missingness and identification bounds",
+      "normativeReference": "standard.md#statistics-and-missingness",
+      "targets": [
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "statistical-validator",
+      "accountableReviewer": "statistical-validator-owner",
+      "evidenceBasis": {
+        "kind": "source_evidence",
+        "sourceIds": [
+          "SRC-IMBENS-MANSKI-2004"
+        ]
+      },
+      "applicability": {
+        "rule": "Applies when missingness and identification bounds can affect the declared experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "STAT-002.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#statistics-and-missingness",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of STAT-002 at standard.md#statistics-and-missingness and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "STAT-003",
+      "subject": "comparison and uncertainty",
+      "normativeReference": "standard.md#statistics-and-missingness",
+      "targets": [
+        "experiment"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "statistical-validator",
+      "accountableReviewer": "statistical-validator-owner",
+      "evidenceBasis": {
+        "kind": "source_evidence",
+        "sourceIds": [
+          "SRC-CGM-2008",
+          "SRC-ALWAYS-VALID-2015"
+        ]
+      },
+      "applicability": {
+        "rule": "Applies when comparison and uncertainty can affect the declared experiment target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "STAT-003.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#statistics-and-missingness",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of STAT-003 at standard.md#statistics-and-missingness and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "ASSURE-001",
+      "subject": "proportional assurance level",
+      "normativeReference": "standard.md#assurance-levels",
+      "targets": [
+        "suite",
+        "case",
+        "evaluator",
+        "experiment",
+        "decision"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "conformance-validator",
+      "accountableReviewer": "conformance-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "risk-proportionate enterprise adoption"
+      },
+      "applicability": {
+        "rule": "Apply the closed ASSURE-001 ordinal algorithm to every claims-eligible scope: select the authenticated effective-risk rule and capability_claim or consuming governance-decision class, enforce the non-weakenable floor and policy monotonicity, then require all cumulative evidence obligations through the declared level. A0 applies only to diagnostic_only scopes with no claim-eligible result.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "ASSURE-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#assurance-levels",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of ASSURE-001 at standard.md#assurance-levels and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "RISK-001",
+      "subject": "task hazard and exposure-derived risk",
+      "normativeReference": "standard.md#risk-model",
+      "targets": [
+        "case",
+        "experiment",
+        "decision"
+      ],
+      "verificationKind": "manual_governance",
+      "verificationOwner": "governance-validator",
+      "accountableReviewer": "independent-governance-reviewer",
+      "evidenceBasis": {
+        "kind": "source_evidence",
+        "sourceIds": [
+          "SRC-NIST-AIRMF-2023",
+          "SRC-NIST-AI6001-2024",
+          "SRC-AGENTDOJO-2024",
+          "SRC-AUTODOJO-2026",
+          "SRC-OWASP-AGENTIC-2026",
+          "SRC-MITRE-ATLAS"
+        ]
+      },
+      "applicability": {
+        "rule": "Applies when task hazard and exposure-derived risk can affect the declared case, experiment, decision target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "RISK-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#risk-model",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of RISK-001 at standard.md#risk-model and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "accountable_review"
+        ]
+      }
+    },
+    {
+      "id": "GOV-001",
+      "subject": "pre-registered governance decision",
+      "normativeReference": "standard.md#governance-decisions-and-post-decision-assurance",
+      "targets": [
+        "experiment",
+        "decision"
+      ],
+      "verificationKind": "manual_governance",
+      "verificationOwner": "governance-validator",
+      "accountableReviewer": "independent-governance-reviewer",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "auditable decision governance"
+      },
+      "applicability": {
+        "rule": "Applies when pre-registered governance decision can affect the declared experiment, decision target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "GOV-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#governance-decisions-and-post-decision-assurance",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of GOV-001 at standard.md#governance-decisions-and-post-decision-assurance and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "accountable_review"
+        ]
+      }
+    },
+    {
+      "id": "GOV-002",
+      "subject": "post-decision assurance and expiry",
+      "normativeReference": "standard.md#governance-decisions-and-post-decision-assurance",
+      "targets": [
+        "decision"
+      ],
+      "verificationKind": "manual_governance",
+      "verificationOwner": "governance-validator",
+      "accountableReviewer": "independent-governance-reviewer",
+      "evidenceBasis": {
+        "kind": "source_evidence",
+        "sourceIds": [
+          "SRC-NIST-AIRMF-2023",
+          "SRC-ALWAYS-VALID-2015"
+        ]
+      },
+      "applicability": {
+        "rule": "Applies when post-decision assurance and expiry can affect the declared decision target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "GOV-002.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#governance-decisions-and-post-decision-assurance",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of GOV-002 at standard.md#governance-decisions-and-post-decision-assurance and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "accountable_review"
+        ]
+      }
+    },
+    {
+      "id": "HEALTH-001",
+      "subject": "suite and measurement health",
+      "normativeReference": "standard.md#suite-health",
+      "targets": [
+        "suite",
+        "decision"
+      ],
+      "verificationKind": "manual_governance",
+      "verificationOwner": "suite-validator",
+      "accountableReviewer": "independent-governance-reviewer",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "living-set maintenance and drift control"
+      },
+      "applicability": {
+        "rule": "Applies when suite and measurement health can affect the declared suite, decision target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "HEALTH-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "standard.md#suite-health",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of HEALTH-001 at standard.md#suite-health and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "accountable_review"
+        ]
+      }
+    },
+    {
+      "id": "CONF-001",
+      "subject": "target-specific conformance",
+      "normativeReference": "conformance.md#applicability-boundary",
+      "targets": [
+        "suite",
+        "case",
+        "evaluator",
+        "experiment",
+        "decision"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "conformance-validator",
+      "accountableReviewer": "conformance-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "independently reviewable claims"
+      },
+      "applicability": {
+        "rule": "Applies when target-specific conformance can affect the declared suite, case, evaluator, experiment, decision target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "CONF-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "conformance.md#applicability-boundary",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of CONF-001 at conformance.md#applicability-boundary and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "CONF-002",
+      "subject": "requirement coverage matrix",
+      "normativeReference": "conformance.md#requirement-coverage",
+      "targets": [
+        "suite",
+        "case",
+        "evaluator",
+        "experiment",
+        "decision"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "conformance-validator",
+      "accountableReviewer": "conformance-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "requirement-level traceability"
+      },
+      "applicability": {
+        "rule": "Applies when requirement coverage matrix can affect the declared suite, case, evaluator, experiment, decision target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "CONF-002.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "conformance.md#requirement-coverage",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of CONF-002 at conformance.md#requirement-coverage and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "CONF-003",
+      "subject": "extension and deviation handling",
+      "normativeReference": "conformance.md#extensions-and-deviations",
+      "targets": [
+        "suite",
+        "case",
+        "evaluator",
+        "experiment",
+        "decision"
+      ],
+      "verificationKind": "semantic",
+      "verificationOwner": "conformance-validator",
+      "accountableReviewer": "conformance-validator-owner",
+      "evidenceBasis": {
+        "kind": "design_invariant",
+        "threatRationale": "compatible extension design"
+      },
+      "applicability": {
+        "rule": "Applies when extension and deviation handling can affect the declared suite, case, evaluator, experiment, decision target or any claim derived from it.",
+        "unknownEffect": "insufficient_evidence"
+      },
+      "verificationContract": {
+        "criterionId": "CONF-003.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "conformance.md#extensions-and-deviations",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of CONF-003 at conformance.md#extensions-and-deviations and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    }
+  ],
+  "digest": "sha256:be32eaebcbee3200baa3c0f3edc49183ccafb550feba1801e8292ef85cfce771"
+}

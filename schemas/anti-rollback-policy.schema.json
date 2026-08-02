@@ -1,0 +1,346 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:anti-rollback-policy:1",
+  "title": "Risk-proportionate anti-rollback and equivocation policy",
+  "$comment": "Semantic validation must require the evaluated artifact's actual assurance level and effective risk tier to occur in applicability. A policy whose applicability omits either current value is inapplicable, not a fallback. reviewedAt must precede expiresAt and risk-acceptance review must be current at governance acceptance.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "version",
+    "applicability",
+    "objective",
+    "mechanism",
+    "failureSemantics",
+    "digest",
+    "signature"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-anti-rollback-policy-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "type": "string", "minLength": 1 },
+    "applicability": {
+      "type": "object",
+      "required": ["assuranceLevels", "effectiveRiskTiers", "threatAssessment"],
+      "properties": {
+        "assuranceLevels": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "enum": ["A0", "A1", "A2", "A3"] },
+          "uniqueItems": true
+        },
+        "effectiveRiskTiers": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "enum": ["low", "medium", "high", "critical"] },
+          "uniqueItems": true
+        },
+        "threatAssessment": { "$ref": "#/$defs/artifactPointer" }
+      },
+      "additionalProperties": false
+    },
+    "objective": { "const": "detect_rollback_and_equivocation_before_governance_acceptance" },
+    "mechanism": {
+      "oneOf": [
+        { "$ref": "#/$defs/notRequired" },
+        { "$ref": "#/$defs/externalTransparencyLog" },
+        { "$ref": "#/$defs/independentNotary" },
+        { "$ref": "#/$defs/independentlyAuditedImmutableStorage" }
+      ]
+    },
+    "freshnessLimitSeconds": { "type": "integer", "minimum": 1 },
+    "riskAcceptanceReview": { "$ref": "#/$defs/riskAcceptanceReview" },
+    "failureSemantics": {
+      "oneOf": [
+        { "$ref": "#/$defs/activeFailureSemantics" },
+        { "$ref": "#/$defs/notRequiredFailureSemantics" }
+      ]
+    },
+    "digest": { "$ref": "#/$defs/digest" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "applicability": {
+            "type": "object",
+            "properties": {
+              "assuranceLevels": { "type": "array", "contains": { "enum": ["A2", "A3"] } }
+            },
+            "required": ["assuranceLevels"]
+          }
+        },
+        "required": ["applicability"]
+      },
+      "then": {
+        "properties": {
+          "mechanism": {
+            "not": {
+              "type": "object",
+              "properties": { "type": { "const": "not_required" } },
+              "required": ["type"]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "applicability": {
+            "type": "object",
+            "properties": {
+              "effectiveRiskTiers": { "type": "array", "contains": { "enum": ["high", "critical"] } }
+            },
+            "required": ["effectiveRiskTiers"]
+          }
+        },
+        "required": ["applicability"]
+      },
+      "then": {
+        "properties": {
+          "mechanism": {
+            "not": {
+              "type": "object",
+              "properties": { "type": { "const": "not_required" } },
+              "required": ["type"]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "mechanism": {
+            "type": "object",
+            "properties": { "type": { "const": "not_required" } },
+            "required": ["type"]
+          }
+        },
+        "required": ["mechanism"]
+      },
+      "then": {
+        "required": ["riskAcceptanceReview"],
+        "properties": {
+          "riskAcceptanceReview": { "type": "object" },
+          "failureSemantics": { "$ref": "#/$defs/notRequiredFailureSemantics" }
+        },
+        "not": {
+          "properties": { "freshnessLimitSeconds": {} },
+          "required": ["freshnessLimitSeconds"]
+        }
+      },
+      "else": {
+        "required": ["freshnessLimitSeconds"],
+        "properties": {
+          "freshnessLimitSeconds": { "type": "integer", "minimum": 1 },
+          "failureSemantics": { "$ref": "#/$defs/activeFailureSemantics" }
+        },
+        "not": {
+          "properties": { "riskAcceptanceReview": {} },
+          "required": ["riskAcceptanceReview"]
+        }
+      }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "artifactPointer": {
+      "type": "object",
+      "required": ["id", "uri", "digest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "uri": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "trustAssumptions": {
+      "type": "object",
+      "required": ["trustDomain", "operatorIndependentOf", "compromiseAssumptions", "verifierIndependence"],
+      "properties": {
+        "trustDomain": { "type": "string", "minLength": 1 },
+        "operatorIndependentOf": {
+          "type": "array",
+          "minItems": 6,
+          "items": { "enum": ["run_workspace", "ledger_writer", "evidence_signer", "decision_approver", "evaluator", "subject_owner"] },
+          "uniqueItems": true,
+          "allOf": [
+            { "contains": { "const": "run_workspace" } },
+            { "contains": { "const": "ledger_writer" } },
+            { "contains": { "const": "evidence_signer" } },
+            { "contains": { "const": "decision_approver" } },
+            { "contains": { "const": "evaluator" } },
+            { "contains": { "const": "subject_owner" } }
+          ]
+        },
+        "compromiseAssumptions": { "type": "string", "minLength": 1 },
+        "verifierIndependence": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "boundReceiptFields": {
+      "type": "array",
+      "minItems": 7,
+      "items": {
+        "enum": [
+          "ledgerId",
+          "sequence",
+          "root",
+          "previousReceiptDigest",
+          "observedAt",
+          "serviceIdentity",
+          "signature"
+        ]
+      },
+      "uniqueItems": true,
+      "allOf": [
+        { "contains": { "const": "ledgerId" } },
+        { "contains": { "const": "sequence" } },
+        { "contains": { "const": "root" } },
+        { "contains": { "const": "previousReceiptDigest" } },
+        { "contains": { "const": "observedAt" } },
+        { "contains": { "const": "serviceIdentity" } },
+        { "contains": { "const": "signature" } }
+      ]
+    },
+    "witnessPolicy": {
+      "type": "object",
+      "required": ["mode", "minimumIndependentWitnesses", "witnessRegistry", "splitViewDisposition"],
+      "properties": {
+        "mode": { "enum": ["independent_witness", "quorum", "authenticated_gossip"] },
+        "minimumIndependentWitnesses": { "type": "integer", "minimum": 1 },
+        "witnessRegistry": { "$ref": "#/$defs/artifactPointer" },
+        "splitViewDisposition": { "const": "measurement_boundary_compromise" }
+      },
+      "additionalProperties": false
+    },
+    "notRequired": {
+      "type": "object",
+      "required": ["type", "justification", "riskAcceptance"],
+      "properties": {
+        "type": { "const": "not_required" },
+        "justification": { "type": "string", "minLength": 1 },
+        "riskAcceptance": { "$ref": "#/$defs/artifactPointer" }
+      },
+      "additionalProperties": false
+    },
+    "riskAcceptanceReview": {
+      "$comment": "Semantic validation must require reviewedAt < expiresAt, the current verifier time before expiresAt, and a new signed review after any listed trigger.",
+      "type": "object",
+      "required": ["reviewedAt", "expiresAt", "maximumReviewIntervalSeconds", "reopenTriggers"],
+      "properties": {
+        "reviewedAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
+        "expiresAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
+        "maximumReviewIntervalSeconds": { "type": "integer", "minimum": 1 },
+        "reopenTriggers": {
+          "type": "array",
+          "minItems": 4,
+          "items": { "enum": ["assurance_change", "risk_change", "threat_change", "scope_change"] },
+          "uniqueItems": true,
+          "allOf": [
+            { "contains": { "const": "assurance_change" } },
+            { "contains": { "const": "risk_change" } },
+            { "contains": { "const": "threat_change" } },
+            { "contains": { "const": "scope_change" } }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "activeFailureSemantics": {
+      "type": "object",
+      "required": ["rollback", "equivocation", "staleEvidence", "unavailableEvidence"],
+      "properties": {
+        "rollback": { "const": "insufficient_evidence_and_measurement_boundary_compromise" },
+        "equivocation": { "const": "insufficient_evidence_and_measurement_boundary_compromise" },
+        "staleEvidence": { "const": "insufficient_evidence" },
+        "unavailableEvidence": { "enum": ["insufficient_evidence", "stop_governance_use"] }
+      },
+      "additionalProperties": false
+    },
+    "notRequiredFailureSemantics": {
+      "type": "object",
+      "required": ["riskAcceptanceExpired", "scopeMismatch"],
+      "properties": {
+        "riskAcceptanceExpired": { "const": "stop_governance_use" },
+        "scopeMismatch": { "const": "stop_governance_use" }
+      },
+      "additionalProperties": false
+    },
+    "externalTransparencyLog": {
+      "type": "object",
+      "required": [
+        "type",
+        "protocolProfile",
+        "serviceIdentity",
+        "trustAssumptions",
+        "receiptSchema",
+        "boundReceiptFields",
+        "inclusionEvidence",
+        "consistencyEvidence",
+        "witnessPolicy"
+      ],
+      "properties": {
+        "type": { "const": "external_transparency_log" },
+        "protocolProfile": { "enum": ["rfc9162_derived_binary_log", "profile_defined_transparency_log"] },
+        "serviceIdentity": { "$ref": "#/$defs/artifactPointer" },
+        "trustAssumptions": { "$ref": "#/$defs/trustAssumptions" },
+        "receiptSchema": { "$ref": "#/$defs/artifactPointer" },
+        "boundReceiptFields": { "$ref": "#/$defs/boundReceiptFields" },
+        "inclusionEvidence": { "const": "cryptographic_inclusion_proof" },
+        "consistencyEvidence": { "const": "cryptographic_append_only_consistency_proof" },
+        "witnessPolicy": { "$ref": "#/$defs/witnessPolicy" }
+      },
+      "additionalProperties": false
+    },
+    "independentNotary": {
+      "type": "object",
+      "required": [
+        "type",
+        "serviceIdentity",
+        "trustAssumptions",
+        "receiptSchema",
+        "boundReceiptFields",
+        "continuityEvidence",
+        "witnessPolicy"
+      ],
+      "properties": {
+        "type": { "const": "independent_notary" },
+        "serviceIdentity": { "$ref": "#/$defs/artifactPointer" },
+        "trustAssumptions": { "$ref": "#/$defs/trustAssumptions" },
+        "receiptSchema": { "$ref": "#/$defs/artifactPointer" },
+        "boundReceiptFields": { "$ref": "#/$defs/boundReceiptFields" },
+        "continuityEvidence": { "const": "signed_monotonic_receipt_chain" },
+        "witnessPolicy": { "$ref": "#/$defs/witnessPolicy" }
+      },
+      "additionalProperties": false
+    },
+    "independentlyAuditedImmutableStorage": {
+      "type": "object",
+      "required": [
+        "type",
+        "storagePolicy",
+        "trustAssumptions",
+        "receiptSchema",
+        "boundReceiptFields",
+        "auditEvidence",
+        "witnessPolicy"
+      ],
+      "properties": {
+        "type": { "const": "independently_audited_immutable_storage" },
+        "storagePolicy": { "$ref": "#/$defs/artifactPointer" },
+        "trustAssumptions": { "$ref": "#/$defs/trustAssumptions" },
+        "receiptSchema": { "$ref": "#/$defs/artifactPointer" },
+        "boundReceiptFields": { "$ref": "#/$defs/boundReceiptFields" },
+        "auditEvidence": { "$ref": "#/$defs/artifactPointer" },
+        "witnessPolicy": { "$ref": "#/$defs/witnessPolicy" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

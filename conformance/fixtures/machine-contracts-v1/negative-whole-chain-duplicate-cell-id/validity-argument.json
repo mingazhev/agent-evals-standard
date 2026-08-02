@@ -1,0 +1,201 @@
+{
+  "schemaVersion": "agent-eval-validity-argument-1",
+  "id": "suite-validity-argument-v1",
+  "version": "0.1.0",
+  "suite": {
+    "id": "suite-fixture-typed-1",
+    "artifactVersion": "0.1.0",
+    "schemaId": "urn:agent-evals-standard:schema:suite-manifest:1",
+    "projection": "suite_precontrol_projection_v1",
+    "digest": "sha256:0acdb2679b3e7da635385d78d3852e565cbd9c79ad8664c843f0a0ba0a543411"
+  },
+  "intendedUse": "Bounded held-out evaluation of repository SDLC agents.",
+  "targetPopulation": "Enterprise repository tasks represented by the sealed suite strata.",
+  "constructs": [
+    {
+      "id": "repository-change-capability",
+      "definition": "Ability to produce a correct, policy-compliant repository change under sealed conditions.",
+      "includedEvidence": [
+        "accepted-outcome",
+        "workspace-diff",
+        "validation-verdict"
+      ],
+      "excludedEvidence": [
+        "self-report",
+        "unverified-prose"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim-repository-change-capability",
+      "constructIds": [
+        "repository-change-capability"
+      ],
+      "population": "Declared enterprise repository-task population",
+      "permittedTypes": [
+        "capability",
+        "reliability"
+      ],
+      "acceptanceRule": "Accepted-outcome lower bound meets the preregistered threshold with all gates passing.",
+      "evidenceRequired": [
+        "held-out-trials",
+        "current-workflow-baseline",
+        "uncertainty-interval"
+      ]
+    }
+  ],
+  "threatsToValidity": [
+    {
+      "id": "construct-misalignment",
+      "category": "construct",
+      "risk": "Incidental tool activity may be mistaken for the evaluated repository-change construct.",
+      "mitigations": [
+        "material-work-artifact classification",
+        "independent outcome validation"
+      ],
+      "residualEffect": "bounded_claim"
+    },
+    {
+      "id": "treatment-confounding",
+      "category": "internal",
+      "risk": "Arm differences beyond the declared treatment may affect outcomes.",
+      "mitigations": [
+        "sealed arm identity",
+        "paired case schedule"
+      ],
+      "residualEffect": "bounded_claim"
+    },
+    {
+      "id": "population-undercoverage",
+      "category": "external",
+      "risk": "The sealed suite may omit relevant enterprise strata.",
+      "mitigations": [
+        "represented-strata declaration",
+        "claim population restriction"
+      ],
+      "residualEffect": "bounded_claim"
+    },
+    {
+      "id": "small-sample-uncertainty",
+      "category": "statistical_conclusion",
+      "risk": "Finite scheduled trials may not identify the target effect precisely.",
+      "mitigations": [
+        "preregistered intervals",
+        "missingness bounds"
+      ],
+      "residualEffect": "bounded_claim"
+    }
+  ],
+  "assumptions": [
+    "The sealed repository snapshot represents the declared case state.",
+    "Measurement controls remain independent from the evaluated arm."
+  ],
+  "limitations": [
+    "Results do not support general-agent claims.",
+    "Results do not generalize beyond the declared repository-task population."
+  ],
+  "evidencePlan": {
+    "requiredEvidenceKinds": [
+      "held-out-trials",
+      "case-qa",
+      "measurement-integrity"
+    ],
+    "referenceBaselines": [
+      {
+        "id": "current-workflow-baseline",
+        "kind": "current_workflow",
+        "agentInvolvement": "present",
+        "conditions": "Same sealed cases, repository state, permissions, and stopping rule as the treatment arm.",
+        "resources": "The declared incumbent workflow budget and staffing envelope.",
+        "tools": "The incumbent workflow tool set identified by the sealed experiment.",
+        "scoring": "The same outcome profile, gates, and statistical scoring as the treatment arm."
+      },
+      {
+        "id": "deterministic-non-agent-control",
+        "kind": "deterministic_automation",
+        "agentInvolvement": "none",
+        "conditions": "Same sealed case inputs with no model or agent participation.",
+        "resources": "The deterministic control budget declared before execution.",
+        "tools": "Pinned deterministic repository checks only.",
+        "scoring": "The same applicable outcome predicates and gates as the treatment arm."
+      }
+    ],
+    "unknownEffect": "insufficient_evidence",
+    "incumbentDisposition": {
+      "status": "incumbent_available",
+      "baselineId": "current-workflow-baseline",
+      "rationale": "The declared current repository workflow is the operational alternative to the evaluated treatment.",
+      "evidenceReferences": [
+        "current-workflow-inventory"
+      ]
+    }
+  },
+  "review": {
+    "owner": {
+      "id": "suite-owner",
+      "role": "evaluation_claimant",
+      "trustDomain": "claimant"
+    },
+    "independentReviewer": {
+      "id": "fixture-independent-validity-reviewer",
+      "role": "validity_reviewer",
+      "trustDomain": "independent_review"
+    },
+    "reviewedAt": "2026-08-01T00:30:00Z",
+    "verdict": "approved_for_declared_use",
+    "revisitTriggers": [
+      "target population change",
+      "evaluation profile change",
+      "material measurement incident"
+    ],
+    "evidence": {
+      "contractType": "evaluation_control_authority_evidence",
+      "id": "validity-review-evidence-v1",
+      "version": "0.1.0",
+      "schemaId": "urn:agent-evals-standard:schema:evaluation-control-authority-evidence:1",
+      "uri": "artifact:sha256:a6272beed12b1877ee836678800d2157b05f67160394c958759dc060dcaf1a48",
+      "digest": "sha256:a6272beed12b1877ee836678800d2157b05f67160394c958759dc060dcaf1a48",
+      "byteLength": 1280,
+      "mediaType": "application/json",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "validity-review-evidence.json"
+      },
+      "verifier": {
+        "id": "machine-contract-focused-verifier",
+        "version": "0.1.0",
+        "uri": "artifact:sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+        "digest": "sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+        "byteLength": 77743,
+        "mediaType": "text/javascript",
+        "locator": {
+          "kind": "repository_relative",
+          "base": "binding_document",
+          "path": "../../../../tools/verify-machine-contract-bindings.mjs"
+        },
+        "entrypoint": "verify-machine-contract-bindings-v1"
+      },
+      "resolutionContract": {
+        "id": "machine-contract-resolution-v1",
+        "version": "0.1.0",
+        "uri": "artifact:sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+        "digest": "sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+        "byteLength": 389,
+        "mediaType": "application/json",
+        "locator": {
+          "kind": "repository_relative",
+          "base": "binding_document",
+          "path": "resolution-contract.json"
+        },
+        "schemaId": "agent-eval-machine-contract-resolution-1"
+      },
+      "componentAuthority": {
+        "policyId": "fixture-evaluation-control-authority-policy",
+        "policyVersion": "0.1.0",
+        "policyDigest": "sha256:b29e42e61605ba520a84839a71402698d8656d0f0fc29fb98fca210d4198b9e6"
+      }
+    }
+  }
+}

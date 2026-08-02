@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:requirement-implementation-contract:1",
+  "title": "Closed requirement implementation routing contract",
+  "$comment": "This contract routes every requirement to its requirement-owned verification contract. It contains no claimant-declared conformance, preservation, strengthening, applicability, or verdict field. Semantic validation authenticates the canonical registry and the distribution-owned resolver, then recomputes every entry.",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "profile", "sourceProfile", "requirementRegistry", "resolver", "implementations"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-requirement-implementation-contract-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "const": "0.1.0" },
+    "profile": { "$ref": "#/$defs/profileIdentity" },
+    "sourceProfile": { "$ref": "#/$defs/profileIdentity" },
+    "requirementRegistry": { "$ref": "#/$defs/artifactIdentity" },
+    "resolver": {
+      "type": "object",
+      "required": ["id", "version", "implementationDigest"],
+      "properties": {
+        "id": { "const": "agent-evals-standard-requirement-mapping-resolver" },
+        "version": { "const": "0.1.0" },
+        "implementationDigest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "implementations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["requirementId", "criterionId", "verificationContractDigest", "proofBasis"],
+        "properties": {
+          "requirementId": { "$ref": "#/$defs/id" },
+          "criterionId": { "$ref": "#/$defs/id" },
+          "verificationContractDigest": { "$ref": "#/$defs/digest" },
+          "proofBasis": { "const": "requirement_owned_conformance_proof" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "profileIdentity": {
+      "type": "object",
+      "required": ["id", "version"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "const": "0.1.0" }
+      },
+      "additionalProperties": false
+    },
+    "artifactIdentity": {
+      "type": "object",
+      "required": ["id", "version", "digest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "const": "0.1.0" },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

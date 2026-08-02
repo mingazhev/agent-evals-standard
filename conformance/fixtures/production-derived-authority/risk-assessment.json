@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "risk-assessment-1",
+  "id": "production-derived-authority-risk-fixture",
+  "version": "0.1.0",
+  "assessmentKind": "experiment_envelope",
+  "scope": {
+    "caseIds": [
+      "production-derived-fixture-case"
+    ],
+    "armIds": [
+      "production-derived-fixture-arm"
+    ],
+    "decisionEnvelopeId": null
+  },
+  "factors": {
+    "inherentHazards": [
+      {
+        "id": "production-derived-data-misuse",
+        "description": "A diagnostic can mishandle production-derived fixture inputs.",
+        "plausibleHarm": "Isolation or evidence-integrity controls can be invalidated.",
+        "severity": "serious",
+        "tier": "medium",
+        "evidence": [
+          {
+            "id": "production-derived-risk-hazard-evidence",
+            "uri": "artifact:fixture:production-derived-risk-hazard-evidence",
+            "digest": "sha256:fdb2d2e52290fa35f755e7907664cebb3595e403f2cc003ffea6ee96fe0232c0"
+          }
+        ]
+      }
+    ],
+    "dataSensitivityAndAssets": {
+      "classification": "synthetic production-derived fixture",
+      "affectedAssets": [
+        "isolated evaluation inputs"
+      ],
+      "tier": "medium",
+      "evidence": [
+        {
+          "id": "production-derived-risk-data-evidence",
+          "uri": "artifact:fixture:production-derived-risk-data-evidence",
+          "digest": "sha256:75caa35a64317922d0e354ed7e6d20ba91dc5bd0734aacb49cae1fb2ba1594c8"
+        }
+      ]
+    },
+    "autonomyPermissionsToolsAndReversibility": {
+      "autonomy": "diagnostic only",
+      "permissions": [
+        "isolated fixture read and write"
+      ],
+      "tools": [
+        "fixture harness"
+      ],
+      "reversibility": "fully_reversible",
+      "tier": "low",
+      "evidence": [
+        {
+          "id": "production-derived-risk-control-evidence",
+          "uri": "artifact:fixture:production-derived-risk-control-evidence",
+          "digest": "sha256:8503ede5af436346ad1827d9b255caeb354b28b8d597f690f49bad2f44614e0e"
+        }
+      ]
+    },
+    "executionAndDeploymentEnvironment": {
+      "executionEnvironment": "sealed production-derived fixture environment",
+      "deploymentEnvironment": "none",
+      "tier": "medium",
+      "evidence": [
+        {
+          "id": "production-derived-risk-environment-evidence",
+          "uri": "artifact:fixture:production-derived-risk-environment-evidence",
+          "digest": "sha256:45e99b09e5b73046bdda2755c004d5fe679da3761b4b46bfe00bed41ae4bffa7"
+        }
+      ]
+    },
+    "scopeBlastRadiusExposureAndOversight": {
+      "scope": "one diagnostic case and arm",
+      "blastRadius": "isolated conformance fixture",
+      "exposureDurationSeconds": 600,
+      "humanOversight": "checkpointed",
+      "tier": "low",
+      "evidence": [
+        {
+          "id": "production-derived-risk-exposure-evidence",
+          "uri": "artifact:fixture:production-derived-risk-exposure-evidence",
+          "digest": "sha256:62fd303201eed2bd09e513683b57d587cf8aae5f8436c19948176f4842f4eb41"
+        }
+      ]
+    },
+    "likelihoodAndUncertainty": {
+      "likelihood": "unlikely",
+      "uncertainty": "crosses_tier_boundary",
+      "tier": "low",
+      "upperApplicableTier": "medium",
+      "evidence": [
+        {
+          "id": "production-derived-risk-likelihood-evidence",
+          "uri": "artifact:fixture:production-derived-risk-likelihood-evidence",
+          "digest": "sha256:8aadfc85f68af8ef02f842ade425880379b857add6a8afeb484cdaac95d18041"
+        }
+      ]
+    }
+  },
+  "derivation": {
+    "policy": {
+      "id": "risk-derivation-policy-v1",
+      "uri": "artifact:fixture:risk-derivation-policy-v1",
+      "digest": "sha256:04fde5d31422c7ea864e268fa20051ea2d0f1cae81ba3d16c0e89d49da630d3d",
+      "version": "0.1.0"
+    },
+    "algorithm": "maximum_applicable_tier_v1",
+    "factorInputDigest": "sha256:10535cb4599a5025a6261853196819d76c9743efa89fb3122b7cab6496ca8ae4",
+    "evidence": [
+      {
+        "id": "production-derived-risk-derivation-evidence",
+        "uri": "artifact:fixture:production-derived-risk-derivation-evidence",
+        "digest": "sha256:144c25dcadcfaaa42ef2a645f975bde60a9dbf693ed7c1a3e19ddf1aa2f7b2b8"
+      }
+    ],
+    "derivedAt": "2026-08-01T01:00:04Z",
+    "derivedBy": {
+      "id": "fixture-risk-assessor",
+      "role": "risk_assessor"
+    }
+  },
+  "effectiveRiskTier": "medium",
+  "approval": {
+    "riskOwner": {
+      "id": "fixture-risk-owner",
+      "role": "risk_owner"
+    },
+    "approvedAt": "2026-08-01T01:00:05Z",
+    "evidence": {
+      "id": "production-derived-risk-approval-evidence",
+      "uri": "artifact:fixture:production-derived-risk-approval-evidence",
+      "digest": "sha256:2c326e929806d94eb02f5fc322b0fbb3fb8d426d1c8c4b6168b47257aa4005d1"
+    }
+  },
+  "digest": "sha256:b3a32a8bf7753c4f7e6bf183aa8d7c5386fb926731514d83b2bd99c75b96bb7d",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T01:00:05Z",
+    "value": "hhWfIb33S1x0yFaGURdUDV16d6317zfJjtgcdwZ4POyIKLotPqhrRy8Y_Pf25rntqfXgsaVxMhhkYN08vI_tCQ"
+  }
+}

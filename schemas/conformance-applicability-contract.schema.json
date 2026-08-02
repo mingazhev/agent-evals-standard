@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:conformance-applicability-contract:1",
+  "title": "Executable conformance applicability contract",
+  "$comment": "Semantic validation must resolve a rule exactly once, authenticate every slice/profile binding, recompute registryApplicabilityDigest from the authenticated requirement registry, and execute target_membership from registry targets. Issuer-authored exclusions cannot make a registry-targeted requirement not applicable.",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "target", "scopeSlices", "rules", "failureSemantics", "digest", "signature"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-conformance-applicability-contract-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "const": "0.1.0" },
+    "target": { "enum": ["suite", "case", "evaluator", "experiment", "decision"] },
+    "scopeSlices": {
+      "$comment": "Each statement slice is bound to its own effective profile. Semantic validation rejects duplicate sliceId values and requires an exact match to the signed statement scope.",
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/scopeSliceBinding" }
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/rule" },
+      "uniqueItems": true
+    },
+    "failureSemantics": {
+      "type": "object",
+      "required": ["unknownRule", "indeterminatePredicate", "missingEvidence"],
+      "properties": {
+        "unknownRule": { "const": "insufficient_evidence" },
+        "indeterminatePredicate": { "const": "insufficient_evidence" },
+        "missingEvidence": { "const": "insufficient_evidence" }
+      },
+      "additionalProperties": false
+    },
+    "digest": { "$ref": "#/$defs/digest" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "evaluationProfileBinding": {
+      "type": "object",
+      "required": ["id", "version", "digest", "effectiveProfileDigest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" },
+        "effectiveProfileDigest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "scopeSliceBinding": {
+      "type": "object",
+      "required": ["sliceId", "evaluationProfile"],
+      "properties": {
+        "sliceId": { "$ref": "#/$defs/id" },
+        "evaluationProfile": { "$ref": "#/$defs/evaluationProfileBinding" }
+      },
+      "additionalProperties": false
+    },
+    "rule": {
+      "type": "object",
+      "required": ["id", "requirementId", "target", "predicate", "registryApplicabilityDigest", "rationale", "evaluationProfileRuleIds", "evidenceAssertionIds"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "requirementId": { "$ref": "#/$defs/id" },
+        "target": { "enum": ["suite", "case", "evaluator", "experiment", "decision"] },
+        "predicate": { "const": "target_membership" },
+        "registryApplicabilityDigest": { "$comment": "SHA-256 JCS digest of {requirementId, targets, applicability} from the authenticated requirement-registry entry.", "$ref": "#/$defs/digest" },
+        "rationale": { "type": "string", "minLength": 1 },
+        "evaluationProfileRuleIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "evidenceAssertionIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }
+      },
+      "additionalProperties": false
+    }
+  }
+}

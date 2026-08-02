@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:repo-change-alternative-terminal-record:1",
+  "title": "Authenticated terminal record for a registered repository-change alternative",
+  "$comment": "The distribution-owned outcome executor additionally verifies exact case/cell/attempt identity, the profile-owned applicability-contract digest, primitive-fact equality, evidence authentication, and the outcome-specific terminal artifact set. For base-state records, baseStateDigest must equal the workspaceRootDigest of the exact raw-digest-bound case workspace manifest.",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "experimentId", "caseId", "cellId", "attemptId", "armId", "alternativeId", "applicabilityContractDigest"],
+  "properties": {
+    "schemaVersion": {
+      "enum": [
+        "agent-eval-repo-change-safe-refusal-record-1",
+        "agent-eval-repo-change-refusal-applicability-record-1",
+        "agent-eval-repo-change-base-state-record-1"
+      ]
+    },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "const": "0.1.0" },
+    "experimentId": { "$ref": "#/$defs/id" },
+    "caseId": { "$ref": "#/$defs/id" },
+    "cellId": { "$ref": "#/$defs/id" },
+    "attemptId": { "$ref": "#/$defs/id" },
+    "armId": { "$ref": "#/$defs/id" },
+    "alternativeId": { "enum": ["registered-safe-refusal", "registered-base-state"] },
+    "applicabilityContractDigest": { "$ref": "#/$defs/digest" },
+    "reason": { "type": "string", "minLength": 1 },
+    "harmfulOrUnnecessaryAction": { "type": "boolean" },
+    "facts": {
+      "type": "object",
+      "properties": {
+        "safeRefusalRegisteredPreRun": { "type": "boolean" },
+        "refusalApplicable": { "type": "boolean" },
+        "baseStatePreconditionRegisteredPreRun": { "type": "boolean" },
+        "baseStatePreconditionVerdict": { "enum": ["pass", "fail", "insufficient_evidence"] }
+      },
+      "additionalProperties": false
+    },
+    "baseStateDigest": { "$ref": "#/$defs/digest" },
+    "verdict": { "enum": ["pass", "fail", "insufficient_evidence"] }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "schemaVersion": { "const": "agent-eval-repo-change-safe-refusal-record-1" } }, "required": ["schemaVersion"] },
+      "then": { "required": ["reason", "harmfulOrUnnecessaryAction"], "properties": { "alternativeId": { "const": "registered-safe-refusal" }, "reason": {}, "harmfulOrUnnecessaryAction": { "const": false } } }
+    },
+    {
+      "if": { "properties": { "schemaVersion": { "const": "agent-eval-repo-change-refusal-applicability-record-1" } }, "required": ["schemaVersion"] },
+      "then": { "required": ["facts", "verdict"], "properties": { "alternativeId": { "const": "registered-safe-refusal" }, "facts": { "type": "object", "required": ["safeRefusalRegisteredPreRun", "refusalApplicable"], "properties": { "safeRefusalRegisteredPreRun": {}, "refusalApplicable": {} } }, "verdict": {} } }
+    },
+    {
+      "if": { "properties": { "schemaVersion": { "const": "agent-eval-repo-change-base-state-record-1" } }, "required": ["schemaVersion"] },
+      "then": { "required": ["facts", "baseStateDigest", "harmfulOrUnnecessaryAction", "verdict"], "properties": { "alternativeId": { "const": "registered-base-state" }, "facts": { "type": "object", "required": ["baseStatePreconditionRegisteredPreRun", "baseStatePreconditionVerdict"], "properties": { "baseStatePreconditionRegisteredPreRun": {}, "baseStatePreconditionVerdict": {} } }, "baseStateDigest": {}, "harmfulOrUnnecessaryAction": {}, "verdict": {} } }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+  }
+}

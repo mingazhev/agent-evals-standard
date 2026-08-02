@@ -1,0 +1,372 @@
+{
+  "schemaVersion": "agent-eval-key-authorization-contract-1",
+  "id": "repo-change-operational-key-authorization",
+  "version": "0.1.0",
+  "purpose": "operational_key_resolution_and_authorization",
+  "operationalUse": "permitted_after_endpoint_and_owner_verification",
+  "trustDomain": "repo-change-v1 operational reference trust domain",
+  "keys": [
+    {
+      "keyId": "repo-change-trust-root-2026",
+      "algorithm": "Ed25519",
+      "keyType": "Ed25519",
+      "publicKey": {
+        "uri": "operational-keys/trust-root.pem",
+        "digest": "sha256:0a7e5c054de3b3bac295e26d03e9dfacd3ac435a081d9e9ddb9985c567ce0002",
+        "format": "pem_spki"
+      },
+      "ownerId": "trust-root-custodian",
+      "authorizedRoles": [
+        "trust_contract_signer"
+      ],
+      "authorizedArtifactSchemaVersions": [
+        "agent-eval-key-authorization-contract-1",
+        "agent-eval-revocation-state-contract-1",
+        "agent-eval-trusted-time-contract-1",
+        "agent-eval-trust-threat-assessment-1",
+        "agent-eval-anti-rollback-policy-1"
+      ],
+      "authorizedScopes": [
+        "repo-change-v1:A1-A3:low-critical"
+      ],
+      "validFrom": "2026-08-01T00:00:00Z",
+      "validUntil": "2028-08-01T00:00:00Z",
+      "status": "active",
+      "reassignment": "forbidden"
+    },
+    {
+      "keyId": "repo-change-notary-2026",
+      "algorithm": "Ed25519",
+      "keyType": "Ed25519",
+      "publicKey": {
+        "uri": "operational-keys/notary.pem",
+        "digest": "sha256:207f16c9f97d74e7423e35b5c5cff21cc82509d13f6dc4c4823af473ab9ddbe3",
+        "format": "pem_spki"
+      },
+      "ownerId": "independent-notary-operator",
+      "authorizedRoles": [
+        "anti_rollback_receipt_signer"
+      ],
+      "authorizedArtifactSchemaVersions": [
+        "agent-eval-anti-rollback-receipt-1"
+      ],
+      "authorizedScopes": [
+        "repo-change-v1:A1-A3:low-critical"
+      ],
+      "validFrom": "2026-08-01T00:00:00Z",
+      "validUntil": "2028-08-01T00:00:00Z",
+      "status": "active",
+      "reassignment": "forbidden"
+    },
+    {
+      "keyId": "repo-change-witness-a-2026",
+      "algorithm": "Ed25519",
+      "keyType": "Ed25519",
+      "publicKey": {
+        "uri": "operational-keys/witness-a.pem",
+        "digest": "sha256:d2727e446b3534579ec7b69a292b6d74f44cfb19099eb06cf741c41d6f67a6a7",
+        "format": "pem_spki"
+      },
+      "ownerId": "independent-witness-operator",
+      "authorizedRoles": [
+        "anti_rollback_witness"
+      ],
+      "authorizedArtifactSchemaVersions": [
+        "agent-eval-anti-rollback-receipt-1"
+      ],
+      "authorizedScopes": [
+        "repo-change-v1:A1-A3:low-critical"
+      ],
+      "validFrom": "2026-08-01T00:00:00Z",
+      "validUntil": "2028-08-01T00:00:00Z",
+      "status": "active",
+      "reassignment": "forbidden"
+    },
+    {
+      "keyId": "repo-change-time-a-2026",
+      "algorithm": "Ed25519",
+      "keyType": "Ed25519",
+      "publicKey": {
+        "uri": "operational-keys/time-a.pem",
+        "digest": "sha256:58070468d3ca6cac6a154e669c23e494b345555f5e8fb61dbe819546e0c7561d",
+        "format": "pem_spki"
+      },
+      "ownerId": "trusted-time-operator-a",
+      "authorizedRoles": [
+        "trusted_time_authority"
+      ],
+      "authorizedArtifactSchemaVersions": [
+        "agent-eval-trusted-time-attestation-1"
+      ],
+      "authorizedScopes": [
+        "repo-change-v1:A1-A3:low-critical"
+      ],
+      "validFrom": "2026-08-01T00:00:00Z",
+      "validUntil": "2028-08-01T00:00:00Z",
+      "status": "active",
+      "reassignment": "forbidden"
+    },
+    {
+      "keyId": "repo-change-time-b-2026",
+      "algorithm": "Ed25519",
+      "keyType": "Ed25519",
+      "publicKey": {
+        "uri": "operational-keys/time-b.pem",
+        "digest": "sha256:c166ba77093addf7be8cfba100f6c5338cd35629b557d3c6c8dbe6227030c1f6",
+        "format": "pem_spki"
+      },
+      "ownerId": "trusted-time-operator-b",
+      "authorizedRoles": [
+        "trusted_time_authority"
+      ],
+      "authorizedArtifactSchemaVersions": [
+        "agent-eval-trusted-time-attestation-1"
+      ],
+      "authorizedScopes": [
+        "repo-change-v1:A1-A3:low-critical"
+      ],
+      "validFrom": "2026-08-01T00:00:00Z",
+      "validUntil": "2028-08-01T00:00:00Z",
+      "status": "active",
+      "reassignment": "forbidden"
+    },
+    {
+      "keyId": "repo-change-revocation-a-2026",
+      "algorithm": "Ed25519",
+      "keyType": "Ed25519",
+      "publicKey": {
+        "uri": "operational-keys/revocation-a.pem",
+        "digest": "sha256:b7019e86098c9aba04754c817540de20cd4c4413208f7b42dcce396f8fb3a385",
+        "format": "pem_spki"
+      },
+      "ownerId": "revocation-authority-a",
+      "authorizedRoles": [
+        "revocation_authority"
+      ],
+      "authorizedArtifactSchemaVersions": [
+        "agent-eval-revocation-state-contract-1"
+      ],
+      "authorizedScopes": [
+        "repo-change-v1:A1-A3:low-critical"
+      ],
+      "validFrom": "2026-08-01T00:00:00Z",
+      "validUntil": "2028-08-01T00:00:00Z",
+      "status": "active",
+      "reassignment": "forbidden"
+    },
+    {
+      "keyId": "repo-change-revocation-b-2026",
+      "algorithm": "Ed25519",
+      "keyType": "Ed25519",
+      "publicKey": {
+        "uri": "operational-keys/revocation-b.pem",
+        "digest": "sha256:1fac1e89c5c6847f6e0153b3cefd7ae4a2f6933697d6021bcc57433213c3e54c",
+        "format": "pem_spki"
+      },
+      "ownerId": "revocation-authority-b",
+      "authorizedRoles": [
+        "revocation_authority"
+      ],
+      "authorizedArtifactSchemaVersions": [
+        "agent-eval-revocation-state-contract-1"
+      ],
+      "authorizedScopes": [
+        "repo-change-v1:A1-A3:low-critical"
+      ],
+      "validFrom": "2026-08-01T00:00:00Z",
+      "validUntil": "2028-08-01T00:00:00Z",
+      "status": "active",
+      "reassignment": "forbidden"
+    },
+    {
+      "keyId": "repo-change-registration-a-2026",
+      "algorithm": "Ed25519",
+      "keyType": "Ed25519",
+      "publicKey": {
+        "uri": "operational-keys/registration-a.pem",
+        "digest": "sha256:d8195e3e858a5b1d7f7ae40f2a827c42f016722110d291b58449ee718694e8f9",
+        "format": "pem_spki"
+      },
+      "ownerId": "registration-authority-a",
+      "authorizedRoles": [
+        "key_registration_authority"
+      ],
+      "authorizedArtifactSchemaVersions": [
+        "agent-eval-key-authorization-contract-1"
+      ],
+      "authorizedScopes": [
+        "repo-change-v1:A1-A3:low-critical"
+      ],
+      "validFrom": "2026-08-01T00:00:00Z",
+      "validUntil": "2028-08-01T00:00:00Z",
+      "status": "active",
+      "reassignment": "forbidden"
+    },
+    {
+      "keyId": "repo-change-registration-b-2026",
+      "algorithm": "Ed25519",
+      "keyType": "Ed25519",
+      "publicKey": {
+        "uri": "operational-keys/registration-b.pem",
+        "digest": "sha256:b6c2c32d2ea36cbeb3cfc745820cbcaa3bedd5ffa85adbd0e2853d56c0019394",
+        "format": "pem_spki"
+      },
+      "ownerId": "registration-authority-b",
+      "authorizedRoles": [
+        "key_registration_authority"
+      ],
+      "authorizedArtifactSchemaVersions": [
+        "agent-eval-key-authorization-contract-1"
+      ],
+      "authorizedScopes": [
+        "repo-change-v1:A1-A3:low-critical"
+      ],
+      "validFrom": "2026-08-01T00:00:00Z",
+      "validUntil": "2028-08-01T00:00:00Z",
+      "status": "active",
+      "reassignment": "forbidden"
+    },
+    {
+      "keyId": "repo-change-rotation-a-2026",
+      "algorithm": "Ed25519",
+      "keyType": "Ed25519",
+      "publicKey": {
+        "uri": "operational-keys/rotation-a.pem",
+        "digest": "sha256:eff70bfa9fbbbb228e10cfbafef3e1ae3008777315018376b817a4fb8f2a2817",
+        "format": "pem_spki"
+      },
+      "ownerId": "rotation-authority-a",
+      "authorizedRoles": [
+        "root_rotation_authority"
+      ],
+      "authorizedArtifactSchemaVersions": [
+        "agent-eval-key-authorization-contract-1"
+      ],
+      "authorizedScopes": [
+        "repo-change-v1:A1-A3:low-critical"
+      ],
+      "validFrom": "2026-08-01T00:00:00Z",
+      "validUntil": "2028-08-01T00:00:00Z",
+      "status": "active",
+      "reassignment": "forbidden"
+    },
+    {
+      "keyId": "repo-change-rotation-b-2026",
+      "algorithm": "Ed25519",
+      "keyType": "Ed25519",
+      "publicKey": {
+        "uri": "operational-keys/rotation-b.pem",
+        "digest": "sha256:da110bb8b1f7450bbade4706450bc443f4a2e472705df45614fa66a76226efd3",
+        "format": "pem_spki"
+      },
+      "ownerId": "rotation-authority-b",
+      "authorizedRoles": [
+        "root_rotation_authority"
+      ],
+      "authorizedArtifactSchemaVersions": [
+        "agent-eval-key-authorization-contract-1"
+      ],
+      "authorizedScopes": [
+        "repo-change-v1:A1-A3:low-critical"
+      ],
+      "validFrom": "2026-08-01T00:00:00Z",
+      "validUntil": "2028-08-01T00:00:00Z",
+      "status": "active",
+      "reassignment": "forbidden"
+    },
+    {
+      "keyId": "repo-change-governance-a-2026",
+      "algorithm": "Ed25519",
+      "keyType": "Ed25519",
+      "publicKey": {
+        "uri": "operational-keys/governance-a.pem",
+        "digest": "sha256:c253bb239b7bcc85e9b6ab6059c24f24df3bf1fb56964c000080e58d6cf584fc",
+        "format": "pem_spki"
+      },
+      "ownerId": "governance-approver-a",
+      "authorizedRoles": [
+        "governance_approval_authority"
+      ],
+      "authorizedArtifactSchemaVersions": [
+        "agent-eval-trust-threat-assessment-1",
+        "agent-eval-anti-rollback-policy-1"
+      ],
+      "authorizedScopes": [
+        "repo-change-v1:A1-A3:low-critical"
+      ],
+      "validFrom": "2026-08-01T00:00:00Z",
+      "validUntil": "2028-08-01T00:00:00Z",
+      "status": "active",
+      "reassignment": "forbidden"
+    },
+    {
+      "keyId": "repo-change-governance-b-2026",
+      "algorithm": "Ed25519",
+      "keyType": "Ed25519",
+      "publicKey": {
+        "uri": "operational-keys/governance-b.pem",
+        "digest": "sha256:23d49d5e382a7cbc4c61025385bf672e59f457750077285160eeb22fd39631b6",
+        "format": "pem_spki"
+      },
+      "ownerId": "governance-approver-b",
+      "authorizedRoles": [
+        "governance_approval_authority"
+      ],
+      "authorizedArtifactSchemaVersions": [
+        "agent-eval-trust-threat-assessment-1",
+        "agent-eval-anti-rollback-policy-1"
+      ],
+      "authorizedScopes": [
+        "repo-change-v1:A1-A3:low-critical"
+      ],
+      "validFrom": "2026-08-01T00:00:00Z",
+      "validUntil": "2028-08-01T00:00:00Z",
+      "status": "active",
+      "reassignment": "forbidden"
+    }
+  ],
+  "authorities": {
+    "keyRegistrationOwnerIds": [
+      "registration-authority-a",
+      "registration-authority-b"
+    ],
+    "revocationOwnerIds": [
+      "revocation-authority-a",
+      "revocation-authority-b"
+    ],
+    "rootRotationOwnerIds": [
+      "rotation-authority-a",
+      "rotation-authority-b"
+    ],
+    "governanceApprovalOwnerIds": [
+      "governance-approver-a",
+      "governance-approver-b"
+    ],
+    "minimumIndependentApprovals": 2
+  },
+  "requiredSeparations": [
+    "notary_operator_vs_run_workspace",
+    "notary_operator_vs_ledger_writer",
+    "notary_operator_vs_evidence_signer",
+    "notary_operator_vs_decision_approver",
+    "notary_operator_vs_evaluator",
+    "notary_operator_vs_subject_owner",
+    "time_authority_vs_evidence_signer",
+    "witness_vs_notary_operator"
+  ],
+  "failureSemantics": {
+    "unknownKey": "insufficient_evidence",
+    "duplicateKey": "insufficient_evidence",
+    "unauthorizedRoleOrScope": "insufficient_evidence",
+    "inactiveOrOutOfIntervalKey": "insufficient_evidence",
+    "trustStateUnavailable": "stop_governance_use"
+  },
+  "digest": "sha256:cc7c8b81642b5d5736610703409cabb5750ff97ba84fb30cbd6a8bf4b053ba1d",
+  "signature": {
+    "profileId": "repo-change-operational-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "repo-change-trust-root-2026",
+    "signedAt": "2026-08-01T00:00:00Z",
+    "value": "Sr6oTRDfrmiCCHonMJqIxIDDfAqH8G5TMdOBLmZVAxzWpAREimTk-GlKJ6LMBHpZk70W8EiLBGPFkaYYlJDODw"
+  }
+}

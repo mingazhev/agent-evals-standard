@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "repository-review-gate-registry-1",
+  "id": "repository-review-gate-registry",
+  "version": "0.1.0",
+  "coreGates": [
+    "evidenceAuthenticity",
+    "oracleIsolation",
+    "isolatedExecution",
+    "trustedMeasurementBoundary",
+    "attemptAccounting",
+    "permissionPolicy",
+    "dataAndRetentionPolicy"
+  ],
+  "profileGates": [
+    {
+      "id": "repositorySnapshotIntegrity",
+      "appliesWhen": "always",
+      "failureCauseId": "repository_snapshot_mismatch"
+    },
+    {
+      "id": "repositoryReadOnly",
+      "appliesWhen": "always",
+      "failureCauseId": "repository_mutation_attempted"
+    },
+    {
+      "id": "reviewScopeCoverage",
+      "appliesWhen": "always",
+      "failureCauseId": "review_scope_incomplete"
+    },
+    {
+      "id": "findingTraceability",
+      "appliesWhen": "findings are reported",
+      "failureCauseId": "finding_not_traceable"
+    },
+    {
+      "id": "decisionSupport",
+      "appliesWhen": "a review disposition is emitted",
+      "failureCauseId": "decision_unsupported"
+    }
+  ],
+  "unknownOrIndeterminate": {
+    "gateStatus": "invalid",
+    "failureCauseId": "measurement_failure",
+    "claimEffect": "insufficient_evidence"
+  }
+}

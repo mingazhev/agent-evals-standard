@@ -1,0 +1,151 @@
+{
+  "schemaVersion": "risk-assessment-1",
+  "id": "repo-change-experiment-risk-fixture-1",
+  "version": "0.1.0",
+  "assessmentKind": "experiment_decision_envelope",
+  "scope": {
+    "caseIds": [
+      "case-fixture-typed-1",
+      "case-fixture-typed-2",
+      "extra-case"
+    ],
+    "armIds": [
+      "baseline-arm",
+      "treatment-arm"
+    ],
+    "decisionEnvelopeId": "pre-run-decision-plan-fixture-1"
+  },
+  "factors": {
+    "inherentHazards": [
+      {
+        "id": "hazard-incorrect-repository-change",
+        "description": "An incorrect patch can produce a misleading capability result.",
+        "plausibleHarm": "A false evaluation conclusion can influence an SDLC decision.",
+        "severity": "serious",
+        "tier": "medium",
+        "evidence": [
+          {
+            "id": "experiment-hazard-evidence",
+            "uri": "artifact:fixture:experiment-hazard-evidence",
+            "digest": "sha256:8da2c648f794f75704b97bd22ec3291329212b09f169554de12b106f8cb94a7c"
+          }
+        ]
+      }
+    ],
+    "dataSensitivityAndAssets": {
+      "classification": "synthetic non-production fixture",
+      "affectedAssets": [
+        "evaluation decision record"
+      ],
+      "tier": "low",
+      "evidence": [
+        {
+          "id": "experiment-data-evidence",
+          "uri": "artifact:fixture:experiment-data-evidence",
+          "digest": "sha256:733fefbe9899352996f3111956f6ba090a72e6d4ad8190a42fd60ee6cbc5664a"
+        }
+      ]
+    },
+    "autonomyPermissionsToolsAndReversibility": {
+      "autonomy": "single bounded evaluation arm",
+      "permissions": [
+        "isolated fixture repository read and write"
+      ],
+      "tools": [
+        "git",
+        "test runner"
+      ],
+      "reversibility": "fully_reversible",
+      "tier": "low",
+      "evidence": [
+        {
+          "id": "experiment-control-evidence",
+          "uri": "artifact:fixture:experiment-control-evidence",
+          "digest": "sha256:4d4cdfbe72f878bddbe32c88ba8499691184d55bb08cd0928c26ab92494be1f8"
+        }
+      ]
+    },
+    "executionAndDeploymentEnvironment": {
+      "executionEnvironment": "sealed disposable fixture workspace",
+      "deploymentEnvironment": "no production deployment",
+      "tier": "low",
+      "evidence": [
+        {
+          "id": "experiment-environment-evidence",
+          "uri": "artifact:fixture:experiment-environment-evidence",
+          "digest": "sha256:117a52b4cdd98f7bd788ae1debce4d63543997045a6b47206d6e9be1a809fdc1"
+        }
+      ]
+    },
+    "scopeBlastRadiusExposureAndOversight": {
+      "scope": "one case and one arm",
+      "blastRadius": "evaluation evidence and reject-only fixture decision",
+      "exposureDurationSeconds": 3600,
+      "humanOversight": "checkpointed",
+      "tier": "medium",
+      "evidence": [
+        {
+          "id": "experiment-exposure-evidence",
+          "uri": "artifact:fixture:experiment-exposure-evidence",
+          "digest": "sha256:551812e9744fb3de91926f47443c54d461a0580944c2fd725d8ce1711e7e009c"
+        }
+      ]
+    },
+    "likelihoodAndUncertainty": {
+      "likelihood": "possible",
+      "uncertainty": "crosses_tier_boundary",
+      "tier": "low",
+      "upperApplicableTier": "medium",
+      "evidence": [
+        {
+          "id": "experiment-likelihood-evidence",
+          "uri": "artifact:fixture:experiment-likelihood-evidence",
+          "digest": "sha256:a720046b9f844376806cae3c0828dbf25110f5d45323907ff70cfffa4ea4c100"
+        }
+      ]
+    }
+  },
+  "derivation": {
+    "policy": {
+      "id": "risk-derivation-policy-v1",
+      "version": "0.1.0",
+      "uri": "artifact:fixture:risk-derivation-policy-v1",
+      "digest": "sha256:52f6948050d857fcce99ce29ec6e38794e9368ebc14943b5cfca419f46d51a82"
+    },
+    "algorithm": "maximum_applicable_tier_v1",
+    "factorInputDigest": "sha256:f1b35f146e98dfd030f50295681872e11affab27ab4cdc96380a57751809f93a",
+    "evidence": [
+      {
+        "id": "experiment-risk-derivation-evidence",
+        "uri": "artifact:fixture:experiment-risk-derivation-evidence",
+        "digest": "sha256:93fdd9a9f64737eb773fba6eabef58d95849dec8cd341b53f42eaf8eef33fe6f"
+      }
+    ],
+    "derivedAt": "2026-08-01T01:00:00Z",
+    "derivedBy": {
+      "id": "fixture-risk-assessor",
+      "role": "risk_assessor"
+    }
+  },
+  "effectiveRiskTier": "medium",
+  "approval": {
+    "riskOwner": {
+      "id": "fixture-risk-owner",
+      "role": "risk_owner"
+    },
+    "approvedAt": "2026-08-01T01:00:01Z",
+    "evidence": {
+      "id": "experiment-risk-approval-evidence",
+      "uri": "artifact:fixture:experiment-risk-approval-evidence",
+      "digest": "sha256:9e67c3e3b0b2ac8aa3bd54f8be1e77d423eb714d18c4983d7a7ddf0ed698ddc8"
+    }
+  },
+  "digest": "sha256:db7d0505284494b4cca8387fb33099c63cdc3ae544eef846cd39272e53c8b8a3",
+  "signature": {
+    "profileId": "fixture-claimant-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1-claimant",
+    "signedAt": "2026-08-01T01:03:00Z",
+    "value": "AKUiUOH_-LHqOo1eluCrEfVmH6Y3-sV0Al33f5c6xHi5oExIyFfPw0J-BGkq83T1jJCBL0bll60QGEW3rL7YDA"
+  }
+}

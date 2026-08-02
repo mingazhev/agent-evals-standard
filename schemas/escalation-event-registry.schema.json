@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:escalation-event-registry:1",
+  "title": "Closed escalation event registry",
+  "$comment": "The registry digest is SHA-256 over the RFC 8785 canonical JSON projection with digest omitted. The eventTuple definition is the single machine-readable source for the exact eventId, claimEffect, governanceStatus, stopAction, scopeAction, and waivable mapping reused by escalation artifacts.",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "baseGovernanceStatuses", "events", "digest"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-escalation-event-registry-1" },
+    "id": { "const": "base-escalation-event-registry" },
+    "version": { "const": "0.1.0" },
+    "baseGovernanceStatuses": { "$ref": "#/$defs/completeBaseGovernanceStatusArray" },
+    "events": {
+      "type": "array",
+      "allOf": [{ "$ref": "#/$defs/completeEventTupleArray" }],
+      "items": { "$ref": "#/$defs/registryEvent" }
+    },
+    "digest": { "$ref": "#/$defs/digest" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "eventId": {
+      "enum": [
+        "hardGateRegression",
+        "untriagedCriticalScannerFinding",
+        "heldOutLeakage",
+        "escapedCriticalDefect",
+        "repeatedReviewRejection",
+        "staleMeasurement",
+        "measurementErrorThreshold",
+        "suiteHealthDegradation",
+        "decisionExpired",
+        "reviewDue",
+        "measurementBoundaryCompromise",
+        "irreversibleCriticalOperation",
+        "productionCredentialsProhibited",
+        "approvedConfigurationChanged",
+        "productionMonitoringBreach",
+        "productionConcordanceDegraded",
+        "assuranceEvidenceMissing",
+        "suspectedContamination",
+        "confirmedContamination",
+        "privacyIpRetentionBreach"
+      ]
+    },
+    "waivableEventId": {
+      "enum": [
+        "untriagedCriticalScannerFinding",
+        "escapedCriticalDefect",
+        "repeatedReviewRejection",
+        "staleMeasurement",
+        "measurementErrorThreshold",
+        "suiteHealthDegradation"
+      ]
+    },
+    "nonWaivableEventId": {
+      "enum": [
+        "hardGateRegression",
+        "heldOutLeakage",
+        "decisionExpired",
+        "reviewDue",
+        "measurementBoundaryCompromise",
+        "irreversibleCriticalOperation",
+        "productionCredentialsProhibited",
+        "approvedConfigurationChanged",
+        "productionMonitoringBreach",
+        "productionConcordanceDegraded",
+        "assuranceEvidenceMissing",
+        "suspectedContamination",
+        "confirmedContamination",
+        "privacyIpRetentionBreach"
+      ]
+    },
+    "claimEffect": { "enum": ["insufficient_evidence", "not_applicable"] },
+    "escalationGovernanceStatus": { "enum": ["security_review_required", "manual_review_required"] },
+    "baseGovernanceStatus": { "enum": ["security_review_required", "manual_review_required", "data_owner_review_required", "risk_acceptance_required"] },
+    "completeBaseGovernanceStatusArray": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": { "$ref": "#/$defs/baseGovernanceStatus" },
+      "uniqueItems": true
+    },
+    "stopAction": {
+      "enum": ["close_run", "block_acceptance", "stop_governance_use", "freeze_scope", "block_scope_expansion", "block_metric", "block_suite", "revoke_approval", "block_renewal_expansion", "block_changed_scope", "suspend_approval"]
+    },
+    "scopeAction": {
+      "enum": ["reject_or_reduce", "revoke_affected_scope", "rollback_or_reduce", "retain_or_reduce", "retain_valid_only", "reduce_affected", "revoke_expired", "continue_until_expiry", "revalidate_or_revoke", "narrow_suspend_or_revoke", "quarantine_affected", "quarantine_or_delete_affected"]
+    },
+    "eventTuple": {
+      "oneOf": [
+        { "$ref": "#/$defs/hardGateRegression" },
+        { "$ref": "#/$defs/untriagedCriticalScannerFinding" },
+        { "$ref": "#/$defs/heldOutLeakage" },
+        { "$ref": "#/$defs/escapedCriticalDefect" },
+        { "$ref": "#/$defs/repeatedReviewRejection" },
+        { "$ref": "#/$defs/staleMeasurement" },
+        { "$ref": "#/$defs/measurementErrorThreshold" },
+        { "$ref": "#/$defs/suiteHealthDegradation" },
+        { "$ref": "#/$defs/decisionExpired" },
+        { "$ref": "#/$defs/reviewDue" },
+        { "$ref": "#/$defs/measurementBoundaryCompromise" },
+        { "$ref": "#/$defs/irreversibleCriticalOperation" },
+        { "$ref": "#/$defs/productionCredentialsProhibited" },
+        { "$ref": "#/$defs/approvedConfigurationChanged" },
+        { "$ref": "#/$defs/productionMonitoringBreach" },
+        { "$ref": "#/$defs/productionConcordanceDegraded" },
+        { "$ref": "#/$defs/assuranceEvidenceMissing" },
+        { "$ref": "#/$defs/suspectedContamination" },
+        { "$ref": "#/$defs/confirmedContamination" },
+        { "$ref": "#/$defs/privacyIpRetentionBreach" }
+      ]
+    },
+    "registryEvent": {
+      "type": "object",
+      "required": ["eventId", "claimEffect", "governanceStatus", "stopAction", "scopeAction", "waivable"],
+      "properties": {
+        "eventId": { "$ref": "#/$defs/eventId" },
+        "claimEffect": { "$ref": "#/$defs/claimEffect" },
+        "governanceStatus": { "$ref": "#/$defs/escalationGovernanceStatus" },
+        "stopAction": { "$ref": "#/$defs/stopAction" },
+        "scopeAction": { "$ref": "#/$defs/scopeAction" },
+        "waivable": { "type": "boolean" }
+      },
+      "allOf": [{ "$ref": "#/$defs/eventTuple" }],
+      "additionalProperties": false
+    },
+    "completeEventTupleArray": {
+      "type": "array",
+      "minItems": 20,
+      "maxItems": 20,
+      "items": { "$ref": "#/$defs/eventTuple" },
+      "allOf": [
+        { "contains": { "$ref": "#/$defs/hardGateRegression" }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "$ref": "#/$defs/untriagedCriticalScannerFinding" }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "$ref": "#/$defs/heldOutLeakage" }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "$ref": "#/$defs/escapedCriticalDefect" }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "$ref": "#/$defs/repeatedReviewRejection" }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "$ref": "#/$defs/staleMeasurement" }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "$ref": "#/$defs/measurementErrorThreshold" }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "$ref": "#/$defs/suiteHealthDegradation" }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "$ref": "#/$defs/decisionExpired" }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "$ref": "#/$defs/reviewDue" }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "$ref": "#/$defs/measurementBoundaryCompromise" }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "$ref": "#/$defs/irreversibleCriticalOperation" }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "$ref": "#/$defs/productionCredentialsProhibited" }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "$ref": "#/$defs/approvedConfigurationChanged" }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "$ref": "#/$defs/productionMonitoringBreach" }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "$ref": "#/$defs/productionConcordanceDegraded" }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "$ref": "#/$defs/assuranceEvidenceMissing" }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "$ref": "#/$defs/suspectedContamination" }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "$ref": "#/$defs/confirmedContamination" }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "$ref": "#/$defs/privacyIpRetentionBreach" }, "minContains": 1, "maxContains": 1 }
+      ]
+    },
+    "hardGateRegression": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "hardGateRegression" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "manual_review_required" }, "stopAction": { "const": "close_run" }, "scopeAction": { "const": "reject_or_reduce" }, "waivable": { "const": false } } },
+    "untriagedCriticalScannerFinding": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "untriagedCriticalScannerFinding" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "security_review_required" }, "stopAction": { "const": "block_acceptance" }, "scopeAction": { "const": "reject_or_reduce" }, "waivable": { "const": true } } },
+    "heldOutLeakage": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "heldOutLeakage" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "security_review_required" }, "stopAction": { "const": "stop_governance_use" }, "scopeAction": { "const": "revoke_affected_scope" }, "waivable": { "const": false } } },
+    "escapedCriticalDefect": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "escapedCriticalDefect" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "manual_review_required" }, "stopAction": { "const": "freeze_scope" }, "scopeAction": { "const": "rollback_or_reduce" }, "waivable": { "const": true } } },
+    "repeatedReviewRejection": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "repeatedReviewRejection" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "manual_review_required" }, "stopAction": { "const": "block_scope_expansion" }, "scopeAction": { "const": "retain_or_reduce" }, "waivable": { "const": true } } },
+    "staleMeasurement": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "staleMeasurement" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "manual_review_required" }, "stopAction": { "const": "block_acceptance" }, "scopeAction": { "const": "retain_valid_only" }, "waivable": { "const": true } } },
+    "measurementErrorThreshold": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "measurementErrorThreshold" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "manual_review_required" }, "stopAction": { "const": "block_metric" }, "scopeAction": { "const": "reduce_affected" }, "waivable": { "const": true } } },
+    "suiteHealthDegradation": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "suiteHealthDegradation" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "manual_review_required" }, "stopAction": { "const": "block_suite" }, "scopeAction": { "const": "reduce_affected" }, "waivable": { "const": true } } },
+    "decisionExpired": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "decisionExpired" }, "claimEffect": { "const": "not_applicable" }, "governanceStatus": { "const": "manual_review_required" }, "stopAction": { "const": "revoke_approval" }, "scopeAction": { "const": "revoke_expired" }, "waivable": { "const": false } } },
+    "reviewDue": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "reviewDue" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "manual_review_required" }, "stopAction": { "const": "block_renewal_expansion" }, "scopeAction": { "const": "continue_until_expiry" }, "waivable": { "const": false } } },
+    "measurementBoundaryCompromise": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "measurementBoundaryCompromise" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "security_review_required" }, "stopAction": { "const": "stop_governance_use" }, "scopeAction": { "const": "revoke_affected_scope" }, "waivable": { "const": false } } },
+    "irreversibleCriticalOperation": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "irreversibleCriticalOperation" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "security_review_required" }, "stopAction": { "const": "block_acceptance" }, "scopeAction": { "const": "reject_or_reduce" }, "waivable": { "const": false } } },
+    "productionCredentialsProhibited": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "productionCredentialsProhibited" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "security_review_required" }, "stopAction": { "const": "stop_governance_use" }, "scopeAction": { "const": "revoke_affected_scope" }, "waivable": { "const": false } } },
+    "approvedConfigurationChanged": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "approvedConfigurationChanged" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "manual_review_required" }, "stopAction": { "const": "block_changed_scope" }, "scopeAction": { "const": "revalidate_or_revoke" }, "waivable": { "const": false } } },
+    "productionMonitoringBreach": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "productionMonitoringBreach" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "manual_review_required" }, "stopAction": { "const": "suspend_approval" }, "scopeAction": { "const": "narrow_suspend_or_revoke" }, "waivable": { "const": false } } },
+    "productionConcordanceDegraded": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "productionConcordanceDegraded" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "manual_review_required" }, "stopAction": { "const": "suspend_approval" }, "scopeAction": { "const": "narrow_suspend_or_revoke" }, "waivable": { "const": false } } },
+    "assuranceEvidenceMissing": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "assuranceEvidenceMissing" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "manual_review_required" }, "stopAction": { "const": "suspend_approval" }, "scopeAction": { "const": "narrow_suspend_or_revoke" }, "waivable": { "const": false } } },
+    "suspectedContamination": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "suspectedContamination" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "security_review_required" }, "stopAction": { "const": "stop_governance_use" }, "scopeAction": { "const": "quarantine_affected" }, "waivable": { "const": false } } },
+    "confirmedContamination": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "confirmedContamination" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "security_review_required" }, "stopAction": { "const": "stop_governance_use" }, "scopeAction": { "const": "revoke_affected_scope" }, "waivable": { "const": false } } },
+    "privacyIpRetentionBreach": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "privacyIpRetentionBreach" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "security_review_required" }, "stopAction": { "const": "stop_governance_use" }, "scopeAction": { "const": "quarantine_or_delete_affected" }, "waivable": { "const": false } } },
+    "tupleBase": {
+      "type": "object",
+      "required": ["eventId", "claimEffect", "governanceStatus", "stopAction", "scopeAction", "waivable"],
+      "properties": {
+        "eventId": { "$ref": "#/$defs/eventId" },
+        "claimEffect": { "$ref": "#/$defs/claimEffect" },
+        "governanceStatus": { "$ref": "#/$defs/escalationGovernanceStatus" },
+        "stopAction": { "$ref": "#/$defs/stopAction" },
+        "scopeAction": { "$ref": "#/$defs/scopeAction" },
+        "waivable": { "type": "boolean" }
+      }
+    }
+  }
+}

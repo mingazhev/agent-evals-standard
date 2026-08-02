@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:evaluation-control-authority-evidence:1",
+  "title": "Signed authority evidence for validity, held-out budgets, and ledger checkpoints",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "version",
+    "evidenceKind",
+    "subject",
+    "actor",
+    "decision",
+    "issuedAt",
+    "authorityPolicy",
+    "digest",
+    "signature"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-evaluation-control-authority-evidence-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "const": "0.1.0" },
+    "evidenceKind": { "enum": ["validity_review", "held_out_budget_authorization", "held_out_ledger_checkpoint"] },
+    "subject": { "$ref": "#/$defs/subject" },
+    "actor": { "$ref": "#/$defs/actor" },
+    "decision": { "enum": ["approved_for_declared_use", "authorized", "sealed"] },
+    "issuedAt": { "$ref": "#/$defs/dateTime" },
+    "authorityPolicy": { "$ref": "#/$defs/policyIdentity" },
+    "checkpoint": { "$ref": "#/$defs/checkpoint" },
+    "digest": { "$ref": "#/$defs/digest" },
+    "signature": { "$ref": "#/$defs/signature" }
+  },
+  "allOf": [
+    {
+      "if": { "type": "object", "properties": { "evidenceKind": { "const": "validity_review" } }, "required": ["evidenceKind"] },
+      "then": {
+        "properties": {
+          "decision": { "const": "approved_for_declared_use" },
+          "subject": { "type": "object", "properties": { "schemaId": { "const": "urn:agent-evals-standard:schema:validity-argument:1" }, "projection": { "const": "full_document_without_review_evidence" } } }
+        },
+        "not": { "type": "object", "properties": { "checkpoint": {} }, "required": ["checkpoint"] }
+      }
+    },
+    {
+      "if": { "type": "object", "properties": { "evidenceKind": { "const": "held_out_budget_authorization" } }, "required": ["evidenceKind"] },
+      "then": {
+        "properties": {
+          "decision": { "const": "authorized" },
+          "subject": { "type": "object", "properties": { "schemaId": { "const": "urn:agent-evals-standard:schema:held-out-exposure-budget:1" }, "projection": { "const": "full_document_without_authorization_evidence" } } }
+        },
+        "not": { "type": "object", "properties": { "checkpoint": {} }, "required": ["checkpoint"] }
+      }
+    },
+    {
+      "if": { "type": "object", "properties": { "evidenceKind": { "const": "held_out_ledger_checkpoint" } }, "required": ["evidenceKind"] },
+      "then": {
+        "required": ["checkpoint"],
+        "properties": {
+          "decision": { "const": "sealed" },
+          "subject": { "type": "object", "properties": { "schemaId": { "const": "urn:agent-evals-standard:schema:held-out-exposure-ledger:1" }, "projection": { "const": "full_document_without_checkpoint_evidence" } } },
+          "checkpoint": { "$ref": "#/$defs/checkpoint" }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "dateTime": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "actor": {
+      "type": "object",
+      "required": ["id", "role", "trustDomain"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "role": { "$ref": "#/$defs/id" },
+        "trustDomain": { "$ref": "#/$defs/id" }
+      },
+      "additionalProperties": false
+    },
+    "subject": {
+      "type": "object",
+      "required": ["schemaId", "id", "version", "projection", "digest"],
+      "properties": {
+        "schemaId": { "$ref": "#/$defs/id" },
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "const": "0.1.0" },
+        "projection": { "enum": ["full_document_without_review_evidence", "full_document_without_authorization_evidence", "full_document_without_checkpoint_evidence"] },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "policyIdentity": {
+      "type": "object",
+      "required": ["id", "version", "digest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "const": "0.1.0" },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "checkpoint": {
+      "type": "object",
+      "required": ["ledgerSequence", "previousLedgerDigest", "previousCheckpointDigest", "logBinding"],
+      "properties": {
+        "ledgerSequence": { "type": "integer", "minimum": 0 },
+        "previousLedgerDigest": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/digest" }] },
+        "previousCheckpointDigest": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/digest" }] },
+        "logBinding": {
+          "type": "object",
+          "required": ["logId", "checkpointSequence"],
+          "properties": {
+            "logId": { "$ref": "#/$defs/id" },
+            "checkpointSequence": { "type": "integer", "minimum": 0 }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "signature": {
+      "type": "object",
+      "required": ["profileId", "algorithm", "keyId", "signedAt", "value"],
+      "properties": {
+        "profileId": { "$ref": "#/$defs/id" },
+        "algorithm": { "const": "Ed25519" },
+        "keyId": { "$ref": "#/$defs/id" },
+        "signedAt": { "$ref": "#/$defs/dateTime" },
+        "value": { "type": "string", "minLength": 86, "maxLength": 86, "pattern": "^[A-Za-z0-9_-]+$" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

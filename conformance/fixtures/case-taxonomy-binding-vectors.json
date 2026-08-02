@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "conformance-fixture-vector-set-1",
+  "id": "case-taxonomy-binding-vectors",
+  "version": "0.1.0",
+  "manifestEntries": [
+    {
+      "id": "work-artifact-registry-positive",
+      "path": "../../standard/work-artifact-registry.json",
+      "schema": "urn:agent-evals-standard:schema:work-artifact-registry:1",
+      "valid": true
+    },
+    {
+      "id": "workspace-manifest-positive",
+      "path": "architecture-workspace-manifest.json",
+      "schema": "urn:agent-evals-standard:schema:workspace-manifest:1",
+      "valid": true
+    },
+    {
+      "id": "case-reject-binary-interaction-alias",
+      "basePath": "architecture-case-full.json",
+      "mutations": [
+        { "pointer": "/interactionModeId", "value": "non_interactive" }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case:1",
+      "valid": false,
+      "expectedError": "/interactionModeId"
+    },
+    {
+      "id": "case-reject-profile-unsupported-interaction-mode",
+      "basePath": "architecture-case-full.json",
+      "mutations": [
+        { "pointer": "/interactionModeId", "value": "interactive_repository_session" },
+        {
+          "pointer": "/interactionProtocol",
+          "value": {
+            "id": "architecture-interaction-protocol",
+            "version": "0.1.0",
+            "digest": "sha256:5252525252525252525252525252525252525252525252525252525252525252",
+            "schemaId": "agent-eval-interaction-protocol-1",
+            "verifierDigest": "sha256:5353535353535353535353535353535353535353535353535353535353535353"
+          }
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case:1",
+      "valid": false,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": ["caseProfileBindings"],
+      "expectedError": "CASE-001 interactionModeId interactive_repository_session is outside the effective evaluation profile"
+    },
+    {
+      "id": "case-reject-work-artifact-registry-drift",
+      "basePath": "architecture-case-full.json",
+      "mutations": [
+        { "pointer": "/workArtifactRegistry/digest", "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000" }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case:1",
+      "valid": false,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": ["caseProfileBindings"],
+      "expectedError": "CASE-001 workArtifactRegistry differs from the effective evaluation profile"
+    },
+    {
+      "id": "case-reject-passenger-capability",
+      "basePath": "architecture-case-full.json",
+      "mutations": [
+        { "pointer": "/workArtifactTypes", "value": ["code_change", "test_change"] }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case:1",
+      "valid": false,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": ["caseWorkArtifactBindings"],
+      "expectedError": "CASE-001 capability CAP.VERIFY_ASSURE has no material mapped work artifact"
+    },
+    {
+      "id": "case-reject-work-artifact-family-mismatch",
+      "basePath": "architecture-case-full.json",
+      "mutations": [
+        { "pointer": "/capabilityClassification/1/materialWorkArtifactTypes/0", "value": "code_change" }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case:1",
+      "valid": false,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": ["caseWorkArtifactBindings"],
+      "expectedError": "CASE-001 work artifact code_change maps to CAP.IMPLEMENT_CHANGE, not CAP.VERIFY_ASSURE"
+    },
+    {
+      "id": "case-reject-workspace-manifest-digest-mismatch",
+      "basePath": "architecture-case-full.json",
+      "mutations": [
+        { "pointer": "/repository/workspaceManifest/digest", "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000" }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case:1",
+      "valid": false,
+      "semanticChecks": ["workspaceManifestBinding"],
+      "expectedError": "CASE-001 workspace manifest byte digest does not match its content-addressed pointer"
+    },
+    {
+      "id": "case-reject-per-repository-cutoff-mismatch",
+      "basePath": "architecture-workspace-manifest.json",
+      "mutations": [
+        { "pointer": "/repositories/0/historyProjection/cutoffRevision", "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" }
+      ],
+      "schema": "urn:agent-evals-standard:schema:workspace-manifest:1",
+      "valid": false,
+      "semanticChecks": ["workspaceManifest"],
+      "expectedError": "architecture-fixture-component: history cutoffRevision must equal baseRevision"
+    }
+  ]
+}

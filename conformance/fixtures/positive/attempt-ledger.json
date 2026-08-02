@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "agent-eval-attempt-ledger-1",
+  "id": "attempt-ledger",
+  "version": "0.1.0",
+  "experimentId": "experiment-fixture-1",
+  "scheduledSetCommitment": {
+    "id": "pre-run-manifest-fixture-1",
+    "uri": "pre-run-manifest.json",
+    "digest": "sha256:58066bec3d8aa1df933df7afddd641f36cb2dd9fd5c5e5e7834e2d3b2faf7819"
+  },
+  "rootAlgorithm": "sha256-jcs-chain-v1",
+  "initialLedgerRoot": "sha256:0a2e14d29481a3edb1281387de0fd98e6a806a7cd1f2c7233ebb63b96fd81c2b",
+  "terminalLedgerRoot": "sha256:63e64c9a826b4ebe0231edb481f5c0d847dc5b55c551957ef2f952ae7f2d6c81",
+  "attemptRecords": [
+    {
+      "attemptId": "attempt-fixture-1",
+      "cellId": "cell-fixture-1",
+      "terminalState": "completed",
+      "measurementValidity": "valid",
+      "parentAttemptId": null,
+      "retryReason": null,
+      "startedAt": "2026-08-01T01:01:00Z",
+      "finishedAt": "2026-08-01T01:02:00Z",
+      "artifactIds": [
+        "workspace-diff-evidence",
+        "execution-evidence"
+      ],
+      "metrics": {
+        "wallClockSeconds": 42,
+        "costUsd": 1
+      }
+    }
+  ],
+  "digest": "sha256:6db3b7d6b53e820e8529544f34fb3777e10d19b47bcac644de449be6d953bb3f"
+}

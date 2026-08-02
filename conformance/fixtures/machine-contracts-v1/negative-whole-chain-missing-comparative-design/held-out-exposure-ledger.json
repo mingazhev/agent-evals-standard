@@ -1,0 +1,186 @@
+{
+  "schemaVersion": "agent-eval-held-out-exposure-ledger-1",
+  "id": "held-out-exposure-ledger-v1",
+  "version": "0.1.0",
+  "budget": {
+    "contractType": "held_out_exposure_budget",
+    "id": "held-out-exposure-budget-v1",
+    "version": "0.1.0",
+    "schemaId": "urn:agent-evals-standard:schema:held-out-exposure-budget:1",
+    "uri": "artifact:sha256:6f5684ef80207ff9145f4b04ac04c49d59b1fcfdc1a7ecfb0f0a0be73d7e3af8",
+    "digest": "sha256:6f5684ef80207ff9145f4b04ac04c49d59b1fcfdc1a7ecfb0f0a0be73d7e3af8",
+    "byteLength": 3312,
+    "mediaType": "application/json",
+    "locator": {
+      "kind": "repository_relative",
+      "base": "binding_document",
+      "path": "held-out-exposure-budget.json"
+    },
+    "verifier": {
+      "id": "machine-contract-focused-verifier",
+      "version": "0.1.0",
+      "uri": "artifact:sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+      "digest": "sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+      "byteLength": 77743,
+      "mediaType": "text/javascript",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "../../../../tools/verify-machine-contract-bindings.mjs"
+      },
+      "entrypoint": "verify-machine-contract-bindings-v1"
+    },
+    "resolutionContract": {
+      "id": "machine-contract-resolution-v1",
+      "version": "0.1.0",
+      "uri": "artifact:sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+      "digest": "sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+      "byteLength": 389,
+      "mediaType": "application/json",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "resolution-contract.json"
+      },
+      "schemaId": "agent-eval-machine-contract-resolution-1"
+    },
+    "componentAuthority": {
+      "policyId": "fixture-evaluation-control-authority-policy",
+      "policyVersion": "0.1.0",
+      "policyDigest": "sha256:b29e42e61605ba520a84839a71402698d8656d0f0fc29fb98fca210d4198b9e6"
+    }
+  },
+  "previousLedger": {
+    "contractType": "held_out_exposure_ledger",
+    "id": "held-out-exposure-ledger-genesis-v1",
+    "version": "0.1.0",
+    "schemaId": "urn:agent-evals-standard:schema:held-out-exposure-ledger:1",
+    "uri": "artifact:sha256:91cda041f72268fc8a278079423106996061cde1938e2595cc1495d63ba49582",
+    "digest": "sha256:91cda041f72268fc8a278079423106996061cde1938e2595cc1495d63ba49582",
+    "byteLength": 4766,
+    "mediaType": "application/json",
+    "locator": {
+      "kind": "repository_relative",
+      "base": "binding_document",
+      "path": "held-out-exposure-ledger-genesis.json"
+    },
+    "verifier": {
+      "id": "machine-contract-focused-verifier",
+      "version": "0.1.0",
+      "uri": "artifact:sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+      "digest": "sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+      "byteLength": 77743,
+      "mediaType": "text/javascript",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "../../../../tools/verify-machine-contract-bindings.mjs"
+      },
+      "entrypoint": "verify-machine-contract-bindings-v1"
+    },
+    "resolutionContract": {
+      "id": "machine-contract-resolution-v1",
+      "version": "0.1.0",
+      "uri": "artifact:sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+      "digest": "sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+      "byteLength": 389,
+      "mediaType": "application/json",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "resolution-contract.json"
+      },
+      "schemaId": "agent-eval-machine-contract-resolution-1"
+    },
+    "componentAuthority": {
+      "policyId": "fixture-evaluation-control-authority-policy",
+      "policyVersion": "0.1.0",
+      "policyDigest": "sha256:b29e42e61605ba520a84839a71402698d8656d0f0fc29fb98fca210d4198b9e6"
+    }
+  },
+  "sequence": 1,
+  "events": [
+    {
+      "id": "exposure-event-0001",
+      "sequence": 1,
+      "occurredAt": "2026-08-01T00:50:00Z",
+      "caseId": "case-fixture-typed-1",
+      "actorIdentityDigest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "purpose": "scheduled_evaluation",
+      "units": {
+        "agentVisibleCaseExposures": 1,
+        "unblindedOutcomeLooks": 1,
+        "oracleAccesses": 0
+      },
+      "authorizationId": "held-out-budget-authorization-v1",
+      "evidenceDigest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+    }
+  ],
+  "totals": {
+    "agentVisibleCaseExposures": 1,
+    "unblindedOutcomeLooks": 1,
+    "oracleAccesses": 0
+  },
+  "remaining": {
+    "agentVisibleCaseExposures": 4,
+    "unblindedOutcomeLooks": 2,
+    "oracleAccesses": 0
+  },
+  "saturated": false,
+  "sealedAt": "2026-08-01T01:00:00Z",
+  "checkpoint": {
+    "custodian": {
+      "id": "fixture-held-out-ledger-custodian",
+      "role": "held_out_ledger_custodian",
+      "trustDomain": "independent_scheduler"
+    },
+    "evidence": {
+      "contractType": "evaluation_control_authority_evidence",
+      "id": "held-out-ledger-checkpoint-v1",
+      "version": "0.1.0",
+      "schemaId": "urn:agent-evals-standard:schema:evaluation-control-authority-evidence:1",
+      "uri": "artifact:sha256:8ea8c2bb9bf7ee352fec2c50a9ce5402645c3e55349eaacba778bf355b89a1ca",
+      "digest": "sha256:8ea8c2bb9bf7ee352fec2c50a9ce5402645c3e55349eaacba778bf355b89a1ca",
+      "byteLength": 1663,
+      "mediaType": "application/json",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "held-out-ledger-checkpoint-evidence.json"
+      },
+      "verifier": {
+        "id": "machine-contract-focused-verifier",
+        "version": "0.1.0",
+        "uri": "artifact:sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+        "digest": "sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+        "byteLength": 77743,
+        "mediaType": "text/javascript",
+        "locator": {
+          "kind": "repository_relative",
+          "base": "binding_document",
+          "path": "../../../../tools/verify-machine-contract-bindings.mjs"
+        },
+        "entrypoint": "verify-machine-contract-bindings-v1"
+      },
+      "resolutionContract": {
+        "id": "machine-contract-resolution-v1",
+        "version": "0.1.0",
+        "uri": "artifact:sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+        "digest": "sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+        "byteLength": 389,
+        "mediaType": "application/json",
+        "locator": {
+          "kind": "repository_relative",
+          "base": "binding_document",
+          "path": "resolution-contract.json"
+        },
+        "schemaId": "agent-eval-machine-contract-resolution-1"
+      },
+      "componentAuthority": {
+        "policyId": "fixture-evaluation-control-authority-policy",
+        "policyVersion": "0.1.0",
+        "policyDigest": "sha256:b29e42e61605ba520a84839a71402698d8656d0f0fc29fb98fca210d4198b9e6"
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "capabilityFamilyId": "CAP.REMEDIATE_LEARN",
+  "evaluatedConstructIds": [
+    "construct.incident.learning"
+  ],
+  "materialSubjects": [
+    {
+      "subjectType": "outcome_profile",
+      "subjectId": "architecture-outcome-incident-learning-v1"
+    },
+    {
+      "subjectType": "claim",
+      "subjectId": "claim.incident_learning"
+    }
+  ],
+  "materialWorkArtifactTypes": [
+    "incident_analysis",
+    "prevention_plan"
+  ],
+  "rationale": "Incident analysis and prevention are material, independently evaluated learning results.",
+  "classificationVerifier": {
+    "id": "architecture-capability-classifier",
+    "version": "0.1.0",
+    "digest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c",
+    "schemaId": "agent-eval-case-classification-validity-argument-1",
+    "verifierDigest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c"
+  }
+}

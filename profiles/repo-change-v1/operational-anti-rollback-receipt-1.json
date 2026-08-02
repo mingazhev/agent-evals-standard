@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "agent-eval-anti-rollback-receipt-1",
+  "id": "repo-change-operational-anti-rollback-receipt-1",
+  "version": "0.1.0",
+  "ledgerId": "repo-change-operational-evidence-ledger",
+  "sequence": 1,
+  "root": "sha256:4bfbdfaf3f8df056a6c635ff07326030ce7eb7ee4ba54a451cc9e456027322c3",
+  "previousReceiptDigest": "sha256:d82a6c01ac4d813b6269438aec7b89fc617de810c154d7addee66fde37a3390f",
+  "observedAt": "2026-08-01T00:00:10Z",
+  "serviceIdentity": "repo-change-notary-2026",
+  "signature": {
+    "profileId": "repo-change-operational-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "repo-change-notary-2026",
+    "signedAt": "2026-08-01T00:00:10Z",
+    "value": "GsfPlwBPIBTufsqK4Gd_HJmxJTLNt54iCJ7_qqSISFKQc82PrJj0JT1BfhpZ5WphnnYHdNNUwHhz4mkEtuUhDw"
+  },
+  "witnessSignature": {
+    "profileId": "repo-change-operational-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "repo-change-witness-a-2026",
+    "signedAt": "2026-08-01T00:00:11Z",
+    "value": "t-LxX_5KVp6P3V1upbFuzeukvLY3t-nIYzEP1uWawM9UzU4sqiinWyMbIMGZ9sdPlFiAuKT2WpX8ZiT9pCaSAw"
+  }
+}

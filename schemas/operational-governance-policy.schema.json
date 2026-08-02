@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:operational-governance-policy:1",
+  "title": "Operational governance policy",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "owner", "riskTaxonomy", "rules", "roleIncompatibilities", "nonWaivableIds", "escalationMatrix", "measurementMaintenance", "digest", "signature"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-operational-governance-policy-1" },
+    "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "owner": { "$ref": "#/$defs/actor" },
+    "riskTaxonomy": { "$ref": "#/$defs/artifactPointer" },
+    "rules": { "type": "array", "minItems": 4, "maxItems": 4, "items": { "$ref": "#/$defs/riskRule" } },
+    "roleIncompatibilities": { "type": "array", "minItems": 1, "items": { "type": "array", "minItems": 2, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true } },
+    "nonWaivableIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+    "escalationMatrix": { "$ref": "#/$defs/artifactPointer" }, "measurementMaintenance": { "$ref": "#/$defs/artifactPointer" },
+    "digest": { "$ref": "#/$defs/digest" }, "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+  },
+  "allOf": [
+    { "type": "object", "properties": { "rules": { "type": "array", "contains": { "type": "object", "properties": { "riskTier": { "const": "low" } }, "required": ["riskTier"] }, "minContains": 1, "maxContains": 1 } } },
+    { "type": "object", "properties": { "rules": { "type": "array", "contains": { "type": "object", "properties": { "riskTier": { "const": "medium" } }, "required": ["riskTier"] }, "minContains": 1, "maxContains": 1 } } },
+    { "type": "object", "properties": { "rules": { "type": "array", "contains": { "type": "object", "properties": { "riskTier": { "const": "high" } }, "required": ["riskTier"] }, "minContains": 1, "maxContains": 1 } } },
+    { "type": "object", "properties": { "rules": { "type": "array", "contains": { "type": "object", "properties": { "riskTier": { "const": "critical" } }, "required": ["riskTier"] }, "minContains": 1, "maxContains": 1 } } }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" }, "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "actor": { "type": "object", "required": ["id", "role"], "properties": { "id": { "$ref": "#/$defs/id" }, "role": { "type": "string", "minLength": 1 } }, "additionalProperties": false },
+    "artifactPointer": { "type": "object", "required": ["id", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
+    "riskRule": {
+      "$comment": "ASSURE-001 semantic validation selects this rule by the authenticated effective risk tier, selects the exact decision-class field, and rejects a declared assurance level below it. The custom validator also requires each decision-class sequence to be monotonic from low through critical. Schema conditionals enforce the non-weakenable base floors.",
+      "type": "object", "required": ["riskTier", "requiredMembership", "minimumAssuranceByDecision", "reliabilityRule", "intervalRule", "minimumSampleRule", "zeroToleranceGates", "expectedGovernanceStatuses", "costCeiling", "reviewBurdenCeiling", "transcriptReview", "unresolvedCellPolicy", "decisionConditions", "approverRoles", "maximumApprovalLifetimeSeconds", "approvalEnvelopeContract", "rollbackContract", "waiverPolicy", "postDecisionAssuranceContract"],
+      "properties": {
+        "riskTier": { "enum": ["low", "medium", "high", "critical"] }, "requiredMembership": { "const": "held_out" },
+        "minimumAssuranceByDecision": {
+          "type": "object",
+          "required": ["capability_claim", "release", "autonomy", "risk_acceptance"],
+          "properties": {
+            "capability_claim": { "$ref": "#/$defs/assuranceLevel" },
+            "release": { "$ref": "#/$defs/assuranceLevel" },
+            "autonomy": { "$ref": "#/$defs/assuranceLevel" },
+            "risk_acceptance": { "$ref": "#/$defs/assuranceLevel" }
+          },
+          "additionalProperties": false
+        },
+        "reliabilityRule": { "$ref": "#/$defs/artifactPointer" },
+        "intervalRule": { "$ref": "#/$defs/artifactPointer" }, "minimumSampleRule": { "$ref": "#/$defs/artifactPointer" },
+        "zeroToleranceGates": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "expectedGovernanceStatuses": { "$ref": "urn:agent-evals-standard:schema:escalation-event-registry:1#/$defs/completeBaseGovernanceStatusArray" },
+        "costCeiling": { "type": "number", "exclusiveMinimum": 0 }, "reviewBurdenCeiling": { "type": "number", "exclusiveMinimum": 0 },
+        "transcriptReview": { "$ref": "#/$defs/artifactPointer" }, "unresolvedCellPolicy": { "$ref": "#/$defs/artifactPointer" },
+        "decisionConditions": { "$ref": "#/$defs/artifactPointer" }, "approverRoles": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "maximumApprovalLifetimeSeconds": { "type": "integer", "minimum": 1 }, "approvalEnvelopeContract": { "$ref": "#/$defs/artifactPointer" },
+        "rollbackContract": { "$ref": "#/$defs/artifactPointer" }, "waiverPolicy": { "$ref": "#/$defs/artifactPointer" }, "postDecisionAssuranceContract": { "$ref": "#/$defs/artifactPointer" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "riskTier": { "enum": ["low", "medium"] } }, "required": ["riskTier"] },
+          "then": {
+            "type": "object",
+            "properties": {
+              "minimumAssuranceByDecision": {
+                "type": "object",
+                "properties": {
+                  "capability_claim": { "enum": ["A1", "A2", "A3"] },
+                  "release": { "enum": ["A2", "A3"] },
+                  "autonomy": { "const": "A3" },
+                  "risk_acceptance": { "const": "A3" }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "riskTier": { "enum": ["high", "critical"] } }, "required": ["riskTier"] },
+          "then": {
+            "type": "object",
+            "properties": {
+              "minimumAssuranceByDecision": {
+                "type": "object",
+                "properties": {
+                  "capability_claim": { "const": "A3" },
+                  "release": { "const": "A3" },
+                  "autonomy": { "const": "A3" },
+                  "risk_acceptance": { "const": "A3" }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "assuranceLevel": { "enum": ["A1", "A2", "A3"] }
+  }
+}

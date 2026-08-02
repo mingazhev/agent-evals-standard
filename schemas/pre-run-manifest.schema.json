@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:pre-run-manifest:1",
+  "title": "Sealed pre-run manifest",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "sealedAt", "suite", "evaluationControlBindings", "evaluator", "signatureProfile", "claimTrustProfile", "claimTrustUse", "assuranceLevel", "runMode", "claimEligibility", "riskAssessment", "effectiveRiskTier", "caseProfiles", "caseSet", "arms", "comparativeDesign", "scheduledCells", "budgets", "retryPolicy", "stopPolicy", "gateRegistry", "governanceRegistry", "statisticalPlan", "decisionPlan", "extensions", "digest", "signature"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-pre-run-manifest-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "const": "0.1.0" },
+    "sealedAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "suite": { "$ref": "#/$defs/stageDocumentPointer" },
+    "evaluationControlBindings": {
+      "$comment": "The content-addressed stage-binding artifact sealed before execution. Semantic validation requires its pre_run subject to equal this manifest, its suite to equal suite, its ledger seal to be no later than sealedAt, and the projected run to fit the remaining held-out budget.",
+      "$ref": "urn:agent-evals-standard:schema:verified-machine-contract:1#/$defs/evaluationControlBindingsBinding"
+    },
+    "evaluator": { "$comment": "The exact signed evaluator manifest fixed before execution. Semantic validation must authenticate this pointer and require the experiment conformance dependency to identify the same evaluator subject.", "$ref": "#/$defs/versionedArtifactPointer" },
+    "signatureProfile": { "$comment": "The digest-bound artifact-verification profile explicitly selected by every effective leaf evaluation profile in this sealed run. It must equal every bound effective profile's leaf signatureProfile. For conformance fixtures this validates mechanics only; deployment_bound rejects fixture/reference trust and requires externally rooted typed authorization, revocation, trusted-time, and anti-rollback bindings.", "$ref": "#/$defs/versionedArtifactPointer" },
+    "claimTrustProfile": { "$comment": "The separately pinned operational trust profile for claim and governance acceptance. It must equal claimTrustProfile in every bound effective evaluation profile and must be validated independently from signatureProfile.", "$ref": "#/$defs/versionedArtifactPointer" },
+    "claimTrustUse": { "$comment": "A conformance fixture cannot become deployment trust merely because its artifact signatures verify. deployment_bound requires externally provisioned, owner-verified trust rather than the repository reference keys.", "enum": ["conformance_fixture_requires_external_rekey", "deployment_bound"] },
+    "assuranceLevel": { "enum": ["A0", "A1", "A2", "A3"] },
+    "runMode": { "enum": ["diagnostic_run", "evaluation"] },
+    "claimEligibility": { "enum": ["none", "claims_eligible"] },
+    "riskAssessment": { "$comment": "The authenticated experiment-and-decision-envelope risk-assessment-1 sealed before execution. Semantic validation requires assessmentKind=experiment_decision_envelope and exact case, arm, and decision-envelope scope binding.", "$ref": "#/$defs/versionedArtifactPointer" },
+    "effectiveRiskTier": { "$comment": "The single actual tier derived in riskAssessment. Every bound profile's effectiveRiskRange is only an eligibility boundary and contains this tier.", "enum": ["low", "medium", "high", "critical"] },
+    "caseProfiles": { "$comment": "Canonical case order must exactly equal the aggregate cases and selected suite slice. Semantic validation rejects missing, extra, duplicate, reordered, substituted, passenger, or per-case profile bindings. A diagnostic_only binding fixes measurement semantics but cannot support profile, case, experiment, or outcome conformance.", "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/caseProfile" } },
+    "caseSet": { "$comment": "Canonical ordered material case set inherited exactly from the aggregate evaluation-control binding.", "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/stageDocumentPointer" }, "uniqueItems": true },
+    "arms": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/arm" } },
+    "comparativeDesign": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/comparativeDesign" }] },
+    "scheduledCells": {
+      "$comment": "Canonical scheduled-cell order follows caseSet, paired unit, repetition, then comparator arm. Every cell carries an explicit blockId and seed, including a single-arm design with only one block and seed. Semantic validation requires unique cellId values and unique (caseId, armId, repetition) tuples, exact case/arm scope, and matching blockId/seed pairing across every comparative arm.",
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "required": ["cellId", "caseId", "armId", "repetition", "blockId", "seed"],
+        "properties": { "cellId": { "$ref": "#/$defs/id" }, "caseId": { "$ref": "#/$defs/id" }, "armId": { "$ref": "#/$defs/id" }, "repetition": { "type": "integer", "minimum": 1 }, "blockId": { "$ref": "#/$defs/id" }, "seed": { "$ref": "#/$defs/id" } },
+        "additionalProperties": false
+      }
+    },
+    "budgets": { "$ref": "#/$defs/artifactPointer" }, "retryPolicy": { "$ref": "#/$defs/artifactPointer" }, "stopPolicy": { "$ref": "#/$defs/artifactPointer" },
+    "gateRegistry": { "$ref": "#/$defs/artifactPointer" }, "governanceRegistry": { "$ref": "#/$defs/artifactPointer" },
+    "statisticalPlan": { "$ref": "#/$defs/artifactPointer" },
+    "decisionPlan": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/artifactPointer" }] },
+    "extensions": { "type": "array", "items": { "$ref": "#/$defs/artifactPointer" } },
+    "digest": { "$ref": "#/$defs/digest" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+  },
+  "allOf": [
+    { "if": { "type": "object", "properties": { "assuranceLevel": { "const": "A0" } }, "required": ["assuranceLevel"] }, "then": { "type": "object", "properties": { "runMode": { "const": "diagnostic_run" }, "claimEligibility": { "const": "none" }, "caseProfiles": { "type": "array", "minItems": 1, "items": { "type": "object", "properties": { "bindingUse": { "const": "diagnostic_only" } } } }, "decisionPlan": { "type": "null" } } }, "else": { "type": "object", "properties": { "runMode": { "const": "evaluation" }, "claimEligibility": { "const": "claims_eligible" }, "caseProfiles": { "type": "array", "minItems": 1, "items": { "type": "object", "properties": { "bindingUse": { "const": "claims_eligible" } } } } } } },
+    { "if": { "type": "object", "properties": { "comparativeDesign": { "type": "object" } }, "required": ["comparativeDesign"] }, "then": { "type": "object", "properties": { "scheduledCells": { "type": "array", "items": { "$ref": "#/$defs/comparativeScheduledCell" } } } } }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" }, "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "artifactPointer": { "type": "object", "required": ["id", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
+    "versionedArtifactPointer": { "type": "object", "required": ["id", "version", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
+    "stageDocumentPointer": {
+      "type": "object",
+      "required": ["id", "version", "uri", "digest", "byteLength", "mediaType", "locator", "selfDigest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "const": "0.1.0" },
+        "uri": { "type": "string", "pattern": "^artifact:sha256:[a-f0-9]{64}$" },
+        "digest": { "$ref": "#/$defs/digest" },
+        "byteLength": { "type": "integer", "minimum": 1 },
+        "mediaType": { "const": "application/json" },
+        "locator": {
+          "type": "object", "required": ["kind", "base", "path"],
+          "properties": {
+            "kind": { "const": "repository_relative" },
+            "base": { "const": "binding_document" },
+            "path": { "type": "string", "minLength": 1, "pattern": "^(?!/)(?![A-Za-z]:).+$" }
+          },
+          "additionalProperties": false
+        },
+        "selfDigest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "component": { "type": "object", "required": ["id", "version", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
+    "caseProfile": { "type": "object", "required": ["caseId", "bindingUse", "evaluationProfile", "effectiveProfileDigest", "outcomeProfile"], "properties": { "caseId": { "$ref": "#/$defs/id" }, "bindingUse": { "enum": ["diagnostic_only", "claims_eligible"] }, "evaluationProfile": { "$ref": "#/$defs/component" }, "effectiveProfileDigest": { "$ref": "#/$defs/digest" }, "outcomeProfile": { "$ref": "#/$defs/component" } }, "additionalProperties": false },
+    "pairedRepetition": { "type": "object", "required": ["repetition", "seed"], "properties": { "repetition": { "type": "integer", "minimum": 1 }, "seed": { "$ref": "#/$defs/id" } }, "additionalProperties": false },
+    "pairedUnit": { "type": "object", "required": ["caseId", "blockId", "repetitions"], "properties": { "caseId": { "$ref": "#/$defs/id" }, "blockId": { "$ref": "#/$defs/id" }, "repetitions": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/pairedRepetition" }, "uniqueItems": true } }, "additionalProperties": false },
+    "comparativeScheduledCell": { "type": "object", "required": ["cellId", "caseId", "armId", "repetition", "blockId", "seed"], "properties": { "cellId": { "$ref": "#/$defs/id" }, "caseId": { "$ref": "#/$defs/id" }, "armId": { "$ref": "#/$defs/id" }, "repetition": { "type": "integer", "minimum": 1 }, "blockId": { "$ref": "#/$defs/id" }, "seed": { "$ref": "#/$defs/id" } }, "additionalProperties": false },
+    "comparativeDesign": { "$comment": "pairedUnits explicitly pre-register the canonical case/block/repetition/seed matrix. Semantic validation requires exactly one scheduled cell for every paired-unit tuple and every comparator arm, with no split-arm, missing, or asymmetric cells.", "type": "object", "required": ["id", "comparatorArmIds", "treatmentBundle", "treatmentBundleDigest", "pairedUnits", "randomizationOrOrdering", "resetAndCarryoverRules", "interferenceControls", "sharedMeasurementIdentity", "hypotheses", "statisticalPlan"], "properties": { "id": { "$ref": "#/$defs/id" }, "comparatorArmIds": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "treatmentBundle": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }, "treatmentBundleDigest": { "$ref": "#/$defs/digest" }, "pairedUnits": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/pairedUnit" }, "uniqueItems": true }, "randomizationOrOrdering": { "$ref": "#/$defs/artifactPointer" }, "resetAndCarryoverRules": { "$ref": "#/$defs/artifactPointer" }, "interferenceControls": { "$ref": "#/$defs/artifactPointer" }, "sharedMeasurementIdentity": { "$ref": "#/$defs/digest" }, "hypotheses": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "statisticalPlan": { "$ref": "#/$defs/artifactPointer" } }, "additionalProperties": false },
+    "arm": {
+      "type": "object", "required": ["id", "label", "treatmentRole", "model", "agentConfiguration", "prompts", "policies", "harness", "adapter", "tools", "permissions", "budgets", "retrieval", "memory", "agentVisibleProjection", "environment", "externalServices", "graderSet", "identityDigest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" }, "label": { "type": "string", "minLength": 1 }, "treatmentRole": { "enum": ["single", "baseline", "treatment", "active_comparator"] },
+        "model": { "$ref": "#/$defs/component" }, "agentConfiguration": { "$ref": "#/$defs/component" }, "prompts": { "$ref": "#/$defs/component" }, "policies": { "$ref": "#/$defs/component" },
+        "harness": { "$ref": "#/$defs/component" }, "adapter": { "$ref": "#/$defs/component" }, "tools": { "$ref": "#/$defs/component" }, "permissions": { "$ref": "#/$defs/component" }, "budgets": { "$ref": "#/$defs/component" },
+        "retrieval": { "$ref": "#/$defs/component" }, "memory": { "$ref": "#/$defs/component" }, "agentVisibleProjection": { "$ref": "#/$defs/component" }, "environment": { "$ref": "#/$defs/component" }, "externalServices": { "$ref": "#/$defs/component" }, "graderSet": { "$ref": "#/$defs/component" }, "identityDigest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

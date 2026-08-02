@@ -1,0 +1,27 @@
+{
+  "capabilityFamilyId": "CAP.DISCOVER_SPECIFY",
+  "evaluatedConstructIds": [
+    "construct.repository-research.ancillary"
+  ],
+  "materialSubjects": [
+    {
+      "subjectType": "outcome_profile",
+      "subjectId": "architecture-outcome-patch-with-research-v1"
+    },
+    {
+      "subjectType": "claim",
+      "subjectId": "claim.patch_with_research"
+    }
+  ],
+  "materialWorkArtifactTypes": [
+    "repository_analysis"
+  ],
+  "rationale": "Incorrectly labels an incidental research step as a material discovery/specification result.",
+  "classificationVerifier": {
+    "id": "architecture-capability-classifier",
+    "version": "0.1.0",
+    "digest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c",
+    "schemaId": "agent-eval-case-classification-validity-argument-1",
+    "verifierDigest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c"
+  }
+}

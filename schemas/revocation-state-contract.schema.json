@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:revocation-state-contract:1",
+  "title": "Operational revocation-state contract",
+  "$comment": "The self-digest projection omits digest, the complete top-level signature, and every authorizationSignatures[*].value while retaining authorization-signature metadata. Semantic validation must verify that self-digest; verify at least authorityThreshold distinct authorizationSignatures over the completed document with the self-digest inserted, the complete top-level signature omitted, and every authorizationSignatures[*].value omitted; verify the root signature over the completed document with only signature.value omitted; resolve each authority through keyAuthorizationContract with the revocation_authority role and distinct ownerId; obtain verifiedAt from the pinned trusted-time quorum rather than any signedAt; enforce publishedAt < nextUpdate and verifiedAt <= nextUpdate; require exactly one status for every authorized keyId and no unknown keyId; and apply compromiseRules before accepting a signature.",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "keyAuthorizationContract", "stateSequence", "previousStateDigest", "publishedAt", "nextUpdate", "authorityThreshold", "authorizationSignatures", "keyStatuses", "compromiseRules", "failureSemantics", "digest", "signature"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-revocation-state-contract-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "const": "0.1.0" },
+    "keyAuthorizationContract": { "$ref": "#/$defs/versionedPointer" },
+    "stateSequence": { "type": "integer", "minimum": 1 },
+    "previousStateDigest": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/digest" }] },
+    "publishedAt": { "$ref": "#/$defs/time" },
+    "nextUpdate": { "$ref": "#/$defs/time" },
+    "authorityThreshold": { "type": "integer", "minimum": 2 },
+    "authorizationSignatures": { "type": "array", "minItems": 2, "items": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" } },
+    "keyStatuses": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["keyId", "status", "effectiveAt", "compromiseTime", "reason"],
+        "properties": {
+          "keyId": { "$ref": "#/$defs/id" },
+          "status": { "enum": ["active", "suspended", "revoked", "retired", "compromised"] },
+          "effectiveAt": { "$ref": "#/$defs/time" },
+          "compromiseTime": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/time" }] },
+          "reason": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "compromiseRules": {
+      "type": "object",
+      "required": ["beforeCompromise", "atOrAfterCompromise", "unknownCompromiseTime"],
+      "properties": {
+        "beforeCompromise": { "enum": ["retain_if_independently_timestamped", "revalidate_under_incident_policy"] },
+        "atOrAfterCompromise": { "const": "insufficient_evidence" },
+        "unknownCompromiseTime": { "const": "stop_governance_use" }
+      },
+      "additionalProperties": false
+    },
+    "failureSemantics": {
+      "type": "object",
+      "required": ["staleState", "invalidQuorum", "rollback", "unknownKey"],
+      "properties": {
+        "staleState": { "const": "insufficient_evidence" },
+        "invalidQuorum": { "const": "stop_governance_use" },
+        "rollback": { "const": "measurement_boundary_compromise" },
+        "unknownKey": { "const": "insufficient_evidence" }
+      },
+      "additionalProperties": false
+    },
+    "digest": { "$ref": "#/$defs/digest" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "time": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "versionedPointer": { "type": "object", "required": ["id", "version", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "const": "0.1.0" }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false }
+  }
+}

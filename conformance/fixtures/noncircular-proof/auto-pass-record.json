@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "agent-eval-conformance-verification-record-1",
+  "id": "auto-pass-record",
+  "version": "0.1.0",
+  "proofAssertionId": "auto-pass-assertion",
+  "scopeSliceId": "fixture-slice",
+  "target": "case",
+  "targetId": "fixture-case-true",
+  "targetSubjectDigest": "sha256:2d1df346a439bffce8f8bcd40a0dff67b39954b46b4b101188714eee4250db90",
+  "dependencyManifestDigest": "sha256:445f222a919d929ab133f072ea2d1f194089649aa9b47c62eabc24b6dcf99655",
+  "requirementId": "FIX-AUTO-001",
+  "method": "automated_replay",
+  "registry": {
+    "id": "fixture-conformance-verifier-registry",
+    "version": "0.1.0",
+    "digest": "sha256:7a3545452bf9d1e5832c3e862127a8b78362cb4e08ad3e801234b949766e0e8b"
+  },
+  "entryId": "fixture-automated-entry",
+  "inputBindings": [
+    {
+      "role": "requirement_registry",
+      "id": "fixture-requirements",
+      "version": "0.1.0",
+      "uri": "requirements.json",
+      "digest": "sha256:58dc343f84bb7e85989dc1d1ce16de2762a8fcce3bb73c42ac80ac71257f8d51",
+      "byteLength": 3369
+    },
+    {
+      "role": "target_subject",
+      "id": "fixture-case-true",
+      "version": "0.1.0",
+      "uri": "target-true.json",
+      "digest": "sha256:2d1df346a439bffce8f8bcd40a0dff67b39954b46b4b101188714eee4250db90",
+      "byteLength": 142
+    },
+    {
+      "role": "applicability_contract",
+      "id": "fixture-applicability",
+      "version": "0.1.0",
+      "uri": "applicability.json",
+      "digest": "sha256:76e60f6a389dd58ed5ca5f28d04f7d84daa128e005fa95fa9b0ba7ea59057e47",
+      "byteLength": 527
+    }
+  ],
+  "result": "pass",
+  "findingIds": [],
+  "actor": {
+    "id": "fixture-replay-verifier",
+    "trustDomain": "fixture-replay-verifier"
+  },
+  "executedAt": "2026-08-01T00:05:00Z",
+  "signature": {
+    "profileId": "fixture-automated-verifier-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-2-verifier",
+    "signedAt": "2026-08-01T00:05:00Z",
+    "value": "-lMKqWk8qLDHJ1CDF_TjOUxGK8xY2eTgfglAJfD7iECOPu8B6BjMVhp14J-uzqllQxJKzIs8v9V91f9Ib4WHDw"
+  },
+  "digest": "sha256:46ddf4ea69624e7e269eb67c6434d3ffd9eaaed9a437fb7d336714f8d0054ba4"
+}

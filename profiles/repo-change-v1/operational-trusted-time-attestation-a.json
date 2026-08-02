@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "agent-eval-trusted-time-attestation-1",
+  "id": "repo-change-operational-time-attestation-a-000000",
+  "version": "0.1.0",
+  "sourceId": "repo-change-time-source-a",
+  "keyId": "repo-change-time-a-2026",
+  "sequence": 0,
+  "previousAttestationDigest": null,
+  "attestedAt": "2026-08-01T00:00:05Z",
+  "expiresAt": "2026-08-01T00:05:05Z",
+  "requestNonce": "cmVwby1jaGFuZ2UtdHJ1c3Q",
+  "subjectDigest": "sha256:e9408f6d65ed405d4e7a794a6f23f72327b62f28ae872b6aeb0aa26cba936b9a",
+  "digest": "sha256:ebac27527f8657d8d5d629ba91ba4ddf24b601f6dff64b532530d7ba10b4e8d9",
+  "signature": {
+    "profileId": "repo-change-operational-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "repo-change-time-a-2026",
+    "signedAt": "2026-08-01T00:00:05Z",
+    "value": "ewnlQAexzyfQgD4hR_iykAyPdPzUYXuqwC0z7Ii3GlPdqvzspTkCsrcX5Fcjkuznw9Asa9CG4p-ThfqMqFs_DA"
+  }
+}

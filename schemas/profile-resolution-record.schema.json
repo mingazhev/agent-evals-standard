@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:profile-resolution-record:1",
+  "title": "Detached evaluation-profile resolution record",
+  "$comment": "The detached record covers the authenticated parent chain, exact provenance, permitted replacement proofs, and the recomputed effectiveProfileDigest. requirementMapping uses leaf_complete provenance and never uses a replacement proof because each leaf supplies and validates the complete routing table.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "version",
+    "profile",
+    "parentChain",
+    "fieldProvenance",
+    "keyedProvenance",
+    "replacementProofs",
+    "evidenceManifest",
+    "canonicalOrdering",
+    "conflictStatus",
+    "effectiveProfileDigest",
+    "digest",
+    "signature"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-profile-resolution-record-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "const": "0.1.0" },
+    "profile": {
+      "type": "object",
+      "required": ["id", "version"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "parentChain": {
+      "$comment": "Ordered from the base profile to the direct parent. Each pointer must resolve to an authenticated profile with exactly the declared identity and digest. A root profile uses an empty array.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/versionedArtifactPointer" },
+      "uniqueItems": true
+    },
+    "fieldProvenance": {
+      "$comment": "Semantic validation requires exactly one entry for every non-keyed field in the effective projection and no entry for an omitted or derived-only field.",
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/fieldProvenance" },
+      "uniqueItems": true
+    },
+    "keyedProvenance": {
+      "$comment": "Semantic validation requires the union of all entries to cover every effective collection/key pair exactly once, including inherited keys of delta collections and only selected keys of complete declarations, and rejects unknown or duplicate pairs.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/keyedProvenance" },
+      "uniqueItems": true
+    },
+    "replacementProofs": {
+      "$comment": "Every non-identical permitted singleton or delta-key replacement has exactly one proof, including content-equal pointers with different serialized metadata. requirementMapping is excluded because it is a complete leaf routing table, not an inherited delta.",
+      "type": "array",
+      "items": { "$ref": "#/$defs/replacementProof" },
+      "uniqueItems": true
+    },
+    "evidenceManifest": {
+      "$comment": "Canonical proof-input evidence artifacts ordered lexically by projected id. IDs must be unique, and every replacementProof.evidenceIds value must resolve exactly once. Evidence supplies authenticated inputs only; the distribution resolver independently recomputes every relation.",
+      "type": "array",
+      "items": { "$ref": "urn:agent-evals-standard:schema:evidence-artifact:1" },
+      "uniqueItems": true
+    },
+    "canonicalOrdering": {
+      "type": "object",
+      "required": ["parentChain", "fieldProvenance", "keyedProvenance", "replacementProofs"],
+      "properties": {
+        "parentChain": { "const": "base_to_direct_parent" },
+        "fieldProvenance": { "const": "lexical_json_pointer" },
+        "keyedProvenance": { "const": "collection_then_key_lexical" },
+        "replacementProofs": { "const": "target_pointer_then_key_lexical" }
+      },
+      "additionalProperties": false
+    },
+    "conflictStatus": { "const": "no_unresolved_conflicts" },
+    "effectiveProfileDigest": { "$ref": "#/$defs/digest" },
+    "digest": { "$ref": "#/$defs/digest" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": { "replacementProofs": { "type": "array", "maxItems": 0 } },
+        "required": ["replacementProofs"]
+      },
+      "then": { "properties": { "evidenceManifest": { "type": "array", "maxItems": 0 } } },
+      "else": { "properties": { "evidenceManifest": { "type": "array", "minItems": 1 } } }
+    }
+  ],
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "jsonPointer": { "type": "string", "pattern": "^/(?:[^~/]|~0|~1)+(?:/(?:[^~/]|~0|~1)+)*$" },
+    "versionedArtifactPointer": {
+      "type": "object",
+      "required": ["id", "version", "uri", "digest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "minLength": 1 },
+        "uri": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "fieldProvenance": {
+      "type": "object",
+      "required": ["pointer", "sourceProfileId", "sourceProfileVersion", "operation"],
+      "properties": {
+        "pointer": { "$ref": "#/$defs/jsonPointer" },
+        "sourceProfileId": { "$ref": "#/$defs/id" },
+        "sourceProfileVersion": { "type": "string", "minLength": 1 },
+        "operation": { "enum": ["leaf_identity", "derived", "exact_match", "subset_replace", "inherited", "content_equal", "preserves", "strengthens"] }
+      },
+      "additionalProperties": false
+    },
+    "keyedProvenance": {
+      "type": "object",
+      "required": ["collection", "keys", "sourceProfileId", "sourceProfileVersion", "operation"],
+      "properties": {
+        "collection": { "enum": ["allowedOutcomeProfiles", "metrics", "additionalAssuranceRequirements", "exclusions", "requirementMapping"] },
+        "keys": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "sourceProfileId": { "$ref": "#/$defs/id" },
+        "sourceProfileVersion": { "type": "string", "minLength": 1 },
+        "operation": { "enum": ["leaf_complete", "inherited", "content_equal", "preserves", "strengthens"] }
+      },
+      "additionalProperties": false
+    },
+    "replacementProof": {
+      "type": "object",
+      "required": ["targetKind", "pointer", "parent", "child", "relation", "evidenceIds"],
+      "properties": {
+        "targetKind": { "enum": ["singleton", "keyed"] },
+        "pointer": { "$ref": "#/$defs/jsonPointer" },
+        "key": { "type": "string", "minLength": 1 },
+        "parent": { "$ref": "#/$defs/versionedArtifactPointer" },
+        "child": { "$ref": "#/$defs/versionedArtifactPointer" },
+        "relation": { "enum": ["subset", "content_equal", "preserves", "strengthens"] },
+        "evidenceIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "targetKind": { "const": "keyed" } }, "required": ["targetKind"] },
+          "then": { "properties": { "key": {} }, "required": ["key"] },
+          "else": { "not": { "properties": { "key": {} }, "required": ["key"] } }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

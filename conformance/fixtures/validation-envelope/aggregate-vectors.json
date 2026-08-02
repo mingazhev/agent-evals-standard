@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "validation-envelope-aggregate-vectors-1",
+  "validationContractVersion": "0.1.0",
+  "basePath": "../positive/validation-envelope-decision.json",
+  "vectors": [
+    {
+      "id": "all-selected-requirements-pass",
+      "overrides": [],
+      "declaredResult": "pass",
+      "expectedDerivedResult": "pass",
+      "expectedSchemaValid": true,
+      "expectedAggregateIssueCount": 0
+    },
+    {
+      "id": "all-pass-cannot-declare-insufficient",
+      "overrides": [],
+      "declaredResult": "insufficient_evidence",
+      "expectedDerivedResult": "pass",
+      "expectedSchemaValid": false,
+      "expectedAggregateIssueCount": 1,
+      "expectedAggregateIssueFragments": ["aggregate result must be pass"]
+    },
+    {
+      "id": "failure-has-aggregate-priority",
+      "overrides": [
+        { "index": 0, "result": "fail" },
+        { "index": 1, "result": "insufficient_evidence" }
+      ],
+      "declaredResult": "fail",
+      "expectedDerivedResult": "fail",
+      "expectedSchemaValid": true,
+      "expectedAggregateIssueCount": 0
+    },
+    {
+      "id": "insufficient-without-failure-is-insufficient",
+      "overrides": [
+        { "index": 0, "result": "insufficient_evidence" }
+      ],
+      "declaredResult": "insufficient_evidence",
+      "expectedDerivedResult": "insufficient_evidence",
+      "expectedSchemaValid": true,
+      "expectedAggregateIssueCount": 0
+    },
+    {
+      "id": "failure-cannot-be-hidden-as-insufficient",
+      "overrides": [
+        { "index": 0, "result": "fail" },
+        { "index": 1, "result": "insufficient_evidence" }
+      ],
+      "declaredResult": "insufficient_evidence",
+      "expectedDerivedResult": "fail",
+      "expectedSchemaValid": false,
+      "expectedAggregateIssueCount": 1,
+      "expectedAggregateIssueFragments": ["aggregate result must be fail"]
+    },
+    {
+      "id": "selected-not-applicable-cannot-yield-pass",
+      "overrides": [
+        { "index": 0, "result": "not_applicable" }
+      ],
+      "declaredResult": "pass",
+      "expectedDerivedResult": "insufficient_evidence",
+      "expectedSchemaValid": false,
+      "expectedSchemaErrorKeywords": ["enum"],
+      "expectedAggregateIssueCount": 2,
+      "expectedAggregateIssueFragments": [
+        "is forbidden",
+        "aggregate result must be insufficient_evidence"
+      ]
+    },
+    {
+      "id": "selected-not-applicable-is-forbidden-even-when-fail-closed",
+      "overrides": [
+        { "index": 0, "result": "not_applicable" }
+      ],
+      "declaredResult": "insufficient_evidence",
+      "expectedDerivedResult": "insufficient_evidence",
+      "expectedSchemaValid": false,
+      "expectedSchemaErrorKeywords": ["enum"],
+      "expectedAggregateIssueCount": 1,
+      "expectedAggregateIssueFragments": ["is forbidden"]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:trusted-time-attestation:1",
+  "title": "Authenticated trusted-time attestation",
+  "$comment": "The self-digest projection omits digest and the complete signature. The signing projection is the completed document with only signature.value omitted, prefixed by schemaVersion and a zero octet. Semantic validation must resolve sourceId in the pinned trusted-time contract, require keyId to equal that source's keyId, resolve the active trusted_time_authority key through the pinned authorization and revocation contracts, verify the signature and self-digest, bind requestNonce and subjectDigest to the verification request, require attestedAt < expiresAt, reject stale or future attestations outside the trusted-time contract limits, and reject lower or conflicting sequences. previousAttestationDigest is null only for sequence zero; otherwise it is the SHA-256 digest of the RFC 8785 canonical complete preceding attestation from the same source.",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "sourceId", "keyId", "sequence", "previousAttestationDigest", "attestedAt", "expiresAt", "requestNonce", "subjectDigest", "digest", "signature"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-trusted-time-attestation-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "const": "0.1.0" },
+    "sourceId": { "$ref": "#/$defs/id" },
+    "keyId": { "$ref": "#/$defs/id" },
+    "sequence": { "type": "integer", "minimum": 0 },
+    "previousAttestationDigest": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/digest" }] },
+    "attestedAt": { "$ref": "#/$defs/time" },
+    "expiresAt": { "$ref": "#/$defs/time" },
+    "requestNonce": { "type": "string", "pattern": "^[A-Za-z0-9_-]{22,}$" },
+    "subjectDigest": { "$ref": "#/$defs/digest" },
+    "digest": { "$ref": "#/$defs/digest" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "time": { "type": "string", "format": "date-time", "pattern": "Z$" }
+  }
+}

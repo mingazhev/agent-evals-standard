@@ -1,0 +1,319 @@
+{
+  "schemaVersion": "fixture-production-derived-evidence-bundle-1",
+  "version": "0.1.0",
+  "authorityContract": {
+    "id": "repo-change-production-derived-authorities",
+    "version": "0.1.0",
+    "schemaId": "urn:agent-evals-standard:schema:production-derived-authority-contract:1",
+    "uri": "artifact:sha256:70bdc225d87f41b03732cd37dff14954aff2293aa691ac8fb0325509907c3ebc",
+    "digest": "sha256:70bdc225d87f41b03732cd37dff14954aff2293aa691ac8fb0325509907c3ebc",
+    "byteLength": 5241,
+    "payloadPath": "authority-contract.json"
+  },
+  "snapshot": {
+    "id": "production-derived-input-snapshot-fixture",
+    "uri": "artifact:sha256:343d5474f27c16f12bbab129b12c0e619761dd8dbe41a045437ff5b6950a3a76",
+    "digest": "sha256:343d5474f27c16f12bbab129b12c0e619761dd8dbe41a045437ff5b6950a3a76",
+    "mediaType": "application/vnd.agent-evals.input-snapshot+json",
+    "byteLength": 190,
+    "createdAt": "2026-07-31T22:10:00Z",
+    "payloadPath": "payloads/input-snapshot.json"
+  },
+  "evidenceArtifacts": [
+    {
+      "proofKind": "production_input_provenance",
+      "payloadPath": "payloads/provenance-proof.json",
+      "artifact": {
+        "id": "production-input-provenance-evidence-fixture",
+        "uri": "artifact:sha256:744729d02897ee17d1658d1adb853596b7d5d160f23fa7df6da781eee7b95e8d",
+        "mediaType": "application/json",
+        "digest": "sha256:744729d02897ee17d1658d1adb853596b7d5d160f23fa7df6da781eee7b95e8d",
+        "byteLength": 584,
+        "payload": {
+          "kind": "repository_relative",
+          "path": "payloads/provenance-proof.json"
+        },
+        "producer": {
+          "id": "fixture-data-provenance-custodian",
+          "role": "data-provenance",
+          "trustDomain": "external"
+        },
+        "creationPhase": "case_qa",
+        "createdAt": "2026-07-31T22:11:00Z",
+        "schemaMetadata": {
+          "schemaId": "production-input-provenance-proof-1",
+          "schemaVersion": "0.1.0",
+          "validatorDigest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+        },
+        "mediaInterpretation": {
+          "profileId": "json-rfc8259",
+          "profileVersion": "0.1.0",
+          "semanticContract": {
+            "id": "repo-change-production-derived-verifier",
+            "version": "0.1.0",
+            "digest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+          }
+        },
+        "accessClass": "internal",
+        "accessPolicyBinding": {
+          "id": "production-derived-fixture-access-policy",
+          "version": "0.1.0",
+          "digest": "sha256:8997538f54e1a1aebd5251d8acbceb51cb1e8e206ed6106b95221ff9938d822a"
+        },
+        "privacyAndIp": {
+          "classification": "none",
+          "restrictions": []
+        },
+        "retention": {
+          "class": "conformance_fixture",
+          "expiresAt": "2027-08-01T00:00:00Z",
+          "disposition": "delete",
+          "legalHold": false
+        },
+        "attestation": {
+          "profileId": "production-derived-fixture-authority-profile",
+          "algorithm": "Ed25519",
+          "keyId": "production-provenance-key",
+          "signedAt": "2026-07-31T22:11:00Z",
+          "value": "vUXQZotZwU8zHo1hPGK_uW4YiYOuejgAQ9tsn3aSF_RGWDXzO8TZ4QWy0cccjAckhZeaotPCM7QNhKDH-2fiDA"
+        }
+      }
+    },
+    {
+      "proofKind": "data_owner_authorization",
+      "payloadPath": "payloads/authorization-proof.json",
+      "artifact": {
+        "id": "production-input-owner-authorization-evidence-fixture",
+        "uri": "artifact:sha256:cdf8c430836cc5c700f323444a64d59d77e9e3a50b6f4d7f833046cc2809d073",
+        "mediaType": "application/json",
+        "digest": "sha256:cdf8c430836cc5c700f323444a64d59d77e9e3a50b6f4d7f833046cc2809d073",
+        "byteLength": 268,
+        "payload": {
+          "kind": "repository_relative",
+          "path": "payloads/authorization-proof.json"
+        },
+        "producer": {
+          "id": "fixture-data-owner",
+          "role": "data-owner",
+          "trustDomain": "governance"
+        },
+        "creationPhase": "case_qa",
+        "createdAt": "2026-07-31T22:15:30Z",
+        "schemaMetadata": {
+          "schemaId": "production-input-authorization-proof-1",
+          "schemaVersion": "0.1.0",
+          "validatorDigest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+        },
+        "mediaInterpretation": {
+          "profileId": "json-rfc8259",
+          "profileVersion": "0.1.0",
+          "semanticContract": {
+            "id": "repo-change-production-derived-verifier",
+            "version": "0.1.0",
+            "digest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+          }
+        },
+        "accessClass": "internal",
+        "accessPolicyBinding": {
+          "id": "production-derived-fixture-access-policy",
+          "version": "0.1.0",
+          "digest": "sha256:8997538f54e1a1aebd5251d8acbceb51cb1e8e206ed6106b95221ff9938d822a"
+        },
+        "privacyAndIp": {
+          "classification": "none",
+          "restrictions": []
+        },
+        "retention": {
+          "class": "conformance_fixture",
+          "expiresAt": "2027-08-01T00:00:00Z",
+          "disposition": "delete",
+          "legalHold": false
+        },
+        "attestation": {
+          "profileId": "production-derived-fixture-authority-profile",
+          "algorithm": "Ed25519",
+          "keyId": "production-data-owner-key",
+          "signedAt": "2026-07-31T22:15:30Z",
+          "value": "4qa4z3mqHHzL-ArrwHtKD2VafiVDMNZ1Gdzid9Adzv4djxaQYB6XPVTPkzBgPEYlj9CQphqOIm1YI6I7rq6HBg"
+        }
+      }
+    },
+    {
+      "proofKind": "redaction_verification",
+      "payloadPath": "payloads/redaction-proof.json",
+      "artifact": {
+        "id": "production-input-redaction-evidence-fixture",
+        "uri": "artifact:sha256:172629c2f94d6321c6e746a81426abb968b03b24988a12775593e9db24a90d1b",
+        "mediaType": "application/json",
+        "digest": "sha256:172629c2f94d6321c6e746a81426abb968b03b24988a12775593e9db24a90d1b",
+        "byteLength": 375,
+        "payload": {
+          "kind": "repository_relative",
+          "path": "payloads/redaction-proof.json"
+        },
+        "producer": {
+          "id": "fixture-privacy-verifier",
+          "role": "privacy-verifier",
+          "trustDomain": "case_qa"
+        },
+        "creationPhase": "case_qa",
+        "createdAt": "2026-07-31T22:19:00Z",
+        "schemaMetadata": {
+          "schemaId": "production-input-redaction-proof-1",
+          "schemaVersion": "0.1.0",
+          "validatorDigest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+        },
+        "mediaInterpretation": {
+          "profileId": "json-rfc8259",
+          "profileVersion": "0.1.0",
+          "semanticContract": {
+            "id": "repo-change-production-derived-verifier",
+            "version": "0.1.0",
+            "digest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+          }
+        },
+        "accessClass": "internal",
+        "accessPolicyBinding": {
+          "id": "production-derived-fixture-access-policy",
+          "version": "0.1.0",
+          "digest": "sha256:8997538f54e1a1aebd5251d8acbceb51cb1e8e206ed6106b95221ff9938d822a"
+        },
+        "privacyAndIp": {
+          "classification": "none",
+          "restrictions": []
+        },
+        "retention": {
+          "class": "conformance_fixture",
+          "expiresAt": "2027-08-01T00:00:00Z",
+          "disposition": "delete",
+          "legalHold": false
+        },
+        "attestation": {
+          "profileId": "production-derived-fixture-authority-profile",
+          "algorithm": "Ed25519",
+          "keyId": "production-privacy-key",
+          "signedAt": "2026-07-31T22:19:00Z",
+          "value": "8GrtnJ9AIVAbEsuRZ8WX3xzF4SaB7mfLjM1vpUheiAMMvxDAVahbwdciyMU0LoDDu9_Ox-qqU6GPHZ1agnJdAQ"
+        }
+      }
+    },
+    {
+      "proofKind": "reidentification_assessment",
+      "payloadPath": "payloads/reidentification-proof.json",
+      "artifact": {
+        "id": "production-input-reidentification-evidence-fixture",
+        "uri": "artifact:sha256:4c79097ddf514893dcd807ae21a24cb34bfa28c2c7ec22ab123c058087d1f2a3",
+        "mediaType": "application/json",
+        "digest": "sha256:4c79097ddf514893dcd807ae21a24cb34bfa28c2c7ec22ab123c058087d1f2a3",
+        "byteLength": 386,
+        "payload": {
+          "kind": "repository_relative",
+          "path": "payloads/reidentification-proof.json"
+        },
+        "producer": {
+          "id": "fixture-privacy-verifier",
+          "role": "privacy-verifier",
+          "trustDomain": "case_qa"
+        },
+        "creationPhase": "case_qa",
+        "createdAt": "2026-07-31T22:24:00Z",
+        "schemaMetadata": {
+          "schemaId": "production-input-reidentification-proof-1",
+          "schemaVersion": "0.1.0",
+          "validatorDigest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+        },
+        "mediaInterpretation": {
+          "profileId": "json-rfc8259",
+          "profileVersion": "0.1.0",
+          "semanticContract": {
+            "id": "repo-change-production-derived-verifier",
+            "version": "0.1.0",
+            "digest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+          }
+        },
+        "accessClass": "internal",
+        "accessPolicyBinding": {
+          "id": "production-derived-fixture-access-policy",
+          "version": "0.1.0",
+          "digest": "sha256:8997538f54e1a1aebd5251d8acbceb51cb1e8e206ed6106b95221ff9938d822a"
+        },
+        "privacyAndIp": {
+          "classification": "none",
+          "restrictions": []
+        },
+        "retention": {
+          "class": "conformance_fixture",
+          "expiresAt": "2027-08-01T00:00:00Z",
+          "disposition": "delete",
+          "legalHold": false
+        },
+        "attestation": {
+          "profileId": "production-derived-fixture-authority-profile",
+          "algorithm": "Ed25519",
+          "keyId": "production-privacy-key",
+          "signedAt": "2026-07-31T22:24:00Z",
+          "value": "J9X9dxBbHuNDfCl4mVFlpFLbIUEN4zUaMaAaZXoCm0ST5sP6os7K8MP4gRHjlgJlX8ZuwtDj_jsU0uhcMyiNAQ"
+        }
+      }
+    },
+    {
+      "proofKind": "production_path_isolation",
+      "payloadPath": "payloads/isolation-proof.json",
+      "artifact": {
+        "id": "production-input-isolation-evidence-fixture",
+        "uri": "artifact:sha256:b34984738a54f33fcb422b0677412b91fa63ecd08f43e8f15e8de56ad4973b15",
+        "mediaType": "application/json",
+        "digest": "sha256:b34984738a54f33fcb422b0677412b91fa63ecd08f43e8f15e8de56ad4973b15",
+        "byteLength": 451,
+        "payload": {
+          "kind": "repository_relative",
+          "path": "payloads/isolation-proof.json"
+        },
+        "producer": {
+          "id": "fixture-isolation-verifier",
+          "role": "environment-verifier",
+          "trustDomain": "runner"
+        },
+        "creationPhase": "pre_run",
+        "createdAt": "2026-07-31T22:29:00Z",
+        "schemaMetadata": {
+          "schemaId": "production-input-isolation-proof-1",
+          "schemaVersion": "0.1.0",
+          "validatorDigest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+        },
+        "mediaInterpretation": {
+          "profileId": "json-rfc8259",
+          "profileVersion": "0.1.0",
+          "semanticContract": {
+            "id": "repo-change-production-derived-verifier",
+            "version": "0.1.0",
+            "digest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+          }
+        },
+        "accessClass": "internal",
+        "accessPolicyBinding": {
+          "id": "production-derived-fixture-access-policy",
+          "version": "0.1.0",
+          "digest": "sha256:8997538f54e1a1aebd5251d8acbceb51cb1e8e206ed6106b95221ff9938d822a"
+        },
+        "privacyAndIp": {
+          "classification": "none",
+          "restrictions": []
+        },
+        "retention": {
+          "class": "conformance_fixture",
+          "expiresAt": "2027-08-01T00:00:00Z",
+          "disposition": "delete",
+          "legalHold": false
+        },
+        "attestation": {
+          "profileId": "production-derived-fixture-authority-profile",
+          "algorithm": "Ed25519",
+          "keyId": "production-isolation-key",
+          "signedAt": "2026-07-31T22:29:00Z",
+          "value": "MQDNv8-JIqWNEniPDDqPXUx_pvWcXOAQkd9JBURR9AzjNqPjHBEVW0ecE8-MT5COgACRyud9V8YZczCXSQhWCA"
+        }
+      }
+    }
+  ]
+}

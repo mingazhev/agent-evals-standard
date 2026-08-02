@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "agent-eval-production-derived-authority-contract-1",
+  "id": "repo-change-production-derived-authorities",
+  "version": "0.1.0",
+  "authorities": [
+    {
+      "authorityId": "production-data-provenance-authority",
+      "producer": {
+        "id": "fixture-data-provenance-custodian",
+        "role": "data-provenance",
+        "trustDomain": "external"
+      },
+      "attestation": {
+        "profileId": "production-derived-fixture-authority-profile",
+        "algorithm": "Ed25519",
+        "keyId": "production-provenance-key",
+        "publicKey": {
+          "format": "spki_der_base64",
+          "contentBase64": "MCowBQYDK2VwAyEA11qYAYKxCrfVS/7TyWQHOg7hcvPapiMlrwIaaPcHURo=",
+          "digest": "sha256:06e3fd8fda29bb60ab59557de61edb0aecdb231134be30e75b455f8e1b792fa9"
+        }
+      }
+    },
+    {
+      "authorityId": "production-data-owner-authority",
+      "producer": {
+        "id": "fixture-data-owner",
+        "role": "data-owner",
+        "trustDomain": "governance"
+      },
+      "attestation": {
+        "profileId": "production-derived-fixture-authority-profile",
+        "algorithm": "Ed25519",
+        "keyId": "production-data-owner-key",
+        "publicKey": {
+          "format": "spki_der_base64",
+          "contentBase64": "MCowBQYDK2VwAyEAOTFMeQOORBDFpmcXvdpU0WVTxnHFpYUqUj7pXSmQ/gQ=",
+          "digest": "sha256:fb569d8de02aefe7e84ba117e4662b4d8f41894cf44018c86bdb234353c635c3"
+        }
+      }
+    },
+    {
+      "authorityId": "production-privacy-authority",
+      "producer": {
+        "id": "fixture-privacy-verifier",
+        "role": "privacy-verifier",
+        "trustDomain": "case_qa"
+      },
+      "attestation": {
+        "profileId": "production-derived-fixture-authority-profile",
+        "algorithm": "Ed25519",
+        "keyId": "production-privacy-key",
+        "publicKey": {
+          "format": "spki_der_base64",
+          "contentBase64": "MCowBQYDK2VwAyEA/FHNjmIYoaONpH7QAjDwWAgW7RO6MwOsXeuRFUiQgCU=",
+          "digest": "sha256:8d39ba50abe50f77b6bb8ae7b6927aff7ffbeba35ad2837c0e51e82bcbcc60d5"
+        }
+      }
+    },
+    {
+      "authorityId": "production-isolation-authority",
+      "producer": {
+        "id": "fixture-isolation-verifier",
+        "role": "environment-verifier",
+        "trustDomain": "runner"
+      },
+      "attestation": {
+        "profileId": "production-derived-fixture-authority-profile",
+        "algorithm": "Ed25519",
+        "keyId": "production-isolation-key",
+        "publicKey": {
+          "format": "spki_der_base64",
+          "contentBase64": "MCowBQYDK2VwAyEArC5X6Jq5L9vIkhPkLjReoc3WTnHlE0h3EmnOiK74DhQ=",
+          "digest": "sha256:3f7af13f85e3b4067199dce6886e5f1eacaac28eada32694631f56bebb3a84ce"
+        }
+      }
+    }
+  ],
+  "proofPolicies": [
+    {
+      "proofKind": "production_input_provenance",
+      "authorityId": "production-data-provenance-authority",
+      "creationPhase": "case_qa",
+      "evidenceSchemaId": "production-input-provenance-proof-1",
+      "verifier": {
+        "id": "repo-change-production-derived-verifier",
+        "version": "0.1.0",
+        "digest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+      }
+    },
+    {
+      "proofKind": "data_owner_authorization",
+      "authorityId": "production-data-owner-authority",
+      "creationPhase": "case_qa",
+      "evidenceSchemaId": "production-input-authorization-proof-1",
+      "verifier": {
+        "id": "repo-change-production-derived-verifier",
+        "version": "0.1.0",
+        "digest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+      }
+    },
+    {
+      "proofKind": "redaction_verification",
+      "authorityId": "production-privacy-authority",
+      "creationPhase": "case_qa",
+      "evidenceSchemaId": "production-input-redaction-proof-1",
+      "verifier": {
+        "id": "repo-change-production-derived-verifier",
+        "version": "0.1.0",
+        "digest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+      }
+    },
+    {
+      "proofKind": "reidentification_assessment",
+      "authorityId": "production-privacy-authority",
+      "creationPhase": "case_qa",
+      "evidenceSchemaId": "production-input-reidentification-proof-1",
+      "verifier": {
+        "id": "repo-change-production-derived-verifier",
+        "version": "0.1.0",
+        "digest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+      }
+    },
+    {
+      "proofKind": "production_path_isolation",
+      "authorityId": "production-isolation-authority",
+      "creationPhase": "pre_run",
+      "evidenceSchemaId": "production-input-isolation-proof-1",
+      "verifier": {
+        "id": "repo-change-production-derived-verifier",
+        "version": "0.1.0",
+        "digest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+      }
+    }
+  ],
+  "separation": {
+    "independentProofKinds": [
+      "data_owner_authorization",
+      "redaction_verification",
+      "production_path_isolation"
+    ],
+    "distinctProducerIds": true,
+    "distinctTrustDomains": true,
+    "distinctAttestationKeyIds": true
+  },
+  "digest": "sha256:b5a55545e302cc6f1f030bd96a4f65a03bf82481b090cb68bcb47451bd51e53f"
+}

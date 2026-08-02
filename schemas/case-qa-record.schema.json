@@ -1,34 +1,21 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agent-evals-standard:schema:case-qa-record:2",
-  "title": "Agent eval case QA activation record",
+  "$id": "urn:agent-evals-standard:schema:case-qa-record:1",
+  "title": "Case QA activation record",
   "type": "object",
   "required": [
-    "schemaVersion",
-    "case",
-    "contracts",
-    "stages",
-    "defects",
-    "controlProofs",
-    "alternativeSolutionEvidence",
-    "stabilityProofs",
-    "measurementValidation",
-    "decisionSurfaceValidation",
-    "modelGraderValidation",
-    "interactionValidation",
-    "simulatorValidation",
-    "decision",
-    "recordHash"
+    "schemaVersion", "case", "contracts", "validFrom", "expiresAt", "activationEvidence", "independenceBaseline", "stages", "defects", "controlProofs", "alternativeValidResult",
+    "stability", "sharedGraderValidation", "decisionSurfaceValidation", "modelGraderValidation",
+    "interactionValidation", "simulatorValidation", "evidenceManifest", "decision", "digest", "signature"
   ],
   "properties": {
-    "schemaVersion": { "const": "case-qa-record-2" },
+    "schemaVersion": { "const": "case-qa-record-1" },
     "case": {
-      "type": "object",
-      "required": ["id", "version", "hash", "fromState", "toState"],
+      "type": "object", "required": ["id", "version", "digest", "activationInputDigest", "fromState", "toState"],
       "properties": {
-        "id": { "type": "string", "minLength": 1 },
-        "version": { "type": "string", "minLength": 1 },
-        "hash": { "$ref": "#/$defs/digest" },
+        "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" },
+        "activationInputDigest": { "$ref": "#/$defs/digest" },
         "fromState": { "enum": ["candidate", "active", "quarantined", "saturated", "regression"] },
         "toState": { "enum": ["active", "candidate", "quarantined", "saturated", "regression"] },
         "preQuarantineEligibleState": { "enum": ["active", "saturated", "regression"] }
@@ -36,736 +23,645 @@
       "additionalProperties": false
     },
     "contracts": {
-      "type": "object",
-      "required": [
-        "goldenStandardVersion",
-        "scorecardContractVersion",
-        "caseContractVersion",
-        "environmentContractVersion",
-        "governancePolicyVersion",
-        "escalationStopMatrixVersion",
-        "profileVersion",
-        "graderSetHash",
-        "semanticValidationVersion"
-      ],
+      "type": "object", "required": ["baseStandard", "caseContract", "scorecardContract", "environmentContract", "riskPolicy", "escalationMatrix", "profile", "graderSet", "requirementRegistry"],
       "properties": {
-        "goldenStandardVersion": { "const": "0.2.0" },
-        "scorecardContractVersion": { "const": "0.2.0" },
-        "caseContractVersion": { "const": "0.2.0" },
-        "environmentContractVersion": { "type": "string", "minLength": 1 },
-        "governancePolicyVersion": { "type": "string", "minLength": 1 },
-        "escalationStopMatrixVersion": { "type": "string", "minLength": 1 },
-        "profileVersion": { "type": "string", "minLength": 1 },
-        "graderSetHash": { "$ref": "#/$defs/digest" },
-        "semanticValidationVersion": { "const": "semantic-validation-0.2.0" }
+        "baseStandard": { "$ref": "#/$defs/component" }, "caseContract": { "$ref": "#/$defs/component" },
+        "scorecardContract": { "$ref": "#/$defs/component" }, "environmentContract": { "$ref": "#/$defs/component" },
+        "riskPolicy": { "$ref": "#/$defs/component" }, "escalationMatrix": { "$ref": "#/$defs/component" },
+        "profile": { "$ref": "#/$defs/component" }, "graderSet": { "$ref": "#/$defs/component" }, "requirementRegistry": { "$ref": "#/$defs/component" }
       },
-      "additionalProperties": true
+      "additionalProperties": false
+    },
+    "validFrom": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "expiresAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "activationEvidence": {
+      "$comment": "The complete evidence index for activation requirements that are not represented directly by typed fields in this record. Semantic validation must require validFrom < expiresAt; resolve every pointer to exact bytes and an independent authentication envelope under the Evidence and Detached Validation Contract; require each pointer ID and digest to resolve exactly once in evidenceManifest or in an explicitly supplied external evidence set; and reject a missing, duplicate, stale, expired, or unauthenticated category. One authenticated aggregate bundle may satisfy multiple categories only when its typed payload proves every named category.",
+      "type": "object",
+      "required": ["projectionAndTrace", "riskAndEscalation", "graderCalibration", "statisticalAndHeldOut", "contaminationAndExposure", "accessAndRetention", "semanticValidation"],
+      "properties": {
+        "projectionAndTrace": { "$ref": "#/$defs/evidencePointerSet" },
+        "riskAndEscalation": { "$ref": "#/$defs/evidencePointerSet" },
+        "graderCalibration": { "$ref": "#/$defs/evidencePointerSet" },
+        "statisticalAndHeldOut": { "$ref": "#/$defs/evidencePointerSet" },
+        "contaminationAndExposure": { "$ref": "#/$defs/evidencePointerSet" },
+        "accessAndRetention": { "$ref": "#/$defs/evidencePointerSet" },
+        "semanticValidation": { "$ref": "#/$defs/evidencePointerSet" }
+      },
+      "additionalProperties": false
+    },
+    "independenceBaseline": {
+      "$comment": "The authenticated conflict set against which independent Case QA roles are checked. Semantic validation must require unique actor IDs and require Stage 3, Stage 6, and Stage 7 reviewers to name every baseline actor. Independence is conjunctive: actor ID, role, trust domain, key ID, and public-key digest must all differ. A claimed organizational separation without key and actor separation is insufficient.",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/independenceBaselineEntry" },
+      "allOf": [
+        { "contains": { "type": "object", "properties": { "conflictClasses": { "type": "array", "contains": { "const": "case_author" } } }, "required": ["conflictClasses"] }, "minContains": 1 },
+        { "contains": { "type": "object", "properties": { "conflictClasses": { "type": "array", "contains": { "const": "reference_or_primary_result_producer" } } }, "required": ["conflictClasses"] }, "minContains": 1 },
+        { "contains": { "type": "object", "properties": { "conflictClasses": { "type": "array", "contains": { "const": "verdict_mechanism_owner" } } }, "required": ["conflictClasses"] }, "minContains": 1 }
+      ]
     },
     "stages": {
-      "type": "array",
-      "minItems": 9,
-      "maxItems": 9,
-      "prefixItems": [
-        { "$ref": "#/$defs/stage0" },
-        { "$ref": "#/$defs/stage1" },
-        { "$ref": "#/$defs/stage2" },
-        { "$ref": "#/$defs/stage3" },
-        { "$ref": "#/$defs/stage4" },
-        { "$ref": "#/$defs/stage5" },
-        { "$ref": "#/$defs/stage6" },
-        { "$ref": "#/$defs/stage7" },
-        { "$ref": "#/$defs/stage8" }
-      ],
-      "items": false
-    },
-    "defects": {
-      "type": "array",
-      "items": { "$ref": "#/$defs/defect" }
-    },
-    "controlProofs": {
-      "type": "array",
-      "minItems": 1,
-      "items": { "$ref": "#/$defs/evidence" }
-    },
-    "alternativeSolutionEvidence": { "$ref": "#/$defs/evidence" },
-    "stabilityProofs": {
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "allOf": [
-          { "$ref": "#/$defs/evidence" },
-          {
-            "type": "object",
-            "required": ["checkId", "repetitionCount", "environment", "observedFailureRate", "permittedThreshold", "quarantineTrigger"],
-            "properties": {
-              "checkId": { "type": "string", "minLength": 1 },
-              "repetitionCount": { "type": "integer", "minimum": 1 },
-              "environment": { "type": "string", "minLength": 1 },
-              "observedFailureRate": { "type": "number", "minimum": 0, "maximum": 1 },
-              "permittedThreshold": { "type": "number", "minimum": 0, "maximum": 1 },
-              "quarantineTrigger": { "type": "string", "minLength": 1 }
-            }
-          }
-        ]
-      }
-    },
-    "measurementValidation": {
       "type": "object",
-      "required": ["protocolVersion", "validationDate", "expiresAt", "coverage", "falsePositive", "falseNegative", "semanticValidationEvidence"],
+      "required": ["stage0", "stage1", "stage2", "stage3", "stage4", "stage5", "stage6", "stage7", "stage8"],
       "properties": {
-        "protocolVersion": { "type": "string", "minLength": 1 },
-        "validationDate": { "type": "string", "format": "date-time" },
-        "expiresAt": { "type": "string", "format": "date-time" },
-        "coverage": { "type": "string", "minLength": 1 },
-        "falsePositive": { "$ref": "#/$defs/rateValidation" },
-        "falseNegative": { "$ref": "#/$defs/rateValidation" },
-        "semanticValidationEvidence": { "$ref": "#/$defs/evidence" }
+        "stage0": { "$ref": "#/$defs/stage0" }, "stage1": { "$ref": "#/$defs/stage1" }, "stage2": { "$ref": "#/$defs/stage2" },
+        "stage3": { "$ref": "#/$defs/stage3" }, "stage4": { "$ref": "#/$defs/stage4" }, "stage5": { "$ref": "#/$defs/stage5" },
+        "stage6": { "$ref": "#/$defs/stage6" }, "stage7": { "$ref": "#/$defs/stage7" }, "stage8": { "$ref": "#/$defs/stage8" }
       },
       "additionalProperties": false
     },
-    "decisionSurfaceValidation": {
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "object",
-        "required": ["surfaceId", "coverage", "status", "applicabilityEvidence", "knownGoodEvidence", "knownBadEvidence"],
-        "properties": {
-          "surfaceId": { "type": "string", "minLength": 1 },
-          "coverage": {
-            "enum": ["checked", "covered_by_final_state", "not_applicable", "declared_gap", "not_determined"],
-            "description": "For an activated record, must equal the coverage of the same-ID sealed case decision surface; semantic validation resolves case.hash."
-          },
-          "status": { "enum": ["pass", "breach", "insufficient_evidence", "not_applicable", "not_evaluated"] },
-          "applicabilityEvidence": { "$ref": "#/$defs/evidence" },
-          "knownGoodEvidence": { "$ref": "#/$defs/passingControl" },
-          "knownBadEvidence": { "$ref": "#/$defs/failingControl" },
-          "alternatePathEvidence": { "$ref": "#/$defs/passingControl" },
-          "finalStateCoverageProof": { "$ref": "#/$defs/evidence" },
-          "claimRestriction": {
-            "type": "object",
-            "description": "For an activated record, must equal the typed restriction on the same-ID sealed case decision surface.",
-            "required": ["effect", "affectedClaimIds", "scope", "rationale"],
-            "properties": {
-              "effect": { "const": "insufficient_evidence" },
-              "affectedClaimIds": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
-              "scope": { "type": "string", "minLength": 1 },
-              "rationale": { "type": "string", "minLength": 1 }
-            },
-            "additionalProperties": false
-          }
-        },
-        "allOf": [
-          {
-            "if": { "properties": { "coverage": { "const": "checked" } }, "required": ["coverage"] },
-            "then": { "required": ["alternatePathEvidence"], "properties": { "status": { "const": "pass" } } }
-          },
-          {
-            "if": { "properties": { "coverage": { "const": "covered_by_final_state" } }, "required": ["coverage"] },
-            "then": { "required": ["finalStateCoverageProof"], "properties": { "status": { "const": "pass" } } }
-          },
-          {
-            "if": { "properties": { "coverage": { "const": "declared_gap" } }, "required": ["coverage"] },
-            "then": { "required": ["claimRestriction"], "properties": { "status": { "const": "not_evaluated" } } }
-          },
-          {
-            "if": { "properties": { "coverage": { "const": "not_determined" } }, "required": ["coverage"] },
-            "then": { "properties": { "status": { "const": "insufficient_evidence" } } }
-          },
-          {
-            "if": { "properties": { "coverage": { "const": "not_applicable" } }, "required": ["coverage"] },
-            "then": { "properties": { "status": { "const": "not_applicable" } } }
-          }
-        ],
-        "additionalProperties": false
-      }
+    "defects": { "type": "array", "items": { "$ref": "#/$defs/defect" } },
+    "controlProofs": {
+      "type": "array", "minItems": 2,
+      "contains": { "type": "object", "properties": { "expected": { "const": "pass" } }, "required": ["expected"] }, "minContains": 1,
+      "items": { "$ref": "#/$defs/control" },
+      "allOf": [
+        { "type": "array", "contains": { "type": "object", "properties": { "expected": { "const": "fail" } }, "required": ["expected"] }, "minContains": 1 }
+      ]
     },
-    "modelGraderValidation": {
+    "alternativeValidResult": {
+      "$comment": "This object is required when Stage 7 is passed and must be null only when Stage 7 proves that the valid-result set has one material equivalence class. Semantic validation must use validityEvidenceId to establish validity independently of the verdict mechanism under test, prove material difference, verify production without protected reference access, and require the producer to be independent of every baseline authority on actor, role, trust-domain, and key dimensions.",
       "oneOf": [
         {
           "type": "object",
-          "required": ["status", "reason"],
+          "required": ["producer", "evidenceModeId", "validityEvidenceId", "differenceEvidenceId", "independence", "control"],
           "properties": {
-            "status": { "const": "not_applicable" },
-            "reason": { "type": "string", "minLength": 1 }
+            "producer": { "$ref": "#/$defs/reviewerAuthority" },
+            "evidenceModeId": { "$ref": "#/$defs/id" },
+            "validityEvidenceId": { "$ref": "#/$defs/id" },
+            "differenceEvidenceId": { "$ref": "#/$defs/id" },
+            "independence": { "$ref": "#/$defs/independenceClaim" },
+            "control": { "$ref": "#/$defs/passingControl" }
           },
           "additionalProperties": false
         },
-        {
-          "type": "object",
-          "required": ["status", "humanCalibration", "graders"],
-          "properties": {
-            "status": { "const": "validated" },
-            "humanCalibration": { "$ref": "#/$defs/humanCalibration" },
-            "graders": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/modelGraderControl" } }
-          },
-          "additionalProperties": false
-        }
+        { "type": "null" }
       ]
     },
-    "simulatorValidation": {
-      "oneOf": [
-        {
-          "type": "object",
-          "required": ["status", "reason"],
-          "properties": {
-            "status": { "const": "not_applicable" },
-            "reason": { "type": "string", "minLength": 1 }
-          },
-          "additionalProperties": false
-        },
-        {
-          "type": "object",
-          "required": ["status", "simulators"],
-          "properties": {
-            "status": { "const": "validated" },
-            "simulators": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/simulatorControl" } }
-          },
-          "additionalProperties": false
-        }
-      ]
+    "stability": {
+      "type": "object", "required": ["executionBoundary", "additionalChecks"],
+      "properties": {
+        "executionBoundary": { "$ref": "#/$defs/stabilityProof" },
+        "additionalChecks": { "type": "array", "items": { "$ref": "#/$defs/stabilityProof" } }
+      },
+      "additionalProperties": false
     },
-    "interactionValidation": {
-      "oneOf": [
-        {
-          "type": "object",
-          "required": ["status", "reason"],
-          "properties": {
-            "status": { "const": "not_applicable" },
-            "reason": { "type": "string", "minLength": 1 }
-          },
-          "additionalProperties": false
-        },
-        {
-          "type": "object",
-          "required": ["status", "protocolId", "evaluatedAgentId", "responsibilitySurfaceId", "actorBindingEvidence", "responsibilityEvidence", "noOpAgentControl"],
-          "properties": {
-            "status": { "const": "validated" },
-            "protocolId": { "type": "string", "minLength": 1 },
-            "evaluatedAgentId": { "type": "string", "minLength": 1 },
-            "responsibilitySurfaceId": { "type": "string", "minLength": 1 },
-            "actorBindingEvidence": { "$ref": "#/$defs/evidence" },
-            "responsibilityEvidence": { "$ref": "#/$defs/evidence" },
-            "noOpAgentControl": { "$ref": "#/$defs/validationCheck" }
-          },
-          "additionalProperties": false
-        }
-      ]
+    "sharedGraderValidation": {
+      "type": "object", "required": ["record", "verdict"],
+      "properties": { "record": { "$ref": "#/$defs/artifactPointer" }, "verdict": { "const": "pass" } },
+      "additionalProperties": false
+    },
+    "decisionSurfaceValidation": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/surfaceValidation" } },
+    "modelGraderValidation": { "$ref": "#/$defs/optionalValidation" },
+    "interactionValidation": { "$ref": "#/$defs/optionalValidation" },
+    "simulatorValidation": { "$ref": "#/$defs/optionalValidation" },
+    "evidenceManifest": {
+      "$comment": "Semantic validation must reject duplicate evidence artifact IDs even when the full objects differ.",
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "$ref": "urn:agent-evals-standard:schema:evidence-artifact:1" }
     },
     "decision": {
-      "type": "object",
-      "required": ["status", "approver", "timestamp", "unresolvedBlockingDefects"],
+      "type": "object", "required": ["status", "approver", "timestamp", "unresolvedBlockingDefects"],
       "properties": {
-        "status": { "enum": ["activated", "rejected", "quarantined"] },
-        "approver": { "type": "string", "minLength": 1 },
-        "timestamp": { "type": "string", "format": "date-time" },
-        "unresolvedBlockingDefects": { "type": "integer", "minimum": 0 }
+        "status": { "enum": ["activated", "rejected", "quarantined"] }, "approver": { "$ref": "#/$defs/actor" },
+        "timestamp": { "type": "string", "format": "date-time", "pattern": "Z$" }, "unresolvedBlockingDefects": { "type": "integer", "minimum": 0 }
       },
-      "allOf": [
-        {
-          "if": { "properties": { "status": { "const": "activated" } }, "required": ["status"] },
-          "then": { "properties": { "unresolvedBlockingDefects": { "const": 0 } } }
-        }
-      ],
-      "additionalProperties": true
-    },
-    "invalidation": {
-      "type": ["object", "null"],
-      "properties": {
-        "timestamp": { "type": "string", "format": "date-time" },
-        "reason": { "type": "string", "minLength": 1 },
-        "supersedingRecord": { "type": ["string", "null"] }
-      },
-      "required": ["timestamp", "reason"],
       "additionalProperties": false
     },
-    "recordHash": {
-      "type": "string",
-      "pattern": "^sha256-jcs-v1:[a-f0-9]{64}$"
-    }
+    "invalidation": {
+      "type": "object", "required": ["timestamp", "reason", "supersedingRecord"],
+      "properties": { "timestamp": { "type": "string", "format": "date-time", "pattern": "Z$" }, "reason": { "type": "string", "minLength": 1 }, "supersedingRecord": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/artifactPointer" }] } },
+      "additionalProperties": false
+    },
+    "digest": { "$ref": "#/$defs/digest" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
   },
   "allOf": [
     {
-      "if": {
-        "properties": {
-          "case": {
-            "properties": { "toState": { "const": "active" } },
-            "required": ["toState"]
-          }
-        },
-        "required": ["case"]
-      },
+      "if": { "type": "object", "properties": { "decision": { "type": "object", "properties": { "status": { "const": "activated" } }, "required": ["status"] } }, "required": ["decision"] },
       "then": {
+        "type": "object",
         "properties": {
-          "case": {
-            "properties": {
-              "fromState": { "enum": ["candidate", "quarantined"] }
-            }
-          },
-          "decision": {
-            "properties": { "status": { "const": "activated" } }
-          }
-        }
-      }
-    },
-    {
-      "if": {
-        "properties": {
-          "decision": {
-            "properties": { "status": { "const": "activated" } },
-            "required": ["status"]
-          }
-        },
-        "required": ["decision"]
-      },
-      "then": {
-        "properties": {
-          "case": {
-            "properties": {
-              "fromState": { "enum": ["candidate", "quarantined"] },
-              "toState": { "enum": ["active", "saturated", "regression"] }
-            }
-          },
+          "decision": { "type": "object", "properties": { "unresolvedBlockingDefects": { "const": 0 } } },
           "stages": {
-            "items": {
-              "properties": { "status": { "const": "passed" } }
+            "type": "object",
+            "properties": {
+              "stage0": { "type": "object", "properties": { "status": { "const": "passed" } }, "required": ["status"] },
+              "stage1": { "type": "object", "properties": { "status": { "const": "passed" } }, "required": ["status"] },
+              "stage2": { "type": "object", "properties": { "status": { "const": "passed" } }, "required": ["status"] },
+              "stage3": { "type": "object", "properties": { "status": { "const": "passed" } }, "required": ["status"] },
+              "stage4": { "type": "object", "properties": { "status": { "const": "passed" } }, "required": ["status"] },
+              "stage5": { "type": "object", "properties": { "status": { "const": "passed" } }, "required": ["status"] },
+              "stage6": { "type": "object", "properties": { "status": { "const": "passed" } }, "required": ["status"] },
+              "stage7": { "type": "object", "properties": { "status": { "enum": ["passed", "not_applicable"] } }, "required": ["status"] },
+              "stage8": { "type": "object", "properties": { "status": { "const": "passed" } }, "required": ["status"] }
             }
           },
           "defects": {
-            "items": {
-              "not": {
-                "properties": {
-                  "severity": { "enum": [2, 3] },
-                  "status": { "enum": ["open", "accepted_minor"] }
-                },
+            "not": {
+              "type": "array",
+              "contains": {
+                "type": "object",
+                "properties": { "severity": { "type": "integer", "minimum": 2 }, "status": { "enum": ["open", "accepted_minor"] } },
                 "required": ["severity", "status"]
               }
             }
-          },
-          "measurementValidation": {
-            "properties": {
-              "falsePositive": { "properties": { "status": { "const": "pass" } } },
-              "falseNegative": { "properties": { "status": { "const": "pass" } } }
-            }
-          },
-          "decisionSurfaceValidation": {
-            "items": {
-              "anyOf": [
-                { "properties": { "status": { "enum": ["pass", "not_applicable"] } }, "required": ["status"] },
-                {
-                  "properties": {
-                    "coverage": { "const": "declared_gap" },
-                    "status": { "const": "not_evaluated" }
-                  },
-                  "required": ["coverage", "status", "claimRestriction"]
-                }
-              ]
-            }
-          },
-          "modelGraderValidation": {
-            "oneOf": [
-              { "properties": { "status": { "const": "not_applicable" } }, "required": ["status"] },
-              {
-                "properties": {
-                  "status": { "const": "validated" },
-                  "humanCalibration": {
-                    "properties": {
-                      "modelToHuman": { "properties": { "status": { "const": "pass" } } },
-                      "interRater": { "properties": { "status": { "const": "pass" } } },
-                      "selfConsistency": { "properties": { "status": { "const": "pass" } } }
-                    }
-                  },
-                  "graders": {
-                    "items": {
-                      "properties": {
-                        "orderBias": { "properties": { "status": { "const": "pass" } } },
-                        "verbosityBias": { "properties": { "status": { "const": "pass" } } }
-                      }
-                    }
-                  }
-                },
-                "required": ["status"]
-              }
-            ]
-          },
-          "simulatorValidation": {
-            "oneOf": [
-              { "properties": { "status": { "const": "not_applicable" } }, "required": ["status"] },
-              {
-                "properties": {
-                  "status": { "const": "validated" },
-                  "simulators": {
-                    "items": {
-                      "properties": {
-                        "goalPersistence": { "properties": { "status": { "const": "pass" } } },
-                        "disclosure": { "properties": { "status": { "const": "pass" } } },
-                        "termination": { "properties": { "status": { "const": "pass" } } },
-                        "refusal": { "properties": { "status": { "const": "pass" } } },
-                        "antiCollusion": { "properties": { "status": { "const": "pass" } } },
-                        "stability": { "properties": { "status": { "const": "pass" } } },
-                        "variance": { "properties": { "status": { "const": "pass" } } }
-                      }
-                    }
-                  }
-                },
-                "required": ["status"]
-              }
-            ]
-          },
-          "interactionValidation": {
-            "oneOf": [
-              { "properties": { "status": { "const": "not_applicable" } }, "required": ["status"] },
-              {
-                "properties": {
-                  "status": { "const": "validated" },
-                  "noOpAgentControl": { "properties": { "status": { "const": "pass" } } }
-                },
-                "required": ["status"]
-              }
-            ]
           }
         }
       }
     },
     {
-      "if": {
-        "properties": {
-          "case": { "properties": { "fromState": { "const": "candidate" } }, "required": ["fromState"] },
-          "decision": { "properties": { "status": { "const": "activated" } }, "required": ["status"] }
-        },
-        "required": ["case", "decision"]
-      },
-      "then": { "properties": { "case": { "properties": { "toState": { "const": "active" } } } } }
+      "if": { "type": "object", "properties": { "decision": { "type": "object", "properties": { "status": { "const": "quarantined" } } } } },
+      "then": { "type": "object", "required": ["invalidation"], "properties": { "invalidation": {}, "case": { "type": "object", "properties": { "toState": { "const": "quarantined" }, "preQuarantineEligibleState": {} }, "required": ["preQuarantineEligibleState"] } } }
+    },
+    {
+      "if": { "type": "object", "properties": { "decision": { "type": "object", "properties": { "status": { "const": "rejected" } } } } },
+      "then": { "type": "object", "properties": { "case": { "type": "object", "properties": { "toState": { "const": "candidate" } } } } }
     },
     {
       "if": {
-        "properties": {
-          "case": { "properties": { "fromState": { "const": "quarantined" } }, "required": ["fromState"] },
-          "decision": { "properties": { "status": { "const": "activated" } }, "required": ["status"] }
-        },
-        "required": ["case", "decision"]
+        "type": "object",
+        "properties": { "stages": { "type": "object", "properties": { "stage7": { "type": "object", "properties": { "status": { "const": "not_applicable" } }, "required": ["status"] } }, "required": ["stage7"] } },
+        "required": ["stages"]
       },
-      "then": { "properties": { "case": { "required": ["preQuarantineEligibleState"] } } }
-    },
-    {
-      "if": {
-        "properties": {
-          "case": { "properties": { "fromState": { "const": "quarantined" }, "preQuarantineEligibleState": { "const": "active" } }, "required": ["fromState", "preQuarantineEligibleState"] },
-          "decision": { "properties": { "status": { "const": "activated" } }, "required": ["status"] }
-        },
-        "required": ["case", "decision"]
-      },
-      "then": { "properties": { "case": { "properties": { "toState": { "const": "active" } } } } }
-    },
-    {
-      "if": {
-        "properties": {
-          "case": { "properties": { "fromState": { "const": "quarantined" }, "preQuarantineEligibleState": { "const": "saturated" } }, "required": ["fromState", "preQuarantineEligibleState"] },
-          "decision": { "properties": { "status": { "const": "activated" } }, "required": ["status"] }
-        },
-        "required": ["case", "decision"]
-      },
-      "then": { "properties": { "case": { "properties": { "toState": { "const": "saturated" } } } } }
-    },
-    {
-      "if": {
-        "properties": {
-          "case": { "properties": { "fromState": { "const": "quarantined" }, "preQuarantineEligibleState": { "const": "regression" } }, "required": ["fromState", "preQuarantineEligibleState"] },
-          "decision": { "properties": { "status": { "const": "activated" } }, "required": ["status"] }
-        },
-        "required": ["case", "decision"]
-      },
-      "then": { "properties": { "case": { "properties": { "toState": { "const": "regression" } } } } }
-    },
-    {
-      "if": { "properties": { "case": { "properties": { "fromState": { "const": "quarantined" } }, "required": ["fromState"] } }, "required": ["case"] },
-      "then": { "properties": { "case": { "required": ["preQuarantineEligibleState"] } } }
-    },
-    {
-      "if": { "properties": { "decision": { "properties": { "status": { "const": "rejected" } }, "required": ["status"] } }, "required": ["decision"] },
-      "then": {
-        "properties": {
-          "case": {
-            "properties": {
-              "fromState": { "enum": ["candidate", "quarantined"] },
-              "toState": { "const": "candidate" }
-            }
-          }
-        }
-      }
-    },
-    {
-      "if": { "properties": { "decision": { "properties": { "status": { "const": "quarantined" } }, "required": ["status"] } }, "required": ["decision"] },
-      "then": {
-        "required": ["invalidation"],
-        "properties": {
-          "invalidation": { "type": "object" },
-          "case": {
-            "properties": {
-              "fromState": { "enum": ["active", "saturated", "regression"] },
-              "toState": { "const": "quarantined" }
-            },
-            "required": ["preQuarantineEligibleState"]
-          }
-        }
-      }
-    },
-    {
-      "if": { "properties": { "case": { "properties": { "toState": { "const": "quarantined" } }, "required": ["toState"] } }, "required": ["case"] },
-      "then": { "properties": { "case": { "required": ["preQuarantineEligibleState"], "properties": { "fromState": { "enum": ["active", "saturated", "regression"] } } } } }
-    },
-    {
-      "if": { "properties": { "case": { "properties": { "toState": { "const": "quarantined" }, "fromState": { "const": "active" } }, "required": ["toState", "fromState"] } }, "required": ["case"] },
-      "then": { "properties": { "case": { "properties": { "preQuarantineEligibleState": { "const": "active" } } } } }
-    },
-    {
-      "if": { "properties": { "case": { "properties": { "toState": { "const": "quarantined" }, "fromState": { "const": "saturated" } }, "required": ["toState", "fromState"] } }, "required": ["case"] },
-      "then": { "properties": { "case": { "properties": { "preQuarantineEligibleState": { "const": "saturated" } } } } }
-    },
-    {
-      "if": { "properties": { "case": { "properties": { "toState": { "const": "quarantined" }, "fromState": { "const": "regression" } }, "required": ["toState", "fromState"] } }, "required": ["case"] },
-      "then": { "properties": { "case": { "properties": { "preQuarantineEligibleState": { "const": "regression" } } } } }
+      "then": { "type": "object", "properties": { "alternativeValidResult": { "type": "null" } } },
+      "else": { "type": "object", "properties": { "alternativeValidResult": { "type": "object" } } }
     }
   ],
   "additionalProperties": false,
   "$defs": {
-    "digest": {
-      "type": "string",
-      "pattern": "^sha256:[a-f0-9]{64}$"
-    },
-    "evidence": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" }, "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "component": { "type": "object", "required": ["id", "version", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
+    "artifactPointer": { "type": "object", "required": ["id", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
+    "versionedArtifactPointer": {
       "type": "object",
-      "required": ["artifact", "hash"],
+      "required": ["id", "version", "uri", "digest"],
       "properties": {
-        "artifact": { "type": "string", "minLength": 1 },
-        "hash": { "$ref": "#/$defs/digest" }
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "const": "0.1.0" },
+        "uri": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" }
       },
-      "additionalProperties": true
+      "additionalProperties": false
     },
-    "stage": {
+    "evidencePointerSet": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/artifactPointer" }, "uniqueItems": true },
+    "actor": {
       "type": "object",
-      "required": ["id", "status", "reviewer", "reviewerRole", "timestamp", "evidence", "findings"],
+      "required": ["id", "role"],
+      "properties": { "id": { "$ref": "#/$defs/id" }, "role": { "type": "string", "minLength": 1 } },
+      "additionalProperties": false
+    },
+    "reviewerAuthority": {
+      "$comment": "The accountable authority for a QA stage or independently produced control result. publicKeyDigest identifies the actual verification key so aliases with different key IDs cannot satisfy separation.",
+      "type": "object",
+      "required": ["id", "role", "trustDomain", "keyId", "publicKeyDigest"],
       "properties": {
-        "id": { "type": "integer", "minimum": 0, "maximum": 8 },
-        "status": { "enum": ["passed", "failed"] },
-        "reviewer": { "type": "string", "minLength": 1 },
-        "reviewerRole": { "type": "string", "minLength": 1 },
-        "timestamp": { "type": "string", "format": "date-time" },
-        "evidence": {
+        "id": { "$ref": "#/$defs/id" },
+        "role": { "$ref": "#/$defs/id" },
+        "trustDomain": { "$ref": "#/$defs/id" },
+        "keyId": { "$ref": "#/$defs/id" },
+        "publicKeyDigest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "independenceBaselineEntry": {
+      "type": "object",
+      "required": ["actor", "conflictClasses"],
+      "properties": {
+        "actor": { "$ref": "#/$defs/reviewerAuthority" },
+        "conflictClasses": {
           "type": "array",
           "minItems": 1,
-          "items": { "$ref": "#/$defs/evidence" }
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "case_author",
+              "reference_or_primary_result_producer",
+              "verdict_mechanism_owner",
+              "evaluated_system_developer",
+              "prior_qa_result_owner"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "independenceClaim": {
+      "$comment": "Semantic validation resolves every actor ID against the record's independence baseline, plus any stage-specific authority such as the alternative-result producer, and requires exact coverage and conjunctive identity separation.",
+      "type": "object",
+      "required": ["independentOfActorIds", "evidenceId"],
+      "properties": {
+        "independentOfActorIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/id" },
+          "uniqueItems": true
         },
-        "findings": { "type": "array", "items": { "type": "string" } }
-      },
-      "additionalProperties": true
-    },
-    "stage0": { "allOf": [{ "$ref": "#/$defs/stage" }, { "properties": { "id": { "const": 0 } } }] },
-    "stage1": { "allOf": [{ "$ref": "#/$defs/stage" }, { "properties": { "id": { "const": 1 } } }] },
-    "stage2": { "allOf": [{ "$ref": "#/$defs/stage" }, { "properties": { "id": { "const": 2 } } }] },
-    "stage3": { "allOf": [{ "$ref": "#/$defs/stage" }, { "properties": { "id": { "const": 3 } } }] },
-    "stage4": { "allOf": [{ "$ref": "#/$defs/stage" }, { "properties": { "id": { "const": 4 } } }] },
-    "stage5": { "allOf": [{ "$ref": "#/$defs/stage" }, { "properties": { "id": { "const": 5 } } }] },
-    "stage6": { "allOf": [{ "$ref": "#/$defs/stage" }, { "properties": { "id": { "const": 6 } } }] },
-    "stage7": { "allOf": [{ "$ref": "#/$defs/stage" }, { "properties": { "id": { "const": 7 } } }] },
-    "stage8": { "allOf": [{ "$ref": "#/$defs/stage" }, { "properties": { "id": { "const": 8 } } }] },
-    "rateValidation": {
-      "type": "object",
-      "required": ["sampleSize", "estimate", "intervalMethod", "confidenceLevel", "lower", "upper", "threshold", "thresholdRule", "status", "rawEvidence", "calculationContract"],
-      "properties": {
-        "sampleSize": { "type": "integer", "minimum": 1 },
-        "estimate": { "type": "number", "minimum": 0, "maximum": 1 },
-        "intervalMethod": { "type": "string", "minLength": 1 },
-        "confidenceLevel": { "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1 },
-        "lower": { "type": "number", "minimum": 0, "maximum": 1 },
-        "upper": { "type": "number", "minimum": 0, "maximum": 1 },
-        "threshold": { "type": "number", "minimum": 0, "maximum": 1 },
-        "thresholdRule": { "type": "string", "minLength": 1 },
-        "status": { "enum": ["pass", "breach", "insufficient_evidence"] },
-        "rawEvidence": { "$ref": "#/$defs/evidence" },
-        "calculationContract": { "$ref": "#/$defs/evidence" }
+        "evidenceId": { "$ref": "#/$defs/id" }
       },
       "additionalProperties": false
     },
-    "validationCheck": {
+    "stageBase": {
+      "$comment": "reviewerCapabilityId states the required review capability. implementationKind records how that capability was supplied and does not weaken any evidence or independence requirement.",
       "type": "object",
-      "required": ["status", "method", "evidence"],
+      "required": ["status", "reviewer", "reviewerCapabilityId", "implementationKind", "timestamp", "evidenceIds", "findingIds"],
       "properties": {
-        "status": { "enum": ["pass", "breach", "insufficient_evidence"] },
-        "method": { "type": "string", "minLength": 1 },
-        "evidence": { "$ref": "#/$defs/evidence" }
+        "status": { "enum": ["passed", "failed", "not_applicable"] },
+        "reviewer": { "$ref": "#/$defs/reviewerAuthority" },
+        "reviewerCapabilityId": { "$ref": "#/$defs/id" },
+        "implementationKind": { "enum": ["qualified_human", "deterministic_system", "agent_system"] },
+        "timestamp": { "type": "string", "format": "date-time", "pattern": "Z$" },
+        "evidenceIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "findingIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "independence": { "$ref": "#/$defs/independenceClaim" },
+        "classificationPolicyApplicability": { "$ref": "#/$defs/classificationPolicyApplicability" },
+        "singletonValidityProof": { "$ref": "#/$defs/singletonValidityProof" }
       },
       "additionalProperties": false
     },
-    "controlResult": {
-      "type": "object",
-      "required": ["inputDigest", "checkIds", "componentDigests", "expectedVerdict", "observedVerdict", "executionEvidence"],
-      "properties": {
-        "inputDigest": { "$ref": "#/$defs/digest" },
-        "checkIds": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
-        "componentDigests": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/digest" }, "uniqueItems": true },
-        "expectedVerdict": { "enum": ["pass", "fail"] },
-        "observedVerdict": { "enum": ["pass", "fail"] },
-        "executionEvidence": { "$ref": "#/$defs/evidence" }
-      },
-      "additionalProperties": false
-    },
-    "passingControl": {
+    "requiredStage": {
       "allOf": [
-        { "$ref": "#/$defs/controlResult" },
-        { "properties": { "expectedVerdict": { "const": "pass" }, "observedVerdict": { "const": "pass" } } }
+        { "$ref": "#/$defs/stageBase" },
+        { "type": "object", "properties": { "status": { "enum": ["passed", "failed"] } } }
       ]
     },
-    "failingControl": {
+    "independentStageBase": {
       "allOf": [
-        { "$ref": "#/$defs/controlResult" },
-        { "properties": { "expectedVerdict": { "const": "fail" }, "observedVerdict": { "const": "fail" } } }
+        { "$ref": "#/$defs/stageBase" },
+        { "type": "object", "required": ["independence"], "properties": { "independence": {} } }
       ]
     },
-    "modelGraderControl": {
-      "type": "object",
-      "required": ["graderId", "graderVersion", "allowedUse", "mode", "identityBlinding", "orderBias", "verbosityBias"],
-      "properties": {
-        "graderId": { "type": "string", "minLength": 1 },
-        "graderVersion": { "type": "string", "minLength": 1 },
-        "allowedUse": { "const": "auxiliary" },
-        "mode": { "enum": ["pairwise", "pointwise", "reference_guided", "other"] },
-        "identityBlinding": { "$ref": "#/$defs/identityBlinding" },
-        "orderBias": { "$ref": "#/$defs/biasControl" },
-        "verbosityBias": { "$ref": "#/$defs/biasControl" }
-      },
-      "additionalProperties": false
+    "independentRequiredStage": {
+      "allOf": [
+        { "$ref": "#/$defs/independentStageBase" },
+        { "type": "object", "properties": { "status": { "enum": ["passed", "failed"] } } }
+      ]
     },
-    "identityBlinding": {
+    "stage0": {
+      "allOf": [
+        { "$ref": "#/$defs/requiredStage" },
+        {
+          "type": "object",
+          "required": ["classificationPolicyApplicability"],
+          "properties": {
+            "reviewerCapabilityId": { "const": "case_author_self_check" },
+            "classificationPolicyApplicability": {}
+          }
+        }
+      ]
+    },
+    "stage1": { "allOf": [{ "$ref": "#/$defs/requiredStage" }, { "type": "object", "properties": { "reviewerCapabilityId": { "const": "case_contract_lint" } } }] },
+    "stage2": { "allOf": [{ "$ref": "#/$defs/requiredStage" }, { "type": "object", "properties": { "reviewerCapabilityId": { "const": "case_semantic_review" } } }] },
+    "stage3": { "allOf": [{ "$ref": "#/$defs/independentRequiredStage" }, { "type": "object", "properties": { "reviewerCapabilityId": { "const": "independent_case_execution" } } }] },
+    "stage4": { "allOf": [{ "$ref": "#/$defs/requiredStage" }, { "type": "object", "properties": { "reviewerCapabilityId": { "const": "verdict_control_verification" } } }] },
+    "stage5": { "allOf": [{ "$ref": "#/$defs/requiredStage" }, { "type": "object", "properties": { "reviewerCapabilityId": { "const": "trivial_strategy_testing" } } }] },
+    "stage6": { "allOf": [{ "$ref": "#/$defs/independentRequiredStage" }, { "type": "object", "properties": { "reviewerCapabilityId": { "const": "adversarial_measurement_review" } } }] },
+    "stage7": {
+      "allOf": [
+        { "$ref": "#/$defs/independentStageBase" },
+        { "type": "object", "properties": { "reviewerCapabilityId": { "const": "alternative_valid_result_validation" } } },
+        {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": { "status": { "enum": ["passed", "failed"] } },
+              "not": { "properties": { "singletonValidityProof": {} }, "required": ["singletonValidityProof"] }
+            },
+            {
+              "type": "object",
+              "required": ["singletonValidityProof"],
+              "properties": { "status": { "const": "not_applicable" }, "singletonValidityProof": {} }
+            }
+          ]
+        }
+      ]
+    },
+    "stage8": { "allOf": [{ "$ref": "#/$defs/requiredStage" }, { "type": "object", "properties": { "reviewerCapabilityId": { "const": "pilot_stability_validation" } } }] },
+    "classificationPolicyApplicability": {
+      "$comment": "Stage 0 binds the selected outcome replay and path-classification policy to repository-authority-authenticated selector definitions and the complete material-path frame sealed by case.activationInputDigest. Semantic validation independently resolves that trusted frame, executes the exact registered classifier and closed selectors, and requires classifiedPathCount to equal materialPathCount on applicable, with zero unknown paths and collisions. This activation-time frame never substitutes for classification of the actual workspace diff at trial replay.",
       "oneOf": [
         {
           "type": "object",
-          "required": ["status", "relevanceRule", "evidence"],
+          "required": [
+            "status", "outcomeReplayRegistry", "outcomeProfile", "classificationPolicyContract", "executor", "applicabilityRule",
+            "repositoryConventionManifestDigest", "materialPathSetDigest", "materialPathCount", "classifiedPathCount",
+            "unknownPathCount", "collisionCount", "applicabilityEvidenceId", "coverageEvidenceId"
+          ],
           "properties": {
-            "status": { "const": "pass" },
-            "relevanceRule": { "type": "string", "minLength": 1 },
-            "evidence": { "$ref": "#/$defs/evidence" }
+            "status": { "const": "applicable" },
+            "outcomeReplayRegistry": { "$ref": "#/$defs/versionedArtifactPointer" },
+            "outcomeProfile": { "$ref": "#/$defs/versionedArtifactPointer" },
+            "classificationPolicyContract": { "$ref": "#/$defs/versionedArtifactPointer" },
+            "executor": { "$ref": "#/$defs/versionedArtifactPointer" },
+            "applicabilityRule": { "$ref": "#/$defs/versionedArtifactPointer" },
+            "repositoryConventionManifestDigest": { "$ref": "#/$defs/digest" },
+            "materialPathSetDigest": { "$ref": "#/$defs/digest" },
+            "materialPathCount": { "type": "integer", "minimum": 0 },
+            "classifiedPathCount": { "type": "integer", "minimum": 0 },
+            "unknownPathCount": { "const": 0 },
+            "collisionCount": { "const": 0 },
+            "applicabilityEvidenceId": { "$ref": "#/$defs/id" },
+            "coverageEvidenceId": { "$ref": "#/$defs/id" }
           },
           "additionalProperties": false
         },
         {
           "type": "object",
-          "required": ["status", "reason", "relevanceRule", "evidence"],
+          "required": [
+            "status", "outcomeReplayRegistry", "outcomeProfile", "classificationPolicyContract", "executor", "applicabilityRule",
+            "repositoryConventionManifestDigest", "materialPathSetDigest", "materialPathCount", "classifiedPathCount",
+            "unknownPathCount", "collisionCount", "causes", "applicabilityEvidenceId", "coverageEvidenceId"
+          ],
+          "properties": {
+            "status": { "const": "insufficient_evidence" },
+            "outcomeReplayRegistry": { "$ref": "#/$defs/versionedArtifactPointer" },
+            "outcomeProfile": { "$ref": "#/$defs/versionedArtifactPointer" },
+            "classificationPolicyContract": { "$ref": "#/$defs/versionedArtifactPointer" },
+            "executor": { "$ref": "#/$defs/versionedArtifactPointer" },
+            "applicabilityRule": { "$ref": "#/$defs/versionedArtifactPointer" },
+            "repositoryConventionManifestDigest": { "$ref": "#/$defs/digest" },
+            "materialPathSetDigest": { "$ref": "#/$defs/digest" },
+            "materialPathCount": { "type": "integer", "minimum": 0 },
+            "classifiedPathCount": { "type": "integer", "minimum": 0 },
+            "unknownPathCount": { "type": "integer", "minimum": 0 },
+            "collisionCount": { "type": "integer", "minimum": 0 },
+            "causes": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "enum": ["unknown_repository_convention", "classification_collision", "material_path_coverage_gap"] }
+            },
+            "applicabilityEvidenceId": { "$ref": "#/$defs/id" },
+            "coverageEvidenceId": { "$ref": "#/$defs/id" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["status", "outcomeProfile", "applicabilityRule", "applicabilityEvidenceId"],
           "properties": {
             "status": { "const": "not_applicable" },
-            "reason": { "type": "string", "minLength": 1 },
-            "relevanceRule": { "type": "string", "minLength": 1 },
-            "evidence": { "$ref": "#/$defs/evidence" }
+            "outcomeProfile": { "$ref": "#/$defs/versionedArtifactPointer" },
+            "applicabilityRule": { "$ref": "#/$defs/versionedArtifactPointer" },
+            "applicabilityEvidenceId": { "$ref": "#/$defs/id" }
           },
           "additionalProperties": false
         }
       ]
     },
-    "simulatorControl": {
+    "classificationRepositoryRelativePath": {
+      "$comment": "An exact Git path: raw Unicode scalar values encoded as UTF-8, with no normalization. Semantic validation rejects lone surrogates and re-hashes these exact bytes.",
+      "type": "string",
+      "minLength": 1,
+      "allOf": [
+        { "not": { "pattern": "^/" } },
+        { "not": { "pattern": "^[A-Za-z]:/" } },
+        { "not": { "pattern": "\\\\" } },
+        { "not": { "pattern": "[\\u0000-\\u001f\\u007f]" } },
+        { "not": { "pattern": "(?:^|/)\\.{1,2}(?:/|$)" } },
+        { "not": { "pattern": "//" } }
+      ]
+    },
+    "classificationSelector": {
+      "$comment": "Closed, deterministic repository-selector language. Semantic validation executes every selector; a selectorDigest is the canonical digest of this object, not an opaque claimant value.",
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind", "path"],
+          "properties": {
+            "kind": { "const": "exact_path" },
+            "path": { "$ref": "#/$defs/classificationRepositoryRelativePath" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "prefix"],
+          "properties": {
+            "kind": { "const": "path_prefix" },
+            "prefix": {
+              "type": "string",
+              "pattern": "^(?!/)(?![A-Za-z]:/)(?!.*\\\\)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*[\\u0000-\\u001f\\u007f])[^/]+(?:/[^/]+)*/$"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "segment"],
+          "properties": {
+            "kind": { "const": "path_segment" },
+            "segment": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "^[^/\\\\\\u0000-\\u001f\\u007f]+$",
+              "not": { "enum": [".", ".."] }
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "suffix"],
+          "properties": {
+            "kind": { "const": "path_suffix" },
+            "suffix": {
+              "type": "string",
+              "pattern": "^\\.[^/\\\\\\u0000-\\u001f\\u007f]+$"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "classificationMaterialPath": {
       "type": "object",
-      "required": ["protocolId", "simulatorId", "component", "goalPersistence", "disclosure", "termination", "refusal", "antiCollusion", "stability", "variance"],
+      "required": ["repositoryId", "path", "pathDigest"],
       "properties": {
-        "protocolId": { "type": "string", "minLength": 1 },
-        "simulatorId": { "type": "string", "minLength": 1 },
-        "component": { "$ref": "#/$defs/evidence" },
-        "goalPersistence": { "$ref": "#/$defs/validationCheck" },
-        "disclosure": { "$ref": "#/$defs/validationCheck" },
-        "termination": { "$ref": "#/$defs/validationCheck" },
-        "refusal": { "$ref": "#/$defs/validationCheck" },
-        "antiCollusion": { "$ref": "#/$defs/validationCheck" },
-        "stability": { "$ref": "#/$defs/stabilityValidation" },
-        "variance": { "$ref": "#/$defs/stabilityValidation" }
+        "repositoryId": { "$ref": "#/$defs/id" },
+        "path": { "$ref": "#/$defs/classificationRepositoryRelativePath" },
+        "pathDigest": { "$ref": "#/$defs/digest" }
       },
       "additionalProperties": false
     },
-    "biasControl": {
+    "classificationRepositoryConventionManifest": {
       "type": "object",
-      "required": ["estimand", "unit", "direction", "design", "minimumSampleRule", "method", "sampleSize", "estimate", "intervalMethod", "confidenceLevel", "lower", "upper", "threshold", "thresholdRule", "status", "rawEvidence", "calculationContract"],
+      "required": ["schemaVersion", "repositories"],
       "properties": {
-        "estimand": { "type": "string", "minLength": 1 },
-        "unit": { "type": "string", "minLength": 1 },
-        "direction": { "enum": ["absolute_lower_is_better", "lower_is_better", "higher_is_better"] },
-        "design": { "type": "string", "minLength": 1 },
-        "minimumSampleRule": { "type": "string", "minLength": 1 },
-        "method": { "type": "string", "minLength": 1 },
-        "sampleSize": { "type": "integer", "minimum": 1 },
-        "estimate": { "type": "number", "minimum": -1, "maximum": 1 },
-        "intervalMethod": { "type": "string", "minLength": 1 },
-        "confidenceLevel": { "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1 },
-        "lower": { "type": "number", "minimum": -1, "maximum": 1 },
-        "upper": { "type": "number", "minimum": -1, "maximum": 1 },
-        "threshold": { "type": "number", "minimum": 0, "maximum": 1 },
-        "thresholdRule": { "type": "string", "minLength": 1 },
-        "status": { "enum": ["pass", "breach", "insufficient_evidence"] },
-        "rawEvidence": { "$ref": "#/$defs/evidence" },
-        "calculationContract": { "$ref": "#/$defs/evidence" }
+        "schemaVersion": { "const": "case-qa-repository-convention-manifest-1" },
+        "repositories": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "required": ["repositoryId", "conventions"],
+            "properties": {
+              "repositoryId": { "$ref": "#/$defs/id" },
+              "conventions": {
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "type": "object",
+                  "required": ["id", "selector", "selectorDigest", "permittedClasses"],
+                  "properties": {
+                    "id": { "$ref": "#/$defs/id" },
+                    "selector": { "$ref": "#/$defs/classificationSelector" },
+                    "selectorDigest": { "$ref": "#/$defs/digest" },
+                    "permittedClasses": {
+                      "type": "array",
+                      "minItems": 1,
+                      "maxItems": 1,
+                      "uniqueItems": true,
+                      "items": { "enum": ["code_change", "test_change", "repository_configuration"] }
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        }
       },
       "additionalProperties": false
     },
-    "humanCalibration": {
+    "classificationPolicyApplicabilityEvidence": {
+      "$comment": "Authenticated Stage 0 evidence payload. Semantic validation resolves every distribution-owned pointer, resolves the exact activation-time frame from the sealed activation input, validates raw paths and selector definitions, executes both the registered classifier and every repository selector, and compares the complete derived result. Self-consistent claimant relabeling is invalid.",
       "type": "object",
-      "required": ["validationDate", "expiresAt", "modelToHuman", "interRater", "selfConsistency", "adjudicationRule", "evidence"],
+      "required": [
+        "schemaVersion", "case", "outcomeReplayRegistry", "outcomeProfile", "classificationPolicyContract", "executor", "applicabilityRule",
+        "frameSource", "repositoryConventionManifest", "repositoryConventionManifestDigest", "materialPathSetDigest", "materialPaths",
+        "classifications", "unknownPaths", "collisions", "result"
+      ],
       "properties": {
-        "validationDate": { "type": "string", "format": "date-time" },
-        "expiresAt": { "type": "string", "format": "date-time" },
-        "modelToHuman": { "$ref": "#/$defs/agreementValidation" },
-        "interRater": { "$ref": "#/$defs/agreementValidation" },
-        "selfConsistency": { "$ref": "#/$defs/agreementValidation" },
-        "adjudicationRule": { "type": "string", "minLength": 1 },
-        "evidence": { "$ref": "#/$defs/evidence" }
+        "schemaVersion": { "const": "case-qa-classification-applicability-evidence-1" },
+        "case": {
+          "type": "object",
+          "required": ["id", "version", "digest", "activationInputDigest"],
+          "properties": {
+            "id": { "$ref": "#/$defs/id" },
+            "version": { "type": "string", "minLength": 1 },
+            "digest": { "$ref": "#/$defs/digest" },
+            "activationInputDigest": { "$ref": "#/$defs/digest" }
+          },
+          "additionalProperties": false
+        },
+        "outcomeReplayRegistry": { "$ref": "#/$defs/versionedArtifactPointer" },
+        "outcomeProfile": { "$ref": "#/$defs/versionedArtifactPointer" },
+        "classificationPolicyContract": { "$ref": "#/$defs/versionedArtifactPointer" },
+        "executor": { "$ref": "#/$defs/versionedArtifactPointer" },
+        "applicabilityRule": { "$ref": "#/$defs/versionedArtifactPointer" },
+        "frameSource": { "const": "sealed_activation_input" },
+        "repositoryConventionManifest": { "$ref": "#/$defs/classificationRepositoryConventionManifest" },
+        "repositoryConventionManifestDigest": { "$ref": "#/$defs/digest" },
+        "materialPathSetDigest": { "$ref": "#/$defs/digest" },
+        "materialPaths": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/classificationMaterialPath" },
+          "uniqueItems": true
+        },
+        "classifications": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "required": ["repositoryId", "path", "pathDigest", "matchedConventionIds", "workArtifactType"],
+            "properties": {
+              "repositoryId": { "$ref": "#/$defs/id" },
+              "path": { "$ref": "#/$defs/classificationRepositoryRelativePath" },
+              "pathDigest": { "$ref": "#/$defs/digest" },
+              "matchedConventionIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+              "workArtifactType": { "enum": ["code_change", "test_change", "repository_configuration"] }
+            },
+            "additionalProperties": false
+          }
+        },
+        "unknownPaths": { "type": "array", "items": { "$ref": "#/$defs/classificationMaterialPath" }, "uniqueItems": true },
+        "collisions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "required": ["repositoryId", "path", "pathDigest", "matchedConventionIds", "candidateClasses"],
+            "properties": {
+              "repositoryId": { "$ref": "#/$defs/id" },
+              "path": { "$ref": "#/$defs/classificationRepositoryRelativePath" },
+              "pathDigest": { "$ref": "#/$defs/digest" },
+              "matchedConventionIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+              "candidateClasses": {
+                "type": "array",
+                "minItems": 2,
+                "uniqueItems": true,
+                "items": { "enum": ["code_change", "test_change", "repository_configuration"] }
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "result": { "enum": ["applicable", "insufficient_evidence"] }
       },
+      "allOf": [
+        {
+          "if": { "type": "object", "properties": { "result": { "const": "applicable" } }, "required": ["result"] },
+          "then": {
+            "type": "object",
+            "properties": {
+              "unknownPaths": { "type": "array", "maxItems": 0 },
+              "collisions": { "type": "array", "maxItems": 0 }
+            }
+          }
+        }
+      ],
       "additionalProperties": false
     },
-    "agreementValidation": {
+    "singletonValidityProof": {
+      "$comment": "Fail-closed Stage 7 exception. The applicability rule and valid-result-set definition are sealed before inspection. Equivalence proves that all valid realizations are materially equivalent; exhaustiveness and independent counterexample search address omitted alternatives. The passing singleton control and at least two failing near-miss controls bind the same verdict mechanisms.",
       "type": "object",
-      "required": ["statistic", "sampleSize", "estimate", "intervalMethod", "confidenceLevel", "lower", "upper", "threshold", "thresholdRule", "status", "calculationContract"],
+      "required": [
+        "applicabilityRule", "validResultSetDefinition", "singletonResultDigest",
+        "applicabilityEvidenceId", "equivalenceEvidenceId", "exhaustivenessEvidenceId", "counterexampleSearchEvidenceId",
+        "canonicalResultControl", "nearMissControls", "verdict"
+      ],
       "properties": {
-        "statistic": { "type": "string", "minLength": 1 },
-        "sampleSize": { "type": "integer", "minimum": 1 },
-        "estimate": { "type": "number", "minimum": -1, "maximum": 1 },
-        "intervalMethod": { "type": "string", "minLength": 1 },
-        "confidenceLevel": { "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1 },
-        "lower": { "type": "number", "minimum": -1, "maximum": 1 },
-        "upper": { "type": "number", "minimum": -1, "maximum": 1 },
-        "threshold": { "type": "number", "minimum": -1, "maximum": 1 },
-        "thresholdRule": { "type": "string", "minLength": 1 },
-        "status": { "enum": ["pass", "breach", "insufficient_evidence"] },
-        "calculationContract": { "$ref": "#/$defs/evidence" }
-      },
-      "additionalProperties": false
-    },
-    "stabilityValidation": {
-      "type": "object",
-      "required": ["targetBehavior", "samplingUnit", "strata", "seeds", "repetitionCount", "estimate", "intervalMethod", "confidenceLevel", "lower", "upper", "threshold", "thresholdRule", "status", "rawEvidence", "calculationContract"],
-      "properties": {
-        "targetBehavior": { "type": "string", "minLength": 1 },
-        "samplingUnit": { "type": "string", "minLength": 1 },
-        "strata": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
-        "seeds": { "type": "array", "minItems": 2, "items": { "type": "integer" }, "uniqueItems": true },
-        "repetitionCount": { "type": "integer", "minimum": 2 },
-        "estimate": { "type": "number" },
-        "intervalMethod": { "type": "string", "minLength": 1 },
-        "confidenceLevel": { "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1 },
-        "lower": { "type": "number" },
-        "upper": { "type": "number" },
-        "threshold": { "type": "number" },
-        "thresholdRule": { "type": "string", "minLength": 1 },
-        "status": { "enum": ["pass", "breach", "insufficient_evidence"] },
-        "rawEvidence": { "$ref": "#/$defs/evidence" },
-        "calculationContract": { "$ref": "#/$defs/evidence" }
+        "applicabilityRule": { "$ref": "#/$defs/component" },
+        "validResultSetDefinition": { "$ref": "#/$defs/component" },
+        "singletonResultDigest": { "$ref": "#/$defs/digest" },
+        "applicabilityEvidenceId": { "$ref": "#/$defs/id" },
+        "equivalenceEvidenceId": { "$ref": "#/$defs/id" },
+        "exhaustivenessEvidenceId": { "$ref": "#/$defs/id" },
+        "counterexampleSearchEvidenceId": { "$ref": "#/$defs/id" },
+        "canonicalResultControl": { "$ref": "#/$defs/passingControl" },
+        "nearMissControls": { "type": "array", "minItems": 2, "uniqueItems": true, "items": { "$ref": "#/$defs/failingControl" } },
+        "verdict": { "const": "pass" }
       },
       "additionalProperties": false
     },
     "defect": {
-      "type": "object",
-      "required": ["id", "type", "severity", "status"],
+      "type": "object", "required": ["id", "type", "severity", "status", "evidenceIds"],
       "properties": {
-        "id": { "type": "string", "minLength": 1 },
-        "type": { "type": "string", "minLength": 1 },
-        "severity": { "type": "integer", "minimum": 0, "maximum": 3 },
-        "status": { "enum": ["open", "fixed", "accepted_minor"] },
-        "fixEvidence": { "$ref": "#/$defs/evidence" }
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "enum": ["underspecified", "overly_strict", "low_coverage", "misleading", "oracle_leak", "env_drift", "flaky_check", "contamination_suspected", "contamination_confirmed", "measurement_boundary_bypass", "trivial_strategy_bypass", "alternative_valid_result_rejected", "privacy_or_security_exposure", "cosmetic"] },
+        "severity": { "type": "integer", "minimum": 0, "maximum": 3 }, "status": { "enum": ["open", "fixed", "accepted_minor"] },
+        "evidenceIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "fixEvidenceId": { "$ref": "#/$defs/id" }
       },
-      "additionalProperties": true
-    }
+      "allOf": [
+        { "if": { "properties": { "type": { "enum": ["oracle_leak", "contamination_confirmed", "measurement_boundary_bypass", "trivial_strategy_bypass", "alternative_valid_result_rejected", "privacy_or_security_exposure"] } } }, "then": { "properties": { "severity": { "const": 3 } } } },
+        { "if": { "properties": { "type": { "enum": ["underspecified", "overly_strict", "low_coverage", "misleading", "env_drift", "flaky_check", "contamination_suspected"] } } }, "then": { "properties": { "severity": { "type": "integer", "minimum": 2 } } } },
+        { "if": { "properties": { "type": { "const": "cosmetic" } } }, "then": { "properties": { "severity": { "const": 0 } } } },
+        { "if": { "properties": { "status": { "const": "fixed" } } }, "then": { "type": "object", "required": ["fixEvidenceId"], "properties": { "fixEvidenceId": {} } } }
+      ],
+      "additionalProperties": false
+    },
+    "control": { "$comment": "checkIds identifies the bound verdict mechanisms. Each ID must resolve to an applicable deterministic check or adjudication verdict rule selected through the bound outcome profile.", "type": "object", "required": ["id", "inputDigest", "checkIds", "componentDigests", "expected", "observed", "evidenceId"], "properties": { "id": { "$ref": "#/$defs/id" }, "inputDigest": { "$ref": "#/$defs/digest" }, "checkIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "componentDigests": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/digest" }, "uniqueItems": true }, "expected": { "enum": ["pass", "fail"] }, "observed": { "enum": ["pass", "fail"] }, "evidenceId": { "$ref": "#/$defs/id" } }, "allOf": [{ "if": { "properties": { "expected": { "const": "pass" } } }, "then": { "properties": { "observed": { "const": "pass" } } }, "else": { "properties": { "observed": { "const": "fail" } } } }], "additionalProperties": false },
+    "passingControl": { "allOf": [{ "$ref": "#/$defs/control" }, { "type": "object", "properties": { "expected": { "const": "pass" }, "observed": { "const": "pass" } } }] },
+    "failingControl": { "allOf": [{ "$ref": "#/$defs/control" }, { "type": "object", "properties": { "expected": { "const": "fail" }, "observed": { "const": "fail" } } }] },
+    "stabilityProof": { "type": "object", "required": ["checkId", "minimumSampleRuleId", "repetitionCount", "observedFailureRate", "permittedThreshold", "interval", "evidenceId"], "properties": { "checkId": { "$ref": "#/$defs/id" }, "minimumSampleRuleId": { "$ref": "#/$defs/id" }, "repetitionCount": { "type": "integer", "minimum": 2 }, "observedFailureRate": { "type": "number", "minimum": 0, "maximum": 1 }, "permittedThreshold": { "type": "number", "minimum": 0, "exclusiveMaximum": 1 }, "interval": { "$ref": "#/$defs/interval" }, "evidenceId": { "$ref": "#/$defs/id" } }, "additionalProperties": false },
+    "interval": { "type": "object", "required": ["method", "confidenceLevel", "lower", "upper"], "properties": { "method": { "type": "string", "minLength": 1 }, "confidenceLevel": { "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1 }, "lower": { "type": "number" }, "upper": { "type": "number" } }, "additionalProperties": false },
+    "surfaceValidation": { "type": "object", "required": ["surfaceId", "coverage", "status", "applicabilityEvidenceId", "knownGoodControl", "knownBadControl"], "properties": { "surfaceId": { "$ref": "#/$defs/id" }, "coverage": { "enum": ["checked", "covered_by_final_state", "not_applicable", "declared_gap", "not_determined"] }, "status": { "enum": ["pass", "breach", "insufficient_evidence", "not_applicable", "not_evaluated"] }, "applicabilityEvidenceId": { "$ref": "#/$defs/id" }, "knownGoodControl": { "$ref": "#/$defs/control" }, "knownBadControl": { "$ref": "#/$defs/control" }, "coverageEvidenceId": { "$ref": "#/$defs/id" }, "claimRestrictionIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true } }, "additionalProperties": false },
+    "optionalValidation": { "oneOf": [{ "type": "object", "required": ["status", "reason"], "properties": { "status": { "const": "not_applicable" }, "reason": { "type": "string", "minLength": 1 } }, "additionalProperties": false }, { "type": "object", "required": ["status", "record"], "properties": { "status": { "const": "validated" }, "record": { "$ref": "#/$defs/artifactPointer" } }, "additionalProperties": false }] }
   }
 }

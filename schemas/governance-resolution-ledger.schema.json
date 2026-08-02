@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agent-evals-standard:schema:governance-resolution-ledger:2",
+  "$id": "urn:agent-evals-standard:schema:governance-resolution-ledger:1",
   "title": "Authenticated governance resolution ledger",
   "type": "object",
   "required": [
@@ -18,7 +18,7 @@
     "signature"
   ],
   "properties": {
-    "schemaVersion": { "const": "agent-eval-governance-resolution-ledger-2" },
+    "schemaVersion": { "const": "agent-eval-governance-resolution-ledger-1" },
     "ledgerId": { "type": "string", "minLength": 1 },
     "policyInstanceHash": { "$ref": "#/$defs/digest" },
     "matrixInstanceHash": { "$ref": "#/$defs/digest" },
@@ -28,7 +28,8 @@
     "evidenceManifest": {
       "type": "array",
       "minItems": 1,
-      "items": { "$ref": "#/$defs/evidenceArtifact" }
+      "uniqueItems": true,
+      "items": { "$ref": "urn:agent-evals-standard:schema:evidence-artifact:1" }
     },
     "events": {
       "type": "array",
@@ -43,53 +44,20 @@
       },
       "additionalProperties": false
     },
-    "issuedAt": { "type": "string", "format": "date-time" },
-    "signature": { "$ref": "#/$defs/signature" }
+    "issuedAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
   },
   "additionalProperties": false,
   "$defs": {
     "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
     "artifactRef": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
-    "signature": {
-      "type": "object",
-      "required": ["algorithm", "keyId", "value"],
-      "properties": {
-        "algorithm": { "type": "string", "minLength": 1 },
-        "keyId": { "type": "string", "minLength": 1 },
-        "value": { "type": "string", "minLength": 1 }
-      },
-      "additionalProperties": false
-    },
-    "evidenceArtifact": {
-      "type": "object",
-      "required": ["id", "uri", "digest", "mediaType", "sizeBytes", "producer", "createdAt", "attestation"],
-      "properties": {
-        "id": { "$ref": "#/$defs/artifactRef" },
-        "uri": { "type": "string", "minLength": 1 },
-        "digest": { "$ref": "#/$defs/digest" },
-        "mediaType": { "type": "string", "minLength": 1 },
-        "sizeBytes": { "type": "integer", "minimum": 0 },
-        "producer": {
-          "type": "object",
-          "required": ["id", "role"],
-          "properties": {
-            "id": { "type": "string", "minLength": 1 },
-            "role": { "type": "string", "minLength": 1 }
-          },
-          "additionalProperties": false
-        },
-        "createdAt": { "type": "string", "format": "date-time" },
-        "attestation": { "$ref": "#/$defs/signature" }
-      },
-      "additionalProperties": false
-    },
     "ledgerEvent": {
       "type": "object",
       "required": ["sequence", "eventId", "eventType", "payloadHash", "previousEventHash", "eventHash", "timestamp", "payload", "signature"],
       "properties": {
         "sequence": { "type": "integer", "minimum": 1 },
         "eventId": { "type": "string", "minLength": 1 },
-        "eventType": { "enum": ["escalation", "assurance_observation", "resolution"] },
+        "eventType": { "enum": ["escalation", "enforcement_receipt", "assurance_observation", "resolution"] },
         "payloadHash": { "$ref": "#/$defs/digest" },
         "previousEventHash": {
           "oneOf": [
@@ -98,20 +66,25 @@
           ]
         },
         "eventHash": { "$ref": "#/$defs/digest" },
-        "timestamp": { "type": "string", "format": "date-time" },
+        "timestamp": { "type": "string", "format": "date-time", "pattern": "Z$" },
         "payload": {
           "oneOf": [
-            { "$ref": "urn:agent-evals-standard:schema:escalation-event:2" },
+            { "$ref": "urn:agent-evals-standard:schema:escalation-event:1" },
+            { "$ref": "urn:agent-evals-standard:schema:enforcement-receipt:1" },
             { "$ref": "urn:agent-evals-standard:schema:assurance-observation:1" },
-            { "$ref": "urn:agent-evals-standard:schema:governance-resolution:2" }
+            { "$ref": "urn:agent-evals-standard:schema:governance-resolution:1" }
           ]
         },
-        "signature": { "$ref": "#/$defs/signature" }
+        "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
       },
       "allOf": [
         {
           "if": { "properties": { "eventType": { "const": "escalation" } }, "required": ["eventType"] },
-          "then": { "properties": { "payload": { "$ref": "urn:agent-evals-standard:schema:escalation-event:2" } } }
+          "then": { "properties": { "payload": { "$ref": "urn:agent-evals-standard:schema:escalation-event:1" } } }
+        },
+        {
+          "if": { "properties": { "eventType": { "const": "enforcement_receipt" } }, "required": ["eventType"] },
+          "then": { "properties": { "payload": { "$ref": "urn:agent-evals-standard:schema:enforcement-receipt:1" } } }
         },
         {
           "if": { "properties": { "eventType": { "const": "assurance_observation" } }, "required": ["eventType"] },
@@ -119,7 +92,7 @@
         },
         {
           "if": { "properties": { "eventType": { "const": "resolution" } }, "required": ["eventType"] },
-          "then": { "properties": { "payload": { "$ref": "urn:agent-evals-standard:schema:governance-resolution:2" } } }
+          "then": { "properties": { "payload": { "$ref": "urn:agent-evals-standard:schema:governance-resolution:1" } } }
         }
       ],
       "additionalProperties": false

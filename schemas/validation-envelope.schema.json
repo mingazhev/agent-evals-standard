@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:validation-envelope:1",
+  "title": "Detached semantic validation envelope",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "envelopeId",
+    "subject",
+    "validationContractVersion",
+    "validator",
+    "checks",
+    "result",
+    "output",
+    "validatedAt",
+    "evidenceManifest",
+    "signatureProfile",
+    "signature"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-validation-envelope-1" },
+    "envelopeId": { "$ref": "#/$defs/id" },
+    "subject": {
+      "type": "object",
+      "required": ["type", "id", "claimTarget", "digest", "projection"],
+      "properties": {
+        "type": { "enum": ["case", "case_qa_record", "suite_manifest", "environment_contract", "evaluation_profile", "outcome_profile", "pre_run_manifest", "statistical_plan", "grader_validation", "scorecard", "operational_governance_policy", "operational_escalation_matrix", "escalation_event", "enforcement_receipt", "assurance_observation", "governance_resolution", "governance_resolution_ledger", "governance_decision", "conformance_statement", "requirement_registry", "source_evidence_manifest", "signature_profile"] },
+        "id": { "$ref": "#/$defs/id" },
+        "claimTarget": { "$comment": "The conformance target whose applicable requirement set this validation envelope evaluates. It is explicit because an artifact type such as scorecard may support more than one conformance target.", "enum": ["suite", "case", "evaluator", "experiment", "decision"] },
+        "digest": { "$ref": "#/$defs/digest" },
+        "projection": { "enum": ["full_document_without_digest_and_signature", "sealed_activation_input", "sealed_run", "governance_state"] },
+        "targetSubject": { "$ref": "urn:agent-evals-standard:schema:conformance-statement:1#/$defs/versionedArtifactPointer" },
+        "dependencyManifest": { "$ref": "urn:agent-evals-standard:schema:conformance-statement:1#/$defs/dependencyManifest" }
+      },
+      "additionalProperties": false
+    },
+    "validationContractVersion": { "const": "0.1.0" },
+    "validator": {
+      "type": "object",
+      "required": ["id", "version", "implementationDigest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "minLength": 1 },
+        "implementationDigest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "checks": {
+      "$comment": "This array is the exact closed set of requirements selected by the authenticated requirement registry for subject.claimTarget. Semantic validation must reject duplicate or unknown requirementId values and resolve every evidence and finding ID. Requirements for other targets are absent. A selected requirement therefore cannot be not_applicable: its result is pass, fail, or insufficient_evidence.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["requirementId", "result", "findingIds", "evidenceIds"],
+        "properties": {
+          "requirementId": { "$ref": "#/$defs/id" },
+          "result": { "enum": ["pass", "fail", "insufficient_evidence"] },
+          "findingIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+          "evidenceIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }
+        },
+        "allOf": [
+          {
+            "if": { "type": "object", "properties": { "result": { "const": "pass" } }, "required": ["result"] },
+            "then": { "type": "object", "properties": { "findingIds": { "type": "array", "maxItems": 0 } } },
+            "else": { "type": "object", "properties": { "findingIds": { "type": "array", "minItems": 1 } } }
+          }
+        ],
+        "additionalProperties": false
+      }
+    },
+    "result": {
+      "$comment": "Derived result: fail when any selected check fails; otherwise insufficient_evidence when any selected check is insufficient; otherwise pass only when every selected check passes.",
+      "enum": ["pass", "fail", "insufficient_evidence"]
+    },
+    "output": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "object", "required": ["id", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false }
+      ]
+    },
+    "validatedAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "evidenceManifest": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:agent-evals-standard:schema:evidence-artifact:1" }
+    },
+    "signatureProfile": { "$comment": "The exact versioned verification profile for this detached signature.", "$ref": "#/$defs/versionedArtifactPointer" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "type": "object",
+        "properties": { "subject": { "type": "object", "properties": { "type": { "const": "conformance_statement" } }, "required": ["type"] } },
+        "required": ["subject"]
+      },
+      "then": {
+        "type": "object",
+        "properties": {
+          "subject": {
+            "type": "object",
+            "required": ["targetSubject", "dependencyManifest"],
+            "properties": {
+              "targetSubject": {},
+              "dependencyManifest": {}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "type": "object", "properties": { "result": { "const": "pass" } }, "required": ["result"] },
+      "then": { "type": "object", "properties": { "checks": { "type": "array", "items": { "type": "object", "required": ["result"], "properties": { "result": { "const": "pass" } } } } } }
+    },
+    {
+      "if": { "type": "object", "properties": { "result": { "const": "fail" } }, "required": ["result"] },
+      "then": { "type": "object", "properties": { "checks": { "type": "array", "contains": { "type": "object", "properties": { "result": { "const": "fail" } }, "required": ["result"] } } } }
+    },
+    {
+      "if": { "type": "object", "properties": { "result": { "const": "insufficient_evidence" } }, "required": ["result"] },
+      "then": { "type": "object", "properties": { "checks": { "type": "array", "contains": { "type": "object", "properties": { "result": { "const": "insufficient_evidence" } }, "required": ["result"] }, "not": { "type": "array", "contains": { "type": "object", "properties": { "result": { "const": "fail" } }, "required": ["result"] } } } } }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "versionedArtifactPointer": { "type": "object", "required": ["id", "version", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false }
+  }
+}

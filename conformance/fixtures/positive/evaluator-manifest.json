@@ -1,0 +1,302 @@
+{
+  "schemaVersion": "agent-eval-evaluator-manifest-1",
+  "id": "evaluator-manifest-fixture-1",
+  "version": "0.1.0",
+  "implementation": {
+    "name": "fixture-enterprise-eval-framework",
+    "version": "0.1.0",
+    "commit": "0123456789abcdef0123456789abcdef01234567",
+    "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+    "buildProvenance": {
+      "id": "evaluator-build-provenance-fixture",
+      "uri": "artifact:fixture:evaluator-build-provenance-fixture",
+      "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+    }
+  },
+  "supportedStandard": {
+    "version": "0.1.0",
+    "releaseStatus": "unpublished_draft",
+    "commit": "0123456789abcdef0123456789abcdef01234567",
+    "requirementRegistry": {
+      "id": "agent-evals-standard-requirements",
+      "version": "0.1.0",
+      "uri": "../../../standard/requirement-registry.json",
+      "digest": "sha256:e58c6762efe45ca689c746559b7a40ceee1dd593b613017179d35dce6ed55b1f"
+    },
+    "schemaManifest": {
+      "id": "standard-schema-manifest",
+      "uri": "schema-manifest.json",
+      "digest": "sha256:c998b05b58462d5380016cd7f6cbbfc538aa66425850a152adbff0d25b3b72d9"
+    }
+  },
+  "supportedAssuranceLevels": [
+    "A0",
+    "A1"
+  ],
+  "effectiveRiskRange": [
+    "low",
+    "medium"
+  ],
+  "measurementComponents": [
+    {
+      "id": "fixture-runner",
+      "kind": "runner",
+      "version": "0.1.0",
+      "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "configurationDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "trustDomainId": "runner-domain",
+      "operator": "fixture-evaluator-operator",
+      "dependencyIds": [
+        "fixture-signature-verifier"
+      ]
+    },
+    {
+      "id": "fixture-capture",
+      "kind": "event_capture",
+      "version": "0.1.0",
+      "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "configurationDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "trustDomainId": "runner-domain",
+      "operator": "fixture-evaluator-operator",
+      "dependencyIds": [
+        "fixture-runner"
+      ]
+    },
+    {
+      "id": "fixture-semantic-validator",
+      "kind": "semantic_validator",
+      "version": "0.1.0",
+      "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "configurationDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "trustDomainId": "runner-domain",
+      "operator": "fixture-validator-operator",
+      "dependencyIds": [
+        "fixture-capture",
+        "fixture-signature-verifier"
+      ]
+    },
+    {
+      "id": "fixture-signature-verifier",
+      "kind": "signature_verifier",
+      "version": "0.1.0",
+      "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "configurationDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "trustDomainId": "external-authority-domain",
+      "operator": "fixture-trust-operator",
+      "dependencyIds": []
+    }
+  ],
+  "trustDomains": [
+    {
+      "id": "runner-domain",
+      "kind": "runner_owned",
+      "owner": "fixture-evaluator-owner",
+      "componentIds": [
+        "fixture-runner",
+        "fixture-capture",
+        "fixture-semantic-validator"
+      ],
+      "boundaryContract": {
+        "id": "runner-boundary-contract",
+        "uri": "artifact:fixture:runner-boundary-contract",
+        "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+      }
+    },
+    {
+      "id": "external-authority-domain",
+      "kind": "external_authority",
+      "owner": "fixture-trust-owner",
+      "componentIds": [
+        "fixture-signature-verifier"
+      ],
+      "boundaryContract": {
+        "id": "external-authority-boundary-contract",
+        "uri": "artifact:fixture:external-authority-boundary-contract",
+        "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+      }
+    }
+  ],
+  "dataFlows": [
+    {
+      "id": "captured-events-to-validator",
+      "fromComponentId": "fixture-capture",
+      "toComponentId": "fixture-semantic-validator",
+      "artifactClass": "authenticated_event_stream",
+      "direction": "output",
+      "authenticationContract": {
+        "id": "fixture-result-channel-contract",
+        "uri": "artifact:fixture:result-channel-contract",
+        "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "parserContract": {
+        "id": "fixture-bounded-parser-contract",
+        "uri": "artifact:fixture:bounded-parser-contract",
+        "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+      }
+    }
+  ],
+  "enforcementContracts": {
+    "systemIdentity": {
+      "contract": {
+        "id": "system-identity-contract",
+        "uri": "artifact:fixture:system-identity-contract",
+        "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "enforcingComponentIds": [
+        "fixture-runner"
+      ],
+      "failureEffect": "insufficient_evidence"
+    },
+    "oracleIsolation": {
+      "contract": {
+        "id": "oracle-isolation-contract",
+        "uri": "artifact:fixture:oracle-isolation-contract",
+        "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "enforcingComponentIds": [
+        "fixture-runner"
+      ],
+      "failureEffect": "invalid_measurement"
+    },
+    "cleanState": {
+      "contract": {
+        "id": "clean-state-contract",
+        "uri": "artifact:fixture:clean-state-contract",
+        "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "enforcingComponentIds": [
+        "fixture-runner"
+      ],
+      "failureEffect": "invalid_measurement"
+    },
+    "leastPrivilege": {
+      "contract": {
+        "id": "least-privilege-contract",
+        "uri": "artifact:fixture:least-privilege-contract",
+        "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "enforcingComponentIds": [
+        "fixture-runner"
+      ],
+      "failureEffect": "hard_gate_failure"
+    },
+    "attemptAccounting": {
+      "contract": {
+        "id": "attempt-accounting-contract",
+        "uri": "artifact:fixture:attempt-accounting-contract",
+        "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "enforcingComponentIds": [
+        "fixture-runner",
+        "fixture-capture"
+      ],
+      "failureEffect": "invalid_measurement"
+    },
+    "trustedCapture": {
+      "contract": {
+        "id": "trusted-capture-contract",
+        "uri": "artifact:fixture:trusted-capture-contract",
+        "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "enforcingComponentIds": [
+        "fixture-capture"
+      ],
+      "failureEffect": "invalid_measurement"
+    },
+    "teardown": {
+      "contract": {
+        "id": "teardown-contract",
+        "uri": "artifact:fixture:teardown-contract",
+        "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "enforcingComponentIds": [
+        "fixture-runner"
+      ],
+      "failureEffect": "invalid_measurement"
+    },
+    "canonicalEvidence": {
+      "contract": {
+        "id": "canonical-evidence-contract",
+        "uri": "artifact:fixture:canonical-evidence-contract",
+        "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "enforcingComponentIds": [
+        "fixture-capture",
+        "fixture-semantic-validator"
+      ],
+      "failureEffect": "insufficient_evidence"
+    },
+    "detachedValidation": {
+      "contract": {
+        "id": "detached-validation-contract",
+        "uri": "artifact:fixture:detached-validation-contract",
+        "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "enforcingComponentIds": [
+        "fixture-semantic-validator",
+        "fixture-signature-verifier"
+      ],
+      "failureEffect": "insufficient_evidence"
+    },
+    "gateEvaluation": {
+      "contract": {
+        "id": "gate-evaluation-contract",
+        "uri": "artifact:fixture:gate-evaluation-contract",
+        "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "enforcingComponentIds": [
+        "fixture-semantic-validator"
+      ],
+      "failureEffect": "hard_gate_failure"
+    },
+    "outcomeAssignment": {
+      "contract": {
+        "id": "outcome-assignment-contract",
+        "uri": "artifact:fixture:outcome-assignment-contract",
+        "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "enforcingComponentIds": [
+        "fixture-semantic-validator"
+      ],
+      "failureEffect": "invalid_measurement"
+    },
+    "statistics": {
+      "contract": {
+        "id": "statistics-contract",
+        "uri": "artifact:fixture:statistics-contract",
+        "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "enforcingComponentIds": [
+        "fixture-semantic-validator"
+      ],
+      "failureEffect": "insufficient_evidence"
+    }
+  },
+  "externalDependencies": [],
+  "positiveControlRecords": [
+    {
+      "id": "fixture-evaluator-positive-control",
+      "version": "0.1.0",
+      "uri": "../evaluator-controls/positive-control-record.json",
+      "digest": "sha256:f98512641aa81a2cf3f0213492cbecfe0daefd667a9161d4c9bbff374b3812fc",
+      "payloadDigest": "sha256:475d50a403da6978ac634b3ac4ac46a53b025ab7cba3bc06ff7e73dbce5847dd"
+    }
+  ],
+  "negativeControlRecords": [
+    {
+      "id": "fixture-evaluator-negative-control",
+      "version": "0.1.0",
+      "uri": "../evaluator-controls/negative-control-record.json",
+      "digest": "sha256:53559882a697d5be114b7b3d9b96185fbc6da48f449898c35d37eb10e9c10e91",
+      "payloadDigest": "sha256:ef8f1ee482129b41ed92986fa1954384b3fb7290c3ddf0a58ed1a57c9d5bebff"
+    }
+  ],
+  "digest": "sha256:74683789496f8e8233a1e1217590e08358933d74ce963f5f4127f3d24d7d55c5",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:00Z",
+    "value": "cSkGi77mR9lSZY7KYsiyGzg1n8VHwVu29mu3RHLd6h9TQSHTuK3NPm_yjx_CFe1XLadFfBbj_wpRLU8xK_FZCg"
+  }
+}

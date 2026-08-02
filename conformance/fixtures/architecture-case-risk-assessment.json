@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "risk-assessment-1",
+  "id": "architecture-case-full-v1-inherent-risk",
+  "version": "0.1.0",
+  "assessmentKind": "case_inherent_hazard",
+  "scope": {
+    "caseIds": [
+      "architecture-case-full-v1"
+    ],
+    "armIds": [],
+    "decisionEnvelopeId": null
+  },
+  "factors": {
+    "inherentHazards": [
+      {
+        "id": "hazard-incorrect-repository-change",
+        "description": "An incorrect patch can regress the bounded fixture repository.",
+        "plausibleHarm": "Loss of correctness in the isolated evaluation workspace.",
+        "severity": "minor",
+        "tier": "low",
+        "evidence": [
+          {
+            "id": "case-hazard-evidence",
+            "uri": "artifact:fixture:case-hazard-evidence",
+            "digest": "sha256:2505596427d85b899de3fef73db6f2e568d2cc027bb630bfbc5e009d952976bd"
+          }
+        ]
+      }
+    ],
+    "dataSensitivityAndAssets": {
+      "classification": "public synthetic fixture",
+      "affectedAssets": [
+        "isolated fixture repository"
+      ],
+      "tier": "low",
+      "evidence": [
+        {
+          "id": "case-data-evidence",
+          "uri": "artifact:fixture:case-data-evidence",
+          "digest": "sha256:5e421d344cd745297d06329eb9ac69826382c594d6e1979af2031e8f1b7041df"
+        }
+      ]
+    },
+    "autonomyPermissionsToolsAndReversibility": {
+      "autonomy": "bounded task execution",
+      "permissions": [
+        "fixture repository read and write"
+      ],
+      "tools": [
+        "git",
+        "test runner"
+      ],
+      "reversibility": "fully_reversible",
+      "tier": "low",
+      "evidence": [
+        {
+          "id": "case-control-evidence",
+          "uri": "artifact:fixture:case-control-evidence",
+          "digest": "sha256:6e66db127257efac0be87bf0ff1f412a1963ec161a5ab9ade3b1a5285bf83599"
+        }
+      ]
+    },
+    "executionAndDeploymentEnvironment": {
+      "executionEnvironment": "sealed disposable fixture workspace",
+      "deploymentEnvironment": "none",
+      "tier": "low",
+      "evidence": [
+        {
+          "id": "case-environment-evidence",
+          "uri": "artifact:fixture:case-environment-evidence",
+          "digest": "sha256:8a49ccb13b7c1e723d96c0b353993304af933355fad3ee95b889c5a75b178434"
+        }
+      ]
+    },
+    "scopeBlastRadiusExposureAndOversight": {
+      "scope": "one synthetic fixture repository",
+      "blastRadius": "disposable workspace only",
+      "exposureDurationSeconds": 600,
+      "humanOversight": "checkpointed",
+      "tier": "low",
+      "evidence": [
+        {
+          "id": "case-exposure-evidence",
+          "uri": "artifact:fixture:case-exposure-evidence",
+          "digest": "sha256:43e17cc65864c814b209c42379692f24cbf473b35f9d6620146dd3542731e070"
+        }
+      ]
+    },
+    "likelihoodAndUncertainty": {
+      "likelihood": "unlikely",
+      "uncertainty": "bounded_within_tier",
+      "tier": "low",
+      "upperApplicableTier": "low",
+      "evidence": [
+        {
+          "id": "case-likelihood-evidence",
+          "uri": "artifact:fixture:case-likelihood-evidence",
+          "digest": "sha256:357dd9284c37bca8f30004579b288b899484479be0d46e0857ca48bbe7206fbe"
+        }
+      ]
+    }
+  },
+  "derivation": {
+    "policy": {
+      "id": "risk-derivation-policy-v1",
+      "version": "0.1.0",
+      "uri": "artifact:fixture:risk-derivation-policy-v1",
+      "digest": "sha256:52f6948050d857fcce99ce29ec6e38794e9368ebc14943b5cfca419f46d51a82"
+    },
+    "algorithm": "maximum_applicable_tier_v1",
+    "factorInputDigest": "sha256:4a40a6eb74f4ffdc9f301548cc6e0d643fbc99debf92e6c67006b2894c0fb038",
+    "evidence": [
+      {
+        "id": "case-risk-derivation-evidence",
+        "uri": "artifact:fixture:case-risk-derivation-evidence",
+        "digest": "sha256:93fdd9a9f64737eb773fba6eabef58d95849dec8cd341b53f42eaf8eef33fe6f"
+      }
+    ],
+    "derivedAt": "2026-08-01T00:00:00Z",
+    "derivedBy": {
+      "id": "fixture-risk-assessor",
+      "role": "risk_assessor"
+    }
+  },
+  "effectiveRiskTier": "low",
+  "approval": {
+    "riskOwner": {
+      "id": "fixture-risk-owner",
+      "role": "risk_owner"
+    },
+    "approvedAt": "2026-08-01T00:00:01Z",
+    "evidence": {
+      "id": "case-risk-approval-evidence",
+      "uri": "artifact:fixture:case-risk-approval-evidence",
+      "digest": "sha256:9e67c3e3b0b2ac8aa3bd54f8be1e77d423eb714d18c4983d7a7ddf0ed698ddc8"
+    }
+  },
+  "digest": "sha256:c1c9394fdcc37cc94f874ee47eb6727476a5330503e697ece68b5904de82db5f",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:02Z",
+    "value": "y6Kw4ikrZ-r6bddwsCRBg2mOvvoFnNBDBa_MkS67TnQYs84v0xrFkFu6DejgZDsie9jUwcKQQBcxBj95LQjlBw"
+  }
+}

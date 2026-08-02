@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "agent-eval-attempt-checkpoint-1",
+  "id": "material-attempt-checkpoint",
+  "version": "0.1.0",
+  "experimentId": "material-integrity-experiment",
+  "scheduledSetCommitment": {
+    "id": "pre-run-material-integrity-1",
+    "uri": "pre-run-material-integrity.json",
+    "digest": "sha256:7171717171717171717171717171717171717171717171717171717171717171"
+  },
+  "ledger": {
+    "id": "material-attempt-ledger",
+    "uri": "attempt-ledger.json",
+    "digest": "sha256:967703d84b4a608718324225c4adab34143d85ee6a3858518aa5a335e363c083"
+  },
+  "issuer": {
+    "id": "fixture-independent-scheduler",
+    "role": "independent_scheduler",
+    "trustDomain": "fixture-scheduler-boundary"
+  },
+  "logBinding": {
+    "logId": "fixture-attempt-log",
+    "checkpointSequence": 7,
+    "previousCheckpointDigest": "sha256:1919191919191919191919191919191919191919191919191919191919191919",
+    "publicationUri": "https://scheduler.example.invalid/logs/fixture-attempt-log/checkpoints/7"
+  },
+  "checkpointKind": "terminal",
+  "receiptChainAlgorithm": "sha256-jcs-receipts-v1",
+  "ledgerRootAlgorithm": "sha256-jcs-chain-v1",
+  "receipts": [
+    {
+      "sequence": 1,
+      "experimentId": "material-integrity-experiment",
+      "scheduledSetCommitmentDigest": "sha256:7171717171717171717171717171717171717171717171717171717171717171",
+      "attemptId": "attempt-failed-1",
+      "cellId": "cell-1",
+      "parentAttemptId": null,
+      "startedAt": "2026-08-01T02:00:00Z",
+      "previousReceiptDigest": null,
+      "receiptDigest": "sha256:1572d9e71c41cc7328ac71a9650a809cd845c4f224de632814bad331dea8f77f",
+      "signature": {
+        "profileId": "fixture-independent-scheduler-profile",
+        "algorithm": "Ed25519",
+        "keyId": "rfc8032-test-key-2-scheduler",
+        "signedAt": "2026-08-01T02:00:00Z",
+        "value": "ZvPaH22j_3PmuSTXx-1I2TqGsTwCuueUCGyFS0QWZ8ipsqwDrq8eWyk_naTM6bYf9yPB6Js4J0oVM-LBTwjcDQ"
+      }
+    },
+    {
+      "sequence": 2,
+      "experimentId": "material-integrity-experiment",
+      "scheduledSetCommitmentDigest": "sha256:7171717171717171717171717171717171717171717171717171717171717171",
+      "attemptId": "attempt-success-2",
+      "cellId": "cell-1",
+      "parentAttemptId": "attempt-failed-1",
+      "startedAt": "2026-08-01T02:02:00Z",
+      "previousReceiptDigest": "sha256:1572d9e71c41cc7328ac71a9650a809cd845c4f224de632814bad331dea8f77f",
+      "receiptDigest": "sha256:a40c537c02e06730bac5b388f325f14729d8fdc9dd33029895eb08d5475ed899",
+      "signature": {
+        "profileId": "fixture-independent-scheduler-profile",
+        "algorithm": "Ed25519",
+        "keyId": "rfc8032-test-key-2-scheduler",
+        "signedAt": "2026-08-01T02:02:00Z",
+        "value": "VvH8Qjd35JxKy4YWcFkEtUpwkQaSl6of0r6i7VO5_1A3PsZvuMElc1yGuN77JeVfeBPEndZX6YrKKCURS6k3BQ"
+      }
+    }
+  ],
+  "terminalBinding": {
+    "receiptCount": 2,
+    "terminalReceiptDigest": "sha256:a40c537c02e06730bac5b388f325f14729d8fdc9dd33029895eb08d5475ed899",
+    "orderedAttemptIdsDigest": "sha256:45b87c34532ac458d885d9caf2e3493e73b7a33efd676edffb70c1437b4ec8ec",
+    "attemptRecordsDigest": "sha256:438b9617a8aa78b6ebf17e1293083118fca05b2892a59d4836171ab407fd64f7",
+    "initialLedgerRoot": "sha256:13a1c9d5a3c21694deffc64a4aec54a696f2a417f3a58e33097c86764f4d6652",
+    "terminalLedgerRoot": "sha256:ee830187e612ed3c708384c322a25d4702a85508f6d964d544cec7706a6df40a",
+    "closedAt": "2026-08-01T02:04:00Z"
+  },
+  "issuedAt": "2026-08-01T02:04:01Z",
+  "digest": "sha256:53eb0123445e8ee29d2f372143e3244c26b26ce390e45b084db40c85c6112a48",
+  "signature": {
+    "profileId": "fixture-independent-scheduler-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-2-scheduler",
+    "signedAt": "2026-08-01T02:04:01Z",
+    "value": "2rKsNmPgRE79OQAiQzYH-qz3KGRzJs0Fw7uB7spc22_6NpvlBUSIz3pntDbcaRRo-xZ6IcA9KrFJCar-phdaDw"
+  }
+}

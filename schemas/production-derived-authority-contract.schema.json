@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:production-derived-authority-contract:1",
+  "title": "Production-derived evidence authority contract",
+  "$comment": "This contract is content-addressed by the sealed environment contract. Semantic validation must authenticate its exact bytes, require exactly one proof policy for every closed proof kind, resolve every proof verifier through an evaluator-controlled registry of implementation bytes, resolve every evidence signature through the named authority public key, and enforce the declared separation constraints. A proof, evidence artifact, or evidence bundle cannot introduce an authority, key, or verifier.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "version",
+    "authorities",
+    "proofPolicies",
+    "separation",
+    "digest"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-production-derived-authority-contract-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "const": "0.1.0" },
+    "authorities": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "$ref": "#/$defs/authority" }
+    },
+    "proofPolicies": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": { "$ref": "#/$defs/proofPolicy" }
+    },
+    "separation": {
+      "type": "object",
+      "required": [
+        "independentProofKinds",
+        "distinctProducerIds",
+        "distinctTrustDomains",
+        "distinctAttestationKeyIds"
+      ],
+      "properties": {
+        "independentProofKinds": {
+          "type": "array",
+          "prefixItems": [
+            { "const": "data_owner_authorization" },
+            { "const": "redaction_verification" },
+            { "const": "production_path_isolation" }
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "distinctProducerIds": { "const": true },
+        "distinctTrustDomains": { "const": true },
+        "distinctAttestationKeyIds": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "digest": { "$ref": "#/$defs/digest" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "component": {
+      "type": "object",
+      "required": ["id", "version", "digest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "const": "0.1.0" },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "producer": {
+      "type": "object",
+      "required": ["id", "role", "trustDomain"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "role": { "$ref": "#/$defs/id" },
+        "trustDomain": { "enum": ["runner", "grader", "case_qa", "governance", "external"] }
+      },
+      "additionalProperties": false
+    },
+    "publicKey": {
+      "type": "object",
+      "required": ["format", "contentBase64", "digest"],
+      "properties": {
+        "format": { "const": "spki_der_base64" },
+        "contentBase64": {
+          "type": "string",
+          "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
+        },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "authority": {
+      "type": "object",
+      "required": ["authorityId", "producer", "attestation"],
+      "properties": {
+        "authorityId": { "$ref": "#/$defs/id" },
+        "producer": { "$ref": "#/$defs/producer" },
+        "attestation": {
+          "type": "object",
+          "required": ["profileId", "algorithm", "keyId", "publicKey"],
+          "properties": {
+            "profileId": { "$ref": "#/$defs/id" },
+            "algorithm": { "const": "Ed25519" },
+            "keyId": { "$ref": "#/$defs/id" },
+            "publicKey": { "$ref": "#/$defs/publicKey" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "proofPolicy": {
+      "type": "object",
+      "required": [
+        "proofKind",
+        "authorityId",
+        "creationPhase",
+        "evidenceSchemaId",
+        "verifier"
+      ],
+      "properties": {
+        "proofKind": {
+          "enum": [
+            "production_input_provenance",
+            "data_owner_authorization",
+            "redaction_verification",
+            "reidentification_assessment",
+            "production_path_isolation"
+          ]
+        },
+        "authorityId": { "$ref": "#/$defs/id" },
+        "creationPhase": {
+          "enum": ["case_qa", "pre_run"]
+        },
+        "evidenceSchemaId": { "$ref": "#/$defs/id" },
+        "verifier": { "$ref": "#/$defs/component" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

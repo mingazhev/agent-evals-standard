@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "agent-eval-signature-profile-1",
+  "id": "fixture-signature-profile",
+  "version": "0.1.0",
+  "allowedAlgorithms": [
+    "Ed25519",
+    "ES256",
+    "PS256"
+  ],
+  "algorithmConformanceVectors": {
+    "id": "fixture-signature-vectors-v1",
+    "uri": "signature-conformance-vectors.json",
+    "digest": "sha256:0746a47e5d9cbdf09bff66334d2af9cc1cd2aea5d6042aa985818c023d1f712e"
+  },
+  "ed25519Parameters": {
+    "mode": "pure",
+    "encoding": "rfc8032_64_octet_signature",
+    "reference": "RFC 8032"
+  },
+  "es256Parameters": {
+    "curve": "P-256",
+    "hash": "SHA-256",
+    "encoding": "jwa_raw_r_then_s_64_octets",
+    "signerS": "low_s_only",
+    "verifierHighS": "reject",
+    "reference": "RFC 7518 section 3.4 plus this profile's low-S restriction"
+  },
+  "ps256Parameters": {
+    "scheme": "RSASSA-PSS",
+    "hash": "SHA-256",
+    "maskGenerationFunction": "MGF1",
+    "mgfHash": "SHA-256",
+    "saltLengthBytes": 32,
+    "minimumModulusBits": 2048,
+    "reference": "RFC 7518 section 3.5 and RFC 8017"
+  },
+  "trustAnchors": [
+    {
+      "id": "rfc8032-test-key-1",
+      "uri": "../../conformance/fixtures/keys/rfc8032-test-key-1.pem",
+      "digest": "sha256:7f2d9ed0b71b8e5a6c5cf30e647d6e20b5bca6dac8071f11abe3fef8014db610"
+    }
+  ],
+  "keyResolutionContract": {
+    "id": "fixture-signature-trust-contract",
+    "uri": "signature-trust-contract.json",
+    "digest": "sha256:a2c72ddc9ef55199505552f76c84fabecc82fb5cc576fc733865615435eef614"
+  },
+  "revocationContract": {
+    "id": "fixture-signature-trust-contract",
+    "uri": "signature-trust-contract.json",
+    "digest": "sha256:a2c72ddc9ef55199505552f76c84fabecc82fb5cc576fc733865615435eef614"
+  },
+  "timeValidationContract": {
+    "id": "fixture-signature-trust-contract",
+    "uri": "signature-trust-contract.json",
+    "digest": "sha256:a2c72ddc9ef55199505552f76c84fabecc82fb5cc576fc733865615435eef614"
+  },
+  "antiRollbackPolicy": {
+    "id": "fixture-anti-rollback-policy",
+    "uri": "anti-rollback-policy.json",
+    "digest": "sha256:1281c657b991e1f95364da74472ba582aea6199f2c19aba793c5d034d18f890d"
+  },
+  "digest": "sha256:d3d2fd1c85f32d1881ad55160b31737f5fa53d9453ce42c9064812a4b1ecb872"
+}

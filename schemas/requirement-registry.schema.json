@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:requirement-registry:1",
+  "title": "Closed normative requirement registry",
+  "type": "object",
+  "required": ["schemaVersion", "standardVersion", "requirements", "digest"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-requirement-registry-1" },
+    "standardVersion": { "const": "0.1.0" },
+    "requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "subject", "normativeReference", "targets", "verificationKind", "verificationOwner", "accountableReviewer", "verificationContract", "evidenceBasis", "applicability"],
+        "properties": {
+          "id": { "$ref": "#/$defs/id" },
+          "subject": { "type": "string", "minLength": 1 },
+          "normativeReference": { "type": "string", "minLength": 1 },
+          "targets": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "enum": ["suite", "case", "evaluator", "experiment", "decision"] },
+            "uniqueItems": true
+          },
+          "verificationKind": { "enum": ["schema", "semantic", "manual_governance"] },
+          "verificationOwner": { "$ref": "#/$defs/id" }, "accountableReviewer": { "$ref": "#/$defs/id" },
+          "verificationContract": { "$ref": "#/$defs/verificationContract" },
+          "evidenceBasis": {
+            "oneOf": [
+              {
+                "type": "object",
+                "required": ["kind", "sourceIds"],
+                "properties": {
+                  "kind": { "const": "source_evidence" },
+                  "sourceIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "required": ["kind", "threatRationale"],
+                "properties": {
+                  "kind": { "const": "design_invariant" },
+                  "threatRationale": { "type": "string", "minLength": 1 }
+                },
+                "additionalProperties": false
+              }
+            ]
+          },
+          "applicability": { "type": "object", "required": ["rule", "unknownEffect"], "properties": { "rule": { "type": "string", "minLength": 1 }, "unknownEffect": { "enum": ["fail", "insufficient_evidence", "manual_review_required"] } }, "additionalProperties": false }
+        },
+        "allOf": [
+          {
+            "if": { "type": "object", "properties": { "verificationKind": { "const": "schema" } }, "required": ["verificationKind"] },
+            "then": { "type": "object", "properties": { "verificationContract": { "type": "object", "properties": { "permittedMethods": { "const": ["automated_replay"] } } } } }
+          },
+          {
+            "if": { "type": "object", "properties": { "verificationKind": { "const": "semantic" } }, "required": ["verificationKind"] },
+            "then": { "type": "object", "properties": { "verificationContract": { "type": "object", "properties": { "permittedMethods": { "const": ["automated_replay"] } } } } }
+          },
+          {
+            "if": { "type": "object", "properties": { "verificationKind": { "const": "manual_governance" } }, "required": ["verificationKind"] },
+            "then": { "type": "object", "properties": { "verificationContract": { "type": "object", "properties": { "permittedMethods": { "const": ["accountable_review"] } } } } }
+          }
+        ],
+        "additionalProperties": false
+      }
+    },
+    "digest": { "$ref": "#/$defs/digest" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "verificationContract": {
+      "type": "object",
+      "required": ["criterionId", "strength", "normativeReference", "question", "permittedMethods"],
+      "properties": {
+        "criterionId": { "$ref": "#/$defs/id" },
+        "strength": { "const": "complete_primary_definition" },
+        "normativeReference": { "type": "string", "minLength": 1 },
+        "question": { "type": "string", "minLength": 1 },
+        "permittedMethods": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "enum": ["automated_replay", "accountable_review"] },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

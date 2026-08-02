@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "agent-eval-evaluation-control-authority-evidence-1",
+  "id": "held-out-budget-authorization-v1",
+  "version": "0.1.0",
+  "evidenceKind": "held_out_budget_authorization",
+  "subject": {
+    "schemaId": "urn:agent-evals-standard:schema:held-out-exposure-budget:1",
+    "id": "held-out-exposure-budget-v1",
+    "version": "0.1.0",
+    "projection": "full_document_without_authorization_evidence",
+    "digest": "sha256:f13d4a98c88cd080b4ff43663d24a3f92beb3b89b310d46f875d7cd34bb4b662"
+  },
+  "decision": "authorized",
+  "actor": {
+    "id": "fixture-held-out-budget-authority",
+    "role": "held_out_budget_authority",
+    "trustDomain": "evaluation_governance"
+  },
+  "issuedAt": "2026-08-01T00:05:00Z",
+  "authorityPolicy": {
+    "id": "fixture-evaluation-control-authority-policy",
+    "version": "0.1.0",
+    "digest": "sha256:b29e42e61605ba520a84839a71402698d8656d0f0fc29fb98fca210d4198b9e6"
+  },
+  "digest": "sha256:c24b4f313830327e93c3326ee413c9ecfaf0ea710026fe4da013bb315f7efd3a",
+  "signature": {
+    "profileId": "fixture-held-out-budget-profile",
+    "algorithm": "Ed25519",
+    "keyId": "fixture-held-out-budget-key",
+    "signedAt": "2026-08-01T00:05:00Z",
+    "value": "vP5iJA9f97wxnUO59Cx6DzzMIf96gHYKXICvuV09xYN9a6n5wF7kksqQsRbIHYR3PxuFk7filzhunZlK4DR7AA"
+  }
+}

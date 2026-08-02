@@ -1,0 +1,27 @@
+{
+  "capabilityFamilyId": "CAP.IMPLEMENT_CHANGE",
+  "evaluatedConstructIds": [
+    "construct.escaped-defect.repair"
+  ],
+  "materialSubjects": [
+    {
+      "subjectType": "outcome_profile",
+      "subjectId": "architecture-outcome-defect-repair-v1"
+    },
+    {
+      "subjectType": "claim",
+      "subjectId": "claim.defect_repair"
+    }
+  ],
+  "materialWorkArtifactTypes": [
+    "code_change"
+  ],
+  "rationale": "Only the corrective repository patch is evaluated; no incident-learning result is claim-bearing.",
+  "classificationVerifier": {
+    "id": "architecture-capability-classifier",
+    "version": "0.1.0",
+    "digest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c",
+    "schemaId": "agent-eval-case-classification-validity-argument-1",
+    "verifierDigest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c"
+  }
+}

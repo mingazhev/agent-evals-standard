@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:evaluation-control-authority-policy:1",
+  "title": "Externally rooted authority policy for evaluation-control contracts",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "version",
+    "issuer",
+    "validFrom",
+    "validUntil",
+    "claimantIdentities",
+    "authorizations",
+    "components",
+    "ledgerLog",
+    "digest",
+    "signature"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-evaluation-control-authority-policy-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "const": "0.1.0" },
+    "issuer": { "$ref": "#/$defs/actor" },
+    "validFrom": { "$ref": "#/$defs/dateTime" },
+    "validUntil": { "$ref": "#/$defs/dateTime" },
+    "claimantIdentities": {
+      "$comment": "actorIds, trustDomains, and keyIds are exact lexicographically sorted unique projections of keys. Semantic validation rejects any authorization sharing a claimant actor ID, role, trust domain, signature profile, key ID, or public-key digest.",
+      "type": "object",
+      "required": ["actorIds", "trustDomains", "keyIds", "keys"],
+      "properties": {
+        "actorIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "trustDomains": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "keyIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "keys": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/keyIdentity" }, "uniqueItems": true }
+      },
+      "additionalProperties": false
+    },
+    "authorizations": {
+      "type": "array",
+      "minItems": 3,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/authorization" },
+      "allOf": [
+        { "contains": { "type": "object", "properties": { "purpose": { "const": "validity_review" } }, "required": ["purpose"] }, "minContains": 1 },
+        { "contains": { "type": "object", "properties": { "purpose": { "const": "held_out_budget_authorization" } }, "required": ["purpose"] }, "minContains": 1 },
+        { "contains": { "type": "object", "properties": { "purpose": { "const": "held_out_ledger_checkpoint" } }, "required": ["purpose"] }, "minContains": 1 }
+      ]
+    },
+    "components": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "$ref": "#/$defs/component" },
+      "allOf": [
+        { "contains": { "type": "object", "properties": { "componentKind": { "const": "verifier" } }, "required": ["componentKind"] }, "minContains": 1 },
+        { "contains": { "type": "object", "properties": { "componentKind": { "const": "resolution_contract" } }, "required": ["componentKind"] }, "minContains": 1 }
+      ]
+    },
+    "ledgerLog": {
+      "type": "object",
+      "required": ["logId", "checkpointRule", "rollbackEffect"],
+      "properties": {
+        "logId": { "$ref": "#/$defs/id" },
+        "checkpointRule": { "const": "externally_observed_monotonic_signed_head" },
+        "rollbackEffect": { "const": "insufficient_evidence" }
+      },
+      "additionalProperties": false
+    },
+    "digest": { "$ref": "#/$defs/digest" },
+    "signature": { "$ref": "#/$defs/signature" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "dateTime": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "actor": {
+      "type": "object",
+      "required": ["id", "role", "trustDomain"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "role": { "$ref": "#/$defs/id" },
+        "trustDomain": { "$ref": "#/$defs/id" }
+      },
+      "additionalProperties": false
+    },
+    "publicKey": {
+      "type": "object",
+      "required": ["format", "contentBase64", "digest"],
+      "properties": {
+        "format": { "const": "spki_der_base64" },
+        "contentBase64": { "type": "string", "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$" },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "authorization": {
+      "type": "object",
+      "required": ["purpose", "actor", "profileId", "algorithm", "keyId", "publicKey"],
+      "properties": {
+        "purpose": { "enum": ["validity_review", "held_out_budget_authorization", "held_out_ledger_checkpoint"] },
+        "actor": { "$ref": "#/$defs/actor" },
+        "profileId": { "$ref": "#/$defs/id" },
+        "algorithm": { "const": "Ed25519" },
+        "keyId": { "$ref": "#/$defs/id" },
+        "publicKey": { "$ref": "#/$defs/publicKey" }
+      },
+      "additionalProperties": false
+    },
+    "keyIdentity": {
+      "type": "object",
+      "required": ["actor", "profileId", "algorithm", "keyId", "publicKey"],
+      "properties": {
+        "actor": { "$ref": "#/$defs/actor" },
+        "profileId": { "$ref": "#/$defs/id" },
+        "algorithm": { "const": "Ed25519" },
+        "keyId": { "$ref": "#/$defs/id" },
+        "publicKey": { "$ref": "#/$defs/publicKey" }
+      },
+      "additionalProperties": false
+    },
+    "component": {
+      "type": "object",
+      "required": ["componentKind", "id", "version", "digest", "mediaType"],
+      "properties": {
+        "componentKind": { "enum": ["verifier", "resolution_contract"] },
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "const": "0.1.0" },
+        "digest": { "$ref": "#/$defs/digest" },
+        "mediaType": { "type": "string", "minLength": 1 },
+        "entrypoint": { "type": "string", "minLength": 1 },
+        "schemaId": { "$ref": "#/$defs/id" }
+      },
+      "allOf": [
+        {
+          "if": { "type": "object", "properties": { "componentKind": { "const": "verifier" } }, "required": ["componentKind"] },
+          "then": {
+            "type": "object",
+            "properties": { "entrypoint": { "type": "string", "minLength": 1 } },
+            "required": ["entrypoint"],
+            "not": { "type": "object", "properties": { "schemaId": {} }, "required": ["schemaId"] }
+          }
+        },
+        {
+          "if": { "type": "object", "properties": { "componentKind": { "const": "resolution_contract" } }, "required": ["componentKind"] },
+          "then": {
+            "type": "object",
+            "properties": { "schemaId": { "$ref": "#/$defs/id" } },
+            "required": ["schemaId"],
+            "not": { "type": "object", "properties": { "entrypoint": {} }, "required": ["entrypoint"] }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "signature": {
+      "type": "object",
+      "required": ["profileId", "algorithm", "keyId", "signedAt", "value"],
+      "properties": {
+        "profileId": { "$ref": "#/$defs/id" },
+        "algorithm": { "const": "Ed25519" },
+        "keyId": { "$ref": "#/$defs/id" },
+        "signedAt": { "$ref": "#/$defs/dateTime" },
+        "value": { "type": "string", "minLength": 86, "maxLength": 86, "pattern": "^[A-Za-z0-9_-]+$" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

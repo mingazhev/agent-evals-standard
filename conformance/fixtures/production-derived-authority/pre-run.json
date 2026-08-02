@@ -1,0 +1,293 @@
+{
+  "schemaVersion": "agent-eval-pre-run-manifest-1",
+  "id": "production-derived-authority-pre-run-fixture",
+  "version": "0.1.0",
+  "sealedAt": "2026-08-01T01:00:06Z",
+  "suite": {
+    "id": "suite-fixture-typed-1",
+    "version": "0.1.0",
+    "uri": "artifact:sha256:f68fbcb50a4fe4edabc56c0a62c8e35b2c5c73120b4f19c1262655679e66a5f2",
+    "digest": "sha256:f68fbcb50a4fe4edabc56c0a62c8e35b2c5c73120b4f19c1262655679e66a5f2",
+    "byteLength": 12623,
+    "mediaType": "application/json",
+    "locator": {
+      "kind": "repository_relative",
+      "base": "binding_document",
+      "path": "../machine-contracts-v1/positive/stage-suite-manifest.json"
+    },
+    "selfDigest": "sha256:f28be9adbd309cc876dd75cd92e3ae96b7e74eab7c9f92dfe93f5ca0e21e472a"
+  },
+  "evaluator": {
+    "id": "production-derived-authority-evaluator",
+    "uri": "artifact:fixture:production-derived-authority-evaluator",
+    "digest": "sha256:25ad88cad4eab40a8e8897df6b97c8ddea969f49a35a7560ec29c16613eb72f6",
+    "version": "0.1.0"
+  },
+  "signatureProfile": {
+    "id": "fixture-independent-scheduler-profile",
+    "uri": "artifact:fixture:fixture-independent-scheduler-profile",
+    "digest": "sha256:6d59050c10e488127948d18780b307bec165bfcc1f7d0fdea33f18383704b93c",
+    "version": "0.1.0"
+  },
+  "claimTrustProfile": {
+    "id": "production-derived-fixture-claim-trust-profile",
+    "uri": "artifact:fixture:production-derived-fixture-claim-trust-profile",
+    "digest": "sha256:06af60cd3d2b94b5a52a3e489408c0b8a89e0df99ed97588e0d0843398dc4acc",
+    "version": "0.1.0"
+  },
+  "claimTrustUse": "conformance_fixture_requires_external_rekey",
+  "assuranceLevel": "A0",
+  "runMode": "diagnostic_run",
+  "claimEligibility": "none",
+  "riskAssessment": {
+    "id": "production-derived-authority-risk-fixture",
+    "version": "0.1.0",
+    "uri": "risk-assessment.json",
+    "digest": "sha256:b3a32a8bf7753c4f7e6bf183aa8d7c5386fb926731514d83b2bd99c75b96bb7d"
+  },
+  "effectiveRiskTier": "medium",
+  "caseProfiles": [
+    {
+      "caseId": "case-fixture-typed-1",
+      "bindingUse": "diagnostic_only",
+      "evaluationProfile": {
+        "id": "repo-change-v1",
+        "version": "0.1.0",
+        "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210"
+      },
+      "effectiveProfileDigest": "sha256:6ec98f997cbaa51d30eeb1bdc6a3bb91e76cc2ec505fdd155850d115b0146869",
+      "outcomeProfile": {
+        "id": "workspace-change-v1",
+        "version": "0.1.0",
+        "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
+      }
+    },
+    {
+      "caseId": "case-fixture-typed-2",
+      "bindingUse": "diagnostic_only",
+      "evaluationProfile": {
+        "id": "repo-change-v1",
+        "version": "0.1.0",
+        "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210"
+      },
+      "effectiveProfileDigest": "sha256:6ec98f997cbaa51d30eeb1bdc6a3bb91e76cc2ec505fdd155850d115b0146869",
+      "outcomeProfile": {
+        "id": "workspace-change-v1",
+        "version": "0.1.0",
+        "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
+      }
+    }
+  ],
+  "caseSet": [
+    {
+      "id": "case-fixture-typed-1",
+      "version": "0.1.0",
+      "uri": "artifact:sha256:7569fd47faa793da31cf51f14fa475081a730c4d062b278fb1091c74ccac140c",
+      "digest": "sha256:7569fd47faa793da31cf51f14fa475081a730c4d062b278fb1091c74ccac140c",
+      "byteLength": 22260,
+      "mediaType": "application/json",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "../machine-contracts-v1/positive/stage-case.json"
+      },
+      "selfDigest": "sha256:984232f87b84094e91b4cc6202014844e67710090d56db74f73f6b00a4be0280"
+    },
+    {
+      "id": "case-fixture-typed-2",
+      "version": "0.1.0",
+      "uri": "artifact:sha256:3baa017f2bcc41219b4919eaa1f6f34ba8720349103cab97e395402d7000be5d",
+      "digest": "sha256:3baa017f2bcc41219b4919eaa1f6f34ba8720349103cab97e395402d7000be5d",
+      "byteLength": 22260,
+      "mediaType": "application/json",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "../machine-contracts-v1/positive/stage-case-2.json"
+      },
+      "selfDigest": "sha256:82a49afd9af311d8874a48a56f5079b1877784ed4c204d0df9c13cedb0d52415"
+    }
+  ],
+  "arms": [
+    {
+      "id": "production-derived-fixture-arm",
+      "label": "Production-derived authority fixture arm",
+      "treatmentRole": "single",
+      "model": {
+        "id": "fixture-model",
+        "version": "0.1.0",
+        "digest": "sha256:9abe9bd1cb7a22e62debd76066ed5defe3c95a4d04718d240495d126d69dba24"
+      },
+      "agentConfiguration": {
+        "id": "fixture-agent-configuration",
+        "version": "0.1.0",
+        "digest": "sha256:9e30f32b57deff2fde33f9e32d0ee3b05b2f5004ac17bbbf3db01c76bff21a76"
+      },
+      "prompts": {
+        "id": "fixture-prompts",
+        "version": "0.1.0",
+        "digest": "sha256:48ea6cb316034a161778ef6952e6a48ad84814c53342dddf1bdb36fe7c338a36"
+      },
+      "policies": {
+        "id": "fixture-policies",
+        "version": "0.1.0",
+        "digest": "sha256:821fa02447da09914e873a1d5b36517901de66af7f94093a3094bf0ee9430a7b"
+      },
+      "harness": {
+        "id": "fixture-harness",
+        "version": "0.1.0",
+        "digest": "sha256:2511bc18e87d84744d28c82f6b6cb798d52065ca7b72cc9e84c01f9cd09e5626"
+      },
+      "adapter": {
+        "id": "fixture-adapter",
+        "version": "0.1.0",
+        "digest": "sha256:2b640b83351d94d4e13a807bbe7f7926a67619a92e7ea34f8a216fa4200dd307"
+      },
+      "tools": {
+        "id": "fixture-tools",
+        "version": "0.1.0",
+        "digest": "sha256:7a7ef0ae7146391d3618661d4045062acbd36f239af543e4f4ccd362562b8dba"
+      },
+      "permissions": {
+        "id": "fixture-permissions",
+        "version": "0.1.0",
+        "digest": "sha256:4faaaea58965dbbd0aad28b7026d208f167e2ebdf09c76b9a757376aa65f635d"
+      },
+      "budgets": {
+        "id": "fixture-budgets",
+        "version": "0.1.0",
+        "digest": "sha256:0c1932a5f73148bd93505c6d6a7c56bb9e9faa108cdaa78572ecd055a3ec6756"
+      },
+      "retrieval": {
+        "id": "fixture-retrieval",
+        "version": "0.1.0",
+        "digest": "sha256:881ac6e7b430d1541d922305c97b659172b7f0c905738c40075137912789e698"
+      },
+      "memory": {
+        "id": "fixture-memory",
+        "version": "0.1.0",
+        "digest": "sha256:9da1d61611269b9d6115942f3dde42d67d20a56852c5612f389ed0346ce54bc5"
+      },
+      "agentVisibleProjection": {
+        "id": "fixture-agent-visible-projection",
+        "version": "0.1.0",
+        "digest": "sha256:0bc3c7926f89901a9ef7a4d76063d04066f35e09ba97fd81dfa178b6568e30a8"
+      },
+      "environment": {
+        "id": "environment-contract-production-derived-authority-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:99a01a658c5519f30e079655f94863cf8d735f003a69b8f216f22d46ef811980"
+      },
+      "externalServices": {
+        "id": "fixture-external-services",
+        "version": "0.1.0",
+        "digest": "sha256:3566be1e64ffec40e97e62d4fa1fbe39b3dc8e15d7542263cb3093de129e22da"
+      },
+      "graderSet": {
+        "id": "fixture-grader-set",
+        "version": "0.1.0",
+        "digest": "sha256:324ddfc6d613fbd866a5263e0fb18097ec85cff42fc4b959003cd4156694d019"
+      },
+      "identityDigest": "sha256:d6ca161cf061f9e31d8ee6255d32f109d5895571efe083f44c4bc123020c5ac0"
+    }
+  ],
+  "comparativeDesign": null,
+  "scheduledCells": [
+    {
+      "cellId": "production-derived-fixture-cell",
+      "caseId": "case-fixture-typed-1",
+      "armId": "production-derived-fixture-arm",
+      "repetition": 1,
+      "blockId": "production-derived-fixture-block-1",
+      "seed": "production-derived-fixture-seed-1"
+    }
+  ],
+  "budgets": {
+    "id": "production-derived-fixture-run-budgets",
+    "uri": "artifact:fixture:production-derived-fixture-run-budgets",
+    "digest": "sha256:12843c06c0a674747f050faf12ec52cf14d8b857d097057b869652c481f92967"
+  },
+  "retryPolicy": {
+    "id": "production-derived-fixture-retry-policy",
+    "uri": "artifact:fixture:production-derived-fixture-retry-policy",
+    "digest": "sha256:855d25f211b556120b09479d92a1c245aae554b36b51ff451fb196d5097aeb79"
+  },
+  "stopPolicy": {
+    "id": "production-derived-fixture-stop-policy",
+    "uri": "artifact:fixture:production-derived-fixture-stop-policy",
+    "digest": "sha256:16a983e4ae954499e375dc272aa31bdff6f1bfc900da84060a3dba7e1636e081"
+  },
+  "gateRegistry": {
+    "id": "production-derived-fixture-gate-registry",
+    "uri": "artifact:fixture:production-derived-fixture-gate-registry",
+    "digest": "sha256:97c9155ba745bc2b646d849455b63333251777845fc6e9670e74612d78853aba"
+  },
+  "governanceRegistry": {
+    "id": "production-derived-fixture-governance-registry",
+    "uri": "artifact:fixture:production-derived-fixture-governance-registry",
+    "digest": "sha256:6a2afd0a35571aafe6f3284958c4592763a1e0d769d9bbf155bee9c3670d0c32"
+  },
+  "statisticalPlan": {
+    "id": "production-derived-fixture-statistical-plan",
+    "uri": "artifact:fixture:production-derived-fixture-statistical-plan",
+    "digest": "sha256:fd404700daa6ac931ee433bc415dc5a751894ae4cab659f32e5af1ce848ea103"
+  },
+  "decisionPlan": null,
+  "extensions": [],
+  "evaluationControlBindings": {
+    "contractType": "evaluation_control_bindings",
+    "id": "evaluation-control-bindings-v1",
+    "version": "0.1.0",
+    "schemaId": "urn:agent-evals-standard:schema:evaluation-control-bindings:1",
+    "uri": "artifact:sha256:8017735c324fa8f753320b5416b960e1613ebe1efac07fbb6458d276fe4ccab8",
+    "digest": "sha256:8017735c324fa8f753320b5416b960e1613ebe1efac07fbb6458d276fe4ccab8",
+    "byteLength": 15101,
+    "mediaType": "application/json",
+    "locator": {
+      "kind": "repository_relative",
+      "base": "binding_document",
+      "path": "evaluation-control-bindings.json"
+    },
+    "verifier": {
+      "id": "machine-contract-focused-verifier",
+      "version": "0.1.0",
+      "uri": "artifact:sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+      "digest": "sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+      "byteLength": 77743,
+      "mediaType": "text/javascript",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "../../../tools/verify-machine-contract-bindings.mjs"
+      },
+      "entrypoint": "verify-machine-contract-bindings-v1"
+    },
+    "resolutionContract": {
+      "id": "machine-contract-resolution-v1",
+      "version": "0.1.0",
+      "uri": "artifact:sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+      "digest": "sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+      "byteLength": 389,
+      "mediaType": "application/json",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "../machine-contracts-v1/positive/resolution-contract.json"
+      },
+      "schemaId": "agent-eval-machine-contract-resolution-1"
+    },
+    "componentAuthority": {
+      "policyId": "fixture-evaluation-control-authority-policy",
+      "policyVersion": "0.1.0",
+      "policyDigest": "sha256:b29e42e61605ba520a84839a71402698d8656d0f0fc29fb98fca210d4198b9e6"
+    }
+  },
+  "digest": "sha256:a41c30c47138823492c3684a85583e29f6910c2fb721cf9b77b511ef5ba9c0fb",
+  "signature": {
+    "profileId": "fixture-independent-scheduler-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-2-scheduler",
+    "signedAt": "2026-08-01T01:00:06Z",
+    "value": "7FxUKXeIwcbtr25GTt-V-4seyrdFsgRiUDnWR_wQtKxA6b1Ps6Iu_SBB39mNPLU9SQyw8JLWF3Pv36S0GOI2AA"
+  }
+}

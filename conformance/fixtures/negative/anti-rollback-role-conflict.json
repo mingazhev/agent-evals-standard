@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "agent-eval-anti-rollback-policy-1",
+  "id": "fixture-anti-rollback-policy-role-conflict",
+  "version": "0.1.0",
+  "applicability": {
+    "assuranceLevels": [
+      "A2"
+    ],
+    "effectiveRiskTiers": [
+      "low"
+    ],
+    "threatAssessment": {
+      "id": "fixture-signature-trust-contract",
+      "uri": "../../../profiles/repo-change-v1/signature-trust-contract.json",
+      "digest": "sha256:a2c72ddc9ef55199505552f76c84fabecc82fb5cc576fc733865615435eef614"
+    }
+  },
+  "objective": "detect_rollback_and_equivocation_before_governance_acceptance",
+  "mechanism": {
+    "type": "independent_notary",
+    "serviceIdentity": {
+      "id": "fixture-signature-trust-contract",
+      "uri": "../../../profiles/repo-change-v1/signature-trust-contract.json",
+      "digest": "sha256:a2c72ddc9ef55199505552f76c84fabecc82fb5cc576fc733865615435eef614"
+    },
+    "trustAssumptions": {
+      "trustDomain": "fixture independent notary",
+      "operatorIndependentOf": [
+        "run_workspace",
+        "ledger_writer",
+        "evidence_signer",
+        "decision_approver",
+        "subject_owner"
+      ],
+      "compromiseAssumptions": "The fixture deliberately omits evaluator independence.",
+      "verifierIndependence": "Verifier is otherwise independently operated."
+    },
+    "receiptSchema": {
+      "id": "fixture-signature-trust-contract",
+      "uri": "../../../profiles/repo-change-v1/signature-trust-contract.json",
+      "digest": "sha256:a2c72ddc9ef55199505552f76c84fabecc82fb5cc576fc733865615435eef614"
+    },
+    "boundReceiptFields": [
+      "ledgerId",
+      "sequence",
+      "root",
+      "previousReceiptDigest",
+      "observedAt",
+      "serviceIdentity",
+      "signature"
+    ],
+    "continuityEvidence": "signed_monotonic_receipt_chain",
+    "witnessPolicy": {
+      "mode": "independent_witness",
+      "minimumIndependentWitnesses": 1,
+      "witnessRegistry": {
+        "id": "fixture-signature-trust-contract",
+        "uri": "../../../profiles/repo-change-v1/signature-trust-contract.json",
+        "digest": "sha256:a2c72ddc9ef55199505552f76c84fabecc82fb5cc576fc733865615435eef614"
+      },
+      "splitViewDisposition": "measurement_boundary_compromise"
+    }
+  },
+  "failureSemantics": {
+    "rollback": "insufficient_evidence_and_measurement_boundary_compromise",
+    "equivocation": "insufficient_evidence_and_measurement_boundary_compromise",
+    "staleEvidence": "insufficient_evidence",
+    "unavailableEvidence": "stop_governance_use"
+  },
+  "digest": "sha256:2f2df4d4555f03c08b448d27c844218e36361fc0393a513d508d3ae6d10ca715",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:00Z",
+    "value": "EKKr4k_VukUOsrAl9vhKE-sWnfWsMLpyh222KiHOM8n2OXscSFMJyU_GgrAeK-gbmwT2q8HuxDJuF6Y1wZgUAQ"
+  },
+  "freshnessLimitSeconds": 300
+}

@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "agent-eval-scorecard-decision-rule-1",
+  "id": "functional-success-decision-rule",
+  "version": "0.1.0",
+  "operator": "gte",
+  "input": "estimate",
+  "inclusive": true,
+  "missingInputResult": "insufficient_evidence",
+  "digest": "sha256:f6f7539ee734c7167dbc5d922a3abd69e548a5a1465bd74a0f515021aefba070"
+}

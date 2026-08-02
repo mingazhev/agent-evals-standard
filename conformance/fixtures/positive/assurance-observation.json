@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "agent-eval-assurance-observation-1",
+  "observationId": "assurance-observation-fixture-1",
+  "assurancePlanHash": "sha256:b60b02da5222e32262ab4987e0cd011b01119eea2f31da7b6020920315637309",
+  "decisionId": "governance-decision-fixture-1",
+  "scope": "fixture-repository",
+  "window": {
+    "startedAt": "2026-08-01T02:00:00Z",
+    "endedAt": "2026-08-01T03:00:00Z"
+  },
+  "signalId": "escaped-critical-defect-rate",
+  "signalContract": "production-signal-contract-fixture",
+  "calculationContract": "production-signal-calculation-fixture",
+  "targetPopulation": "approved enterprise SDLC repository changes",
+  "samplingFrame": "authenticated production change ledger",
+  "missingnessPolicy": "fail_closed",
+  "unit": "defects_per_change",
+  "direction": "lower_is_better",
+  "sample": {
+    "method": "complete authenticated window",
+    "size": 25,
+    "evidence": "production-sample-evidence"
+  },
+  "estimate": 0,
+  "uncertainty": {
+    "method": "exact-binomial",
+    "confidenceLevel": 0.95,
+    "lower": 0,
+    "upper": 0.137
+  },
+  "threshold": {
+    "rule": "less_than_or_equal",
+    "value": 0.15,
+    "contract": "production-threshold-contract-fixture"
+  },
+  "verdict": "pass",
+  "producer": {
+    "id": "fixture-monitor",
+    "role": "assurance_producer"
+  },
+  "reviewer": {
+    "id": "fixture-assurance-reviewer",
+    "role": "independent_reviewer"
+  },
+  "evidence": [
+    "production-sample-evidence"
+  ],
+  "observedAt": "2026-08-01T03:00:01Z",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T03:00:02Z",
+    "value": "RJz7rCQAlznG-DZXs5m4tlNO2AmExmm8A1PuJzR69SgiC8eN-Toeu-mkShM1OZvt0F_1eaaM9qPcw8cEbPceDg"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "agent-eval-anti-rollback-policy-1",
+  "id": "fixture-anti-rollback-policy",
+  "version": "0.1.0",
+  "applicability": {
+    "assuranceLevels": [
+      "A0"
+    ],
+    "effectiveRiskTiers": [
+      "low"
+    ],
+    "threatAssessment": {
+      "id": "fixture-signature-trust-contract",
+      "uri": "signature-trust-contract.json",
+      "digest": "sha256:a2c72ddc9ef55199505552f76c84fabecc82fb5cc576fc733865615435eef614"
+    }
+  },
+  "objective": "detect_rollback_and_equivocation_before_governance_acceptance",
+  "mechanism": {
+    "type": "not_required",
+    "justification": "This A0/low-risk corpus verifies conformance mechanics, is prohibited from operational governance use, and therefore accepts the absence of an external anti-rollback service only for this exact fixture scope and review interval.",
+    "riskAcceptance": {
+      "id": "fixture-signature-trust-contract",
+      "uri": "signature-trust-contract.json",
+      "digest": "sha256:a2c72ddc9ef55199505552f76c84fabecc82fb5cc576fc733865615435eef614"
+    }
+  },
+  "riskAcceptanceReview": {
+    "reviewedAt": "2026-08-01T00:00:00Z",
+    "expiresAt": "2027-08-01T00:00:00Z",
+    "maximumReviewIntervalSeconds": 31536000,
+    "reopenTriggers": [
+      "assurance_change",
+      "risk_change",
+      "threat_change",
+      "scope_change"
+    ]
+  },
+  "failureSemantics": {
+    "riskAcceptanceExpired": "stop_governance_use",
+    "scopeMismatch": "stop_governance_use"
+  },
+  "digest": "sha256:1281c657b991e1f95364da74472ba582aea6199f2c19aba793c5d034d18f890d",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:00Z",
+    "value": "9dslh2slGG3RvJdlZ4pUALe4M9fzF-6Nw4Jx0e6RtkGVEYum1hCGcRdTA2RMIs7OxEOJleCwPocQm0bvUKyPAQ"
+  }
+}

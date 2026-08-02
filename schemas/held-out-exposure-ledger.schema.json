@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:held-out-exposure-ledger:1",
+  "title": "Held-out exposure append-only ledger snapshot",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "version",
+    "budget",
+    "previousLedger",
+    "sequence",
+    "events",
+    "totals",
+    "remaining",
+    "saturated",
+    "sealedAt",
+    "checkpoint"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "agent-eval-held-out-exposure-ledger-1"
+    },
+    "id": {
+      "$ref": "#/$defs/id"
+    },
+    "version": {
+      "const": "0.1.0"
+    },
+    "budget": {
+      "$ref": "urn:agent-evals-standard:schema:verified-machine-contract:1#/$defs/heldOutExposureBudgetBinding"
+    },
+    "previousLedger": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "urn:agent-evals-standard:schema:verified-machine-contract:1#/$defs/heldOutExposureLedgerBinding"
+        }
+      ]
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/event"
+      },
+      "uniqueItems": true
+    },
+    "totals": {
+      "$ref": "#/$defs/units"
+    },
+    "remaining": {
+      "$ref": "#/$defs/units"
+    },
+    "saturated": {
+      "type": "boolean"
+    },
+    "sealedAt": {
+      "$ref": "#/$defs/dateTime"
+    },
+    "checkpoint": {
+      "type": "object",
+      "required": ["custodian", "evidence"],
+      "properties": {
+        "custodian": { "$ref": "#/$defs/actor" },
+        "evidence": {
+          "$ref": "urn:agent-evals-standard:schema:verified-machine-contract:1#/$defs/evaluationControlAuthorityEvidenceBinding"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "dateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "actor": {
+      "type": "object",
+      "required": ["id", "role", "trustDomain"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "role": { "$ref": "#/$defs/id" },
+        "trustDomain": { "$ref": "#/$defs/id" }
+      },
+      "additionalProperties": false
+    },
+    "units": {
+      "type": "object",
+      "required": [
+        "agentVisibleCaseExposures",
+        "unblindedOutcomeLooks",
+        "oracleAccesses"
+      ],
+      "properties": {
+        "agentVisibleCaseExposures": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unblindedOutcomeLooks": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "oracleAccesses": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "event": {
+      "type": "object",
+      "required": [
+        "id",
+        "sequence",
+        "occurredAt",
+        "caseId",
+        "actorIdentityDigest",
+        "purpose",
+        "units",
+        "authorizationId",
+        "evidenceDigest"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "occurredAt": {
+          "$ref": "#/$defs/dateTime"
+        },
+        "caseId": {
+          "$ref": "#/$defs/id"
+        },
+        "actorIdentityDigest": {
+          "$ref": "#/$defs/digest"
+        },
+        "purpose": {
+          "enum": [
+            "scheduled_evaluation",
+            "independent_case_qa",
+            "authorized_governance_review"
+          ]
+        },
+        "units": {
+          "$ref": "#/$defs/units"
+        },
+        "authorizationId": {
+          "$ref": "#/$defs/id"
+        },
+        "evidenceDigest": {
+          "$ref": "#/$defs/digest"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

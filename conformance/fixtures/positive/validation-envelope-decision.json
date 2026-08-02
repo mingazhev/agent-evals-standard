@@ -1,0 +1,232 @@
+{
+  "schemaVersion": "agent-eval-validation-envelope-1",
+  "envelopeId": "decision-validation-envelope-fixture-1",
+  "subject": {
+    "type": "governance_decision",
+    "id": "governance-decision-fixture-1",
+    "claimTarget": "decision",
+    "digest": "sha256:61431931db3e3dde315faad7f18d6af5ee0720ebb7db47ca4f235ca26e59581c",
+    "projection": "full_document_without_digest_and_signature"
+  },
+  "validationContractVersion": "0.1.0",
+  "validator": {
+    "id": "fixture-conformance-validator",
+    "version": "0.1.0",
+    "implementationDigest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  },
+  "checks": [
+    {
+      "requirementId": "ARCH-001",
+      "result": "pass",
+      "findingIds": [],
+      "evidenceIds": [
+        "fixture-evidence-1"
+      ]
+    },
+    {
+      "requirementId": "TRACE-001",
+      "result": "pass",
+      "findingIds": [],
+      "evidenceIds": [
+        "fixture-evidence-1"
+      ]
+    },
+    {
+      "requirementId": "I1",
+      "result": "pass",
+      "findingIds": [],
+      "evidenceIds": [
+        "fixture-evidence-1"
+      ]
+    },
+    {
+      "requirementId": "I6",
+      "result": "pass",
+      "findingIds": [],
+      "evidenceIds": [
+        "fixture-evidence-1"
+      ]
+    },
+    {
+      "requirementId": "I10",
+      "result": "pass",
+      "findingIds": [],
+      "evidenceIds": [
+        "fixture-evidence-1"
+      ]
+    },
+    {
+      "requirementId": "DATA-002",
+      "result": "pass",
+      "findingIds": [],
+      "evidenceIds": [
+        "fixture-evidence-1"
+      ]
+    },
+    {
+      "requirementId": "EVID-001",
+      "result": "pass",
+      "findingIds": [],
+      "evidenceIds": [
+        "fixture-evidence-1"
+      ]
+    },
+    {
+      "requirementId": "EVID-002",
+      "result": "pass",
+      "findingIds": [],
+      "evidenceIds": [
+        "fixture-evidence-1"
+      ]
+    },
+    {
+      "requirementId": "CLAIM-001",
+      "result": "pass",
+      "findingIds": [],
+      "evidenceIds": [
+        "fixture-evidence-1"
+      ]
+    },
+    {
+      "requirementId": "CLAIM-002",
+      "result": "pass",
+      "findingIds": [],
+      "evidenceIds": [
+        "fixture-evidence-1"
+      ]
+    },
+    {
+      "requirementId": "ASSURE-001",
+      "result": "pass",
+      "findingIds": [],
+      "evidenceIds": [
+        "fixture-evidence-1"
+      ]
+    },
+    {
+      "requirementId": "RISK-001",
+      "result": "pass",
+      "findingIds": [],
+      "evidenceIds": [
+        "fixture-evidence-1"
+      ]
+    },
+    {
+      "requirementId": "GOV-001",
+      "result": "pass",
+      "findingIds": [],
+      "evidenceIds": [
+        "fixture-evidence-1"
+      ]
+    },
+    {
+      "requirementId": "GOV-002",
+      "result": "pass",
+      "findingIds": [],
+      "evidenceIds": [
+        "fixture-evidence-1"
+      ]
+    },
+    {
+      "requirementId": "HEALTH-001",
+      "result": "pass",
+      "findingIds": [],
+      "evidenceIds": [
+        "fixture-evidence-1"
+      ]
+    },
+    {
+      "requirementId": "CONF-001",
+      "result": "pass",
+      "findingIds": [],
+      "evidenceIds": [
+        "fixture-evidence-1"
+      ]
+    },
+    {
+      "requirementId": "CONF-002",
+      "result": "pass",
+      "findingIds": [],
+      "evidenceIds": [
+        "fixture-evidence-1"
+      ]
+    },
+    {
+      "requirementId": "CONF-003",
+      "result": "pass",
+      "findingIds": [],
+      "evidenceIds": [
+        "fixture-evidence-1"
+      ]
+    }
+  ],
+  "result": "pass",
+  "output": null,
+  "validatedAt": "2026-08-01T00:00:30Z",
+  "evidenceManifest": [
+    {
+      "id": "fixture-evidence-1",
+      "uri": "artifact:sha256:2fe7ca3988e72fc92b982299dfb4cb59f07b210fe4716aeae96c2617573f6307",
+      "mediaType": "application/json",
+      "digest": "sha256:2fe7ca3988e72fc92b982299dfb4cb59f07b210fe4716aeae96c2617573f6307",
+      "byteLength": 133,
+      "producer": {
+        "id": "fixture-runner",
+        "role": "runner",
+        "trustDomain": "runner"
+      },
+      "creationPhase": "grading",
+      "createdAt": "2026-08-01T00:00:00Z",
+      "schemaMetadata": {
+        "schemaId": "fixture-result-1",
+        "schemaVersion": "0.1.0",
+        "validatorDigest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "mediaInterpretation": {
+        "profileId": "json-rfc8259",
+        "profileVersion": "0.1.0",
+        "semanticContract": null
+      },
+      "accessClass": "internal",
+      "accessPolicyBinding": {
+        "id": "fixture-access-policy",
+        "version": "0.1.0",
+        "digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      },
+      "privacyAndIp": {
+        "classification": "none",
+        "restrictions": []
+      },
+      "retention": {
+        "class": "fixture",
+        "expiresAt": "2027-08-01T00:00:00Z",
+        "disposition": "delete",
+        "legalHold": false
+      },
+      "attestation": {
+        "profileId": "fixture-signature-profile",
+        "algorithm": "Ed25519",
+        "keyId": "rfc8032-test-key-1",
+        "signedAt": "2026-08-01T00:00:00Z",
+        "value": "yvpUfx1rS1PNAEHcEta-OYAg5Y6KeZy67hHDeJEg0NW4HNn1MjMHzJSWknsNsupAFLf62k9jFbkElCGMdAP7BQ"
+      },
+      "payload": {
+        "kind": "inline_base64",
+        "contentBase64": "eyJzY2hlbWFWZXJzaW9uIjoiZml4dHVyZS1ldmlkZW5jZS1wYXlsb2FkLTEiLCJpZCI6ImZpeHR1cmUtZXZpZGVuY2UtMS1wYXlsb2FkIiwidmVyc2lvbiI6IjAuMS4wIiwiZXZpZGVuY2VJZCI6ImZpeHR1cmUtZXZpZGVuY2UtMSJ9Cg=="
+      }
+    }
+  ],
+  "signatureProfile": {
+    "id": "fixture-signature-profile",
+    "version": "0.1.0",
+    "uri": "../../../profiles/repo-change-v1/signature-profile.json",
+    "digest": "sha256:d3d2fd1c85f32d1881ad55160b31737f5fa53d9453ce42c9064812a4b1ecb872"
+  },
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:30Z",
+    "value": "vF7qFFD3duztKU2Id24Yzjig3-Hy8EhdLylSWl4h-v9LZ3l4yPePKXF_0y6edma8yRH5drDepPosbwNbHBuuCA"
+  }
+}

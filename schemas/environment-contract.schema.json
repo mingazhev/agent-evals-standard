@@ -1,0 +1,254 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:environment-contract:1",
+  "title": "Evaluation environment contract",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "evaluationMode", "inputOrigin", "productionDerivedInput", "productionActionAllowed", "productionTelemetryPolicy", "runtimes", "dependencyResolution", "network", "filesystem", "process", "resources", "cache", "logging", "teardown", "digest"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-environment-contract-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "type": "string", "minLength": 1 },
+    "evaluationMode": { "enum": ["controlled_fixture", "simulation"] },
+    "inputOrigin": {
+      "$comment": "Closed origin discriminator for the agent-visible evaluation input. production_derived is permitted only with the complete productionDerivedInput proof bundle. Relabeling production-derived input as synthetic or public is a semantic-validation failure.",
+      "enum": ["synthetic", "public", "production_derived"]
+    },
+    "productionDerivedInput": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/productionDerivedInput" }
+      ]
+    },
+    "productionActionAllowed": { "const": false },
+    "productionTelemetryPolicy": {
+      "$comment": "Live production telemetry may support validity or post-decision assurance only and must not populate task input, trial outcome evidence, or a scheduled cell. A sealed, deidentified, policy-approved production-derived snapshot may be transformed into content-addressed controlled fixture input after live connectivity, production actions, and credentials are removed; that fixture input is not live telemetry and must not itself count as trial outcome evidence. Live production telemetry, actions, and credentials remain prohibited as task input.",
+      "type": "object",
+      "required": ["allowedPurposes", "taskInputAllowed", "trialOutcomeEvidenceAllowed", "scheduledCellAllowed"],
+      "properties": {
+        "allowedPurposes": { "type": "array", "items": { "enum": ["validity", "post_decision_assurance"] }, "uniqueItems": true },
+        "taskInputAllowed": { "const": false },
+        "trialOutcomeEvidenceAllowed": { "const": false },
+        "scheduledCellAllowed": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "runtimes": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/component" } },
+    "dependencyResolution": { "$ref": "#/$defs/verifiedContract" },
+    "network": {
+      "type": "object",
+      "required": ["default", "allowlist", "auditEvidenceRequired"],
+      "properties": {
+        "default": { "const": "deny" },
+        "allowlist": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "auditEvidenceRequired": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "filesystem": { "$ref": "#/$defs/isolationBoundary" },
+    "process": { "$ref": "#/$defs/isolationBoundary" },
+    "resources": {
+      "type": "object",
+      "required": ["cpu", "memoryBytes", "diskBytes", "wallClockSeconds"],
+      "properties": {
+        "cpu": { "type": "number", "exclusiveMinimum": 0 },
+        "memoryBytes": { "type": "integer", "minimum": 1 },
+        "diskBytes": { "type": "integer", "minimum": 1 },
+        "wallClockSeconds": { "type": "number", "exclusiveMinimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "cache": {
+      "type": "object",
+      "required": ["resetPerAttempt", "sharedState"],
+      "properties": {
+        "resetPerAttempt": { "const": true },
+        "sharedState": { "enum": ["none", "declared_treatment"] }
+      },
+      "additionalProperties": false
+    },
+    "logging": { "$ref": "#/$defs/verifiedContract" },
+    "teardown": { "$ref": "#/$defs/verifiedContract" },
+    "digest": { "$ref": "#/$defs/digest" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "type": "object",
+        "properties": { "inputOrigin": { "const": "production_derived" } },
+        "required": ["inputOrigin"]
+      },
+      "then": {
+        "type": "object",
+        "properties": { "productionDerivedInput": { "$ref": "#/$defs/productionDerivedInput" } }
+      },
+      "else": {
+        "type": "object",
+        "properties": { "productionDerivedInput": { "type": "null" } }
+      }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "utcDateTime": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "artifactPointer": {
+      "type": "object",
+      "required": ["id", "uri", "digest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "uri": { "type": "string", "pattern": "^artifact:sha256:[a-f0-9]{64}$" },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "contentAddressedSnapshot": {
+      "$comment": "Semantic validation must require the hexadecimal digest in uri to equal digest and must verify the referenced bytes, media type, and byte length.",
+      "type": "object",
+      "required": ["id", "uri", "digest", "mediaType", "byteLength", "createdAt"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "uri": { "type": "string", "pattern": "^artifact:sha256:[a-f0-9]{64}$" },
+        "digest": { "$ref": "#/$defs/digest" },
+        "mediaType": { "type": "string", "minLength": 1 },
+        "byteLength": { "type": "integer", "minimum": 1 },
+        "createdAt": { "$ref": "#/$defs/utcDateTime" }
+      },
+      "additionalProperties": false
+    },
+    "component": {
+      "type": "object",
+      "required": ["id", "version", "digest"],
+      "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } },
+      "additionalProperties": false
+    },
+    "verifiedContract": {
+      "type": "object",
+      "required": ["id", "version", "digest", "schemaId", "verifier"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" },
+        "schemaId": { "$ref": "#/$defs/id" }, "verifier": { "$ref": "#/$defs/component" }
+      },
+      "additionalProperties": false
+    },
+    "isolationBoundary": {
+      "type": "object",
+      "required": ["ephemeral", "agentWritableRoots", "oracleReadable", "controlPlaneAccessible", "contract"],
+      "properties": {
+        "ephemeral": { "const": true },
+        "agentWritableRoots": {
+          "$comment": "This is the complete allowlist of roots writable by the agent. An empty array is valid and means that the boundary grants no filesystem write access; validators and runners must not synthesize a writable default.",
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "oracleReadable": { "const": false },
+        "controlPlaneAccessible": { "const": false },
+        "contract": { "$ref": "#/$defs/verifiedContract" }
+      },
+      "additionalProperties": false
+    },
+    "verifiedEvidence": {
+      "$comment": "The evidence pointer must resolve to exactly one authenticated evidence-artifact-1 record. Semantic validation must verify its bytes, attestation, producer authorization, creation phase, and subject binding rather than trusting result alone.",
+      "type": "object",
+      "required": ["subjectDigest", "evidence", "verifier", "verifiedAt", "result"],
+      "properties": {
+        "subjectDigest": { "$ref": "#/$defs/digest" },
+        "evidence": { "$ref": "#/$defs/artifactPointer" },
+        "verifier": { "$ref": "#/$defs/component" },
+        "verifiedAt": { "$ref": "#/$defs/utcDateTime" },
+        "result": { "const": "pass" }
+      },
+      "additionalProperties": false
+    },
+    "productionDerivedInput": {
+      "$comment": "The semantic validator compares sourceCutoff, snapshot creation, every proof time, and data-owner authorization with the consuming pre-run manifest. sourceCutoff must be strictly earlier than preRun.sealedAt and no later than inputSnapshot.createdAt. Snapshot-bound proofs must be verified no earlier than inputSnapshot.createdAt. The snapshot, authorization, and every verification record must exist no later than the pre-run seal; the authorization proof must not predate authorizedAt.",
+      "type": "object",
+      "required": ["authorityContract", "sourceCutoff", "sourceSystemIds", "inputSnapshot", "provenanceControl", "provenance", "dataOwnerAuthorization", "redactionVerification", "reidentificationAssessment", "productionIsolationVerification"],
+      "properties": {
+        "authorityContract": { "$ref": "#/$defs/contentAddressedAuthorityContract" },
+        "sourceCutoff": { "$ref": "#/$defs/utcDateTime" },
+        "sourceSystemIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/id" },
+          "uniqueItems": true
+        },
+        "inputSnapshot": { "$ref": "#/$defs/contentAddressedSnapshot" },
+        "provenanceControl": {
+          "type": "object",
+          "required": ["exportLedgerDigest", "transformation"],
+          "properties": {
+            "exportLedgerDigest": { "$ref": "#/$defs/digest" },
+            "transformation": { "$ref": "#/$defs/component" }
+          },
+          "additionalProperties": false
+        },
+        "provenance": { "$ref": "#/$defs/verifiedEvidence" },
+        "dataOwnerAuthorization": {
+          "type": "object",
+          "required": ["ownerId", "purpose", "decision", "scopeDigest", "authorizedAt", "proof"],
+          "properties": {
+            "ownerId": { "$ref": "#/$defs/id" },
+            "purpose": { "const": "evaluation_fixture_use" },
+            "decision": { "const": "authorized" },
+            "scopeDigest": { "$ref": "#/$defs/digest" },
+            "authorizedAt": { "$ref": "#/$defs/utcDateTime" },
+            "proof": { "$ref": "#/$defs/verifiedEvidence" }
+          },
+          "additionalProperties": false
+        },
+        "redactionVerification": {
+          "type": "object",
+          "required": ["policy", "proof"],
+          "properties": {
+            "policy": { "$ref": "#/$defs/component" },
+            "proof": { "$ref": "#/$defs/verifiedEvidence" }
+          },
+          "additionalProperties": false
+        },
+        "reidentificationAssessment": {
+          "type": "object",
+          "required": ["method", "maximumResidualRisk", "decision", "proof"],
+          "properties": {
+            "method": { "$ref": "#/$defs/component" },
+            "maximumResidualRisk": { "type": "number", "minimum": 0, "maximum": 1 },
+            "decision": { "const": "approved_for_evaluation_use" },
+            "proof": { "$ref": "#/$defs/verifiedEvidence" }
+          },
+          "additionalProperties": false
+        },
+        "productionIsolationVerification": {
+          "$comment": "boundaryDigest is SHA-256 over RFC 8785 JCS of the named environment_production_path_boundary_v1 projection: evaluationMode, productionActionAllowed, productionTelemetryPolicy, network, filesystem, and process. The proof subjectDigest must equal that recomputed digest.",
+          "type": "object",
+          "required": ["boundaryProjection", "boundaryDigest", "productionReadPathAvailable", "productionWritePathAvailable", "liveProductionConnectivityAvailable", "productionCredentialsPresent", "proof"],
+          "properties": {
+            "boundaryProjection": { "const": "environment_production_path_boundary_v1" },
+            "boundaryDigest": { "$ref": "#/$defs/digest" },
+            "productionReadPathAvailable": { "const": false },
+            "productionWritePathAvailable": { "const": false },
+            "liveProductionConnectivityAvailable": { "const": false },
+            "productionCredentialsPresent": { "const": false },
+            "proof": { "$ref": "#/$defs/verifiedEvidence" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "contentAddressedAuthorityContract": {
+      "$comment": "The consuming pre-run manifest must seal this environment contract. Semantic validation must resolve these exact bytes, match uri and digest to the stored-byte SHA-256 value, validate the named schema, and verify the contract's canonical self-digest before accepting any proof authority or verifier mapping.",
+      "type": "object",
+      "required": ["id", "version", "schemaId", "uri", "digest", "byteLength"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "const": "0.1.0" },
+        "schemaId": { "const": "urn:agent-evals-standard:schema:production-derived-authority-contract:1" },
+        "uri": { "type": "string", "pattern": "^artifact:sha256:[a-f0-9]{64}$" },
+        "digest": { "$ref": "#/$defs/digest" },
+        "byteLength": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": false
+    }
+  }
+}

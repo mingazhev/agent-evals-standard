@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "repo-change-case-contract-1",
+  "id": "repo-change-case-contract",
+  "version": "0.1.0",
+  "caseSchema": {
+    "id": "urn:agent-evals-standard:schema:case:1",
+    "version": "0.1.0"
+  },
+  "requiredCaseProperties": [
+    "/evaluationProfile",
+    "/outcomeProfile",
+    "/capabilityFamilyIds",
+    "/interactionModeId",
+    "/workArtifactRegistry",
+    "/workArtifactTypes",
+    "/repository/workspaceManifest",
+    "/scoring",
+    "/artifactPolicy"
+  ],
+  "requiredProfileBindings": [
+    "evaluation_profile_exact",
+    "outcome_profile_allowed",
+    "capability_families_subset",
+    "interaction_mode_exact_member",
+    "work_artifact_registry_exact",
+    "work_artifact_types_subset_outcome",
+    "material_capability_work_product_coverage",
+    "change_bound_verify_requires_implement_change",
+    "change_bound_verify_requires_assurance_report",
+    "assurance_report_requires_verify_assure",
+    "workspace_manifest_content_addressed",
+    "terminal_evidence_outcome_specific"
+  ],
+  "unknownOrIndeterminate": "reject"
+}

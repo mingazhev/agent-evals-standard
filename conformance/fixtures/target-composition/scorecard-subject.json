@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "agent-eval-scorecard-1",
+  "experiment": {
+    "id": "experiment-fixture-1",
+    "manifestDigest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "digest": "sha256:8d6e58ae834868b8106a821534f82d0c37ffacce5ee069f498b047fcfdc39479",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:30Z",
+    "value": "AF3SPEKwZgVtX8INjbVrhPwYirfO1kM3zhs0UfjvaQKTTY6IQF1FK4d6DQtfcqz1IAFtA5j1eholp9AnNc7hCA"
+  }
+}

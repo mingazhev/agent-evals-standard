@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "agent-eval-governance-decision-1",
+  "decisionId": "governance-decision-fixture-1",
+  "version": "0.1.0",
+  "decisionType": "release",
+  "verdict": "reject",
+  "riskAssessment": {
+    "id": "repo-change-experiment-risk-fixture-1",
+    "version": "0.1.0",
+    "uri": "risk-assessment.json",
+    "digest": "sha256:f6a204351e4c842b8c63d1435760ecdf1783bd1b370471db3a5d4eb071622c9c"
+  },
+  "effectiveRiskTier": "medium",
+  "policyInstance": {
+    "id": "operational-governance-policy-fixture-1",
+    "location": "artifact:fixture:operational-governance-policy-fixture-1",
+    "digest": "sha256:a6a4cfb47b88f4d0ade7432e61f4d22c23654b3875a7db7c7855c03d655cc9cf"
+  },
+  "matrixInstance": {
+    "id": "operational-escalation-matrix-fixture-1",
+    "location": "artifact:fixture:operational-escalation-matrix-fixture-1",
+    "digest": "sha256:35746a0015230a7dd56f9fe75a77f00e7ad0166a0403f0dce85df95d481f10f1"
+  },
+  "preRunDecisionPlan": {
+    "id": "pre-run-decision-plan-fixture-1",
+    "location": "artifact:fixture:pre-run-decision-plan-fixture-1",
+    "digest": "sha256:a1da9a3933951d7e27b03cea8ef0414770bc233c0edc04665daa520fc3d57055"
+  },
+  "scorecards": [
+    {
+      "id": "scorecard-fixture-1",
+      "location": "artifact:fixture:scorecard-fixture-1",
+      "digest": "sha256:a7337bf0c3610bb13309fcf07818af74707a84e4d994caf2835a1258e4a19ce3"
+    }
+  ],
+  "resolutionLedger": {
+    "id": "governance-resolution-ledger-fixture-1",
+    "location": "artifact:fixture:governance-resolution-ledger-fixture-1",
+    "digest": "sha256:16f540504b202fb059fd506732c05b4091d08af3dbe3ce3cd0650177c4be5307"
+  },
+  "enforcementReceipts": [
+    {
+      "id": "enforcement-receipt-fixture-1",
+      "location": "artifact:fixture:enforcement-receipt-fixture-1",
+      "digest": "sha256:5231797a88568d3983488c6a0714f61b03b4a014f05022755c59e1421a5cc789"
+    }
+  ],
+  "effectiveAt": "2026-08-01T00:00:25Z",
+  "reviewAt": "2026-08-02T00:00:25Z",
+  "expiresAt": "2026-08-03T00:00:25Z",
+  "roles": {
+    "operator": {
+      "id": "fixture-operator",
+      "role": "operator"
+    },
+    "evidenceProducer": {
+      "id": "fixture-evidence-producer",
+      "role": "evidence_producer"
+    },
+    "approver": {
+      "id": "fixture-approver",
+      "role": "approver"
+    },
+    "securityApprover": {
+      "id": "fixture-security-approver",
+      "role": "security_approver"
+    },
+    "riskOwner": {
+      "id": "fixture-risk-owner",
+      "role": "risk_owner"
+    },
+    "statusResolver": {
+      "id": "fixture-status-resolver",
+      "role": "status_resolver"
+    },
+    "waiverAuthority": {
+      "id": "fixture-waiver-authority",
+      "role": "waiver_authority"
+    },
+    "rollbackVerifier": {
+      "id": "fixture-rollback-verifier",
+      "role": "rollback_verifier"
+    }
+  },
+  "separationOfDutiesEvidence": {
+    "id": "fixture-separation-of-duties-1",
+    "location": "artifact:fixture:fixture-separation-of-duties-1",
+    "digest": "sha256:898700a1c8b876326bbe7a1c74c8552c7904a33b195ed0180f1653aee2fad7d6"
+  },
+  "conditionTrace": [
+    {
+      "conditionId": "all-required-gates-pass",
+      "sealedRequirement": "all required gates pass",
+      "observedValue": false,
+      "evidence": {
+        "id": "fixture-condition-evidence-1",
+        "location": "artifact:fixture:fixture-condition-evidence-1",
+        "digest": "sha256:5a7fef7200d00bdcacc3a8c0fb4ee24403849861c115c5c032f6acc94036f03f"
+      },
+      "evaluator": {
+        "id": "fixture-condition-evaluator",
+        "role": "independent_verifier"
+      },
+      "verdict": "fail",
+      "failureEffect": "reject"
+    }
+  ],
+  "approvalEnvelope": {
+    "configurationHash": "sha256:4a2867511946c604466c0046e5ad16b2746734b6c0f7950709f9e125a50a82ff",
+    "taskScope": [
+      "repository_change"
+    ],
+    "repositoryScope": [
+      "fixture-repository"
+    ],
+    "environmentScope": [
+      "fixture-environment"
+    ],
+    "targetPopulation": "enterprise SDLC repository changes",
+    "representedStrata": [
+      "high-risk-change"
+    ],
+    "exclusions": [],
+    "tools": [
+      "git",
+      "test-runner"
+    ],
+    "autonomy": "supervised"
+  },
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:26Z",
+    "value": "GvkEedi69hZc3jt5YRlhMejIHa-M8lP0RnIDOD_TKPDiZ0-b1pOufEbkM09YcCvwjjwwp8eY2uKgAGtwabizCw"
+  }
+}

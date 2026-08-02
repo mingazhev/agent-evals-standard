@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:suite-manifest:1",
+  "title": "Versioned evaluation suite manifest",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "intendedUse", "validityArgument", "evaluationThreatModel", "heldOutExposure", "sdlcCoverage", "evaluationProfiles", "cases", "slices", "composition", "maintenancePolicy", "digest", "signature"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-suite-manifest-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "type": "string", "minLength": 1 },
+    "intendedUse": { "type": "string", "minLength": 1 },
+    "validityArgument": {
+      "$comment": "Generic URI pointers are forbidden for the suite validity argument. Semantic validation resolves and verifies the material typed contract.",
+      "$ref": "urn:agent-evals-standard:schema:verified-machine-contract:1#/$defs/validityArgumentBinding"
+    },
+    "evaluationThreatModel": {
+      "$ref": "urn:agent-evals-standard:schema:verified-machine-contract:1#/$defs/evaluationThreatModelBinding"
+    },
+    "heldOutExposure": {
+      "$ref": "urn:agent-evals-standard:schema:verified-machine-contract:1#/$defs/heldOutExposureControl"
+    },
+    "sdlcCoverage": { "$ref": "#/$defs/versionedArtifactPointer" },
+    "evaluationProfiles": { "$comment": "Every suite profile is a versioned authenticated subject; an ID and digest without the declared profile version is insufficient.", "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/versionedArtifactPointer" } },
+    "cases": {
+      "$comment": "Canonical material case registry. A consuming aggregate selects one suite slice and must bind that slice's ordered caseIds to exact entries in this registry.",
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {
+        "type": "object", "required": ["id", "version", "uri", "digest", "byteLength", "mediaType", "locator", "selfDigest", "evaluationProfile", "effectiveProfileDigest", "outcomeProfile", "capabilityFamilyIds", "workArtifactTypes", "memberships", "lifecycle"],
+        "properties": {
+          "id": { "$ref": "#/$defs/id" }, "version": { "const": "0.1.0" },
+          "uri": { "$ref": "#/$defs/artifactUri" }, "digest": { "$ref": "#/$defs/digest" },
+          "byteLength": { "type": "integer", "minimum": 1 }, "mediaType": { "const": "application/json" },
+          "locator": { "$ref": "#/$defs/locator" }, "selfDigest": { "$ref": "#/$defs/digest" },
+          "evaluationProfile": { "$ref": "#/$defs/component" }, "effectiveProfileDigest": { "$ref": "#/$defs/digest" }, "outcomeProfile": { "$ref": "#/$defs/component" },
+          "capabilityFamilyIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/capabilityId" }, "uniqueItems": true },
+          "workArtifactTypes": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+          "memberships": { "type": "array", "minItems": 1, "items": { "enum": ["development", "held_out", "smoke", "regression"] }, "uniqueItems": true },
+          "lifecycle": { "enum": ["candidate", "active", "saturated", "regression", "quarantined", "retired"] }
+        },
+        "additionalProperties": false
+      }
+    },
+    "slices": {
+      "$comment": "caseIds order is normative for aggregate scope; semantic validation rejects missing, extra, duplicate, reordered, substituted, or passenger cases.",
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "required": ["id", "kind", "caseIds", "frozen", "targetPopulation", "representedStrata"],
+        "properties": {
+          "id": { "$ref": "#/$defs/id" }, "kind": { "enum": ["capability", "governance", "smoke", "frozen_comparison", "regression"] },
+          "caseIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+          "frozen": { "type": "boolean" }, "targetPopulation": { "type": "string", "minLength": 1 },
+          "representedStrata": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
+        },
+        "additionalProperties": false
+      }
+    },
+    "composition": { "$ref": "#/$defs/artifactPointer" },
+    "maintenancePolicy": { "$ref": "#/$defs/artifactPointer" },
+    "digest": { "$ref": "#/$defs/digest" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "artifactUri": { "type": "string", "pattern": "^artifact:sha256:[a-f0-9]{64}$" },
+    "locator": {
+      "type": "object", "required": ["kind", "base", "path"],
+      "properties": {
+        "kind": { "const": "repository_relative" },
+        "base": { "const": "binding_document" },
+        "path": { "type": "string", "minLength": 1, "pattern": "^(?!/)(?![A-Za-z]:).+$" }
+      },
+      "additionalProperties": false
+    },
+    "artifactPointer": {
+      "type": "object", "required": ["id", "uri", "digest"],
+      "properties": { "id": { "$ref": "#/$defs/id" }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } },
+      "additionalProperties": false
+    },
+    "versionedArtifactPointer": {
+      "type": "object", "required": ["id", "version", "uri", "digest"],
+      "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } },
+      "additionalProperties": false
+    },
+    "capabilityId": { "enum": ["CAP.DISCOVER_SPECIFY", "CAP.PLAN_DESIGN", "CAP.IMPLEMENT_CHANGE", "CAP.VERIFY_ASSURE", "CAP.REVIEW_DECIDE", "CAP.RELEASE_OPERATE", "CAP.REMEDIATE_LEARN"] },
+    "component": { "type": "object", "required": ["id", "version", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false }
+  }
+}

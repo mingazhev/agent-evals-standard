@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "agent-eval-held-out-exposure-budget-1",
+  "id": "held-out-exposure-budget-v1",
+  "version": "0.1.0",
+  "suiteId": "suite-fixture-typed-1",
+  "scope": {
+    "caseIds": [
+      "case-fixture-typed-1",
+      "case-fixture-typed-2"
+    ],
+    "memberships": [
+      "held_out"
+    ]
+  },
+  "issuedAt": "2026-08-01T00:10:00Z",
+  "effectiveUntil": "2026-12-31T23:59:59Z",
+  "identityDimensions": [
+    "model",
+    "provider",
+    "agent_configuration",
+    "tool_configuration",
+    "prompt_or_policy"
+  ],
+  "limits": {
+    "agentVisibleCaseExposures": 5,
+    "unblindedOutcomeLooks": 3,
+    "oracleAccesses": 0
+  },
+  "allowedPurposes": [
+    "scheduled_evaluation",
+    "independent_case_qa",
+    "authorized_governance_review"
+  ],
+  "decisionRules": {
+    "saturation": "consumable_limit_reached_or_forbidden_oracle_access",
+    "postSaturation": "rotate_cases",
+    "unknownOrUnrecorded": "stop_and_insufficient_evidence"
+  },
+  "authorization": {
+    "decisionId": "held-out-budget-authorization-v1",
+    "authority": {
+      "id": "fixture-held-out-budget-authority",
+      "role": "held_out_budget_authority",
+      "trustDomain": "evaluation_governance"
+    },
+    "evidence": {
+      "contractType": "evaluation_control_authority_evidence",
+      "id": "held-out-budget-authorization-v1",
+      "version": "0.1.0",
+      "schemaId": "urn:agent-evals-standard:schema:evaluation-control-authority-evidence:1",
+      "uri": "artifact:sha256:68f8a1a126a896a3d60ad6ab39553e3f8d511fb9093fbb0003b2e71d5ecbf504",
+      "digest": "sha256:68f8a1a126a896a3d60ad6ab39553e3f8d511fb9093fbb0003b2e71d5ecbf504",
+      "byteLength": 1297,
+      "mediaType": "application/json",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "held-out-budget-authorization-evidence.json"
+      },
+      "verifier": {
+        "id": "machine-contract-focused-verifier",
+        "version": "0.1.0",
+        "uri": "artifact:sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+        "digest": "sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+        "byteLength": 77743,
+        "mediaType": "text/javascript",
+        "locator": {
+          "kind": "repository_relative",
+          "base": "binding_document",
+          "path": "../../../../tools/verify-machine-contract-bindings.mjs"
+        },
+        "entrypoint": "verify-machine-contract-bindings-v1"
+      },
+      "resolutionContract": {
+        "id": "machine-contract-resolution-v1",
+        "version": "0.1.0",
+        "uri": "artifact:sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+        "digest": "sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+        "byteLength": 389,
+        "mediaType": "application/json",
+        "locator": {
+          "kind": "repository_relative",
+          "base": "binding_document",
+          "path": "resolution-contract.json"
+        },
+        "schemaId": "agent-eval-machine-contract-resolution-1"
+      },
+      "componentAuthority": {
+        "policyId": "fixture-evaluation-control-authority-policy",
+        "policyVersion": "0.1.0",
+        "policyDigest": "sha256:b29e42e61605ba520a84839a71402698d8656d0f0fc29fb98fca210d4198b9e6"
+      }
+    }
+  }
+}

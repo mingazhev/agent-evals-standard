@@ -1,0 +1,379 @@
+{
+  "schemaVersion": "agent-eval-requirement-implementation-contract-1",
+  "id": "repo-change-v1-requirement-implementation-contract",
+  "version": "0.1.0",
+  "profile": {
+    "id": "repo-change-v1",
+    "version": "0.1.0"
+  },
+  "sourceProfile": {
+    "id": "repo-change-v1",
+    "version": "0.1.0"
+  },
+  "requirementRegistry": {
+    "id": "agent-evals-standard-requirements",
+    "version": "0.1.0",
+    "digest": "sha256:be32eaebcbee3200baa3c0f3edc49183ccafb550feba1801e8292ef85cfce771"
+  },
+  "resolver": {
+    "id": "agent-evals-standard-requirement-mapping-resolver",
+    "version": "0.1.0",
+    "implementationDigest": "sha256:3ee095ab0ffac9e6cca4aff230a57344c4c28331f288d38cd43a6c70f6f6b468"
+  },
+  "implementations": [
+    {
+      "requirementId": "ARCH-001",
+      "criterionId": "ARCH-001.complete",
+      "verificationContractDigest": "sha256:44c7f64fe606cd8a64897a3581fac8ad5b55357b136eb88f5ca0bc4f3da91822",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "ASSURE-001",
+      "criterionId": "ASSURE-001.complete",
+      "verificationContractDigest": "sha256:daf4b3b116e086be79661b3b6042b537566ef725ef640515636e4e9c758a360c",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "CASE-001",
+      "criterionId": "CASE-001.complete",
+      "verificationContractDigest": "sha256:481f2433bc9bca0043505ef26fc3efda72e248a6e6efb2872439ca3783d7f104",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "CASE-002",
+      "criterionId": "CASE-002.complete",
+      "verificationContractDigest": "sha256:2d60b29bede9c02a10b7f816168c84ce7a4ab5eeecc645df31b6e34f2f9badf4",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "CASE-003",
+      "criterionId": "CASE-003.complete",
+      "verificationContractDigest": "sha256:ad4e151cb83a5169201e97e54a806f26d16d49a659b377ea52cc62a6ea510862",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "CASE-004",
+      "criterionId": "CASE-004.complete",
+      "verificationContractDigest": "sha256:78a38dd775871bfc771e1ff66ea229cbbcf3087eb008f5eb0c85fac3d3927a9a",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "CASE-005",
+      "criterionId": "CASE-005.complete",
+      "verificationContractDigest": "sha256:a796c92533cefa465825fdabf0ddd7c9a8d4b3b22e98213f79e0331f7535f6de",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "CLAIM-001",
+      "criterionId": "CLAIM-001.complete",
+      "verificationContractDigest": "sha256:20efa9894f0b6829fc8378325ed8a9978a78350f6b36258da291be8e8b7a4584",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "CLAIM-002",
+      "criterionId": "CLAIM-002.complete",
+      "verificationContractDigest": "sha256:ae3f2467afa5a4b8b8545fae214ce5b24b81f3128ea5932eaedfc645841a77f7",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "CONF-001",
+      "criterionId": "CONF-001.complete",
+      "verificationContractDigest": "sha256:3f15bef9fe794cbbbf23f6ed13ae5edb44324e68813708197c0f1be1f2b63a9a",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "CONF-002",
+      "criterionId": "CONF-002.complete",
+      "verificationContractDigest": "sha256:b4d9bd1a4148f74d1f0c89c56b1f25e36701f84d1de8e3141aadc125f41af6b8",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "CONF-003",
+      "criterionId": "CONF-003.complete",
+      "verificationContractDigest": "sha256:c601bea523bba266df2d9e7632956678fa41226366049a3604ce7e7d72a8b72b",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "DATA-001",
+      "criterionId": "DATA-001.complete",
+      "verificationContractDigest": "sha256:bc38448c488c4e1a30e2e97bb0162757ea955ec72dbd72f841dddd7ae715368e",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "DATA-002",
+      "criterionId": "DATA-002.complete",
+      "verificationContractDigest": "sha256:49fcec11d5cba3e7964122314715ed0fb955bc0a2e7f3f3f0de3766e2727a5b8",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "EVID-001",
+      "criterionId": "EVID-001.complete",
+      "verificationContractDigest": "sha256:cfe97d5b045350b24df2d61acdc90fa8ba82d545b1b2965d25d064bc25019def",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "EVID-002",
+      "criterionId": "EVID-002.complete",
+      "verificationContractDigest": "sha256:b1e46e2e3c9bd6cab1316d8acdff3c0911c14d9323bdbc052dde6f5594fb7196",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "EXP-001",
+      "criterionId": "EXP-001.complete",
+      "verificationContractDigest": "sha256:f4eba8dfb24891d8a7846db137a542bb455e51c89e0438714dfde7e8131eb410",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "EXP-002",
+      "criterionId": "EXP-002.complete",
+      "verificationContractDigest": "sha256:288617f11f478cba0efd80f1e3dbee9be71c503116f7cdc822f32bed025bd7bc",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "EXP-003",
+      "criterionId": "EXP-003.complete",
+      "verificationContractDigest": "sha256:eee69c905cd99de6f0e145e6d76706ca4b23b69c2d2ddbc3df9b25c7e22c23a1",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "GATE-001",
+      "criterionId": "GATE-001.complete",
+      "verificationContractDigest": "sha256:535a7fe1fad346fd2dba8b5e8c05782813f28a552b2e5d8a58ddf895b7114193",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "GOV-001",
+      "criterionId": "GOV-001.complete",
+      "verificationContractDigest": "sha256:f8241ecd6ffbee633dda8f8deb32b98adebf4e13990a9328d03cfab92432c5d8",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "GOV-002",
+      "criterionId": "GOV-002.complete",
+      "verificationContractDigest": "sha256:12e9becbb90de0de059181bd86981ffc311bc7963a8ff873ed6c733a576df5bb",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "HEALTH-001",
+      "criterionId": "HEALTH-001.complete",
+      "verificationContractDigest": "sha256:95b6e30daf6a7c17f65fe4d5063faa172c0572d1131306935aab1930f78e1a43",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "HOLD-001",
+      "criterionId": "HOLD-001.complete",
+      "verificationContractDigest": "sha256:62bcaaf394ed8941c497dd9d4df3d6d596208255e2116153bcf574570ada5b76",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "HOLD-002",
+      "criterionId": "HOLD-002.complete",
+      "verificationContractDigest": "sha256:0e23d1eccaadc5de137d60c6d3cd62e19a113fc7872ea4d203b230393e40b2ad",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "I1",
+      "criterionId": "I1.complete",
+      "verificationContractDigest": "sha256:41e625dbe1d596d9c332b86dc6c5e02456cc23dde85e70cfef6a119e406aceac",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "I10",
+      "criterionId": "I10.complete",
+      "verificationContractDigest": "sha256:35ad5249d2021260a6e6b86cb9bde1afc7f528fd55371b4bdade4045aae84061",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "I11",
+      "criterionId": "I11.complete",
+      "verificationContractDigest": "sha256:1e7989af020d1c716901351beff95abfcd6ffde6d6eceb91243c8d405846a8e8",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "I12",
+      "criterionId": "I12.complete",
+      "verificationContractDigest": "sha256:99a7fee93e0ff82e2a778a920b49cfcdfcc8df1e00c82eb44fb3f9130542baed",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "I13",
+      "criterionId": "I13.complete",
+      "verificationContractDigest": "sha256:bc1414c36d53baa17463f45510c85f95a6fa6c989d9515315f7d730c00959503",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "I2",
+      "criterionId": "I2.complete",
+      "verificationContractDigest": "sha256:2c4c1571239ddb67c0650743baa311cf10e22d58d31a212b8a44bbb9b05caa08",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "I3",
+      "criterionId": "I3.complete",
+      "verificationContractDigest": "sha256:10fb4457ba7493da433d24e3e195c9974512297d497bf0337e0973850a0b5989",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "I4",
+      "criterionId": "I4.complete",
+      "verificationContractDigest": "sha256:501644ac2adb865d7343d1e5399233a22fe19c8814293fdbe4376b881198d5e8",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "I5",
+      "criterionId": "I5.complete",
+      "verificationContractDigest": "sha256:8dcc00c694982b98384238f22ee4a601879db45215ef9009bbe139cca9e3f6f6",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "I6",
+      "criterionId": "I6.complete",
+      "verificationContractDigest": "sha256:7023c9628de062e3378bf41afcd497fffa7b2da3e26283bbd026d6fb5ecd1df5",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "I7",
+      "criterionId": "I7.complete",
+      "verificationContractDigest": "sha256:fe4c05049752cef5d8d3f2d56bed6879d73bd6cbbc4c03f73a1c9b3a4edb0180",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "I8",
+      "criterionId": "I8.complete",
+      "verificationContractDigest": "sha256:70badfd8afffe7f5d1514c3711f43f55069cbe4b9dcff2e47542a063731b99f5",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "I9",
+      "criterionId": "I9.complete",
+      "verificationContractDigest": "sha256:fd06b716f51ecfd335e5f45b896c1c81a869b28ace375e1bd6c4ccc7046999cb",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "INT-001",
+      "criterionId": "INT-001.complete",
+      "verificationContractDigest": "sha256:130bd12bf32d9344716c5ae776f46836b8431808608c32bff354d0d9b4eb904b",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "JUDGE-001",
+      "criterionId": "JUDGE-001.complete",
+      "verificationContractDigest": "sha256:59f5404c7bedc734684170351428d58afd8e678e933042894f5710aed81453c7",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "JUDGE-002",
+      "criterionId": "JUDGE-002.complete",
+      "verificationContractDigest": "sha256:7462f0edccabc634448476bcc11e2b3a31dc10df0b7ff5400f64b1ba1a2c096e",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "JUDGE-003",
+      "criterionId": "JUDGE-003.complete",
+      "verificationContractDigest": "sha256:e5f051a792ee8a5eead0ac0dfe15077556b483f78fa2374df2c6006ce9d23d20",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "OUT-001",
+      "criterionId": "OUT-001.complete",
+      "verificationContractDigest": "sha256:da9e08fe77c15db10b9bf1deb3df79d4aba883ee9d733bfcb35d46e5127e36ee",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "OUTPROF-001",
+      "criterionId": "OUTPROF-001.complete",
+      "verificationContractDigest": "sha256:a303817f77bd1e727a9d9c4736fa642ff30f3937862e51c610a722f2f519f186",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "PROFILE-001",
+      "criterionId": "PROFILE-001.complete",
+      "verificationContractDigest": "sha256:a2678972324362e597c85bd4ee03a21e9e84a72a308052b61865527c5f6793e8",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "RISK-001",
+      "criterionId": "RISK-001.complete",
+      "verificationContractDigest": "sha256:12f42b5c1a068a548cb734d9082ac691094983e9cd56048dce76d2f072fade06",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "RUN-001",
+      "criterionId": "RUN-001.complete",
+      "verificationContractDigest": "sha256:8cc50b90c0a6198daf4a9ffaea2151ed4cbec3e3c28c43488066ed8e6202b7a3",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "RUN-002",
+      "criterionId": "RUN-002.complete",
+      "verificationContractDigest": "sha256:14f0d0022d66f0f9f8fb8ed22c8072ae6ea63a36e97c1b9f11a192ca473984b5",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "RUN-003",
+      "criterionId": "RUN-003.complete",
+      "verificationContractDigest": "sha256:3ddb252b08d4a49df00d77bfc0f2ff5e573abf5d2f7f2810e11a0c0cdbda6df4",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "SCOPE-001",
+      "criterionId": "SCOPE-001.complete",
+      "verificationContractDigest": "sha256:56f9f276276fed614b76427021dccc1900e3ef8da47e0587a1a58285b2d8bb18",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "SCOPE-002",
+      "criterionId": "SCOPE-002.complete",
+      "verificationContractDigest": "sha256:941fd073c9adf38686c44563e025dd53ffdcd3565d282175479411446780055c",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "SCOPE-003",
+      "criterionId": "SCOPE-003.complete",
+      "verificationContractDigest": "sha256:97e643f4b73433899794613edb46254cf68a5a0e462a534023d588acdddf70bf",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "STAT-001",
+      "criterionId": "STAT-001.complete",
+      "verificationContractDigest": "sha256:ba8ec764c521181747e7257ef70dc1d7843d15d14baab782e7aaf17d0bb8d630",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "STAT-002",
+      "criterionId": "STAT-002.complete",
+      "verificationContractDigest": "sha256:3574ef73262634df5147de68b57dcdfbff71d5fdf3dcdfb28fa5242aa1da3cf3",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "STAT-003",
+      "criterionId": "STAT-003.complete",
+      "verificationContractDigest": "sha256:f35f272b52fbd9e1ea7003a5967dabc5b57f84167c100b9370a4251308b88e23",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "TRACE-001",
+      "criterionId": "TRACE-001.complete",
+      "verificationContractDigest": "sha256:3bffdf5169501b677276953582e8545891bff5116f5b0688ef79abd6026facd5",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "VALID-001",
+      "criterionId": "VALID-001.complete",
+      "verificationContractDigest": "sha256:8ce777931b8651b291cc74dcabe521daf52ea2860bfdbb581d394f14af30e4ae",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "VALID-002",
+      "criterionId": "VALID-002.complete",
+      "verificationContractDigest": "sha256:dad8141bf82054f7833568201d0a235698350ab09819afd33f5c3003d3fb3f0c",
+      "proofBasis": "requirement_owned_conformance_proof"
+    },
+    {
+      "requirementId": "VALID-003",
+      "criterionId": "VALID-003.complete",
+      "verificationContractDigest": "sha256:7cb1c227d3e3b1981a77281a216e67c87e0a16cf0e49631118909b01240d0b8c",
+      "proofBasis": "requirement_owned_conformance_proof"
+    }
+  ]
+}

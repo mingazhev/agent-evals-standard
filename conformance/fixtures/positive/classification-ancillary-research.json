@@ -1,0 +1,27 @@
+{
+  "capabilityFamilyId": "CAP.IMPLEMENT_CHANGE",
+  "evaluatedConstructIds": [
+    "construct.patch.correctness"
+  ],
+  "materialSubjects": [
+    {
+      "subjectType": "outcome_profile",
+      "subjectId": "architecture-outcome-patch-with-research-v1"
+    },
+    {
+      "subjectType": "claim",
+      "subjectId": "claim.patch_with_research"
+    }
+  ],
+  "materialWorkArtifactTypes": [
+    "code_change"
+  ],
+  "rationale": "Repository research is ancillary to the patch and does not create a discovery/specification claim.",
+  "classificationVerifier": {
+    "id": "architecture-capability-classifier",
+    "version": "0.1.0",
+    "digest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c",
+    "schemaId": "agent-eval-case-classification-validity-argument-1",
+    "verifierDigest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c"
+  }
+}

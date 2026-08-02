@@ -1,0 +1,174 @@
+{
+  "schemaVersion": "agent-eval-escalation-event-registry-1",
+  "id": "base-escalation-event-registry",
+  "version": "0.1.0",
+  "baseGovernanceStatuses": [
+    "security_review_required",
+    "manual_review_required",
+    "data_owner_review_required",
+    "risk_acceptance_required"
+  ],
+  "events": [
+    {
+      "eventId": "hardGateRegression",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "close_run",
+      "scopeAction": "reject_or_reduce",
+      "waivable": false
+    },
+    {
+      "eventId": "untriagedCriticalScannerFinding",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "security_review_required",
+      "stopAction": "block_acceptance",
+      "scopeAction": "reject_or_reduce",
+      "waivable": true
+    },
+    {
+      "eventId": "heldOutLeakage",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "security_review_required",
+      "stopAction": "stop_governance_use",
+      "scopeAction": "revoke_affected_scope",
+      "waivable": false
+    },
+    {
+      "eventId": "escapedCriticalDefect",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "freeze_scope",
+      "scopeAction": "rollback_or_reduce",
+      "waivable": true
+    },
+    {
+      "eventId": "repeatedReviewRejection",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "block_scope_expansion",
+      "scopeAction": "retain_or_reduce",
+      "waivable": true
+    },
+    {
+      "eventId": "staleMeasurement",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "block_acceptance",
+      "scopeAction": "retain_valid_only",
+      "waivable": true
+    },
+    {
+      "eventId": "measurementErrorThreshold",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "block_metric",
+      "scopeAction": "reduce_affected",
+      "waivable": true
+    },
+    {
+      "eventId": "suiteHealthDegradation",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "block_suite",
+      "scopeAction": "reduce_affected",
+      "waivable": true
+    },
+    {
+      "eventId": "decisionExpired",
+      "claimEffect": "not_applicable",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "revoke_approval",
+      "scopeAction": "revoke_expired",
+      "waivable": false
+    },
+    {
+      "eventId": "reviewDue",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "block_renewal_expansion",
+      "scopeAction": "continue_until_expiry",
+      "waivable": false
+    },
+    {
+      "eventId": "measurementBoundaryCompromise",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "security_review_required",
+      "stopAction": "stop_governance_use",
+      "scopeAction": "revoke_affected_scope",
+      "waivable": false
+    },
+    {
+      "eventId": "irreversibleCriticalOperation",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "security_review_required",
+      "stopAction": "block_acceptance",
+      "scopeAction": "reject_or_reduce",
+      "waivable": false
+    },
+    {
+      "eventId": "productionCredentialsProhibited",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "security_review_required",
+      "stopAction": "stop_governance_use",
+      "scopeAction": "revoke_affected_scope",
+      "waivable": false
+    },
+    {
+      "eventId": "approvedConfigurationChanged",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "block_changed_scope",
+      "scopeAction": "revalidate_or_revoke",
+      "waivable": false
+    },
+    {
+      "eventId": "productionMonitoringBreach",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "suspend_approval",
+      "scopeAction": "narrow_suspend_or_revoke",
+      "waivable": false
+    },
+    {
+      "eventId": "productionConcordanceDegraded",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "suspend_approval",
+      "scopeAction": "narrow_suspend_or_revoke",
+      "waivable": false
+    },
+    {
+      "eventId": "assuranceEvidenceMissing",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "manual_review_required",
+      "stopAction": "suspend_approval",
+      "scopeAction": "narrow_suspend_or_revoke",
+      "waivable": false
+    },
+    {
+      "eventId": "suspectedContamination",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "security_review_required",
+      "stopAction": "stop_governance_use",
+      "scopeAction": "quarantine_affected",
+      "waivable": false
+    },
+    {
+      "eventId": "confirmedContamination",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "security_review_required",
+      "stopAction": "stop_governance_use",
+      "scopeAction": "revoke_affected_scope",
+      "waivable": false
+    },
+    {
+      "eventId": "privacyIpRetentionBreach",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "security_review_required",
+      "stopAction": "stop_governance_use",
+      "scopeAction": "quarantine_or_delete_affected",
+      "waivable": false
+    }
+  ],
+  "digest": "sha256:c71559aa50901c3a938ecd7475da49aef27e6dff8c1f12ac656fe765d043d642"
+}

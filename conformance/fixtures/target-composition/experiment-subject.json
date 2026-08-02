@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "agent-eval-pre-run-manifest-1",
+  "id": "experiment-composition-fixture-1",
+  "version": "0.1.0",
+  "suite": {
+    "id": "suite-composition-fixture-1",
+    "uri": "suite-subject.json",
+    "digest": "sha256:88f7c1c68e1966e67cc71532826ed4a3a57a03896b040ac152a10b1486979f98"
+  },
+  "evaluator": {
+    "id": "evaluator-composition-fixture-1",
+    "version": "0.1.0",
+    "uri": "evaluator-subject.json",
+    "digest": "sha256:9be91bfb8b549b038a4e89aefac73128f121e9fba2ecf1b64966ab4b862d55ec"
+  },
+  "caseSet": [
+    {
+      "id": "repo-change-case-fixture-1",
+      "uri": "case-subject.json",
+      "digest": "sha256:2463e4b30e9c301ad0b67f1aac38100f56aedd724a36baff912ca855d0bc1b0c"
+    }
+  ],
+  "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

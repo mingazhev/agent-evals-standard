@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:held-out-exposure-budget:1",
+  "title": "Held-out exposure and reuse budget",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "version",
+    "suiteId",
+    "scope",
+    "issuedAt",
+    "effectiveUntil",
+    "identityDimensions",
+    "limits",
+    "allowedPurposes",
+    "decisionRules",
+    "authorization"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "agent-eval-held-out-exposure-budget-1"
+    },
+    "id": {
+      "$ref": "#/$defs/id"
+    },
+    "version": {
+      "const": "0.1.0"
+    },
+    "suiteId": {
+      "$ref": "#/$defs/id"
+    },
+    "scope": {
+      "$comment": "caseIds is the canonical ordered aggregate case scope. Missing, extra, duplicate, reordered, or passenger cases are invalid for the consuming run.",
+      "type": "object",
+      "required": [
+        "caseIds",
+        "memberships"
+      ],
+      "properties": {
+        "caseIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "uniqueItems": true
+        },
+        "memberships": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "const": "held_out"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "issuedAt": {
+      "$ref": "#/$defs/dateTime"
+    },
+    "effectiveUntil": {
+      "$ref": "#/$defs/dateTime"
+    },
+    "identityDimensions": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "enum": [
+          "model",
+          "provider",
+          "agent_configuration",
+          "tool_configuration",
+          "prompt_or_policy"
+        ]
+      },
+      "uniqueItems": true,
+      "allOf": [
+        {
+          "contains": {
+            "const": "model"
+          }
+        },
+        {
+          "contains": {
+            "const": "provider"
+          }
+        },
+        {
+          "contains": {
+            "const": "agent_configuration"
+          }
+        }
+      ]
+    },
+    "limits": {
+      "$ref": "#/$defs/units"
+    },
+    "allowedPurposes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "enum": [
+          "scheduled_evaluation",
+          "independent_case_qa",
+          "authorized_governance_review"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "decisionRules": {
+      "type": "object",
+      "required": [
+        "saturation",
+        "postSaturation",
+        "unknownOrUnrecorded"
+      ],
+      "properties": {
+        "saturation": {
+          "const": "consumable_limit_reached_or_forbidden_oracle_access"
+        },
+        "postSaturation": {
+          "enum": [
+            "rotate_cases",
+            "retire_claim_scope"
+          ]
+        },
+        "unknownOrUnrecorded": {
+          "const": "stop_and_insufficient_evidence"
+        }
+      },
+      "additionalProperties": false
+    },
+    "authorization": {
+      "type": "object",
+      "required": [
+        "decisionId",
+        "authority",
+        "evidence"
+      ],
+      "properties": {
+        "decisionId": {
+          "$ref": "#/$defs/id"
+        },
+        "authority": {
+          "$ref": "#/$defs/actor"
+        },
+        "evidence": {
+          "$ref": "urn:agent-evals-standard:schema:verified-machine-contract:1#/$defs/evaluationControlAuthorityEvidenceBinding"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "dateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "actor": {
+      "type": "object",
+      "required": ["id", "role", "trustDomain"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "role": { "$ref": "#/$defs/id" },
+        "trustDomain": { "$ref": "#/$defs/id" }
+      },
+      "additionalProperties": false
+    },
+    "units": {
+      "type": "object",
+      "required": [
+        "agentVisibleCaseExposures",
+        "unblindedOutcomeLooks",
+        "oracleAccesses"
+      ],
+      "properties": {
+        "agentVisibleCaseExposures": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "unblindedOutcomeLooks": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "oracleAccesses": {
+          "const": 0
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

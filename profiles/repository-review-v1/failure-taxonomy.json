@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "repository-review-failure-taxonomy-1",
+  "id": "repository-review-failure-taxonomy",
+  "version": "0.1.0",
+  "mappings": [
+    {
+      "id": "review_incomplete",
+      "defaultPrimaryOutcome": "partial",
+      "attribution": "arm"
+    },
+    {
+      "id": "review_incorrect",
+      "defaultPrimaryOutcome": "failed",
+      "attribution": "arm"
+    },
+    {
+      "id": "review_scope_incomplete",
+      "defaultPrimaryOutcome": "failed",
+      "attribution": "arm"
+    },
+    {
+      "id": "finding_not_traceable",
+      "defaultPrimaryOutcome": "failed",
+      "attribution": "arm"
+    },
+    {
+      "id": "decision_unsupported",
+      "defaultPrimaryOutcome": "failed",
+      "attribution": "arm"
+    },
+    {
+      "id": "repository_snapshot_mismatch",
+      "defaultPrimaryOutcome": "infra_failure",
+      "attribution": "measurement"
+    },
+    {
+      "id": "repository_mutation_attempted",
+      "defaultPrimaryOutcome": "unsafe_policy_violation",
+      "attribution": "independently_attributed_arm"
+    },
+    {
+      "id": "attributed_policy_violation",
+      "defaultPrimaryOutcome": "unsafe_policy_violation",
+      "attribution": "independently_attributed_arm"
+    },
+    {
+      "id": "no_review_result",
+      "defaultPrimaryOutcome": "no_relevant_result",
+      "attribution": "arm"
+    },
+    {
+      "id": "measurement_failure",
+      "defaultPrimaryOutcome": "infra_failure",
+      "attribution": "measurement"
+    }
+  ]
+}

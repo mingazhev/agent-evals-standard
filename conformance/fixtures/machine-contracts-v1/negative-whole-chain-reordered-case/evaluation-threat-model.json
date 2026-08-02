@@ -1,0 +1,152 @@
+{
+  "schemaVersion": "agent-eval-evaluation-threat-model-1",
+  "id": "evaluation-threat-model-v1",
+  "version": "0.1.0",
+  "scope": {
+    "suiteId": "suite-fixture-typed-1",
+    "evaluationProfileIds": [
+      "repo-change-v1"
+    ],
+    "lifecyclePhases": [
+      "authoring",
+      "case_qa",
+      "pre_run",
+      "execution",
+      "grading",
+      "aggregation",
+      "governance"
+    ],
+    "caseIds": [
+      "case-fixture-typed-2",
+      "case-fixture-typed-1"
+    ]
+  },
+  "assets": [
+    {
+      "id": "held-out-oracle",
+      "classification": "restricted_oracle",
+      "securityProperties": [
+        "confidentiality",
+        "integrity",
+        "provenance",
+        "independence"
+      ]
+    },
+    {
+      "id": "measurement-ledger",
+      "classification": "confidential",
+      "securityProperties": [
+        "integrity",
+        "availability",
+        "provenance"
+      ]
+    }
+  ],
+  "actors": [
+    {
+      "id": "evaluated-agent",
+      "trust": "untrusted",
+      "capabilities": [
+        "read-agent-visible-input",
+        "invoke-allowed-tools"
+      ]
+    },
+    {
+      "id": "evaluation-runner",
+      "trust": "trusted",
+      "capabilities": [
+        "seal-input",
+        "capture-attempt",
+        "append-exposure-ledger"
+      ]
+    }
+  ],
+  "trustBoundaries": [
+    {
+      "id": "agent-oracle-boundary",
+      "fromZone": "agent-zone",
+      "toZone": "oracle-zone",
+      "enforcement": [
+        "filesystem-isolation",
+        "network-deny",
+        "canary-monitoring"
+      ]
+    },
+    {
+      "id": "runner-ledger-boundary",
+      "fromZone": "runner-zone",
+      "toZone": "governance-zone",
+      "enforcement": [
+        "append-only-seal",
+        "content-addressed-evidence"
+      ]
+    }
+  ],
+  "threats": [
+    {
+      "id": "held-out-oracle-leakage",
+      "actorIds": [
+        "evaluated-agent"
+      ],
+      "assetIds": [
+        "held-out-oracle"
+      ],
+      "boundaryIds": [
+        "agent-oracle-boundary"
+      ],
+      "attackPath": [
+        "probe undeclared filesystem path",
+        "attempt external retrieval"
+      ],
+      "impact": "critical",
+      "mitigations": [
+        "deny oracle mount",
+        "deny network by default"
+      ],
+      "detections": [
+        "filesystem access telemetry",
+        "held-out canary monitor"
+      ],
+      "residualRisk": "low",
+      "owner": "evaluation-security-owner"
+    },
+    {
+      "id": "exposure-ledger-tampering",
+      "actorIds": [
+        "evaluated-agent"
+      ],
+      "assetIds": [
+        "measurement-ledger"
+      ],
+      "boundaryIds": [
+        "runner-ledger-boundary"
+      ],
+      "attackPath": [
+        "attempt to suppress or reorder exposure events"
+      ],
+      "impact": "high",
+      "mitigations": [
+        "runner-owned append-only ledger",
+        "monotonic sequence verification"
+      ],
+      "detections": [
+        "sequence continuity check",
+        "stored-byte digest verification"
+      ],
+      "residualRisk": "low",
+      "owner": "measurement-integrity-owner"
+    }
+  ],
+  "assumptions": [
+    "The runner and independent grader are outside the evaluated agent trust domain."
+  ],
+  "exclusions": [
+    "Real production actions are prohibited by the evaluation environment."
+  ],
+  "reviewTriggers": [
+    "provider change",
+    "tool permission change",
+    "confirmed contamination",
+    "measurement-control failure"
+  ]
+}

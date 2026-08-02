@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "repository-review-oracle-1",
+  "id": "repository-review-oracle-positive",
+  "version": "0.1.0",
+  "workspaceManifestDigest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "baseTreeDigest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "artifactClass": "review_decision",
+  "expectedDecision": "changes_requested",
+  "materialFindings": [
+    {
+      "id": "finding-authz-guard-order",
+      "severity": "high",
+      "repositoryPath": "src/auth/authorization.ts",
+      "acceptableDispositions": [
+        "must_fix"
+      ]
+    }
+  ],
+  "allowAdditionalFindings": false,
+  "adjudicationRule": "exact_material_finding_set_and_disposition"
+}

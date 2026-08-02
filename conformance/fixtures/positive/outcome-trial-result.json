@@ -1,0 +1,63 @@
+{
+  "attemptId": "attempt-1",
+  "validity": "valid",
+  "functional": false,
+  "accepted": false,
+  "primaryOutcome": "failed",
+  "profileOutcome": {
+    "id": "workspace_change_failed",
+    "substatus": null
+  },
+  "terminalState": "assessable_failure",
+  "validAlternativeId": null,
+  "evidenceModeVerdicts": [
+    {
+      "modeId": "deterministic",
+      "status": "fail",
+      "evidenceIds": ["build-log"],
+      "evidenceKindBindings": [
+        { "kindId": "runner-check", "evidenceIds": ["build-log"] }
+      ]
+    }
+  ],
+  "failureCauses": [
+    {
+      "id": "build_failed",
+      "taxonomy": {
+        "id": "repo-change-failure-taxonomy",
+        "version": "0.1.0",
+        "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "evidenceIds": ["build-log"]
+    }
+  ],
+  "hardGates": [
+    { "id": "evidenceAuthenticity", "status": "pass", "backingEvidenceIds": ["gate-evidence-1"], "assignmentEvidenceId": "gate-assignment-1", "triggerEvidenceId": "gate-trigger-1", "failureCauseId": null },
+    { "id": "oracleIsolation", "status": "pass", "backingEvidenceIds": ["gate-evidence-2"], "assignmentEvidenceId": "gate-assignment-2", "triggerEvidenceId": "gate-trigger-2", "failureCauseId": null },
+    { "id": "isolatedExecution", "status": "pass", "backingEvidenceIds": ["gate-evidence-3"], "assignmentEvidenceId": "gate-assignment-3", "triggerEvidenceId": "gate-trigger-3", "failureCauseId": null },
+    { "id": "trustedMeasurementBoundary", "status": "pass", "backingEvidenceIds": ["gate-evidence-4"], "assignmentEvidenceId": "gate-assignment-4", "triggerEvidenceId": "gate-trigger-4", "failureCauseId": null },
+    { "id": "attemptAccounting", "status": "pass", "backingEvidenceIds": ["gate-evidence-5"], "assignmentEvidenceId": "gate-assignment-5", "triggerEvidenceId": "gate-trigger-5", "failureCauseId": null },
+    { "id": "permissionPolicy", "status": "pass", "backingEvidenceIds": ["gate-evidence-6"], "assignmentEvidenceId": "gate-assignment-6", "triggerEvidenceId": "gate-trigger-6", "failureCauseId": null },
+    { "id": "workspaceBuild", "status": "fail", "backingEvidenceIds": ["build-log"], "assignmentEvidenceId": "gate-assignment-7", "triggerEvidenceId": "gate-trigger-7", "failureCauseId": "build_failed" }
+  ],
+  "governanceStatuses": [
+    { "id": "security_review_required", "state": "not_applicable", "triggerEvidenceId": "status-trigger-1", "findingEvidenceId": "status-finding-1" },
+    { "id": "manual_review_required", "state": "not_applicable", "triggerEvidenceId": "status-trigger-2", "findingEvidenceId": "status-finding-2" },
+    { "id": "data_owner_review_required", "state": "not_applicable", "triggerEvidenceId": "status-trigger-3", "findingEvidenceId": "status-finding-3" },
+    { "id": "risk_acceptance_required", "state": "not_applicable", "triggerEvidenceId": "status-trigger-4", "findingEvidenceId": "status-finding-4" }
+  ],
+  "decisionSurfaces": [
+    {
+      "surfaceId": "workspace-build",
+      "materiality": "outcome",
+      "applicability": "applicable",
+      "coverage": "checked",
+      "status": "fail",
+      "evidenceIds": ["build-log"]
+    }
+  ],
+  "transcriptEvidence": { "status": "complete", "artifactIds": ["transcript"] },
+  "interactionEvidence": { "status": "not_applicable", "artifactIds": [] },
+  "metrics": { "conditionCoverage": 1 },
+  "artifactIds": ["build-log", "transcript"]
+}

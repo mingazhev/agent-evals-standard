@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:repo-change-gate-registry:1",
+  "title": "Repository-change gate registry 0.1.0",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "coreGates", "profileGates", "unknownOrIndeterminate"],
+  "properties": {
+    "schemaVersion": { "const": "repo-change-gate-registry-1" },
+    "id": { "const": "repo-change-gate-registry" },
+    "version": { "const": "0.1.0" },
+    "coreGates": {
+      "$comment": "The base core gate set is closed for this registry version; order is non-semantic.",
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/coreGateId" },
+      "allOf": [
+        { "contains": { "const": "evidenceAuthenticity" } },
+        { "contains": { "const": "oracleIsolation" } },
+        { "contains": { "const": "isolatedExecution" } },
+        { "contains": { "const": "trustedMeasurementBoundary" } },
+        { "contains": { "const": "attemptAccounting" } },
+        { "contains": { "const": "permissionPolicy" } },
+        { "contains": { "const": "dataAndRetentionPolicy" } }
+      ]
+    },
+    "profileGates": {
+      "$comment": "Every failureCauseId must also resolve exactly once in the bound repo-change failure taxonomy; that cross-document check is semantic validation.",
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "uniqueItems": true,
+      "items": {
+        "oneOf": [
+          { "$ref": "#/$defs/workspaceBuild" },
+          { "$ref": "#/$defs/publicChecks" },
+          { "$ref": "#/$defs/hiddenChecks" },
+          { "$ref": "#/$defs/securityChecks" },
+          { "$ref": "#/$defs/repositoryIntegrity" }
+        ]
+      },
+      "allOf": [
+        { "contains": { "$ref": "#/$defs/workspaceBuild" } },
+        { "contains": { "$ref": "#/$defs/publicChecks" } },
+        { "contains": { "$ref": "#/$defs/hiddenChecks" } },
+        { "contains": { "$ref": "#/$defs/securityChecks" } },
+        { "contains": { "$ref": "#/$defs/repositoryIntegrity" } }
+      ]
+    },
+    "unknownOrIndeterminate": {
+      "type": "object",
+      "required": ["gateStatus", "failureCauseId", "claimEffect"],
+      "properties": {
+        "gateStatus": { "const": "invalid" },
+        "failureCauseId": { "const": "measurement_failure" },
+        "claimEffect": { "const": "insufficient_evidence" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "coreGateId": {
+      "enum": [
+        "evidenceAuthenticity",
+        "oracleIsolation",
+        "isolatedExecution",
+        "trustedMeasurementBoundary",
+        "attemptAccounting",
+        "permissionPolicy",
+        "dataAndRetentionPolicy"
+      ]
+    },
+    "workspaceBuild": {
+      "type": "object",
+      "required": ["id", "appliesWhen", "failureCauseId"],
+      "properties": {
+        "id": { "const": "workspaceBuild" },
+        "appliesWhen": { "const": "the repository declares a build" },
+        "failureCauseId": { "const": "build_failed" }
+      },
+      "additionalProperties": false
+    },
+    "publicChecks": {
+      "type": "object",
+      "required": ["id", "appliesWhen", "failureCauseId"],
+      "properties": {
+        "id": { "const": "publicChecks" },
+        "appliesWhen": { "const": "always" },
+        "failureCauseId": { "const": "public_checks_failed" }
+      },
+      "additionalProperties": false
+    },
+    "hiddenChecks": {
+      "type": "object",
+      "required": ["id", "appliesWhen", "failureCauseId"],
+      "properties": {
+        "id": { "const": "hiddenChecks" },
+        "appliesWhen": { "const": "always" },
+        "failureCauseId": { "const": "hidden_regression" }
+      },
+      "additionalProperties": false
+    },
+    "securityChecks": {
+      "type": "object",
+      "required": ["id", "appliesWhen", "failureCauseId"],
+      "properties": {
+        "id": { "const": "securityChecks" },
+        "appliesWhen": { "const": "the change reaches a security-relevant surface" },
+        "failureCauseId": { "const": "security_check_failed" }
+      },
+      "additionalProperties": false
+    },
+    "repositoryIntegrity": {
+      "type": "object",
+      "required": ["id", "appliesWhen", "failureCauseId"],
+      "properties": {
+        "id": { "const": "repositoryIntegrity" },
+        "appliesWhen": { "const": "always" },
+        "failureCauseId": { "const": "repository_integrity_failed" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

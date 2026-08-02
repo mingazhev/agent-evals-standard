@@ -1,0 +1,102 @@
+{
+  "schemaVersion": "agent-eval-conformance-verifier-registry-1",
+  "id": "fixture-conformance-verifier-registry",
+  "version": "0.1.0",
+  "validFrom": "2026-08-01T00:00:00Z",
+  "expiresAt": "2026-08-02T00:00:00Z",
+  "entries": [
+    {
+      "id": "fixture-automated-entry",
+      "version": "0.1.0",
+      "method": "automated_replay",
+      "adapterId": "fixture-json-boolean-v1",
+      "implementation": {
+        "id": "reference-conformance-proof-adapters",
+        "version": "0.1.0",
+        "uri": "../../../tools/conformance-proof-adapters.mjs",
+        "digest": "sha256:ee2806fc61bb4a9f5cc9a7c805b63c73aee47e550f0bd4260b76c8367682cf9d",
+        "byteLength": 1871,
+        "runtime": "node-esm",
+        "exportedFunction": "fixtureBooleanRequirementV1"
+      },
+      "allowedRequirementIds": [
+        "FIX-AUTO-001"
+      ],
+      "requirementBindings": [
+        {
+          "requirementId": "FIX-AUTO-001",
+          "entryDigest": "sha256:b740edc3fb96ad45b1e4b3bd337dbfc36cca9571268615e9874a33089f3c939c"
+        }
+      ],
+      "criteria": [
+        {
+          "id": "FIX-AUTO-001.complete",
+          "requirementId": "FIX-AUTO-001",
+          "strength": "complete_primary_definition",
+          "normativeReference": "fixture#fix-auto-001",
+          "question": "Does the target satisfy every applicable REQUIRED obligation of FIX-AUTO-001 at fixture#fix-auto-001 and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?"
+        }
+      ],
+      "requiredInputRoles": [
+        "requirement_registry",
+        "target_subject",
+        "applicability_contract"
+      ],
+      "authorizedActors": [
+        {
+          "actorId": "fixture-replay-verifier",
+          "keyId": "rfc8032-test-key-2-verifier",
+          "trustDomain": "fixture-replay-verifier"
+        }
+      ]
+    },
+    {
+      "id": "fixture-review-entry",
+      "version": "0.1.0",
+      "method": "accountable_review",
+      "allowedRequirementIds": [
+        "FIX-MANUAL-001"
+      ],
+      "requirementBindings": [
+        {
+          "requirementId": "FIX-MANUAL-001",
+          "entryDigest": "sha256:81f6a90873c4b6752483fe1dbd73472130095c1169de60ccbfd5b49aa33057be"
+        }
+      ],
+      "requiredInputRoles": [
+        "requirement_registry",
+        "target_subject",
+        "manual_evidence"
+      ],
+      "criteria": [
+        {
+          "id": "FIX-MANUAL-001.complete",
+          "requirementId": "FIX-MANUAL-001",
+          "strength": "complete_primary_definition",
+          "normativeReference": "fixture#fix-manual-001",
+          "question": "Is any review note present?"
+        }
+      ],
+      "authorizedActors": [
+        {
+          "actorId": "fixture-independent-reviewer",
+          "keyId": "rfc8032-test-key-3-reviewer",
+          "trustDomain": "fixture-independent-review"
+        }
+      ]
+    }
+  ],
+  "issuer": {
+    "id": "fixture-verifier-registry-authority",
+    "role": "verification_registry_authority",
+    "trustDomain": "fixture-registry-authority"
+  },
+  "signature": {
+    "profileId": "fixture-proof-registry-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-4-registry",
+    "signedAt": "2026-08-01T00:01:00Z",
+    "value": "GoRdYi58uNEuzTzy2iXu106IkUFao_yPG7ilScvGt1TTEFrYohZMCE7MCpvd_3irXe9HB5APpWfPZSmsDuk3AA"
+  },
+  "digest": "sha256:291a4967dd08709f6fc906f06622b474f3282ca822f5897ef950aa635ccc3ae9"
+}

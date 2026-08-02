@@ -1,0 +1,1 @@
+{"kind":"redaction_verification","subjectDigest":"sha256:343d5474f27c16f12bbab129b12c0e619761dd8dbe41a045437ff5b6950a3a76","policyId":"production-input-redaction-policy-fixture","policyVersion":"0.1.0","policyDigest":"sha256:30546ab21aa9369fb1b509b6105ca12029145fe98ce877ec4dcd97294d5b2105","directIdentifiersFound":0,"secretsFound":0,"unresolvedFindings":0,"result":"pass"}

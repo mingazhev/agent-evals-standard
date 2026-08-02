@@ -1,0 +1,490 @@
+{
+  "schemaVersion": "agent-eval-pre-run-manifest-1",
+  "id": "pre-run-fixture-typed-1",
+  "version": "0.1.0",
+  "sealedAt": "2026-08-01T01:05:00Z",
+  "suite": {
+    "id": "suite-fixture-typed-1",
+    "version": "0.1.0",
+    "uri": "artifact:sha256:32e76db7026c0662147b6711ff4968d580d7b88a2293fd55f1e7e8aa4cc1f3ea",
+    "digest": "sha256:32e76db7026c0662147b6711ff4968d580d7b88a2293fd55f1e7e8aa4cc1f3ea",
+    "byteLength": 12635,
+    "mediaType": "application/json",
+    "locator": {
+      "kind": "repository_relative",
+      "base": "binding_document",
+      "path": "stage-suite-manifest.json"
+    },
+    "selfDigest": "sha256:d3b86dacf0753bce83fca8724518f869a717d08c1eaf8930d0495c3bc2453175"
+  },
+  "evaluator": {
+    "id": "evaluator-manifest-fixture-1",
+    "version": "0.1.0",
+    "uri": "../../positive/evaluator-manifest.json",
+    "digest": "sha256:74683789496f8e8233a1e1217590e08358933d74ce963f5f4127f3d24d7d55c5"
+  },
+  "assuranceLevel": "A1",
+  "runMode": "evaluation",
+  "claimEligibility": "claims_eligible",
+  "riskAssessment": {
+    "id": "repo-change-experiment-risk-fixture-1",
+    "version": "0.1.0",
+    "uri": "risk-assessment.json",
+    "digest": "sha256:547b9fb40eb70fae61d70c8b24e10a79efb543e88bc63565d932571943479b17"
+  },
+  "effectiveRiskTier": "medium",
+  "caseProfiles": [
+    {
+      "caseId": "case-fixture-typed-1",
+      "bindingUse": "claims_eligible",
+      "evaluationProfile": {
+        "id": "repo-change-v1",
+        "version": "0.1.0",
+        "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210"
+      },
+      "effectiveProfileDigest": "sha256:6ec98f997cbaa51d30eeb1bdc6a3bb91e76cc2ec505fdd155850d115b0146869",
+      "outcomeProfile": {
+        "id": "workspace-change-v1",
+        "version": "0.1.0",
+        "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
+      }
+    },
+    {
+      "caseId": "case-fixture-typed-2",
+      "bindingUse": "claims_eligible",
+      "evaluationProfile": {
+        "id": "repo-change-v1",
+        "version": "0.1.0",
+        "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210"
+      },
+      "effectiveProfileDigest": "sha256:6ec98f997cbaa51d30eeb1bdc6a3bb91e76cc2ec505fdd155850d115b0146869",
+      "outcomeProfile": {
+        "id": "workspace-change-v1",
+        "version": "0.1.0",
+        "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
+      }
+    }
+  ],
+  "caseSet": [
+    {
+      "id": "case-fixture-typed-1",
+      "version": "0.1.0",
+      "uri": "artifact:sha256:7569fd47faa793da31cf51f14fa475081a730c4d062b278fb1091c74ccac140c",
+      "digest": "sha256:7569fd47faa793da31cf51f14fa475081a730c4d062b278fb1091c74ccac140c",
+      "byteLength": 22260,
+      "mediaType": "application/json",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "stage-case.json"
+      },
+      "selfDigest": "sha256:984232f87b84094e91b4cc6202014844e67710090d56db74f73f6b00a4be0280"
+    },
+    {
+      "id": "case-fixture-typed-2",
+      "version": "0.1.0",
+      "uri": "artifact:sha256:3baa017f2bcc41219b4919eaa1f6f34ba8720349103cab97e395402d7000be5d",
+      "digest": "sha256:3baa017f2bcc41219b4919eaa1f6f34ba8720349103cab97e395402d7000be5d",
+      "byteLength": 22260,
+      "mediaType": "application/json",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "stage-case-2.json"
+      },
+      "selfDigest": "sha256:82a49afd9af311d8874a48a56f5079b1877784ed4c204d0df9c13cedb0d52415"
+    }
+  ],
+  "arms": [
+    {
+      "id": "baseline-arm",
+      "label": "Pinned repository agent baseline",
+      "treatmentRole": "baseline",
+      "model": {
+        "id": "model-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:e38b84963f6884e3d8f94e8b618261b7f0a61bdd5115e5654e601efa7c190e00"
+      },
+      "agentConfiguration": {
+        "id": "agent-configuration-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:692d8cf23b6a0dba904029403ab241edc88fa5fe4dab6a79c957e58cae46ebf5"
+      },
+      "prompts": {
+        "id": "prompts-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:c9060f072c3f476d66e2372808cc49fc4f0bfb9cb7e523762f2db25c4c917a2e"
+      },
+      "policies": {
+        "id": "policies-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:c2a441a02504c8b7dd8e7f8eaf526fd56b620938af39616eef98804a854d4db4"
+      },
+      "harness": {
+        "id": "harness-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:635d0d6e70584b4d0069bf8ade23516ae5dc82f14885b5a1ce2b34c0ece2d294"
+      },
+      "adapter": {
+        "id": "adapter-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:9e90c8ad9d1a051c62adebf120655729ee2f807ca6230ce4106955b3059d03ff"
+      },
+      "tools": {
+        "id": "tools-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:62cf2c7c93581bb33a9405ff151315cc980ad2b6685100e7137f3132a1555a42"
+      },
+      "permissions": {
+        "id": "permissions-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:bf3d4f3dd46241bb0c689b949d08f7f3cfb5cb1ae9385c31f1e04d142d3c827d"
+      },
+      "budgets": {
+        "id": "budgets-component-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:f862674d8bb1354c6324f9945d0f31b034a0dfe514e481a730febe0374f09207"
+      },
+      "retrieval": {
+        "id": "retrieval-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:7e11cb17adf3d1c908c3437ee3db755f9d0e2bd83ca3ca6cde0588d7cf79a7e0"
+      },
+      "memory": {
+        "id": "memory-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:7e9d0e08614fe04e257faddf0ce3c6beaa442f6a9916ae759f9cd8e9489316a3"
+      },
+      "agentVisibleProjection": {
+        "id": "agent-visible-projection-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:37d0ce898502594a97f5a639ad2f42dc4a60d9da85ee62d8b88c5d74a78e71fd"
+      },
+      "environment": {
+        "id": "environment-contract-fixture-1",
+        "version": "0.1.0",
+        "digest": "sha256:8042d5effd722ffb74d3eba33d2801dc00971c38b9e9da840d1337bb0bfede80"
+      },
+      "externalServices": {
+        "id": "external-services-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:6f21d633974dd52cbf3443545df0eb5bb27a6e46155c2eb8d6cc9995af6d7b69"
+      },
+      "graderSet": {
+        "id": "fixture-model-grader",
+        "version": "0.1.0",
+        "digest": "sha256:6c1a977ed71dfc8efb259efe6ea1637071ccc71dbf216a50c315a68da62f72a9"
+      },
+      "identityDigest": "sha256:8b0d4d3cce213b575675fb25538cab8470c2b8d0385296e98f448622164b940a"
+    },
+    {
+      "id": "treatment-arm",
+      "label": "Pinned repository agent treatment",
+      "treatmentRole": "treatment",
+      "model": {
+        "id": "model-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:e38b84963f6884e3d8f94e8b618261b7f0a61bdd5115e5654e601efa7c190e00"
+      },
+      "agentConfiguration": {
+        "id": "agent-configuration-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:692d8cf23b6a0dba904029403ab241edc88fa5fe4dab6a79c957e58cae46ebf5"
+      },
+      "prompts": {
+        "id": "prompts-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:c9060f072c3f476d66e2372808cc49fc4f0bfb9cb7e523762f2db25c4c917a2e"
+      },
+      "policies": {
+        "id": "policies-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:c2a441a02504c8b7dd8e7f8eaf526fd56b620938af39616eef98804a854d4db4"
+      },
+      "harness": {
+        "id": "harness-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:635d0d6e70584b4d0069bf8ade23516ae5dc82f14885b5a1ce2b34c0ece2d294"
+      },
+      "adapter": {
+        "id": "adapter-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:9e90c8ad9d1a051c62adebf120655729ee2f807ca6230ce4106955b3059d03ff"
+      },
+      "tools": {
+        "id": "tools-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:62cf2c7c93581bb33a9405ff151315cc980ad2b6685100e7137f3132a1555a42"
+      },
+      "permissions": {
+        "id": "permissions-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:bf3d4f3dd46241bb0c689b949d08f7f3cfb5cb1ae9385c31f1e04d142d3c827d"
+      },
+      "budgets": {
+        "id": "budgets-component-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:f862674d8bb1354c6324f9945d0f31b034a0dfe514e481a730febe0374f09207"
+      },
+      "retrieval": {
+        "id": "retrieval-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:7e11cb17adf3d1c908c3437ee3db755f9d0e2bd83ca3ca6cde0588d7cf79a7e0"
+      },
+      "memory": {
+        "id": "memory-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:7e9d0e08614fe04e257faddf0ce3c6beaa442f6a9916ae759f9cd8e9489316a3"
+      },
+      "agentVisibleProjection": {
+        "id": "agent-visible-projection-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:37d0ce898502594a97f5a639ad2f42dc4a60d9da85ee62d8b88c5d74a78e71fd"
+      },
+      "environment": {
+        "id": "environment-contract-fixture-1",
+        "version": "0.1.0",
+        "digest": "sha256:8042d5effd722ffb74d3eba33d2801dc00971c38b9e9da840d1337bb0bfede80"
+      },
+      "externalServices": {
+        "id": "external-services-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:6f21d633974dd52cbf3443545df0eb5bb27a6e46155c2eb8d6cc9995af6d7b69"
+      },
+      "graderSet": {
+        "id": "fixture-model-grader",
+        "version": "0.1.0",
+        "digest": "sha256:6c1a977ed71dfc8efb259efe6ea1637071ccc71dbf216a50c315a68da62f72a9"
+      },
+      "identityDigest": "sha256:e2da8ce03ad51b7396a9f77a945a19097b3a4dde98a110a0628fad4a5a27fcb4"
+    }
+  ],
+  "comparativeDesign": {
+    "id": "focused-paired-comparison",
+    "comparatorArmIds": [
+      "baseline-arm",
+      "treatment-arm"
+    ],
+    "treatmentBundle": [
+      "repository-agent-treatment"
+    ],
+    "treatmentBundleDigest": "sha256:83b5d8745a48ba7ce1ea42db9fed54f1ed7932bc1723f792546ad6ac4efdbac6",
+    "pairedUnits": [
+      {
+        "caseId": "case-fixture-typed-1",
+        "blockId": "block-1",
+        "repetitions": [
+          {
+            "repetition": 1,
+            "seed": "seed-1-1"
+          },
+          {
+            "repetition": 2,
+            "seed": "seed-1-2"
+          }
+        ]
+      },
+      {
+        "caseId": "case-fixture-typed-2",
+        "blockId": "block-2",
+        "repetitions": [
+          {
+            "repetition": 1,
+            "seed": "seed-2-1"
+          },
+          {
+            "repetition": 2,
+            "seed": "seed-2-2"
+          }
+        ]
+      }
+    ],
+    "randomizationOrOrdering": {
+      "id": "focused-pair-randomization",
+      "uri": "artifact:sha256:83b5d8745a48ba7ce1ea42db9fed54f1ed7932bc1723f792546ad6ac4efdbac6",
+      "digest": "sha256:83b5d8745a48ba7ce1ea42db9fed54f1ed7932bc1723f792546ad6ac4efdbac6"
+    },
+    "resetAndCarryoverRules": {
+      "id": "focused-pair-reset-rules",
+      "uri": "artifact:sha256:83b5d8745a48ba7ce1ea42db9fed54f1ed7932bc1723f792546ad6ac4efdbac6",
+      "digest": "sha256:83b5d8745a48ba7ce1ea42db9fed54f1ed7932bc1723f792546ad6ac4efdbac6"
+    },
+    "interferenceControls": {
+      "id": "focused-pair-interference-controls",
+      "uri": "artifact:sha256:83b5d8745a48ba7ce1ea42db9fed54f1ed7932bc1723f792546ad6ac4efdbac6",
+      "digest": "sha256:83b5d8745a48ba7ce1ea42db9fed54f1ed7932bc1723f792546ad6ac4efdbac6"
+    },
+    "sharedMeasurementIdentity": "sha256:83b5d8745a48ba7ce1ea42db9fed54f1ed7932bc1723f792546ad6ac4efdbac6",
+    "hypotheses": [
+      "claim-repo-change-functional"
+    ],
+    "statisticalPlan": {
+      "id": "statistical-plan-fixture-typed-1",
+      "uri": "artifact:sha256:348c261413b2d03a7ade8740f6ce0f731af2714f2dc8ffd20c770bf278e15d9d",
+      "digest": "sha256:348c261413b2d03a7ade8740f6ce0f731af2714f2dc8ffd20c770bf278e15d9d"
+    }
+  },
+  "scheduledCells": [
+    {
+      "cellId": "cell-case-fixture-typed-1-baseline-arm-1",
+      "caseId": "case-fixture-typed-1",
+      "armId": "baseline-arm",
+      "repetition": 1,
+      "blockId": "block-1",
+      "seed": "seed-1-1"
+    },
+    {
+      "cellId": "cell-case-fixture-typed-1-baseline-arm-2",
+      "caseId": "case-fixture-typed-1",
+      "armId": "baseline-arm",
+      "repetition": 2,
+      "blockId": "block-1",
+      "seed": "seed-1-2"
+    },
+    {
+      "cellId": "cell-case-fixture-typed-1-treatment-arm-2",
+      "caseId": "case-fixture-typed-1",
+      "armId": "treatment-arm",
+      "repetition": 2,
+      "blockId": "block-1",
+      "seed": "seed-1-2"
+    },
+    {
+      "cellId": "cell-case-fixture-typed-2-baseline-arm-1",
+      "caseId": "case-fixture-typed-2",
+      "armId": "baseline-arm",
+      "repetition": 1,
+      "blockId": "block-2",
+      "seed": "seed-2-1"
+    },
+    {
+      "cellId": "cell-case-fixture-typed-2-treatment-arm-1",
+      "caseId": "case-fixture-typed-2",
+      "armId": "treatment-arm",
+      "repetition": 1,
+      "blockId": "block-2",
+      "seed": "seed-2-1"
+    },
+    {
+      "cellId": "cell-case-fixture-typed-2-baseline-arm-2",
+      "caseId": "case-fixture-typed-2",
+      "armId": "baseline-arm",
+      "repetition": 2,
+      "blockId": "block-2",
+      "seed": "seed-2-2"
+    },
+    {
+      "cellId": "cell-case-fixture-typed-2-treatment-arm-2",
+      "caseId": "case-fixture-typed-2",
+      "armId": "treatment-arm",
+      "repetition": 2,
+      "blockId": "block-2",
+      "seed": "seed-2-2"
+    }
+  ],
+  "budgets": {
+    "id": "run-budgets",
+    "uri": "artifact:fixture:run-budgets",
+    "digest": "sha256:ef6d564dcc5150999bf2ddcaff5ad7000937977043b874ff169d709522942f7b"
+  },
+  "retryPolicy": {
+    "id": "retry-policy",
+    "uri": "retry-policy.json",
+    "digest": "sha256:303e5c7fb3db3f3e683270692d635da940447a945645f6e04aa0bbf2cfb50c8e"
+  },
+  "stopPolicy": {
+    "id": "stop-policy",
+    "uri": "artifact:fixture:stop-policy",
+    "digest": "sha256:e661edd7d7afc2813d53a93fdc3d8b99a7050e216ed29325a070f4ef9a53603b"
+  },
+  "gateRegistry": {
+    "id": "repo-change-gate-registry",
+    "uri": "../../../profiles/repo-change-v1/gate-registry.json",
+    "digest": "sha256:0217e32dd00b239e5d860890b66aa8c1eaa9262e536dda3a97621727a784b146"
+  },
+  "governanceRegistry": {
+    "id": "base-escalation-event-registry",
+    "uri": "escalation-event-registry.json",
+    "digest": "sha256:c71559aa50901c3a938ecd7475da49aef27e6dff8c1f12ac656fe765d043d642"
+  },
+  "statisticalPlan": {
+    "id": "statistical-plan-fixture-typed-1",
+    "uri": "artifact:sha256:348c261413b2d03a7ade8740f6ce0f731af2714f2dc8ffd20c770bf278e15d9d",
+    "digest": "sha256:348c261413b2d03a7ade8740f6ce0f731af2714f2dc8ffd20c770bf278e15d9d"
+  },
+  "decisionPlan": {
+    "id": "pre-run-decision-plan-fixture-1",
+    "uri": "artifact:fixture:pre-run-decision-plan-fixture-1",
+    "digest": "sha256:a1da9a3933951d7e27b03cea8ef0414770bc233c0edc04665daa520fc3d57055"
+  },
+  "extensions": [],
+  "signatureProfile": {
+    "id": "fixture-signature-profile",
+    "version": "0.1.0",
+    "uri": "../../../profiles/repo-change-v1/signature-profile.json",
+    "digest": "sha256:d3d2fd1c85f32d1881ad55160b31737f5fa53d9453ce42c9064812a4b1ecb872"
+  },
+  "claimTrustProfile": {
+    "id": "repo-change-operational-signature-profile",
+    "version": "0.1.0",
+    "uri": "../../../profiles/repo-change-v1/operational-signature-profile.json",
+    "digest": "sha256:187832651a0b2317ca06b864a158c551082bf9f097b318dbe09ad78dd585b3b5"
+  },
+  "claimTrustUse": "conformance_fixture_requires_external_rekey",
+  "evaluationControlBindings": {
+    "contractType": "evaluation_control_bindings",
+    "id": "evaluation-control-bindings-v1",
+    "version": "0.1.0",
+    "schemaId": "urn:agent-evals-standard:schema:evaluation-control-bindings:1",
+    "uri": "artifact:sha256:ccfa98d7de695a4233e1ab4ad4109046bd9cc528fe3bc8cc3e9dfcda354fadc3",
+    "digest": "sha256:ccfa98d7de695a4233e1ab4ad4109046bd9cc528fe3bc8cc3e9dfcda354fadc3",
+    "byteLength": 14621,
+    "mediaType": "application/json",
+    "locator": {
+      "kind": "repository_relative",
+      "base": "binding_document",
+      "path": "control-bindings.json"
+    },
+    "verifier": {
+      "id": "machine-contract-focused-verifier",
+      "version": "0.1.0",
+      "uri": "artifact:sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+      "digest": "sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+      "byteLength": 77743,
+      "mediaType": "text/javascript",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "../../../../tools/verify-machine-contract-bindings.mjs"
+      },
+      "entrypoint": "verify-machine-contract-bindings-v1"
+    },
+    "resolutionContract": {
+      "id": "machine-contract-resolution-v1",
+      "version": "0.1.0",
+      "uri": "artifact:sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+      "digest": "sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+      "byteLength": 389,
+      "mediaType": "application/json",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "../positive/resolution-contract.json"
+      },
+      "schemaId": "agent-eval-machine-contract-resolution-1"
+    },
+    "componentAuthority": {
+      "policyId": "fixture-evaluation-control-authority-policy",
+      "policyVersion": "0.1.0",
+      "policyDigest": "sha256:b29e42e61605ba520a84839a71402698d8656d0f0fc29fb98fca210d4198b9e6"
+    }
+  },
+  "digest": "sha256:8ed45ca2eafa9514e02051f595f2eac76c139b7f42bae9b3d2d3f37e1729d2d9",
+  "signature": {
+    "profileId": "fixture-claimant-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1-claimant",
+    "signedAt": "2026-08-01T01:05:00Z",
+    "value": "0YDfQHxWkDsWuFh4K1omzl22wq-iHtruQcot3J0HK2xWmlMwyB6PzcjUVtz4XCwPtKYJmPXfO-iL1rr90Qz9CA"
+  }
+}

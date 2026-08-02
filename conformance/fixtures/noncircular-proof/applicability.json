@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "fixture-applicability-contract-1",
+  "id": "fixture-applicability",
+  "version": "0.1.0",
+  "rules": [
+    {
+      "requirementId": "FIX-AUTO-001",
+      "target": "case",
+      "applicable": true
+    },
+    {
+      "requirementId": "FIX-MANUAL-001",
+      "target": "case",
+      "applicable": true
+    },
+    {
+      "requirementId": "OUT-001",
+      "target": "case",
+      "applicable": true
+    },
+    {
+      "requirementId": "EVID-001",
+      "target": "case",
+      "applicable": true
+    }
+  ]
+}

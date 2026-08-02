@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "agent-eval-conformance-statement-1",
+  "id": "composition-statement-evaluator-1",
+  "standardRelease": {
+    "version": "0.1.0",
+    "releaseStatus": "unpublished_draft",
+    "commit": "0123456789abcdef0123456789abcdef01234567"
+  },
+  "claim": "evaluator",
+  "targetEvidence": {
+    "evaluator": {
+      "targetType": "evaluator",
+      "targetId": "evaluator-composition-fixture-1",
+      "targetSubject": {
+        "id": "evaluator-composition-fixture-1",
+        "version": "0.1.0",
+        "uri": "evaluator-subject.json",
+        "digest": "sha256:9be91bfb8b549b038a4e89aefac73128f121e9fba2ecf1b64966ab4b862d55ec"
+      },
+      "subjectSchema": "urn:agent-evals-standard:schema:evaluator-manifest:1",
+      "dependencyManifest": {
+        "id": "composition-evaluator-empty-dependencies",
+        "version": "0.1.0",
+        "entries": [],
+        "digest": "sha256:6438eab4c85fdcccd8150cc9fef2a3c0693b9f3cc5122ff62144c6da68cd0ae0"
+      },
+      "verdict": "conforming"
+    }
+  },
+  "issuedAt": "2026-08-01T00:00:00Z",
+  "reviewAt": "2026-08-03T00:00:00Z",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:10Z",
+    "value": "Rhk03RHf1TsKc7avMOGOu7_Cqtj9-7nAnMcgZKvIpt1qIDZytobNduQNiT2akBzDyVJKeNqSYoTc98ArltMTCA"
+  }
+}

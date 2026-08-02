@@ -1,0 +1,56 @@
+{
+  "id": "measurement-validity-evidence",
+  "uri": "artifact:sha256:9f93875fdb2cbb0c67a9e16b5abd9ec8f9a1cd757470b0e603641bb4cbfe8f87",
+  "mediaType": "application/json",
+  "digest": "sha256:9f93875fdb2cbb0c67a9e16b5abd9ec8f9a1cd757470b0e603641bb4cbfe8f87",
+  "byteLength": 907,
+  "producer": {
+    "id": "fixture-independent-outcome-verifier",
+    "role": "verifier",
+    "trustDomain": "external"
+  },
+  "creationPhase": "grading",
+  "createdAt": "2026-08-01T01:00:18Z",
+  "schemaMetadata": {
+    "schemaId": "agent-eval-repo-change-measurement-validity-record-1",
+    "schemaVersion": "0.1.0",
+    "validatorDigest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
+  },
+  "mediaInterpretation": {
+    "profileId": "json-rfc8785",
+    "profileVersion": "0.1.0",
+    "semanticContract": {
+      "id": "agent-evals-standard.repo-change-outcome-replay",
+      "version": "0.1.0",
+      "digest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
+    }
+  },
+  "accessClass": "internal",
+  "accessPolicyBinding": {
+    "id": "fixture-access-policy",
+    "version": "0.1.0",
+    "digest": "sha256:fa27c0767d27b454693112c7d9fce5380b56204929ac1be3f361a6dc0369c9b5"
+  },
+  "privacyAndIp": {
+    "classification": "none",
+    "restrictions": []
+  },
+  "retention": {
+    "class": "fixture",
+    "expiresAt": "2027-08-01T00:00:00Z",
+    "disposition": "delete",
+    "legalHold": false
+  },
+  "attestation": {
+    "profileId": "fixture-automated-verifier-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-2-verifier",
+    "signedAt": "2026-08-01T01:00:18Z",
+    "value": "TDmx4cYf81IYmZ_ZAe9TerfIZSBKuEAIVK9l_zSJctpzrKuYKuKj9omWpL8eBy45yFLs8IV2yN9cJXnFrHR8DQ"
+  },
+  "payload": {
+    "kind": "repository_relative",
+    "path": "repo-change-measurement-validity-record.json"
+  },
+  "artifactType": "repo-change-v1:measurement_validity_record"
+}

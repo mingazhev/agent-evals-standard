@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "agent-eval-workspace-boundary-vectors-1",
+  "id": "workspace-boundary-vectors",
+  "version": "0.1.0",
+  "vectors": [
+    { "id": "tree-snapshot-positive", "scenario": "tree_snapshot", "valid": true },
+    { "id": "bounded-ancestry-positive", "scenario": "bounded_ancestry", "valid": true },
+    { "id": "bounded-ancestry-root-commit-empty-boundary-positive", "scenario": "bounded_root_commit", "valid": true },
+    { "id": "full-ancestry-positive", "scenario": "full_ancestry", "valid": true },
+    { "id": "unicode-and-space-paths-positive", "scenario": "unicode_space_paths", "valid": true },
+    { "id": "non-utf8-non-structural-commit-metadata-positive", "scenario": "non_utf8_commit_metadata", "valid": true },
+    { "id": "gitlink-bound-repository-positive", "scenario": "gitlink_bound", "valid": true },
+    { "id": "fixture-sealer-tree-default-positive", "scenario": "sealer_tree_default", "valid": true },
+    { "id": "tree-snapshot-ref-negative", "scenario": "tree_snapshot_with_ref", "valid": false, "expectedError": "tree_snapshot must expose no Git refs" },
+    { "id": "bounded-ancestry-boundary-negative", "scenario": "bounded_wrong_boundary", "valid": false, "expectedError": "boundaryParentObjectIds must equal the exact bounded ancestry boundary" },
+    { "id": "bounded-ancestry-early-cut-negative", "scenario": "bounded_missing_before_boundary", "valid": false, "expectedError": "parent before bounded boundary references missing Git object" },
+    { "id": "full-ancestry-shallow-negative", "scenario": "full_missing_parent", "valid": false, "expectedError": "references missing Git object" },
+    { "id": "exact-closure-extra-object-negative", "scenario": "unreachable_object", "valid": false, "expectedError": "sealed Git graph contains unreachable/future objects" },
+    { "id": "gitlink-missing-repository-negative", "scenario": "gitlink_missing_repository", "valid": false, "expectedError": "gitlink repository linked-component is missing" },
+    { "id": "gitlink-revision-mismatch-negative", "scenario": "gitlink_revision_mismatch", "valid": false, "expectedError": "linked repository baseRevision must equal gitlink targetCommit" },
+    { "id": "git-lfs-pointer-negative", "scenario": "lfs_pointer", "valid": false, "expectedError": "Git LFS pointer blob" },
+    { "id": "path-traversal-negative", "scenario": "path_traversal", "valid": false, "expectedError": "file path must be a safe UTF-8 repository-relative path" },
+    { "id": "path-posix-absolute-negative", "scenario": "path_absolute", "valid": false, "expectedError": "file path must be a safe UTF-8 repository-relative path" },
+    { "id": "path-drive-absolute-negative", "scenario": "path_drive_absolute", "valid": false, "expectedError": "file path must be a safe UTF-8 repository-relative path" },
+    { "id": "repository-path-absolute-negative", "scenario": "repository_path_absolute", "valid": false, "expectedError": "repository path must be '.' or a safe UTF-8 workspace-relative path" },
+    { "id": "path-backslash-negative", "scenario": "path_backslash", "valid": false, "expectedError": "file path must be a safe UTF-8 repository-relative path" },
+    { "id": "path-nul-negative", "scenario": "path_nul", "valid": false, "expectedError": "file path must be a safe UTF-8 repository-relative path" },
+    { "id": "path-empty-component-negative", "scenario": "path_empty_component", "valid": false, "expectedError": "file path must be a safe UTF-8 repository-relative path" },
+    { "id": "path-non-scalar-negative", "scenario": "path_non_scalar", "valid": false, "expectedError": "file path must be a safe UTF-8 repository-relative path" },
+    { "id": "tree-name-non-utf8-negative", "scenario": "tree_name_non_utf8", "valid": false, "expectedError": "entry name at byte 0 is not well-formed UTF-8" },
+    { "id": "tree-name-slash-negative", "scenario": "tree_name_slash", "valid": false, "expectedError": "unsafe UTF-8 entry name at byte 0" }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "agent-eval-grounding-hardening-vectors-1",
+  "id": "grounding-hardening-vectors",
+  "version": "0.1.0",
+  "repositorySource": {
+    "id": "causal-repository-fixture",
+    "path": ".",
+    "files": [
+      {
+        "path": "README.md",
+        "mode": "100644",
+        "mediaType": "text/markdown",
+        "content": "Fixture documentation only. It is deliberately absent from the causal contract.\n"
+      },
+      {
+        "path": "config/acceptance.json",
+        "mode": "100644",
+        "mediaType": "application/json",
+        "content": "{\"requiredGreeting\":\"hello\"}\n"
+      },
+      {
+        "path": "src/app.js",
+        "mode": "100644",
+        "mediaType": "text/javascript",
+        "content": "export const greeting = \"hello\";\n"
+      }
+    ]
+  },
+  "vectors": [
+    {
+      "id": "sealed-git-and-causal-grounding-positive",
+      "mutation": "none",
+      "valid": true
+    },
+    {
+      "id": "independent-adopter-versions-positive",
+      "mutation": "adopter_versions",
+      "valid": true
+    },
+    {
+      "id": "no-contract-diagnostic-positive",
+      "mutation": "no_contract_diagnostic",
+      "valid": true
+    },
+    {
+      "id": "readme-passenger-evidence-negative",
+      "mutation": "readme_passenger",
+      "valid": false,
+      "expectedError": "is passenger data not consumed by a covered predicate"
+    },
+    {
+      "id": "general-agent-claim-arbitrary-repository-bootstrap-negative",
+      "mutation": "general_claim_bootstrap",
+      "valid": false,
+      "expectedError": "covered claims differs from the exact expected set"
+    },
+    {
+      "id": "incomplete-claim-set-negative",
+      "mutation": "claim_set_missing",
+      "valid": false,
+      "expectedError": "covered claims differs from the exact expected set"
+    },
+    {
+      "id": "extra-claim-set-negative",
+      "mutation": "claim_set_extra",
+      "valid": false,
+      "expectedError": "covered claims differs from the exact expected set"
+    },
+    {
+      "id": "grounding-executor-substitution-negative",
+      "mutation": "executor_substitution",
+      "valid": false,
+      "expectedError": "causal contract differs from the exact verifier-selected subject contracts and intervention"
+    },
+    {
+      "id": "grounding-executor-code-drift-negative",
+      "mutation": "executor_code_drift",
+      "valid": false,
+      "expectedError": "executor is not the exact verifier-selected registry entry"
+    },
+    {
+      "id": "duplicate-grounding-executor-authority-negative",
+      "mutation": "duplicate_executor_authority",
+      "valid": false,
+      "expectedError": "executor is not the exact verifier-selected registry entry"
+    },
+    {
+      "id": "wrong-selected-outcome-contract-negative",
+      "mutation": "wrong_selected_outcome",
+      "valid": false,
+      "expectedError": "verifier-selected outcome subject contracts differs from the exact expected set"
+    },
+    {
+      "id": "omitted-selected-outcome-contract-negative",
+      "mutation": "omitted_selected_outcome",
+      "valid": false,
+      "expectedError": "verifier-selected outcome subject contracts differs from the exact expected set"
+    },
+    {
+      "id": "wrong-target-claim-contract-negative",
+      "mutation": "wrong_target_claim",
+      "valid": false,
+      "expectedError": "verifier-selected claim subject contracts differs from the exact expected set"
+    },
+    {
+      "id": "availability-only-counterfactual-negative",
+      "mutation": "availability_only",
+      "valid": false,
+      "expectedError": "requires executed semantic pass -> fail"
+    },
+    {
+      "id": "random-base-revision-negative",
+      "mutation": "random_base_revision",
+      "valid": false,
+      "expectedError": "baseRevision must identify an embedded commit object"
+    },
+    {
+      "id": "fake-history-projection-negative",
+      "mutation": "unreachable_future_object",
+      "valid": false,
+      "expectedError": "sealed Git graph contains unreachable/future objects"
+    },
+    {
+      "id": "same-workspace-id-different-bytes-negative",
+      "mutation": "same_id_different_bytes",
+      "valid": false,
+      "expectedError": "workspaceManifest differs from the conformance slice snapshot"
+    }
+  ]
+}

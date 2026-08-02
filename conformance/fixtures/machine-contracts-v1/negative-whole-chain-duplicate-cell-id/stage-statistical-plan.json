@@ -1,0 +1,300 @@
+{
+  "schemaVersion": "agent-eval-statistical-plan-1",
+  "id": "statistical-plan-fixture-typed-1",
+  "version": "0.1.0",
+  "sealedAt": "2026-08-01T01:00:02Z",
+  "assuranceLevel": "A1",
+  "runMode": "evaluation",
+  "claimEligibility": "claims_eligible",
+  "targetPopulation": "enterprise SDLC repository changes",
+  "samplingFrame": {
+    "id": "sampling-frame-contract",
+    "version": "0.1.0",
+    "digest": "sha256:e5a9cafd38d19fac1ff4ddb02decc0d9c20d2864427f958bf971346eacdaca4c",
+    "schemaId": "sampling-frame-contract-schema",
+    "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+  },
+  "primaryClaims": [
+    "claim-repo-change-functional"
+  ],
+  "exploratoryClaims": [],
+  "claimContracts": [
+    {
+      "claimId": "claim-repo-change-functional",
+      "classification": "primary",
+      "type": "capability",
+      "estimand": "functional success probability",
+      "direction": "positive",
+      "successDefinition": {
+        "id": "functional-outcome-v1",
+        "version": "0.1.0"
+      },
+      "analysisUnit": "scheduled_cell",
+      "threshold": 0.8,
+      "confidenceLevel": 0.95,
+      "minimumValidTrials": 1,
+      "caseIds": [
+        "case-fixture-typed-1",
+        "case-fixture-typed-2"
+      ],
+      "armIds": [
+        "baseline-arm",
+        "treatment-arm"
+      ],
+      "decisionRule": {
+        "id": "functional-success-decision-rule",
+        "version": "0.1.0",
+        "digest": "sha256:f6f7539ee734c7167dbc5d922a3abd69e548a5a1465bd74a0f515021aefba070"
+      },
+      "eligibleCells": [
+        {
+          "cellId": "cell-case-fixture-typed-1-baseline-arm-1",
+          "caseId": "case-fixture-typed-1",
+          "armId": "baseline-arm",
+          "repetition": 1,
+          "blockId": "block-1",
+          "seed": "seed-1-1"
+        },
+        {
+          "cellId": "cell-case-fixture-typed-1-baseline-arm-1",
+          "caseId": "case-fixture-typed-1",
+          "armId": "treatment-arm",
+          "repetition": 1,
+          "blockId": "block-1",
+          "seed": "seed-1-1"
+        },
+        {
+          "cellId": "cell-case-fixture-typed-1-baseline-arm-2",
+          "caseId": "case-fixture-typed-1",
+          "armId": "baseline-arm",
+          "repetition": 2,
+          "blockId": "block-1",
+          "seed": "seed-1-2"
+        },
+        {
+          "cellId": "cell-case-fixture-typed-1-treatment-arm-2",
+          "caseId": "case-fixture-typed-1",
+          "armId": "treatment-arm",
+          "repetition": 2,
+          "blockId": "block-1",
+          "seed": "seed-1-2"
+        },
+        {
+          "cellId": "cell-case-fixture-typed-2-baseline-arm-1",
+          "caseId": "case-fixture-typed-2",
+          "armId": "baseline-arm",
+          "repetition": 1,
+          "blockId": "block-2",
+          "seed": "seed-2-1"
+        },
+        {
+          "cellId": "cell-case-fixture-typed-2-treatment-arm-1",
+          "caseId": "case-fixture-typed-2",
+          "armId": "treatment-arm",
+          "repetition": 1,
+          "blockId": "block-2",
+          "seed": "seed-2-1"
+        },
+        {
+          "cellId": "cell-case-fixture-typed-2-baseline-arm-2",
+          "caseId": "case-fixture-typed-2",
+          "armId": "baseline-arm",
+          "repetition": 2,
+          "blockId": "block-2",
+          "seed": "seed-2-2"
+        },
+        {
+          "cellId": "cell-case-fixture-typed-2-treatment-arm-2",
+          "caseId": "case-fixture-typed-2",
+          "armId": "treatment-arm",
+          "repetition": 2,
+          "blockId": "block-2",
+          "seed": "seed-2-2"
+        }
+      ]
+    }
+  ],
+  "samplingUnit": "scheduled_cell",
+  "minimumSampleRule": {
+    "id": "minimum-sample-rule",
+    "version": "0.1.0",
+    "digest": "sha256:7eb76c3597c59137d239d675ec17a08d9889b6e601c0f8c71e0d803bcfb3d076",
+    "schemaId": "minimum-sample-rule-schema",
+    "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+  },
+  "powerOrPrecision": {
+    "id": "precision-rule",
+    "version": "0.1.0",
+    "digest": "sha256:bbf39baaa4af51c42864e4836f50915f29236189b1c85d8cbe7b08047382e20a",
+    "schemaId": "precision-rule-schema",
+    "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+  },
+  "randomization": {
+    "id": "randomization-rule",
+    "version": "0.1.0",
+    "digest": "sha256:58f6c3f7faee071bafa58f31396ad0c39883179a545ca1cbeab01bad835eac6c",
+    "schemaId": "randomization-rule-schema",
+    "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+  },
+  "dependence": {
+    "id": "dependence-rule",
+    "version": "0.1.0",
+    "digest": "sha256:e5009acfa3c09ccc629ef4a4e1dafc6b195d7e3ffc4c498aac226b28134f9467",
+    "schemaId": "dependence-rule-schema",
+    "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+  },
+  "invalidAndRetryHandling": {
+    "id": "invalid-retry-rule",
+    "version": "0.1.0",
+    "digest": "sha256:27dc5c8ca7e2bab4976f70d64ce0b10a02f600d82ac9085f155069b746df92f0",
+    "schemaId": "invalid-retry-rule-schema",
+    "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+  },
+  "unresolvedCellPolicy": {
+    "maximumRate": 0,
+    "maximumDifferentialRate": 0,
+    "boundMethod": {
+      "id": "unresolved-bound-method",
+      "version": "0.1.0",
+      "digest": "sha256:aa547a802e8fcfcf03ca0f58e3e7a7ec2d7b86e418087751fa3c41d34f49d60b",
+      "schemaId": "unresolved-bound-method-schema",
+      "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+    }
+  },
+  "multiplicity": {
+    "id": "multiplicity-rule",
+    "version": "0.1.0",
+    "digest": "sha256:ad2bfa49237890d4dd89044b8262fec17837783677e375ce5324d9f5c6c280d9",
+    "schemaId": "multiplicity-rule-schema",
+    "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+  },
+  "sequentialLooksAndStopping": {
+    "id": "sequential-stopping-rule",
+    "version": "0.1.0",
+    "digest": "sha256:a31ce24a496170de39332fa1567ff5c38d448819d3327b0c0b2bbe4f452cd1fc",
+    "schemaId": "sequential-stopping-rule-schema",
+    "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+  },
+  "heldOutExposureAndReuse": {
+    "budget": {
+      "contractType": "held_out_exposure_budget",
+      "id": "held-out-exposure-budget-v1",
+      "version": "0.1.0",
+      "schemaId": "urn:agent-evals-standard:schema:held-out-exposure-budget:1",
+      "uri": "artifact:sha256:6f5684ef80207ff9145f4b04ac04c49d59b1fcfdc1a7ecfb0f0a0be73d7e3af8",
+      "digest": "sha256:6f5684ef80207ff9145f4b04ac04c49d59b1fcfdc1a7ecfb0f0a0be73d7e3af8",
+      "byteLength": 3312,
+      "mediaType": "application/json",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "held-out-exposure-budget.json"
+      },
+      "verifier": {
+        "id": "machine-contract-focused-verifier",
+        "version": "0.1.0",
+        "uri": "artifact:sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+        "digest": "sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+        "byteLength": 77743,
+        "mediaType": "text/javascript",
+        "locator": {
+          "kind": "repository_relative",
+          "base": "binding_document",
+          "path": "../../../../tools/verify-machine-contract-bindings.mjs"
+        },
+        "entrypoint": "verify-machine-contract-bindings-v1"
+      },
+      "resolutionContract": {
+        "id": "machine-contract-resolution-v1",
+        "version": "0.1.0",
+        "uri": "artifact:sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+        "digest": "sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+        "byteLength": 389,
+        "mediaType": "application/json",
+        "locator": {
+          "kind": "repository_relative",
+          "base": "binding_document",
+          "path": "resolution-contract.json"
+        },
+        "schemaId": "agent-eval-machine-contract-resolution-1"
+      },
+      "componentAuthority": {
+        "policyId": "fixture-evaluation-control-authority-policy",
+        "policyVersion": "0.1.0",
+        "policyDigest": "sha256:b29e42e61605ba520a84839a71402698d8656d0f0fc29fb98fca210d4198b9e6"
+      }
+    },
+    "ledger": {
+      "contractType": "held_out_exposure_ledger",
+      "id": "held-out-exposure-ledger-v1",
+      "version": "0.1.0",
+      "schemaId": "urn:agent-evals-standard:schema:held-out-exposure-ledger:1",
+      "uri": "artifact:sha256:5d147094d4beeae7dad303fddd265b03682d08b1059c1b4115005f575d05c11e",
+      "digest": "sha256:5d147094d4beeae7dad303fddd265b03682d08b1059c1b4115005f575d05c11e",
+      "byteLength": 7305,
+      "mediaType": "application/json",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "held-out-exposure-ledger.json"
+      },
+      "verifier": {
+        "id": "machine-contract-focused-verifier",
+        "version": "0.1.0",
+        "uri": "artifact:sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+        "digest": "sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+        "byteLength": 77743,
+        "mediaType": "text/javascript",
+        "locator": {
+          "kind": "repository_relative",
+          "base": "binding_document",
+          "path": "../../../../tools/verify-machine-contract-bindings.mjs"
+        },
+        "entrypoint": "verify-machine-contract-bindings-v1"
+      },
+      "resolutionContract": {
+        "id": "machine-contract-resolution-v1",
+        "version": "0.1.0",
+        "uri": "artifact:sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+        "digest": "sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+        "byteLength": 389,
+        "mediaType": "application/json",
+        "locator": {
+          "kind": "repository_relative",
+          "base": "binding_document",
+          "path": "resolution-contract.json"
+        },
+        "schemaId": "agent-eval-machine-contract-resolution-1"
+      },
+      "componentAuthority": {
+        "policyId": "fixture-evaluation-control-authority-policy",
+        "policyVersion": "0.1.0",
+        "policyDigest": "sha256:b29e42e61605ba520a84839a71402698d8656d0f0fc29fb98fca210d4198b9e6"
+      }
+    }
+  },
+  "estimators": [
+    {
+      "id": "pass-at-one-estimator",
+      "version": "0.1.0",
+      "digest": "sha256:3fa699993443b6150493b985f98f8911e374d6edc42c2e3dd5a32ab529aef88e",
+      "schemaId": "pass-at-one-estimator-schema",
+      "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+    }
+  ],
+  "intervalProcedure": {
+    "id": "wilson-interval-procedure",
+    "version": "0.1.0",
+    "digest": "sha256:a7a0e5d7bfbf39bcc30cea489459ee96fa104d13bd589629979b1b53189f4439",
+    "schemaId": "wilson-interval-procedure-schema",
+    "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+  },
+  "digest": "sha256:18d19d8e9acc1e871f741979397f6383daab201076374b425c6daa750a5f155c",
+  "signature": {
+    "profileId": "fixture-claimant-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1-claimant",
+    "signedAt": "2026-08-01T01:04:00Z",
+    "value": "ogoo86nLdn8ciw_56mh_6GOJQ2-hTK125BuMV5b2b8pdjEr_uQmQP5Fec6QuJb_KThCh88smHZkYOYBFawptDg"
+  }
+}

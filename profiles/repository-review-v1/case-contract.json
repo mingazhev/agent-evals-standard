@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "repository-review-case-contract-1",
+  "id": "repository-review-case-contract",
+  "version": "0.1.0",
+  "caseSchema": {
+    "id": "urn:agent-evals-standard:schema:case:1",
+    "version": "0.1.0"
+  },
+  "requiredCaseProperties": [
+    "/evaluationProfile",
+    "/outcomeProfile",
+    "/capabilityFamilyIds",
+    "/interactionModeId",
+    "/workArtifactRegistry",
+    "/workArtifactTypes",
+    "/repository/workspaceManifest",
+    "/environment",
+    "/validation",
+    "/scoring",
+    "/artifactPolicy"
+  ],
+  "requiredProfileBindings": [
+    "evaluation_profile_exact",
+    "outcome_profile_allowed",
+    "capability_family_review_decide_only",
+    "interaction_mode_noninteractive",
+    "work_artifact_registry_exact",
+    "work_artifact_review_decision_only",
+    "workspace_manifest_content_addressed",
+    "repository_roots_read_only",
+    "terminal_evidence_material_and_authenticated",
+    "substantive_oracle_or_independent_adjudication",
+    "review_decision_discriminator_exact",
+    "no_workspace_diff"
+  ],
+  "readOnlyInvariant": {
+    "repositoryMutationAllowed": false,
+    "repositoryWritableRootsAllowed": false,
+    "emptyAgentWritableRootsAllowed": true,
+    "resultChannel": "runner_owned_authenticated"
+  },
+  "unknownOrIndeterminate": "reject"
+}

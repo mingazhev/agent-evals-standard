@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:operational-escalation-matrix:1",
+  "title": "Operational escalation and stop matrix",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "owner", "rows", "digest", "signature"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-operational-escalation-matrix-1" },
+    "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "owner": { "$ref": "#/$defs/actor" },
+    "rows": {
+      "type": "array",
+      "allOf": [{ "$ref": "urn:agent-evals-standard:schema:escalation-event-registry:1#/$defs/completeEventTupleArray" }],
+      "items": { "$ref": "#/$defs/row" }
+    },
+    "digest": { "$ref": "#/$defs/digest" }, "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" }, "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "actor": { "type": "object", "required": ["id", "role"], "properties": { "id": { "$ref": "#/$defs/id" }, "role": { "type": "string", "minLength": 1 } }, "additionalProperties": false },
+    "row": {
+      "type": "object", "required": ["eventId", "triggerContract", "claimEffect", "governanceStatus", "stopAction", "scopeAction", "owner", "slaSeconds", "requiredEvidenceKinds", "terminalDisposition", "resumeContract", "waivable", "rowDigest"],
+      "properties": {
+        "eventId": { "$ref": "urn:agent-evals-standard:schema:escalation-event-registry:1#/$defs/eventId" },
+        "triggerContract": { "$ref": "#/$defs/artifactPointer" }, "claimEffect": { "enum": ["insufficient_evidence", "not_applicable"] },
+        "governanceStatus": { "$ref": "urn:agent-evals-standard:schema:escalation-event-registry:1#/$defs/escalationGovernanceStatus" },
+        "stopAction": { "$ref": "urn:agent-evals-standard:schema:escalation-event-registry:1#/$defs/stopAction" },
+        "scopeAction": { "$ref": "urn:agent-evals-standard:schema:escalation-event-registry:1#/$defs/scopeAction" },
+        "owner": { "$ref": "#/$defs/actor" }, "slaSeconds": { "type": "integer", "minimum": 1 },
+        "requiredEvidenceKinds": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "terminalDisposition": { "type": "string", "minLength": 1 }, "resumeContract": { "$ref": "#/$defs/artifactPointer" },
+        "waivable": { "type": "boolean" }, "rowDigest": { "$ref": "#/$defs/digest" }
+      },
+      "allOf": [{ "$ref": "urn:agent-evals-standard:schema:escalation-event-registry:1#/$defs/eventTuple" }],
+      "additionalProperties": false
+    },
+    "artifactPointer": { "type": "object", "required": ["id", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false }
+  }
+}

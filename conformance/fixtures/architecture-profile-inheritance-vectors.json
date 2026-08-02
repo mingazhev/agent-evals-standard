@@ -1,0 +1,280 @@
+{
+  "schemaVersion": "conformance-fixture-vector-set-1",
+  "id": "architecture-profile-inheritance-vectors",
+  "version": "0.1.0",
+  "basePath": "architecture-evaluation-profile-child.json",
+  "schema": "urn:agent-evals-standard:schema:evaluation-profile:1",
+  "relatedPaths": [
+    "../../profiles/repo-change-v1/evaluation-profile.json",
+    "../../profiles/repo-change-v1/case-contract.json",
+    "architecture-profile-child-resolution.json",
+    "architecture-profile-resolution-evidence.json",
+    "architecture-profile-resolution-evidence-payload.json",
+    "architecture-strengthened-gate-registry.json",
+    "architecture-weakened-gate-registry.json"
+  ],
+  "boundArtifacts": {
+    "childProfileDigest": "sha256:84ea9a126cd2c4e3b4c1be6f4204ab842dab8bdea133e0602ab62226a4098075",
+    "resolutionRecordDigest": "sha256:c71f88ab0cd46894cb1a062a6251ee5cadf8a642b642e8ff2f3d4fc76ca7ba0a",
+    "strengthenedGateRegistryDigest": "sha256:c189f788ff84c978108474dd6b0564aa3a505ce75e295a1af03787a02c477bc7",
+    "weakenedGateRegistryDigest": "sha256:ef13a9c24ed634cd7945b5e9c66a25350de66be097dbc4736dc5141eb5399c86"
+  },
+  "supportingManifestEntries": [
+    {
+      "id": "architecture-profile-resolution-proof-inputs-valid",
+      "path": "architecture-profile-resolution-evidence-payload.json",
+      "schema": "urn:agent-evals-standard:schema:profile-resolution-proof-inputs:1",
+      "valid": true
+    },
+    {
+      "id": "architecture-profile-resolution-evidence-valid",
+      "path": "architecture-profile-resolution-evidence.json",
+      "schema": "urn:agent-evals-standard:schema:evidence-artifact:1",
+      "valid": true,
+      "semanticChecks": [
+        "evidencePayload",
+        "signature"
+      ]
+    },
+    {
+      "id": "architecture-profile-resolution-valid",
+      "path": "architecture-profile-child-resolution.json",
+      "schema": "urn:agent-evals-standard:schema:profile-resolution-record:1",
+      "valid": true,
+      "relatedPath": "architecture-evaluation-profile-child.json",
+      "semanticChecks": [
+        "profileResolutionRecord",
+        "selfDigest",
+        "signature"
+      ]
+    },
+    {
+      "id": "architecture-profile-resolution-false-strengthening",
+      "basePath": "architecture-profile-child-resolution.json",
+      "schema": "urn:agent-evals-standard:schema:profile-resolution-record:1",
+      "valid": false,
+      "relatedPath": "architecture-evaluation-profile-child.json",
+      "semanticChecks": [
+        "profileResolutionRecord"
+      ]
+    },
+    {
+      "id": "architecture-profile-resolution-forged-provenance",
+      "basePath": "architecture-profile-child-resolution.json",
+      "schema": "urn:agent-evals-standard:schema:profile-resolution-record:1",
+      "valid": false,
+      "relatedPath": "architecture-evaluation-profile-child.json",
+      "semanticChecks": [
+        "profileResolutionRecord"
+      ]
+    }
+  ],
+  "vectors": [
+    {
+      "id": "architecture-profile-child-valid",
+      "valid": true,
+      "semanticChecks": [
+        "profileInheritance",
+        "profileResolutionProvenance"
+      ],
+      "expectedEffectiveSets": {
+        "supportedAssuranceLevels": [
+          "A1",
+          "A2"
+        ],
+        "effectiveRiskRange": [
+          "low",
+          "medium"
+        ],
+        "capabilityFamilies": [
+          "CAP.IMPLEMENT_CHANGE"
+        ],
+        "interactionModes": [
+          "noninteractive_repository_task"
+        ]
+      },
+      "expectedSelectedOutcomeKeys": [
+        "workspace-change-v1"
+      ],
+      "expectedInheritedKeys": {
+        "metrics": [
+          "repo-change-metric-registry"
+        ],
+        "fixtures": [
+          "repo-change-positive",
+          "reject-general-agent-capability"
+        ]
+      }
+    },
+    {
+      "id": "architecture-profile-child-reject-inherited-fixture-substitution",
+      "mutations": [
+        {
+          "pointer": "/fixtures/0/id",
+          "value": "repo-change-positive"
+        }
+      ],
+      "valid": false,
+      "semanticChecks": [
+        "profileInheritance"
+      ],
+      "expectedError": "fixture ID repo-change-positive collides with an inherited fixture"
+    },
+    {
+      "id": "architecture-profile-child-reject-local-fixture-collision",
+      "mutations": [
+        {
+          "pointer": "/fixtures/1/id",
+          "value": "architecture-profile-child-positive"
+        }
+      ],
+      "valid": false,
+      "semanticChecks": [
+        "profileInheritance"
+      ],
+      "expectedError": "fixture IDs: architecture-profile-child-positive occurs 2 times"
+    },
+    {
+      "id": "architecture-profile-child-expansion",
+      "mutations": [
+        {
+          "pointer": "/capabilityFamilies",
+          "value": [
+            "CAP.IMPLEMENT_CHANGE",
+            "CAP.REVIEW_DECIDE"
+          ]
+        }
+      ],
+      "valid": false,
+      "semanticChecks": [
+        "profileInheritance"
+      ],
+      "expectedError": "child capabilityFamilies expands the parent set"
+    },
+    {
+      "id": "architecture-profile-child-cycle",
+      "mutations": [
+        {
+          "pointer": "/parentProfile",
+          "value": {
+            "id": "architecture-repo-change-child-v1",
+            "version": "0.1.0",
+            "uri": "architecture-evaluation-profile-child.json",
+            "digest": "sha256:84ea9a126cd2c4e3b4c1be6f4204ab842dab8bdea133e0602ab62226a4098075"
+          }
+        }
+      ],
+      "valid": false,
+      "semanticChecks": [
+        "profileInheritance"
+      ],
+      "expectedError": "inheritance cycle"
+    },
+    {
+      "id": "architecture-profile-child-stale-parent-digest",
+      "mutations": [
+        {
+          "pointer": "/parentProfile/digest",
+          "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ],
+      "valid": false,
+      "semanticChecks": [
+        "profileInheritance"
+      ],
+      "expectedError": "parent digest must be"
+    },
+    {
+      "id": "architecture-profile-child-outcome-expansion",
+      "mutations": [
+        {
+          "pointer": "/allowedOutcomeProfiles",
+          "value": [
+            {
+              "id": "workspace-change-v1",
+              "version": "0.1.0",
+              "uri": "../../profiles/repo-change-v1/outcome-profile.json",
+              "digest": "sha256:560d5faa11db54fd013c00407e5bac20344e3a260c26922c53931c822b4008bc"
+            },
+            {
+              "id": "unrelated-outcome-v1",
+              "version": "0.1.0",
+              "uri": "../../profiles/repo-change-v1/outcome-profile.json",
+              "digest": "sha256:560d5faa11db54fd013c00407e5bac20344e3a260c26922c53931c822b4008bc"
+            }
+          ]
+        }
+      ],
+      "valid": false,
+      "semanticChecks": [
+        "profileInheritance"
+      ],
+      "expectedError": "child allowedOutcomeProfiles adds unrelated-outcome-v1"
+    },
+    {
+      "id": "architecture-profile-child-keyed-collision",
+      "mutations": [
+        {
+          "pointer": "/allowedOutcomeProfiles",
+          "value": [
+            {
+              "id": "workspace-change-v1",
+              "version": "0.1.0",
+              "uri": "../../profiles/repo-change-v1/outcome-profile.json",
+              "digest": "sha256:560d5faa11db54fd013c00407e5bac20344e3a260c26922c53931c822b4008bc"
+            },
+            {
+              "id": "workspace-change-v1",
+              "version": "0.1.0",
+              "uri": "../../profiles/repo-change-v1/outcome-profile.json",
+              "digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+            }
+          ]
+        }
+      ],
+      "valid": false,
+      "semanticChecks": [
+        "profileInheritance"
+      ],
+      "expectedError": "effectiveProfileDigest child allowedOutcomeProfiles IDs: workspace-change-v1 occurs 2 times"
+    },
+    {
+      "id": "architecture-profile-child-deletion-tombstone",
+      "mutations": [
+        {
+          "pointer": "/allowedOutcomeProfiles/0",
+          "value": {
+            "id": "workspace-change-v1",
+            "version": "0.1.0",
+            "uri": "tombstone:deleted",
+            "digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        }
+      ],
+      "valid": false,
+      "semanticChecks": [
+        "profileInheritance"
+      ],
+      "expectedError": "uses a forbidden tombstone URI; omit the parent ID to narrow instead"
+    },
+    {
+      "id": "architecture-profile-child-singleton-weakening",
+      "mutations": [
+        {
+          "pointer": "/gateRegistry",
+          "value": {
+            "id": "architecture-weakened-gate-registry",
+            "version": "0.1.0",
+            "uri": "architecture-weakened-gate-registry.json",
+            "digest": "sha256:ef13a9c24ed634cd7945b5e9c66a25350de66be097dbc4736dc5141eb5399c86"
+          }
+        }
+      ],
+      "valid": false,
+      "semanticChecks": [
+        "profileInheritance"
+      ],
+      "expectedError": "does not bind the child declaration"
+    }
+  ]
+}
