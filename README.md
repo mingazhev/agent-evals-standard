@@ -99,6 +99,11 @@ Start with [the core standard](standard/standard.md), then read the
 [glossary](standard/glossary.md) and
 [conformance contract](standard/conformance.md).
 
+For a staged onboarding with checklists, read the
+[Adoption Guide](standard/adoption-guide.md) — it separates a measurement
+path (case → Case QA → run → scorecard → conformance statement) from a
+governance path (policy instance → decision plan → decision → assurance).
+
 For implementation, follow this dependency order:
 
 1. establish applicability, the sealed Git workspace, and effective profiles;
@@ -154,6 +159,17 @@ raw version string or Git tag by itself is not evidence that this candidate was
 published.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Validation
+
+The repository validates itself. Machine-verifiable expectations are captured
+as positive and negative [conformance fixtures](conformance/fixtures/) and
+checked by `npm test`, which runs every verifier tool in `tools/` and every
+profile test. `npm run check` verifies repository consistency (schemas,
+`$ref` resolution, generated-artifact freshness, cross-document links), and
+`npm run release:check` adds evidence-readiness and cleanliness checks for the
+publication candidate. The same checks run in CI on every pull request, on
+`main`, and on version tags.
 
 ## Adoption
 

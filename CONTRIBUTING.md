@@ -21,6 +21,21 @@ Normative pull requests should include:
 - impact on existing draft artifacts and implementations;
 - verification evidence, including schema and local-link validation.
 
+## Validation
+
+Run the local checks before opening a pull request:
+
+- `npm ci` — install the pinned toolchain;
+- `npm run check` — repository consistency: schema well-formedness, `$ref`
+  resolution, generated-artifact freshness, and cross-document links;
+- `npm test` — the full corpus of conformance fixtures, vectors, and verifier
+  tools, including schema validation of every fixture.
+
+The same checks run in CI on every pull request. When you change a schema or a
+normative requirement, update the affected fixtures and run `npm test` in the
+same pull request; the `tools/` verifiers encode the expected behavior and
+fail on drift.
+
 ## Pre-publication discipline
 
 The standard has not been published. Until publication, every component remains

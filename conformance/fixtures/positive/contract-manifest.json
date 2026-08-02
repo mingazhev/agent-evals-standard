@@ -221,6 +221,12 @@
       "digest": "sha256:1863fe5a3e1cab290254228f10864998fb01547d9a2c2f42986bc759a5c19b10"
     },
     {
+      "id": "normative-prose:standard/adoption-guide.md",
+      "version": "0.1.0",
+      "uri": "standard/adoption-guide.md",
+      "digest": "sha256:afd0fa5c5ab5712009670a7311ef5ef8432fcfcb2dab27840156954ba76f1b6e"
+    },
+    {
       "id": "normative-prose:standard/case-qa-playbook.md",
       "version": "0.1.0",
       "uri": "standard/case-qa-playbook.md",
@@ -266,7 +272,7 @@
       "id": "normative-prose:standard/integrity-and-semantic-validation.md",
       "version": "0.1.0",
       "uri": "standard/integrity-and-semantic-validation.md",
-      "digest": "sha256:36e6ea6f8b21cdedb63378adfcd5a79f024e122c7fc63fd3bd6877b9117e4946"
+      "digest": "sha256:faa54287531cdcfdb44d4cb75c04e3f38ffe0269bf921739340c060f1da24014"
     },
     {
       "id": "agent-evals-standard-outcome-replay-executors",
@@ -347,5 +353,5 @@
       "digest": "sha256:151684e0e5c35023ec07d6f4554ebedb9ecd4e52ef7738bd77c1eb31c95053c7"
     }
   ],
-  "entriesDigest": "sha256:2622f0a5f167601a98de714d11af467860f3e5b3a3ee8f9c3b6830b7ba80ad6c"
+  "entriesDigest": "sha256:d1aaa2bd12dc09de0a4031a881bcdc121104a2e6c741b20cac91ea0f1774ef0a"
 }

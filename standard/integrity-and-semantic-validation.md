@@ -67,109 +67,30 @@ governance use.
 
 ## Required scorecard checks
 
-The versioned semantic validator MUST verify at least:
-
-1. every baseline gate ID is present in the expected set; expected, added, and
-   evaluated sets obey the sealed post-diff rules; every reported gate is
-   backed by nonempty, valid evidence references;
-2. governance-status sets obey the sealed trigger rules, and every terminal or
-   `not_applicable` status has the evidence required by the Scorecard Contract;
-3. trial acceptance and every selected predicate are recomputed exclusively from
-   the Scorecard Contract's `functional-outcome-v1` and `accepted-outcome-v1`
-   definitions, including transcript and interaction evidence; for every
-   claim-bearing cell this recomputation executes the exact distribution-owned
-   outcome-replay executor over the exact selected work-artifact set and a
-   receipt that binds the exact case, cell, trial, material mapping, and consumed
-   evidence records. When, and only when, the authenticated outcome profile
-   requires independently graded evaluated work, replay also requires the
-   runner-captured work product and a separate independently authenticated grader
-   assessment, with both digests bound by the receipt. Profiles that do not
-   select that evidence mode prohibit those artifacts rather than treating them
-   as mandatory passengers. Replay never consumes claimant booleans or
-   substitutes grader output for evaluated work;
-4. an invalid trial has `infra_failure`, is not accepted, and does not enter a
-   valid-only point estimate; agent-attributed interference remains a valid
-   `unsafe_policy_violation` rather than infrastructure invalidity;
-5. scheduled-cell, physical-attempt, retry-lineage, and mutually exclusive
-   state counts equal the ledger; every nonterminal entry is reconciled; every
-   resolved cell has the first eligible valid selected trial, while every
-   claim-specific success assignment is recomputed from that trial and the
-   claim's sealed `successDefinition`; `completed` attempts
-   have `measurementValidity.status` `valid` or `invalid`, while `interrupted`
-   and `missing_capture` attempts are `not_assessable`; only the Scorecard
-   Contract's executable `functional-outcome-v1` and `accepted-outcome-v1`
-   predicates **MAY** resolve a cell;
-   a missing, substituted, claimant-signed, or fixture-only operational replay
-   receipt therefore makes every dependent claim `insufficient_evidence`;
-6. `unresolvedCellRate = unresolvedCells / scheduledCells`; component binary-rate
-   bounds stay within `[0,1]`, while comparative difference bounds stay within
-   `[-1,1]`; interval endpoints are ordered; every pass@k/pass^k value is
-   recomputed from consistent `validN`, `validSuccesses`, and `k`;
-7. per-case contributions, weights, strata, and the run estimate reproduce the
-   declared estimator and complete sealed case set;
-8. `claim.status: supported` implies valid attempt integrity, a complete sealed
-   plan, all required Case QA evidence with passing FP/FN validation whose
-   intervals and threshold verdicts recompute, no coverage or telemetry gap material
-   to the claim, and a recomputed decision rule that passes;
-9. a hard-gate failure in any trial included by a declared composite makes that
-   composite `blocked` with `value: null`; it is unusable for ranking, tuning,
-   capability, governance, or autonomy selection, while the trial remains in
-   the ledger and failure-aware statistics. Every baseline hard gate is
-   non-waivable; Case QA invalidation **MUST NOT** rewrite the failed run or
-   convert it to a pass;
-10. all identity-critical contract, suite, case, model, agent, environment,
-    evaluator, grader, and formula versions resolve to authenticated digests.
-11. both cost estimands are recomputed from every physical attempt record; the
-    numerator, denominator predicate, success and attempt counts, reported and
-    required cost counts, currency, price table, timestamp, and evidence agree.
-    Missing cost with `fail_closed` yields `insufficient_evidence`; a
-    `pre_registered_bound` policy requires the declared bound and reproduces it.
-    `telemetry.status: complete` requires provider/schema, CLI/normalizer when
-    applicable, raw native events, timing boundaries, token components, and
-    tool-call definitions to be present and mutually consistent.
-    A zero success count forces `insufficient_evidence`, null value, and the
-    `zero_success_denominator` reason; the observed cost numerator remains.
-12. decision-surface IDs, materialities, coverage modes, and typed declared-gap
-    claim restrictions match the sealed case inventory exactly once in every
-    activated Case QA record and scorecard result; applicability rules and
-    final-state proofs resolve through their versioned deterministic schemas and
-    verifiers; assignments, triggers, check IDs, and evidence resolve. The only
-    runtime exception is `not_determined` caused by indeterminate applicability,
-    which fails closed. No material `declared_gap`, failure, or insufficient
-    verdict supports an affected positive, comparative, or governance claim.
-    Every declared-gap affected claim ID resolves to the sealed case
-    `claimRegistry`; the selected scorecard claim ID resolves to that registry,
-    and a listed material restriction requires its claim status to be
-    `insufficient_evidence`;
-13. a Case QA record that quarantines a case binds an eligible source state,
-    identical `preQuarantineEligibleState`, and invalidation record; a re-QA
-    record for a quarantined case resolves the pinned case hash and its
-    lifecycle predecessor, returns to that predecessor only when activated, and
-    returns to `candidate` when rejected; rejected transitions from every other
-    lifecycle state are invalid;
-14. transcript evidence is `complete` for every valid trial, resolves to the raw runner-produced event
-    stream, verifies its append-only root, proves pre-transform capture, and
-    preserves context-management events. A compacted view, summary, cleared
-    tool output, or agent-authored memory cannot satisfy this requirement;
-15. interaction evidence is `complete` for every valid trial whose case
-    `interactionModeId` is not `noninteractive_repository_task`, and is
-    `not_applicable` only for that exact noninteractive mode; it binds the case
-    protocol, has the same unique actor set, attributes every event and shared-state mutation, verifies initial and
-    final state hashes, and has zero unattributed mutations when complete.
-16. the pre-registered statistical plan resolves and recomputes the target
-    population, sampling frame and unit, primary and exploratory claims, power
-    or minimum-sample rule, estimators, intervals, dependence, missingness and
-    retry handling, multiplicity adjustment, sequential-look schedule and
-    stopping rule, and held-out exposure and reuse budget. Unregistered looks,
-    post-observation threshold changes, exhausted reuse, or an exploratory result
-    used as a hard gate yield `insufficient_evidence`;
-17. every evidence artifact's access, privacy/IP, retention, and expiry
-    metadata agree with the pinned policy. Unlawful, unauthorized, expired, or
-    disposition-inconsistent evidence cannot support a claim.
-
-Any failed check produces `insufficient_evidence` for the affected positive,
+The versioned semantic validator MUST verify at least the following. Any
+failed check produces `insufficient_evidence` for the affected positive,
 comparative, or governance claim. A validator cannot repair or silently infer
 missing evidence.
+
+| # | Check | Normative requirement |
+| --- | --- | --- |
+| 1 | Gate set | Every baseline gate ID is present in the expected set; expected, added, and evaluated sets obey the sealed post-diff rules; every reported gate is backed by nonempty, valid evidence references. |
+| 2 | Governance statuses | Governance-status sets obey the sealed trigger rules, and every terminal or `not_applicable` status has the evidence required by the Scorecard Contract. |
+| 3 | Trial acceptance and outcome replay | Trial acceptance and every selected predicate are recomputed exclusively from the Scorecard Contract's `functional-outcome-v1` and `accepted-outcome-v1` definitions, including transcript and interaction evidence; for every claim-bearing cell this recomputation executes the exact distribution-owned outcome-replay executor over the exact selected work-artifact set and a receipt that binds the exact case, cell, trial, material mapping, and consumed evidence records. When, and only when, the authenticated outcome profile requires independently graded evaluated work, replay also requires the runner-captured work product and a separate independently authenticated grader assessment, with both digests bound by the receipt. Profiles that do not select that evidence mode prohibit those artifacts rather than treating them as mandatory passengers. Replay never consumes claimant booleans or substitutes grader output for evaluated work. |
+| 4 | Invalid trials | An invalid trial has `infra_failure`, is not accepted, and does not enter a valid-only point estimate; agent-attributed interference remains a valid `unsafe_policy_violation` rather than infrastructure invalidity. |
+| 5 | Attempt accounting | Scheduled-cell, physical-attempt, retry-lineage, and mutually exclusive state counts equal the ledger; every nonterminal entry is reconciled; every resolved cell has the first eligible valid selected trial, while every claim-specific success assignment is recomputed from that trial and the claim's sealed `successDefinition`; `completed` attempts have `measurementValidity.status` `valid` or `invalid`, while `interrupted` and `missing_capture` attempts are `not_assessable`; only the Scorecard Contract's executable `functional-outcome-v1` and `accepted-outcome-v1` predicates **MAY** resolve a cell; a missing, substituted, claimant-signed, or fixture-only operational replay receipt therefore makes every dependent claim `insufficient_evidence`. |
+| 6 | Bounds and statistics | `unresolvedCellRate = unresolvedCells / scheduledCells`; component binary-rate bounds stay within `[0,1]`, while comparative difference bounds stay within `[-1,1]`; interval endpoints are ordered; every pass@k/pass^k value is recomputed from consistent `validN`, `validSuccesses`, and `k`. |
+| 7 | Aggregation | Per-case contributions, weights, strata, and the run estimate reproduce the declared estimator and complete sealed case set. |
+| 8 | Claim support | `claim.status: supported` implies valid attempt integrity, a complete sealed plan, all required Case QA evidence with passing FP/FN validation whose intervals and threshold verdicts recompute, no coverage or telemetry gap material to the claim, and a recomputed decision rule that passes. |
+| 9 | Composite and waivability | A hard-gate failure in any trial included by a declared composite makes that composite `blocked` with `value: null`; it is unusable for ranking, tuning, capability, governance, or autonomy selection, while the trial remains in the ledger and failure-aware statistics. Every baseline hard gate is non-waivable; Case QA invalidation **MUST NOT** rewrite the failed run or convert it to a pass. |
+| 10 | Identity | All identity-critical contract, suite, case, model, agent, environment, evaluator, grader, and formula versions resolve to authenticated digests. |
+| 11 | Cost estimands | Both cost estimands are recomputed from every physical attempt record; the numerator, denominator predicate, success and attempt counts, reported and required cost counts, currency, price table, timestamp, and evidence agree. Missing cost with `fail_closed` yields `insufficient_evidence`; a `pre_registered_bound` policy requires the declared bound and reproduces it. `telemetry.status: complete` requires provider/schema, CLI/normalizer when applicable, raw native events, timing boundaries, token components, and tool-call definitions to be present and mutually consistent. A zero success count forces `insufficient_evidence`, null value, and the `zero_success_denominator` reason; the observed cost numerator remains. |
+| 12 | Decision surfaces | Decision-surface IDs, materialities, coverage modes, and typed declared-gap claim restrictions match the sealed case inventory exactly once in every activated Case QA record and scorecard result; applicability rules and final-state proofs resolve through their versioned deterministic schemas and verifiers; assignments, triggers, check IDs, and evidence resolve. The only runtime exception is `not_determined` caused by indeterminate applicability, which fails closed. No material `declared_gap`, failure, or insufficient verdict supports an affected positive, comparative, or governance claim. Every declared-gap affected claim ID resolves to the sealed case `claimRegistry`; the selected scorecard claim ID resolves to that registry, and a listed material restriction requires its claim status to be `insufficient_evidence`. |
+| 13 | Lifecycle transitions | A Case QA record that quarantines a case binds an eligible source state, identical `preQuarantineEligibleState`, and invalidation record; a re-QA record for a quarantined case resolves the pinned case hash and its lifecycle predecessor, returns to that predecessor only when activated, and returns to `candidate` when rejected; rejected transitions from every other lifecycle state are invalid. |
+| 14 | Transcript evidence | Transcript evidence is `complete` for every valid trial, resolves to the raw runner-produced event stream, verifies its append-only root, proves pre-transform capture, and preserves context-management events. A compacted view, summary, cleared tool output, or agent-authored memory cannot satisfy this requirement. |
+| 15 | Interaction evidence | Interaction evidence is `complete` for every valid trial whose case `interactionModeId` is not `noninteractive_repository_task`, and is `not_applicable` only for that exact noninteractive mode; it binds the case protocol, has the same unique actor set, attributes every event and shared-state mutation, verifies initial and final state hashes, and has zero unattributed mutations when complete. |
+| 16 | Statistical plan | The pre-registered statistical plan resolves and recomputes the target population, sampling frame and unit, primary and exploratory claims, power or minimum-sample rule, estimators, intervals, dependence, missingness and retry handling, multiplicity adjustment, sequential-look schedule and stopping rule, and held-out exposure and reuse budget. Unregistered looks, post-observation threshold changes, exhausted reuse, or an exploratory result used as a hard gate yield `insufficient_evidence`. |
+| 17 | Evidence lifecycle | Every evidence artifact's access, privacy/IP, retention, and expiry metadata agree with the pinned policy. Unlawful, unauthorized, expired, or disposition-inconsistent evidence cannot support a claim. |
 
 ## Required evaluator-boundary checks
 
