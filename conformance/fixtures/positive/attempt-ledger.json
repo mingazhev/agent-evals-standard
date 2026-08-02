@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "agent-eval-attempt-ledger-1",
+  "id": "attempt-ledger",
+  "version": "0.1.0",
+  "experimentId": "experiment-fixture-1",
+  "scheduledSetCommitment": {
+    "id": "pre-run-manifest-fixture-1",
+    "uri": "pre-run-manifest.json",
+    "digest": "sha256:49995c31d137be228939cf3c4b3b118232788b9cf22effeceb82ebf95a9aa5ab"
+  },
+  "rootAlgorithm": "sha256-jcs-chain-v1",
+  "initialLedgerRoot": "sha256:47dc675e966705715a137261567110572d989cc08dc67ff160bb00f08fd430fd",
+  "terminalLedgerRoot": "sha256:6cc4b7968e195746e2803d26234d1d37746aa2540000e39d794c38e4c9f55687",
+  "attemptRecords": [
+    {
+      "attemptId": "attempt-fixture-1",
+      "cellId": "cell-fixture-1",
+      "terminalState": "completed",
+      "measurementValidity": "valid",
+      "parentAttemptId": null,
+      "retryReason": null,
+      "startedAt": "2026-08-01T01:01:00Z",
+      "finishedAt": "2026-08-01T01:02:00Z",
+      "artifactIds": [
+        "workspace-diff-evidence",
+        "execution-evidence"
+      ],
+      "metrics": {
+        "wallClockSeconds": 42,
+        "costUsd": 1
+      }
+    }
+  ],
+  "digest": "sha256:4301b273a91ef94e349f2bcf0636f652d06f83b952f8051c0f6e129d30eebaed"
+}

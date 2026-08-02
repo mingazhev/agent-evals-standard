@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "agent-eval-evaluator-control-vectors-1",
+  "id": "evaluator-material-control-vectors",
+  "version": "0.1.0",
+  "manifest": "../positive/evaluator-manifest.json",
+  "repositoryRoot": "../../..",
+  "fixturePublicKey": "../keys/rfc8032-test-key-1.pem",
+  "vectors": [
+    {
+      "id": "material-evaluator-controls-positive",
+      "expected": "pass"
+    },
+    {
+      "id": "material-evaluator-controls-reject-missing-positive",
+      "mutations": [
+        {
+          "pointer": "/positiveControlRecords/0"
+        }
+      ],
+      "expected": "fail",
+      "expectedIssueIncludes": "at least one positive control record is required"
+    },
+    {
+      "id": "material-evaluator-controls-reject-same-id-different-digest",
+      "mutations": [
+        {
+          "pointer": "/negativeControlRecords/0/id",
+          "value": "fixture-evaluator-positive-control"
+        }
+      ],
+      "expected": "fail",
+      "expectedIssueIncludes": "control id fixture-evaluator-positive-control resolves to multiple digests"
+    },
+    {
+      "id": "material-evaluator-controls-reject-inverted-positive-result",
+      "mutations": [
+        {
+          "pointer": "/positiveControlRecords/0",
+          "value": {
+            "id": "fixture-evaluator-inverted-positive-control",
+            "version": "0.1.0",
+            "uri": "../evaluator-controls/inverted-positive-control-record.json",
+            "digest": "sha256:81d1c995d106cc414292daa13095c3461eea402ff9208e87f56ede0dcaca598e",
+            "payloadDigest": "sha256:bda5a2e9686f0fd051daf76bcbde3f42bcede22891385790e97f86d59be67be6"
+          }
+        }
+      ],
+      "expected": "fail",
+      "expectedIssueIncludes": "positive control fixture-evaluator-inverted-positive-control observedDetection must be true"
+    }
+  ]
+}

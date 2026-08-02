@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "agent-eval-signature-profile-1",
+  "id": "repo-change-operational-signature-profile",
+  "version": "0.1.0",
+  "allowedAlgorithms": [
+    "Ed25519"
+  ],
+  "algorithmConformanceVectors": {
+    "id": "fixture-signature-vectors-v1",
+    "uri": "signature-conformance-vectors.json",
+    "digest": "sha256:0746a47e5d9cbdf09bff66334d2af9cc1cd2aea5d6042aa985818c023d1f712e"
+  },
+  "ed25519Parameters": {
+    "mode": "pure",
+    "encoding": "rfc8032_64_octet_signature",
+    "reference": "RFC 8032"
+  },
+  "trustAnchors": [
+    {
+      "id": "repo-change-trust-root-2026",
+      "uri": "operational-keys/trust-root.pem",
+      "digest": "sha256:0a7e5c054de3b3bac295e26d03e9dfacd3ac435a081d9e9ddb9985c567ce0002"
+    }
+  ],
+  "keyResolutionContract": {
+    "contractType": "key_resolution_and_authorization",
+    "schemaVersion": "agent-eval-key-authorization-contract-1",
+    "id": "repo-change-operational-key-authorization",
+    "version": "0.1.0",
+    "uri": "operational-key-authorization-contract.json",
+    "digest": "sha256:cc7c8b81642b5d5736610703409cabb5750ff97ba84fb30cbd6a8bf4b053ba1d"
+  },
+  "revocationContract": {
+    "contractType": "revocation_state",
+    "schemaVersion": "agent-eval-revocation-state-contract-1",
+    "id": "repo-change-operational-revocation-state",
+    "version": "0.1.0",
+    "uri": "operational-revocation-state-contract.json",
+    "digest": "sha256:4c04e72536e07337f848eebe9e5c2387a3d1ef9616b67db448dabc5cc41a1b70"
+  },
+  "timeValidationContract": {
+    "contractType": "trusted_time",
+    "schemaVersion": "agent-eval-trusted-time-contract-1",
+    "id": "repo-change-operational-trusted-time",
+    "version": "0.1.0",
+    "uri": "operational-trusted-time-contract.json",
+    "digest": "sha256:956479a9658de74f8f2f7c2c14c5064c39e15d70cf84ade7ce2905599af66899"
+  },
+  "antiRollbackPolicy": {
+    "contractType": "anti_rollback",
+    "schemaVersion": "agent-eval-anti-rollback-policy-1",
+    "id": "repo-change-operational-anti-rollback-policy",
+    "version": "0.1.0",
+    "uri": "operational-anti-rollback-policy.json",
+    "digest": "sha256:e9408f6d65ed405d4e7a794a6f23f72327b62f28ae872b6aeb0aa26cba936b9a"
+  },
+  "operationalReference": {
+    "classification": "operational_reference",
+    "deploymentUse": "prohibited_until_external_rekey_and_owner_verification",
+    "externalRekeyRequired": true,
+    "referenceVerificationTime": "2026-08-01T00:00:07Z",
+    "requiredDeploymentEvidence": [
+      "external_key_custody",
+      "operator_identity_verification",
+      "endpoint_ownership_verification",
+      "role_separation_verification"
+    ]
+  },
+  "digest": "sha256:187832651a0b2317ca06b864a158c551082bf9f097b318dbe09ad78dd585b3b5"
+}

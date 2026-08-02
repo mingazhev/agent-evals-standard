@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "agent-eval-outcome-replay-executor-registry-1",
+  "id": "agent-evals-standard-outcome-replay-executors",
+  "version": "0.1.0",
+  "executors": [
+    {
+      "outcomeProfileId": "workspace-change-v1",
+      "outcomeProfile": {
+        "id": "workspace-change-v1",
+        "version": "0.1.0",
+        "uri": "../profiles/repo-change-v1/outcome-profile.json",
+        "digest": "sha256:fe8ee26f8d247b2d62c77469b24c2373f287445dbb9ff3f795b487f71fb11566"
+      },
+      "semanticContract": {
+        "id": "workspace-change-v1-outcome-replay-contract",
+        "version": "0.1.0",
+        "uri": "../profiles/repo-change-v1/outcome-replay-contract.md",
+        "digest": "sha256:91eb48578c18137b974886d778d877dd4a53723770943a48fc3a287e42f23c45"
+      },
+      "executor": {
+        "id": "agent-evals-standard.repo-change-outcome-replay",
+        "version": "0.1.0",
+        "uri": "../tools/outcome-replay-executor.mjs",
+        "digest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
+      },
+      "classificationApplicabilityRule": {
+        "id": "agent-evals-standard.case-qa-classification-applicability",
+        "version": "0.1.0",
+        "uri": "../tools/verify-case-qa-record.mjs",
+        "digest": "sha256:9532390e19619956b54c2fe28bab12e1707707c68acc271689aa5bb7031dec81"
+      }
+    }
+  ]
+}

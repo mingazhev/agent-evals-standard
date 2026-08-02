@@ -1,0 +1,257 @@
+{
+  "schemaVersion": "agent-eval-conformance-applicability-contract-1",
+  "id": "decision-applicability-contract",
+  "version": "0.1.0",
+  "target": "decision",
+  "scopeSlices": [
+    {
+      "sliceId": "repository-change-primary",
+      "evaluationProfile": {
+        "id": "repo-change-v1",
+        "version": "0.1.0",
+        "digest": "sha256:82135cb0af1b99baf73146b7b8df1f6c1b80e9c1fa847486aee0196e4bcdcd46",
+        "effectiveProfileDigest": "sha256:9747356974d11b587fb8ba07659c63e641122c611866d0e165ec2245d587b61a"
+      }
+    },
+    {
+      "sliceId": "repository-change-secondary",
+      "evaluationProfile": {
+        "id": "repo-change-v1",
+        "version": "0.1.0",
+        "digest": "sha256:82135cb0af1b99baf73146b7b8df1f6c1b80e9c1fa847486aee0196e4bcdcd46",
+        "effectiveProfileDigest": "sha256:9747356974d11b587fb8ba07659c63e641122c611866d0e165ec2245d587b61a"
+      }
+    }
+  ],
+  "rules": [
+    {
+      "id": "decision-applicability-arch-001",
+      "requirementId": "ARCH-001",
+      "target": "decision",
+      "predicate": "target_membership",
+      "registryApplicabilityDigest": "sha256:028dbf2c9845eec66cc28bef40a0c91d9f5d0b75a2504f70fb95ab6c84f93e25",
+      "rationale": "Architecture evidence is required for a release decision.",
+      "evaluationProfileRuleIds": [],
+      "evidenceAssertionIds": [
+        "conformance-decision-requirement-results"
+      ]
+    },
+    {
+      "id": "decision-applicability-assure-001",
+      "requirementId": "ASSURE-001",
+      "target": "decision",
+      "predicate": "target_membership",
+      "registryApplicabilityDigest": "sha256:31673d89655be0e63e03f2388391a0a16f0dc151d9354476bc45df6cda3490af",
+      "rationale": "Assurance compatibility is required for a release decision.",
+      "evaluationProfileRuleIds": [],
+      "evidenceAssertionIds": [
+        "conformance-decision-requirement-results"
+      ]
+    },
+    {
+      "id": "decision-applicability-claim-001",
+      "requirementId": "CLAIM-001",
+      "target": "decision",
+      "predicate": "target_membership",
+      "registryApplicabilityDigest": "sha256:89e422184db95c9d85ada1f5ab2fa236011bcad78d05b5b910d8fc435730914d",
+      "rationale": "Claim support is required for a release decision.",
+      "evaluationProfileRuleIds": [],
+      "evidenceAssertionIds": [
+        "conformance-decision-requirement-results"
+      ]
+    },
+    {
+      "id": "decision-applicability-claim-002",
+      "requirementId": "CLAIM-002",
+      "target": "decision",
+      "predicate": "target_membership",
+      "registryApplicabilityDigest": "sha256:707ddfbbcbf5ee5da10674a1c8644ab05c0d0f6f998d4661f5bdfe48a1878cb0",
+      "rationale": "Statistical decision rules are required for a release decision.",
+      "evaluationProfileRuleIds": [],
+      "evidenceAssertionIds": [
+        "conformance-decision-requirement-results"
+      ]
+    },
+    {
+      "id": "decision-applicability-conf-001",
+      "requirementId": "CONF-001",
+      "target": "decision",
+      "predicate": "target_membership",
+      "registryApplicabilityDigest": "sha256:28d6970afd923827c329171fc211d1fc20f3d79733de5acc952edb6c34bcee20",
+      "rationale": "The repository-grounded SDLC boundary is required for conformance.",
+      "evaluationProfileRuleIds": [],
+      "evidenceAssertionIds": [
+        "conformance-decision-requirement-results"
+      ]
+    },
+    {
+      "id": "decision-applicability-conf-002",
+      "requirementId": "CONF-002",
+      "target": "decision",
+      "predicate": "target_membership",
+      "registryApplicabilityDigest": "sha256:b457cf82b3c5bee4233f9e68ba325ed0f708e9543cb5c38e4b4c0f9c201d58ab",
+      "rationale": "Closed requirement coverage is required for conformance.",
+      "evaluationProfileRuleIds": [],
+      "evidenceAssertionIds": [
+        "conformance-decision-requirement-results"
+      ]
+    },
+    {
+      "id": "decision-applicability-conf-003",
+      "requirementId": "CONF-003",
+      "target": "decision",
+      "predicate": "target_membership",
+      "registryApplicabilityDigest": "sha256:8c84a73e47b9167a3c0f97ace6353072dcec46dc210719ddb1da8346d99c21d5",
+      "rationale": "Extension and deviation rules are required for conformance.",
+      "evaluationProfileRuleIds": [],
+      "evidenceAssertionIds": [
+        "conformance-decision-requirement-results"
+      ]
+    },
+    {
+      "id": "decision-applicability-data-002",
+      "requirementId": "DATA-002",
+      "target": "decision",
+      "predicate": "target_membership",
+      "registryApplicabilityDigest": "sha256:5ec6551f360b03f9376a9d240c4cdcdc71409999d962454fa026755a4f28f4e5",
+      "rationale": "Decision evidence must satisfy data governance.",
+      "evaluationProfileRuleIds": [],
+      "evidenceAssertionIds": [
+        "conformance-decision-requirement-results"
+      ]
+    },
+    {
+      "id": "decision-applicability-evid-001",
+      "requirementId": "EVID-001",
+      "target": "decision",
+      "predicate": "target_membership",
+      "registryApplicabilityDigest": "sha256:77e79cbce415e1ca69f5f018840a389d2110d51e21508a678d0601a80d97f35e",
+      "rationale": "Evidence authenticity is required for a release decision.",
+      "evaluationProfileRuleIds": [],
+      "evidenceAssertionIds": [
+        "conformance-decision-requirement-results"
+      ]
+    },
+    {
+      "id": "decision-applicability-evid-002",
+      "requirementId": "EVID-002",
+      "target": "decision",
+      "predicate": "target_membership",
+      "registryApplicabilityDigest": "sha256:2f9b83a1add2772b0705d6946d3d646d4851cd686defee1bf6a8014a1a361f50",
+      "rationale": "Detached semantic validation is required for conformance.",
+      "evaluationProfileRuleIds": [],
+      "evidenceAssertionIds": [
+        "conformance-decision-requirement-results"
+      ]
+    },
+    {
+      "id": "decision-applicability-gov-001",
+      "requirementId": "GOV-001",
+      "target": "decision",
+      "predicate": "target_membership",
+      "registryApplicabilityDigest": "sha256:d7fc3fb718ade8729270138eaf7d1da64e317527c2b05bf5d5cf612e31da5a79",
+      "rationale": "Governance policy is required for a release decision.",
+      "evaluationProfileRuleIds": [],
+      "evidenceAssertionIds": [
+        "conformance-decision-requirement-results"
+      ]
+    },
+    {
+      "id": "decision-applicability-gov-002",
+      "requirementId": "GOV-002",
+      "target": "decision",
+      "predicate": "target_membership",
+      "registryApplicabilityDigest": "sha256:da7192a8899de1dc5547dc6ca4987a6ea8864a5e990168f83de192856621f262",
+      "rationale": "Escalation handling is required for a release decision.",
+      "evaluationProfileRuleIds": [],
+      "evidenceAssertionIds": [
+        "conformance-decision-requirement-results"
+      ]
+    },
+    {
+      "id": "decision-applicability-health-001",
+      "requirementId": "HEALTH-001",
+      "target": "decision",
+      "predicate": "target_membership",
+      "registryApplicabilityDigest": "sha256:34f71b838cc6074b5fb4fcf3b55e067b37236609c24a29930b0da4e3070c18d8",
+      "rationale": "Benchmark health is required for a release decision.",
+      "evaluationProfileRuleIds": [],
+      "evidenceAssertionIds": [
+        "conformance-decision-requirement-results"
+      ]
+    },
+    {
+      "id": "decision-applicability-i1",
+      "requirementId": "I1",
+      "target": "decision",
+      "predicate": "target_membership",
+      "registryApplicabilityDigest": "sha256:b01c38becff4a29e86725b6ffd3c69d20097d81512e6d2fc54623a6e0de1194b",
+      "rationale": "Sealed subject identity is required for decision evidence.",
+      "evaluationProfileRuleIds": [],
+      "evidenceAssertionIds": [
+        "conformance-decision-requirement-results"
+      ]
+    },
+    {
+      "id": "decision-applicability-i10",
+      "requirementId": "I10",
+      "target": "decision",
+      "predicate": "target_membership",
+      "registryApplicabilityDigest": "sha256:0e83bb35aa5555b5a41381cee6058072490063799384ce4852514bd61558afd1",
+      "rationale": "Failure taxonomy integrity is required for decision evidence.",
+      "evaluationProfileRuleIds": [],
+      "evidenceAssertionIds": [
+        "conformance-decision-requirement-results"
+      ]
+    },
+    {
+      "id": "decision-applicability-i6",
+      "requirementId": "I6",
+      "target": "decision",
+      "predicate": "target_membership",
+      "registryApplicabilityDigest": "sha256:60e0b482c7f82483ae6f036a3cfc6f9d2ebe9f8df6562e21a859fba012d9d5b1",
+      "rationale": "Claim validity is required for a release decision.",
+      "evaluationProfileRuleIds": [],
+      "evidenceAssertionIds": [
+        "conformance-decision-requirement-results"
+      ]
+    },
+    {
+      "id": "decision-applicability-risk-001",
+      "requirementId": "RISK-001",
+      "target": "decision",
+      "predicate": "target_membership",
+      "registryApplicabilityDigest": "sha256:f29e4e8c8471113244ecb829e7cacd905c510c80b655b9c626a146e81529ae2c",
+      "rationale": "Risk calibration is required for a release decision.",
+      "evaluationProfileRuleIds": [],
+      "evidenceAssertionIds": [
+        "conformance-decision-requirement-results"
+      ]
+    },
+    {
+      "id": "decision-applicability-trace-001",
+      "requirementId": "TRACE-001",
+      "target": "decision",
+      "predicate": "target_membership",
+      "registryApplicabilityDigest": "sha256:eaa4369578539fbeb591f3c8d6d5a693ac9d0e15f549dec8576fc3921b5c37c9",
+      "rationale": "Traceability is required for a release decision.",
+      "evaluationProfileRuleIds": [],
+      "evidenceAssertionIds": [
+        "conformance-decision-requirement-results"
+      ]
+    }
+  ],
+  "failureSemantics": {
+    "unknownRule": "insufficient_evidence",
+    "indeterminatePredicate": "insufficient_evidence",
+    "missingEvidence": "insufficient_evidence"
+  },
+  "digest": "sha256:c6af0e5a359b6f29b05db203697264875d0d581abc1d6f551c65e78d80e92026",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:20Z",
+    "value": "7_vYLg166aacSrvbW-Prqc5Qd8IAgl0w20IDTLLzSBHDRxAndjX37tgsfF6uwsHV8teX98MbmplipEYJ6l4jBQ"
+  }
+}

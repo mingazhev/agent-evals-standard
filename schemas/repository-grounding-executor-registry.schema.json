@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:repository-grounding-executor-registry:1",
+  "title": "Repository-grounding executor registry",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "executors"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-repository-grounding-executor-registry-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "const": "0.1.0" },
+    "executors": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "version", "uri", "digest", "algorithms"],
+        "properties": {
+          "id": { "$ref": "#/$defs/id" },
+          "version": { "const": "0.1.0" },
+          "uri": { "type": "string", "minLength": 1 },
+          "digest": { "$ref": "#/$defs/digest" },
+          "algorithms": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+  }
+}

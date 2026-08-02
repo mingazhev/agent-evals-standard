@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "agent-eval-revocation-state-contract-1",
+  "id": "repo-change-operational-revocation-state",
+  "version": "0.1.0",
+  "keyAuthorizationContract": {
+    "id": "repo-change-operational-key-authorization",
+    "version": "0.1.0",
+    "uri": "operational-key-authorization-contract.json",
+    "digest": "sha256:cc7c8b81642b5d5736610703409cabb5750ff97ba84fb30cbd6a8bf4b053ba1d"
+  },
+  "stateSequence": 1,
+  "previousStateDigest": null,
+  "publishedAt": "2026-08-01T00:00:00Z",
+  "nextUpdate": "2026-08-02T00:00:00Z",
+  "authorityThreshold": 2,
+  "authorizationSignatures": [
+    {
+      "profileId": "repo-change-operational-signature-profile",
+      "algorithm": "Ed25519",
+      "keyId": "repo-change-revocation-a-2026",
+      "signedAt": "2026-08-01T00:00:00Z",
+      "value": "-FMzeaBNN5o6jKjJ2_TIc1htoyVs5GX1gI4Vq2s509w34TBVDqJftMGjzAd-rVHlmA7fM6pvjXNtXcyvKOvdCQ"
+    },
+    {
+      "profileId": "repo-change-operational-signature-profile",
+      "algorithm": "Ed25519",
+      "keyId": "repo-change-revocation-b-2026",
+      "signedAt": "2026-08-01T00:00:00Z",
+      "value": "5TdhyN-gJSeKv71Bms3Rq__-7X5qBc7O68VLshzlqf23pz-CLNG9HHTyWVwXWfwVDt9RKsfKO5SEZA281D6PDQ"
+    }
+  ],
+  "keyStatuses": [
+    {
+      "keyId": "repo-change-trust-root-2026",
+      "status": "active",
+      "effectiveAt": "2026-08-01T00:00:00Z",
+      "compromiseTime": null,
+      "reason": "Initial active operational reference state."
+    },
+    {
+      "keyId": "repo-change-notary-2026",
+      "status": "active",
+      "effectiveAt": "2026-08-01T00:00:00Z",
+      "compromiseTime": null,
+      "reason": "Initial active operational reference state."
+    },
+    {
+      "keyId": "repo-change-witness-a-2026",
+      "status": "active",
+      "effectiveAt": "2026-08-01T00:00:00Z",
+      "compromiseTime": null,
+      "reason": "Initial active operational reference state."
+    },
+    {
+      "keyId": "repo-change-time-a-2026",
+      "status": "active",
+      "effectiveAt": "2026-08-01T00:00:00Z",
+      "compromiseTime": null,
+      "reason": "Initial active operational reference state."
+    },
+    {
+      "keyId": "repo-change-time-b-2026",
+      "status": "active",
+      "effectiveAt": "2026-08-01T00:00:00Z",
+      "compromiseTime": null,
+      "reason": "Initial active operational reference state."
+    },
+    {
+      "keyId": "repo-change-revocation-a-2026",
+      "status": "active",
+      "effectiveAt": "2026-08-01T00:00:00Z",
+      "compromiseTime": null,
+      "reason": "Initial active operational reference state."
+    },
+    {
+      "keyId": "repo-change-revocation-b-2026",
+      "status": "active",
+      "effectiveAt": "2026-08-01T00:00:00Z",
+      "compromiseTime": null,
+      "reason": "Initial active operational reference state."
+    },
+    {
+      "keyId": "repo-change-registration-a-2026",
+      "status": "active",
+      "effectiveAt": "2026-08-01T00:00:00Z",
+      "compromiseTime": null,
+      "reason": "Initial active operational reference state."
+    },
+    {
+      "keyId": "repo-change-registration-b-2026",
+      "status": "active",
+      "effectiveAt": "2026-08-01T00:00:00Z",
+      "compromiseTime": null,
+      "reason": "Initial active operational reference state."
+    },
+    {
+      "keyId": "repo-change-rotation-a-2026",
+      "status": "active",
+      "effectiveAt": "2026-08-01T00:00:00Z",
+      "compromiseTime": null,
+      "reason": "Initial active operational reference state."
+    },
+    {
+      "keyId": "repo-change-rotation-b-2026",
+      "status": "active",
+      "effectiveAt": "2026-08-01T00:00:00Z",
+      "compromiseTime": null,
+      "reason": "Initial active operational reference state."
+    },
+    {
+      "keyId": "repo-change-governance-a-2026",
+      "status": "active",
+      "effectiveAt": "2026-08-01T00:00:00Z",
+      "compromiseTime": null,
+      "reason": "Initial active operational reference state."
+    },
+    {
+      "keyId": "repo-change-governance-b-2026",
+      "status": "active",
+      "effectiveAt": "2026-08-01T00:00:00Z",
+      "compromiseTime": null,
+      "reason": "Initial active operational reference state."
+    }
+  ],
+  "compromiseRules": {
+    "beforeCompromise": "retain_if_independently_timestamped",
+    "atOrAfterCompromise": "insufficient_evidence",
+    "unknownCompromiseTime": "stop_governance_use"
+  },
+  "failureSemantics": {
+    "staleState": "insufficient_evidence",
+    "invalidQuorum": "stop_governance_use",
+    "rollback": "measurement_boundary_compromise",
+    "unknownKey": "insufficient_evidence"
+  },
+  "digest": "sha256:4c04e72536e07337f848eebe9e5c2387a3d1ef9616b67db448dabc5cc41a1b70",
+  "signature": {
+    "profileId": "repo-change-operational-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "repo-change-trust-root-2026",
+    "signedAt": "2026-08-01T00:00:00Z",
+    "value": "oRlfKsn9xTSyC6OsgjSguxNGDHfh-V-BCrtgeGJDgNowuo8ULeMsE1dfNWlN1mvxuqqnwjzELX8_HQxpHWC9Dg"
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:key-authorization-contract:1",
+  "title": "Operational key resolution and authorization contract",
+  "$comment": "Semantic validation must resolve every keyId exactly once; verify public-key digest, active status, an independently trusted signature time within the validity interval, producer role, artifact schemaVersion and affected scope authorization; never use signer-controlled signedAt alone as trusted time; resolve every authority ownerId to a distinct key owner with the corresponding authority role; and fail with insufficient_evidence on unknown, duplicate, stale, revoked, suspended, retired or unauthorized keys.",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "purpose", "operationalUse", "trustDomain", "keys", "authorities", "requiredSeparations", "failureSemantics", "digest", "signature"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-key-authorization-contract-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "const": "0.1.0" },
+    "purpose": { "const": "operational_key_resolution_and_authorization" },
+    "operationalUse": { "const": "permitted_after_endpoint_and_owner_verification" },
+    "trustDomain": { "type": "string", "minLength": 1 },
+    "keys": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["keyId", "algorithm", "keyType", "publicKey", "ownerId", "authorizedRoles", "authorizedArtifactSchemaVersions", "authorizedScopes", "validFrom", "validUntil", "status", "reassignment"],
+        "properties": {
+          "keyId": { "$ref": "#/$defs/id" },
+          "algorithm": { "enum": ["Ed25519", "ES256", "PS256"] },
+          "keyType": { "enum": ["Ed25519", "P-256", "RSA"] },
+          "publicKey": { "$ref": "#/$defs/publicKeyPointer" },
+          "ownerId": { "$ref": "#/$defs/id" },
+          "authorizedRoles": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+          "authorizedArtifactSchemaVersions": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+          "authorizedScopes": {
+            "$comment": "A scope is profileId:assurance:effectiveRisk. A hyphenated assurance or risk range is inclusive in A0<A1<A2<A3 and low<medium<high<critical order; the two ranges denote their Cartesian product. Every affected profile/assurance/risk tuple must be covered explicitly by one scope and an omitted tuple is unauthorized.",
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*:A[0-3](?:-A[0-3])?:(?:low|medium|high|critical)(?:-(?:low|medium|high|critical))?$" },
+            "uniqueItems": true
+          },
+          "validFrom": { "$ref": "#/$defs/time" },
+          "validUntil": { "$ref": "#/$defs/time" },
+          "status": { "enum": ["active", "suspended", "revoked", "retired"] },
+          "reassignment": { "const": "forbidden" }
+        },
+        "allOf": [
+          { "if": { "properties": { "algorithm": { "const": "Ed25519" } }, "required": ["algorithm"] }, "then": { "properties": { "keyType": { "const": "Ed25519" } } } },
+          { "if": { "properties": { "algorithm": { "const": "ES256" } }, "required": ["algorithm"] }, "then": { "properties": { "keyType": { "const": "P-256" } } } },
+          { "if": { "properties": { "algorithm": { "const": "PS256" } }, "required": ["algorithm"] }, "then": { "properties": { "keyType": { "const": "RSA" } } } }
+        ],
+        "additionalProperties": false
+      }
+    },
+    "authorities": {
+      "type": "object",
+      "required": ["keyRegistrationOwnerIds", "revocationOwnerIds", "rootRotationOwnerIds", "governanceApprovalOwnerIds", "minimumIndependentApprovals"],
+      "properties": {
+        "keyRegistrationOwnerIds": { "$ref": "#/$defs/ownerSet" },
+        "revocationOwnerIds": { "$ref": "#/$defs/ownerSet" },
+        "rootRotationOwnerIds": { "$ref": "#/$defs/ownerSet" },
+        "governanceApprovalOwnerIds": { "$ref": "#/$defs/ownerSet" },
+        "minimumIndependentApprovals": { "type": "integer", "minimum": 2 }
+      },
+      "additionalProperties": false
+    },
+    "requiredSeparations": {
+      "type": "array",
+      "minItems": 8,
+      "items": { "enum": ["notary_operator_vs_run_workspace", "notary_operator_vs_ledger_writer", "notary_operator_vs_evidence_signer", "notary_operator_vs_decision_approver", "notary_operator_vs_evaluator", "notary_operator_vs_subject_owner", "time_authority_vs_evidence_signer", "witness_vs_notary_operator"] },
+      "uniqueItems": true,
+      "allOf": [
+        { "contains": { "const": "notary_operator_vs_run_workspace" } },
+        { "contains": { "const": "notary_operator_vs_ledger_writer" } },
+        { "contains": { "const": "notary_operator_vs_evidence_signer" } },
+        { "contains": { "const": "notary_operator_vs_decision_approver" } },
+        { "contains": { "const": "notary_operator_vs_evaluator" } },
+        { "contains": { "const": "notary_operator_vs_subject_owner" } },
+        { "contains": { "const": "time_authority_vs_evidence_signer" } },
+        { "contains": { "const": "witness_vs_notary_operator" } }
+      ]
+    },
+    "failureSemantics": {
+      "type": "object",
+      "required": ["unknownKey", "duplicateKey", "unauthorizedRoleOrScope", "inactiveOrOutOfIntervalKey", "trustStateUnavailable"],
+      "properties": {
+        "unknownKey": { "const": "insufficient_evidence" },
+        "duplicateKey": { "const": "insufficient_evidence" },
+        "unauthorizedRoleOrScope": { "const": "insufficient_evidence" },
+        "inactiveOrOutOfIntervalKey": { "const": "insufficient_evidence" },
+        "trustStateUnavailable": { "const": "stop_governance_use" }
+      },
+      "additionalProperties": false
+    },
+    "digest": { "$ref": "#/$defs/digest" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "time": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "ownerSet": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+    "publicKeyPointer": {
+      "type": "object",
+      "required": ["uri", "digest", "format"],
+      "properties": {
+        "uri": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" },
+        "format": { "const": "pem_spki" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

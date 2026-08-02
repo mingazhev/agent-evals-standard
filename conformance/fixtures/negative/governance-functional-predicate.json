@@ -1,0 +1,28 @@
+{
+  "id": "governance-claim-1",
+  "type": "governance_evidence",
+  "intendedDecision": "bounded internal release decision",
+  "construct": "accepted repository-change outcome",
+  "estimand": "accepted outcome rate over scheduled held-out cells",
+  "direction": "positive",
+  "successDefinition": { "id": "functional-outcome-v1", "version": "0.1.0" },
+  "analysisUnit": "scheduled_cell",
+  "targetPopulation": "repository changes represented by the sealed suite",
+  "samplingFrame": "sealed held-out suite slice",
+  "representedStrata": ["repository_change"],
+  "slice": ["held-out-repo-change"],
+  "weights": { "id": "equal-case-weights", "uri": "artifact:equal-case-weights", "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111" },
+  "coverageGaps": [],
+  "assuranceLevel": "A2",
+  "effectiveRiskRange": ["low", "medium"],
+  "exposureBoundary": { "id": "exposure-boundary", "uri": "artifact:exposure-boundary", "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222" },
+  "evaluationProfile": { "id": "repo-change-v1", "version": "0.1.0", "digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333" },
+  "outcomeProfiles": [
+    { "id": "workspace-change-v1", "version": "0.1.0", "digest": "sha256:6666666666666666666666666666666666666666666666666666666666666666" }
+  ],
+  "comparatorArmIds": [],
+  "threshold": 0.8,
+  "confidenceLevel": 0.95,
+  "statisticalPlan": { "id": "stat-plan", "uri": "artifact:stat-plan", "digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444" },
+  "decisionRule": { "id": "decision-rule", "version": "0.1.0", "uri": "artifact:decision-rule", "digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555" }
+}

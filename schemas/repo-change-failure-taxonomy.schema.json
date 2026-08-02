@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:repo-change-failure-taxonomy:1",
+  "title": "Repository-change failure taxonomy 0.1.0",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "mappings"],
+  "properties": {
+    "schemaVersion": { "const": "repo-change-failure-taxonomy-1" },
+    "id": { "const": "repo-change-failure-taxonomy" },
+    "version": { "const": "0.1.0" },
+    "mappings": {
+      "$comment": "The mapping set is closed and contains each cause exactly once for this taxonomy version; order is non-semantic.",
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "uniqueItems": true,
+      "items": {
+        "oneOf": [
+          { "$ref": "#/$defs/implementationIncomplete" },
+          { "$ref": "#/$defs/buildFailed" },
+          { "$ref": "#/$defs/publicChecksFailed" },
+          { "$ref": "#/$defs/hiddenRegression" },
+          { "$ref": "#/$defs/securityCheckFailed" },
+          { "$ref": "#/$defs/repositoryIntegrityFailed" },
+          { "$ref": "#/$defs/attributedPolicyViolation" },
+          { "$ref": "#/$defs/attributedRepositoryIntegrityBreach" },
+          { "$ref": "#/$defs/irrelevantOrNoChange" },
+          { "$ref": "#/$defs/budgetExhausted" },
+          { "$ref": "#/$defs/missingRequiredClarification" },
+          { "$ref": "#/$defs/measurementFailure" }
+        ]
+      },
+      "allOf": [
+        { "contains": { "$ref": "#/$defs/implementationIncomplete" } },
+        { "contains": { "$ref": "#/$defs/buildFailed" } },
+        { "contains": { "$ref": "#/$defs/publicChecksFailed" } },
+        { "contains": { "$ref": "#/$defs/hiddenRegression" } },
+        { "contains": { "$ref": "#/$defs/securityCheckFailed" } },
+        { "contains": { "$ref": "#/$defs/repositoryIntegrityFailed" } },
+        { "contains": { "$ref": "#/$defs/attributedPolicyViolation" } },
+        { "contains": { "$ref": "#/$defs/attributedRepositoryIntegrityBreach" } },
+        { "contains": { "$ref": "#/$defs/irrelevantOrNoChange" } },
+        { "contains": { "$ref": "#/$defs/budgetExhausted" } },
+        { "contains": { "$ref": "#/$defs/missingRequiredClarification" } },
+        { "contains": { "$ref": "#/$defs/measurementFailure" } }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "implementationIncomplete": { "$ref": "#/$defs/partialArm" },
+    "buildFailed": { "$ref": "#/$defs/failedArmBuild" },
+    "publicChecksFailed": { "$ref": "#/$defs/failedArmPublicChecks" },
+    "hiddenRegression": { "$ref": "#/$defs/failedArmHiddenRegression" },
+    "securityCheckFailed": { "$ref": "#/$defs/failedArmSecurityCheck" },
+    "repositoryIntegrityFailed": { "$ref": "#/$defs/failedArmRepositoryIntegrity" },
+    "attributedPolicyViolation": { "$ref": "#/$defs/unsafeAttributedPolicy" },
+    "attributedRepositoryIntegrityBreach": { "$ref": "#/$defs/unsafeAttributedRepositoryIntegrity" },
+    "irrelevantOrNoChange": { "$ref": "#/$defs/noResultArm" },
+    "budgetExhausted": { "$ref": "#/$defs/failedArmBudget" },
+    "missingRequiredClarification": { "$ref": "#/$defs/noResultArmClarification" },
+    "measurementFailure": { "$ref": "#/$defs/infraMeasurement" },
+    "partialArm": {
+      "type": "object", "required": ["id", "defaultPrimaryOutcome", "attribution"],
+      "properties": { "id": { "const": "implementation_incomplete" }, "defaultPrimaryOutcome": { "const": "partial" }, "attribution": { "const": "arm" } },
+      "additionalProperties": false
+    },
+    "failedArmBuild": {
+      "type": "object", "required": ["id", "defaultPrimaryOutcome", "attribution"],
+      "properties": { "id": { "const": "build_failed" }, "defaultPrimaryOutcome": { "const": "failed" }, "attribution": { "const": "arm" } },
+      "additionalProperties": false
+    },
+    "failedArmPublicChecks": {
+      "type": "object", "required": ["id", "defaultPrimaryOutcome", "attribution"],
+      "properties": { "id": { "const": "public_checks_failed" }, "defaultPrimaryOutcome": { "const": "failed" }, "attribution": { "const": "arm" } },
+      "additionalProperties": false
+    },
+    "failedArmHiddenRegression": {
+      "type": "object", "required": ["id", "defaultPrimaryOutcome", "attribution"],
+      "properties": { "id": { "const": "hidden_regression" }, "defaultPrimaryOutcome": { "const": "failed" }, "attribution": { "const": "arm" } },
+      "additionalProperties": false
+    },
+    "failedArmSecurityCheck": {
+      "type": "object", "required": ["id", "defaultPrimaryOutcome", "attribution"],
+      "properties": { "id": { "const": "security_check_failed" }, "defaultPrimaryOutcome": { "const": "failed" }, "attribution": { "const": "arm" } },
+      "additionalProperties": false
+    },
+    "failedArmRepositoryIntegrity": {
+      "type": "object", "required": ["id", "defaultPrimaryOutcome", "attribution"],
+      "properties": { "id": { "const": "repository_integrity_failed" }, "defaultPrimaryOutcome": { "const": "failed" }, "attribution": { "const": "arm" } },
+      "additionalProperties": false
+    },
+    "unsafeAttributedPolicy": {
+      "type": "object", "required": ["id", "defaultPrimaryOutcome", "attribution"],
+      "properties": { "id": { "const": "attributed_policy_violation" }, "defaultPrimaryOutcome": { "const": "unsafe_policy_violation" }, "attribution": { "const": "independently_attributed_arm" } },
+      "additionalProperties": false
+    },
+    "unsafeAttributedRepositoryIntegrity": {
+      "type": "object", "required": ["id", "defaultPrimaryOutcome", "attribution"],
+      "properties": { "id": { "const": "attributed_repository_integrity_breach" }, "defaultPrimaryOutcome": { "const": "unsafe_policy_violation" }, "attribution": { "const": "independently_attributed_arm" } },
+      "additionalProperties": false
+    },
+    "noResultArm": {
+      "type": "object", "required": ["id", "defaultPrimaryOutcome", "attribution"],
+      "properties": { "id": { "const": "irrelevant_or_no_change" }, "defaultPrimaryOutcome": { "const": "no_relevant_result" }, "attribution": { "const": "arm" } },
+      "additionalProperties": false
+    },
+    "failedArmBudget": {
+      "type": "object", "required": ["id", "defaultPrimaryOutcome", "attribution"],
+      "properties": { "id": { "const": "budget_exhausted" }, "defaultPrimaryOutcome": { "const": "failed" }, "attribution": { "const": "arm" } },
+      "additionalProperties": false
+    },
+    "noResultArmClarification": {
+      "type": "object", "required": ["id", "defaultPrimaryOutcome", "attribution"],
+      "properties": { "id": { "const": "missing_required_clarification" }, "defaultPrimaryOutcome": { "const": "no_relevant_result" }, "attribution": { "const": "arm" } },
+      "additionalProperties": false
+    },
+    "infraMeasurement": {
+      "type": "object", "required": ["id", "defaultPrimaryOutcome", "attribution"],
+      "properties": { "id": { "const": "measurement_failure" }, "defaultPrimaryOutcome": { "const": "infra_failure" }, "attribution": { "const": "measurement" } },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,3357 @@
+{
+  "schemaVersion": "conformance-fixture-manifest-1",
+  "outcomeReplayTrustBindings": [
+    {
+      "sourcePath": "positive/scorecard.json",
+      "profileId": "conformance-outcome-replay-v1"
+    }
+  ],
+  "fixtures": [
+    {
+      "id": "outcome-replay-executor-registry-full-root-positive",
+      "path": "../../standard/outcome-replay-executor-registry.json",
+      "schema": "urn:agent-evals-standard:schema:outcome-replay-executor-registry:1",
+      "valid": true
+    },
+    {
+      "id": "repository-grounding-executor-registry-full-root-positive",
+      "path": "../../standard/repository-grounding-executor-registry.json",
+      "schema": "urn:agent-evals-standard:schema:repository-grounding-executor-registry:1",
+      "valid": true
+    },
+    {
+      "id": "outcome-replay-receipt-full-root-positive",
+      "path": "positive/outcome-replay-receipt.json",
+      "schema": "urn:agent-evals-standard:schema:outcome-replay-receipt:1",
+      "valid": true
+    },
+    {
+      "id": "outcome-replay-receipt-implementation-only-full-root-positive",
+      "path": "positive/outcome-replay-receipt-implementation-only.json",
+      "schema": "urn:agent-evals-standard:schema:outcome-replay-receipt:1",
+      "valid": true
+    },
+    {
+      "id": "outcome-replay-receipt-reject-partial-assurance-binding",
+      "basePath": "positive/outcome-replay-receipt-implementation-only.json",
+      "mutations": [
+        {
+          "pointer": "/evaluatedAssuranceReport",
+          "add": true,
+          "value": {
+            "evidenceId": "assurance-report-evidence",
+            "digest": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+          }
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:outcome-replay-receipt:1",
+      "valid": false,
+      "expectedError": "\"missingProperty\":\"graderAssessment\""
+    },
+    {
+      "id": "repo-change-assurance-report-full-root-positive",
+      "path": "positive/repo-change-assurance-report.json",
+      "schema": "urn:agent-evals-standard:schema:repo-change-assurance-report:1",
+      "valid": true
+    },
+    {
+      "id": "repo-change-grader-assessment-full-root-positive",
+      "path": "positive/repo-change-grader-assessment.json",
+      "schema": "urn:agent-evals-standard:schema:repo-change-grader-assessment:1",
+      "valid": true
+    },
+    {
+      "id": "repo-change-adjudication-record-full-root-positive",
+      "group": "outcome-replay",
+      "path": "positive/repo-change-adjudication-record.json",
+      "schema": "urn:agent-evals-standard:schema:repo-change-adjudication-record:1",
+      "valid": true
+    },
+    {
+      "id": "repo-change-adjudication-record-single-rater-negative",
+      "group": "outcome-replay",
+      "basePath": "positive/repo-change-adjudication-record.json",
+      "mutations": [
+        {
+          "pointer": "/raters",
+          "value": [
+            {
+              "raterId": "fixture-rater-alpha",
+              "raterIdentityDigest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "trustDomain": "fixture-rater-domain-alpha",
+              "qualificationRuleDigest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+              "qualificationEvidenceDigest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "qualificationVerdict": "pass",
+              "conflictCheckEvidenceDigest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+              "conflictOfInterestVerdict": "pass",
+              "ratingEvidenceDigest": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+              "blinded": true,
+              "verdict": "pass",
+              "reason": "The repository change satisfies the sealed construct rubric."
+            }
+          ]
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:repo-change-adjudication-record:1",
+      "valid": false,
+      "expectedError": "must NOT have fewer than 2 items"
+    },
+    {
+      "id": "repo-change-measurement-validity-record-full-root-positive",
+      "group": "outcome-replay",
+      "path": "positive/repo-change-measurement-validity-record.json",
+      "schema": "urn:agent-evals-standard:schema:repo-change-measurement-validity-record:1",
+      "valid": true
+    },
+    {
+      "id": "repo-change-measurement-validity-evidence-trust-positive",
+      "group": "outcome-replay",
+      "path": "positive/repo-change-measurement-validity-evidence.json",
+      "schema": "urn:agent-evals-standard:schema:evidence-artifact:1",
+      "valid": true,
+      "semanticChecks": [
+        "evidencePayload",
+        "signature"
+      ]
+    },
+    {
+      "id": "repo-change-measurement-validity-evidence-unauthorized-schema-negative",
+      "group": "outcome-replay",
+      "path": "negative/repo-change-measurement-validity-evidence-unauthorized-schema.json",
+      "schema": "urn:agent-evals-standard:schema:evidence-artifact:1",
+      "valid": false,
+      "semanticChecks": [
+        "evidencePayload",
+        "signature"
+      ],
+      "expectedError": "unknown operational signature profile or algorithm"
+    },
+    {
+      "id": "repo-change-runner-attestation-record-full-root-positive",
+      "path": "positive/repo-change-runner-attestation-record.json",
+      "schema": "urn:agent-evals-standard:schema:repo-change-runner-check-record:1",
+      "valid": true
+    },
+    {
+      "id": "repo-change-alternative-terminal-record-full-root-positive",
+      "path": "positive/repo-change-safe-refusal-record.json",
+      "schema": "urn:agent-evals-standard:schema:repo-change-alternative-terminal-record:1",
+      "valid": true
+    },
+    {
+      "id": "repo-change-runner-check-record-full-root-positive",
+      "path": "positive/repo-change-runner-check-record.json",
+      "schema": "urn:agent-evals-standard:schema:repo-change-runner-check-record:1",
+      "valid": true
+    },
+    {
+      "id": "distribution-schema-manifest-full-root-positive",
+      "path": "positive/schema-manifest.json",
+      "schema": "urn:agent-evals-standard:schema:distribution-manifest:1",
+      "valid": true
+    },
+    {
+      "id": "verified-machine-contract-full-root-positive",
+      "path": "machine-contracts-v1/positive/control-binding.json",
+      "schema": "urn:agent-evals-standard:schema:verified-machine-contract:1",
+      "valid": true,
+      "semanticChecks": ["evaluationControlGraph"]
+    },
+    {
+      "id": "evaluation-control-authority-evidence-full-root-positive",
+      "path": "machine-contracts-v1/positive/validity-review-evidence.json",
+      "schema": "urn:agent-evals-standard:schema:evaluation-control-authority-evidence:1",
+      "valid": true,
+      "semanticChecks": ["evaluationControlGraph"]
+    },
+    {
+      "id": "evaluation-control-authority-policy-full-root-positive",
+      "path": "machine-contracts-v1/positive/authority-policy.json",
+      "schema": "urn:agent-evals-standard:schema:evaluation-control-authority-policy:1",
+      "valid": true,
+      "semanticChecks": ["evaluationControlGraph"]
+    },
+    {
+      "id": "evaluation-control-bindings-full-root-positive",
+      "path": "machine-contracts-v1/positive/control-bindings.json",
+      "schema": "urn:agent-evals-standard:schema:evaluation-control-bindings:1",
+      "valid": true,
+      "semanticChecks": ["evaluationControlGraph"]
+    },
+    {
+      "id": "evaluation-threat-model-full-root-positive",
+      "path": "machine-contracts-v1/positive/evaluation-threat-model.json",
+      "schema": "urn:agent-evals-standard:schema:evaluation-threat-model:1",
+      "valid": true,
+      "semanticChecks": ["evaluationControlGraph"]
+    },
+    {
+      "id": "held-out-exposure-budget-full-root-positive",
+      "path": "machine-contracts-v1/positive/held-out-exposure-budget.json",
+      "schema": "urn:agent-evals-standard:schema:held-out-exposure-budget:1",
+      "valid": true,
+      "semanticChecks": ["evaluationControlGraph"]
+    },
+    {
+      "id": "held-out-exposure-ledger-full-root-positive",
+      "path": "machine-contracts-v1/positive/held-out-exposure-ledger.json",
+      "schema": "urn:agent-evals-standard:schema:held-out-exposure-ledger:1",
+      "valid": true,
+      "semanticChecks": ["evaluationControlGraph"]
+    },
+    {
+      "id": "risk-assessment-full-root-positive",
+      "path": "positive/risk-assessment.json",
+      "schema": "urn:agent-evals-standard:schema:risk-assessment:1",
+      "valid": true
+    },
+    {
+      "id": "validity-argument-full-root-positive",
+      "path": "machine-contracts-v1/positive/validity-argument.json",
+      "schema": "urn:agent-evals-standard:schema:validity-argument:1",
+      "valid": true,
+      "semanticChecks": ["evaluationControlGraph"]
+    },
+    {
+      "id": "machine-contract-case-stage-full-root-positive",
+      "path": "machine-contracts-v1/positive/stage-case.json",
+      "schema": "urn:agent-evals-standard:schema:case:1",
+      "valid": true,
+      "semanticChecks": ["evaluationControlGraph"]
+    },
+    {
+      "path": "../../profiles/repo-change-v1/outcome-profile.json",
+      "schema": "urn:agent-evals-standard:schema:outcome-profile:1",
+      "valid": true,
+      "semanticChecks": [
+        "selfDigest",
+        "signature",
+        "contractDigest"
+      ]
+    },
+    {
+      "path": "../../profiles/repo-change-v1/gate-registry.json",
+      "schema": "urn:agent-evals-standard:schema:repo-change-gate-registry:1",
+      "valid": true
+    },
+    {
+      "path": "../../profiles/repo-change-v1/case-contract.json",
+      "schema": "urn:agent-evals-standard:schema:repo-change-case-contract:1",
+      "valid": true
+    },
+    {
+      "id": "workspace-manifest-full-root-positive",
+      "path": "positive/workspace-manifest-primary.json",
+      "schema": "urn:agent-evals-standard:schema:workspace-manifest:1",
+      "valid": true,
+      "semanticChecks": [
+        "workspaceManifest"
+      ]
+    },
+    {
+      "id": "workspace-manifest-reject-byte-echo",
+      "basePath": "positive/workspace-manifest-primary.json",
+      "mutations": [
+        {
+          "pointer": "/repositories/0/files/0/contentBase64",
+          "value": "bmFtZTogZml4dHVyZTI="
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:workspace-manifest:1",
+      "valid": false,
+      "semanticChecks": [
+        "workspaceManifest"
+      ],
+      "expectedError": "digest must be"
+    },
+    {
+      "id": "repository-grounding-evidence-full-root-positive",
+      "path": "positive/repository-grounding-primary.json",
+      "schema": "urn:agent-evals-standard:schema:repository-grounding-evidence:1",
+      "valid": true,
+      "relatedPath": "positive/conformance-statement-decision.json",
+      "semanticChecks": [
+        "repositoryGroundingEvidence"
+      ]
+    },
+    {
+      "id": "repository-grounding-evidence-reject-diagnostic-output-forgery",
+      "basePath": "positive/repository-grounding-primary.json",
+      "mutations": [
+        {
+          "pointer": "/verifierExecution/output/outputDigest",
+          "value": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:repository-grounding-evidence:1",
+      "valid": false,
+      "relatedPath": "positive/conformance-statement-decision.json",
+      "semanticChecks": [
+        "repositoryGroundingEvidence"
+      ],
+      "expectedError": "verifier output must report the derived insufficient-evidence result"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/gate-registry.json",
+      "mutations": [
+        {
+          "pointer": "/profileGates/0/failureCauseId",
+          "value": "measurement_failure"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:repo-change-gate-registry:1",
+      "valid": false,
+      "expectedError": "/profileGates/0/failureCauseId"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/gate-registry.json",
+      "mutations": [
+        {
+          "pointer": "/coreGates/0",
+          "value": "oracleIsolation"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:repo-change-gate-registry:1",
+      "valid": false,
+      "expectedError": "/coreGates"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/gate-registry.json",
+      "mutations": [
+        {
+          "pointer": "/unknownOrIndeterminate/gateStatus",
+          "value": "fail"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:repo-change-gate-registry:1",
+      "valid": false,
+      "expectedError": "/unknownOrIndeterminate/gateStatus"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/gate-registry.json",
+      "mutations": [
+        {
+          "pointer": "/profileGates/0",
+          "value": {
+            "id": "workspaceBuild",
+            "appliesWhen": "the repository declares a build",
+            "failureCauseId": "build_failed",
+            "primaryOutcome": "failed"
+          }
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:repo-change-gate-registry:1",
+      "valid": false,
+      "expectedError": "/profileGates/0"
+    },
+    {
+      "path": "../../profiles/repo-change-v1/failure-taxonomy.json",
+      "schema": "urn:agent-evals-standard:schema:repo-change-failure-taxonomy:1",
+      "valid": true
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/failure-taxonomy.json",
+      "mutations": [
+        {
+          "pointer": "/mappings/1/defaultPrimaryOutcome",
+          "value": "build_fail"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:repo-change-failure-taxonomy:1",
+      "valid": false,
+      "expectedError": "/mappings/1/defaultPrimaryOutcome"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/failure-taxonomy.json",
+      "mutations": [
+        {
+          "pointer": "/mappings/6/attribution",
+          "value": "arm"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:repo-change-failure-taxonomy:1",
+      "valid": false,
+      "expectedError": "/mappings/6/attribution"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/failure-taxonomy.json",
+      "mutations": [
+        {
+          "pointer": "/mappings/11/defaultPrimaryOutcome",
+          "value": "failed"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:repo-change-failure-taxonomy:1",
+      "valid": false,
+      "expectedError": "/mappings/11/defaultPrimaryOutcome"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/failure-taxonomy.json",
+      "mutations": [
+        {
+          "pointer": "/mappings/0",
+          "value": {
+            "id": "implementation_incomplete",
+            "defaultPrimaryOutcome": "partial",
+            "attribution": "arm",
+            "severity": "diagnostic"
+          }
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:repo-change-failure-taxonomy:1",
+      "valid": false,
+      "expectedError": "/mappings/0"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/failure-taxonomy.json",
+      "mutations": [
+        {
+          "pointer": "/mappings/1",
+          "value": {
+            "id": "implementation_incomplete",
+            "defaultPrimaryOutcome": "partial",
+            "attribution": "arm"
+          }
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:repo-change-failure-taxonomy:1",
+      "valid": false,
+      "expectedError": "/mappings"
+    },
+    {
+      "id": "profile-resolution-record-positive",
+      "path": "../../profiles/repo-change-v1/profile-resolution.json",
+      "schema": "urn:agent-evals-standard:schema:profile-resolution-record:1",
+      "valid": true,
+      "relatedPath": "../../profiles/repo-change-v1/evaluation-profile.json",
+      "semanticChecks": [
+        "profileResolutionRecord",
+        "selfDigest",
+        "signature"
+      ]
+    },
+    {
+      "id": "evaluation-profile-positive",
+      "path": "../../profiles/repo-change-v1/evaluation-profile.json",
+      "schema": "urn:agent-evals-standard:schema:evaluation-profile:1",
+      "valid": true,
+      "semanticChecks": [
+        "effectiveProfileDigest",
+        "profileResolutionProvenance",
+        "claimTrustBinding",
+        "selfDigest",
+        "signature",
+        "artifactPointers",
+        "requirementCoverage",
+        "profileFixtureBindings"
+      ]
+    },
+    {
+      "id": "requirement-implementation-contract-positive",
+      "path": "../../profiles/repo-change-v1/implementation-contract.json",
+      "schema": "urn:agent-evals-standard:schema:requirement-implementation-contract:1",
+      "valid": true
+    },
+    {
+      "id": "evaluation-profile-reject-unscoped-claim-trust",
+      "basePath": "../../profiles/repo-change-v1/evaluation-profile.json",
+      "mutations": [
+        {
+          "pointer": "/id",
+          "value": "repo-change-v1-unscoped"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:evaluation-profile:1",
+      "valid": false,
+      "semanticChecks": [
+        "claimTrustBinding"
+      ],
+      "expectedError": "no active trust_contract_signer key authorizes agent-eval-key-authorization-contract-1 for repo-change-v1-unscoped:A1:low"
+    },
+    {
+      "path": "positive/signature-ed25519.json",
+      "schema": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature",
+      "valid": true
+    },
+    {
+      "path": "negative/signature-algorithm-none.json",
+      "schema": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature",
+      "valid": false,
+      "expectedError": "/algorithm"
+    },
+    {
+      "path": "positive/governance-claim.json",
+      "schema": "urn:agent-evals-standard:schema:scorecard:1#/$defs/claim",
+      "valid": true
+    },
+    {
+      "path": "negative/governance-functional-predicate.json",
+      "schema": "urn:agent-evals-standard:schema:scorecard:1#/$defs/claim",
+      "valid": false,
+      "expectedError": "/successDefinition/id"
+    },
+    {
+      "path": "positive/evidence-artifact.json",
+      "schema": "urn:agent-evals-standard:schema:evidence-artifact:1",
+      "valid": true
+    },
+    {
+      "path": "negative/evidence-missing-byte-length.json",
+      "schema": "urn:agent-evals-standard:schema:evidence-artifact:1",
+      "valid": false,
+      "expectedError": "byteLength"
+    },
+    {
+      "id": "escalation-event-positive",
+      "path": "positive/open-escalation.json",
+      "schema": "urn:agent-evals-standard:schema:escalation-event:1",
+      "valid": true,
+      "semanticChecks": [
+        "escalationRequestBinding",
+        "signature"
+      ]
+    },
+    {
+      "basePath": "positive/open-escalation.json",
+      "mutations": [
+        {
+          "pointer": "/state",
+          "value": "resolved"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:escalation-event:1",
+      "valid": false,
+      "expectedError": "/state"
+    },
+    {
+      "id": "enforcement-receipt-positive",
+      "path": "positive/enforcement-receipt.json",
+      "schema": "urn:agent-evals-standard:schema:enforcement-receipt:1",
+      "valid": true,
+      "relatedPath": "positive/open-escalation.json",
+      "semanticChecks": [
+        "sourceEventBinding",
+        "selfDigest",
+        "signature"
+      ]
+    },
+    {
+      "basePath": "positive/enforcement-receipt.json",
+      "mutations": [
+        {
+          "pointer": "/stopAction",
+          "value": "close_run"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:enforcement-receipt:1",
+      "valid": false,
+      "relatedPath": "positive/open-escalation.json",
+      "semanticChecks": [
+        "sourceEventBinding"
+      ],
+      "expectedError": "stopAction"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/outcome-profile.json",
+      "mutations": [
+        {
+          "pointer": "/functionalSuccess/id",
+          "value": "accepted-outcome-v1"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:outcome-profile:1",
+      "valid": false,
+      "expectedError": "/functionalSuccess/id"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/outcome-profile.json",
+      "mutations": [
+        {
+          "pointer": "/primaryOutcomeTaxonomy/4",
+          "value": "build_fail"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:outcome-profile:1",
+      "valid": false,
+      "expectedError": "/primaryOutcomeTaxonomy/4"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/outcome-profile.json",
+      "mutations": [
+        {
+          "pointer": "/outcomeRules/failed/terminalState",
+          "value": "build_failure"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:outcome-profile:1",
+      "valid": false,
+      "expectedError": "/outcomeRules/failed/terminalState"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/outcome-profile.json",
+      "mutations": [
+        {
+          "pointer": "/outcomeRules/solved/condition/expression/all/0/operator",
+          "value": "contains"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:outcome-profile:1",
+      "valid": false,
+      "expectedError": "/outcomeRules/solved/condition/expression/all/0"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/outcome-profile.json",
+      "mutations": [
+        {
+          "pointer": "/validAlternatives/0/primaryOutcome",
+          "value": "solved"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:outcome-profile:1",
+      "valid": false,
+      "expectedError": "/validAlternatives/0/primaryOutcome"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/outcome-profile.json",
+      "mutations": [
+        {
+          "pointer": "/claimCompatibility/functionalPrimaryOutcomes/2",
+          "value": "already_solved"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:outcome-profile:1",
+      "valid": false,
+      "expectedError": "/claimCompatibility/functionalPrimaryOutcomes/2"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/outcome-profile.json",
+      "mutations": [
+        {
+          "pointer": "/functionalSuccess/contractDigest",
+          "value": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:outcome-profile:1",
+      "valid": false,
+      "semanticChecks": [
+        "contractDigest"
+      ],
+      "expectedError": "contractDigest"
+    },
+    {
+      "path": "positive/outcome-trial-result.json",
+      "schema": "urn:agent-evals-standard:schema:scorecard:1#/$defs/trialResult",
+      "valid": true
+    },
+    {
+      "id": "scorecard-single-arm-cell-explicit-block-and-seed",
+      "group": "peripheral-hardening",
+      "path": "positive/scorecard-cell-single-arm.json",
+      "schema": "urn:agent-evals-standard:schema:scorecard:1#/$defs/cellResult",
+      "valid": true
+    },
+    {
+      "id": "scorecard-single-arm-cell-reject-missing-block",
+      "group": "peripheral-hardening",
+      "path": "negative/scorecard-cell-single-arm-missing-block.json",
+      "schema": "urn:agent-evals-standard:schema:scorecard:1#/$defs/cellResult",
+      "valid": false,
+      "expectedError": "blockId"
+    },
+    {
+      "id": "scorecard-single-arm-cell-reject-missing-seed",
+      "group": "peripheral-hardening",
+      "path": "negative/scorecard-cell-single-arm-missing-seed.json",
+      "schema": "urn:agent-evals-standard:schema:scorecard:1#/$defs/cellResult",
+      "valid": false,
+      "expectedError": "seed"
+    },
+    {
+      "basePath": "positive/outcome-trial-result.json",
+      "mutations": [
+        {
+          "pointer": "/primaryOutcome",
+          "value": "build_fail"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1#/$defs/trialResult",
+      "valid": false,
+      "expectedError": "/primaryOutcome"
+    },
+    {
+      "basePath": "positive/outcome-trial-result.json",
+      "mutations": [
+        {
+          "pointer": "/terminalState",
+          "value": "task_satisfied"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1#/$defs/trialResult",
+      "valid": false,
+      "expectedError": "/terminalState"
+    },
+    {
+      "basePath": "positive/outcome-trial-result.json",
+      "mutations": [
+        {
+          "pointer": "/hardGates/0/failureCauseId",
+          "value": "build_failed"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1#/$defs/trialResult",
+      "valid": false,
+      "expectedError": "/hardGates/0/failureCauseId"
+    },
+    {
+      "basePath": "positive/outcome-trial-result.json",
+      "mutations": [
+        {
+          "pointer": "/primaryOutcome",
+          "value": "correct_refusal"
+        },
+        {
+          "pointer": "/terminalState",
+          "value": "safe_refusal"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1#/$defs/trialResult",
+      "valid": false,
+      "expectedError": "/validAlternativeId"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/evaluation-profile.json",
+      "mutations": [
+        {
+          "pointer": "/supportedAssuranceLevels/0",
+          "value": "A0"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:evaluation-profile:1",
+      "valid": false,
+      "expectedError": "/supportedAssuranceLevels/0"
+    },
+    {
+      "id": "evaluation-profile-reject-general-agent-capability",
+      "basePath": "../../profiles/repo-change-v1/evaluation-profile.json",
+      "mutations": [
+        {
+          "pointer": "/capabilityFamilies/0",
+          "value": "customer_support"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:evaluation-profile:1",
+      "valid": false,
+      "expectedError": "/capabilityFamilies/0"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/evaluation-profile.json",
+      "mutations": [
+        {
+          "pointer": "/capabilityFamilies/0",
+          "value": "coordinate"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:evaluation-profile:1",
+      "valid": false,
+      "expectedError": "/capabilityFamilies/0"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/evaluation-profile.json",
+      "mutations": [
+        {
+          "pointer": "/requirementMapping/0/sourceProfileId",
+          "value": null
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:evaluation-profile:1",
+      "valid": false,
+      "expectedError": "/requirementMapping/0/sourceProfileId"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/evaluation-profile.json",
+      "mutations": [
+        {
+          "pointer": "/fixtures/0/manifestExpectationId",
+          "value": "undeclared-profile-expectation"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:evaluation-profile:1",
+      "valid": false,
+      "semanticChecks": [
+        "profileFixtureBindings"
+      ],
+      "expectedError": "manifest expectation undeclared-profile-expectation resolves 0 entries"
+    },
+    {
+      "path": "positive/repository-applicability.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/applicability",
+      "valid": true
+    },
+    {
+      "basePath": "positive/repository-applicability.json",
+      "mutations": [
+        {
+          "pointer": "/materialSubjectDependencies/1/verdict",
+          "value": "fail"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/applicability",
+      "valid": false,
+      "expectedError": "/materialSubjectDependencies/1/verdict"
+    },
+    {
+      "path": "positive/leakage-control-canary.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/leakageControl",
+      "valid": true
+    },
+    {
+      "basePath": "positive/leakage-control-canary.json",
+      "mutations": [
+        {
+          "pointer": "/semanticInertnessEvidence",
+          "value": null
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/leakageControl",
+      "valid": false,
+      "expectedError": "/semanticInertnessEvidence"
+    },
+    {
+      "path": "positive/case-qa-activated.json",
+      "group": "peripheral-hardening",
+      "schema": "urn:agent-evals-standard:schema:case-qa-record:1",
+      "semanticChecks": [
+        "caseQaRecord"
+      ],
+      "valid": true
+    },
+    {
+      "id": "case-qa-reject-reviewer-actor-collision",
+      "group": "peripheral-hardening",
+      "basePath": "positive/case-qa-activated.json",
+      "mutations": [
+        {
+          "pointer": "/stages/stage3/reviewer/id",
+          "value": "case-author"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case-qa-record:1",
+      "semanticChecks": [
+        "caseQaRecord"
+      ],
+      "valid": false,
+      "expectedError": "shares id"
+    },
+    {
+      "id": "case-qa-reject-reviewer-role-collision",
+      "group": "peripheral-hardening",
+      "basePath": "positive/case-qa-activated.json",
+      "mutations": [
+        {
+          "pointer": "/stages/stage3/reviewer/role",
+          "value": "case_author"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case-qa-record:1",
+      "semanticChecks": [
+        "caseQaRecord"
+      ],
+      "valid": false,
+      "expectedError": "shares role"
+    },
+    {
+      "id": "case-qa-reject-reviewer-trust-domain-collision",
+      "group": "peripheral-hardening",
+      "basePath": "positive/case-qa-activated.json",
+      "mutations": [
+        {
+          "pointer": "/stages/stage3/reviewer/trustDomain",
+          "value": "authoring"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case-qa-record:1",
+      "semanticChecks": [
+        "caseQaRecord"
+      ],
+      "valid": false,
+      "expectedError": "shares trustDomain"
+    },
+    {
+      "id": "case-qa-reject-reviewer-key-collision",
+      "group": "peripheral-hardening",
+      "basePath": "positive/case-qa-activated.json",
+      "mutations": [
+        {
+          "pointer": "/stages/stage3/reviewer/keyId",
+          "value": "case-author-key"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case-qa-record:1",
+      "semanticChecks": [
+        "caseQaRecord"
+      ],
+      "valid": false,
+      "expectedError": "shares keyId"
+    },
+    {
+      "id": "case-qa-reject-incomplete-independence-coverage",
+      "group": "peripheral-hardening",
+      "basePath": "positive/case-qa-activated.json",
+      "mutations": [
+        {
+          "pointer": "/stages/stage6/independence/independentOfActorIds",
+          "value": [
+            "case-author",
+            "reference-producer"
+          ]
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case-qa-record:1",
+      "semanticChecks": [
+        "caseQaRecord"
+      ],
+      "valid": false,
+      "expectedError": "independentOfActorIds must equal"
+    },
+    {
+      "id": "case-qa-reject-unknown-independence-evidence",
+      "group": "peripheral-hardening",
+      "basePath": "positive/case-qa-activated.json",
+      "mutations": [
+        {
+          "pointer": "/stages/stage3/independence/evidenceId",
+          "value": "missing-independence-evidence"
+        },
+        {
+          "pointer": "/stages/stage3/evidenceIds",
+          "value": [
+            "fixture-evidence-1",
+            "missing-independence-evidence"
+          ]
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case-qa-record:1",
+      "semanticChecks": [
+        "caseQaRecord"
+      ],
+      "valid": false,
+      "expectedError": "references unknown evidence"
+    },
+    {
+      "id": "case-qa-reject-empty-activation-evidence-category",
+      "group": "peripheral-hardening",
+      "basePath": "positive/case-qa-activated.json",
+      "mutations": [
+        {
+          "pointer": "/activationEvidence/accessAndRetention",
+          "value": []
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case-qa-record:1",
+      "valid": false,
+      "expectedError": "/activationEvidence/accessAndRetention"
+    },
+    {
+      "basePath": "positive/case-qa-activated.json",
+      "mutations": [
+        {
+          "pointer": "/stages/stage0/status",
+          "value": "failed"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case-qa-record:1",
+      "valid": false,
+      "expectedError": "/stages/stage0/status"
+    },
+    {
+      "id": "source-evidence-full-root-positive",
+      "group": "source-evidence",
+      "path": "../../standard/source-evidence-manifest.json",
+      "schema": "urn:agent-evals-standard:schema:source-evidence-manifest:1",
+      "valid": true,
+      "semanticChecks": [
+        "sourceEvidenceGraph",
+        "selfDigest"
+      ]
+    },
+    {
+      "id": "source-evidence-reject-duplicate-requirement-mapping",
+      "group": "source-evidence",
+      "basePath": "../../standard/source-evidence-manifest.json",
+      "recomputeSelfDigest": true,
+      "mutations": [
+        {
+          "pointer": "/mappings/0/requirementId",
+          "value": "TRACE-001"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-manifest:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceGraph"
+      ],
+      "expectedError": "requirement ARCH-001 occurs 0 times"
+    },
+    {
+      "id": "source-evidence-reject-requirement-source-mismatch",
+      "group": "source-evidence",
+      "basePath": "../../standard/source-evidence-manifest.json",
+      "recomputeSelfDigest": true,
+      "mutations": [
+        {
+          "pointer": "/mappings/25/sourceIds/1",
+          "value": "SRC-NIST-AIRMF-2023"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-manifest:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceGraph"
+      ],
+      "expectedError": "CASE-001 sourceIds differ from its evidence basis"
+    },
+    {
+      "id": "source-evidence-reject-missing-requirement-triangulation-assessment",
+      "group": "source-evidence",
+      "basePath": "../../standard/source-evidence-manifest.json",
+      "recomputeSelfDigest": true,
+      "mutations": [
+        {
+          "pointer": "/mappings/25/support",
+          "value": "triangulated_empirical"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-manifest:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceGraph"
+      ],
+      "expectedError": "must have required property 'independenceAssessment'"
+    },
+    {
+      "id": "source-evidence-reject-duplicate-capability",
+      "group": "source-evidence",
+      "basePath": "../../standard/source-evidence-manifest.json",
+      "recomputeSelfDigest": true,
+      "mutations": [
+        {
+          "pointer": "/capabilityCoverage/1/capabilityId",
+          "value": "CAP.DISCOVER_SPECIFY"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-manifest:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceGraph"
+      ],
+      "expectedError": "capability CAP.PLAN_DESIGN occurs 0 times"
+    },
+    {
+      "id": "source-evidence-reject-missing-capability-triangulation-assessment",
+      "group": "source-evidence",
+      "basePath": "../../standard/source-evidence-manifest.json",
+      "recomputeSelfDigest": true,
+      "mutations": [
+        {
+          "pointer": "/capabilityCoverage/2/support",
+          "value": "triangulated_empirical"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-manifest:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceGraph"
+      ],
+      "expectedError": "must have required property 'independenceAssessment'"
+    },
+    {
+      "id": "source-evidence-reject-unknown-rationale-source-id",
+      "group": "source-evidence",
+      "basePath": "../../standard/source-evidence-manifest.json",
+      "recomputeSelfDigest": true,
+      "mutations": [
+        {
+          "pointer": "/mappings/15/rationaleEvidence/sourceIds/0",
+          "value": "SRC-UNKNOWN-RATIONALE"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-manifest:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceGraph"
+      ],
+      "expectedError": "rationale evidence references undeclared source SRC-UNKNOWN-RATIONALE"
+    },
+    {
+      "id": "source-evidence-reject-tampered-self-digest",
+      "group": "source-evidence",
+      "basePath": "../../standard/source-evidence-manifest.json",
+      "mutations": [
+        {
+          "pointer": "/digest",
+          "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-manifest:1",
+      "valid": false,
+      "semanticChecks": [
+        "selfDigest"
+      ],
+      "expectedError": "selfDigest: expected"
+    },
+    {
+      "id": "source-evidence-reject-broad-target-population-relabel",
+      "group": "source-evidence",
+      "basePath": "../../standard/source-evidence-manifest.json",
+      "recomputeSelfDigest": true,
+      "mutations": [
+        {
+          "pointer": "/capabilityCoverage/3/targetPopulationValidation/status",
+          "value": "independently_validated"
+        },
+        {
+          "pointer": "/capabilityCoverage/3/representedPopulation",
+          "value": "Repository-grounded SDLC agents operating on version-controlled code, repository state, and repository-mediated engineering workflows in enterprise-relevant environments."
+        },
+        {
+          "pointer": "/capabilityCoverage/3/targetPopulationValidation/observationPopulationRelations/0/relationToTarget",
+          "value": "direct_target_sample"
+        },
+        {
+          "pointer": "/capabilityCoverage/3/targetPopulationValidation/observationPopulationRelations/1/relationToTarget",
+          "value": "direct_target_sample"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-manifest:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceGraph"
+      ],
+      "expectedError": "must be equal to one of the allowed values"
+    },
+    {
+      "id": "source-evidence-reject-independent-validation-without-assessment-binding-or-signature",
+      "group": "source-evidence",
+      "basePath": "../../standard/source-evidence-manifest.json",
+      "recomputeSelfDigest": true,
+      "mutations": [
+        {
+          "pointer": "/capabilityCoverage/3/targetPopulationValidation/status",
+          "value": "independently_validated"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-manifest:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceGraph"
+      ],
+      "expectedError": "must be equal to one of the allowed values"
+    },
+    {
+      "id": "source-evidence-reject-unregistered-invalid-target-assessment-binding-and-signature",
+      "group": "source-evidence",
+      "basePath": "../../standard/source-evidence-manifest.json",
+      "recomputeSelfDigest": true,
+      "mutations": [
+        {
+          "pointer": "/capabilityCoverage/3/targetPopulationValidation/independentAssessment",
+          "add": true,
+          "value": {
+            "manifestDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+            "capabilityId": "CAP.VERIFY_ASSURE",
+            "observationIds": [
+              "OBS-AGENTDOJO-SECURITY-2024",
+              "OBS-AUTODOJO-ADAPTIVE-ATTACK-2026"
+            ],
+            "signerId": "claimant-selected-signer",
+            "signature": "invalid"
+          }
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-manifest:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceGraph"
+      ],
+      "expectedError": "must NOT have additional properties"
+    },
+    {
+      "id": "source-evidence-reject-same-party-target-assessment",
+      "group": "source-evidence",
+      "basePath": "../../standard/source-evidence-manifest.json",
+      "recomputeSelfDigest": true,
+      "mutations": [
+        {
+          "pointer": "/capabilityCoverage/3/targetPopulationValidation/independentAssessment",
+          "add": true,
+          "value": {
+            "manifestDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+            "capabilityId": "CAP.VERIFY_ASSURE",
+            "observationIds": [
+              "OBS-AGENTDOJO-SECURITY-2024",
+              "OBS-AUTODOJO-ADAPTIVE-ATTACK-2026"
+            ],
+            "signerProducerId": "TEAM-AGENTDOJO-2024",
+            "signature": "claimant-party-signature"
+          }
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-manifest:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceGraph"
+      ],
+      "expectedError": "must NOT have additional properties"
+    },
+    {
+      "id": "source-evidence-reject-forged-verified-archive-without-authenticated-bytes",
+      "group": "source-evidence",
+      "basePath": "../../standard/source-evidence-manifest.json",
+      "recomputeSelfDigest": true,
+      "mutations": [
+        {
+          "pointer": "/sources/0/archive",
+          "value": {
+            "status": "verified",
+            "immutableLocator": "artifact:sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+            "digest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+          }
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-manifest:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceGraph"
+      ],
+      "expectedError": "claims verified archive status, which is unsupported in 0.1.0"
+    },
+    {
+      "id": "source-evidence-triangulation-positive",
+      "group": "source-evidence",
+      "path": "source-evidence-triangulation.json",
+      "schema": "urn:agent-evals-standard:schema:source-evidence-triangulation-fixture:1",
+      "valid": true,
+      "semanticChecks": [
+        "sourceEvidenceTriangulation"
+      ]
+    },
+    {
+      "id": "source-evidence-triangulation-reject-same-producer",
+      "group": "source-evidence",
+      "basePath": "source-evidence-triangulation.json",
+      "mutations": [
+        {
+          "pointer": "/sources/1/producerIds/0",
+          "value": "ORG-FIXTURE-A"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-triangulation-fixture:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceTriangulation"
+      ],
+      "expectedError": "observations share producer IDs ORG-FIXTURE-A"
+    },
+    {
+      "id": "source-evidence-triangulation-reject-shared-lineage",
+      "group": "source-evidence",
+      "basePath": "source-evidence-triangulation.json",
+      "mutations": [
+        {
+          "pointer": "/observations/1/dataOrBenchmarkLineageIds/0",
+          "value": "LINEAGE-FIXTURE-A"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-triangulation-fixture:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceTriangulation"
+      ],
+      "expectedError": "observations share data or benchmark lineage LINEAGE-FIXTURE-A"
+    },
+    {
+      "id": "source-evidence-triangulation-reject-pending-funding",
+      "group": "source-evidence",
+      "basePath": "source-evidence-triangulation.json",
+      "mutations": [
+        {
+          "pointer": "/sources/1/fundingDisclosure/status",
+          "value": "pending_verification"
+        },
+        {
+          "pointer": "/sources/1/fundingDisclosure/evidence",
+          "value": null
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-triangulation-fixture:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceTriangulation"
+      ],
+      "expectedError": "triangulated source SRC-FIXTURE-EMPIRICAL-B lacks verified funding disclosure"
+    },
+    {
+      "id": "source-evidence-triangulation-reject-theoretical-source",
+      "group": "source-evidence",
+      "basePath": "source-evidence-triangulation.json",
+      "mutations": [
+        {
+          "pointer": "/sources/1/empiricalRole",
+          "value": "not_primary_empirical_source"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-triangulation-fixture:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceTriangulation"
+      ],
+      "expectedError": "source SRC-FIXTURE-EMPIRICAL-B is not classified as a primary empirical source"
+    },
+    {
+      "id": "source-evidence-triangulation-reject-duplicate-immutable-locator",
+      "group": "source-evidence",
+      "basePath": "source-evidence-triangulation.json",
+      "mutations": [
+        {
+          "pointer": "/sources/1/archive/immutableLocator",
+          "value": "artifact:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        {
+          "pointer": "/sources/1/versionIdentity",
+          "value": {
+            "kind": "edition",
+            "value": "fixture-a-1"
+          }
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-triangulation-fixture:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceTriangulation"
+      ],
+      "expectedError": "duplicate immutable locator"
+    },
+    {
+      "id": "source-evidence-triangulation-reject-duplicate-artifact-digest",
+      "group": "source-evidence",
+      "basePath": "source-evidence-triangulation.json",
+      "mutations": [
+        {
+          "pointer": "/sources/1/archive/digest",
+          "value": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        },
+        {
+          "pointer": "/sources/1/fundingDisclosure/evidence/archiveDigest",
+          "value": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-triangulation-fixture:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceTriangulation"
+      ],
+      "expectedError": "duplicate archived artifact digest"
+    },
+    {
+      "id": "source-evidence-triangulation-reject-unbound-funding-evidence",
+      "group": "source-evidence",
+      "basePath": "source-evidence-triangulation.json",
+      "mutations": [
+        {
+          "pointer": "/sources/1/fundingDisclosure/evidence/archiveDigest",
+          "value": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-triangulation-fixture:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceTriangulation"
+      ],
+      "expectedError": "funding evidence is not bound to its archived source digest"
+    },
+    {
+      "path": "../../profiles/repo-change-v1/outcome-profile.json",
+      "schema": "urn:agent-evals-standard:schema:outcome-profile:1",
+      "valid": true,
+      "semanticChecks": [
+        "outcomeGraph"
+      ]
+    },
+    {
+      "id": "outcome-profile-reject-missing-native-primary-mapping",
+      "basePath": "../../profiles/repo-change-v1/outcome-profile.json",
+      "mutations": [
+        {
+          "pointer": "/nativeOutcomes/3/baseOutcome",
+          "value": "solved"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:outcome-profile:1",
+      "valid": false,
+      "semanticChecks": [
+        "outcomeGraph"
+      ],
+      "expectedError": "outcomeGraph: normalized outcome partial has no profile-native mapping"
+    },
+    {
+      "id": "outcome-profile-reject-duplicate-native-outcome-id",
+      "basePath": "../../profiles/repo-change-v1/outcome-profile.json",
+      "mutations": [
+        {
+          "pointer": "/nativeOutcomes/1/id",
+          "value": "workspace_changed"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:outcome-profile:1",
+      "valid": false,
+      "semanticChecks": [
+        "outcomeGraph"
+      ],
+      "expectedError": "outcomeGraph: native outcome workspace_changed occurs 2 times"
+    },
+    {
+      "id": "workspace-change-solved-without-content-addressed-diff",
+      "basePath": "../../profiles/repo-change-v1/outcome-profile.json",
+      "mutations": [
+        {
+          "pointer": "/terminalEvidenceRequirements/solved/requiredArtifacts/0/artifactType",
+          "value": "repo-change-v1:artifact_digest"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:outcome-profile:1",
+      "valid": false,
+      "semanticChecks": [
+        "outcomeGraph"
+      ],
+      "expectedError": "workspace-change-v1 solved accepted outcome requires exactly one signed content-addressed workspace_diff evidence artifact"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/outcome-profile.json",
+      "mutations": [
+        {
+          "pointer": "/outcomeRules/solved/evidenceModeIds/0",
+          "value": "undeclared-mode"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:outcome-profile:1",
+      "valid": false,
+      "semanticChecks": [
+        "outcomeGraph"
+      ],
+      "expectedError": "outcome rule solved references evidence mode undeclared-mode, declared 0 times"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/outcome-profile.json",
+      "mutations": [
+        {
+          "pointer": "/outcomeRules/correct_refusal/validAlternativeIds/0",
+          "value": "undeclared-alternative"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:outcome-profile:1",
+      "valid": false,
+      "semanticChecks": [
+        "outcomeGraph"
+      ],
+      "expectedError": "outcome rule correct_refusal references valid alternative undeclared-alternative, declared 0 times"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/outcome-profile.json",
+      "mutations": [
+        {
+          "pointer": "/outcomeRules/correct_refusal/validAlternativeIds/0",
+          "value": "registered-base-state"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:outcome-profile:1",
+      "valid": false,
+      "semanticChecks": [
+        "outcomeGraph"
+      ],
+      "expectedError": "outcome rule correct_refusal references alternative registered-base-state for already_satisfied"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/outcome-profile.json",
+      "mutations": [
+        {
+          "pointer": "/evidenceModes/2/id",
+          "value": "deterministic"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:outcome-profile:1",
+      "valid": false,
+      "semanticChecks": [
+        "outcomeGraph"
+      ],
+      "expectedError": "evidence mode deterministic occurs 2 times"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/outcome-profile.json",
+      "mutations": [
+        {
+          "pointer": "/failureTaxonomy/id",
+          "value": "repo-change-gate-registry"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:outcome-profile:1",
+      "valid": false,
+      "semanticChecks": [
+        "outcomeGraph"
+      ],
+      "expectedError": "failureTaxonomy id repo-change-gate-registry does not match linked id repo-change-failure-taxonomy"
+    },
+    {
+      "basePath": "../../profiles/repo-change-v1/outcome-profile.json",
+      "mutations": [
+        {
+          "pointer": "/functionalSuccess/contractDigest",
+          "value": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:outcome-profile:1",
+      "valid": false,
+      "semanticChecks": [
+        "outcomeGraph"
+      ],
+      "expectedError": "functionalSuccess contractDigest must bind"
+    },
+    {
+      "id": "escalation-event-registry-positive",
+      "path": "positive/escalation-event-registry.json",
+      "schema": "urn:agent-evals-standard:schema:escalation-event-registry:1",
+      "valid": true,
+      "semanticChecks": [
+        "selfDigest"
+      ]
+    },
+    {
+      "id": "operational-escalation-matrix-positive",
+      "path": "positive/operational-escalation-matrix.json",
+      "schema": "urn:agent-evals-standard:schema:operational-escalation-matrix:1",
+      "valid": true,
+      "semanticChecks": [
+        "selfDigest",
+        "signature"
+      ]
+    },
+    {
+      "id": "operational-governance-policy-positive",
+      "path": "positive/operational-governance-policy.json",
+      "schema": "urn:agent-evals-standard:schema:operational-governance-policy:1",
+      "valid": true,
+      "semanticChecks": [
+        "selfDigest",
+        "signature"
+      ]
+    },
+    {
+      "id": "governance-resolution-positive",
+      "path": "positive/governance-resolution.json",
+      "schema": "urn:agent-evals-standard:schema:governance-resolution:1",
+      "valid": true,
+      "semanticChecks": [
+        "signature"
+      ]
+    },
+    {
+      "id": "governance-resolution-ledger-positive",
+      "path": "positive/governance-resolution-ledger.json",
+      "schema": "urn:agent-evals-standard:schema:governance-resolution-ledger:1",
+      "valid": true,
+      "semanticChecks": [
+        "signature"
+      ]
+    },
+    {
+      "id": "governance-decision-positive",
+      "path": "positive/governance-decision.json",
+      "schema": "urn:agent-evals-standard:schema:governance-decision:1",
+      "valid": true,
+      "semanticChecks": [
+        "signature"
+      ]
+    },
+    {
+      "id": "escalation-event-reject-tuple-drift",
+      "path": "negative/escalation-tuple-drift.json",
+      "schema": "urn:agent-evals-standard:schema:escalation-event:1",
+      "valid": false,
+      "expectedError": "/stopAction"
+    },
+    {
+      "id": "escalation-registry-reject-missing-privacy-event",
+      "path": "negative/escalation-missing-privacy-event.json",
+      "schema": "urn:agent-evals-standard:schema:escalation-event-registry:1",
+      "valid": false,
+      "expectedError": "/events"
+    },
+    {
+      "id": "governance-resolution-reject-nonwaivable-waiver",
+      "path": "negative/governance-waive-nonwaivable.json",
+      "schema": "urn:agent-evals-standard:schema:governance-resolution:1",
+      "valid": false,
+      "expectedError": "/action"
+    },
+    {
+      "id": "operational-policy-reject-incomplete-statuses",
+      "path": "negative/governance-policy-incomplete-statuses.json",
+      "schema": "urn:agent-evals-standard:schema:operational-governance-policy:1",
+      "valid": false,
+      "expectedError": "/rules/0/expectedGovernanceStatuses"
+    },
+    {
+      "id": "enforcement-receipt-reject-source-mismatch",
+      "path": "negative/enforcement-receipt-mismatch.json",
+      "schema": "urn:agent-evals-standard:schema:enforcement-receipt:1",
+      "valid": false,
+      "relatedPath": "positive/open-escalation.json",
+      "semanticChecks": [
+        "sourceEventBinding"
+      ],
+      "expectedError": "stopAction differs from source event"
+    },
+    {
+      "id": "environment-contract-positive",
+      "path": "positive/environment-contract.json",
+      "schema": "urn:agent-evals-standard:schema:environment-contract:1",
+      "valid": true,
+      "semanticChecks": [
+        "selfDigest"
+      ]
+    },
+    {
+      "id": "production-derived-authority-contract-positive",
+      "path": "production-derived-authority/authority-contract.json",
+      "schema": "urn:agent-evals-standard:schema:production-derived-authority-contract:1",
+      "valid": true,
+      "semanticChecks": [
+        "selfDigest"
+      ]
+    },
+    {
+      "id": "production-derived-authority-environment-positive",
+      "path": "production-derived-authority/environment.json",
+      "schema": "urn:agent-evals-standard:schema:environment-contract:1",
+      "valid": true,
+      "relatedPath": "production-derived-authority/pre-run.json",
+      "evidencePath": "production-derived-authority/evidence-bundle.json",
+      "semanticChecks": [
+        "productionDerivedInput",
+        "selfDigest"
+      ]
+    },
+    {
+      "id": "evaluator-manifest-positive",
+      "path": "positive/evaluator-manifest.json",
+      "schema": "urn:agent-evals-standard:schema:evaluator-manifest:1",
+      "valid": true,
+      "semanticChecks": [
+        "evaluatorManifest",
+        "selfDigest",
+        "signature"
+      ]
+    },
+    {
+      "id": "attempt-checkpoint-positive",
+      "path": "material-integrity/positive/attempt-checkpoint.json",
+      "schema": "urn:agent-evals-standard:schema:attempt-checkpoint:1",
+      "valid": true,
+      "semanticChecks": [
+        "selfDigest",
+        "signature"
+      ]
+    },
+    {
+      "id": "sdlc-coverage-positive",
+      "path": "positive/suite-sdlc-coverage.json",
+      "schema": "urn:agent-evals-standard:schema:sdlc-coverage:1",
+      "valid": true,
+      "semanticChecks": [
+        "selfDigest",
+        "signature"
+      ]
+    },
+    {
+      "id": "suite-manifest-positive",
+      "path": "machine-contracts-v1/positive/stage-suite-manifest.json",
+      "schema": "urn:agent-evals-standard:schema:suite-manifest:1",
+      "valid": true,
+      "semanticChecks": [
+        "evaluationControlGraph"
+      ]
+    },
+    {
+      "id": "suite-manifest-reject-forged-effective-profile-digest",
+      "basePath": "machine-contracts-v1/positive/stage-suite-manifest.json",
+      "mutations": [
+        {
+          "pointer": "/cases/0/effectiveProfileDigest",
+          "value": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:suite-manifest:1",
+      "valid": false,
+      "semanticChecks": [
+        "evaluationControlGraph"
+      ],
+      "expectedError": "selected suite slice cases must resolve the exact ordered material case documents and metadata"
+    },
+    {
+      "id": "suite-manifest-reject-passenger-capability",
+      "basePath": "machine-contracts-v1/positive/stage-suite-manifest.json",
+      "mutations": [
+        {
+          "pointer": "/cases/0/capabilityFamilyIds",
+          "value": [
+            "CAP.DISCOVER_SPECIFY",
+            "CAP.IMPLEMENT_CHANGE",
+            "CAP.VERIFY_ASSURE"
+          ]
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:suite-manifest:1",
+      "valid": false,
+      "semanticChecks": [
+        "evaluationControlGraph"
+      ],
+      "expectedError": "selected suite slice cases must resolve the exact ordered material case documents and metadata"
+    },
+    {
+      "id": "statistical-plan-positive",
+      "path": "machine-contracts-v1/positive/stage-statistical-plan.json",
+      "schema": "urn:agent-evals-standard:schema:statistical-plan:1",
+      "valid": true,
+      "semanticChecks": [
+        "evaluationControlGraph"
+      ]
+    },
+    {
+      "id": "grader-validation-positive",
+      "path": "positive/grader-validation.json",
+      "schema": "urn:agent-evals-standard:schema:grader-validation:1",
+      "valid": true,
+      "semanticChecks": [
+        "selfDigest",
+        "signature"
+      ]
+    },
+    {
+      "id": "pre-run-manifest-positive",
+      "path": "machine-contracts-v1/positive/stage-pre-run-manifest.json",
+      "schema": "urn:agent-evals-standard:schema:pre-run-manifest:1",
+      "valid": true,
+      "semanticChecks": [
+        "evaluationControlGraph"
+      ]
+    },
+    {
+      "id": "pre-run-reject-reference-keys-as-deployment-trust",
+      "basePath": "machine-contracts-v1/positive/stage-pre-run-manifest.json",
+      "mutations": [
+        {
+          "pointer": "/claimTrustUse",
+          "value": "deployment_bound"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:pre-run-manifest:1",
+      "valid": false,
+      "semanticChecks": [
+        "evaluationControlGraph"
+      ],
+      "expectedError": "deployment_bound cannot use the repository operational reference keys"
+    },
+    {
+      "id": "pre-run-reject-fabricated-effective-profile-digest",
+      "basePath": "machine-contracts-v1/positive/stage-pre-run-manifest.json",
+      "mutations": [
+        {
+          "pointer": "/caseProfiles/0/effectiveProfileDigest",
+          "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:pre-run-manifest:1",
+      "valid": false,
+      "semanticChecks": [
+        "evaluationControlGraph"
+      ],
+      "expectedError": "pre-run per-case profile binding differs from its material case"
+    },
+    {
+      "id": "pre-run-reject-substituted-evaluator-digest",
+      "basePath": "machine-contracts-v1/positive/stage-pre-run-manifest.json",
+      "mutations": [
+        {
+          "pointer": "/evaluator/digest",
+          "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:pre-run-manifest:1",
+      "valid": false,
+      "semanticChecks": [
+        "evaluationControlGraph"
+      ],
+      "expectedError": "claimTrustBinding evaluator: digest must be"
+    },
+    {
+      "id": "scorecard-decision-rule-positive",
+      "path": "positive/functional-success-decision-rule.json",
+      "schema": "urn:agent-evals-standard:schema:scorecard:1#/$defs/decisionRuleContract",
+      "valid": true,
+      "semanticChecks": [
+        "selfDigest"
+      ]
+    },
+    {
+      "id": "scorecard-retry-policy-positive",
+      "path": "positive/retry-policy.json",
+      "schema": "urn:agent-evals-standard:schema:scorecard:1#/$defs/retryPolicyContract",
+      "valid": true,
+      "semanticChecks": [
+        "selfDigest"
+      ]
+    },
+    {
+      "id": "scorecard-attempt-ledger-positive",
+      "path": "positive/attempt-ledger.json",
+      "schema": "urn:agent-evals-standard:schema:scorecard:1#/$defs/attemptLedger",
+      "valid": true,
+      "semanticChecks": [
+        "selfDigest"
+      ]
+    },
+    {
+      "id": "scorecard-positive",
+      "group": "outcome-replay",
+      "path": "positive/scorecard.json",
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": true,
+      "relatedPath": "positive/pre-run-manifest.json",
+      "semanticChecks": [
+        "scorecardGraph",
+        "selfDigest",
+        "signature",
+        "signatureProfileBinding"
+      ]
+    },
+    {
+      "id": "scorecard-reject-accepted-workspace-change-without-diff",
+      "basePath": "positive/scorecard.json",
+      "mutations": [
+        {
+          "pointer": "/evidenceManifest/0/artifactType",
+          "value": "repo-change-v1:arbitrary_hash"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": false,
+      "relatedPath": "positive/pre-run-manifest.json",
+      "semanticChecks": [
+        "scorecardGraph"
+      ],
+      "expectedError": "code_change uses an incompatible evidence artifact type"
+    },
+    {
+      "id": "scorecard-reject-coordinated-claimant-success-rewrite",
+      "basePath": "positive/scorecard.json",
+      "mutations": [
+        { "pointer": "/caseResults/0/cells/0/trialResult/functional", "value": false },
+        { "pointer": "/caseResults/0/cells/0/trialResult/accepted", "value": false },
+        { "pointer": "/claimResults/0/successAssignments/0/success", "value": false },
+        { "pointer": "/caseResults/0/statistics/0/validSuccesses", "value": 0 },
+        { "pointer": "/caseResults/0/statistics/0/value", "value": 0 }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": false,
+      "relatedPath": "positive/pre-run-manifest.json",
+      "semanticChecks": ["scorecardGraph"],
+      "expectedError": "claimant functional=false differs from replay true"
+    },
+    {
+      "id": "scorecard-reject-missing-selected-assurance-artifact",
+      "basePath": "positive/scorecard.json",
+      "mutations": [
+        {
+          "pointer": "/caseResults/0/cells/0/trialResult/outcomeReplay/materialArtifacts/2/evidenceIds/0",
+          "value": "execution-evidence"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": false,
+      "relatedPath": "positive/pre-run-manifest.json",
+      "semanticChecks": ["scorecardGraph"],
+      "expectedError": "assurance_report uses an incompatible evidence artifact type"
+    },
+    {
+      "id": "scorecard-reject-outcome-executor-substitution",
+      "basePath": "positive/scorecard.json",
+      "mutations": [
+        {
+          "pointer": "/caseResults/0/cells/0/trialResult/outcomeReplay/executor/digest",
+          "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": false,
+      "relatedPath": "positive/pre-run-manifest.json",
+      "semanticChecks": ["scorecardGraph"],
+      "expectedError": "executor differs from the distribution registry"
+    },
+    {
+      "id": "scorecard-reject-outcome-receipt-substitution",
+      "basePath": "positive/scorecard.json",
+      "mutations": [
+        {
+          "pointer": "/caseResults/0/cells/0/trialResult/outcomeReplay/receiptEvidenceId",
+          "value": "execution-evidence"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": false,
+      "relatedPath": "positive/pre-run-manifest.json",
+      "semanticChecks": ["scorecardGraph"],
+      "expectedError": "outcome replay receipt schema invalid"
+    },
+    {
+      "id": "scorecard-reject-unbound-scheduled-pre-run",
+      "basePath": "positive/scorecard.json",
+      "mutations": [
+        {
+          "pointer": "/experiment/scheduledSetCommitment/digest",
+          "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": false,
+      "semanticChecks": [
+        "scorecardGraph"
+      ],
+      "expectedError": "scheduled pre-run: cannot authenticate contract: pointer identity, version, or digest mismatch"
+    },
+    {
+      "id": "scorecard-reject-missing-required-native-substatus",
+      "basePath": "positive/scorecard.json",
+      "mutations": [
+        {
+          "pointer": "/caseResults/0/cells/0/trialResult/profileOutcome/substatus",
+          "value": null
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": false,
+      "relatedPath": "positive/pre-run-manifest.json",
+      "semanticChecks": [
+        "scorecardGraph"
+      ],
+      "expectedError": "native outcome workspace_changed requires one of its registered substatuses"
+    },
+    {
+      "id": "scorecard-reject-scheduled-count-lie",
+      "basePath": "positive/scorecard.json",
+      "mutations": [
+        {
+          "pointer": "/attemptIntegrity/scheduledCells",
+          "value": 999
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": false,
+      "relatedPath": "positive/pre-run-manifest.json",
+      "semanticChecks": [
+        "scorecardGraph"
+      ],
+      "expectedError": "attemptIntegrity.scheduledCells must be 1, found 999"
+    },
+    {
+      "id": "scorecard-reject-attempt-state-count-lie",
+      "basePath": "positive/scorecard.json",
+      "mutations": [
+        {
+          "pointer": "/attemptIntegrity/validAttempts",
+          "value": 0
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": false,
+      "relatedPath": "positive/pre-run-manifest.json",
+      "semanticChecks": [
+        "scorecardGraph"
+      ],
+      "expectedError": "attemptIntegrity.validAttempts must be 1, found 0"
+    },
+    {
+      "id": "scorecard-reject-supported-below-threshold",
+      "basePath": "positive/scorecard.json",
+      "mutations": [
+        {
+          "pointer": "/claims/0/threshold",
+          "value": 1.1
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": false,
+      "relatedPath": "positive/pre-run-manifest.json",
+      "semanticChecks": [
+        "scorecardGraph"
+      ],
+      "expectedError": "supported claim claim-repo-change-functional does not meet threshold 1.1 with estimate 1"
+    },
+    {
+      "id": "scorecard-reject-post-hoc-decision-rule",
+      "basePath": "positive/scorecard.json",
+      "mutations": [
+        {
+          "pointer": "/claims/0/decisionRule/digest",
+          "value": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": false,
+      "relatedPath": "positive/pre-run-manifest.json",
+      "semanticChecks": [
+        "scorecardGraph"
+      ],
+      "expectedError": "decisionRule differs from sealed claim contract"
+    },
+    {
+      "id": "scorecard-reject-fabricated-wilson-interval",
+      "basePath": "positive/scorecard.json",
+      "mutations": [
+        {
+          "pointer": "/claimResults/0/interval/lower",
+          "value": 0.7
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": false,
+      "relatedPath": "positive/pre-run-manifest.json",
+      "semanticChecks": [
+        "scorecardGraph"
+      ],
+      "expectedError": "wilson interval must be"
+    },
+    {
+      "id": "scorecard-reject-attempt-cost-lie",
+      "basePath": "positive/scorecard.json",
+      "mutations": [
+        {
+          "pointer": "/attemptIntegrity/attemptRecords/0/metrics/costUsd",
+          "value": 9
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": false,
+      "relatedPath": "positive/pre-run-manifest.json",
+      "semanticChecks": [
+        "scorecardGraph"
+      ],
+      "expectedError": "selected-trial cost differs from attempt ledger"
+    },
+    {
+      "id": "scorecard-reject-required-cost-count-lie",
+      "basePath": "positive/scorecard.json",
+      "mutations": [
+        {
+          "pointer": "/metrics/cost/totalAttemptCostPerFunctionalSuccess/requiredCostCount",
+          "value": 0
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": false,
+      "relatedPath": "positive/pre-run-manifest.json",
+      "semanticChecks": [
+        "scorecardGraph"
+      ],
+      "expectedError": "totalAttemptCostPerFunctionalSuccess.requiredCostCount must be 1"
+    },
+    {
+      "id": "scorecard-reject-broken-attempt-lineage",
+      "basePath": "positive/scorecard.json",
+      "mutations": [
+        {
+          "pointer": "/attemptIntegrity/attemptRecords/0/parentAttemptId",
+          "value": "attempt-fixture-1"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": false,
+      "relatedPath": "positive/pre-run-manifest.json",
+      "semanticChecks": [
+        "scorecardGraph"
+      ],
+      "expectedError": "lineage attempt attempt-fixture-1 parent must be null"
+    },
+    {
+      "id": "scorecard-reject-unbound-attempt-evidence",
+      "basePath": "positive/scorecard.json",
+      "mutations": [
+        {
+          "pointer": "/attemptIntegrity/attemptRecords/0/artifactIds/0",
+          "value": "unknown-evidence"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": false,
+      "relatedPath": "positive/pre-run-manifest.json",
+      "semanticChecks": [
+        "scorecardGraph"
+      ],
+      "expectedError": "attempt attempt-fixture-1: evidence ID unknown-evidence does not resolve exactly once"
+    },
+    {
+      "id": "scorecard-reject-fabricated-complete-case-bound",
+      "basePath": "positive/scorecard.json",
+      "mutations": [
+        {
+          "pointer": "/claimResults/0/identificationBounds/lower",
+          "value": 0.5
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": false,
+      "relatedPath": "positive/pre-run-manifest.json",
+      "semanticChecks": [
+        "scorecardGraph"
+      ],
+      "expectedError": "complete-case bounds must be [1,1]"
+    },
+    {
+      "id": "assurance-observation-positive",
+      "path": "positive/assurance-observation.json",
+      "schema": "urn:agent-evals-standard:schema:assurance-observation:1",
+      "valid": true,
+      "semanticChecks": [
+        "signature"
+      ]
+    },
+    {
+      "id": "scorecard-reject-supported-failed-rule",
+      "basePath": "positive/scorecard.json",
+      "mutations": [
+        {
+          "pointer": "/claimResults/0/decisionRuleResult",
+          "value": "fail"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": false,
+      "expectedError": "/claimResults/0/decisionRuleResult"
+    },
+    {
+      "id": "scorecard-reject-missing-claim-result",
+      "basePath": "positive/scorecard.json",
+      "mutations": [
+        {
+          "pointer": "/claims/0/id",
+          "value": "claim-repo-change-reliability"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": false,
+      "relatedPath": "positive/pre-run-manifest.json",
+      "semanticChecks": [
+        "scorecardGraph"
+      ],
+      "expectedError": "required ID claim-repo-change-reliability occurs 0 times"
+    },
+    {
+      "id": "scorecard-reject-mismatched-cell-profile",
+      "basePath": "positive/scorecard.json",
+      "mutations": [
+        {
+          "pointer": "/caseResults/0/cells/0/evaluationProfileDigest",
+          "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": false,
+      "relatedPath": "positive/pre-run-manifest.json",
+      "semanticChecks": [
+        "scorecardGraph"
+      ],
+      "expectedError": "evaluation profile digest differs from its sealed case binding"
+    },
+    {
+      "id": "scorecard-reject-false-success-assignment",
+      "basePath": "positive/scorecard.json",
+      "mutations": [
+        {
+          "pointer": "/claimResults/0/successAssignments/0/success",
+          "value": false
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": false,
+      "relatedPath": "positive/pre-run-manifest.json",
+      "semanticChecks": [
+        "scorecardGraph"
+      ],
+      "expectedError": "assignment cell-fixture-1 must be success=true"
+    },
+    {
+      "id": "scorecard-reject-incomplete-coverage",
+      "basePath": "positive/scorecard.json",
+      "mutations": [
+        {
+          "pointer": "/caseResults/0/gateCoverage/evaluatedIds",
+          "value": [
+            "evidenceAuthenticity",
+            "oracleIsolation",
+            "isolatedExecution",
+            "trustedMeasurementBoundary",
+            "attemptAccounting",
+            "permissionPolicy"
+          ]
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:scorecard:1",
+      "valid": false,
+      "relatedPath": "positive/pre-run-manifest.json",
+      "semanticChecks": [
+        "scorecardGraph"
+      ],
+      "expectedError": "gateCoverage is not exact"
+    },
+    {
+      "id": "signature-profile-full-root-positive",
+      "path": "../../profiles/repo-change-v1/signature-profile.json",
+      "schema": "urn:agent-evals-standard:schema:signature-profile:1",
+      "valid": true,
+      "semanticChecks": [
+        "selfDigest"
+      ]
+    },
+    {
+      "id": "anti-rollback-policy-full-root-positive",
+      "path": "../../profiles/repo-change-v1/anti-rollback-policy.json",
+      "schema": "urn:agent-evals-standard:schema:anti-rollback-policy:1",
+      "valid": true,
+      "semanticChecks": [
+        "selfDigest",
+        "signature"
+      ]
+    },
+    {
+      "id": "requirement-registry-full-root-positive",
+      "path": "../../standard/requirement-registry.json",
+      "schema": "urn:agent-evals-standard:schema:requirement-registry:1",
+      "valid": true,
+      "semanticChecks": [
+        "selfDigest"
+      ]
+    },
+    {
+      "id": "validation-envelope-decision-full-root-positive",
+      "path": "positive/validation-envelope-decision.json",
+      "schema": "urn:agent-evals-standard:schema:validation-envelope:1",
+      "valid": true,
+      "relatedPath": "positive/governance-decision.json",
+      "semanticChecks": [
+        "validationEnvelope",
+        "signatureProfileBinding",
+        "signature",
+        "artifactPointers"
+      ]
+    },
+    {
+      "id": "validation-envelope-reject-signature-profile-id-mismatch",
+      "basePath": "positive/validation-envelope-decision.json",
+      "mutations": [
+        {
+          "pointer": "/signature/profileId",
+          "value": "fixture-signature-profile-mismatch"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:validation-envelope:1",
+      "valid": false,
+      "relatedPath": "positive/governance-decision.json",
+      "semanticChecks": [
+        "validationEnvelope",
+        "signatureProfileBinding",
+        "signature"
+      ],
+      "expectedError": "signatureProfileBinding: signature profileId must be fixture-signature-profile"
+    },
+    {
+      "id": "anti-rollback-reject-scope-mismatch",
+      "basePath": "../../profiles/repo-change-v1/anti-rollback-policy.json",
+      "mutations": [
+        {
+          "pointer": "/applicability/assuranceLevels/0",
+          "value": "A2"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:anti-rollback-policy:1",
+      "valid": false,
+      "expectedError": "#/allOf/0/then/properties/mechanism/not"
+    },
+    {
+      "id": "anti-rollback-reject-role-independence-conflict",
+      "path": "negative/anti-rollback-role-conflict.json",
+      "schema": "urn:agent-evals-standard:schema:anti-rollback-policy:1",
+      "valid": false,
+      "expectedError": "/mechanism/trustAssumptions/operatorIndependentOf"
+    },
+    {
+      "id": "validation-envelope-reject-aggregate-lie",
+      "basePath": "positive/validation-envelope-decision.json",
+      "mutations": [
+        {
+          "pointer": "/result",
+          "value": "fail"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:validation-envelope:1",
+      "valid": false,
+      "semanticChecks": [
+        "validationEnvelope",
+        "signatureProfileBinding"
+      ],
+      "expectedError": "/checks"
+    },
+    {
+      "id": "validation-envelope-reject-duplicate-and-missing-requirement",
+      "basePath": "positive/validation-envelope-decision.json",
+      "mutations": [
+        {
+          "pointer": "/checks/1/requirementId",
+          "value": "ARCH-001"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:validation-envelope:1",
+      "valid": false,
+      "relatedPath": "positive/governance-decision.json",
+      "semanticChecks": [
+        "validationEnvelope",
+        "signatureProfileBinding",
+        "artifactPointers"
+      ],
+      "expectedError": "required ID TRACE-001 occurs 0 times"
+    },
+    {
+      "id": "validation-envelope-reject-unresolved-evidence",
+      "basePath": "positive/validation-envelope-decision.json",
+      "mutations": [
+        {
+          "pointer": "/checks/0/evidenceIds/0",
+          "value": "fixture-evidence-missing"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:validation-envelope:1",
+      "valid": false,
+      "relatedPath": "positive/governance-decision.json",
+      "semanticChecks": [
+        "validationEnvelope",
+        "signatureProfileBinding",
+        "artifactPointers"
+      ],
+      "expectedError": "evidence ID fixture-evidence-missing does not resolve exactly once"
+    },
+    {
+      "id": "conformance-applicability-contract-full-root-positive",
+      "path": "positive/decision-applicability-contract.json",
+      "schema": "urn:agent-evals-standard:schema:conformance-applicability-contract:1",
+      "valid": true,
+      "semanticChecks": [
+        "selfDigest",
+        "signature"
+      ]
+    },
+    {
+      "id": "conformance-statement-validation-envelope-full-root-positive",
+      "path": "positive/validation-envelope-conformance-statement.json",
+      "schema": "urn:agent-evals-standard:schema:validation-envelope:1",
+      "valid": true,
+      "relatedPath": "positive/conformance-statement-decision.json",
+      "semanticChecks": [
+        "validationEnvelope",
+        "signatureProfileBinding",
+        "artifactPointers"
+      ]
+    },
+    {
+      "id": "conformance-statement-decision-full-root-positive",
+      "path": "positive/conformance-statement-decision.json",
+      "schema": "urn:agent-evals-standard:schema:conformance-statement:1",
+      "valid": true,
+      "validationEnvelopePath": "positive/validation-envelope-conformance-statement.json",
+      "semanticChecks": [
+        "conformanceGraph",
+        "claimTrustBinding",
+        "signatureProfileBinding",
+        "signature"
+      ]
+    },
+    {
+      "id": "conformance-statement-reject-repo-change-review-decision",
+      "basePath": "positive/conformance-statement-decision.json",
+      "mutations": [
+        {
+          "pointer": "/scope/slices/0/workArtifactTypes/0",
+          "value": "review_decision"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:conformance-statement:1",
+      "valid": false,
+      "semanticChecks": [
+        "conformanceGraph"
+      ],
+      "validationEnvelopePath": "positive/validation-envelope-conformance-statement.json",
+      "expectedError": "work artifact review_decision is not supported by any authenticated selected outcome profile"
+    },
+    {
+      "id": "conformance-statement-reject-repo-change-assurance-only-slice",
+      "basePath": "positive/conformance-statement-decision.json",
+      "mutations": [
+        {
+          "pointer": "/scope/slices/1/capabilityFamilyIds",
+          "value": [
+            "CAP.VERIFY_ASSURE"
+          ]
+        },
+        {
+          "pointer": "/scope/slices/1/workArtifactTypes",
+          "value": [
+            "assurance_report"
+          ]
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:conformance-statement:1",
+      "valid": false,
+      "semanticChecks": [
+        "conformanceGraph"
+      ],
+      "validationEnvelopePath": "positive/validation-envelope-conformance-statement.json",
+      "expectedError": "CAP.VERIFY_ASSURE requires CAP.IMPLEMENT_CHANGE"
+    },
+    {
+      "id": "conformance-statement-reject-a0-non-evaluator",
+      "basePath": "positive/conformance-statement-decision.json",
+      "mutations": [
+        {
+          "pointer": "/scope/slices/0/assuranceLevel",
+          "value": "A0"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:conformance-statement:1",
+      "valid": false,
+      "expectedError": "/claim"
+    },
+    {
+      "id": "conformance-statement-reject-a1-diagnostic-binding",
+      "basePath": "positive/conformance-statement-decision.json",
+      "mutations": [
+        {
+          "pointer": "/scope/slices/0/bindingUse",
+          "value": "diagnostic_only"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:conformance-statement:1",
+      "valid": false,
+      "expectedError": "/scope/slices/0/bindingUse"
+    },
+    {
+      "id": "conformance-statement-reject-missing-requirement-row",
+      "basePath": "positive/conformance-statement-decision.json",
+      "mutations": [
+        {
+          "pointer": "/targetEvidence/decision/requirementResults/17/requirementId",
+          "value": "CONF-002"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:conformance-statement:1",
+      "valid": false,
+      "semanticChecks": [
+        "conformanceGraph"
+      ],
+      "validationEnvelopePath": "positive/validation-envelope-conformance-statement.json",
+      "expectedError": "required ID CONF-003 occurs 0 times"
+    },
+    {
+      "id": "conformance-statement-reject-wrong-verifier",
+      "basePath": "positive/conformance-statement-decision.json",
+      "mutations": [
+        {
+          "pointer": "/targetEvidence/decision/requirementResults/0/verifierOrReviewer/id",
+          "value": "wrong-verifier"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:conformance-statement:1",
+      "valid": false,
+      "semanticChecks": [
+        "conformanceGraph"
+      ],
+      "validationEnvelopePath": "positive/validation-envelope-conformance-statement.json",
+      "expectedError": "ARCH-001 must be attested by verifier conformance-validator"
+    },
+    {
+      "id": "conformance-statement-reject-not-claimed-aggregate-with-fail",
+      "basePath": "positive/conformance-statement-decision.json",
+      "mutations": [
+        {
+          "pointer": "/targetEvidence/decision/requirementResults/0/status",
+          "value": "fail"
+        },
+        {
+          "pointer": "/targetEvidence/decision/requirementResults/0/claimEffect",
+          "value": "nonconforming"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:conformance-statement:1",
+      "valid": false,
+      "semanticChecks": [
+        "conformanceGraph"
+      ],
+      "validationEnvelopePath": "positive/validation-envelope-conformance-statement.json",
+      "expectedError": "target verdict must be nonconforming, found not_claimed"
+    },
+    {
+      "id": "conformance-statement-reject-missing-slices",
+      "basePath": "positive/conformance-statement-decision.json",
+      "mutations": [
+        {
+          "pointer": "/scope/intendedUse",
+          "value": "Customer-support agent certification"
+        },
+        {
+          "pointer": "/scope/slices",
+          "value": []
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:conformance-statement:1",
+      "valid": false,
+      "expectedError": "must NOT have fewer than 1 items"
+    },
+    {
+      "id": "conformance-statement-reject-duplicate-slice-id",
+      "basePath": "positive/conformance-statement-decision.json",
+      "mutations": [
+        {
+          "pointer": "/scope/slices/1/id",
+          "value": "repository-change-primary"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:conformance-statement:1",
+      "valid": false,
+      "semanticChecks": [
+        "conformanceGraph"
+      ],
+      "validationEnvelopePath": "positive/validation-envelope-conformance-statement.json",
+      "expectedError": "conformanceGraph scope slice IDs: repository-change-primary occurs 2 times"
+    },
+    {
+      "id": "conformance-statement-reject-non-grounded-scope",
+      "basePath": "positive/conformance-statement-decision.json",
+      "mutations": [
+        {
+          "pointer": "/scope/slices/0/materialRepositoryGrounding/evidenceId",
+          "value": "fixture-evidence-1"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:conformance-statement:1",
+      "valid": false,
+      "semanticChecks": [
+        "conformanceGraph"
+      ],
+      "validationEnvelopePath": "positive/validation-envelope-conformance-statement.json",
+      "expectedError": "material repository grounding evidence fixture-evidence-1 must resolve to signed authenticated evidence"
+    },
+    {
+      "id": "conformance-statement-reject-target-same-id-different-digest",
+      "basePath": "positive/conformance-statement-decision.json",
+      "mutations": [
+        {
+          "pointer": "/targetEvidence/decision/targetSubject/digest",
+          "value": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:conformance-statement:1",
+      "valid": false,
+      "semanticChecks": [
+        "conformanceGraph"
+      ],
+      "validationEnvelopePath": "positive/validation-envelope-conformance-statement.json",
+      "expectedError": "conformanceGraph target subject: digest must be"
+    },
+    {
+      "id": "conformance-statement-reject-deployment-bound-reference-keys",
+      "basePath": "positive/conformance-statement-decision.json",
+      "mutations": [
+        {
+          "pointer": "/claimTrustUse",
+          "value": "deployment_bound"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:conformance-statement:1",
+      "valid": false,
+      "semanticChecks": [
+        "claimTrustBinding"
+      ],
+      "expectedError": "deployment_bound cannot use the repository operational reference keys"
+    },
+    {
+      "id": "conformance-statement-reject-legacy-not-applicable-status",
+      "basePath": "positive/conformance-statement-decision.json",
+      "mutations": [
+        {
+          "pointer": "/targetEvidence/decision/requirementResults/0/status",
+          "value": "not_applicable"
+        },
+        {
+          "pointer": "/targetEvidence/decision/requirementResults/0/claimEffect",
+          "value": "scope_excluded"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:conformance-statement:1",
+      "valid": false,
+      "expectedError": "must be equal to one of the allowed values"
+    },
+    {
+      "id": "architecture-case-validity-argument-authenticated",
+      "path": "architecture-case-validity-argument.json",
+      "schema": "urn:agent-evals-standard:schema:case-classification-validity-argument:1",
+      "valid": true,
+      "semanticChecks": [
+        "selfDigest",
+        "signature"
+      ]
+    },
+    {
+      "id": "architecture-case-full-valid-multi-label",
+      "path": "architecture-case-full.json",
+      "schema": "urn:agent-evals-standard:schema:case:1",
+      "valid": true,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": [
+        "caseCapabilityClassification",
+        "caseProfileBindings",
+        "caseValidationStrategy",
+        "caseWorkArtifactBindings",
+        "workspaceManifestBinding",
+        "artifactPointers",
+        "selfDigest",
+        "signature"
+      ]
+    },
+    {
+      "id": "case-high-risk-held-out-requires-memorization-probe",
+      "group": "peripheral-hardening",
+      "basePath": "architecture-case-full.json",
+      "mutations": [
+        {
+          "pointer": "/inherentRiskTier",
+          "value": "high"
+        },
+        {
+          "pointer": "/memberships",
+          "value": [
+            "held_out"
+          ]
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case:1",
+      "valid": false,
+      "expectedError": "memorizationProbe"
+    },
+    {
+      "id": "case-reject-self-declared-security-not-applicable",
+      "basePath": "architecture-case-full.json",
+      "mutations": [
+        {
+          "pointer": "/validation/strategy/securityChecks/coverage",
+          "value": "not_applicable"
+        },
+        {
+          "pointer": "/validation/securityChecks",
+          "value": []
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case:1",
+      "valid": false,
+      "semanticChecks": [
+        "caseValidationStrategy"
+      ],
+      "expectedError": "caseValidationStrategy: securityChecks trusted result is applicable; coverage must be checked"
+    },
+    {
+      "id": "case-reject-untrusted-validation-applicability-rule",
+      "basePath": "architecture-case-full.json",
+      "mutations": [
+        {
+          "pointer": "/validation/strategy/hiddenChecks/applicabilityRule/digest",
+          "value": "sha256:9999999999999999999999999999999999999999999999999999999999999999"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case:1",
+      "valid": false,
+      "semanticChecks": [
+        "caseValidationStrategy"
+      ],
+      "expectedError": "caseValidationStrategy: hiddenChecks applicability rule is not evaluator-trusted"
+    },
+    {
+      "id": "classification-patch-with-tests",
+      "path": "positive/classification-patch-with-tests.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": true,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": [
+        "caseCapabilityClassificationBoundary"
+      ]
+    },
+    {
+      "id": "classification-patch-with-tests-as-verification",
+      "path": "negative/classification-patch-with-tests-as-verification.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": false,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": [
+        "caseCapabilityClassificationBoundary"
+      ],
+      "expectedError": "CASE-001 capability classification mismatch for construct.patch.correctness: declared [CAP.VERIFY_ASSURE], expected [CAP.IMPLEMENT_CHANGE]"
+    },
+    {
+      "id": "classification-independent-test-design",
+      "path": "positive/classification-independent-test-design.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": true,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": [
+        "caseCapabilityClassificationBoundary"
+      ]
+    },
+    {
+      "id": "classification-independent-test-design-as-implementation",
+      "path": "negative/classification-independent-test-design-as-implementation.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": false,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": [
+        "caseCapabilityClassificationBoundary"
+      ],
+      "expectedError": "CASE-001 capability classification mismatch for construct.test-design.quality: declared [CAP.IMPLEMENT_CHANGE], expected [CAP.VERIFY_ASSURE]"
+    },
+    {
+      "id": "classification-escaped-defect-repair",
+      "path": "positive/classification-escaped-defect-repair.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": true,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": [
+        "caseCapabilityClassificationBoundary"
+      ]
+    },
+    {
+      "id": "classification-escaped-defect-repair-as-learning",
+      "path": "negative/classification-escaped-defect-repair-as-learning.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": false,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": [
+        "caseCapabilityClassificationBoundary"
+      ],
+      "expectedError": "CASE-001 capability classification mismatch for construct.escaped-defect.repair: declared [CAP.REMEDIATE_LEARN], expected [CAP.IMPLEMENT_CHANGE]"
+    },
+    {
+      "id": "classification-incident-learning",
+      "path": "positive/classification-incident-learning.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": true,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": [
+        "caseCapabilityClassificationBoundary"
+      ]
+    },
+    {
+      "id": "classification-readiness-review",
+      "path": "positive/classification-readiness-review.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": true,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": [
+        "caseCapabilityClassificationBoundary"
+      ]
+    },
+    {
+      "id": "classification-readiness-as-rollout",
+      "path": "negative/classification-readiness-as-rollout.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": false,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": [
+        "caseCapabilityClassificationBoundary"
+      ],
+      "expectedError": "CASE-001 capability classification mismatch for construct.release-readiness.recommendation: declared [CAP.RELEASE_OPERATE], expected [CAP.REVIEW_DECIDE]"
+    },
+    {
+      "id": "classification-simulated-rollout",
+      "path": "positive/classification-simulated-rollout.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": true,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": [
+        "caseCapabilityClassificationBoundary"
+      ]
+    },
+    {
+      "id": "classification-rollout-as-review",
+      "path": "negative/classification-rollout-as-review.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": false,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": [
+        "caseCapabilityClassificationBoundary"
+      ],
+      "expectedError": "CASE-001 capability classification mismatch for construct.simulated-rollout.control: declared [CAP.REVIEW_DECIDE], expected [CAP.RELEASE_OPERATE]"
+    },
+    {
+      "id": "classification-ancillary-research",
+      "path": "positive/classification-ancillary-research.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": true,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": [
+        "caseCapabilityClassificationBoundary"
+      ]
+    },
+    {
+      "id": "classification-ancillary-research-as-discovery",
+      "path": "negative/classification-ancillary-research-as-discovery.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": false,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": [
+        "caseCapabilityClassificationBoundary"
+      ],
+      "expectedError": "CASE-001 ancillary construct construct.repository-research.ancillary cannot justify capability CAP.DISCOVER_SPECIFY"
+    },
+    {
+      "id": "architecture-profile-resolution-proof-inputs-valid",
+      "path": "architecture-profile-resolution-evidence-payload.json",
+      "schema": "urn:agent-evals-standard:schema:profile-resolution-proof-inputs:1",
+      "valid": true
+    },
+    {
+      "id": "architecture-profile-resolution-proof-inputs-reject-verdict",
+      "basePath": "architecture-profile-resolution-evidence-payload.json",
+      "mutations": [
+        {
+          "pointer": "/verdict",
+          "add": true,
+          "value": "pass"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:profile-resolution-proof-inputs:1",
+      "valid": false,
+      "expectedError": "must NOT have additional properties"
+    },
+    {
+      "id": "architecture-profile-resolution-evidence-valid",
+      "path": "architecture-profile-resolution-evidence.json",
+      "schema": "urn:agent-evals-standard:schema:evidence-artifact:1",
+      "valid": true,
+      "semanticChecks": [
+        "evidencePayload",
+        "signature"
+      ]
+    },
+    {
+      "id": "architecture-profile-resolution-valid",
+      "path": "architecture-profile-child-resolution.json",
+      "schema": "urn:agent-evals-standard:schema:profile-resolution-record:1",
+      "valid": true,
+      "relatedPath": "architecture-evaluation-profile-child.json",
+      "semanticChecks": [
+        "profileResolutionRecord",
+        "selfDigest",
+        "signature"
+      ]
+    },
+    {
+      "id": "architecture-profile-resolution-reject-proof-without-input-evidence",
+      "basePath": "architecture-profile-child-resolution.json",
+      "mutations": [
+        {
+          "pointer": "/evidenceManifest",
+          "value": []
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:profile-resolution-record:1",
+      "valid": false,
+      "expectedError": "must NOT have fewer than 1 items"
+    },
+    {
+      "id": "architecture-profile-resolution-reject-claimant-verifier",
+      "basePath": "architecture-profile-child-resolution.json",
+      "mutations": [
+        {
+          "pointer": "/replacementProofs/0/verifier",
+          "add": true,
+          "value": {
+            "id": "claimant-selected-verifier",
+            "version": "0.1.0",
+            "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+            "schemaId": "claimant-result-1",
+            "verifierDigest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+          }
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:profile-resolution-record:1",
+      "valid": false,
+      "expectedError": "must NOT have additional properties"
+    },
+    {
+      "id": "architecture-profile-child-valid",
+      "path": "architecture-evaluation-profile-child.json",
+      "schema": "urn:agent-evals-standard:schema:evaluation-profile:1",
+      "valid": true,
+      "semanticChecks": [
+        "profileInheritance",
+        "profileResolutionProvenance",
+        "selfDigest",
+        "signature",
+        "artifactPointers",
+        "profileFixtureBindings"
+      ]
+    },
+    {
+      "id": "architecture-profile-child-reject-inherited-fixture-substitution",
+      "basePath": "architecture-evaluation-profile-child.json",
+      "mutations": [
+        {
+          "pointer": "/fixtures/0/id",
+          "value": "repo-change-positive"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:evaluation-profile:1",
+      "valid": false,
+      "semanticChecks": [
+        "profileInheritance"
+      ],
+      "expectedError": "fixture ID repo-change-positive collides with an inherited fixture"
+    },
+    {
+      "id": "architecture-profile-child-reject-local-fixture-collision",
+      "basePath": "architecture-evaluation-profile-child.json",
+      "mutations": [
+        {
+          "pointer": "/fixtures/1/id",
+          "value": "architecture-profile-child-positive"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:evaluation-profile:1",
+      "valid": false,
+      "semanticChecks": [
+        "profileInheritance"
+      ],
+      "expectedError": "fixture IDs: architecture-profile-child-positive occurs 2 times"
+    },
+    {
+      "id": "architecture-profile-child-expansion",
+      "basePath": "architecture-evaluation-profile-child.json",
+      "mutations": [
+        {
+          "pointer": "/capabilityFamilies",
+          "value": [
+            "CAP.IMPLEMENT_CHANGE",
+            "CAP.REVIEW_DECIDE"
+          ]
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:evaluation-profile:1",
+      "valid": false,
+      "semanticChecks": [
+        "profileInheritance"
+      ],
+      "expectedError": "child capabilityFamilies expands the parent set"
+    },
+    {
+      "id": "architecture-profile-child-cycle",
+      "basePath": "architecture-evaluation-profile-child.json",
+      "mutations": [
+        {
+          "pointer": "/parentProfile",
+          "value": {
+            "id": "architecture-repo-change-child-v1",
+            "version": "0.1.0",
+            "uri": "architecture-evaluation-profile-child.json",
+            "digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:evaluation-profile:1",
+      "valid": false,
+      "semanticChecks": [
+        "profileInheritance"
+      ],
+      "expectedError": "inheritance cycle"
+    },
+    {
+      "id": "architecture-profile-child-stale-parent-digest",
+      "basePath": "architecture-evaluation-profile-child.json",
+      "mutations": [
+        {
+          "pointer": "/parentProfile/digest",
+          "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:evaluation-profile:1",
+      "valid": false,
+      "semanticChecks": [
+        "profileInheritance"
+      ],
+      "expectedError": "parent digest must be"
+    },
+    {
+      "id": "architecture-profile-child-outcome-expansion",
+      "basePath": "architecture-evaluation-profile-child.json",
+      "mutations": [
+        {
+          "pointer": "/allowedOutcomeProfiles",
+          "value": [
+            {
+              "id": "workspace-change-v1",
+              "version": "0.1.0",
+              "uri": "../../profiles/repo-change-v1/outcome-profile.json",
+              "digest": "sha256:560d5faa11db54fd013c00407e5bac20344e3a260c26922c53931c822b4008bc"
+            },
+            {
+              "id": "unrelated-outcome-v1",
+              "version": "0.1.0",
+              "uri": "../../profiles/repo-change-v1/outcome-profile.json",
+              "digest": "sha256:560d5faa11db54fd013c00407e5bac20344e3a260c26922c53931c822b4008bc"
+            }
+          ]
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:evaluation-profile:1",
+      "valid": false,
+      "semanticChecks": [
+        "profileInheritance"
+      ],
+      "expectedError": "child allowedOutcomeProfiles adds unrelated-outcome-v1"
+    },
+    {
+      "id": "architecture-profile-child-keyed-collision",
+      "basePath": "architecture-evaluation-profile-child.json",
+      "mutations": [
+        {
+          "pointer": "/allowedOutcomeProfiles",
+          "value": [
+            {
+              "id": "workspace-change-v1",
+              "version": "0.1.0",
+              "uri": "../../profiles/repo-change-v1/outcome-profile.json",
+              "digest": "sha256:560d5faa11db54fd013c00407e5bac20344e3a260c26922c53931c822b4008bc"
+            },
+            {
+              "id": "workspace-change-v1",
+              "version": "0.1.0",
+              "uri": "../../profiles/repo-change-v1/outcome-profile.json",
+              "digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+            }
+          ]
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:evaluation-profile:1",
+      "valid": false,
+      "semanticChecks": [
+        "profileInheritance"
+      ],
+      "expectedError": "child allowedOutcomeProfiles IDs: workspace-change-v1 occurs 2 times"
+    },
+    {
+      "id": "architecture-profile-child-deletion-tombstone",
+      "basePath": "architecture-evaluation-profile-child.json",
+      "mutations": [
+        {
+          "pointer": "/allowedOutcomeProfiles/0",
+          "value": {
+            "id": "workspace-change-v1",
+            "version": "0.1.0",
+            "uri": "tombstone:deleted",
+            "digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+          }
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:evaluation-profile:1",
+      "valid": false,
+      "semanticChecks": [
+        "profileInheritance"
+      ],
+      "expectedError": "uses a forbidden tombstone URI; omit the parent ID to narrow instead"
+    },
+    {
+      "id": "architecture-profile-child-singleton-weakening",
+      "basePath": "architecture-evaluation-profile-child.json",
+      "mutations": [
+        {
+          "pointer": "/gateRegistry",
+          "value": {
+            "id": "architecture-weakened-gate-registry",
+            "version": "0.1.0",
+            "uri": "architecture-weakened-gate-registry.json",
+            "digest": "sha256:ef13a9c24ed634cd7945b5e9c66a25350de66be097dbc4736dc5141eb5399c86"
+          }
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:evaluation-profile:1",
+      "valid": false,
+      "semanticChecks": [
+        "profileInheritance"
+      ],
+      "expectedError": "does not bind the child declaration"
+    },
+    {
+      "id": "architecture-profile-resolution-false-strengthening",
+      "basePath": "architecture-profile-child-resolution.json",
+      "mutations": [
+        {
+          "pointer": "/replacementProofs/1/relation",
+          "value": "strengthens"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:profile-resolution-record:1",
+      "valid": false,
+      "relatedPath": "architecture-evaluation-profile-child.json",
+      "semanticChecks": [
+        "profileResolutionRecord"
+      ],
+      "expectedError": "falsely claims strengthens"
+    },
+    {
+      "id": "architecture-profile-resolution-forged-provenance",
+      "basePath": "architecture-profile-child-resolution.json",
+      "mutations": [
+        {
+          "pointer": "/fieldProvenance/8/sourceProfileId",
+          "value": "repo-change-v1"
+        },
+        {
+          "pointer": "/fieldProvenance/8/operation",
+          "value": "content_equal"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:profile-resolution-record:1",
+      "valid": false,
+      "relatedPath": "architecture-evaluation-profile-child.json",
+      "semanticChecks": [
+        "profileResolutionRecord"
+      ],
+      "expectedError": "/gateRegistry provenance must be architecture-repo-change-child-v1@0.1.0/strengthens"
+    },
+    {
+      "id": "operational-key-authorization-full-root-positive",
+      "path": "../../profiles/repo-change-v1/operational-key-authorization-contract.json",
+      "schema": "urn:agent-evals-standard:schema:key-authorization-contract:1",
+      "valid": true,
+      "semanticChecks": [
+        "artifactPointers"
+      ]
+    },
+    {
+      "id": "operational-revocation-state-full-root-positive",
+      "path": "../../profiles/repo-change-v1/operational-revocation-state-contract.json",
+      "schema": "urn:agent-evals-standard:schema:revocation-state-contract:1",
+      "valid": true,
+      "semanticChecks": [
+        "artifactPointers"
+      ]
+    },
+    {
+      "id": "operational-trusted-time-contract-full-root-positive",
+      "path": "../../profiles/repo-change-v1/operational-trusted-time-contract.json",
+      "schema": "urn:agent-evals-standard:schema:trusted-time-contract:1",
+      "valid": true,
+      "semanticChecks": [
+        "artifactPointers"
+      ]
+    },
+    {
+      "id": "operational-trusted-time-attestation-full-root-positive",
+      "path": "../../profiles/repo-change-v1/operational-trusted-time-attestation-a.json",
+      "schema": "urn:agent-evals-standard:schema:trusted-time-attestation:1",
+      "valid": true
+    },
+    {
+      "id": "operational-trust-threat-assessment-full-root-positive",
+      "path": "../../profiles/repo-change-v1/operational-trust-threat-assessment.json",
+      "schema": "urn:agent-evals-standard:schema:trust-threat-assessment:1",
+      "valid": true,
+      "semanticChecks": [
+        "artifactPointers"
+      ]
+    },
+    {
+      "id": "operational-anti-rollback-receipt-full-root-positive",
+      "path": "../../profiles/repo-change-v1/operational-anti-rollback-receipt-0.json",
+      "schema": "urn:agent-evals-standard:schema:anti-rollback-receipt:1",
+      "valid": true,
+      "semanticChecks": [
+        "artifactPointers"
+      ]
+    },
+    {
+      "id": "work-artifact-registry-full-root-positive",
+      "path": "../../standard/work-artifact-registry.json",
+      "schema": "urn:agent-evals-standard:schema:work-artifact-registry:1",
+      "valid": true
+    },
+    {
+      "id": "workspace-manifest-positive",
+      "path": "architecture-workspace-manifest.json",
+      "schema": "urn:agent-evals-standard:schema:workspace-manifest:1",
+      "valid": true,
+      "semanticChecks": [
+        "workspaceManifest"
+      ]
+    },
+    {
+      "id": "case-reject-binary-interaction-alias",
+      "basePath": "architecture-case-full.json",
+      "mutations": [
+        {
+          "pointer": "/interactionModeId",
+          "value": "non_interactive"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case:1",
+      "valid": false,
+      "expectedError": "/interactionModeId"
+    },
+    {
+      "id": "case-reject-interaction-mode-substitution-outside-validity-argument",
+      "basePath": "architecture-case-full.json",
+      "mutations": [
+        {
+          "pointer": "/interactionModeId",
+          "value": "interactive_repository_session"
+        },
+        {
+          "pointer": "/interactionProtocol",
+          "add": true,
+          "value": {
+            "id": "architecture-interaction-protocol",
+            "version": "0.1.0",
+            "digest": "sha256:5252525252525252525252525252525252525252525252525252525252525252",
+            "schemaId": "agent-eval-interaction-protocol-1",
+            "verifierDigest": "sha256:5353535353535353535353535353535353535353535353535353535353535353"
+          }
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case:1",
+      "valid": false,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": [
+        "caseProfileBindings"
+      ],
+      "expectedError": "CASE-001 interactionModeId differs from the signed validity argument"
+    },
+    {
+      "id": "case-reject-work-artifact-registry-drift",
+      "basePath": "architecture-case-full.json",
+      "mutations": [
+        {
+          "pointer": "/workArtifactRegistry/digest",
+          "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case:1",
+      "valid": false,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": [
+        "caseProfileBindings"
+      ],
+      "expectedError": "CASE-001 workArtifactRegistry differs from the effective evaluation profile"
+    },
+    {
+      "id": "case-reject-passenger-capability",
+      "basePath": "architecture-case-full.json",
+      "mutations": [
+        {
+          "pointer": "/workArtifactTypes",
+          "value": [
+            "code_change",
+            "test_change"
+          ]
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case:1",
+      "valid": false,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": [
+        "caseWorkArtifactBindings"
+      ],
+      "expectedError": "CASE-001 capability CAP.VERIFY_ASSURE has no material mapped work artifact"
+    },
+    {
+      "id": "case-reject-work-artifact-family-mismatch",
+      "basePath": "architecture-case-full.json",
+      "mutations": [
+        {
+          "pointer": "/capabilityClassification/1/materialWorkArtifactTypes/0",
+          "value": "code_change"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case:1",
+      "valid": false,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": [
+        "caseWorkArtifactBindings"
+      ],
+      "expectedError": "CASE-001 work artifact code_change maps to CAP.IMPLEMENT_CHANGE, not CAP.VERIFY_ASSURE"
+    },
+    {
+      "id": "case-reject-workspace-manifest-digest-mismatch",
+      "basePath": "architecture-case-full.json",
+      "mutations": [
+        {
+          "pointer": "/repository/workspaceManifest/digest",
+          "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:case:1",
+      "valid": false,
+      "semanticChecks": [
+        "workspaceManifestBinding"
+      ],
+      "expectedError": "CASE-001 workspace manifest byte digest does not match its content-addressed pointer"
+    },
+    {
+      "id": "case-reject-per-repository-cutoff-mismatch",
+      "basePath": "architecture-workspace-manifest.json",
+      "mutations": [
+        {
+          "pointer": "/repositories/0/historyProjection/cutoffRevision",
+          "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:workspace-manifest:1",
+      "valid": false,
+      "semanticChecks": [
+        "workspaceManifest"
+      ],
+      "expectedError": "architecture-fixture-component: history cutoffRevision must equal baseRevision"
+    },
+    {
+      "path": "negative/raw-duplicate-verdict.json",
+      "schema": "urn:agent-evals-standard:schema:validation-envelope:1",
+      "valid": false,
+      "expectParseFailure": true,
+      "expectedError": "duplicate member name"
+    },
+    {
+      "path": "negative/raw-lone-surrogate.json",
+      "schema": "urn:agent-evals-standard:schema:evidence-artifact:1",
+      "valid": false,
+      "expectParseFailure": true,
+      "expectedError": "lone high surrogate"
+    },
+    {
+      "path": "negative/raw-unsafe-integer.json",
+      "schema": "urn:agent-evals-standard:schema:evidence-artifact:1",
+      "valid": false,
+      "expectParseFailure": true,
+      "expectedError": "integer is outside the interoperable I-JSON range"
+    }
+  ]
+}

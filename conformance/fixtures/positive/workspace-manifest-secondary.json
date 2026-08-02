@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "agent-eval-workspace-manifest-1",
+  "id": "repository-snapshot-fixture-2",
+  "version": "0.1.0",
+  "repositories": [
+    {
+      "id": "fixture-repository-secondary",
+      "path": ".",
+      "baseRevision": "623be6251cee976c29a423edb9d3b5770d996a6d",
+      "treeDigest": "sha256:18b41416eef77b6f3848e57c35c32e3422c86c1aa7f5e459b421935514784882",
+      "historyProjection": {
+        "mode": "full_ancestry",
+        "cutoffRevision": "623be6251cee976c29a423edb9d3b5770d996a6d",
+        "baseRef": "refs/heads/eval-base",
+        "objectGraphDigest": "sha256:d58515b452cf20d073e3f2af10d3de83d5d9ac3d35d0dc548d32d18ffdcade9b",
+        "reachableObjectCount": 4,
+        "verifier": {
+          "id": "agent-evals-standard.git-repository-state-verifier",
+          "version": "0.1.0",
+          "algorithm": "git-repository-state-v1"
+        }
+      },
+      "files": [
+        {
+          "path": "test/answer.test.js",
+          "mode": "100644",
+          "mediaType": "text/javascript",
+          "byteLength": 26,
+          "digest": "sha256:ea8b5e898c181bec2f1213e6e8b8c943a4307294b643f55c194bc0f0e0030089",
+          "contentBase64": "dGVzdCgiYW5zd2VyIiwgKCkgPT4gNDIpOwo="
+        }
+      ],
+      "objectFormat": "sha1",
+      "gitObjectGraph": {
+        "baseRef": "refs/heads/eval-base",
+        "refs": [
+          {
+            "name": "refs/heads/eval-base",
+            "target": "623be6251cee976c29a423edb9d3b5770d996a6d"
+          }
+        ],
+        "objects": [
+          {
+            "objectId": "450eb55c03d51136300119cc5a01d9f7f7d04231",
+            "type": "tree",
+            "byteLength": 31,
+            "contentBase64": "NDAwMDAgdGVzdADKPFijN7AmLl4UdcOvaSwL8VjlHA=="
+          },
+          {
+            "objectId": "623be6251cee976c29a423edb9d3b5770d996a6d",
+            "type": "commit",
+            "byteLength": 210,
+            "contentBase64": "dHJlZSA0NTBlYjU1YzAzZDUxMTM2MzAwMTE5Y2M1YTAxZDlmN2Y3ZDA0MjMxCmF1dGhvciBGaXh0dXJlIEJ1aWxkZXIgPGZpeHR1cmVAZXhhbXBsZS5pbnZhbGlkPiAwICswMDAwCmNvbW1pdHRlciBGaXh0dXJlIEJ1aWxkZXIgPGZpeHR1cmVAZXhhbXBsZS5pbnZhbGlkPiAwICswMDAwCgpzZWFsZWQgd29ya3NwYWNlIGZpeHR1cmUtcmVwb3NpdG9yeS1zZWNvbmRhcnkK"
+          },
+          {
+            "objectId": "ad42101cdb3d8b904b548f49abae045398818adc",
+            "type": "blob",
+            "byteLength": 26,
+            "contentBase64": "dGVzdCgiYW5zd2VyIiwgKCkgPT4gNDIpOwo="
+          },
+          {
+            "objectId": "ca3c58a337b0262e5e1475c3af692c0bf158e51c",
+            "type": "tree",
+            "byteLength": 42,
+            "contentBase64": "MTAwNjQ0IGFuc3dlci50ZXN0LmpzAK1CEBzbPYuQS1SPSauuBFOYgYrc"
+          }
+        ],
+        "digest": "sha256:d58515b452cf20d073e3f2af10d3de83d5d9ac3d35d0dc548d32d18ffdcade9b"
+      }
+    }
+  ],
+  "workspaceRootDigest": "sha256:e505371c48047aa3c56ce5b2cbb152c7e37c0bb97eb75ce6b804e09742f58aae"
+}

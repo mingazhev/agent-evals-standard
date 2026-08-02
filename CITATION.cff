@@ -1,9 +1,8 @@
 cff-version: 1.2.0
-message: "Citation is optional; when citing, identify the tagged release and commit."
-title: "Agent Evals Golden Standard"
+message: "Unpublished working draft; cite version 0.1.0 and the exact commit."
+title: "Git-backed Repository SDLC Agent Evals Standard"
 type: standard
-version: 0.2.0
-date-released: 2026-07-28
+version: 0.1.0
 license: CC0-1.0
 repository-code: "https://github.com/mingazhev/agent-evals-standard"
 authors:

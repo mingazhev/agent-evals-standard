@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "agent-eval-enforcement-receipt-1",
+  "id": "enforcement-receipt-fixture-1",
+  "sourceEventId": "escalation-fixture-1",
+  "sourceEventDigest": "sha256:2768d69d52c9406c48e2a1bbce1a89a8882ceca1d640eec7bca85b30a030f1a5",
+  "affectedScope": {
+    "scopeDigest": "sha256:b59491fd25d11e97fbad312086031faf0bc48aecb17ba897800aaf344d27d602",
+    "riskTier": "high",
+    "decisionId": "decision-fixture-1",
+    "scorecardId": "scorecard-fixture-1",
+    "claimIds": [
+      "claim-fixture-1"
+    ]
+  },
+  "stopAction": "stop_governance_use",
+  "scopeAction": "revoke_affected_scope",
+  "requestedAt": "2026-08-01T00:00:13Z",
+  "startedAt": "2026-08-01T00:00:15Z",
+  "completedAt": "2026-08-01T00:00:16Z",
+  "outcome": "applied",
+  "executor": {
+    "id": "fixture-enforcement-executor",
+    "role": "policy_enforcer",
+    "authorizationEvidenceId": "fixture-executor-authorization-1"
+  },
+  "evidence": [
+    "enforcement-log-fixture-1"
+  ],
+  "verifier": {
+    "id": "fixture-enforcement-verifier",
+    "version": "0.1.0",
+    "digest": "sha256:f6c831a7dc917e6748d5396a79f2906d4214857d9af130e7bddd291d653ecd13"
+  },
+  "digest": "sha256:5231797a88568d3983488c6a0714f61b03b4a014f05022755c59e1421a5cc789",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:17Z",
+    "value": "mcW4Rlb4JabmPx1R1ZYW9fGkfo6CMNAh7RPTexpvEhoNOxfNYIJgr5mUciPL16orTKpCvFRmvvVkvsL4nLacCA"
+  }
+}

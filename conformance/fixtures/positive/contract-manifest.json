@@ -1,0 +1,351 @@
+{
+  "schemaVersion": "agent-eval-distribution-manifest-1",
+  "id": "standard-contract-manifest",
+  "version": "0.1.0",
+  "kind": "contracts",
+  "entries": [
+    {
+      "id": "fixture-anti-rollback-policy",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/anti-rollback-policy.json",
+      "digest": "sha256:ef3203a76e9f36ff162d4f96a8aac1ad26d7e09d014bc4b174e002d5b0d9d471"
+    },
+    {
+      "id": "repo-change-case-contract",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/case-contract.json",
+      "digest": "sha256:9e905bd4844001d514670cf3b2239232d31bdcbf710448ee146593bf99ced1d9"
+    },
+    {
+      "id": "repo-change-case-qa-contract-1",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/case-qa-contract.json",
+      "digest": "sha256:d17987895c74e0fec9b6b7433ee80974758c49ddee61a7c56476326a77c15b98"
+    },
+    {
+      "id": "repo-change-v1",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/evaluation-profile.json",
+      "digest": "sha256:388dde3c915fc51a4ea3a9c50dd32ee4564190c4caced59bc8fb54c0677399ec"
+    },
+    {
+      "id": "repo-change-v1-evid-001-signature-pin",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/evid-001-signature-implementation-contract.json",
+      "digest": "sha256:692fc07dd8d058e4473561baf6c020d1b5a80c777ab4904f43bcff07f7a0a44b"
+    },
+    {
+      "id": "repo-change-failure-taxonomy",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/failure-taxonomy.json",
+      "digest": "sha256:40b163062c44b813605d6126f95e31ebff7d172958fc2b97ef3e136058910636"
+    },
+    {
+      "id": "repo-change-gate-registry",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/gate-registry.json",
+      "digest": "sha256:0217e32dd00b239e5d860890b66aa8c1eaa9262e536dda3a97621727a784b146"
+    },
+    {
+      "id": "repo-change-v1-requirement-implementation-contract",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/implementation-contract.json",
+      "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+    },
+    {
+      "id": "repo-change-metric-registry-1",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/metric-registry.json",
+      "digest": "sha256:cc3122197b1e8ffee86dbad60ab9f49971a7e8ef032cd7c0dea07dc814ab565c"
+    },
+    {
+      "id": "repo-change-operational-anti-rollback-policy",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/operational-anti-rollback-policy.json",
+      "digest": "sha256:49a9fe29ae8fe22b6c92a56f95fbd916797de41f3e3d1e5373030b2c614ca94c"
+    },
+    {
+      "id": "repo-change-operational-anti-rollback-receipt-0",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/operational-anti-rollback-receipt-0.json",
+      "digest": "sha256:58251f81c4c2b49aae86a4ff4d758d0cfaf7f0eaa31c8a69d12a569ac5593206"
+    },
+    {
+      "id": "repo-change-operational-anti-rollback-receipt-1",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/operational-anti-rollback-receipt-1.json",
+      "digest": "sha256:30e35f14e8ef2b2f96f7537c84b847fb578925bb3056e73a819fb634e1a27cbc"
+    },
+    {
+      "id": "repo-change-operational-key-authorization",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/operational-key-authorization-contract.json",
+      "digest": "sha256:ee502bc6889afeeb02ce251dbc109ca6946dcf4b2815213393ba51c568dab177"
+    },
+    {
+      "id": "repo-change-operational-revocation-state",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/operational-revocation-state-contract.json",
+      "digest": "sha256:f1e2005ca616b8153574319160731c1d7c330066c0b72359e6ea9e9f71248b5d"
+    },
+    {
+      "id": "repo-change-operational-signature-profile",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/operational-signature-profile.json",
+      "digest": "sha256:4a179bed276288aec104665ea69a3188e749723328441cab139b2b076de8e962"
+    },
+    {
+      "id": "repo-change-operational-trust-threat-assessment",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/operational-trust-threat-assessment.json",
+      "digest": "sha256:d3bfc13a6a7fb8cd033f2546310c3942410c66e11f2c3b89d29ed913f94e49fc"
+    },
+    {
+      "id": "repo-change-operational-time-attestation-a-000000",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/operational-trusted-time-attestation-a.json",
+      "digest": "sha256:7bd1aab2065dd31abf8fdb0ae1b9e972204405657fd13b70c620bbf1e504f4a5"
+    },
+    {
+      "id": "repo-change-operational-time-attestation-b-000000",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/operational-trusted-time-attestation-b.json",
+      "digest": "sha256:805b0f4f5468978a1d1895fe1e89619d19e0f55f2c6944e6e2b699ffb3caefb0"
+    },
+    {
+      "id": "repo-change-operational-trusted-time",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/operational-trusted-time-contract.json",
+      "digest": "sha256:64693ec4cb11bebda1c99e4bd1972ec3c1096a16096fe9966391fcb27440d3ee"
+    },
+    {
+      "id": "workspace-change-v1",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/outcome-profile.json",
+      "digest": "sha256:fe8ee26f8d247b2d62c77469b24c2373f287445dbb9ff3f795b487f71fb11566"
+    },
+    {
+      "id": "normative-prose:profiles/repo-change-v1/outcome-replay-contract.md",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/outcome-replay-contract.md",
+      "digest": "sha256:91eb48578c18137b974886d778d877dd4a53723770943a48fc3a287e42f23c45"
+    },
+    {
+      "id": "repo-change-v1-profile-resolution",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/profile-resolution.json",
+      "digest": "sha256:cb19673ef8ecea55e300927afb8d556cd26b242c4f42b7798e8dc56c9cc551d4"
+    },
+    {
+      "id": "fixture-signature-vectors-v1",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/signature-conformance-vectors.json",
+      "digest": "sha256:6d7e8e7df13230346ab9b6c0b827df8cdd327dde9bfcb3e62ca8ac47f74ad4be"
+    },
+    {
+      "id": "fixture-signature-profile",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/signature-profile.json",
+      "digest": "sha256:b72a1709a74c785565b261a27c36123f6e22270cf0aeaa3c5669bd3704b0c6ce"
+    },
+    {
+      "id": "fixture-signature-trust-contract",
+      "version": "0.1.0",
+      "uri": "profiles/repo-change-v1/signature-trust-contract.json",
+      "digest": "sha256:b0df5dd21b12a12de5e95624188d6402a6cbab63a4b1dfd25bbfd81544382467"
+    },
+    {
+      "id": "repository-review-case-contract",
+      "version": "0.1.0",
+      "uri": "profiles/repository-review-v1/case-contract.json",
+      "digest": "sha256:87f0756213439c0d89987b359b9414815f86ceb65582db4154ec011143f265b3"
+    },
+    {
+      "id": "repository-review-case-qa-contract",
+      "version": "0.1.0",
+      "uri": "profiles/repository-review-v1/case-qa-contract.json",
+      "digest": "sha256:32441fd7d255b9d16b3df47af96942d6097a8d8f22295e3ad4b9039bacb2b514"
+    },
+    {
+      "id": "repository-review-v1",
+      "version": "0.1.0",
+      "uri": "profiles/repository-review-v1/evaluation-profile.json",
+      "digest": "sha256:7d31f4ebac72fa8f70833eb0dadac88daf60cf25552f0bf4e9f2e300df544e34"
+    },
+    {
+      "id": "repository-review-evidence-access-policy",
+      "version": "0.1.0",
+      "uri": "profiles/repository-review-v1/evidence-access-policy.json",
+      "digest": "sha256:49d945287804c4982eaf224467cc0ee6856a5fec55009d77ff6fe685693aff13"
+    },
+    {
+      "id": "repository-review-failure-taxonomy",
+      "version": "0.1.0",
+      "uri": "profiles/repository-review-v1/failure-taxonomy.json",
+      "digest": "sha256:79bfed5a847f7807faf01005ad44a51f059c56b7658f334600b80e206ba35256"
+    },
+    {
+      "id": "repository-review-gate-registry",
+      "version": "0.1.0",
+      "uri": "profiles/repository-review-v1/gate-registry.json",
+      "digest": "sha256:4a01e0ffe40af91c03f77a4b99a5cec617d671a40fb0c216446f56753b4f032e"
+    },
+    {
+      "id": "repository-review-v1-requirement-implementation-contract",
+      "version": "0.1.0",
+      "uri": "profiles/repository-review-v1/implementation-contract.json",
+      "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+    },
+    {
+      "id": "repository-review-metric-registry",
+      "version": "0.1.0",
+      "uri": "profiles/repository-review-v1/metric-registry.json",
+      "digest": "sha256:36cd77e12c53bb148662ae54b28d76f17cfc56fa05b1f0269689639c77fb824a"
+    },
+    {
+      "id": "repository-review-outcome-v1",
+      "version": "0.1.0",
+      "uri": "profiles/repository-review-v1/outcome-profile.json",
+      "digest": "sha256:01a2c2746996994ec4a0fc33702762ac4313e55d1739a01af1b376beb30b7658"
+    },
+    {
+      "id": "repository-review-v1-profile-resolution",
+      "version": "0.1.0",
+      "uri": "profiles/repository-review-v1/profile-resolution.json",
+      "digest": "sha256:b7aaca42d6050f532f1f42265567092abf324135d138059e9dcd268193bcab59"
+    },
+    {
+      "id": "repository-review-terminal-evidence-contract",
+      "version": "0.1.0",
+      "uri": "profiles/repository-review-v1/terminal-evidence-contract.json",
+      "digest": "sha256:1863fe5a3e1cab290254228f10864998fb01547d9a2c2f42986bc759a5c19b10"
+    },
+    {
+      "id": "normative-prose:standard/case-qa-playbook.md",
+      "version": "0.1.0",
+      "uri": "standard/case-qa-playbook.md",
+      "digest": "sha256:b961a7548fbb26369b89d7daa5da429915998427ef4dbb47f22a54701a617a9a"
+    },
+    {
+      "id": "normative-prose:standard/conformance.md",
+      "version": "0.1.0",
+      "uri": "standard/conformance.md",
+      "digest": "sha256:7ec99ca1354c072273c80e1ec817beecc2a70d9384ec904fbbdc48564a692fea"
+    },
+    {
+      "id": "base-escalation-event-registry",
+      "version": "0.1.0",
+      "uri": "standard/escalation-event-registry.json",
+      "digest": "sha256:e27160a35a25c40c9021cabb99618ac0ba4a4c7048480b0672a170a82e8f0814"
+    },
+    {
+      "id": "normative-prose:standard/escalation-stop-matrix.md",
+      "version": "0.1.0",
+      "uri": "standard/escalation-stop-matrix.md",
+      "digest": "sha256:0b8d5feb22f05b37ee9dbb7f5609259ec659224a6bd087692b9ad68067d05fd0"
+    },
+    {
+      "id": "normative-prose:standard/evidence-and-validation-contract.md",
+      "version": "0.1.0",
+      "uri": "standard/evidence-and-validation-contract.md",
+      "digest": "sha256:25a3a1bcb5030282632d700941572c73418d30d3d9bddcf3bd1cc1b1e18c7750"
+    },
+    {
+      "id": "normative-prose:standard/glossary.md",
+      "version": "0.1.0",
+      "uri": "standard/glossary.md",
+      "digest": "sha256:4365a28fe53a4c97e6e89ae5746d35b86e62b036f71fc00c195508ae69e6f623"
+    },
+    {
+      "id": "normative-prose:standard/governance-policy.md",
+      "version": "0.1.0",
+      "uri": "standard/governance-policy.md",
+      "digest": "sha256:82d03cc67a24dc28498ccc4cfcc149956df61f07df113951b6512209aa9d2635"
+    },
+    {
+      "id": "normative-prose:standard/integrity-and-semantic-validation.md",
+      "version": "0.1.0",
+      "uri": "standard/integrity-and-semantic-validation.md",
+      "digest": "sha256:56d0b8e0214ca1386aa5923f47770de406aa2c54fdc130b1538c747ece87a4c2"
+    },
+    {
+      "id": "agent-evals-standard-outcome-replay-executors",
+      "version": "0.1.0",
+      "uri": "standard/outcome-replay-executor-registry.json",
+      "digest": "sha256:26af054c27ba4d0f6af2792e73d5a0c3190989ef991b5dbc5197c7ce7cf3237e"
+    },
+    {
+      "id": "normative-prose:standard/references.md",
+      "version": "0.1.0",
+      "uri": "standard/references.md",
+      "digest": "sha256:51b2f769ca6d9ca187fcd2a6b2bfa6a1bb9629567ea1f6544fa173851cac55ec"
+    },
+    {
+      "id": "repository-grounding-executor-registry",
+      "version": "0.1.0",
+      "uri": "standard/repository-grounding-executor-registry.json",
+      "digest": "sha256:2281e2e15f4653d18b27939ddb3a742182ea4aa2d29c65c63cae93eb1d13bff0"
+    },
+    {
+      "id": "agent-eval-requirement-registry-1",
+      "version": "0.1.0",
+      "uri": "standard/requirement-registry.json",
+      "digest": "sha256:ce358c15c224f03a9a3948a7d041166ce36a3337bd842bc979b89d7473b8972b"
+    },
+    {
+      "id": "normative-prose:standard/requirements.md",
+      "version": "0.1.0",
+      "uri": "standard/requirements.md",
+      "digest": "sha256:4400a5c1d3479e9b236376778bb46c7e46d8cae87a0f7946734883ae83a4f04b"
+    },
+    {
+      "id": "normative-prose:standard/scorecard-contract.md",
+      "version": "0.1.0",
+      "uri": "standard/scorecard-contract.md",
+      "digest": "sha256:53d71eb23e9e20f12cbdf08dd785fc521bcc790c67d353e30ec8330816ac174b"
+    },
+    {
+      "id": "normative-prose:standard/security-case-backlog.md",
+      "version": "0.1.0",
+      "uri": "standard/security-case-backlog.md",
+      "digest": "sha256:35de82cf2307a89d403ee8b17833e76855ef2743abc71cdae845589dd348b668"
+    },
+    {
+      "id": "normative-prose:standard/security-threat-model.md",
+      "version": "0.1.0",
+      "uri": "standard/security-threat-model.md",
+      "digest": "sha256:44c9369b9c246fc29d2bfcb1486e3fbcf6d871fa8c5f8bc25888798ad839459b"
+    },
+    {
+      "id": "normative-prose:standard/signature-and-trust-profile.md",
+      "version": "0.1.0",
+      "uri": "standard/signature-and-trust-profile.md",
+      "digest": "sha256:5e32a5ac171fc70b247ef0e9fbf9b219f0908bb2866df0008b5ba396ce59561e"
+    },
+    {
+      "id": "agent-eval-source-evidence-manifest-1",
+      "version": "0.1.0",
+      "uri": "standard/source-evidence-manifest.json",
+      "digest": "sha256:b54a3c4446e1347db5babb59aac71dba675b64d78957655a5d8bc5b2e52502b2"
+    },
+    {
+      "id": "normative-prose:standard/standard.md",
+      "version": "0.1.0",
+      "uri": "standard/standard.md",
+      "digest": "sha256:6e063e6d472505cb14473df0e6592f2056d7c62c152bdf385a9ab6e11b84669e"
+    },
+    {
+      "id": "normative-prose:standard/validity-threat-exposure-contracts.md",
+      "version": "0.1.0",
+      "uri": "standard/validity-threat-exposure-contracts.md",
+      "digest": "sha256:bb183bf3dc0b7619615729517b2223388dfa85329ad7707df475d7cfaaac3c8e"
+    },
+    {
+      "id": "repository-sdlc-work-artifact-registry",
+      "version": "0.1.0",
+      "uri": "standard/work-artifact-registry.json",
+      "digest": "sha256:151684e0e5c35023ec07d6f4554ebedb9ecd4e52ef7738bd77c1eb31c95053c7"
+    }
+  ],
+  "entriesDigest": "sha256:1f3f8daf0a881882dc4f7cdc2eb490f5ccfe822c6c30f858440409cd033a67d1"
+}

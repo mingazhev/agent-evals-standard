@@ -1,0 +1,270 @@
+{
+  "schemaVersion": "agent-eval-case-classification-validity-argument-1",
+  "id": "architecture-case-classification-validity-argument",
+  "version": "0.1.0",
+  "caseIdentity": {
+    "id": "architecture-case-full-v1",
+    "version": "0.1.0"
+  },
+  "effectiveEvaluationProfile": {
+    "id": "repo-change-v1",
+    "version": "0.1.0",
+    "uri": "../../profiles/repo-change-v1/evaluation-profile.json",
+    "rawDigest": "sha256:388dde3c915fc51a4ea3a9c50dd32ee4564190c4caced59bc8fb54c0677399ec",
+    "subjectDigest": "sha256:82135cb0af1b99baf73146b7b8df1f6c1b80e9c1fa847486aee0196e4bcdcd46",
+    "effectiveProfileDigest": "sha256:9747356974d11b587fb8ba07659c63e641122c611866d0e165ec2245d587b61a",
+    "interactionModes": [
+      "noninteractive_repository_task",
+      "interactive_repository_session",
+      "pull_request_workflow",
+      "ci_or_release_workflow"
+    ],
+    "workArtifactRegistry": {
+      "id": "repository-sdlc-work-artifact-registry",
+      "version": "0.1.0",
+      "uri": "../../standard/work-artifact-registry.json",
+      "digest": "sha256:151684e0e5c35023ec07d6f4554ebedb9ecd4e52ef7738bd77c1eb31c95053c7"
+    },
+    "capabilityFamilies": [
+      "CAP.IMPLEMENT_CHANGE",
+      "CAP.VERIFY_ASSURE"
+    ]
+  },
+  "selectedOutcomeProfile": {
+    "id": "workspace-change-v1",
+    "version": "0.1.0",
+    "uri": "../../profiles/repo-change-v1/outcome-profile.json",
+    "rawDigest": "sha256:fe8ee26f8d247b2d62c77469b24c2373f287445dbb9ff3f795b487f71fb11566",
+    "subjectDigest": "sha256:d5caa138041d104bff90c38f9f3735ab4f9afac87efb167f61dd5e916ecbd10d",
+    "workArtifactRegistry": {
+      "id": "repository-sdlc-work-artifact-registry",
+      "version": "0.1.0",
+      "uri": "../../standard/work-artifact-registry.json",
+      "digest": "sha256:151684e0e5c35023ec07d6f4554ebedb9ecd4e52ef7738bd77c1eb31c95053c7"
+    },
+    "workArtifactTypes": [
+      "code_change",
+      "test_change",
+      "repository_configuration",
+      "assurance_report"
+    ]
+  },
+  "constructRegistry": [
+    {
+      "id": "construct.patch.correctness",
+      "materiality": "material",
+      "capabilityFamilyIds": [
+        "CAP.IMPLEMENT_CHANGE"
+      ],
+      "workArtifactTypes": [
+        "code_change",
+        "test_change"
+      ]
+    },
+    {
+      "id": "construct.test-design.quality",
+      "materiality": "material",
+      "capabilityFamilyIds": [
+        "CAP.VERIFY_ASSURE"
+      ],
+      "workArtifactTypes": [
+        "assurance_report"
+      ]
+    },
+    {
+      "id": "construct.escaped-defect.repair",
+      "materiality": "material",
+      "capabilityFamilyIds": [
+        "CAP.IMPLEMENT_CHANGE"
+      ],
+      "workArtifactTypes": [
+        "code_change"
+      ]
+    },
+    {
+      "id": "construct.incident.learning",
+      "materiality": "material",
+      "capabilityFamilyIds": [
+        "CAP.REMEDIATE_LEARN"
+      ],
+      "workArtifactTypes": [
+        "incident_analysis",
+        "prevention_plan"
+      ]
+    },
+    {
+      "id": "construct.release-readiness.recommendation",
+      "materiality": "material",
+      "capabilityFamilyIds": [
+        "CAP.REVIEW_DECIDE"
+      ],
+      "workArtifactTypes": [
+        "review_decision"
+      ]
+    },
+    {
+      "id": "construct.simulated-rollout.control",
+      "materiality": "material",
+      "capabilityFamilyIds": [
+        "CAP.RELEASE_OPERATE"
+      ],
+      "workArtifactTypes": [
+        "release_artifact",
+        "operational_change_record"
+      ]
+    },
+    {
+      "id": "construct.repository-research.ancillary",
+      "materiality": "ancillary",
+      "capabilityFamilyIds": [],
+      "workArtifactTypes": [
+        "repository_analysis"
+      ]
+    }
+  ],
+  "fullCaseExpectation": {
+    "capabilityFamilyIds": [
+      "CAP.IMPLEMENT_CHANGE",
+      "CAP.VERIFY_ASSURE"
+    ],
+    "interactionModeId": "noninteractive_repository_task",
+    "workArtifactTypes": [
+      "code_change",
+      "test_change",
+      "assurance_report"
+    ],
+    "workspaceManifestDigest": "sha256:e100fec3cc4a6d4b2d069fd2e9e5c81eb4f3bca59ec7db69152141e2b1458cd5",
+    "subjectCapabilityFamilyIds": {
+      "outcome_profile:workspace-change-v1": [
+        "CAP.IMPLEMENT_CHANGE",
+        "CAP.VERIFY_ASSURE"
+      ],
+      "claim:claim.patch": [
+        "CAP.IMPLEMENT_CHANGE"
+      ],
+      "claim:claim.test_design": [
+        "CAP.VERIFY_ASSURE"
+      ]
+    },
+    "expectedVerdict": "pass"
+  },
+  "boundaryVectors": [
+    {
+      "path": "positive/classification-patch-with-tests.json",
+      "expectedCapabilityFamilyIds": [
+        "CAP.IMPLEMENT_CHANGE"
+      ],
+      "expectedVerdict": "pass"
+    },
+    {
+      "path": "negative/classification-patch-with-tests-as-verification.json",
+      "expectedCapabilityFamilyIds": [
+        "CAP.IMPLEMENT_CHANGE"
+      ],
+      "expectedVerdict": "fail",
+      "expectedSemanticError": "CASE-001 capability classification mismatch for construct.patch.correctness: declared [CAP.VERIFY_ASSURE], expected [CAP.IMPLEMENT_CHANGE]"
+    },
+    {
+      "path": "positive/classification-independent-test-design.json",
+      "expectedCapabilityFamilyIds": [
+        "CAP.VERIFY_ASSURE"
+      ],
+      "expectedVerdict": "pass"
+    },
+    {
+      "path": "negative/classification-independent-test-design-as-implementation.json",
+      "expectedCapabilityFamilyIds": [
+        "CAP.VERIFY_ASSURE"
+      ],
+      "expectedVerdict": "fail",
+      "expectedSemanticError": "CASE-001 capability classification mismatch for construct.test-design.quality: declared [CAP.IMPLEMENT_CHANGE], expected [CAP.VERIFY_ASSURE]"
+    },
+    {
+      "path": "positive/classification-escaped-defect-repair.json",
+      "expectedCapabilityFamilyIds": [
+        "CAP.IMPLEMENT_CHANGE"
+      ],
+      "expectedVerdict": "pass"
+    },
+    {
+      "path": "negative/classification-escaped-defect-repair-as-learning.json",
+      "expectedCapabilityFamilyIds": [
+        "CAP.IMPLEMENT_CHANGE"
+      ],
+      "expectedVerdict": "fail",
+      "expectedSemanticError": "CASE-001 capability classification mismatch for construct.escaped-defect.repair: declared [CAP.REMEDIATE_LEARN], expected [CAP.IMPLEMENT_CHANGE]"
+    },
+    {
+      "path": "positive/classification-incident-learning.json",
+      "expectedCapabilityFamilyIds": [
+        "CAP.REMEDIATE_LEARN"
+      ],
+      "expectedVerdict": "pass"
+    },
+    {
+      "path": "positive/classification-readiness-review.json",
+      "expectedCapabilityFamilyIds": [
+        "CAP.REVIEW_DECIDE"
+      ],
+      "expectedVerdict": "pass"
+    },
+    {
+      "path": "negative/classification-readiness-as-rollout.json",
+      "expectedCapabilityFamilyIds": [
+        "CAP.REVIEW_DECIDE"
+      ],
+      "expectedVerdict": "fail",
+      "expectedSemanticError": "CASE-001 capability classification mismatch for construct.release-readiness.recommendation: declared [CAP.RELEASE_OPERATE], expected [CAP.REVIEW_DECIDE]"
+    },
+    {
+      "path": "positive/classification-simulated-rollout.json",
+      "expectedCapabilityFamilyIds": [
+        "CAP.RELEASE_OPERATE"
+      ],
+      "expectedVerdict": "pass"
+    },
+    {
+      "path": "negative/classification-rollout-as-review.json",
+      "expectedCapabilityFamilyIds": [
+        "CAP.RELEASE_OPERATE"
+      ],
+      "expectedVerdict": "fail",
+      "expectedSemanticError": "CASE-001 capability classification mismatch for construct.simulated-rollout.control: declared [CAP.REVIEW_DECIDE], expected [CAP.RELEASE_OPERATE]"
+    },
+    {
+      "path": "positive/classification-ancillary-research.json",
+      "expectedCapabilityFamilyIds": [
+        "CAP.IMPLEMENT_CHANGE"
+      ],
+      "ancillaryConstructIds": [
+        "construct.repository-research.ancillary"
+      ],
+      "expectedVerdict": "pass"
+    },
+    {
+      "path": "negative/classification-ancillary-research-as-discovery.json",
+      "expectedCapabilityFamilyIds": [],
+      "expectedVerdict": "fail",
+      "expectedSemanticError": "CASE-001 ancillary construct construct.repository-research.ancillary cannot justify capability CAP.DISCOVER_SPECIFY"
+    }
+  ],
+  "verifier": {
+    "id": "architecture-capability-classifier",
+    "version": "0.1.0",
+    "uri": "../../tools/verify-case-classification.mjs",
+    "digest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c",
+    "schemaId": "agent-eval-case-classification-validity-argument-1"
+  },
+  "issuer": {
+    "id": "standard-maintainers",
+    "role": "case_validity_authority"
+  },
+  "digest": "sha256:9dd879c9f6aeda5889480768e50f4686d216be6b8dadf6be71d9583a1a5e5912",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:00Z",
+    "value": "dlPAwf9GiZeG91ppg_4_fsDfFzi2o9oCpuIdK40Ym0vTNGeS3ydAQTCHR4J0wtrkzU3uhTwS-OztUigT2qJ3Aw"
+  }
+}

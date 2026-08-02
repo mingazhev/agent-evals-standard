@@ -1,0 +1,27 @@
+{
+  "capabilityFamilyId": "CAP.REVIEW_DECIDE",
+  "evaluatedConstructIds": [
+    "construct.release-readiness.recommendation"
+  ],
+  "materialSubjects": [
+    {
+      "subjectType": "outcome_profile",
+      "subjectId": "architecture-outcome-readiness-v1"
+    },
+    {
+      "subjectType": "claim",
+      "subjectId": "claim.release_readiness"
+    }
+  ],
+  "materialWorkArtifactTypes": [
+    "review_decision"
+  ],
+  "rationale": "The evaluated result is a recommendation; no rollout state transition is executed.",
+  "classificationVerifier": {
+    "id": "architecture-capability-classifier",
+    "version": "0.1.0",
+    "digest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c",
+    "schemaId": "agent-eval-case-classification-validity-argument-1",
+    "verifierDigest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c"
+  }
+}

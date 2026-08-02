@@ -1,0 +1,168 @@
+{
+  "schemaVersion": "agent-eval-sdlc-coverage-1",
+  "id": "suite-sdlc-coverage",
+  "version": "0.1.0",
+  "suite": {
+    "id": "suite-manifest-fixture-1",
+    "version": "0.1.0"
+  },
+  "workArtifactRegistry": {
+    "id": "repository-sdlc-work-artifact-registry",
+    "version": "0.1.0",
+    "uri": "../../../standard/work-artifact-registry.json",
+    "digest": "sha256:fd922d02f7b7471e3612754d471b005127667fa109c3d0d5dccb43de5c75b9f0"
+  },
+  "capabilities": [
+    {
+      "capabilityId": "CAP.DISCOVER_SPECIFY",
+      "status": "gap",
+      "caseIds": [],
+      "evaluationProfileIds": [],
+      "outcomeProfileIds": [],
+      "workArtifactTypes": [],
+      "claimEffect": "forbidden_until_covered",
+      "evidence": {
+        "basis": [],
+        "limitations": [
+          "The bundled corpus has no independently scored requirements or specification work product."
+        ],
+        "closureCriteria": [
+          "Add authenticated cases whose material requirements_or_specification or repository_analysis output receives an independent claim-bearing verdict."
+        ]
+      }
+    },
+    {
+      "capabilityId": "CAP.PLAN_DESIGN",
+      "status": "gap",
+      "caseIds": [],
+      "evaluationProfileIds": [],
+      "outcomeProfileIds": [],
+      "workArtifactTypes": [],
+      "claimEffect": "forbidden_until_covered",
+      "evidence": {
+        "basis": [],
+        "limitations": [
+          "The bundled corpus has no independently scored technical plan or design work product."
+        ],
+        "closureCriteria": [
+          "Add authenticated cases whose technical_plan_or_design output receives an independent claim-bearing verdict."
+        ]
+      }
+    },
+    {
+      "capabilityId": "CAP.IMPLEMENT_CHANGE",
+      "status": "covered",
+      "caseIds": [
+        "repo-change-case-fixture-1"
+      ],
+      "evaluationProfileIds": [
+        "repo-change-v1"
+      ],
+      "outcomeProfileIds": [
+        "workspace-change-v1"
+      ],
+      "workArtifactTypes": [
+        "code_change",
+        "test_change"
+      ],
+      "claimEffect": "claimable_only_for_listed_cases",
+      "evidence": {
+        "basis": [
+          "repo-change-case-fixture-1"
+        ],
+        "limitations": [
+          "Coverage is an executable interoperability fixture, not empirical validation for an enterprise population."
+        ],
+        "closureCriteria": []
+      }
+    },
+    {
+      "capabilityId": "CAP.VERIFY_ASSURE",
+      "status": "covered",
+      "caseIds": [
+        "repo-change-case-fixture-1"
+      ],
+      "evaluationProfileIds": [
+        "repo-change-v1"
+      ],
+      "outcomeProfileIds": [
+        "workspace-change-v1"
+      ],
+      "workArtifactTypes": [
+        "assurance_report"
+      ],
+      "claimEffect": "claimable_only_for_listed_cases",
+      "evidence": {
+        "basis": [
+          "repo-change-case-fixture-1"
+        ],
+        "limitations": [
+          "Coverage is an executable interoperability fixture, not evidence for every assurance construct or enterprise population."
+        ],
+        "closureCriteria": []
+      }
+    },
+    {
+      "capabilityId": "CAP.REVIEW_DECIDE",
+      "status": "gap",
+      "caseIds": [],
+      "evaluationProfileIds": [],
+      "outcomeProfileIds": [],
+      "workArtifactTypes": [],
+      "claimEffect": "forbidden_until_covered",
+      "evidence": {
+        "basis": [],
+        "limitations": [
+          "The bundled corpus has no independently scored review decision."
+        ],
+        "closureCriteria": [
+          "Add authenticated cases whose review_decision output receives an independent claim-bearing verdict."
+        ]
+      }
+    },
+    {
+      "capabilityId": "CAP.RELEASE_OPERATE",
+      "status": "gap",
+      "caseIds": [],
+      "evaluationProfileIds": [],
+      "outcomeProfileIds": [],
+      "workArtifactTypes": [],
+      "claimEffect": "forbidden_until_covered",
+      "evidence": {
+        "basis": [],
+        "limitations": [
+          "The bundled corpus has no controlled release or operational state-transition fixture."
+        ],
+        "closureCriteria": [
+          "Add authenticated simulated cases with a material release_artifact or operational_change_record and an independent verdict."
+        ]
+      }
+    },
+    {
+      "capabilityId": "CAP.REMEDIATE_LEARN",
+      "status": "gap",
+      "caseIds": [],
+      "evaluationProfileIds": [],
+      "outcomeProfileIds": [],
+      "workArtifactTypes": [],
+      "claimEffect": "forbidden_until_covered",
+      "evidence": {
+        "basis": [],
+        "limitations": [
+          "The bundled corpus has no independently scored incident-learning or prevention work product."
+        ],
+        "closureCriteria": [
+          "Add authenticated cases whose incident_analysis or prevention_plan output receives an independent claim-bearing verdict."
+        ]
+      }
+    }
+  ],
+  "digest": "sha256:4321a0f957d09fe3c1ae6e5135b75a106b9e979454534789392ab7b00a1cf42d",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T01:00:00Z",
+    "value": "aKUz6jTVlsgCKD56GevQnLGv5XLARnC6nScye-bIWQ-AIaRjjkFywJilOqfHZ2ULnqAzPMjswcTnwyG0a-_0AA"
+  }
+}

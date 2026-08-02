@@ -1,0 +1,363 @@
+{
+  "schemaVersion": "agent-evals-signature-conformance-vectors-1",
+  "id": "fixture-signature-vectors-v1",
+  "version": "0.1.0",
+  "profileId": "fixture-signature-profile",
+  "generatedAt": "2026-08-01T00:00:00Z",
+  "vectors": [
+    {
+      "id": "ed25519-positive",
+      "algorithm": "Ed25519",
+      "claimedAlgorithm": "Ed25519",
+      "kind": "positive",
+      "keyId": "rfc8032-test-key-1",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA11qYAYKxCrfVS/7TyWQHOg7hcvPapiMlrwIaaPcHURo=\n-----END PUBLIC KEY-----\n",
+      "messageBase64url": "YWdlbnQtZXZhbHMgc2lnbmF0dXJlIHByb2ZpbGUgY29uZm9ybWFuY2UgdmVjdG9yIHYx",
+      "signatureBase64url": "Jixc0zS_GCT3G1EvQ8vhK6gwrmSFw7an4goU3OU4vjCWrdIP0Jf4nSgpqLuD9yzkH6dq1K1xG_ZvooXvDmh7AA",
+      "generatedWith": {
+        "mode": "pure"
+      },
+      "expectedCryptographicValidity": true,
+      "expectedProfileVerdict": "accept"
+    },
+    {
+      "id": "ed25519-altered-payload",
+      "algorithm": "Ed25519",
+      "claimedAlgorithm": "Ed25519",
+      "kind": "cryptographic_negative",
+      "keyId": "rfc8032-test-key-1",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA11qYAYKxCrfVS/7TyWQHOg7hcvPapiMlrwIaaPcHURo=\n-----END PUBLIC KEY-----\n",
+      "messageBase64url": "YWdlbnQtZXZhbHMgc2lnbmF0dXJlIHByb2ZpbGUgY29uZm9ybWFuY2UgdmVjdG9yIHYxIGFsdGVyZWQ",
+      "signatureBase64url": "Jixc0zS_GCT3G1EvQ8vhK6gwrmSFw7an4goU3OU4vjCWrdIP0Jf4nSgpqLuD9yzkH6dq1K1xG_ZvooXvDmh7AA",
+      "generatedWith": {
+        "mode": "pure"
+      },
+      "expectedCryptographicValidity": false,
+      "expectedProfileVerdict": "reject"
+    },
+    {
+      "id": "ed25519-malformed-encoding",
+      "algorithm": "Ed25519",
+      "claimedAlgorithm": "Ed25519",
+      "kind": "cryptographic_negative",
+      "keyId": "rfc8032-test-key-1",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA11qYAYKxCrfVS/7TyWQHOg7hcvPapiMlrwIaaPcHURo=\n-----END PUBLIC KEY-----\n",
+      "messageBase64url": "YWdlbnQtZXZhbHMgc2lnbmF0dXJlIHByb2ZpbGUgY29uZm9ybWFuY2UgdmVjdG9yIHYx",
+      "signatureBase64url": "Jixc0zS_GCT3G1EvQ8vhK6gwrmSFw7an4goU3OU4vjCWrdIP0Jf4nSgpqLuD9yzkH6dq1K1xG_ZvooXvDmh7",
+      "generatedWith": {
+        "mode": "pure"
+      },
+      "expectedCryptographicValidity": false,
+      "expectedProfileVerdict": "reject"
+    },
+    {
+      "id": "ed25519-wrong-key-type",
+      "algorithm": "Ed25519",
+      "claimedAlgorithm": "Ed25519",
+      "kind": "cryptographic_negative",
+      "keyId": "generated-p256-vector-key",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEc+O2WDV9KCh2fQMSYg3oTpy6UU27\nceTR/pduuJqRNrAS5OYgPWaW8q99SgEWIW2MIbLx6D+0b5jxRZT3MnPF8g==\n-----END PUBLIC KEY-----\n",
+      "messageBase64url": "YWdlbnQtZXZhbHMgc2lnbmF0dXJlIHByb2ZpbGUgY29uZm9ybWFuY2UgdmVjdG9yIHYx",
+      "signatureBase64url": "Jixc0zS_GCT3G1EvQ8vhK6gwrmSFw7an4goU3OU4vjCWrdIP0Jf4nSgpqLuD9yzkH6dq1K1xG_ZvooXvDmh7AA",
+      "generatedWith": {
+        "mode": "pure"
+      },
+      "expectedCryptographicValidity": false,
+      "expectedProfileVerdict": "reject"
+    },
+    {
+      "id": "ed25519-algorithm-substitution",
+      "algorithm": "Ed25519",
+      "claimedAlgorithm": "ES256",
+      "kind": "profile_negative",
+      "keyId": "rfc8032-test-key-1",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA11qYAYKxCrfVS/7TyWQHOg7hcvPapiMlrwIaaPcHURo=\n-----END PUBLIC KEY-----\n",
+      "messageBase64url": "YWdlbnQtZXZhbHMgc2lnbmF0dXJlIHByb2ZpbGUgY29uZm9ybWFuY2UgdmVjdG9yIHYx",
+      "signatureBase64url": "Jixc0zS_GCT3G1EvQ8vhK6gwrmSFw7an4goU3OU4vjCWrdIP0Jf4nSgpqLuD9yzkH6dq1K1xG_ZvooXvDmh7AA",
+      "generatedWith": {
+        "mode": "pure"
+      },
+      "expectedCryptographicValidity": true,
+      "expectedProfileVerdict": "reject"
+    },
+    {
+      "id": "es256-low-s-positive",
+      "algorithm": "ES256",
+      "claimedAlgorithm": "ES256",
+      "kind": "positive",
+      "keyId": "generated-p256-vector-key",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEc+O2WDV9KCh2fQMSYg3oTpy6UU27\nceTR/pduuJqRNrAS5OYgPWaW8q99SgEWIW2MIbLx6D+0b5jxRZT3MnPF8g==\n-----END PUBLIC KEY-----\n",
+      "messageBase64url": "YWdlbnQtZXZhbHMgc2lnbmF0dXJlIHByb2ZpbGUgY29uZm9ybWFuY2UgdmVjdG9yIHYx",
+      "signatureBase64url": "zHrcz-GApbfz3ls8PPk-GtwvqXpTmC6gY_Xe_M4uPx4vRtO59EQ4pq2D6kbxUjLXG7gizImwGLZuJHmNAdK3_A",
+      "generatedWith": {
+        "curve": "P-256",
+        "hash": "sha256",
+        "encoding": "raw_r_s"
+      },
+      "expectedCryptographicValidity": true,
+      "expectedProfileVerdict": "accept"
+    },
+    {
+      "id": "es256-high-s-profile-negative",
+      "algorithm": "ES256",
+      "claimedAlgorithm": "ES256",
+      "kind": "profile_negative",
+      "keyId": "generated-p256-vector-key",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEc+O2WDV9KCh2fQMSYg3oTpy6UU27\nceTR/pduuJqRNrAS5OYgPWaW8q99SgEWIW2MIbLx6D+0b5jxRZT3MnPF8g==\n-----END PUBLIC KEY-----\n",
+      "messageBase64url": "YWdlbnQtZXZhbHMgc2lnbmF0dXJlIHByb2ZpbGUgY29uZm9ybWFuY2UgdmVjdG9yIHYx",
+      "signatureBase64url": "zHrcz-GApbfz3ls8PPk-GtwvqXpTmC6gY_Xe_M4uPx7QuSxFC7vHWlJ8FbkOrc0ooS7X4R1nhc6FlVE1-pBtVQ",
+      "generatedWith": {
+        "curve": "P-256",
+        "hash": "sha256",
+        "encoding": "raw_r_s"
+      },
+      "expectedCryptographicValidity": true,
+      "expectedProfileVerdict": "reject"
+    },
+    {
+      "id": "es256-zero-r-negative",
+      "algorithm": "ES256",
+      "claimedAlgorithm": "ES256",
+      "kind": "cryptographic_negative",
+      "keyId": "generated-p256-vector-key",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEc+O2WDV9KCh2fQMSYg3oTpy6UU27\nceTR/pduuJqRNrAS5OYgPWaW8q99SgEWIW2MIbLx6D+0b5jxRZT3MnPF8g==\n-----END PUBLIC KEY-----\n",
+      "messageBase64url": "YWdlbnQtZXZhbHMgc2lnbmF0dXJlIHByb2ZpbGUgY29uZm9ybWFuY2UgdmVjdG9yIHYx",
+      "signatureBase64url": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAvRtO59EQ4pq2D6kbxUjLXG7gizImwGLZuJHmNAdK3_A",
+      "generatedWith": {
+        "curve": "P-256",
+        "hash": "sha256",
+        "encoding": "raw_r_s"
+      },
+      "expectedCryptographicValidity": false,
+      "expectedProfileVerdict": "reject"
+    },
+    {
+      "id": "es256-altered-payload",
+      "algorithm": "ES256",
+      "claimedAlgorithm": "ES256",
+      "kind": "cryptographic_negative",
+      "keyId": "generated-p256-vector-key",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEc+O2WDV9KCh2fQMSYg3oTpy6UU27\nceTR/pduuJqRNrAS5OYgPWaW8q99SgEWIW2MIbLx6D+0b5jxRZT3MnPF8g==\n-----END PUBLIC KEY-----\n",
+      "messageBase64url": "YWdlbnQtZXZhbHMgc2lnbmF0dXJlIHByb2ZpbGUgY29uZm9ybWFuY2UgdmVjdG9yIHYxIGFsdGVyZWQ",
+      "signatureBase64url": "zHrcz-GApbfz3ls8PPk-GtwvqXpTmC6gY_Xe_M4uPx4vRtO59EQ4pq2D6kbxUjLXG7gizImwGLZuJHmNAdK3_A",
+      "generatedWith": {
+        "curve": "P-256",
+        "hash": "sha256",
+        "encoding": "raw_r_s"
+      },
+      "expectedCryptographicValidity": false,
+      "expectedProfileVerdict": "reject"
+    },
+    {
+      "id": "es256-malformed-encoding",
+      "algorithm": "ES256",
+      "claimedAlgorithm": "ES256",
+      "kind": "cryptographic_negative",
+      "keyId": "generated-p256-vector-key",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEc+O2WDV9KCh2fQMSYg3oTpy6UU27\nceTR/pduuJqRNrAS5OYgPWaW8q99SgEWIW2MIbLx6D+0b5jxRZT3MnPF8g==\n-----END PUBLIC KEY-----\n",
+      "messageBase64url": "YWdlbnQtZXZhbHMgc2lnbmF0dXJlIHByb2ZpbGUgY29uZm9ybWFuY2UgdmVjdG9yIHYx",
+      "signatureBase64url": "zHrcz-GApbfz3ls8PPk-GtwvqXpTmC6gY_Xe_M4uPx4vRtO59EQ4pq2D6kbxUjLXG7gizImwGLZuJHmNAdK3",
+      "generatedWith": {
+        "curve": "P-256",
+        "hash": "sha256",
+        "encoding": "raw_r_s"
+      },
+      "expectedCryptographicValidity": false,
+      "expectedProfileVerdict": "reject"
+    },
+    {
+      "id": "es256-wrong-key-type",
+      "algorithm": "ES256",
+      "claimedAlgorithm": "ES256",
+      "kind": "cryptographic_negative",
+      "keyId": "generated-rsa-2048-vector-key",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtp6IK56UBkMdoONuzjTv\nvogwUEIOkxdf4ZTjt4paIU/wvpoPofYJ3Ap0s+yA1J46PKMTD05FlJvMzR+PwWkJ\ndBo3UyRtkIg6Gy2bncPw82IaxcR/caCIaYSeR5xNAboCrpzHJe0DoTZjJZUGYRta\nSCoZiSgktT7+g98psciK/wktlQp9Kz1YncssKZ/TjXHh9MYn1cSlipU9Fc56EJ5N\nhVjuJErhzaBAybkEaPu39cnTRm6Jj0epwC5ENNVhKrGpoKoVDjfqkHwSllQB7u8T\nRW264dgQHTN/KFMmZHOF3rTNlMRjKAa7H6phx6YivFMCZ3f7x4zaJy4FhiUHOnx5\ncwIDAQAB\n-----END PUBLIC KEY-----\n",
+      "messageBase64url": "YWdlbnQtZXZhbHMgc2lnbmF0dXJlIHByb2ZpbGUgY29uZm9ybWFuY2UgdmVjdG9yIHYx",
+      "signatureBase64url": "zHrcz-GApbfz3ls8PPk-GtwvqXpTmC6gY_Xe_M4uPx4vRtO59EQ4pq2D6kbxUjLXG7gizImwGLZuJHmNAdK3_A",
+      "generatedWith": {
+        "curve": "P-256",
+        "hash": "sha256",
+        "encoding": "raw_r_s"
+      },
+      "expectedCryptographicValidity": false,
+      "expectedProfileVerdict": "reject"
+    },
+    {
+      "id": "es256-algorithm-substitution",
+      "algorithm": "ES256",
+      "claimedAlgorithm": "PS256",
+      "kind": "profile_negative",
+      "keyId": "generated-p256-vector-key",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEc+O2WDV9KCh2fQMSYg3oTpy6UU27\nceTR/pduuJqRNrAS5OYgPWaW8q99SgEWIW2MIbLx6D+0b5jxRZT3MnPF8g==\n-----END PUBLIC KEY-----\n",
+      "messageBase64url": "YWdlbnQtZXZhbHMgc2lnbmF0dXJlIHByb2ZpbGUgY29uZm9ybWFuY2UgdmVjdG9yIHYx",
+      "signatureBase64url": "zHrcz-GApbfz3ls8PPk-GtwvqXpTmC6gY_Xe_M4uPx4vRtO59EQ4pq2D6kbxUjLXG7gizImwGLZuJHmNAdK3_A",
+      "generatedWith": {
+        "curve": "P-256",
+        "hash": "sha256",
+        "encoding": "raw_r_s"
+      },
+      "expectedCryptographicValidity": true,
+      "expectedProfileVerdict": "reject"
+    },
+    {
+      "id": "ps256-positive",
+      "algorithm": "PS256",
+      "claimedAlgorithm": "PS256",
+      "kind": "positive",
+      "keyId": "generated-rsa-2048-vector-key",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtp6IK56UBkMdoONuzjTv\nvogwUEIOkxdf4ZTjt4paIU/wvpoPofYJ3Ap0s+yA1J46PKMTD05FlJvMzR+PwWkJ\ndBo3UyRtkIg6Gy2bncPw82IaxcR/caCIaYSeR5xNAboCrpzHJe0DoTZjJZUGYRta\nSCoZiSgktT7+g98psciK/wktlQp9Kz1YncssKZ/TjXHh9MYn1cSlipU9Fc56EJ5N\nhVjuJErhzaBAybkEaPu39cnTRm6Jj0epwC5ENNVhKrGpoKoVDjfqkHwSllQB7u8T\nRW264dgQHTN/KFMmZHOF3rTNlMRjKAa7H6phx6YivFMCZ3f7x4zaJy4FhiUHOnx5\ncwIDAQAB\n-----END PUBLIC KEY-----\n",
+      "messageBase64url": "YWdlbnQtZXZhbHMgc2lnbmF0dXJlIHByb2ZpbGUgY29uZm9ybWFuY2UgdmVjdG9yIHYx",
+      "signatureBase64url": "I5LRcFeLe4zKrsayWAjknzuf6APERN5u0s9G_CO6Uq7zslbG5ILoEnpEswayduZX-lu0KpLm-WDJHy1-cSftVEmi-2wPyKH3J3nWLh2-u3J9lhYEltYeEx5qoNK7zWntRRQiwP_GzStdvPkOCeyIipkR9V9nLBvUFnlzyz8uXbQExGNHKPW2nvYsADwXysvZ_dD90tLiHa3D3dkZB9__ild2DBqrLIPmYQ_UHA8rzmPR4euTvuyBxgpznjsznDeJiGdW9z_RP8lPKcnTArgkkNOY_mlYO2fehHU3PECcfwlDq9ION2-B5R04nkXWkIjL2bTPy5u6sA7F9-LrnZRLMA",
+      "generatedWith": {
+        "hash": "sha256",
+        "mgf": "MGF1",
+        "mgfHash": "sha256",
+        "saltLengthBytes": 32,
+        "modulusBits": 2048
+      },
+      "expectedCryptographicValidity": true,
+      "expectedProfileVerdict": "accept"
+    },
+    {
+      "id": "ps256-wrong-salt-length",
+      "algorithm": "PS256",
+      "claimedAlgorithm": "PS256",
+      "kind": "profile_negative",
+      "keyId": "generated-rsa-2048-vector-key",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtp6IK56UBkMdoONuzjTv\nvogwUEIOkxdf4ZTjt4paIU/wvpoPofYJ3Ap0s+yA1J46PKMTD05FlJvMzR+PwWkJ\ndBo3UyRtkIg6Gy2bncPw82IaxcR/caCIaYSeR5xNAboCrpzHJe0DoTZjJZUGYRta\nSCoZiSgktT7+g98psciK/wktlQp9Kz1YncssKZ/TjXHh9MYn1cSlipU9Fc56EJ5N\nhVjuJErhzaBAybkEaPu39cnTRm6Jj0epwC5ENNVhKrGpoKoVDjfqkHwSllQB7u8T\nRW264dgQHTN/KFMmZHOF3rTNlMRjKAa7H6phx6YivFMCZ3f7x4zaJy4FhiUHOnx5\ncwIDAQAB\n-----END PUBLIC KEY-----\n",
+      "messageBase64url": "YWdlbnQtZXZhbHMgc2lnbmF0dXJlIHByb2ZpbGUgY29uZm9ybWFuY2UgdmVjdG9yIHYx",
+      "signatureBase64url": "CoptpmsKnnuyuDWfd8mKFj0qHLWNZkwFQlCYBK44LD13hfzoasyaVIdZWBfINQy1_iBDa9ZJF0irFxjrZJznFRI-UFwvSxgnKKvEimBmyAb5iOZZdNB8ho-vaVy-0FoIcfxKTjXAgcAmGNpXWalW9IsZf6jg3PrDA1vO05-sex_H9QkscIQcfGTz__6fRkXv4JBJGTg3Qufilj7v-neRyHmk0fhIM5s7ahABwKAv01JQ7-0JNkRx6kdl2Uoennf0xFtgfznu5uqHZt2DMKI8hUr3y4gslRt18N8fYGtzefCB_kDzOD3ldSkwQ-cDk_sQtqp3L3rQGfyIHygqN_xHyQ",
+      "generatedWith": {
+        "hash": "sha256",
+        "mgf": "MGF1",
+        "mgfHash": "sha256",
+        "saltLengthBytes": 20,
+        "modulusBits": 2048
+      },
+      "expectedCryptographicValidity": true,
+      "expectedProfileVerdict": "reject"
+    },
+    {
+      "id": "ps256-wrong-mgf-hash",
+      "algorithm": "PS256",
+      "claimedAlgorithm": "PS256",
+      "kind": "profile_negative",
+      "keyId": "generated-rsa-2048-vector-key",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtp6IK56UBkMdoONuzjTv\nvogwUEIOkxdf4ZTjt4paIU/wvpoPofYJ3Ap0s+yA1J46PKMTD05FlJvMzR+PwWkJ\ndBo3UyRtkIg6Gy2bncPw82IaxcR/caCIaYSeR5xNAboCrpzHJe0DoTZjJZUGYRta\nSCoZiSgktT7+g98psciK/wktlQp9Kz1YncssKZ/TjXHh9MYn1cSlipU9Fc56EJ5N\nhVjuJErhzaBAybkEaPu39cnTRm6Jj0epwC5ENNVhKrGpoKoVDjfqkHwSllQB7u8T\nRW264dgQHTN/KFMmZHOF3rTNlMRjKAa7H6phx6YivFMCZ3f7x4zaJy4FhiUHOnx5\ncwIDAQAB\n-----END PUBLIC KEY-----\n",
+      "messageBase64url": "YWdlbnQtZXZhbHMgc2lnbmF0dXJlIHByb2ZpbGUgY29uZm9ybWFuY2UgdmVjdG9yIHYx",
+      "signatureBase64url": "aqLoVAy1aJl9JioB7m2nElcWBfmmNEmxnikDEEjKxRMkbTAabDAWz_pf45TJ7vQDJBalMFk8fT3kY0P1VU2Y9mwxWD-3-EgayPP2Bda_y5W-a-ba08OcsCct55JwFH0ivwRG5dC07pwYDlI8d96iwhrjsX2dzyhO4-XAYugIPO26JkB8L-S4YcoB--U70sL4L1mD4tJAb-zqLEeXO_KV0jFuux2P3LH4Lne-oUTdcjVdX3PWlKnrvSE5vMUw1JFXtJ2eHI7Y4YkQime0M1xCGAWTU7NRoD8DC35mRGTeH1bmCf1hjiK8qmZ82CwhZT_xr54qaMa1_2w130ahMGImXQ",
+      "generatedWith": {
+        "hash": "sha256",
+        "mgf": "MGF1",
+        "mgfHash": "sha384",
+        "saltLengthBytes": 32,
+        "modulusBits": 2048
+      },
+      "expectedCryptographicValidity": true,
+      "expectedProfileVerdict": "reject"
+    },
+    {
+      "id": "ps256-undersized-modulus",
+      "algorithm": "PS256",
+      "claimedAlgorithm": "PS256",
+      "kind": "profile_negative",
+      "keyId": "generated-rsa-1024-vector-key",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDyMZWT5pHTBsE8cDUHOCBcH4VH\noL88GCT1G62FoZvIsmKEdXomdlUZkVFIm2cMkHc5RIesVZEGB8Sc2zLnXqFJb/y7\nwhGbM9yRGhSKo1Z9dcsOzBF2LDk1dvWywU3ucXEhRtbpJ8Hypa8uCpN6zJQktSy+\npZVKV4ZHcjOlEP1uIwIDAQAB\n-----END PUBLIC KEY-----\n",
+      "messageBase64url": "YWdlbnQtZXZhbHMgc2lnbmF0dXJlIHByb2ZpbGUgY29uZm9ybWFuY2UgdmVjdG9yIHYx",
+      "signatureBase64url": "e-hUj5QGjdJQ9IlicJvBeKng1lRH9oNxYfR-DrP_u2Dk-B0bzJpDTI77gTNhsQ-YYYhyKPafEiLM5bw2XX7KlnKhEVThbjLqt9nG1hU-Pq91DveC81gnyUQnzIKie6jdh1FaWDRilXjbVxv7_FVJqX2fdiDEFhhMydJloLVQjwA",
+      "generatedWith": {
+        "hash": "sha256",
+        "mgf": "MGF1",
+        "mgfHash": "sha256",
+        "saltLengthBytes": 32,
+        "modulusBits": 1024
+      },
+      "expectedCryptographicValidity": true,
+      "expectedProfileVerdict": "reject"
+    },
+    {
+      "id": "ps256-altered-payload",
+      "algorithm": "PS256",
+      "claimedAlgorithm": "PS256",
+      "kind": "cryptographic_negative",
+      "keyId": "generated-rsa-2048-vector-key",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtp6IK56UBkMdoONuzjTv\nvogwUEIOkxdf4ZTjt4paIU/wvpoPofYJ3Ap0s+yA1J46PKMTD05FlJvMzR+PwWkJ\ndBo3UyRtkIg6Gy2bncPw82IaxcR/caCIaYSeR5xNAboCrpzHJe0DoTZjJZUGYRta\nSCoZiSgktT7+g98psciK/wktlQp9Kz1YncssKZ/TjXHh9MYn1cSlipU9Fc56EJ5N\nhVjuJErhzaBAybkEaPu39cnTRm6Jj0epwC5ENNVhKrGpoKoVDjfqkHwSllQB7u8T\nRW264dgQHTN/KFMmZHOF3rTNlMRjKAa7H6phx6YivFMCZ3f7x4zaJy4FhiUHOnx5\ncwIDAQAB\n-----END PUBLIC KEY-----\n",
+      "messageBase64url": "YWdlbnQtZXZhbHMgc2lnbmF0dXJlIHByb2ZpbGUgY29uZm9ybWFuY2UgdmVjdG9yIHYxIGFsdGVyZWQ",
+      "signatureBase64url": "jI5EiYbLAsAiFsplsICxuVZYuO5M9hg2Ynbxl5ytqH2DBM08Q6RQjcRAMVfPCq3eB8rniQruFlJQ3cHLcjxqFCGi9mIqEW9yrgjxRSWGGaSPrcawq-POq-fFza8o9vbsH3688H7FDwmk0g64q2Kdusa_9vkdTzzQGn6q3UE2vhS7noEIwRBIZbuKndkHAa1Qo2e8zb_7WKojMuh39zJ5CZMGD_NkSo0PPVfSV7I6fVy13uIb1b_QGbgHE99HaQWTCe-DnPFF4uueZeRY_kTXBjK-Cs5rnqKvEuNgx1GlLZcn_y-_1WZNSOvxHirMUHu24A4tdQh4ujNbi_v2Lg5hxQ",
+      "generatedWith": {
+        "hash": "sha256",
+        "mgf": "MGF1",
+        "mgfHash": "sha256",
+        "saltLengthBytes": 32,
+        "modulusBits": 2048
+      },
+      "expectedCryptographicValidity": false,
+      "expectedProfileVerdict": "reject"
+    },
+    {
+      "id": "ps256-malformed-encoding",
+      "algorithm": "PS256",
+      "claimedAlgorithm": "PS256",
+      "kind": "cryptographic_negative",
+      "keyId": "generated-rsa-2048-vector-key",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtp6IK56UBkMdoONuzjTv\nvogwUEIOkxdf4ZTjt4paIU/wvpoPofYJ3Ap0s+yA1J46PKMTD05FlJvMzR+PwWkJ\ndBo3UyRtkIg6Gy2bncPw82IaxcR/caCIaYSeR5xNAboCrpzHJe0DoTZjJZUGYRta\nSCoZiSgktT7+g98psciK/wktlQp9Kz1YncssKZ/TjXHh9MYn1cSlipU9Fc56EJ5N\nhVjuJErhzaBAybkEaPu39cnTRm6Jj0epwC5ENNVhKrGpoKoVDjfqkHwSllQB7u8T\nRW264dgQHTN/KFMmZHOF3rTNlMRjKAa7H6phx6YivFMCZ3f7x4zaJy4FhiUHOnx5\ncwIDAQAB\n-----END PUBLIC KEY-----\n",
+      "messageBase64url": "YWdlbnQtZXZhbHMgc2lnbmF0dXJlIHByb2ZpbGUgY29uZm9ybWFuY2UgdmVjdG9yIHYx",
+      "signatureBase64url": "ktFwV4t7jMquxrJYCOSfO5_oA8RE3m7Sz0b8I7pSrvOyVsbkgugSekSzBrJ25lf6W7Qqkub5YMkfLX5xJ-1USaL7bA_IofcnedYuHb67cn2WFgSW1h4THmqg0rvNae1FFCLA_8bNK128-Q4J7IiKmRH1X2csG9QWeXPLPy5dtATEY0co9bae9iwAPBfKy9n90P3S0uIdrcPd2RkH3_-KV3YMGqssg-ZhD9QcDyvOY9Hh65O-7IHGCnOeOzOcN4mIZ1b3P9E_yU8pydMCuCSQ05j-aVg7Z96EdTc8QJx_CUOr0g43b4HlHTieRdaQiMvZtM_Lm7qwDsX34uudlEsw",
+      "generatedWith": {
+        "hash": "sha256",
+        "mgf": "MGF1",
+        "mgfHash": "sha256",
+        "saltLengthBytes": 32,
+        "modulusBits": 2048
+      },
+      "expectedCryptographicValidity": false,
+      "expectedProfileVerdict": "reject"
+    },
+    {
+      "id": "ps256-wrong-key-type",
+      "algorithm": "PS256",
+      "claimedAlgorithm": "PS256",
+      "kind": "cryptographic_negative",
+      "keyId": "generated-p256-vector-key",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEc+O2WDV9KCh2fQMSYg3oTpy6UU27\nceTR/pduuJqRNrAS5OYgPWaW8q99SgEWIW2MIbLx6D+0b5jxRZT3MnPF8g==\n-----END PUBLIC KEY-----\n",
+      "messageBase64url": "YWdlbnQtZXZhbHMgc2lnbmF0dXJlIHByb2ZpbGUgY29uZm9ybWFuY2UgdmVjdG9yIHYx",
+      "signatureBase64url": "I5LRcFeLe4zKrsayWAjknzuf6APERN5u0s9G_CO6Uq7zslbG5ILoEnpEswayduZX-lu0KpLm-WDJHy1-cSftVEmi-2wPyKH3J3nWLh2-u3J9lhYEltYeEx5qoNK7zWntRRQiwP_GzStdvPkOCeyIipkR9V9nLBvUFnlzyz8uXbQExGNHKPW2nvYsADwXysvZ_dD90tLiHa3D3dkZB9__ild2DBqrLIPmYQ_UHA8rzmPR4euTvuyBxgpznjsznDeJiGdW9z_RP8lPKcnTArgkkNOY_mlYO2fehHU3PECcfwlDq9ION2-B5R04nkXWkIjL2bTPy5u6sA7F9-LrnZRLMA",
+      "generatedWith": {
+        "hash": "sha256",
+        "mgf": "MGF1",
+        "mgfHash": "sha256",
+        "saltLengthBytes": 32,
+        "modulusBits": 2048
+      },
+      "expectedCryptographicValidity": false,
+      "expectedProfileVerdict": "reject"
+    },
+    {
+      "id": "ps256-algorithm-substitution",
+      "algorithm": "PS256",
+      "claimedAlgorithm": "Ed25519",
+      "kind": "profile_negative",
+      "keyId": "generated-rsa-2048-vector-key",
+      "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtp6IK56UBkMdoONuzjTv\nvogwUEIOkxdf4ZTjt4paIU/wvpoPofYJ3Ap0s+yA1J46PKMTD05FlJvMzR+PwWkJ\ndBo3UyRtkIg6Gy2bncPw82IaxcR/caCIaYSeR5xNAboCrpzHJe0DoTZjJZUGYRta\nSCoZiSgktT7+g98psciK/wktlQp9Kz1YncssKZ/TjXHh9MYn1cSlipU9Fc56EJ5N\nhVjuJErhzaBAybkEaPu39cnTRm6Jj0epwC5ENNVhKrGpoKoVDjfqkHwSllQB7u8T\nRW264dgQHTN/KFMmZHOF3rTNlMRjKAa7H6phx6YivFMCZ3f7x4zaJy4FhiUHOnx5\ncwIDAQAB\n-----END PUBLIC KEY-----\n",
+      "messageBase64url": "YWdlbnQtZXZhbHMgc2lnbmF0dXJlIHByb2ZpbGUgY29uZm9ybWFuY2UgdmVjdG9yIHYx",
+      "signatureBase64url": "I5LRcFeLe4zKrsayWAjknzuf6APERN5u0s9G_CO6Uq7zslbG5ILoEnpEswayduZX-lu0KpLm-WDJHy1-cSftVEmi-2wPyKH3J3nWLh2-u3J9lhYEltYeEx5qoNK7zWntRRQiwP_GzStdvPkOCeyIipkR9V9nLBvUFnlzyz8uXbQExGNHKPW2nvYsADwXysvZ_dD90tLiHa3D3dkZB9__ild2DBqrLIPmYQ_UHA8rzmPR4euTvuyBxgpznjsznDeJiGdW9z_RP8lPKcnTArgkkNOY_mlYO2fehHU3PECcfwlDq9ION2-B5R04nkXWkIjL2bTPy5u6sA7F9-LrnZRLMA",
+      "generatedWith": {
+        "hash": "sha256",
+        "mgf": "MGF1",
+        "mgfHash": "sha256",
+        "saltLengthBytes": 32,
+        "modulusBits": 2048
+      },
+      "expectedCryptographicValidity": true,
+      "expectedProfileVerdict": "reject"
+    }
+  ],
+  "digest": "sha256:0746a47e5d9cbdf09bff66334d2af9cc1cd2aea5d6042aa985818c023d1f712e",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:00Z",
+    "value": "g98XvObe3tdYjqy0b4-emebKppQEdSsuGQCU4oVTT1v-z-NDhS0V1YhN_Jph5GphxD8OPp2i-vfQ4U91zyYYDw"
+  }
+}

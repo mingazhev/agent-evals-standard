@@ -1,0 +1,2249 @@
+{
+  "schemaVersion": "agent-eval-source-evidence-manifest-1",
+  "standardVersion": "0.1.0",
+  "evidenceReadiness": "blocked",
+  "evidenceBlockers": {
+    "unverifiedSourceIds": [
+      "SRC-SWEBENCH-2024",
+      "SRC-SWELANCER-2025",
+      "SRC-TAUBENCH-2024",
+      "SRC-WORKARENA-2024",
+      "SRC-OPENAI-VERIFIED-2024",
+      "SRC-OPENAI-VERIFIED-AUDIT-2026",
+      "SRC-OPENAI-PRO-AUDIT-2026",
+      "SRC-METR-PUBLIC-TASKS-2024",
+      "SRC-METR-TASK-STANDARD-2024",
+      "SRC-ANTHROPIC-AGENT-EVALS-2026",
+      "SRC-OPENAI-EVAL-BEST-PRACTICES",
+      "SRC-UKAISI-INSPECT-2024",
+      "SRC-INSPECT-EVALS",
+      "SRC-HUMANEVAL-2021",
+      "SRC-LLM-JUDGE-2023",
+      "SRC-IMBENS-MANSKI-2004",
+      "SRC-CGM-2008",
+      "SRC-ALWAYS-VALID-2015",
+      "SRC-NIST-AIRMF-2023",
+      "SRC-NIST-AI6001-2024",
+      "SRC-NIST-SSDF-2022",
+      "SRC-AGENTDOJO-2024",
+      "SRC-AUTODOJO-2026",
+      "SRC-OWASP-AGENTIC-2026",
+      "SRC-MITRE-ATLAS",
+      "SRC-RFC8785-2020",
+      "SRC-RFC8032-2017",
+      "SRC-FIPS1865-2023",
+      "SRC-INTOTO-2019",
+      "SRC-RFC7518-2015",
+      "SRC-RFC9864-2025",
+      "SRC-RFC8017-2016",
+      "SRC-RFC9162-2021"
+    ],
+    "requirementEvidenceGapIds": [
+      "SCOPE-002",
+      "JUDGE-003"
+    ],
+    "capabilityTargetValidationGapIds": [
+      "CAP.DISCOVER_SPECIFY",
+      "CAP.PLAN_DESIGN",
+      "CAP.IMPLEMENT_CHANGE",
+      "CAP.VERIFY_ASSURE",
+      "CAP.REVIEW_DECIDE",
+      "CAP.RELEASE_OPERATE",
+      "CAP.REMEDIATE_LEARN"
+    ]
+  },
+  "supportPolicy": {
+    "empirical_observation": "At least one cited primary empirical source reports the bounded observation for its explicitly recorded studied population; the label does not validate a normative requirement or imply transfer beyond that population.",
+    "documented_mechanism": "At least one cited specification, framework, repository artifact, or research method directly documents the bounded mechanism; the label is not empirical validation of the mechanism's effectiveness, necessity, sufficiency, or transfer.",
+    "triangulated_empirical": "At least two independently produced primary empirical artifacts from at least two independent organizations report the same bounded observation; shared authors, data, populations, methods, sponsors, and benchmark lineage are disclosed and judged not to create a common-mode result.",
+    "rationale_only": "The sources explain a threat or design rationale but do not empirically validate the normative implementation choice.",
+    "evidence_gap": "Available evidence does not support the bounded claim for the intended population at the declared evidence strength; positive transfer is prohibited until the recorded closure criteria are met.",
+    "design_invariant": "The requirement is a fail-closed interoperability, safety, validity, or governance choice rather than an externally validated empirical claim; its failure mode and validation obligation are explicit."
+  },
+  "sources": [
+    {
+      "id": "SRC-SWEBENCH-2024",
+      "title": "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?",
+      "authorsOrOrganization": [
+        "Jimenez et al."
+      ],
+      "publicationDate": "2024",
+      "sourceType": "benchmark",
+      "versionIdentity": {
+        "kind": "edition",
+        "value": "ICLR 2024 OpenReview VTF8yNQM66"
+      },
+      "mutableLocator": "https://openreview.net/forum?id=VTF8yNQM66",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "peer_reviewed_research",
+      "limitations": [
+        "Public repositories and patches create contamination risk.",
+        "Hidden tests can encode issue- or patch-specific behavior."
+      ],
+      "population": "Real-world Python repository issues selected by the benchmark",
+      "contraryEvidence": [
+        "SRC-OPENAI-VERIFIED-AUDIT-2026",
+        "SRC-OPENAI-PRO-AUDIT-2026"
+      ],
+      "producerIds": [
+        "TEAM-SWEBENCH-2024"
+      ],
+      "empiricalRole": "primary_empirical_source"
+    },
+    {
+      "id": "SRC-SWELANCER-2025",
+      "title": "SWE-Lancer: Can Frontier LLMs Earn $1 Million from Real-World Freelance Software Engineering?",
+      "authorsOrOrganization": [
+        "Miserendino et al."
+      ],
+      "publicationDate": "2025",
+      "sourceType": "benchmark",
+      "versionIdentity": {
+        "kind": "doi",
+        "value": "10.48550/arXiv.2502.12115"
+      },
+      "mutableLocator": "https://arxiv.org/abs/2502.12115",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "primary_benchmark_artifact",
+      "limitations": [
+        "One platform and task distribution.",
+        "Economic realism does not establish transfer to a specific enterprise."
+      ],
+      "population": "Selected real-world freelance software-engineering tasks",
+      "contraryEvidence": [],
+      "producerIds": [
+        "TEAM-SWELANCER-2025"
+      ],
+      "empiricalRole": "primary_empirical_source"
+    },
+    {
+      "id": "SRC-TAUBENCH-2024",
+      "title": "τ-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains",
+      "authorsOrOrganization": [
+        "Yao et al."
+      ],
+      "publicationDate": "2024",
+      "sourceType": "benchmark",
+      "versionIdentity": {
+        "kind": "doi",
+        "value": "10.48550/arXiv.2406.12045"
+      },
+      "mutableLocator": "https://arxiv.org/abs/2406.12045",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "primary_benchmark_artifact",
+      "limitations": [
+        "Simulated domains and actors require local transfer evidence.",
+        "Repeated-run metrics do not remove dependence or simulator bias."
+      ],
+      "population": "Tool-agent-user interactions in selected simulated domains",
+      "contraryEvidence": [],
+      "producerIds": [
+        "TEAM-TAUBENCH-2024"
+      ],
+      "empiricalRole": "primary_empirical_source"
+    },
+    {
+      "id": "SRC-WORKARENA-2024",
+      "title": "WorkArena: How Capable Are Web Agents at Solving Common Knowledge Work Tasks?",
+      "authorsOrOrganization": [
+        "Drouin et al."
+      ],
+      "publicationDate": "2024",
+      "sourceType": "benchmark",
+      "versionIdentity": {
+        "kind": "edition",
+        "value": "Proceedings of Machine Learning Research volume 235, drouin24a"
+      },
+      "mutableLocator": "https://proceedings.mlr.press/v235/drouin24a.html",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "peer_reviewed_research",
+      "limitations": [
+        "ServiceNow-centered environment.",
+        "Coverage and realism do not prove validity for another deployment."
+      ],
+      "population": "Selected enterprise-style browser tasks",
+      "contraryEvidence": [],
+      "producerIds": [
+        "TEAM-WORKARENA-2024"
+      ],
+      "empiricalRole": "primary_empirical_source"
+    },
+    {
+      "id": "SRC-OPENAI-VERIFIED-2024",
+      "title": "Introducing SWE-bench Verified",
+      "authorsOrOrganization": [
+        "OpenAI"
+      ],
+      "publicationDate": "2024-08-13",
+      "sourceType": "industry_report",
+      "versionIdentity": {
+        "kind": "edition",
+        "value": "updated-2025-02-24"
+      },
+      "mutableLocator": "https://openai.com/index/introducing-swe-bench-verified/",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "primary_empirical_report",
+      "limitations": [
+        "Provider-run and mutable report.",
+        "Later studies reported residual task defects and separate contamination signals; those studies have distinct populations and methods and are cataloged separately."
+      ],
+      "population": "Human-filtered SWE-bench Verified cases",
+      "contraryEvidence": [
+        "SRC-OPENAI-VERIFIED-AUDIT-2026"
+      ],
+      "producerIds": [
+        "ORG-OPENAI"
+      ],
+      "empiricalRole": "primary_empirical_source"
+    },
+    {
+      "id": "SRC-OPENAI-VERIFIED-AUDIT-2026",
+      "title": "Why SWE-bench Verified no longer measures frontier coding capabilities",
+      "authorsOrOrganization": [
+        "OpenAI"
+      ],
+      "publicationDate": "2026-02-23",
+      "sourceType": "industry_report",
+      "versionIdentity": {
+        "kind": "edition",
+        "value": "2026-02-23"
+      },
+      "mutableLocator": "https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "primary_empirical_report",
+      "limitations": [
+        "The defect component found at least 59.4% material issues in a performance-conditioned 138-task subset; that subset is neither random nor representative and the result must not be extrapolated to all 500 tasks.",
+        "The contamination component used elicitation, a model judge, and manual review of strong examples; it did not publish a validated contamination-prevalence estimate.",
+        "The two components have distinct populations, sampling, methods, results, uncertainty conditions, and limits and are represented by separate observation IDs.",
+        "The provider-run report does not establish universal benchmark defects, universal contamination, or validation of this standard."
+      ],
+      "population": "One report containing two distinct study components: a defect audit of the 138 of 500 tasks selected by inconsistent OpenAI o3 performance across 64 runs, and contamination probes of every SWE-bench Verified question against three named target models for up to 15 turns",
+      "contraryEvidence": [
+        "SRC-OPENAI-PRO-AUDIT-2026"
+      ],
+      "producerIds": [
+        "ORG-OPENAI"
+      ],
+      "empiricalRole": "primary_empirical_source"
+    },
+    {
+      "id": "SRC-OPENAI-PRO-AUDIT-2026",
+      "title": "Separating signal from noise in coding evaluations",
+      "authorsOrOrganization": [
+        "OpenAI"
+      ],
+      "publicationDate": "2026-07-08",
+      "sourceType": "industry_report",
+      "versionIdentity": {
+        "kind": "edition",
+        "value": "2026-07-08"
+      },
+      "mutableLocator": "https://openai.com/index/separating-signal-from-noise-coding-evaluations/",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "primary_empirical_report",
+      "limitations": [
+        "Provider-run audit.",
+        "On the 731-task public split, the automated pipeline classified 200 tasks (27.4%) as broken and the human campaign classified 249 tasks (34.1%) as broken; the two estimates have different error modes and must remain distinct.",
+        "The initial filter flagged 286 tasks for deeper agent-assisted and human review, so those deeper reviews were filter-conditioned rather than an independent random sample.",
+        "The approximately 30% estimate is bounded to the SWE-Bench Pro public split and is not a universal coding-evaluation defect rate."
+      ],
+      "population": "The 731-task SWE-Bench Pro public split, with deeper agent-assisted and human review of the 286 tasks flagged by the initial filter",
+      "contraryEvidence": [
+        "SRC-OPENAI-VERIFIED-AUDIT-2026"
+      ],
+      "producerIds": [
+        "ORG-OPENAI"
+      ],
+      "empiricalRole": "primary_empirical_source"
+    },
+    {
+      "id": "SRC-METR-PUBLIC-TASKS-2024",
+      "title": "METR Example Task Suite (Public)",
+      "authorsOrOrganization": [
+        "METR"
+      ],
+      "publicationDate": "2024",
+      "sourceType": "repository_artifact",
+      "versionIdentity": {
+        "kind": "edition",
+        "value": "living-main-unpinned"
+      },
+      "mutableLocator": "https://github.com/METR/public-tasks",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "primary_benchmark_artifact",
+      "limitations": [
+        "The repository is living and can contain task defects.",
+        "A commit must be pinned before evidentiary use."
+      ],
+      "population": "Thirty-one public example tasks across ten task families, plus summary information for a wider non-public set",
+      "contraryEvidence": [],
+      "producerIds": [
+        "ORG-METR"
+      ],
+      "empiricalRole": "not_primary_empirical_source"
+    },
+    {
+      "id": "SRC-METR-TASK-STANDARD-2024",
+      "title": "METR Task Standard",
+      "authorsOrOrganization": [
+        "METR"
+      ],
+      "publicationDate": "2024",
+      "sourceType": "repository_artifact",
+      "versionIdentity": {
+        "kind": "edition",
+        "value": "living-main-unpinned"
+      },
+      "mutableLocator": "https://github.com/METR/task-standard",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "primary_benchmark_artifact",
+      "limitations": [
+        "The specification is living and explicitly describes itself as not fully stable before version 1.0.0.",
+        "The 2024 catalog date reflects the repository's stated use as of January 2024; an exact first-publication commit and date must be pinned before evidentiary use."
+      ],
+      "population": "Portable agent-evaluation task environments, instructions, optional scoring, and runtime adapters",
+      "contraryEvidence": [],
+      "producerIds": [
+        "ORG-METR"
+      ],
+      "empiricalRole": "not_primary_empirical_source"
+    },
+    {
+      "id": "SRC-ANTHROPIC-AGENT-EVALS-2026",
+      "title": "Demystifying evals for AI agents",
+      "authorsOrOrganization": [
+        "Anthropic"
+      ],
+      "publicationDate": "2026-01-09",
+      "sourceType": "official_documentation",
+      "versionIdentity": {
+        "kind": "edition",
+        "value": "2026-01-09 web edition"
+      },
+      "mutableLocator": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Independent snapshot and SHA-256 of the dated web edition have not yet been recorded."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "industry_experience",
+      "limitations": [
+        "Provider-authored experience report, not an independently controlled validation study.",
+        "Its examples span multiple agent types and do not establish enterprise-SDLC transfer, universal thresholds, or conformance to this standard."
+      ],
+      "population": "Agent-evaluation practices reported from Anthropic's internal work and customer deployments",
+      "contraryEvidence": [],
+      "producerIds": [
+        "ORG-ANTHROPIC"
+      ],
+      "empiricalRole": "not_primary_empirical_source"
+    },
+    {
+      "id": "SRC-OPENAI-EVAL-BEST-PRACTICES",
+      "title": "Evaluation best practices",
+      "authorsOrOrganization": [
+        "OpenAI"
+      ],
+      "publicationDate": "undated",
+      "sourceType": "official_documentation",
+      "versionIdentity": {
+        "kind": "edition",
+        "value": "living-unpinned"
+      },
+      "mutableLocator": "https://developers.openai.com/api/docs/guides/evaluation-best-practices",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "The publisher supplies no publication date, and no independently verified dated snapshot or SHA-256 has been recorded."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "official_guidance",
+      "limitations": [
+        "High-level provider guidance, not empirical validation of a particular evaluation protocol.",
+        "The page is mutable and its platform-specific Evals instructions are in a documented deprecation transition; only the bounded evaluation-practice guidance is used here."
+      ],
+      "population": "LLM-application evaluation workflows described in OpenAI's official documentation",
+      "contraryEvidence": [],
+      "producerIds": [
+        "ORG-OPENAI"
+      ],
+      "empiricalRole": "not_primary_empirical_source"
+    },
+    {
+      "id": "SRC-UKAISI-INSPECT-2024",
+      "title": "Inspect AI: Framework for Large Language Model Evaluations",
+      "authorsOrOrganization": [
+        "UK AI Security Institute"
+      ],
+      "publicationDate": "2024-05",
+      "sourceType": "official_documentation",
+      "versionIdentity": {
+        "kind": "edition",
+        "value": "May 2024 initial release; living-unpinned documentation"
+      },
+      "mutableLocator": "https://inspect.aisi.org.uk/",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "A versioned documentation snapshot, corresponding repository commit, and independently verified SHA-256 have not yet been recorded."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "official_guidance",
+      "limitations": [
+        "Living framework documentation and implementation examples, not empirical validation of task validity or enterprise transfer.",
+        "The cited examples demonstrate available components and sandboxing but do not establish that every Inspect evaluation is isolated, reproducible, or suitable for an SDLC claim."
+      ],
+      "population": "LLM and agent evaluations implemented with the Inspect AI framework",
+      "contraryEvidence": [],
+      "producerIds": [
+        "ORG-UKAISI"
+      ],
+      "empiricalRole": "not_primary_empirical_source"
+    },
+    {
+      "id": "SRC-INSPECT-EVALS",
+      "title": "Inspect Evals: Collection of evals for Inspect AI",
+      "authorsOrOrganization": [
+        "UK AI Security Institute",
+        "Arcadia Impact",
+        "Vector Institute"
+      ],
+      "publicationDate": "undated",
+      "sourceType": "repository_artifact",
+      "versionIdentity": {
+        "kind": "edition",
+        "value": "living-main-unpinned"
+      },
+      "mutableLocator": "https://github.com/UKGovernmentBEIS/inspect_evals",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "The repository is living, the publisher-facing page supplies no publication date, and no commit, archive, or independently verified SHA-256 has been pinned."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "official_guidance",
+      "limitations": [
+        "Since 2026-05-08, new register entries point to externally maintained implementation repositories; they are listings, not implementations maintained in the Inspect Evals collection.",
+        "In-repository and externally registered implementations vary in maturity, maintenance, provenance, and validation quality.",
+        "Catalog inclusion and framework executability do not validate a benchmark's construct, population transfer, security, or correctness."
+      ],
+      "population": "Runnable implementations under inspect_evals/src and, from 2026-05-08 onward, registry listings that point to external implementation repositories",
+      "contraryEvidence": [],
+      "producerIds": [
+        "ORG-UKAISI",
+        "ORG-ARCADIA-IMPACT",
+        "ORG-VECTOR-INSTITUTE"
+      ],
+      "empiricalRole": "not_primary_empirical_source"
+    },
+    {
+      "id": "SRC-HUMANEVAL-2021",
+      "title": "Evaluating Large Language Models Trained on Code",
+      "authorsOrOrganization": [
+        "Chen et al."
+      ],
+      "publicationDate": "2021",
+      "sourceType": "paper",
+      "versionIdentity": {
+        "kind": "doi",
+        "value": "10.48550/arXiv.2107.03374"
+      },
+      "mutableLocator": "https://arxiv.org/abs/2107.03374",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "primary_benchmark_artifact",
+      "limitations": [
+        "The artifact is an arXiv preprint/benchmark release; this catalog does not claim peer review.",
+        "Its small function-synthesis population and pass@k assumptions do not transfer automatically to dependent enterprise agent trials."
+      ],
+      "population": "HumanEval code-generation tasks",
+      "contraryEvidence": [],
+      "producerIds": [
+        "TEAM-HUMANEVAL-2021"
+      ],
+      "empiricalRole": "primary_empirical_source"
+    },
+    {
+      "id": "SRC-LLM-JUDGE-2023",
+      "title": "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena",
+      "authorsOrOrganization": [
+        "Zheng et al."
+      ],
+      "publicationDate": "2023",
+      "sourceType": "paper",
+      "versionIdentity": {
+        "kind": "doi",
+        "value": "10.52202/075280-2020"
+      },
+      "mutableLocator": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/91f18a1287b398d378ef22505bf41832-Abstract-Datasets_and_Benchmarks.html",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "peer_reviewed_research",
+      "limitations": [
+        "Dialogue-preference setting.",
+        "Every grader use needs domain- and risk-specific validation."
+      ],
+      "population": "Dialogue preference judgments",
+      "contraryEvidence": [],
+      "producerIds": [
+        "TEAM-LLM-JUDGE-2023"
+      ],
+      "empiricalRole": "primary_empirical_source"
+    },
+    {
+      "id": "SRC-IMBENS-MANSKI-2004",
+      "title": "Confidence Intervals for Partially Identified Parameters",
+      "authorsOrOrganization": [
+        "Guido W. Imbens",
+        "Charles F. Manski"
+      ],
+      "publicationDate": "2004",
+      "sourceType": "paper",
+      "versionIdentity": {
+        "kind": "doi",
+        "value": "10.1111/j.1468-0262.2004.00555.x"
+      },
+      "mutableLocator": "https://doi.org/10.1111/j.1468-0262.2004.00555.x",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "peer_reviewed_research",
+      "limitations": [
+        "Requires explicit identification and sampling assumptions.",
+        "Not a ready-made missing-trial procedure."
+      ],
+      "population": "Partially identified statistical parameters",
+      "contraryEvidence": [],
+      "producerIds": [
+        "TEAM-IMBENS-MANSKI-2004"
+      ],
+      "empiricalRole": "not_primary_empirical_source"
+    },
+    {
+      "id": "SRC-CGM-2008",
+      "title": "Bootstrap-Based Improvements for Inference with Clustered Errors",
+      "authorsOrOrganization": [
+        "A. Colin Cameron",
+        "Jonah B. Gelbach",
+        "Douglas L. Miller"
+      ],
+      "publicationDate": "2008",
+      "sourceType": "paper",
+      "versionIdentity": {
+        "kind": "doi",
+        "value": "10.1162/rest.90.3.414"
+      },
+      "mutableLocator": "https://doi.org/10.1162/rest.90.3.414",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "peer_reviewed_research",
+      "limitations": [
+        "Method choice depends on the estimand, independent clusters, and sampling design."
+      ],
+      "population": "Clustered statistical samples",
+      "contraryEvidence": [],
+      "producerIds": [
+        "TEAM-CGM-2008"
+      ],
+      "empiricalRole": "not_primary_empirical_source"
+    },
+    {
+      "id": "SRC-ALWAYS-VALID-2015",
+      "title": "Always Valid Inference: Bringing Sequential Analysis to A/B Testing",
+      "authorsOrOrganization": [
+        "Ramesh Johari",
+        "Leo Pekelis",
+        "David J. Walsh"
+      ],
+      "publicationDate": "2015",
+      "sourceType": "paper",
+      "versionIdentity": {
+        "kind": "doi",
+        "value": "10.48550/arXiv.1512.04922"
+      },
+      "mutableLocator": "https://arxiv.org/abs/1512.04922",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "primary_research_preprint",
+      "limitations": [
+        "This record identifies the 2015 preprint, not the differently titled 2022 Operations Research article with Pete Koomen.",
+        "Its procedures and assumptions require validation for clustered, delayed, censored, or adaptive enterprise outcomes."
+      ],
+      "population": "Sequential online experiments",
+      "contraryEvidence": [],
+      "producerIds": [
+        "TEAM-ALWAYS-VALID-2015"
+      ],
+      "empiricalRole": "not_primary_empirical_source"
+    },
+    {
+      "id": "SRC-NIST-AIRMF-2023",
+      "title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
+      "authorsOrOrganization": [
+        "NIST"
+      ],
+      "publicationDate": "2023",
+      "sourceType": "standard",
+      "versionIdentity": {
+        "kind": "version",
+        "value": "NIST AI 100-1"
+      },
+      "mutableLocator": "https://doi.org/10.6028/NIST.AI.100-1",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "official_guidance",
+      "limitations": [
+        "Risk framework, not an executable agent-evaluation protocol."
+      ],
+      "population": "Organizations designing, developing, deploying, or using AI systems",
+      "contraryEvidence": [],
+      "producerIds": [
+        "ORG-NIST"
+      ],
+      "empiricalRole": "not_primary_empirical_source"
+    },
+    {
+      "id": "SRC-NIST-AI6001-2024",
+      "title": "Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile",
+      "authorsOrOrganization": [
+        "NIST"
+      ],
+      "publicationDate": "2024",
+      "sourceType": "standard",
+      "versionIdentity": {
+        "kind": "version",
+        "value": "NIST AI 600-1"
+      },
+      "mutableLocator": "https://doi.org/10.6028/NIST.AI.600-1",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "official_guidance",
+      "limitations": [
+        "Broad profile; does not establish completeness of a test suite."
+      ],
+      "population": "Organizations managing generative-AI risks",
+      "contraryEvidence": [],
+      "producerIds": [
+        "ORG-NIST"
+      ],
+      "empiricalRole": "not_primary_empirical_source"
+    },
+    {
+      "id": "SRC-NIST-SSDF-2022",
+      "title": "Secure Software Development Framework (SSDF) Version 1.1",
+      "authorsOrOrganization": [
+        "NIST"
+      ],
+      "publicationDate": "2022",
+      "sourceType": "standard",
+      "versionIdentity": {
+        "kind": "version",
+        "value": "NIST SP 800-218"
+      },
+      "mutableLocator": "https://doi.org/10.6028/NIST.SP.800-218",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "official_guidance",
+      "limitations": [
+        "Process framework, not an agent-specific benchmark-validity study."
+      ],
+      "population": "Software-development organizations",
+      "contraryEvidence": [],
+      "producerIds": [
+        "ORG-NIST"
+      ],
+      "empiricalRole": "not_primary_empirical_source"
+    },
+    {
+      "id": "SRC-AGENTDOJO-2024",
+      "title": "AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents",
+      "authorsOrOrganization": [
+        "Debenedetti et al."
+      ],
+      "publicationDate": "2024",
+      "sourceType": "benchmark",
+      "versionIdentity": {
+        "kind": "doi",
+        "value": "10.52202/079017-2636"
+      },
+      "mutableLocator": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/97091a5177d8dc64b1da8bf3e1f6fb54-Abstract-Datasets_and_Benchmarks_Track.html",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "peer_reviewed_research",
+      "limitations": [
+        "The reported results cover 97 realistic tasks and 629 security test cases in simulated tool environments and a bounded attack library, including the evaluated Max adaptive selection over known attacks.",
+        "Stronger defense-targeted, novel, and organization-specific adaptive threats remain outside the validated population."
+      ],
+      "population": "AgentDojo's 97 realistic tasks and 629 security test cases in its simulated tool environments and evaluated attack/defense configurations",
+      "contraryEvidence": [
+        "SRC-AUTODOJO-2026"
+      ],
+      "producerIds": [
+        "TEAM-AGENTDOJO-2024"
+      ],
+      "empiricalRole": "primary_empirical_source"
+    },
+    {
+      "id": "SRC-AUTODOJO-2026",
+      "title": "AutoDojo: Adaptive Black-Box Attacks Reveal the Limits of IPI Defenses and Task-Specification Effects in LLM Agents",
+      "authorsOrOrganization": [
+        "Ma et al."
+      ],
+      "producerIds": [
+        "TEAM-AUTODOJO-2026"
+      ],
+      "publicationDate": "2026-06-13",
+      "sourceType": "paper",
+      "versionIdentity": {
+        "kind": "version",
+        "value": "arXiv:2606.15057v2"
+      },
+      "mutableLocator": "https://arxiv.org/abs/2606.15057v2",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "The primary preprint bytes and SHA-256 have not yet been independently archived and verified; evidence readiness remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "primary_research_preprint",
+      "empiricalRole": "primary_empirical_source",
+      "limitations": [
+        "June 2026 primary preprint; peer review was not established by the cataloging check.",
+        "Adaptive attacks were evaluated across three task suites and five target models; the results do not establish universal attack prevalence or transfer to repository-grounded SDLC agents.",
+        "AutoDojo is an adaptive extension of AgentDojo and shares benchmark lineage, so the two sources cannot by themselves establish independent triangulation."
+      ],
+      "population": "State-of-the-art indirect-prompt-injection defenses evaluated with AutoDojo across three task suites and five target models",
+      "contraryEvidence": [
+        "SRC-AGENTDOJO-2024"
+      ]
+    },
+    {
+      "id": "SRC-OWASP-AGENTIC-2026",
+      "title": "OWASP Top 10 for Agentic Applications for 2026",
+      "authorsOrOrganization": [
+        "OWASP GenAI Security Project"
+      ],
+      "publicationDate": "2025-12-09",
+      "sourceType": "official_documentation",
+      "versionIdentity": {
+        "kind": "edition",
+        "value": "2026"
+      },
+      "mutableLocator": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "official_guidance",
+      "limitations": [
+        "Consensus taxonomy, not empirical assurance or proof of completeness."
+      ],
+      "population": "Agentic application security risks",
+      "contraryEvidence": [],
+      "producerIds": [
+        "ORG-OWASP-GENAI"
+      ],
+      "empiricalRole": "not_primary_empirical_source"
+    },
+    {
+      "id": "SRC-MITRE-ATLAS",
+      "title": "Adversarial Threat Landscape for Artificial-Intelligence Systems (ATLAS)",
+      "authorsOrOrganization": [
+        "MITRE"
+      ],
+      "publicationDate": "2021",
+      "sourceType": "official_documentation",
+      "versionIdentity": {
+        "kind": "edition",
+        "value": "living-unpinned"
+      },
+      "mutableLocator": "https://atlas.mitre.org/",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "official_guidance",
+      "limitations": [
+        "The lineage began as the Adversarial ML Threat Matrix in fall 2020; the ATLAS name was introduced with version 2.0 in spring 2021.",
+        "Mutable living knowledge base with evidence ranging from real-world attack observations to realistic demonstrations; coverage is not exhaustive, and absence of a technique is not evidence of safety."
+      ],
+      "population": "Adversarial techniques against AI-enabled systems",
+      "contraryEvidence": [],
+      "producerIds": [
+        "ORG-MITRE"
+      ],
+      "empiricalRole": "not_primary_empirical_source"
+    },
+    {
+      "id": "SRC-RFC8785-2020",
+      "title": "JSON Canonicalization Scheme (JCS)",
+      "authorsOrOrganization": [
+        "Rundgren",
+        "Jordan",
+        "Erdtman"
+      ],
+      "publicationDate": "2020",
+      "sourceType": "standard",
+      "versionIdentity": {
+        "kind": "version",
+        "value": "RFC 8785"
+      },
+      "mutableLocator": "https://www.rfc-editor.org/rfc/rfc8785",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "official_guidance",
+      "limitations": [
+        "Canonicalization does not provide authenticity, authorization, freshness, or append-only storage."
+      ],
+      "population": "JSON data requiring deterministic canonical representation",
+      "contraryEvidence": [],
+      "producerIds": [
+        "ORG-IETF-RFC-EDITOR"
+      ],
+      "empiricalRole": "not_primary_empirical_source"
+    },
+    {
+      "id": "SRC-RFC8032-2017",
+      "title": "Edwards-Curve Digital Signature Algorithm (EdDSA)",
+      "authorsOrOrganization": [
+        "Josefsson",
+        "Liusvaara"
+      ],
+      "publicationDate": "2017",
+      "sourceType": "standard",
+      "versionIdentity": {
+        "kind": "version",
+        "value": "RFC 8032"
+      },
+      "mutableLocator": "https://www.rfc-editor.org/rfc/rfc8032",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "official_guidance",
+      "limitations": [
+        "RFC 8032 is Informational, not Standards Track.",
+        "Algorithm specification does not define trust roots, authorization, revocation, or checkpoints."
+      ],
+      "population": "EdDSA implementations and test vectors",
+      "contraryEvidence": [],
+      "producerIds": [
+        "ORG-IETF-RFC-EDITOR"
+      ],
+      "empiricalRole": "not_primary_empirical_source"
+    },
+    {
+      "id": "SRC-FIPS1865-2023",
+      "title": "Digital Signature Standard (DSS)",
+      "authorsOrOrganization": [
+        "NIST"
+      ],
+      "publicationDate": "2023",
+      "sourceType": "standard",
+      "versionIdentity": {
+        "kind": "version",
+        "value": "FIPS 186-5"
+      },
+      "mutableLocator": "https://doi.org/10.6028/NIST.FIPS.186-5",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Independent snapshot, digest, and the current NIST errata spreadsheet have not yet been recorded."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "official_guidance",
+      "limitations": [
+        "NIST's 2025-05-12 planning note identifies issues in FIPS 186-5 and links an errata spreadsheet pending a future update or revision.",
+        "Key management, role authorization, verifier time, and anti-rollback are separate requirements."
+      ],
+      "population": "Approved digital-signature algorithms and implementations",
+      "contraryEvidence": [],
+      "producerIds": [
+        "ORG-NIST"
+      ],
+      "empiricalRole": "not_primary_empirical_source"
+    },
+    {
+      "id": "SRC-INTOTO-2019",
+      "title": "in-toto: Providing farm-to-table guarantees for bits and bytes",
+      "authorsOrOrganization": [
+        "Torres-Arias et al."
+      ],
+      "publicationDate": "2019",
+      "sourceType": "paper",
+      "versionIdentity": {
+        "kind": "edition",
+        "value": "USENIX Security 2019"
+      },
+      "mutableLocator": "https://www.usenix.org/conference/usenixsecurity19/presentation/torres-arias",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "peer_reviewed_research",
+      "limitations": [
+        "This standard does not claim in-toto compatibility without a declared profile."
+      ],
+      "population": "Software supply-chain steps and attestations",
+      "contraryEvidence": [],
+      "producerIds": [
+        "TEAM-INTOTO-2019"
+      ],
+      "empiricalRole": "not_primary_empirical_source"
+    },
+    {
+      "id": "SRC-RFC7518-2015",
+      "title": "JSON Web Algorithms (JWA)",
+      "authorsOrOrganization": [
+        "Michael B. Jones"
+      ],
+      "publicationDate": "2015-05",
+      "sourceType": "standard",
+      "versionIdentity": {
+        "kind": "doi",
+        "value": "10.17487/RFC7518"
+      },
+      "mutableLocator": "https://www.rfc-editor.org/rfc/rfc7518",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Independent snapshot and SHA-256 have not yet been recorded."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "official_guidance",
+      "limitations": [
+        "JWA does not require this profile's ES256 low-S restriction.",
+        "Algorithm identifiers and encodings do not define authorization, revocation, freshness, or anti-rollback.",
+        "RFC 7518 is updated by RFC 9864 (2025); that update changes JOSE algorithm-registration requirements and does not invalidate this catalog's bounded ES256/PS256 use, but the update lineage must be archived with the source."
+      ],
+      "population": "Implementations using the ES256 and PS256 JWA algorithm suites.",
+      "contraryEvidence": [],
+      "producerIds": [
+        "ORG-IETF-RFC-EDITOR"
+      ],
+      "empiricalRole": "not_primary_empirical_source"
+    },
+    {
+      "id": "SRC-RFC9864-2025",
+      "title": "Fully-Specified Algorithms for JSON Object Signing and Encryption (JOSE) and CBOR Object Signing and Encryption (COSE)",
+      "authorsOrOrganization": [
+        "Michael B. Jones",
+        "Orie Steele"
+      ],
+      "publicationDate": "2025-10",
+      "sourceType": "standard",
+      "versionIdentity": {
+        "kind": "doi",
+        "value": "10.17487/RFC9864"
+      },
+      "mutableLocator": "https://www.rfc-editor.org/rfc/rfc9864",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Independent snapshot and SHA-256 have not yet been recorded."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "official_guidance",
+      "limitations": [
+        "RFC 9864 defines the fully specified Ed25519 JOSE identifier and updates registry rules; it does not define this standard's authorization, revocation, freshness, or anti-rollback model.",
+        "Its changes to polymorphic EdDSA identifiers do not alter the bounded ES256 and PS256 suites used here."
+      ],
+      "population": "JOSE and COSE implementations using fully specified algorithm identifiers.",
+      "contraryEvidence": [],
+      "producerIds": [
+        "ORG-IETF-RFC-EDITOR"
+      ],
+      "empiricalRole": "not_primary_empirical_source"
+    },
+    {
+      "id": "SRC-RFC8017-2016",
+      "title": "PKCS #1: RSA Cryptography Specifications Version 2.2",
+      "authorsOrOrganization": [
+        "Kathleen Moriarty",
+        "Burt Kaliski",
+        "Jakob Jonsson",
+        "Andreas Rusch"
+      ],
+      "publicationDate": "2016-11",
+      "sourceType": "standard",
+      "versionIdentity": {
+        "kind": "doi",
+        "value": "10.17487/RFC8017"
+      },
+      "mutableLocator": "https://www.rfc-editor.org/rfc/rfc8017",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Independent snapshot and SHA-256 have not yet been recorded."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "official_guidance",
+      "limitations": [
+        "The generic RSASSA-PSS primitive permits parameter choices; the operational profile must pin hash, MGF hash, salt length, and minimum key size.",
+        "The RFC is Informational and does not define the standard's key-authorization or anti-rollback model."
+      ],
+      "population": "RSA signature implementations using RSASSA-PSS and the PKCS #1 v2.2 encoding primitives.",
+      "contraryEvidence": [],
+      "producerIds": [
+        "ORG-IETF-RFC-EDITOR"
+      ],
+      "empiricalRole": "not_primary_empirical_source"
+    },
+    {
+      "id": "SRC-RFC9162-2021",
+      "title": "Certificate Transparency Version 2.0",
+      "authorsOrOrganization": [
+        "Ben Laurie",
+        "Eran Messeri",
+        "Rob Stradling"
+      ],
+      "publicationDate": "2021-12",
+      "sourceType": "standard",
+      "versionIdentity": {
+        "kind": "doi",
+        "value": "10.17487/RFC9162"
+      },
+      "mutableLocator": "https://www.rfc-editor.org/rfc/rfc9162",
+      "archive": {
+        "status": "pending_verification",
+        "immutableLocator": null,
+        "digest": null,
+        "blocker": "Independent snapshot and SHA-256 have not yet been recorded."
+      },
+      "retrievalDate": "2026-08-01",
+      "evidenceClass": "official_guidance",
+      "limitations": [
+        "Certificate Transparency is not a generic evaluation-ledger protocol and this standard does not claim wire compatibility.",
+        "RFC 9162 specifies Merkle inclusion and consistency proofs and identifies conflicting log views; it says multiple clients can compare signed tree heads, calls that technique gossip, and explicitly leaves it undefined as active research.",
+        "Witness, quorum, and authenticated-gossip protocols are design choices of this standard rather than mechanisms specified by RFC 9162."
+      ],
+      "population": "Certificate Transparency v2 logs and implementations using Merkle inclusion and consistency proofs.",
+      "contraryEvidence": [],
+      "producerIds": [
+        "ORG-IETF-RFC-EDITOR"
+      ],
+      "empiricalRole": "not_primary_empirical_source"
+    }
+  ],
+  "observations": [
+    {
+      "id": "OBS-OPENAI-VERIFIED-CURATION-2024",
+      "sourceId": "SRC-OPENAI-VERIFIED-2024",
+      "role": "primary_empirical_observation",
+      "population": "1,699 SWE-bench instances sampled for the SWE-bench Verified curation campaign",
+      "sampling": "The report describes 1,699 randomly sampled instances; each instance was reviewed by three annotators drawn from 93 software developers.",
+      "method": "Multi-annotator review assessed problem statements, test validity, and difficulty before selection into a curated subset.",
+      "result": "The process selected a 500-instance SWE-bench Verified subset after human review.",
+      "uncertaintyAndSelectionConditions": [
+        "Selection followed the report's rubric and annotator process; the selected subset is a curation outcome, not an unbiased defect-prevalence estimate."
+      ],
+      "limits": [
+        "Initial multi-annotator acceptance did not establish permanent validity; later bounded audits found residual defects and contamination signals.",
+        "The observation does not establish transfer to proprietary repositories or other SDLC capabilities."
+      ],
+      "dataOrBenchmarkLineageIds": [
+        "BENCH-SWEBENCH"
+      ]
+    },
+    {
+      "id": "OBS-OPENAI-VERIFIED-DEFECT-AUDIT-2026",
+      "sourceId": "SRC-OPENAI-VERIFIED-AUDIT-2026",
+      "role": "primary_empirical_observation",
+      "population": "The 138 of 500 SWE-bench Verified tasks that OpenAI o3 did not solve consistently across 64 independent runs",
+      "sampling": "Performance-conditioned census of the 138 inconsistent-o3 tasks; it was not a random sample of the 500-task benchmark.",
+      "method": "Each selected task was reviewed by at least six experienced software engineers for problem-description and test-design defects.",
+      "result": "At least 59.4% of the 138 audited tasks had material test-design or problem-description issues.",
+      "uncertaintyAndSelectionConditions": [
+        "At least 59.4% is a lower-bound result for the audited subset.",
+        "Selection on inconsistent o3 performance can materially bias the observed defect rate."
+      ],
+      "limits": [
+        "The result must not be extrapolated to all 500 SWE-bench Verified tasks or to coding benchmarks generally.",
+        "The audit does not validate this standard's case-QA controls as necessary or sufficient."
+      ],
+      "dataOrBenchmarkLineageIds": [
+        "BENCH-SWEBENCH",
+        "BENCH-SWEBENCH-VERIFIED"
+      ]
+    },
+    {
+      "id": "OBS-OPENAI-VERIFIED-CONTAMINATION-2026",
+      "sourceId": "SRC-OPENAI-VERIFIED-AUDIT-2026",
+      "role": "primary_empirical_observation",
+      "population": "Every SWE-bench Verified question probed against GPT-5.2 Chat, Claude Opus 4.5, and Gemini 3 Flash Preview",
+      "sampling": "The report states that each SWE-bench Verified question was probed for each of the three named target models, for up to 15 turns per probe.",
+      "method": "GPT-5 elicited reconstruction attempts; a model judge and manual inspection assessed strong examples of benchmark-specific recall signals.",
+      "result": "The protocol surfaced examples judged to contain benchmark-specific reconstruction signals; the report did not publish a validated contamination-prevalence estimate.",
+      "uncertaintyAndSelectionConditions": [
+        "Prompting stopped at no more than 15 turns and results depend on the elicitation and judge protocols.",
+        "Manual review focused on strong examples rather than estimating population prevalence."
+      ],
+      "limits": [
+        "The observation must not be represented as universal contamination proof or as a contamination rate.",
+        "It is bounded to the named benchmark questions, three target models, and the reported protocol."
+      ],
+      "dataOrBenchmarkLineageIds": [
+        "BENCH-SWEBENCH",
+        "BENCH-SWEBENCH-VERIFIED"
+      ]
+    },
+    {
+      "id": "OBS-OPENAI-PRO-DEFECT-AUDIT-2026",
+      "sourceId": "SRC-OPENAI-PRO-AUDIT-2026",
+      "role": "primary_empirical_observation",
+      "population": "All 731 tasks in the SWE-Bench Pro public split, with deeper review conditioned on the 286 tasks flagged by the initial filter",
+      "sampling": "The automated pipeline and human campaign report full-public-split classifications; deeper agent-assisted and human review was concentrated on 286 initially flagged tasks.",
+      "method": "An automated audit pipeline and a distinct human review campaign assessed broken tasks, including checks that could reject valid alternatives or admit incomplete fixes.",
+      "result": "The automated pipeline classified 200 of 731 tasks (27.4%) as broken; the human campaign classified 249 of 731 tasks (34.1%) as broken.",
+      "uncertaintyAndSelectionConditions": [
+        "The two estimates use different review processes and error modes and must remain distinct.",
+        "Deeper review was filter-conditioned and was not an independent random sample."
+      ],
+      "limits": [
+        "Neither estimate is a universal coding-evaluation defect rate.",
+        "The audit does not validate this standard's complete case-QA or remediation process."
+      ],
+      "dataOrBenchmarkLineageIds": [
+        "BENCH-SWEBENCH-PRO"
+      ]
+    },
+    {
+      "id": "OBS-AGENTDOJO-SECURITY-2024",
+      "sourceId": "SRC-AGENTDOJO-2024",
+      "role": "primary_empirical_observation",
+      "population": "AgentDojo's 97 realistic tasks and 629 security test cases in simulated email, banking, travel, and related tool environments",
+      "sampling": "The benchmark authors constructed 97 tasks and 629 security cases across the reported attack, defense, and model configurations.",
+      "method": "Agents executed tools over untrusted simulated data; the study measured task utility and prompt-injection security properties under the evaluated configurations.",
+      "result": "The study reports that evaluated state-of-the-art models failed many benign tasks and that existing prompt-injection attacks broke some, but not all, evaluated security properties.",
+      "uncertaintyAndSelectionConditions": [
+        "Results depend on the constructed tasks, simulated tools, target models, attack prompts, defenses, and aggregation choices."
+      ],
+      "limits": [
+        "An extensible environment does not make the evaluated attack distribution adapt to each defense.",
+        "The result does not establish security or verification effectiveness for repository-grounded SDLC agents."
+      ],
+      "dataOrBenchmarkLineageIds": [
+        "BENCH-AGENTDOJO"
+      ]
+    },
+    {
+      "id": "OBS-AUTODOJO-ADAPTIVE-ATTACK-2026",
+      "sourceId": "SRC-AUTODOJO-2026",
+      "role": "primary_empirical_observation",
+      "population": "State-of-the-art indirect-prompt-injection defenses evaluated across three task suites and five target models",
+      "sampling": "The authors evaluated AutoDojo against the reported defenses in three task suites and five target models, including action-open and precisely specified tasks.",
+      "method": "A frontier-model black-box attacker iteratively optimized injections against each evaluated defense, extending AgentDojo with defense-adaptive attacks.",
+      "result": "Against a filter reported to reduce static attack success rate to 0%, AutoDojo recovered 28% attack success overall and 64% on action-open tasks.",
+      "uncertaintyAndSelectionConditions": [
+        "The reported rates are conditional on the selected filter, task suites, target models, attack budget, and task classification.",
+        "The source is a June 2026 primary preprint."
+      ],
+      "limits": [
+        "The result does not establish universal attack prevalence or transfer to repository-grounded SDLC agents.",
+        "AutoDojo extends AgentDojo and shares benchmark lineage; the two observations are not independent triangulation."
+      ],
+      "dataOrBenchmarkLineageIds": [
+        "BENCH-AGENTDOJO",
+        "BENCH-AUTODOJO-2026"
+      ]
+    }
+  ],
+  "mappings": [
+    {
+      "requirementId": "ARCH-001",
+      "kind": "design_invariant",
+      "rationale": "interoperability and fail-closed design",
+      "failureMode": "If normative artifact and extension architecture is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended interoperability and fail-closed design control.",
+      "validationObligation": "conformance-validator MUST verify normative artifact and extension architecture against requirements.md#traceability-rules, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "TRACE-001",
+      "kind": "design_invariant",
+      "rationale": "evidence auditability",
+      "failureMode": "If requirement-to-source evidence mapping is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended evidence auditability control.",
+      "validationObligation": "conformance-validator MUST verify requirement-to-source evidence mapping against requirements.md#traceability-rules, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "I1",
+      "kind": "design_invariant",
+      "rationale": "safety and validity guardrails",
+      "failureMode": "If non-compensable acceptance is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended safety and validity guardrails control.",
+      "validationObligation": "scorecard-validator MUST verify non-compensable acceptance against standard.md#i1-acceptance-is-non-compensable, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "I2",
+      "kind": "design_invariant",
+      "rationale": "contamination findings in Informative References",
+      "failureMode": "If lifecycle-wide oracle isolation is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended contamination findings in Informative References control.",
+      "validationObligation": "run-validator MUST verify lifecycle-wide oracle isolation against standard.md#i2-lifecycle-wide-oracle-isolation, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "I3",
+      "kind": "design_invariant",
+      "rationale": "pre-registration",
+      "failureMode": "If no post-hoc adaptation or selection is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended pre-registration control.",
+      "validationObligation": "run-validator MUST verify no post-hoc adaptation or selection against standard.md#i3-no-post-hoc-adaptation-or-selection, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "I4",
+      "kind": "design_invariant",
+      "rationale": "reproducibility",
+      "failureMode": "If reconstructible conditions and provenance is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended reproducibility control.",
+      "validationObligation": "run-validator MUST verify reconstructible conditions and provenance against standard.md#i4-reconstructible-conditions-and-provenance, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "I5",
+      "kind": "design_invariant",
+      "rationale": "retry and missingness control",
+      "failureMode": "If attribution and complete attempt accounting is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended retry and missingness control control.",
+      "validationObligation": "ledger-validator MUST verify attribution and complete attempt accounting against standard.md#i5-attribution-and-complete-attempt-accounting, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "I6",
+      "kind": "design_invariant",
+      "rationale": "target-population inference",
+      "failureMode": "If claims bounded by evidence is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended target-population inference control.",
+      "validationObligation": "claim-validator MUST verify claims bounded by evidence against standard.md#i6-claims-are-bounded-by-evidence, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "I7",
+      "kind": "design_invariant",
+      "rationale": "enterprise security controls",
+      "failureMode": "If enforced least privilege is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended enterprise security controls control.",
+      "validationObligation": "run-validator MUST verify enforced least privilege against standard.md#i7-enforced-least-privilege, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "I8",
+      "kind": "design_invariant",
+      "rationale": "denominator and selection integrity",
+      "failureMode": "If declared optimization objectives is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended denominator and selection integrity control.",
+      "validationObligation": "metric-validator MUST verify declared optimization objectives against standard.md#i8-optimization-objectives-are-declared, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "I9",
+      "kind": "design_invariant",
+      "rationale": "deterministic and expert evidence hierarchy",
+      "failureMode": "If construct-fitting evidence is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended deterministic and expert evidence hierarchy control.",
+      "validationObligation": "case-qa-validator MUST verify construct-fitting evidence against standard.md#i9-evidence-fits-the-construct, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "I10",
+      "kind": "design_invariant",
+      "rationale": "fail-closed design",
+      "failureMode": "If fail-closed required paths is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended fail-closed design control.",
+      "validationObligation": "semantic-validator MUST verify fail-closed required paths against standard.md#i10-required-decision-paths-fail-closed, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "I11",
+      "kind": "design_invariant",
+      "rationale": "comparative experimental design",
+      "failureMode": "If causal comparability is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended comparative experimental design control.",
+      "validationObligation": "statistical-validator MUST verify causal comparability against standard.md#i11-causal-comparability, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "I12",
+      "kind": "design_invariant",
+      "rationale": "task and grader validation",
+      "failureMode": "If validated measurement only is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended task and grader validation control.",
+      "validationObligation": "case-qa-validator MUST verify validated measurement only against standard.md#i12-only-validated-measurement-enters-claims, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "I13",
+      "kind": "design_invariant",
+      "rationale": "adversarial measurement-system design",
+      "failureMode": "If trusted measurement boundary is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended adversarial measurement-system design control.",
+      "validationObligation": "run-validator MUST verify trusted measurement boundary against standard.md#i13-trusted-measurement-boundary, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "SCOPE-001",
+      "kind": "design_invariant",
+      "rationale": "agent-evaluation architecture in Informative References",
+      "failureMode": "If system-under-evaluation identity is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended agent-evaluation architecture in Informative References control.",
+      "validationObligation": "run-validator MUST verify system-under-evaluation identity against standard.md#system-under-evaluation, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "rationaleEvidence": {
+        "sourceIds": [
+          "SRC-ANTHROPIC-AGENT-EVALS-2026"
+        ],
+        "supportedClaims": [
+          "Agent evaluation measures the model and agent harness together, while task, tool, environment, transcript, outcome, and evaluation-harness identity determine what system was actually evaluated."
+        ],
+        "limitations": [
+          "Provider-authored industry experience does not empirically validate this standard's complete system-under-evaluation identity contract."
+        ]
+      },
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "SCOPE-002",
+      "kind": "source_evidence",
+      "sourceIds": [
+        "SRC-SWEBENCH-2024",
+        "SRC-SWELANCER-2025",
+        "SRC-NIST-SSDF-2022"
+      ],
+      "support": "evidence_gap",
+      "supportedClaims": [],
+      "limitations": [
+        "These sources cover different task populations; no one benchmark establishes enterprise transfer."
+      ],
+      "evidenceGap": {
+        "missingEvidence": [
+          "No current source set directly demonstrates representative coverage of all seven closed SDLC capabilities for the intended enterprise population.",
+          "No cross-organization study establishes transfer across repositories, toolchains, autonomy levels, and deployment environments."
+        ],
+        "claimRestriction": "The catalog MUST NOT claim complete enterprise-SDLC capability coverage or transfer from the cited benchmark populations.",
+        "closureCriteria": [
+          "Archive and independently verify representative primary empirical studies for each of the seven capability IDs.",
+          "Demonstrate predefined coverage and transfer criteria across multiple independent organizations, repositories, toolchains, autonomy levels, and operational environments."
+        ]
+      }
+    },
+    {
+      "requirementId": "SCOPE-003",
+      "kind": "design_invariant",
+      "rationale": "bounded standard architecture",
+      "failureMode": "If repository-grounded applicability and profile selection is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended bounded standard architecture control.",
+      "validationObligation": "conformance-validator MUST verify repository-grounded applicability and profile selection against standard.md#applicability-boundary-and-profiles, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "PROFILE-001",
+      "kind": "design_invariant",
+      "rationale": "deterministic specialization without weakening",
+      "failureMode": "If evaluation-profile hierarchy and effective measurement identity is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended deterministic specialization without weakening control.",
+      "validationObligation": "suite-and-case-validators MUST verify evaluation-profile hierarchy and effective measurement identity against standard.md#evaluation-profile-resolution, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "OUTPROF-001",
+      "kind": "design_invariant",
+      "rationale": "artifact-appropriate evaluation without scope expansion",
+      "failureMode": "If outcome-profile selection and compatibility is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended artifact-appropriate evaluation without scope expansion control.",
+      "validationObligation": "case-validator MUST verify outcome-profile selection and compatibility against standard.md#outcome-profiles, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "VALID-001",
+      "kind": "source_evidence",
+      "sourceIds": [
+        "SRC-NIST-AIRMF-2023"
+      ],
+      "support": "rationale_only",
+      "supportedClaims": [
+        "Evaluation must begin from intended use and risk context."
+      ],
+      "limitations": [
+        "AI RMF is broad guidance, not an executable validity protocol."
+      ]
+    },
+    {
+      "requirementId": "VALID-002",
+      "kind": "source_evidence",
+      "sourceIds": [
+        "SRC-NIST-AIRMF-2023"
+      ],
+      "support": "rationale_only",
+      "supportedClaims": [
+        "Claims require an explicit validity argument and known limitations."
+      ],
+      "limitations": [
+        "Local construct and transfer evidence remain necessary."
+      ]
+    },
+    {
+      "requirementId": "VALID-003",
+      "kind": "design_invariant",
+      "rationale": "current-workflow and human/tool comparison",
+      "failureMode": "If reference baselines is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended current-workflow and human/tool comparison control.",
+      "validationObligation": "statistical-validator MUST verify reference baselines against standard.md#intended-use-and-validity-argument, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "DATA-001",
+      "kind": "source_evidence",
+      "sourceIds": [
+        "SRC-NIST-AI6001-2024"
+      ],
+      "support": "rationale_only",
+      "supportedClaims": [
+        "Evaluation data needs explicit privacy, IP, and access controls."
+      ],
+      "limitations": [
+        "Jurisdiction-specific legal requirements remain outside the standard."
+      ]
+    },
+    {
+      "requirementId": "DATA-002",
+      "kind": "design_invariant",
+      "rationale": "least privilege and purpose limitation",
+      "failureMode": "If artifact access and retention is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended least privilege and purpose limitation control.",
+      "validationObligation": "evidence-validator MUST verify artifact access and retention against evidence-and-validation-contract.md#evidence-minimization-and-retention, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "CASE-001",
+      "kind": "source_evidence",
+      "sourceIds": [
+        "SRC-SWEBENCH-2024",
+        "SRC-METR-PUBLIC-TASKS-2024",
+        "SRC-METR-TASK-STANDARD-2024"
+      ],
+      "support": "documented_mechanism",
+      "supportedClaims": [
+        "The cited benchmark and task-format artifacts document explicit task, environment, scoring, and execution packaging for repository-grounded or executable tasks."
+      ],
+      "limitations": [
+        "Public task formats require local privacy, security, and validity controls.",
+        "Documented packaging is not empirical validation that the mechanism is necessary, sufficient, or transferable to an enterprise repository."
+      ]
+    },
+    {
+      "requirementId": "CASE-002",
+      "kind": "source_evidence",
+      "sourceIds": [
+        "SRC-OPENAI-VERIFIED-AUDIT-2026",
+        "SRC-OPENAI-PRO-AUDIT-2026"
+      ],
+      "support": "empirical_observation",
+      "supportedClaims": [
+        "Within the performance-conditioned 138-task Verified audit subset, review found at least 59.4% with material test-design or problem-description issues.",
+        "Within the 731-task Pro public split, the automated pipeline classified 200 tasks (27.4%) as broken and the distinct human campaign classified 249 tasks (34.1%) as broken; checks could reject valid alternatives or admit incomplete fixes."
+      ],
+      "limitations": [
+        "The populations, selection conditions, methods, and estimates remain distinct; neither result is a universal benchmark-defect rate.",
+        "These observations motivate outcome-profile controls but do not prove that this standard's control is necessary, sufficient, or transferable."
+      ],
+      "observationIds": [
+        "OBS-OPENAI-VERIFIED-DEFECT-AUDIT-2026",
+        "OBS-OPENAI-PRO-DEFECT-AUDIT-2026"
+      ],
+      "representedPopulation": "The performance-conditioned 138-task SWE-bench Verified defect-audit subset and all 731 tasks in the SWE-Bench Pro public split, with deeper Pro review conditioned on 286 initially flagged tasks."
+    },
+    {
+      "requirementId": "CASE-003",
+      "kind": "design_invariant",
+      "rationale": "living-set maintenance",
+      "failureMode": "If case lifecycle and retirement is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended living-set maintenance control.",
+      "validationObligation": "suite-validator MUST verify case lifecycle and retirement against standard.md#lifecycle-states, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "CASE-004",
+      "kind": "source_evidence",
+      "sourceIds": [
+        "SRC-OPENAI-VERIFIED-2024",
+        "SRC-OPENAI-VERIFIED-AUDIT-2026",
+        "SRC-OPENAI-PRO-AUDIT-2026"
+      ],
+      "support": "empirical_observation",
+      "supportedClaims": [
+        "The Verified curation selected 500 instances after three-annotator review, yet a later audit of the 138 tasks selected by inconsistent o3 performance found material residual defects.",
+        "The separate Pro audit found bounded defect rates on its 731-task public split after an initial filter and deeper review."
+      ],
+      "limitations": [
+        "Later defect discovery supports continued scrutiny only in these cited benchmark populations; it does not validate universal reviewer counts, maintenance gates, or this standard's complete revalidation process."
+      ],
+      "observationIds": [
+        "OBS-OPENAI-VERIFIED-CURATION-2024",
+        "OBS-OPENAI-VERIFIED-DEFECT-AUDIT-2026",
+        "OBS-OPENAI-PRO-DEFECT-AUDIT-2026"
+      ],
+      "representedPopulation": "The 1,699-instance Verified curation campaign and selected 500-instance subset; the later performance-conditioned 138-task Verified audit subset; and all 731 tasks in the Pro public split with deeper review of 286 initially flagged tasks."
+    },
+    {
+      "requirementId": "CASE-005",
+      "kind": "source_evidence",
+      "sourceIds": [
+        "SRC-OPENAI-PRO-AUDIT-2026"
+      ],
+      "support": "rationale_only",
+      "supportedClaims": [
+        "Terminal checks can miss task defects and unsupported success paths."
+      ],
+      "limitations": [
+        "The source does not validate this standard's complete decision-surface taxonomy."
+      ]
+    },
+    {
+      "requirementId": "HOLD-001",
+      "kind": "source_evidence",
+      "sourceIds": [
+        "SRC-OPENAI-VERIFIED-AUDIT-2026"
+      ],
+      "support": "empirical_observation",
+      "supportedClaims": [
+        "Within the named benchmark/model/protocol population, elicitation plus judge and manual review surfaced examples of benchmark-specific reconstruction signals."
+      ],
+      "limitations": [
+        "The study did not publish a validated contamination-prevalence estimate and cannot establish universal contamination or oracle-isolation effectiveness.",
+        "Detection can have false positives and false negatives and remains bounded to the named protocol."
+      ],
+      "observationIds": [
+        "OBS-OPENAI-VERIFIED-CONTAMINATION-2026"
+      ],
+      "representedPopulation": "Every SWE-bench Verified question probed against GPT-5.2 Chat, Claude Opus 4.5, and Gemini 3 Flash Preview for up to 15 turns per question-model probe."
+    },
+    {
+      "requirementId": "HOLD-002",
+      "kind": "source_evidence",
+      "sourceIds": [
+        "SRC-OPENAI-VERIFIED-AUDIT-2026"
+      ],
+      "support": "empirical_observation",
+      "supportedClaims": [
+        "In the performance-conditioned 138-task subset, inconsistent frontier-model performance was used to select cases for defect review, illustrating benchmark-specific loss of useful discrimination at the measured frontier.",
+        "In the separate all-question contamination protocol, elicitation surfaced benchmark-specific reconstruction signals for named models without estimating prevalence."
+      ],
+      "limitations": [
+        "Neither observation establishes a universal reuse threshold, exposure budget, contamination rate, or retirement rule.",
+        "The two observations have different populations and methods and must not be collapsed into one study result."
+      ],
+      "observationIds": [
+        "OBS-OPENAI-VERIFIED-DEFECT-AUDIT-2026",
+        "OBS-OPENAI-VERIFIED-CONTAMINATION-2026"
+      ],
+      "representedPopulation": "The 138 Verified tasks selected by inconsistent o3 performance across 64 runs, and every Verified question probed against three named target models for up to 15 turns."
+    },
+    {
+      "requirementId": "EXP-001",
+      "kind": "design_invariant",
+      "rationale": "reproducibility and pre-registration",
+      "failureMode": "If sealed experiment and scheduled cells is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended reproducibility and pre-registration control.",
+      "validationObligation": "run-validator MUST verify sealed experiment and scheduled cells against standard.md#sealed-experiment-contract, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "EXP-002",
+      "kind": "design_invariant",
+      "rationale": "causal comparability",
+      "failureMode": "If complete arm identity is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended causal comparability control.",
+      "validationObligation": "run-validator MUST verify complete arm identity against standard.md#sealed-experiment-contract, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "EXP-003",
+      "kind": "design_invariant",
+      "rationale": "paired experimental design",
+      "failureMode": "If comparative design is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended paired experimental design control.",
+      "validationObligation": "statistical-validator MUST verify comparative design against standard.md#sealed-experiment-contract, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "RUN-001",
+      "kind": "design_invariant",
+      "rationale": "reproducible harness practice in Informative References",
+      "failureMode": "If isolation, execution, capture, and teardown is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended reproducible harness practice in Informative References control.",
+      "validationObligation": "run-validator MUST verify isolation, execution, capture, and teardown against standard.md#run-protocol, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "rationaleEvidence": {
+        "sourceIds": [
+          "SRC-ANTHROPIC-AGENT-EVALS-2026",
+          "SRC-UKAISI-INSPECT-2024",
+          "SRC-INSPECT-EVALS"
+        ],
+        "supportedClaims": [
+          "Anthropic recommends clean isolated trial environments and complete trial records, while Inspect demonstrates task, solver, scorer, sandbox, execution-log, and transcript components.",
+          "Inspect Evals provides runnable implementation examples for the Inspect framework."
+        ],
+        "limitations": [
+          "These are provider guidance and implementation artifacts, not controlled evidence that the standard's full isolation, capture, and teardown contract is sufficient or universally implemented.",
+          "Inspect Evals entries vary in provenance and validation quality; catalog inclusion is not a validity claim."
+        ]
+      },
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "RUN-002",
+      "kind": "design_invariant",
+      "rationale": "missingness and retry-bias control",
+      "failureMode": "If complete attempt accounting is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended missingness and retry-bias control control.",
+      "validationObligation": "ledger-validator MUST verify complete attempt accounting against standard.md#i5-attribution-and-complete-attempt-accounting, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "RUN-003",
+      "kind": "source_evidence",
+      "sourceIds": [
+        "SRC-NIST-AI6001-2024",
+        "SRC-AGENTDOJO-2024",
+        "SRC-AUTODOJO-2026",
+        "SRC-OWASP-AGENTIC-2026",
+        "SRC-MITRE-ATLAS",
+        "SRC-INTOTO-2019",
+        "SRC-NIST-SSDF-2022",
+        "SRC-RFC9162-2021"
+      ],
+      "support": "rationale_only",
+      "supportedClaims": [
+        "AgentDojo reports utility and prompt-injection security observations only within its 97-task, 629-case simulated population and evaluated configurations.",
+        "AutoDojo reports that defense-adaptive attacks across three task suites and five target models can substantially exceed static-attack results, including 28% overall and 64% action-open attack success against one filter reported at 0% under static attacks.",
+        "in-toto specifies authenticated functionary and provenance mechanisms for software-supply-chain artifacts.",
+        "RFC 9162 specifies Merkle inclusion and consistency proofs and identifies conflicting log views; it does not specify this standard's witness, quorum, or authenticated-gossip protocol.",
+        "The NIST, OWASP, MITRE, provenance, and transparency sources motivate distinct threat and control categories; they do not validate complete containment by one combined measurement boundary."
+      ],
+      "limitations": [
+        "No cited source validates the standard's complete measurement-boundary composition as a whole.",
+        "AgentDojo and AutoDojo share benchmark lineage; neither establishes repository-SDLC target-population validity, and together they are not independent triangulation.",
+        "Known attacks and taxonomies do not establish absence of stronger adaptive, unknown, or organization-specific attacks.",
+        "Each mechanism still requires a local threat model, implementation validation, and operational evidence."
+      ]
+    },
+    {
+      "requirementId": "INT-001",
+      "kind": "source_evidence",
+      "sourceIds": [
+        "SRC-TAUBENCH-2024",
+        "SRC-WORKARENA-2024"
+      ],
+      "support": "documented_mechanism",
+      "supportedClaims": [
+        "The cited interactive benchmarks document actors, mutable state, tools, policy constraints, and terminal conditions as explicit evaluation components."
+      ],
+      "limitations": [
+        "Simulated actor validity remains an adopter responsibility.",
+        "The documented components do not empirically establish that this standard's interaction contract is necessary, sufficient, or transferable to another population."
+      ]
+    },
+    {
+      "requirementId": "EVID-001",
+      "kind": "source_evidence",
+      "sourceIds": [
+        "SRC-RFC8785-2020",
+        "SRC-RFC8032-2017",
+        "SRC-FIPS1865-2023",
+        "SRC-INTOTO-2019",
+        "SRC-RFC7518-2015",
+        "SRC-RFC9864-2025",
+        "SRC-RFC8017-2016",
+        "SRC-RFC9162-2021"
+      ],
+      "support": "documented_mechanism",
+      "supportedClaims": [
+        "The cited specifications document distinct canonicalization, signature, provenance, inclusion-proof, and consistency-proof mechanisms."
+      ],
+      "limitations": [
+        "The sources do not empirically validate this standard's composition, necessity, or sufficiency; trust policy, key lifecycle, witness, quorum, and authenticated-gossip choices require local operational contracts."
+      ]
+    },
+    {
+      "requirementId": "EVID-002",
+      "kind": "design_invariant",
+      "rationale": "detached validation avoids self-attested validity and cyclic subject/result authentication",
+      "failureMode": "If a subject can carry or authenticate its own validation verdict, self-attested validity or cyclic subject/result authentication can be accepted as independent evidence.",
+      "validationObligation": "conformance-validator MUST recompute the detached validation envelope over the immutable subject projection, verify its independent authorization and signature, and fail closed with insufficient_evidence when separation or binding cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "JUDGE-001",
+      "kind": "source_evidence",
+      "sourceIds": [
+        "SRC-LLM-JUDGE-2023"
+      ],
+      "support": "rationale_only",
+      "supportedClaims": [
+        "Model-judge bias makes construct fit and local validation necessary."
+      ],
+      "limitations": [
+        "Dialogue preferences do not establish coding-task grader validity."
+      ]
+    },
+    {
+      "requirementId": "JUDGE-002",
+      "kind": "source_evidence",
+      "sourceIds": [
+        "SRC-LLM-JUDGE-2023"
+      ],
+      "support": "rationale_only",
+      "supportedClaims": [
+        "Mechanically decidable facts should not be delegated solely to an unvalidated model judge."
+      ],
+      "limitations": [
+        "The deterministic evidence hierarchy is a fail-closed design invariant."
+      ]
+    },
+    {
+      "requirementId": "JUDGE-003",
+      "kind": "source_evidence",
+      "sourceIds": [
+        "SRC-LLM-JUDGE-2023"
+      ],
+      "support": "evidence_gap",
+      "supportedClaims": [],
+      "limitations": [
+        "The cited paper studies model-judge biases in dialogue evaluation; it does not validate human expert adjudication, blinding, rater identity controls, correlated human judgment, or a minimum rater count."
+      ],
+      "evidenceGap": {
+        "missingEvidence": [
+          "The current catalog contains no primary source that directly validates the complete human expert-adjudication controls required by JUDGE-003 for repository-grounded SDLC evaluations."
+        ],
+        "claimRestriction": "The LLM-as-a-judge paper MUST NOT be represented as evidence for human expert adjudication controls.",
+        "closureCriteria": [
+          "Archive and independently verify primary human-rating or adjudication research that addresses blinding, order effects, rater identity, dependence, disagreement resolution, and the relevant SDLC population."
+        ]
+      }
+    },
+    {
+      "requirementId": "GATE-001",
+      "kind": "design_invariant",
+      "rationale": "non-compensable safety and validity",
+      "failureMode": "If universal and profile gate registries is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended non-compensable safety and validity control.",
+      "validationObligation": "scorecard-validator MUST verify universal and profile gate registries against scorecard-contract.md#gate-registry, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "OUT-001",
+      "kind": "design_invariant",
+      "rationale": "explicit outcome contracts",
+      "failureMode": "If outcome taxonomy and predicates is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended explicit outcome contracts control.",
+      "validationObligation": "scorecard-validator MUST verify outcome taxonomy and predicates against scorecard-contract.md#successful-functional-and-accepted-outcomes, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "CLAIM-001",
+      "kind": "design_invariant",
+      "rationale": "claim-bounded reporting",
+      "failureMode": "If closed claims registry and `claims[]` is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended claim-bounded reporting control.",
+      "validationObligation": "scorecard-validator MUST verify closed claims registry and `claims[]` against scorecard-contract.md#claims, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "CLAIM-002",
+      "kind": "design_invariant",
+      "rationale": "target-population inference",
+      "failureMode": "If population and coverage limits is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended target-population inference control.",
+      "validationObligation": "statistical-validator MUST verify population and coverage limits against standard.md#statistics-and-missingness, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "STAT-001",
+      "kind": "source_evidence",
+      "sourceIds": [
+        "SRC-HUMANEVAL-2021",
+        "SRC-TAUBENCH-2024"
+      ],
+      "support": "rationale_only",
+      "supportedClaims": [
+        "HumanEval pass@k and tau-bench pass^k are distinct repeated-attempt summaries with different estimands and dependence assumptions; together they motivate explicit estimand, sampling-unit, and dependence semantics but do not validate a transferable estimator."
+      ],
+      "limitations": [
+        "pass@k and pass^k answer different questions and are not interchangeable.",
+        "Neither benchmark validates the standard's full enterprise repeated-trial contract or its transfer to dependent agent trials."
+      ]
+    },
+    {
+      "requirementId": "STAT-002",
+      "kind": "source_evidence",
+      "sourceIds": [
+        "SRC-IMBENS-MANSKI-2004"
+      ],
+      "support": "rationale_only",
+      "supportedClaims": [
+        "Unresolved outcomes require explicit identification regions rather than silent valid-only deletion."
+      ],
+      "limitations": [
+        "The standard's worst-case bounds are a conservative design rule, not a theorem copied from the paper."
+      ]
+    },
+    {
+      "requirementId": "STAT-003",
+      "kind": "source_evidence",
+      "sourceIds": [
+        "SRC-CGM-2008",
+        "SRC-ALWAYS-VALID-2015"
+      ],
+      "support": "documented_mechanism",
+      "supportedClaims": [
+        "The cited statistical work documents how within-cluster dependence and continuous monitoring alter the validity of conventional inference procedures."
+      ],
+      "limitations": [
+        "The standard's requirement to pre-declare monitoring looks is a design invariant not established by these sources; exact procedures depend on the evaluation design and must be validated locally."
+      ]
+    },
+    {
+      "requirementId": "ASSURE-001",
+      "kind": "design_invariant",
+      "rationale": "risk-proportionate enterprise adoption",
+      "failureMode": "If proportional assurance level is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended risk-proportionate enterprise adoption control.",
+      "validationObligation": "conformance-validator MUST verify proportional assurance level against standard.md#assurance-levels, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "RISK-001",
+      "kind": "source_evidence",
+      "sourceIds": [
+        "SRC-NIST-AIRMF-2023",
+        "SRC-NIST-AI6001-2024",
+        "SRC-AGENTDOJO-2024",
+        "SRC-AUTODOJO-2026",
+        "SRC-OWASP-AGENTIC-2026",
+        "SRC-MITRE-ATLAS"
+      ],
+      "support": "rationale_only",
+      "supportedClaims": [
+        "The cited frameworks and taxonomies motivate considering data, permissions, autonomy, environment, and adversarial pathways in addition to task labels.",
+        "AgentDojo's bounded static-distribution observations and AutoDojo's adaptive-attack observations show that measured security depends on task construction, attack adaptation, and defense-specific conditions."
+      ],
+      "limitations": [
+        "Threat taxonomies are incomplete and mutable.",
+        "AgentDojo and AutoDojo use simulated agent-task environments and shared benchmark lineage; neither validates a universal risk model or repository-SDLC transfer.",
+        "The combined factor list is a design rationale, not an empirically validated universal risk model."
+      ]
+    },
+    {
+      "requirementId": "GOV-001",
+      "kind": "design_invariant",
+      "rationale": "auditable decision governance",
+      "failureMode": "If pre-registered governance decision is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended auditable decision governance control.",
+      "validationObligation": "governance-validator MUST verify pre-registered governance decision against standard.md#governance-decisions-and-post-decision-assurance, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "GOV-002",
+      "kind": "source_evidence",
+      "sourceIds": [
+        "SRC-NIST-AIRMF-2023",
+        "SRC-ALWAYS-VALID-2015"
+      ],
+      "support": "rationale_only",
+      "supportedClaims": [
+        "NIST AI RMF supports continuous lifecycle monitoring, while Johari et al. supports inference designed for continuous monitoring."
+      ],
+      "limitations": [
+        "Evidence expiry and mandatory update rules are design invariants of this standard, not externally validated by these sources.",
+        "The operational thresholds are adopter-owned."
+      ]
+    },
+    {
+      "requirementId": "HEALTH-001",
+      "kind": "design_invariant",
+      "rationale": "living-set maintenance and drift control",
+      "failureMode": "If suite and measurement health is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended living-set maintenance and drift control control.",
+      "validationObligation": "suite-validator MUST verify suite and measurement health against standard.md#suite-health, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "rationaleEvidence": {
+        "sourceIds": [
+          "SRC-ANTHROPIC-AGENT-EVALS-2026",
+          "SRC-OPENAI-EVAL-BEST-PRACTICES"
+        ],
+        "supportedClaims": [
+          "Anthropic describes evaluation suites as living artifacts requiring ownership, transcript review, maintenance, and saturation monitoring.",
+          "OpenAI recommends continuous evaluation, production-relevant cases, logging, human calibration, and growing the evaluation set over time."
+        ],
+        "limitations": [
+          "Provider guidance supplies maintenance rationale but does not empirically validate this standard's health thresholds, expiry rules, or governance controls."
+        ]
+      },
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "CONF-001",
+      "kind": "design_invariant",
+      "rationale": "independently reviewable claims",
+      "failureMode": "If target-specific conformance is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended independently reviewable claims control.",
+      "validationObligation": "conformance-validator MUST verify target-specific conformance against conformance.md#conformance-targets, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "CONF-002",
+      "kind": "design_invariant",
+      "rationale": "requirement-level traceability",
+      "failureMode": "If requirement coverage matrix is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended requirement-level traceability control.",
+      "validationObligation": "conformance-validator MUST verify requirement coverage matrix against conformance.md#requirement-coverage, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    },
+    {
+      "requirementId": "CONF-003",
+      "kind": "design_invariant",
+      "rationale": "compatible extension design",
+      "failureMode": "If extension and deviation handling is absent, ambiguous, or bypassable, claims for its affected targets can be accepted without the intended compatible extension design control.",
+      "validationObligation": "conformance-validator MUST verify extension and deviation handling against conformance.md#extensions-and-deviations, bind the result to the affected targets, and fail closed with insufficient_evidence when applicability or conformance cannot be established.",
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+    }
+  ],
+  "capabilityCoverage": [
+    {
+      "capabilityId": "CAP.DISCOVER_SPECIFY",
+      "practiceClaims": [
+        "Evaluate agent-produced issue triage, requirements, constraints, and acceptance criteria as independently observable repository-grounded work products."
+      ],
+      "support": "evidence_gap",
+      "sourceIds": [],
+      "representedPopulation": "No directly supporting agent requirements-discovery or specification population is established by the current catalog.",
+      "transferLimits": [
+        "Benchmark-author task construction and feasibility review cannot be represented as evidence that an evaluated agent can elicit, negotiate, or specify requirements."
+      ],
+      "gaps": [
+        "Representative primary studies and validated cases for agent-produced issue triage, stakeholder elicitation, requirement negotiation, constraint discovery, and acceptance criteria are absent."
+      ],
+      "observationIds": [],
+      "targetPopulationValidation": {
+        "status": "not_established",
+        "targetPopulation": "Repository-grounded SDLC agents operating on version-controlled code, repository state, and repository-mediated engineering workflows in enterprise-relevant environments.",
+        "basisObservationIds": [],
+        "assessment": "No cataloged primary observation validates discovery or specification claims for the target population.",
+        "limitations": [
+          "Mechanism support or observations in adjacent populations MUST NOT be represented as validation for the declared repository-SDLC target population."
+        ],
+        "observationPopulationRelations": []
+      }
+    },
+    {
+      "capabilityId": "CAP.PLAN_DESIGN",
+      "practiceClaims": [
+        "Evaluate planning and design work as an independently observable SDLC capability."
+      ],
+      "support": "evidence_gap",
+      "sourceIds": [],
+      "representedPopulation": "No directly supporting empirical population is established by the current catalog.",
+      "transferLimits": [
+        "Coding-task success cannot be used as evidence of architecture, migration planning, threat modeling, or design-tradeoff quality."
+      ],
+      "gaps": [
+        "Representative primary studies and validated cases for architecture, planning, decomposition, migration, and design review are absent."
+      ],
+      "observationIds": [],
+      "targetPopulationValidation": {
+        "status": "not_established",
+        "targetPopulation": "Repository-grounded SDLC agents operating on version-controlled code, repository state, and repository-mediated engineering workflows in enterprise-relevant environments.",
+        "basisObservationIds": [],
+        "assessment": "No cataloged primary observation validates planning or design claims for the target population.",
+        "limitations": [
+          "Mechanism support or observations in adjacent populations MUST NOT be represented as validation for the declared repository-SDLC target population."
+        ],
+        "observationPopulationRelations": []
+      }
+    },
+    {
+      "capabilityId": "CAP.IMPLEMENT_CHANGE",
+      "practiceClaims": [
+        "The cited public artifacts document repository-grounded implementation tasks with executable environments, explicit artifacts, and independent execution."
+      ],
+      "support": "documented_mechanism",
+      "sourceIds": [
+        "SRC-SWEBENCH-2024",
+        "SRC-METR-PUBLIC-TASKS-2024"
+      ],
+      "representedPopulation": "Public repository issue-resolution tasks and separately maintained executable software tasks.",
+      "transferLimits": [
+        "Does not establish transfer to proprietary monorepos, embedded systems, greenfield development, or organization-specific toolchains."
+      ],
+      "gaps": [
+        "No verified evidence covers all languages, change types, autonomy levels, or enterprise repository constraints.",
+        "The documented task mechanisms do not establish effectiveness or transfer to enterprise development populations."
+      ],
+      "observationIds": [],
+      "targetPopulationValidation": {
+        "status": "not_established",
+        "targetPopulation": "Repository-grounded SDLC agents operating on version-controlled code, repository state, and repository-mediated engineering workflows in enterprise-relevant environments.",
+        "basisObservationIds": [],
+        "assessment": "The cited artifacts document task mechanisms, but no independent empirical validation establishes transfer to the target population.",
+        "limitations": [
+          "Mechanism support or observations in adjacent populations MUST NOT be represented as validation for the declared repository-SDLC target population."
+        ],
+        "observationPopulationRelations": []
+      }
+    },
+    {
+      "capabilityId": "CAP.VERIFY_ASSURE",
+      "practiceClaims": [
+        "AgentDojo reports utility and prompt-injection security observations within 97 tasks and 629 cases in simulated tool environments.",
+        "AutoDojo reports stronger defense-adaptive attacks across three task suites and five target models, including a bounded 28% overall and 64% action-open result against one filter reported at 0% under static attacks."
+      ],
+      "support": "empirical_observation",
+      "sourceIds": [
+        "SRC-AGENTDOJO-2024",
+        "SRC-AUTODOJO-2026"
+      ],
+      "representedPopulation": "AgentDojo's 97 tasks and 629 security cases in simulated tool environments, plus AutoDojo's defense-adaptive evaluations across three task suites and five target models.",
+      "transferLimits": [
+        "AgentDojo and AutoDojo share benchmark lineage and do not establish independent triangulation.",
+        "Neither population validates test design, formal verification, performance, accessibility, reliability, regulated assurance, or enterprise repository-SDLC transfer."
+      ],
+      "gaps": [
+        "Independent repository-grounded SDLC evidence for verification and assurance remains absent.",
+        "Independent evidence for test design, formal verification, performance, accessibility, reliability, and regulated assurance practices remains absent."
+      ],
+      "observationIds": [
+        "OBS-AGENTDOJO-SECURITY-2024",
+        "OBS-AUTODOJO-ADAPTIVE-ATTACK-2026"
+      ],
+      "targetPopulationValidation": {
+        "status": "not_established",
+        "targetPopulation": "Repository-grounded SDLC agents operating on version-controlled code, repository state, and repository-mediated engineering workflows in enterprise-relevant environments.",
+        "basisObservationIds": [
+          "OBS-AGENTDOJO-SECURITY-2024",
+          "OBS-AUTODOJO-ADAPTIVE-ATTACK-2026"
+        ],
+        "assessment": "AgentDojo and AutoDojo provide bounded security observations in simulated tool-agent environments with shared benchmark lineage; they do not validate repository-SDLC verification or assurance capability.",
+        "limitations": [
+          "Mechanism support or observations in adjacent populations MUST NOT be represented as validation for the declared repository-SDLC target population."
+        ],
+        "observationPopulationRelations": [
+          {
+            "observationId": "OBS-AGENTDOJO-SECURITY-2024",
+            "relationToTarget": "adjacent_population",
+            "justification": "AgentDojo studies simulated email, banking, travel, and related tool-agent tasks rather than repository-grounded SDLC verification and assurance work.",
+            "transferAssumptions": [],
+            "limitations": [
+              "No authenticated transfer assessment relates this simulated tool-agent population to enterprise repository-SDLC verification or assurance."
+            ]
+          },
+          {
+            "observationId": "OBS-AUTODOJO-ADAPTIVE-ATTACK-2026",
+            "relationToTarget": "adjacent_population",
+            "justification": "AutoDojo studies adaptive indirect-prompt-injection attacks across three agent task suites and five target models, not repository-grounded SDLC verification and assurance work.",
+            "transferAssumptions": [],
+            "limitations": [
+              "Shared AgentDojo lineage and the absence of an authenticated transfer assessment prohibit target-population validation."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "capabilityId": "CAP.REVIEW_DECIDE",
+      "practiceClaims": [
+        "Evaluate review and decision quality as a distinct capability rather than infer it from implementation scores."
+      ],
+      "support": "evidence_gap",
+      "sourceIds": [],
+      "representedPopulation": "No enterprise code-review or release-decision population is directly supported by the current catalog.",
+      "transferLimits": [
+        "LLM-judge dialogue findings and statistical methods inform risks but do not validate enterprise code-review or governance decisions."
+      ],
+      "gaps": [
+        "Representative primary evidence for code review, change approval, risk acceptance, and multi-party governance decisions is absent."
+      ],
+      "observationIds": [],
+      "targetPopulationValidation": {
+        "status": "not_established",
+        "targetPopulation": "Repository-grounded SDLC agents operating on version-controlled code, repository state, and repository-mediated engineering workflows in enterprise-relevant environments.",
+        "basisObservationIds": [],
+        "assessment": "No cataloged primary observation validates code-review or decision claims for the target population.",
+        "limitations": [
+          "Mechanism support or observations in adjacent populations MUST NOT be represented as validation for the declared repository-SDLC target population."
+        ],
+        "observationPopulationRelations": []
+      }
+    },
+    {
+      "capabilityId": "CAP.RELEASE_OPERATE",
+      "practiceClaims": [
+        "Evaluate release and operational behavior as a distinct capability with environment- and risk-specific evidence."
+      ],
+      "support": "evidence_gap",
+      "sourceIds": [],
+      "representedPopulation": "The current catalog contains guidance and threat taxonomies but no direct empirical enterprise release/operations population.",
+      "transferLimits": [
+        "Secure-SDLC guidance cannot be represented as empirical validation of deployment, observability, incident response, rollback, or production operation."
+      ],
+      "gaps": [
+        "Primary multi-organization evidence for deployment, migration, monitoring, on-call response, rollback, and operational recovery is absent."
+      ],
+      "observationIds": [],
+      "targetPopulationValidation": {
+        "status": "not_established",
+        "targetPopulation": "Repository-grounded SDLC agents operating on version-controlled code, repository state, and repository-mediated engineering workflows in enterprise-relevant environments.",
+        "basisObservationIds": [],
+        "assessment": "No cataloged primary observation validates release or operational claims for the target population.",
+        "limitations": [
+          "Mechanism support or observations in adjacent populations MUST NOT be represented as validation for the declared repository-SDLC target population."
+        ],
+        "observationPopulationRelations": []
+      }
+    },
+    {
+      "capabilityId": "CAP.REMEDIATE_LEARN",
+      "practiceClaims": [
+        "Two same-producer reports re-audited bounded coding-benchmark populations, quantified distinct defect findings, and later retracted an earlier benchmark recommendation."
+      ],
+      "support": "empirical_observation",
+      "sourceIds": [
+        "SRC-OPENAI-VERIFIED-AUDIT-2026",
+        "SRC-OPENAI-PRO-AUDIT-2026"
+      ],
+      "representedPopulation": "The performance-conditioned 138-task SWE-bench Verified audit subset and the 731-task SWE-Bench Pro public split, with deeper review of the 286 initially flagged Pro tasks.",
+      "transferLimits": [
+        "Same-provider reports are not triangulated empirical evidence and do not validate every alternative audit or remediation process."
+      ],
+      "gaps": [
+        "No independent multi-organization longitudinal evidence establishes remediation effectiveness across enterprise eval programs."
+      ],
+      "observationIds": [
+        "OBS-OPENAI-VERIFIED-DEFECT-AUDIT-2026",
+        "OBS-OPENAI-PRO-DEFECT-AUDIT-2026"
+      ],
+      "targetPopulationValidation": {
+        "status": "not_established",
+        "targetPopulation": "Repository-grounded SDLC agents operating on version-controlled code, repository state, and repository-mediated engineering workflows in enterprise-relevant environments.",
+        "basisObservationIds": [
+          "OBS-OPENAI-VERIFIED-DEFECT-AUDIT-2026",
+          "OBS-OPENAI-PRO-DEFECT-AUDIT-2026"
+        ],
+        "assessment": "The two provider audits show bounded benchmark re-audit findings from one producer; they do not validate enterprise remediation or learning effectiveness.",
+        "limitations": [
+          "Mechanism support or observations in adjacent populations MUST NOT be represented as validation for the declared repository-SDLC target population."
+        ],
+        "observationPopulationRelations": [
+          {
+            "observationId": "OBS-OPENAI-VERIFIED-DEFECT-AUDIT-2026",
+            "relationToTarget": "adjacent_population",
+            "justification": "The observation concerns a provider's benchmark defect-audit process, not remediation or organizational learning performed by evaluated repository-SDLC agents.",
+            "transferAssumptions": [],
+            "limitations": [
+              "A same-provider benchmark audit cannot establish agent remediation effectiveness or enterprise process transfer."
+            ]
+          },
+          {
+            "observationId": "OBS-OPENAI-PRO-DEFECT-AUDIT-2026",
+            "relationToTarget": "adjacent_population",
+            "justification": "The observation concerns a provider's audit of the SWE-Bench Pro public split, not remediation or organizational learning performed by evaluated repository-SDLC agents.",
+            "transferAssumptions": [],
+            "limitations": [
+              "No independent target-transfer assessment connects the bounded audit result to enterprise agent remediation and learning."
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "digest": "sha256:334415e41b7ae631d740d8608b27a63bf8128fac873af2c3c8770126230891fe"
+}

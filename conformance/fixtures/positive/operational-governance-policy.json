@@ -1,0 +1,364 @@
+{
+  "schemaVersion": "agent-eval-operational-governance-policy-1",
+  "id": "operational-governance-policy-fixture-1",
+  "version": "0.1.0",
+  "owner": {
+    "id": "fixture-policy-owner",
+    "role": "governance_owner"
+  },
+  "riskTaxonomy": {
+    "id": "risk-taxonomy-fixture-1",
+    "uri": "artifact:fixture:risk-taxonomy-fixture-1",
+    "digest": "sha256:0200907a55592bd4df60766cb29eedaf2d10d5d78ed7f55a3ff3a1b4abe7c4ae"
+  },
+  "rules": [
+    {
+      "riskTier": "low",
+      "requiredMembership": "held_out",
+      "minimumAssuranceByDecision": {
+        "capability_claim": "A1",
+        "release": "A2",
+        "autonomy": "A3",
+        "risk_acceptance": "A3"
+      },
+      "reliabilityRule": {
+        "id": "reliability-rule-low",
+        "uri": "artifact:fixture:reliability-rule-low",
+        "digest": "sha256:020b676ad02597423d5322709a2f0f76cd208a99d2af288783a3ec2476197451"
+      },
+      "intervalRule": {
+        "id": "interval-rule-low",
+        "uri": "artifact:fixture:interval-rule-low",
+        "digest": "sha256:d2d8e8b693e362fd7da2467ac28c0ee7f2e55c49dfb483a8a79aab00db81db07"
+      },
+      "minimumSampleRule": {
+        "id": "minimum-sample-rule-low",
+        "uri": "artifact:fixture:minimum-sample-rule-low",
+        "digest": "sha256:0143ba5162532fa13a5a417125ee03e633c0bde4d3df188fa5e4a066b95c81be"
+      },
+      "zeroToleranceGates": [
+        "security",
+        "privacy"
+      ],
+      "expectedGovernanceStatuses": [
+        "security_review_required",
+        "manual_review_required",
+        "data_owner_review_required",
+        "risk_acceptance_required"
+      ],
+      "costCeiling": 100,
+      "reviewBurdenCeiling": 10,
+      "transcriptReview": {
+        "id": "transcript-review-low",
+        "uri": "artifact:fixture:transcript-review-low",
+        "digest": "sha256:83b4ef8ed3a4f5a95eeb26c4c30ae65900b3fc0ca77339180078196da6a5e3bf"
+      },
+      "unresolvedCellPolicy": {
+        "id": "unresolved-cell-policy-low",
+        "uri": "artifact:fixture:unresolved-cell-policy-low",
+        "digest": "sha256:1a7b9100f879e7e1d3f8b044b7eb8344bb9b564d199b447cc2c8ac09b97a3a16"
+      },
+      "decisionConditions": {
+        "id": "decision-conditions-low",
+        "uri": "artifact:fixture:decision-conditions-low",
+        "digest": "sha256:0fd7386f99d2b8e64f853487208692a41bcfe6495b0063616ef3999699b0bcbd"
+      },
+      "approverRoles": [
+        "governance_approver"
+      ],
+      "maximumApprovalLifetimeSeconds": 86400,
+      "approvalEnvelopeContract": {
+        "id": "approval-envelope-contract-low",
+        "uri": "artifact:fixture:approval-envelope-contract-low",
+        "digest": "sha256:3418c12e6b11e9ca45f58c318cc78452d78440904b31729ec89ddc5eb0ec2fba"
+      },
+      "rollbackContract": {
+        "id": "rollback-contract-low",
+        "uri": "artifact:fixture:rollback-contract-low",
+        "digest": "sha256:84ec1ede1ec7ad5cff589e84c6529437686b0d5935eedbef59f9777925b0bde0"
+      },
+      "waiverPolicy": {
+        "id": "waiver-policy-low",
+        "uri": "artifact:fixture:waiver-policy-low",
+        "digest": "sha256:5b0c4546bdc9e27b866cedab4b6385f9515593da966664db827c1fad6c8ba2e9"
+      },
+      "postDecisionAssuranceContract": {
+        "id": "post-decision-assurance-contract-low",
+        "uri": "artifact:fixture:post-decision-assurance-contract-low",
+        "digest": "sha256:094450d4e8c0872102a9dc0032bcec3f126d270deb68c99cde48b79dbd89069c"
+      }
+    },
+    {
+      "riskTier": "medium",
+      "requiredMembership": "held_out",
+      "minimumAssuranceByDecision": {
+        "capability_claim": "A1",
+        "release": "A2",
+        "autonomy": "A3",
+        "risk_acceptance": "A3"
+      },
+      "reliabilityRule": {
+        "id": "reliability-rule-medium",
+        "uri": "artifact:fixture:reliability-rule-medium",
+        "digest": "sha256:bf6544363fab4c6a2b8a27aac121409aa1cdd35624feb4b5facbbb93d54aa2e8"
+      },
+      "intervalRule": {
+        "id": "interval-rule-medium",
+        "uri": "artifact:fixture:interval-rule-medium",
+        "digest": "sha256:ea7f875a147f960c216f0278f3e9128be7acb2644cbdc2cc6e80140ccbcec872"
+      },
+      "minimumSampleRule": {
+        "id": "minimum-sample-rule-medium",
+        "uri": "artifact:fixture:minimum-sample-rule-medium",
+        "digest": "sha256:aadd0b57bf7f4a491108efcf49839d8f0d53b64dd94b75c3f213ca9dfc29540e"
+      },
+      "zeroToleranceGates": [
+        "security",
+        "privacy"
+      ],
+      "expectedGovernanceStatuses": [
+        "security_review_required",
+        "manual_review_required",
+        "data_owner_review_required",
+        "risk_acceptance_required"
+      ],
+      "costCeiling": 101,
+      "reviewBurdenCeiling": 11,
+      "transcriptReview": {
+        "id": "transcript-review-medium",
+        "uri": "artifact:fixture:transcript-review-medium",
+        "digest": "sha256:214fa9a36b55a659512e45ca6b3a210999bdca50dcc332328c44bd3cc9eb50c1"
+      },
+      "unresolvedCellPolicy": {
+        "id": "unresolved-cell-policy-medium",
+        "uri": "artifact:fixture:unresolved-cell-policy-medium",
+        "digest": "sha256:821ec54033b11e6d3248b9fe57bd647c7feb39142ccf8ee146f6bb150914e90f"
+      },
+      "decisionConditions": {
+        "id": "decision-conditions-medium",
+        "uri": "artifact:fixture:decision-conditions-medium",
+        "digest": "sha256:3cedd23fab98fc5274421fbace7de25ef0e68aab0fa71b60558a4bb6d8b22df7"
+      },
+      "approverRoles": [
+        "governance_approver"
+      ],
+      "maximumApprovalLifetimeSeconds": 86400,
+      "approvalEnvelopeContract": {
+        "id": "approval-envelope-contract-medium",
+        "uri": "artifact:fixture:approval-envelope-contract-medium",
+        "digest": "sha256:c88c525cd474e3c9984049b63eb40c44167757ac4b2724c9bda2768789aae472"
+      },
+      "rollbackContract": {
+        "id": "rollback-contract-medium",
+        "uri": "artifact:fixture:rollback-contract-medium",
+        "digest": "sha256:3869e6dbd933a19cfc06f354566d4e33e704f0e6c5cf2f589d83b053cceeaab9"
+      },
+      "waiverPolicy": {
+        "id": "waiver-policy-medium",
+        "uri": "artifact:fixture:waiver-policy-medium",
+        "digest": "sha256:9ffe497f42e6b9ddcd50ebe439b470f54f18773df464d2431c76d8ddcec043e4"
+      },
+      "postDecisionAssuranceContract": {
+        "id": "post-decision-assurance-contract-medium",
+        "uri": "artifact:fixture:post-decision-assurance-contract-medium",
+        "digest": "sha256:543573fef7ae1503db70456a55e07d07f93a229d1b2737ae4968d2d2761cf940"
+      }
+    },
+    {
+      "riskTier": "high",
+      "requiredMembership": "held_out",
+      "minimumAssuranceByDecision": {
+        "capability_claim": "A3",
+        "release": "A3",
+        "autonomy": "A3",
+        "risk_acceptance": "A3"
+      },
+      "reliabilityRule": {
+        "id": "reliability-rule-high",
+        "uri": "artifact:fixture:reliability-rule-high",
+        "digest": "sha256:fc5837dbc219b00436a67b3484cf18309a0a109a73086f4996f7deb43f3714ab"
+      },
+      "intervalRule": {
+        "id": "interval-rule-high",
+        "uri": "artifact:fixture:interval-rule-high",
+        "digest": "sha256:f6c2d973ac90c68118b3958d0e943e1f46564033b74b39ca6e72bbf50145b6b4"
+      },
+      "minimumSampleRule": {
+        "id": "minimum-sample-rule-high",
+        "uri": "artifact:fixture:minimum-sample-rule-high",
+        "digest": "sha256:d42fdff582d6d674654354f49c0eb973dfd25ca2ca028abe14ed7d9f00a8371f"
+      },
+      "zeroToleranceGates": [
+        "security",
+        "privacy"
+      ],
+      "expectedGovernanceStatuses": [
+        "security_review_required",
+        "manual_review_required",
+        "data_owner_review_required",
+        "risk_acceptance_required"
+      ],
+      "costCeiling": 102,
+      "reviewBurdenCeiling": 12,
+      "transcriptReview": {
+        "id": "transcript-review-high",
+        "uri": "artifact:fixture:transcript-review-high",
+        "digest": "sha256:9d623acdbd45a8efaf6d14954a564a887cc07f3f9137beb0feef95c5817e1535"
+      },
+      "unresolvedCellPolicy": {
+        "id": "unresolved-cell-policy-high",
+        "uri": "artifact:fixture:unresolved-cell-policy-high",
+        "digest": "sha256:4a2c1ee9052ff3bdda94d4e91059b3c6cfc56e6bfcc7d98940216c505d4a55e2"
+      },
+      "decisionConditions": {
+        "id": "decision-conditions-high",
+        "uri": "artifact:fixture:decision-conditions-high",
+        "digest": "sha256:65f62e95f21d58f2fb4a346b6581440737dffbe241af8c1a30be6a8b7d4a02ad"
+      },
+      "approverRoles": [
+        "governance_approver"
+      ],
+      "maximumApprovalLifetimeSeconds": 86400,
+      "approvalEnvelopeContract": {
+        "id": "approval-envelope-contract-high",
+        "uri": "artifact:fixture:approval-envelope-contract-high",
+        "digest": "sha256:6972be191a11e1812c6319046776ecab5f1e701e3d2e5969ee3b1491e04bbafb"
+      },
+      "rollbackContract": {
+        "id": "rollback-contract-high",
+        "uri": "artifact:fixture:rollback-contract-high",
+        "digest": "sha256:d354a131799cfadee42c87ae49466fb8e190df01d5aa1215c7d7d253ba72bc80"
+      },
+      "waiverPolicy": {
+        "id": "waiver-policy-high",
+        "uri": "artifact:fixture:waiver-policy-high",
+        "digest": "sha256:0ebb0f497901f911e49920543436306addacc66d8dec0b00b16f529ef560a03e"
+      },
+      "postDecisionAssuranceContract": {
+        "id": "post-decision-assurance-contract-high",
+        "uri": "artifact:fixture:post-decision-assurance-contract-high",
+        "digest": "sha256:1712a8a5d285bfd08729ad1c49ea65ce4a5124ab7f8521a1e90e88693d2fe4ff"
+      }
+    },
+    {
+      "riskTier": "critical",
+      "requiredMembership": "held_out",
+      "minimumAssuranceByDecision": {
+        "capability_claim": "A3",
+        "release": "A3",
+        "autonomy": "A3",
+        "risk_acceptance": "A3"
+      },
+      "reliabilityRule": {
+        "id": "reliability-rule-critical",
+        "uri": "artifact:fixture:reliability-rule-critical",
+        "digest": "sha256:6f7437dec3a806c632fab1bc81f5b51a83831867a6023580bd20f92eba6d9bbc"
+      },
+      "intervalRule": {
+        "id": "interval-rule-critical",
+        "uri": "artifact:fixture:interval-rule-critical",
+        "digest": "sha256:1a7660e71aca90855bc320ee2d96421a81f3ad38130d475eeb2bfb7e68fe61de"
+      },
+      "minimumSampleRule": {
+        "id": "minimum-sample-rule-critical",
+        "uri": "artifact:fixture:minimum-sample-rule-critical",
+        "digest": "sha256:4c87add22916c2498167a6670c70bd99f31fb94caecd2ded20bad4cb87597323"
+      },
+      "zeroToleranceGates": [
+        "security",
+        "privacy"
+      ],
+      "expectedGovernanceStatuses": [
+        "security_review_required",
+        "manual_review_required",
+        "data_owner_review_required",
+        "risk_acceptance_required"
+      ],
+      "costCeiling": 103,
+      "reviewBurdenCeiling": 13,
+      "transcriptReview": {
+        "id": "transcript-review-critical",
+        "uri": "artifact:fixture:transcript-review-critical",
+        "digest": "sha256:d7bcdd1be8d6467c7e0dc4060bb1aedb5316e0d4cbbbc25dd0e62d688020c885"
+      },
+      "unresolvedCellPolicy": {
+        "id": "unresolved-cell-policy-critical",
+        "uri": "artifact:fixture:unresolved-cell-policy-critical",
+        "digest": "sha256:848e6425d61f7444c8f8e1f74f2c7f52724458a25995329a0ebb3779e28e13f6"
+      },
+      "decisionConditions": {
+        "id": "decision-conditions-critical",
+        "uri": "artifact:fixture:decision-conditions-critical",
+        "digest": "sha256:c8126f8fe77dd76fb7ca1aa77680c552ea9a9be09d06b01c694a5a22e0903976"
+      },
+      "approverRoles": [
+        "governance_approver"
+      ],
+      "maximumApprovalLifetimeSeconds": 86400,
+      "approvalEnvelopeContract": {
+        "id": "approval-envelope-contract-critical",
+        "uri": "artifact:fixture:approval-envelope-contract-critical",
+        "digest": "sha256:c4f3926338f2ecfe82fb2be9f4f589c9bae5d2f916b596fd580eda5d9afdbb5e"
+      },
+      "rollbackContract": {
+        "id": "rollback-contract-critical",
+        "uri": "artifact:fixture:rollback-contract-critical",
+        "digest": "sha256:325417a5bd8ff75cf9ae649e2154d6d4f51e2bf90dee93fe4b7fcd27721cffb0"
+      },
+      "waiverPolicy": {
+        "id": "waiver-policy-critical",
+        "uri": "artifact:fixture:waiver-policy-critical",
+        "digest": "sha256:bf0a2a1154f99d4f1f6eaa915e187ca7e67ca1bd36dc51bcbc4534f3186c3ae2"
+      },
+      "postDecisionAssuranceContract": {
+        "id": "post-decision-assurance-contract-critical",
+        "uri": "artifact:fixture:post-decision-assurance-contract-critical",
+        "digest": "sha256:5ae7580d1e08d12106ae309fc7bcb7a962df203154b0b0bd019a6498f4f4bfb5"
+      }
+    }
+  ],
+  "roleIncompatibilities": [
+    [
+      "runner",
+      "approver"
+    ],
+    [
+      "evidence_producer",
+      "status_resolver"
+    ]
+  ],
+  "nonWaivableIds": [
+    "hardGateRegression",
+    "heldOutLeakage",
+    "decisionExpired",
+    "reviewDue",
+    "measurementBoundaryCompromise",
+    "irreversibleCriticalOperation",
+    "productionCredentialsProhibited",
+    "approvedConfigurationChanged",
+    "productionMonitoringBreach",
+    "productionConcordanceDegraded",
+    "assuranceEvidenceMissing",
+    "suspectedContamination",
+    "confirmedContamination",
+    "privacyIpRetentionBreach"
+  ],
+  "escalationMatrix": {
+    "id": "operational-escalation-matrix-fixture-1",
+    "uri": "artifact:fixture:operational-escalation-matrix-fixture-1",
+    "digest": "sha256:35746a0015230a7dd56f9fe75a77f00e7ad0166a0403f0dce85df95d481f10f1"
+  },
+  "measurementMaintenance": {
+    "id": "measurement-maintenance-fixture-1",
+    "uri": "artifact:fixture:measurement-maintenance-fixture-1",
+    "digest": "sha256:3bb29701255d875175095ea6f60b620fc41d4315574a0d99114283b55e855195"
+  },
+  "digest": "sha256:477ce1399503cf822d48602fa83cab4542608d1746b98f507c914d1fc25fcb91",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:11Z",
+    "value": "-TWK6AvIvycMvw4LPiDCIZjkOcpks2J4GgSpf_ynlxwsHBtxI2vfyD9EZdxQeDRrLN7cXEfzpGp0AcgwmbEaBw"
+  }
+}

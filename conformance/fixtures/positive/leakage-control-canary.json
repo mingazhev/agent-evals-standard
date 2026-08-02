@@ -1,0 +1,14 @@
+{
+  "type": "canary",
+  "artifactId": "hidden-oracle-canary",
+  "accessClass": "hidden_oracle",
+  "markerDigest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "semanticInertnessEvidence": {
+    "id": "canary-semantic-inertness",
+    "version": "0.1.0",
+    "digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "schemaId": "semantic-inertness-contract-1",
+    "verifierDigest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  },
+  "interpretation": "detection_only_not_clean_proof"
+}

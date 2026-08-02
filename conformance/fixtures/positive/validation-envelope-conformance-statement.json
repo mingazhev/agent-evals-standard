@@ -1,0 +1,436 @@
+{
+  "schemaVersion": "agent-eval-validation-envelope-1",
+  "envelopeId": "conformance-statement-validation-envelope-fixture-1",
+  "subject": {
+    "type": "conformance_statement",
+    "id": "conformance-decision-fixture-1",
+    "claimTarget": "decision",
+    "digest": "sha256:2714cb2bf2d6b0c1936750e867c19c0f3d3144e9650ce8cade8e13276ebe8a1a",
+    "projection": "full_document_without_digest_and_signature",
+    "targetSubject": {
+      "id": "governance-decision-fixture-1",
+      "version": "0.1.0",
+      "uri": "governance-decision.json",
+      "digest": "sha256:d3065afbedb22f0e988747bb92bff3db5d9ff2e00bfc515fcb8f365c0f46634c"
+    },
+    "dependencyManifest": {
+      "id": "conformance-decision-target-dependencies",
+      "version": "0.1.0",
+      "entries": [
+        {
+          "role": "target_subject",
+          "id": "governance-decision-fixture-1",
+          "version": "0.1.0",
+          "uri": "governance-decision.json",
+          "digest": "sha256:d3065afbedb22f0e988747bb92bff3db5d9ff2e00bfc515fcb8f365c0f46634c"
+        },
+        {
+          "role": "repository_snapshot",
+          "scopeSliceId": "repository-change-primary",
+          "id": "repository-snapshot-fixture-1",
+          "version": "0.1.0",
+          "uri": "workspace-manifest-primary.json",
+          "digest": "sha256:9f4be8ab7e12ef1481606c38173673aa012cf88e383313716b5cc95b5d0342e8"
+        },
+        {
+          "role": "evaluation_profile",
+          "scopeSliceId": "repository-change-primary",
+          "id": "repo-change-v1",
+          "version": "0.1.0",
+          "uri": "../../../profiles/repo-change-v1/evaluation-profile.json",
+          "digest": "sha256:82135cb0af1b99baf73146b7b8df1f6c1b80e9c1fa847486aee0196e4bcdcd46"
+        },
+        {
+          "role": "work_artifact_registry",
+          "scopeSliceId": "repository-change-primary",
+          "id": "repository-sdlc-work-artifact-registry",
+          "version": "0.1.0",
+          "uri": "../../../standard/work-artifact-registry.json",
+          "digest": "sha256:151684e0e5c35023ec07d6f4554ebedb9ecd4e52ef7738bd77c1eb31c95053c7"
+        },
+        {
+          "role": "outcome_profile",
+          "scopeSliceId": "repository-change-primary",
+          "id": "workspace-change-v1",
+          "version": "0.1.0",
+          "uri": "../../../profiles/repo-change-v1/outcome-profile.json",
+          "digest": "sha256:d5caa138041d104bff90c38f9f3735ab4f9afac87efb167f61dd5e916ecbd10d"
+        },
+        {
+          "role": "repository_snapshot",
+          "scopeSliceId": "repository-change-secondary",
+          "id": "repository-snapshot-fixture-2",
+          "version": "0.1.0",
+          "uri": "workspace-manifest-secondary.json",
+          "digest": "sha256:1160ef9709681da1cb40295f2c92332ba5a0d0c5003a82c11bfeccd216cf94f7"
+        },
+        {
+          "role": "evaluation_profile",
+          "scopeSliceId": "repository-change-secondary",
+          "id": "repo-change-v1",
+          "version": "0.1.0",
+          "uri": "../../../profiles/repo-change-v1/evaluation-profile.json",
+          "digest": "sha256:82135cb0af1b99baf73146b7b8df1f6c1b80e9c1fa847486aee0196e4bcdcd46"
+        },
+        {
+          "role": "work_artifact_registry",
+          "scopeSliceId": "repository-change-secondary",
+          "id": "repository-sdlc-work-artifact-registry",
+          "version": "0.1.0",
+          "uri": "../../../standard/work-artifact-registry.json",
+          "digest": "sha256:151684e0e5c35023ec07d6f4554ebedb9ecd4e52ef7738bd77c1eb31c95053c7"
+        },
+        {
+          "role": "outcome_profile",
+          "scopeSliceId": "repository-change-secondary",
+          "id": "workspace-change-v1",
+          "version": "0.1.0",
+          "uri": "../../../profiles/repo-change-v1/outcome-profile.json",
+          "digest": "sha256:d5caa138041d104bff90c38f9f3735ab4f9afac87efb167f61dd5e916ecbd10d"
+        },
+        {
+          "role": "applicability_contract",
+          "id": "decision-applicability-contract",
+          "version": "0.1.0",
+          "uri": "decision-applicability-contract.json",
+          "digest": "sha256:c6af0e5a359b6f29b05db203697264875d0d581abc1d6f551c65e78d80e92026"
+        }
+      ],
+      "digest": "sha256:d97e915651cb530b38e8e0d7f4c91cf97b043330344e869baed8f728697fbda1"
+    }
+  },
+  "validationContractVersion": "0.1.0",
+  "validator": {
+    "id": "fixture-conformance-validator",
+    "version": "0.1.0",
+    "implementationDigest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  },
+  "checks": [
+    {
+      "requirementId": "ARCH-001",
+      "result": "insufficient_evidence",
+      "findingIds": [
+        "unregistered-verification-evidence"
+      ],
+      "evidenceIds": [
+        "repository-grounding-primary",
+        "repository-grounding-secondary"
+      ]
+    },
+    {
+      "requirementId": "ASSURE-001",
+      "result": "insufficient_evidence",
+      "findingIds": [
+        "unregistered-verification-evidence"
+      ],
+      "evidenceIds": [
+        "repository-grounding-primary",
+        "repository-grounding-secondary"
+      ]
+    },
+    {
+      "requirementId": "CLAIM-001",
+      "result": "insufficient_evidence",
+      "findingIds": [
+        "unregistered-verification-evidence"
+      ],
+      "evidenceIds": [
+        "repository-grounding-primary",
+        "repository-grounding-secondary"
+      ]
+    },
+    {
+      "requirementId": "CLAIM-002",
+      "result": "insufficient_evidence",
+      "findingIds": [
+        "unregistered-verification-evidence"
+      ],
+      "evidenceIds": [
+        "repository-grounding-primary",
+        "repository-grounding-secondary"
+      ]
+    },
+    {
+      "requirementId": "CONF-001",
+      "result": "insufficient_evidence",
+      "findingIds": [
+        "unregistered-verification-evidence"
+      ],
+      "evidenceIds": [
+        "repository-grounding-primary",
+        "repository-grounding-secondary"
+      ]
+    },
+    {
+      "requirementId": "CONF-002",
+      "result": "insufficient_evidence",
+      "findingIds": [
+        "unregistered-verification-evidence"
+      ],
+      "evidenceIds": [
+        "repository-grounding-primary",
+        "repository-grounding-secondary"
+      ]
+    },
+    {
+      "requirementId": "CONF-003",
+      "result": "insufficient_evidence",
+      "findingIds": [
+        "unregistered-verification-evidence"
+      ],
+      "evidenceIds": [
+        "repository-grounding-primary",
+        "repository-grounding-secondary"
+      ]
+    },
+    {
+      "requirementId": "DATA-002",
+      "result": "insufficient_evidence",
+      "findingIds": [
+        "unregistered-verification-evidence"
+      ],
+      "evidenceIds": [
+        "repository-grounding-primary",
+        "repository-grounding-secondary"
+      ]
+    },
+    {
+      "requirementId": "EVID-001",
+      "result": "insufficient_evidence",
+      "findingIds": [
+        "unregistered-verification-evidence"
+      ],
+      "evidenceIds": [
+        "repository-grounding-primary",
+        "repository-grounding-secondary"
+      ]
+    },
+    {
+      "requirementId": "EVID-002",
+      "result": "insufficient_evidence",
+      "findingIds": [
+        "unregistered-verification-evidence"
+      ],
+      "evidenceIds": [
+        "repository-grounding-primary",
+        "repository-grounding-secondary"
+      ]
+    },
+    {
+      "requirementId": "GOV-001",
+      "result": "insufficient_evidence",
+      "findingIds": [
+        "unregistered-verification-evidence"
+      ],
+      "evidenceIds": [
+        "repository-grounding-primary",
+        "repository-grounding-secondary"
+      ]
+    },
+    {
+      "requirementId": "GOV-002",
+      "result": "insufficient_evidence",
+      "findingIds": [
+        "unregistered-verification-evidence"
+      ],
+      "evidenceIds": [
+        "repository-grounding-primary",
+        "repository-grounding-secondary"
+      ]
+    },
+    {
+      "requirementId": "HEALTH-001",
+      "result": "insufficient_evidence",
+      "findingIds": [
+        "unregistered-verification-evidence"
+      ],
+      "evidenceIds": [
+        "repository-grounding-primary",
+        "repository-grounding-secondary"
+      ]
+    },
+    {
+      "requirementId": "I1",
+      "result": "insufficient_evidence",
+      "findingIds": [
+        "unregistered-verification-evidence"
+      ],
+      "evidenceIds": [
+        "repository-grounding-primary",
+        "repository-grounding-secondary"
+      ]
+    },
+    {
+      "requirementId": "I10",
+      "result": "insufficient_evidence",
+      "findingIds": [
+        "unregistered-verification-evidence"
+      ],
+      "evidenceIds": [
+        "repository-grounding-primary",
+        "repository-grounding-secondary"
+      ]
+    },
+    {
+      "requirementId": "I6",
+      "result": "insufficient_evidence",
+      "findingIds": [
+        "unregistered-verification-evidence"
+      ],
+      "evidenceIds": [
+        "repository-grounding-primary",
+        "repository-grounding-secondary"
+      ]
+    },
+    {
+      "requirementId": "RISK-001",
+      "result": "insufficient_evidence",
+      "findingIds": [
+        "unregistered-verification-evidence"
+      ],
+      "evidenceIds": [
+        "repository-grounding-primary",
+        "repository-grounding-secondary"
+      ]
+    },
+    {
+      "requirementId": "TRACE-001",
+      "result": "insufficient_evidence",
+      "findingIds": [
+        "unregistered-verification-evidence"
+      ],
+      "evidenceIds": [
+        "repository-grounding-primary",
+        "repository-grounding-secondary"
+      ]
+    }
+  ],
+  "result": "insufficient_evidence",
+  "output": null,
+  "validatedAt": "2026-08-01T00:00:30Z",
+  "evidenceManifest": [
+    {
+      "id": "repository-grounding-primary",
+      "uri": "repository-grounding-primary.json",
+      "mediaType": "application/json",
+      "digest": "sha256:c465c72aca928de17f463eaafd3236f01000450563065905b428747bc1d7623a",
+      "byteLength": 4185,
+      "producer": {
+        "id": "repository-grounding-verifier",
+        "role": "verifier",
+        "trustDomain": "external"
+      },
+      "creationPhase": "aggregation",
+      "createdAt": "2026-08-01T00:00:21Z",
+      "schemaMetadata": {
+        "schemaId": "agent-eval-repository-grounding-evidence-1",
+        "schemaVersion": "0.1.0",
+        "validatorDigest": "sha256:33d0e4202b783677b260696ba701bb7bcc67180cfc36381eebced7adfcdb1dcf"
+      },
+      "mediaInterpretation": {
+        "profileId": "json-rfc8785",
+        "profileVersion": "0.1.0",
+        "semanticContract": {
+          "id": "repository-grounding-evidence-contract",
+          "version": "0.1.0",
+          "digest": "sha256:be12d9f32249a10779608fec2e59b32dccacbc7397b020df370dc4378fed55ec"
+        }
+      },
+      "accessClass": "internal",
+      "accessPolicyBinding": {
+        "id": "fixture-access-policy",
+        "version": "0.1.0",
+        "digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      },
+      "privacyAndIp": {
+        "classification": "none",
+        "restrictions": []
+      },
+      "retention": {
+        "class": "fixture",
+        "expiresAt": "2027-08-01T00:00:00Z",
+        "disposition": "delete",
+        "legalHold": false
+      },
+      "attestation": {
+        "profileId": "fixture-signature-profile",
+        "algorithm": "Ed25519",
+        "keyId": "rfc8032-test-key-1",
+        "signedAt": "2026-08-01T00:00:21Z",
+        "value": "oGaQoLBBkHNqavSoxvoTcDv6PpQthC-R0s8Nya__z8MFH8-uc0JFo72cb_EXRoHeiFLNnvMh5dUd8aJu-rFkDw"
+      },
+      "payload": {
+        "kind": "repository_relative",
+        "path": "repository-grounding-primary.json"
+      }
+    },
+    {
+      "id": "repository-grounding-secondary",
+      "uri": "repository-grounding-secondary.json",
+      "mediaType": "application/json",
+      "digest": "sha256:2dcd4b89a54928a02a3e4a49c45d8a9d5e192d92c841ec865b1ea022626505cc",
+      "byteLength": 4199,
+      "producer": {
+        "id": "repository-grounding-verifier",
+        "role": "verifier",
+        "trustDomain": "external"
+      },
+      "creationPhase": "aggregation",
+      "createdAt": "2026-08-01T00:00:22Z",
+      "schemaMetadata": {
+        "schemaId": "agent-eval-repository-grounding-evidence-1",
+        "schemaVersion": "0.1.0",
+        "validatorDigest": "sha256:33d0e4202b783677b260696ba701bb7bcc67180cfc36381eebced7adfcdb1dcf"
+      },
+      "mediaInterpretation": {
+        "profileId": "json-rfc8785",
+        "profileVersion": "0.1.0",
+        "semanticContract": {
+          "id": "repository-grounding-evidence-contract",
+          "version": "0.1.0",
+          "digest": "sha256:be12d9f32249a10779608fec2e59b32dccacbc7397b020df370dc4378fed55ec"
+        }
+      },
+      "accessClass": "internal",
+      "accessPolicyBinding": {
+        "id": "fixture-access-policy",
+        "version": "0.1.0",
+        "digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      },
+      "privacyAndIp": {
+        "classification": "none",
+        "restrictions": []
+      },
+      "retention": {
+        "class": "fixture",
+        "expiresAt": "2027-08-01T00:00:00Z",
+        "disposition": "delete",
+        "legalHold": false
+      },
+      "attestation": {
+        "profileId": "fixture-signature-profile",
+        "algorithm": "Ed25519",
+        "keyId": "rfc8032-test-key-1",
+        "signedAt": "2026-08-01T00:00:22Z",
+        "value": "foHGrMKiy4IuC6-1W_e3OpmWaFPoldwI31M5emQBW5qY2JjAXha5L_1Plf4NtZAy3QGWAp7HT6SOSPTY4XcFDw"
+      },
+      "payload": {
+        "kind": "repository_relative",
+        "path": "repository-grounding-secondary.json"
+      }
+    }
+  ],
+  "signatureProfile": {
+    "id": "fixture-signature-profile",
+    "version": "0.1.0",
+    "uri": "../../../profiles/repo-change-v1/signature-profile.json",
+    "digest": "sha256:d3d2fd1c85f32d1881ad55160b31737f5fa53d9453ce42c9064812a4b1ecb872"
+  },
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:30Z",
+    "value": "PEdoGQKBOPdXmNk_5gIPXYX0gjMYis23IMjfV0t3clECEXeNZKQG4td8rtlnuZGuTmRcd4pCOxOrU81rl14vAQ"
+  }
+}

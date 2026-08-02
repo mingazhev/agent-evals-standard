@@ -1,0 +1,582 @@
+{
+  "schemaVersion": "agent-eval-case-1",
+  "caseVersion": "0.1.0",
+  "contracts": {
+    "baseStandard": {
+      "id": "repository-sdlc-agent-evals-standard",
+      "version": "0.1.0",
+      "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+    },
+    "caseContract": {
+      "id": "case-contract",
+      "version": "0.1.0",
+      "digest": "sha256:1212121212121212121212121212121212121212121212121212121212121212"
+    },
+    "scorecardContract": {
+      "id": "scorecard-contract",
+      "version": "0.1.0",
+      "digest": "sha256:1313131313131313131313131313131313131313131313131313131313131313"
+    },
+    "environmentContract": {
+      "id": "environment-contract",
+      "version": "0.1.0",
+      "digest": "sha256:1414141414141414141414141414141414141414141414141414141414141414"
+    },
+    "semanticValidation": {
+      "id": "semantic-validation-contract",
+      "version": "0.1.0",
+      "digest": "sha256:1515151515151515151515151515151515151515151515151515151515151515"
+    },
+    "requirementRegistry": {
+      "id": "agent-evals-standard-requirements",
+      "version": "0.1.0",
+      "digest": "sha256:e58c6762efe45ca689c746559b7a40ceee1dd593b613017179d35dce6ed55b1f"
+    }
+  },
+  "id": "case-fixture-typed-2",
+  "evaluationProfile": {
+    "id": "repo-change-v1",
+    "version": "0.1.0",
+    "digest": "sha256:82135cb0af1b99baf73146b7b8df1f6c1b80e9c1fa847486aee0196e4bcdcd46",
+    "effectiveProfileDigest": "sha256:9747356974d11b587fb8ba07659c63e641122c611866d0e165ec2245d587b61a"
+  },
+  "outcomeProfile": {
+    "id": "workspace-change-v1",
+    "version": "0.1.0",
+    "digest": "sha256:d5caa138041d104bff90c38f9f3735ab4f9afac87efb167f61dd5e916ecbd10d"
+  },
+  "workArtifactRegistry": {
+    "id": "repository-sdlc-work-artifact-registry",
+    "version": "0.1.0",
+    "uri": "../../standard/work-artifact-registry.json",
+    "digest": "sha256:151684e0e5c35023ec07d6f4554ebedb9ecd4e52ef7738bd77c1eb31c95053c7"
+  },
+  "capabilityFamilyIds": [
+    "CAP.IMPLEMENT_CHANGE",
+    "CAP.VERIFY_ASSURE"
+  ],
+  "capabilityClassification": [
+    {
+      "capabilityFamilyId": "CAP.IMPLEMENT_CHANGE",
+      "evaluatedConstructIds": [
+        "construct.patch.correctness"
+      ],
+      "materialSubjects": [
+        {
+          "subjectType": "outcome_profile",
+          "subjectId": "workspace-change-v1"
+        },
+        {
+          "subjectType": "claim",
+          "subjectId": "claim.patch"
+        }
+      ],
+      "materialWorkArtifactTypes": [
+        "code_change",
+        "test_change"
+      ],
+      "rationale": "Tests are authored as components of the evaluated patch; no independent test-design verdict is implied by this classification.",
+      "classificationVerifier": {
+        "id": "architecture-capability-classifier",
+        "version": "0.1.0",
+        "digest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c",
+        "schemaId": "agent-eval-case-classification-validity-argument-1",
+        "verifierDigest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c"
+      }
+    },
+    {
+      "capabilityFamilyId": "CAP.VERIFY_ASSURE",
+      "evaluatedConstructIds": [
+        "construct.test-design.quality"
+      ],
+      "materialSubjects": [
+        {
+          "subjectType": "outcome_profile",
+          "subjectId": "workspace-change-v1"
+        },
+        {
+          "subjectType": "claim",
+          "subjectId": "claim.test_design"
+        }
+      ],
+      "materialWorkArtifactTypes": [
+        "assurance_report"
+      ],
+      "rationale": "The test design receives an independent claim-bearing verdict, so verification is a material evaluated construct.",
+      "classificationVerifier": {
+        "id": "architecture-capability-classifier",
+        "version": "0.1.0",
+        "digest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c",
+        "schemaId": "agent-eval-case-classification-validity-argument-1",
+        "verifierDigest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c"
+      }
+    }
+  ],
+  "applicability": {
+    "repositoryStateNecessityEvidence": {
+      "id": "repository-state-necessity",
+      "uri": "architecture-case-validity-argument.json",
+      "digest": "sha256:9dd879c9f6aeda5889480768e50f4686d216be6b8dadf6be71d9583a1a5e5912"
+    },
+    "acceptanceInvariantTraceEvidence": {
+      "id": "acceptance-invariant-trace",
+      "uri": "architecture-case-validity-argument.json",
+      "digest": "sha256:9dd879c9f6aeda5889480768e50f4686d216be6b8dadf6be71d9583a1a5e5912"
+    },
+    "repositoryGovernedResultEvidence": {
+      "id": "repository-governed-result",
+      "uri": "architecture-case-validity-argument.json",
+      "digest": "sha256:9dd879c9f6aeda5889480768e50f4686d216be6b8dadf6be71d9583a1a5e5912"
+    },
+    "removalCounterfactualEvidence": {
+      "id": "case-removal-counterfactual",
+      "uri": "architecture-case-validity-argument.json",
+      "digest": "sha256:9dd879c9f6aeda5889480768e50f4686d216be6b8dadf6be71d9583a1a5e5912"
+    },
+    "materialSubjectDependencies": [
+      {
+        "subjectType": "outcome_profile",
+        "subjectId": "workspace-change-v1",
+        "capabilityFamilyIds": [
+          "CAP.IMPLEMENT_CHANGE",
+          "CAP.VERIFY_ASSURE"
+        ],
+        "repositoryDependencyEvidence": {
+          "id": "dependency.outcome.multi-label",
+          "uri": "architecture-case-validity-argument.json",
+          "digest": "sha256:9dd879c9f6aeda5889480768e50f4686d216be6b8dadf6be71d9583a1a5e5912"
+        },
+        "removalCounterfactualEvidence": {
+          "id": "counterfactual.outcome.multi-label",
+          "version": "0.1.0",
+          "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+          "schemaId": "agent-eval-case-classification-validity-argument-1",
+          "verifierDigest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c"
+        },
+        "verdict": "pass"
+      },
+      {
+        "subjectType": "claim",
+        "subjectId": "claim.patch",
+        "capabilityFamilyIds": [
+          "CAP.IMPLEMENT_CHANGE"
+        ],
+        "repositoryDependencyEvidence": {
+          "id": "dependency.claim.patch",
+          "uri": "architecture-case-validity-argument.json",
+          "digest": "sha256:9dd879c9f6aeda5889480768e50f4686d216be6b8dadf6be71d9583a1a5e5912"
+        },
+        "removalCounterfactualEvidence": {
+          "id": "counterfactual.claim.patch",
+          "version": "0.1.0",
+          "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+          "schemaId": "agent-eval-case-classification-validity-argument-1",
+          "verifierDigest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c"
+        },
+        "verdict": "pass"
+      },
+      {
+        "subjectType": "claim",
+        "subjectId": "claim.test_design",
+        "capabilityFamilyIds": [
+          "CAP.VERIFY_ASSURE"
+        ],
+        "repositoryDependencyEvidence": {
+          "id": "dependency.claim.test-design",
+          "uri": "architecture-case-validity-argument.json",
+          "digest": "sha256:9dd879c9f6aeda5889480768e50f4686d216be6b8dadf6be71d9583a1a5e5912"
+        },
+        "removalCounterfactualEvidence": {
+          "id": "counterfactual.claim.test-design",
+          "version": "0.1.0",
+          "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+          "schemaId": "agent-eval-case-classification-validity-argument-1",
+          "verifierDigest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c"
+        },
+        "verdict": "pass"
+      }
+    ]
+  },
+  "source": {
+    "type": "synthetic",
+    "artifact": {
+      "id": "architecture-case-source",
+      "uri": "architecture-case-validity-argument.json",
+      "digest": "sha256:9dd879c9f6aeda5889480768e50f4686d216be6b8dadf6be71d9583a1a5e5912"
+    },
+    "notes": "Synthetic architecture fixture; not a benchmark score source."
+  },
+  "repository": {
+    "workspaceManifest": {
+      "id": "architecture-workspace-manifest",
+      "version": "0.1.0",
+      "uri": "architecture-workspace-manifest.json",
+      "digest": "sha256:e100fec3cc4a6d4b2d069fd2e9e5c81eb4f3bca59ec7db69152141e2b1458cd5"
+    }
+  },
+  "task": {
+    "id": "architecture-task-multi-label",
+    "uri": "architecture-case-validity-argument.json",
+    "digest": "sha256:9dd879c9f6aeda5889480768e50f4686d216be6b8dadf6be71d9583a1a5e5912"
+  },
+  "agentVisibleProjection": {
+    "manifest": {
+      "id": "architecture-agent-visible-manifest",
+      "uri": "architecture-case-validity-argument.json",
+      "digest": "sha256:9dd879c9f6aeda5889480768e50f4686d216be6b8dadf6be71d9583a1a5e5912"
+    },
+    "taskArtifactId": "architecture-task-multi-label",
+    "allowedArtifactIds": [
+      "architecture-task-multi-label",
+      "architecture-fixture-component"
+    ],
+    "oracleArtifactIds": [],
+    "verifier": {
+      "id": "agent-visible-projection-verifier",
+      "version": "0.1.0",
+      "digest": "sha256:2525252525252525252525252525252525252525252525252525252525252525",
+      "schemaId": "agent-eval-agent-visible-projection-verifier-1",
+      "verifierDigest": "sha256:2626262626262626262626262626262626262626262626262626262626262626"
+    }
+  },
+  "setupExecutors": [
+    {
+      "id": "architecture-setup-executor",
+      "component": {
+        "id": "architecture-setup-component",
+        "version": "0.1.0",
+        "digest": "sha256:2727272727272727272727272727272727272727272727272727272727272727"
+      },
+      "contract": {
+        "id": "architecture-setup-contract",
+        "version": "0.1.0",
+        "digest": "sha256:2828282828282828282828282828282828282828282828282828282828282828",
+        "schemaId": "agent-eval-setup-contract-1",
+        "verifierDigest": "sha256:2929292929292929292929292929292929292929292929292929292929292929"
+      }
+    }
+  ],
+  "contamination": {
+    "sourceVisibility": "private",
+    "publicDates": [],
+    "previousEvaluationExposure": "none",
+    "trainingOrMemoryRisk": "none_known",
+    "previouslySolvedInWorkspace": false
+  },
+  "leakageControls": [],
+  "inherentRiskAssessment": {
+    "id": "architecture-case-full-v1-inherent-risk",
+    "version": "0.1.0",
+    "uri": "architecture-case-risk-assessment.json",
+    "digest": "sha256:c1c9394fdcc37cc94f874ee47eb6727476a5330503e697ece68b5904de82db5f"
+  },
+  "inherentRiskTier": "low",
+  "tags": {
+    "ambiguity": "clear_cut",
+    "taskClass": "architecture-semantic-fixture",
+    "component": "fixture",
+    "technologyContext": {
+      "applicability": "applicable",
+      "language": "json",
+      "stack": "standard-contracts",
+      "rationale": "The evaluated repository artifacts are JSON contracts interpreted by the standard toolchain."
+    },
+    "runtimeClass": "detached-validation",
+    "difficultyBand": "minimal",
+    "ownerTeam": "standard-maintainers"
+  },
+  "memberships": [
+    "development"
+  ],
+  "sliceIds": [
+    "slice.architecture-classification"
+  ],
+  "lifecycle": {
+    "status": "candidate"
+  },
+  "environment": {
+    "id": "architecture-environment",
+    "uri": "architecture-case-validity-argument.json",
+    "digest": "sha256:9dd879c9f6aeda5889480768e50f4686d216be6b8dadf6be71d9583a1a5e5912"
+  },
+  "budgets": {
+    "trials": 1,
+    "wallClockSeconds": 60,
+    "tokenLimit": 4096,
+    "costLimitUsd": 1
+  },
+  "validation": {
+    "protocol": {
+      "id": "architecture-validation-protocol",
+      "version": "0.1.0",
+      "digest": "sha256:3030303030303030303030303030303030303030303030303030303030303030",
+      "schemaId": "agent-eval-validation-protocol-1",
+      "verifierDigest": "sha256:3131313131313131313131313131313131313131313131313131313131313131"
+    },
+    "sharedGraderValidation": {
+      "id": "architecture-grader-validation",
+      "uri": "architecture-case-validity-argument.json",
+      "digest": "sha256:9dd879c9f6aeda5889480768e50f4686d216be6b8dadf6be71d9583a1a5e5912"
+    },
+    "strategy": {
+      "publicChecks": {
+        "coverage": "not_applicable",
+        "applicabilityRule": {
+          "id": "architecture-public-check-applicability",
+          "version": "0.1.0",
+          "digest": "sha256:a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+          "schemaId": "agent-eval-validation-class-applicability-rule-1",
+          "verifierDigest": "sha256:a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2a2"
+        },
+        "applicabilityEvidence": [
+          {
+            "id": "architecture-case-classification-validity",
+            "uri": "architecture-case-validity-argument.json",
+            "digest": "sha256:9dd879c9f6aeda5889480768e50f4686d216be6b8dadf6be71d9583a1a5e5912"
+          }
+        ],
+        "unknownApplicabilityResult": "invalid",
+        "rationale": "The sealed fixture exposes no public check surface."
+      },
+      "hiddenChecks": {
+        "coverage": "checked",
+        "applicabilityRule": {
+          "id": "architecture-hidden-check-applicability",
+          "version": "0.1.0",
+          "digest": "sha256:a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3a3",
+          "schemaId": "agent-eval-validation-class-applicability-rule-1",
+          "verifierDigest": "sha256:a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4"
+        },
+        "applicabilityEvidence": [
+          {
+            "id": "architecture-case-classification-validity",
+            "uri": "architecture-case-validity-argument.json",
+            "digest": "sha256:9dd879c9f6aeda5889480768e50f4686d216be6b8dadf6be71d9583a1a5e5912"
+          }
+        ],
+        "unknownApplicabilityResult": "invalid",
+        "rationale": "The fixture has runner-only acceptance checks."
+      },
+      "securityChecks": {
+        "coverage": "checked",
+        "applicabilityRule": {
+          "id": "architecture-security-check-applicability",
+          "version": "0.1.0",
+          "digest": "sha256:a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5",
+          "schemaId": "agent-eval-validation-class-applicability-rule-1",
+          "verifierDigest": "sha256:a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6a6"
+        },
+        "applicabilityEvidence": [
+          {
+            "id": "architecture-case-classification-validity",
+            "uri": "architecture-case-validity-argument.json",
+            "digest": "sha256:9dd879c9f6aeda5889480768e50f4686d216be6b8dadf6be71d9583a1a5e5912"
+          }
+        ],
+        "unknownApplicabilityResult": "invalid",
+        "rationale": "The fixture exercises authenticated contract and repository-integrity boundaries."
+      },
+      "controlProofs": {
+        "coverage": "checked",
+        "applicabilityRule": {
+          "id": "architecture-control-proof-applicability",
+          "version": "0.1.0",
+          "digest": "sha256:a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7a7",
+          "schemaId": "agent-eval-validation-class-applicability-rule-1",
+          "verifierDigest": "sha256:a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8a8"
+        },
+        "applicabilityEvidence": [
+          {
+            "id": "architecture-case-classification-validity",
+            "uri": "architecture-case-validity-argument.json",
+            "digest": "sha256:9dd879c9f6aeda5889480768e50f4686d216be6b8dadf6be71d9583a1a5e5912"
+          }
+        ],
+        "unknownApplicabilityResult": "invalid",
+        "rationale": "The claim-bearing measurement path requires positive and negative control evidence."
+      }
+    },
+    "publicChecks": [],
+    "hiddenChecks": [
+      {
+        "id": "hidden-functional-check",
+        "executorId": "architecture-setup-executor",
+        "contract": {
+          "id": "hidden-functional-check-contract",
+          "version": "0.1.0",
+          "digest": "sha256:3232323232323232323232323232323232323232323232323232323232323232",
+          "schemaId": "agent-eval-check-contract-1",
+          "verifierDigest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+        },
+        "deterministic": true
+      }
+    ],
+    "securityChecks": [
+      {
+        "id": "security-check",
+        "executorId": "architecture-setup-executor",
+        "contract": {
+          "id": "security-check-contract",
+          "version": "0.1.0",
+          "digest": "sha256:3434343434343434343434343434343434343434343434343434343434343434",
+          "schemaId": "agent-eval-check-contract-1",
+          "verifierDigest": "sha256:3535353535353535353535353535353535353535353535353535353535353535"
+        },
+        "deterministic": true
+      }
+    ],
+    "controlProofs": [
+      {
+        "id": "control-proof",
+        "executorId": "architecture-setup-executor",
+        "contract": {
+          "id": "control-proof-contract",
+          "version": "0.1.0",
+          "digest": "sha256:3636363636363636363636363636363636363636363636363636363636363636",
+          "schemaId": "agent-eval-check-contract-1",
+          "verifierDigest": "sha256:3737373737373737373737373737373737373737373737373737373737373737"
+        },
+        "deterministic": true
+      }
+    ]
+  },
+  "decisionSurfaces": [
+    {
+      "id": "surface.functional-output",
+      "kind": "functional_output",
+      "materiality": "outcome",
+      "applicabilityRule": {
+        "id": "functional-output-applicability",
+        "version": "0.1.0",
+        "digest": "sha256:3838383838383838383838383838383838383838383838383838383838383838",
+        "schemaId": "agent-eval-applicability-rule-1",
+        "verifierDigest": "sha256:3939393939393939393939393939393939393939393939393939393939393939"
+      },
+      "unknownApplicabilityResult": "indeterminate",
+      "coverage": "covered_by_final_state",
+      "rationale": "The claim-bearing repository result is covered by the terminal-state evidence contract.",
+      "coverageProof": {
+        "id": "functional-output-coverage-proof",
+        "version": "0.1.0",
+        "digest": "sha256:4040404040404040404040404040404040404040404040404040404040404040",
+        "schemaId": "agent-eval-coverage-proof-1",
+        "verifierDigest": "sha256:4141414141414141414141414141414141414141414141414141414141414141"
+      }
+    }
+  ],
+  "claimRegistry": {
+    "claim.patch": {
+      "type": "capability",
+      "targetPopulation": "repository-bound patch tasks",
+      "scope": "Correctness and completeness of the material repository patch, including tests authored as patch components.",
+      "requirementIds": [
+        "CASE-001",
+        "SCOPE-002"
+      ]
+    },
+    "claim.test_design": {
+      "type": "capability",
+      "targetPopulation": "repository-bound test-design tasks",
+      "scope": "Quality of an independently graded test-design work product.",
+      "requirementIds": [
+        "CASE-001",
+        "VALID-001"
+      ]
+    }
+  },
+  "interactionModeId": "noninteractive_repository_task",
+  "workArtifactTypes": [
+    "code_change",
+    "test_change",
+    "assurance_report"
+  ],
+  "scoring": {
+    "claimEligibility": "capability",
+    "hardGates": [
+      {
+        "id": "hiddenChecks",
+        "backingCheckIds": [
+          "hidden-functional-check"
+        ],
+        "applicabilityRule": {
+          "id": "hidden-check-applicability",
+          "version": "0.1.0",
+          "digest": "sha256:4242424242424242424242424242424242424242424242424242424242424242",
+          "schemaId": "agent-eval-applicability-rule-1",
+          "verifierDigest": "sha256:4343434343434343434343434343434343434343434343434343434343434343"
+        },
+        "unknownTriggerResult": "invalid",
+        "failureCauseId": "hidden_regression"
+      }
+    ],
+    "governanceBlockers": [
+      {
+        "id": "security-review-blocker",
+        "status": "security_review_required",
+        "backingCheckIds": [
+          "security-check"
+        ],
+        "applicabilityRule": {
+          "id": "security-review-applicability",
+          "version": "0.1.0",
+          "digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+          "schemaId": "agent-eval-applicability-rule-1",
+          "verifierDigest": "sha256:4545454545454545454545454545454545454545454545454545454545454545"
+        },
+        "unknownTriggerResult": "open"
+      },
+      {
+        "id": "manual-review-blocker",
+        "status": "manual_review_required",
+        "backingCheckIds": [
+          "control-proof"
+        ],
+        "applicabilityRule": {
+          "id": "manual-review-applicability",
+          "version": "0.1.0",
+          "digest": "sha256:4646464646464646464646464646464646464646464646464646464646464646",
+          "schemaId": "agent-eval-applicability-rule-1",
+          "verifierDigest": "sha256:4747474747474747474747474747474747474747474747474747474747474747"
+        },
+        "unknownTriggerResult": "open"
+      }
+    ]
+  },
+  "artifactPolicy": {
+    "id": "architecture-artifact-policy",
+    "version": "0.1.0",
+    "digest": "sha256:4848484848484848484848484848484848484848484848484848484848484848",
+    "schemaId": "agent-eval-artifact-policy-1",
+    "verifierDigest": "sha256:4949494949494949494949494949494949494949494949494949494949494949"
+  },
+  "policy": {
+    "id": "architecture-case-policy",
+    "version": "0.1.0",
+    "digest": "sha256:5050505050505050505050505050505050505050505050505050505050505050",
+    "schemaId": "agent-eval-case-policy-1",
+    "verifierDigest": "sha256:5151515151515151515151515151515151515151515151515151515151515151"
+  },
+  "ownership": {
+    "owner": {
+      "id": "standard-maintainers",
+      "role": "case_owner"
+    },
+    "riskTierApprovedBy": {
+      "id": "standard-maintainers",
+      "role": "risk_approver"
+    },
+    "reviewDate": "2026-08-01",
+    "dataOwner": {
+      "id": "standard-maintainers",
+      "role": "data_owner"
+    }
+  },
+  "digest": "sha256:4eba7c057fa3fb0e8ffa0bfd3804b8fb16d3e617ae5629d68b815d2671b7a46d",
+  "signature": {
+    "profileId": "fixture-claimant-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1-claimant",
+    "signedAt": "2026-08-01T01:02:00Z",
+    "value": "nIb_Ri-qeLCb2y5P3KwVNVncpVllqItnA1VYu51BKQrKFzSuf64kLOwNSGC2XnS5Fmbag0Klmi5TgJgV2H_WCQ"
+  }
+}

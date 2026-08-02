@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "agent-eval-governance-decision-1",
+  "decisionId": "decision-composition-fixture-1",
+  "version": "0.1.0",
+  "scorecards": [
+    {
+      "id": "scorecard-composition-fixture-1",
+      "location": "scorecard-subject.json",
+      "digest": "sha256:8d6e58ae834868b8106a821534f82d0c37ffacce5ee069f498b047fcfdc39479"
+    }
+  ]
+}

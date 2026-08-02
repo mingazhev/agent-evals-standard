@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "repo-change-case-qa-contract-1",
+  "version": "0.1.0",
+  "requiredStages": ["stage0", "stage1", "stage2", "stage3", "stage4", "stage5", "stage6", "stage7", "stage8"],
+  "requiredControls": [
+    "known_good_workspace_change",
+    "known_bad_workspace_change",
+    "independent_alternative_valid_result_or_proven_singleton_controls",
+    "hidden_oracle_canary",
+    "measurement_boundary_attack"
+  ],
+  "activationRule": "stages 0-6 and 8 passed; stage 7 passed or is not_applicable under a valid singleton proof; no open severity-2-or-3 defect; shared grader validation current",
+  "materialChangeRule": "invalidate dependent QA evidence and quarantine before reuse"
+}

@@ -1,0 +1,802 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:source-evidence-manifest:1",
+  "title": "Requirement-to-source evidence manifest",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "standardVersion",
+    "evidenceReadiness",
+    "evidenceBlockers",
+    "supportPolicy",
+    "sources",
+    "observations",
+    "mappings",
+    "capabilityCoverage",
+    "digest"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-source-evidence-manifest-1" },
+    "standardVersion": { "const": "0.1.0" },
+    "evidenceReadiness": {
+      "const": "blocked",
+      "$comment": "Version 0.1.0 intentionally has no independently authenticated target-population validation assessment contract or out-of-manifest release-authority trust root. Evidence readiness therefore cannot be claimant-promoted to ready."
+    },
+    "evidenceBlockers": {
+      "type": "object",
+      "required": ["unverifiedSourceIds", "requirementEvidenceGapIds", "capabilityTargetValidationGapIds"],
+      "properties": {
+        "unverifiedSourceIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "requirementEvidenceGapIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "capabilityTargetValidationGapIds": {
+          "type": "array",
+          "minItems": 7,
+          "maxItems": 7,
+          "items": { "$ref": "#/$defs/id" },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "supportPolicy": {
+      "type": "object",
+      "required": [
+        "empirical_observation",
+        "documented_mechanism",
+        "triangulated_empirical",
+        "rationale_only",
+        "evidence_gap",
+        "design_invariant"
+      ],
+      "properties": {
+        "empirical_observation": {
+          "const": "At least one cited primary empirical source reports the bounded observation for its explicitly recorded studied population; the label does not validate a normative requirement or imply transfer beyond that population."
+        },
+        "documented_mechanism": {
+          "const": "At least one cited specification, framework, repository artifact, or research method directly documents the bounded mechanism; the label is not empirical validation of the mechanism's effectiveness, necessity, sufficiency, or transfer."
+        },
+        "triangulated_empirical": {
+          "const": "At least two independently produced primary empirical artifacts from at least two independent organizations report the same bounded observation; shared authors, data, populations, methods, sponsors, and benchmark lineage are disclosed and judged not to create a common-mode result."
+        },
+        "rationale_only": {
+          "const": "The sources explain a threat or design rationale but do not empirically validate the normative implementation choice."
+        },
+        "evidence_gap": {
+          "const": "Available evidence does not support the bounded claim for the intended population at the declared evidence strength; positive transfer is prohibited until the recorded closure criteria are met."
+        },
+        "design_invariant": {
+          "const": "The requirement is a fail-closed interoperability, safety, validity, or governance choice rather than an externally validated empirical claim; its failure mode and validation obligation are explicit."
+        }
+      },
+      "additionalProperties": false
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "$comment": "Source IDs require projected uniqueness and every referenced source ID must resolve semantically.",
+      "items": { "$ref": "#/$defs/source" }
+    },
+    "observations": {
+      "type": "array",
+      "minItems": 1,
+      "$comment": "Observation IDs require projected uniqueness. Each empirical mapping cites observations, not a source as an undifferentiated whole.",
+      "items": { "$ref": "#/$defs/empiricalObservation" }
+    },
+    "mappings": {
+      "type": "array",
+      "minItems": 59,
+      "maxItems": 59,
+      "$comment": "Exactly one mapping is required for every requirement ID in requirement-registry-1; validators must enforce projected uniqueness and exact registry equality.",
+      "items": {
+        "oneOf": [
+          { "$ref": "#/$defs/sourceEvidenceMapping" },
+          { "$ref": "#/$defs/designInvariantMapping" }
+        ]
+      }
+    },
+    "capabilityCoverage": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "$comment": "Exactly one row is required for every closed SDLC capability ID; validators must enforce projected uniqueness.",
+      "items": { "$ref": "#/$defs/capabilityCoverage" }
+    },
+    "digest": { "$ref": "#/$defs/digest" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "evidenceReadiness": { "const": "blocked" } },
+        "required": ["evidenceReadiness"]
+      },
+      "then": {
+        "properties": {
+          "evidenceBlockers": {
+            "type": "object",
+            "anyOf": [
+              { "type": "object", "properties": { "unverifiedSourceIds": { "type": "array", "minItems": 1 } } },
+              { "type": "object", "properties": { "requirementEvidenceGapIds": { "type": "array", "minItems": 1 } } },
+              { "type": "object", "properties": { "capabilityTargetValidationGapIds": { "type": "array", "minItems": 1 } } }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "source": {
+      "type": "object",
+      "required": [
+        "id",
+        "title",
+        "authorsOrOrganization",
+        "producerIds",
+        "publicationDate",
+        "sourceType",
+        "versionIdentity",
+        "mutableLocator",
+        "archive",
+        "retrievalDate",
+        "evidenceClass",
+        "empiricalRole",
+        "limitations",
+        "population",
+        "contraryEvidence"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "title": { "type": "string", "minLength": 1 },
+        "authorsOrOrganization": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "producerIds": {
+          "$comment": "Stable producer identities used to derive organizational independence. Human-readable author names are not independence identifiers.",
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/id" },
+          "uniqueItems": true
+        },
+        "publicationDate": {
+          "type": "string",
+          "pattern": "^(?:[0-9]{4}(?:-[0-9]{2}(?:-[0-9]{2})?)?|undated)$",
+          "$comment": "Use undated when the primary publisher supplies no publication date; do not substitute the retrieval date."
+        },
+        "sourceType": {
+          "enum": [
+            "benchmark",
+            "paper",
+            "standard",
+            "official_documentation",
+            "dataset",
+            "industry_report",
+            "repository_artifact"
+          ]
+        },
+        "versionIdentity": {
+          "type": "object",
+          "required": ["kind", "value"],
+          "properties": {
+            "kind": { "enum": ["doi", "version", "tag", "commit", "edition"] },
+            "value": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        },
+        "mutableLocator": { "type": ["string", "null"] },
+        "archive": {
+          "oneOf": [
+            {
+              "type": "object",
+              "$comment": "This shape exists for focused conformance mechanics and a future archive-verification extension. Canonical 0.1.0 source-manifest semantic validation rejects verified status until an external authenticated archive-verification contract resolves bytes offline and binds their length, digest, version, extraction pointers, and independent signer.",
+              "required": ["status", "immutableLocator", "digest"],
+              "properties": {
+                "status": { "const": "verified" },
+                "immutableLocator": { "type": "string", "minLength": 1 },
+                "digest": { "$ref": "#/$defs/digest" }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "required": ["status", "immutableLocator", "digest", "blocker"],
+              "properties": {
+                "status": { "const": "pending_verification" },
+                "immutableLocator": { "type": "null" },
+                "digest": { "type": "null" },
+                "blocker": { "type": "string", "minLength": 1 }
+              },
+              "additionalProperties": false
+            }
+          ]
+        },
+        "retrievalDate": {
+          "type": "string",
+          "format": "date",
+          "$comment": "Calendar date on which the mutable locator was checked. A time-of-day must not be invented when only a date was recorded."
+        },
+        "evidenceClass": {
+          "enum": [
+            "primary_benchmark_artifact",
+            "primary_research_preprint",
+            "peer_reviewed_research",
+            "primary_empirical_report",
+            "official_guidance",
+            "industry_experience"
+          ]
+        },
+        "empiricalRole": {
+          "enum": ["primary_empirical_source", "not_primary_empirical_source"],
+          "$comment": "Publication venue or artifact type is insufficient. Only sources explicitly classified as primary_empirical_source may own primary empirical observations."
+        },
+        "limitations": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "population": { "type": "string", "minLength": 1 },
+        "fundingDisclosure": {
+          "$comment": "Required for every source used to establish triangulated_empirical independence. Verified funding evidence must bind a location inside the exact archived source bytes.",
+          "type": "object",
+          "required": ["status", "sponsorIds", "basis", "evidence"],
+          "properties": {
+            "status": { "enum": ["verified_from_archived_source", "pending_verification"] },
+            "sponsorIds": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/id" },
+              "uniqueItems": true
+            },
+            "basis": { "type": "string", "minLength": 1 },
+            "evidence": {
+              "oneOf": [
+                { "$ref": "#/$defs/fundingEvidence" },
+                { "type": "null" }
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": { "properties": { "status": { "const": "verified_from_archived_source" } }, "required": ["status"] },
+              "then": { "properties": { "evidence": { "$ref": "#/$defs/fundingEvidence" } } }
+            },
+            {
+              "if": { "properties": { "status": { "const": "pending_verification" } }, "required": ["status"] },
+              "then": { "properties": { "evidence": { "type": "null" } } }
+            }
+          ],
+          "additionalProperties": false
+        },
+        "contraryEvidence": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/id" },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "fundingEvidence": {
+      "type": "object",
+      "required": ["archiveDigest", "location", "statement"],
+      "properties": {
+        "archiveDigest": { "$ref": "#/$defs/digest" },
+        "location": { "type": "string", "minLength": 1 },
+        "statement": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "empiricalObservation": {
+      "type": "object",
+      "required": [
+        "id",
+        "sourceId",
+        "role",
+        "population",
+        "sampling",
+        "method",
+        "result",
+        "uncertaintyAndSelectionConditions",
+        "limits",
+        "dataOrBenchmarkLineageIds"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "sourceId": { "$ref": "#/$defs/id" },
+        "role": { "const": "primary_empirical_observation" },
+        "population": { "type": "string", "minLength": 1 },
+        "sampling": { "type": "string", "minLength": 1 },
+        "method": { "type": "string", "minLength": 1 },
+        "result": { "type": "string", "minLength": 1 },
+        "uncertaintyAndSelectionConditions": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "limits": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "dataOrBenchmarkLineageIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/id" },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "independenceAssessment": {
+      "type": "object",
+      "required": [
+        "observationIds",
+        "producerIds",
+        "sharedAuthorNames",
+        "sharedDataOrBenchmarkLineageIds",
+        "identicalPopulationStatements",
+        "populationOverlapAssessment",
+        "identicalMethodStatements",
+        "methodOverlapAssessment",
+        "sharedSponsorIds",
+        "commonModeAssessment",
+        "conclusion"
+      ],
+      "properties": {
+        "observationIds": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "$ref": "#/$defs/id" },
+          "uniqueItems": true
+        },
+        "producerIds": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "$ref": "#/$defs/id" },
+          "uniqueItems": true
+        },
+        "sharedDataOrBenchmarkLineageIds": {
+          "type": "array",
+          "maxItems": 0,
+          "items": { "$ref": "#/$defs/id" },
+          "uniqueItems": true
+        },
+        "sharedAuthorNames": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "identicalPopulationStatements": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "populationOverlapAssessment": { "type": "string", "minLength": 1 },
+        "identicalMethodStatements": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "methodOverlapAssessment": { "type": "string", "minLength": 1 },
+        "sharedSponsorIds": {
+          "type": "array",
+          "maxItems": 0,
+          "items": { "$ref": "#/$defs/id" },
+          "uniqueItems": true
+        },
+        "commonModeAssessment": { "type": "string", "minLength": 1 },
+        "conclusion": { "const": "sufficiently_independent_for_the_bounded_claim" }
+      },
+      "additionalProperties": false
+    },
+    "evidenceGap": {
+      "type": "object",
+      "required": ["missingEvidence", "claimRestriction", "closureCriteria"],
+      "properties": {
+        "missingEvidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "claimRestriction": { "type": "string", "minLength": 1 },
+        "closureCriteria": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      },
+      "additionalProperties": false
+    },
+    "sourceEvidenceMapping": {
+      "type": "object",
+      "required": [
+        "requirementId",
+        "kind",
+        "sourceIds",
+        "support",
+        "supportedClaims",
+        "limitations"
+      ],
+      "properties": {
+        "requirementId": { "$ref": "#/$defs/id" },
+        "kind": { "const": "source_evidence" },
+        "sourceIds": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/id" },
+          "uniqueItems": true
+        },
+        "observationIds": {
+          "$comment": "Every ID must resolve to a structured primary empirical observation whose source is cited by this mapping. Semantic validation enforces source membership and empirical role.",
+          "type": "array",
+          "items": { "$ref": "#/$defs/id" },
+          "uniqueItems": true
+        },
+        "representedPopulation": { "type": "string", "minLength": 1 },
+        "support": {
+          "enum": [
+            "empirical_observation",
+            "documented_mechanism",
+            "triangulated_empirical",
+            "rationale_only",
+            "evidence_gap"
+          ]
+        },
+        "supportedClaims": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "limitations": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "independenceAssessment": { "$ref": "#/$defs/independenceAssessment" },
+        "evidenceGap": { "$ref": "#/$defs/evidenceGap" }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "support": {
+                "enum": [
+                  "empirical_observation",
+                  "documented_mechanism",
+                  "triangulated_empirical",
+                  "rationale_only"
+                ]
+              }
+            },
+            "required": ["support"]
+          },
+          "then": {
+            "properties": {
+              "sourceIds": { "type": "array", "minItems": 1 },
+              "supportedClaims": { "type": "array", "minItems": 1 }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "support": { "const": "empirical_observation" } }, "required": ["support"] },
+          "then": {
+            "required": ["observationIds", "representedPopulation"],
+            "properties": {
+              "observationIds": { "type": "array", "minItems": 1 },
+              "representedPopulation": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "support": { "const": "triangulated_empirical" } }, "required": ["support"] },
+          "then": {
+            "required": ["observationIds", "representedPopulation", "independenceAssessment"],
+            "properties": {
+              "sourceIds": { "type": "array", "minItems": 2 },
+              "observationIds": { "type": "array", "minItems": 2 },
+              "representedPopulation": { "type": "string", "minLength": 1 },
+              "supportedClaims": { "type": "array", "minItems": 1 },
+              "independenceAssessment": { "type": "object" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "support": { "const": "evidence_gap" } }, "required": ["support"] },
+          "then": {
+            "required": ["evidenceGap"],
+            "properties": {
+              "supportedClaims": { "type": "array", "maxItems": 0 },
+              "observationIds": { "type": "array", "maxItems": 0 },
+              "evidenceGap": { "type": "object" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "support": {
+                "enum": [
+                  "documented_mechanism",
+                  "rationale_only"
+                ]
+              }
+            },
+            "required": ["support"]
+          },
+          "then": {
+            "properties": {
+              "observationIds": { "type": "array", "maxItems": 0 }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "support": {
+                "enum": [
+                  "empirical_observation",
+                  "documented_mechanism",
+                  "rationale_only",
+                  "evidence_gap"
+                ]
+              }
+            },
+            "required": ["support"]
+          },
+          "then": {
+            "not": { "required": ["independenceAssessment"] }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "rationaleEvidence": {
+      "type": "object",
+      "$comment": "Informative sources may support bounded rationale or implementation observations without converting a normative design invariant into an externally validated empirical claim. Validators must resolve every source ID against sources[].",
+      "required": ["sourceIds", "supportedClaims", "limitations"],
+      "properties": {
+        "sourceIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/id" },
+          "uniqueItems": true
+        },
+        "supportedClaims": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "limitations": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      },
+      "additionalProperties": false
+    },
+    "observationPopulationRelation": {
+      "type": "object",
+      "required": [
+        "observationId",
+        "relationToTarget",
+        "justification",
+        "transferAssumptions",
+        "limitations"
+      ],
+      "properties": {
+        "observationId": { "$ref": "#/$defs/id" },
+        "relationToTarget": {
+          "enum": [
+            "direct_target_sample",
+            "bounded_target_subpopulation",
+            "adjacent_population",
+            "transport_requires_independent_validation"
+          ]
+        },
+        "justification": { "type": "string", "minLength": 1 },
+        "transferAssumptions": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "limitations": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      },
+      "additionalProperties": false
+    },
+    "targetPopulationValidation": {
+      "type": "object",
+      "$comment": "This field records bounded evidence considered for the repository-SDLC target population. Version 0.1.0 deliberately cannot express independently_validated: that status requires a future normative detached assessment contract, exact manifest/capability/target/observation bindings, explicit population relations, and a trusted independent signer rooted outside the claimant manifest. This reservation does not assert that independent validation is fully automatable.",
+      "required": ["status", "targetPopulation", "basisObservationIds", "observationPopulationRelations", "assessment", "limitations"],
+      "properties": {
+        "status": {
+          "enum": [
+            "not_established",
+            "single_producer_indication"
+          ]
+        },
+        "targetPopulation": {
+          "const": "Repository-grounded SDLC agents operating on version-controlled code, repository state, and repository-mediated engineering workflows in enterprise-relevant environments."
+        },
+        "basisObservationIds": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/id" },
+          "uniqueItems": true
+        },
+        "observationPopulationRelations": {
+          "$comment": "Semantic validation requires this projection to contain exactly one row for every basisObservationId and no other observation.",
+          "type": "array",
+          "items": { "$ref": "#/$defs/observationPopulationRelation" }
+        },
+        "assessment": { "type": "string", "minLength": 1 },
+        "limitations": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "single_producer_indication" } }, "required": ["status"] },
+          "then": { "properties": { "basisObservationIds": { "type": "array", "minItems": 1 } } }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "designInvariantMapping": {
+      "type": "object",
+      "required": [
+        "requirementId",
+        "kind",
+        "rationale",
+        "failureMode",
+        "validationObligation",
+        "claimRestriction"
+      ],
+      "properties": {
+        "requirementId": { "$ref": "#/$defs/id" },
+        "kind": { "const": "design_invariant" },
+        "rationale": { "type": "string", "minLength": 1 },
+        "failureMode": { "type": "string", "minLength": 1 },
+        "validationObligation": { "type": "string", "minLength": 1 },
+        "rationaleEvidence": { "$ref": "#/$defs/rationaleEvidence" },
+        "claimRestriction": {
+          "const": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
+        }
+      },
+      "additionalProperties": false
+    },
+    "capabilityCoverage": {
+      "type": "object",
+      "required": [
+        "capabilityId",
+        "practiceClaims",
+        "support",
+        "sourceIds",
+        "observationIds",
+        "representedPopulation",
+        "targetPopulationValidation",
+        "transferLimits",
+        "gaps"
+      ],
+      "properties": {
+        "capabilityId": {
+          "enum": [
+            "CAP.DISCOVER_SPECIFY",
+            "CAP.PLAN_DESIGN",
+            "CAP.IMPLEMENT_CHANGE",
+            "CAP.VERIFY_ASSURE",
+            "CAP.REVIEW_DECIDE",
+            "CAP.RELEASE_OPERATE",
+            "CAP.REMEDIATE_LEARN"
+          ]
+        },
+        "practiceClaims": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "support": {
+          "enum": [
+            "empirical_observation",
+            "documented_mechanism",
+            "triangulated_empirical",
+            "rationale_only",
+            "evidence_gap"
+          ]
+        },
+        "sourceIds": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/id" },
+          "uniqueItems": true
+        },
+        "observationIds": {
+          "$comment": "Every ID must resolve to a structured primary empirical observation whose source occurs in sourceIds; semantic validation enforces both conditions.",
+          "type": "array",
+          "items": { "$ref": "#/$defs/id" },
+          "uniqueItems": true
+        },
+        "representedPopulation": { "type": "string", "minLength": 1 },
+        "targetPopulationValidation": { "$ref": "#/$defs/targetPopulationValidation" },
+        "transferLimits": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "gaps": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "independenceAssessment": { "$ref": "#/$defs/independenceAssessment" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "support": { "const": "empirical_observation" } }, "required": ["support"] },
+          "then": {
+            "properties": {
+              "sourceIds": { "type": "array", "minItems": 1 },
+              "observationIds": { "type": "array", "minItems": 1 }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "support": { "enum": ["documented_mechanism", "rationale_only"] }
+            },
+            "required": ["support"]
+          },
+          "then": {
+            "properties": {
+              "sourceIds": { "type": "array", "minItems": 1 },
+              "observationIds": { "type": "array", "maxItems": 0 }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "support": { "const": "triangulated_empirical" } }, "required": ["support"] },
+          "then": {
+            "required": ["independenceAssessment"],
+            "properties": {
+              "sourceIds": { "type": "array", "minItems": 2 },
+              "observationIds": { "type": "array", "minItems": 2 },
+              "independenceAssessment": { "type": "object" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "support": { "const": "evidence_gap" } }, "required": ["support"] },
+          "then": {
+            "properties": {
+              "observationIds": { "type": "array", "maxItems": 0 },
+              "gaps": { "type": "array", "minItems": 1 }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "support": {
+                "enum": [
+                  "empirical_observation",
+                  "documented_mechanism",
+                  "rationale_only",
+                  "evidence_gap"
+                ]
+              }
+            },
+            "required": ["support"]
+          },
+          "then": {
+            "not": { "required": ["independenceAssessment"] }
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

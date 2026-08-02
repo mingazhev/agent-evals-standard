@@ -1,0 +1,19 @@
+{
+  "cellId": "single-arm-cell-1",
+  "armId": "single-arm-1",
+  "evaluationProfileDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+  "outcomeProfile": {
+    "id": "workspace-change-v1",
+    "version": "0.1.0",
+    "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  "repetition": 1,
+  "blockId": "single-block-1",
+  "seed": "single-seed-1",
+  "state": "unresolved",
+  "lineage": [
+    "single-attempt-1"
+  ],
+  "selectedAttemptId": null,
+  "trialResult": null
+}

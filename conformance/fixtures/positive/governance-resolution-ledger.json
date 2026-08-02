@@ -1,0 +1,253 @@
+{
+  "schemaVersion": "agent-eval-governance-resolution-ledger-1",
+  "ledgerId": "governance-resolution-ledger-fixture-1",
+  "policyInstanceHash": "sha256:a6a4cfb47b88f4d0ade7432e61f4d22c23654b3875a7db7c7855c03d655cc9cf",
+  "matrixInstanceHash": "sha256:35746a0015230a7dd56f9fe75a77f00e7ad0166a0403f0dce85df95d481f10f1",
+  "initialRoot": "sha256:90e9f407d544a7c55304e3d95174948a99714d2d078df804b211fad6179590e7",
+  "currentRoot": "sha256:00fcca336f6958792867cdd291ba1ff592ab498da16aeeec3831bf815b260ca5",
+  "externalAnchor": "fixture-external-anchor-1",
+  "evidenceManifest": [
+    {
+      "id": "fixture-evidence-1",
+      "uri": "artifact:sha256:2fe7ca3988e72fc92b982299dfb4cb59f07b210fe4716aeae96c2617573f6307",
+      "mediaType": "application/json",
+      "digest": "sha256:2fe7ca3988e72fc92b982299dfb4cb59f07b210fe4716aeae96c2617573f6307",
+      "byteLength": 133,
+      "producer": {
+        "id": "fixture-runner",
+        "role": "runner",
+        "trustDomain": "runner"
+      },
+      "creationPhase": "grading",
+      "createdAt": "2026-08-01T00:00:00Z",
+      "schemaMetadata": {
+        "schemaId": "fixture-result-1",
+        "schemaVersion": "0.1.0",
+        "validatorDigest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "mediaInterpretation": {
+        "profileId": "json-rfc8259",
+        "profileVersion": "0.1.0",
+        "semanticContract": null
+      },
+      "accessClass": "internal",
+      "accessPolicyBinding": {
+        "id": "fixture-access-policy",
+        "version": "0.1.0",
+        "digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      },
+      "privacyAndIp": {
+        "classification": "none",
+        "restrictions": []
+      },
+      "retention": {
+        "class": "fixture",
+        "expiresAt": "2027-08-01T00:00:00Z",
+        "disposition": "delete",
+        "legalHold": false
+      },
+      "attestation": {
+        "profileId": "fixture-signature-profile",
+        "algorithm": "Ed25519",
+        "keyId": "rfc8032-test-key-1",
+        "signedAt": "2026-08-01T00:00:00Z",
+        "value": "yvpUfx1rS1PNAEHcEta-OYAg5Y6KeZy67hHDeJEg0NW4HNn1MjMHzJSWknsNsupAFLf62k9jFbkElCGMdAP7BQ"
+      },
+      "payload": {
+        "kind": "inline_base64",
+        "contentBase64": "eyJzY2hlbWFWZXJzaW9uIjoiZml4dHVyZS1ldmlkZW5jZS1wYXlsb2FkLTEiLCJpZCI6ImZpeHR1cmUtZXZpZGVuY2UtMS1wYXlsb2FkIiwidmVyc2lvbiI6IjAuMS4wIiwiZXZpZGVuY2VJZCI6ImZpeHR1cmUtZXZpZGVuY2UtMSJ9Cg=="
+      }
+    }
+  ],
+  "events": [
+    {
+      "sequence": 1,
+      "eventId": "escalation-fixture-1",
+      "eventType": "escalation",
+      "payloadHash": "sha256:2768d69d52c9406c48e2a1bbce1a89a8882ceca1d640eec7bca85b30a030f1a5",
+      "previousEventHash": null,
+      "eventHash": "sha256:1071152a1952773d81019559146ca6b318d1afb53989838872ddff950f18235d",
+      "timestamp": "2026-08-01T00:00:14Z",
+      "payload": {
+        "schemaVersion": "agent-eval-escalation-event-1",
+        "id": "escalation-fixture-1",
+        "eventId": "measurementBoundaryCompromise",
+        "matrixVersion": "0.1.0",
+        "matrixHash": "sha256:35746a0015230a7dd56f9fe75a77f00e7ad0166a0403f0dce85df95d481f10f1",
+        "matrixRowHash": "sha256:07376e634331df6614fccf03cb7053a9f49737d5da767f66af73ff38548f89c4",
+        "triggeredAt": "2026-08-01T00:00:12Z",
+        "state": "open",
+        "affectedScope": {
+          "scopeDigest": "sha256:b59491fd25d11e97fbad312086031faf0bc48aecb17ba897800aaf344d27d602",
+          "riskTier": "high",
+          "decisionId": "decision-fixture-1",
+          "scorecardId": "scorecard-fixture-1",
+          "claimIds": [
+            "claim-fixture-1"
+          ]
+        },
+        "claimEffect": "insufficient_evidence",
+        "governanceStatus": "security_review_required",
+        "stopAction": "stop_governance_use",
+        "scopeAction": "revoke_affected_scope",
+        "waivable": false,
+        "owner": "security-owner",
+        "sla": "PT1H",
+        "triageArtifact": "triage-fixture-1",
+        "findingRef": "finding-fixture-1",
+        "evidence": [
+          "fixture-evidence-1"
+        ],
+        "enforcementRequest": {
+          "action": "stop_governance_use",
+          "requestedAt": "2026-08-01T00:00:13Z"
+        },
+        "resumeConditions": [
+          "measurement boundary re-established and independently verified"
+        ],
+        "signature": {
+          "profileId": "fixture-signature-profile",
+          "algorithm": "Ed25519",
+          "keyId": "rfc8032-test-key-1",
+          "signedAt": "2026-08-01T00:00:14Z",
+          "value": "7gGebbqVMEWI9CTJGTgB9Hfa3KpbRj7tGQM02jS4KlRi-4-8nqnWmtmFsBFAWwa9W0xMtUzZfGZFsiQYS9rKDg"
+        }
+      },
+      "signature": {
+        "profileId": "fixture-signature-profile",
+        "algorithm": "Ed25519",
+        "keyId": "rfc8032-test-key-1",
+        "signedAt": "2026-08-01T00:00:20Z",
+        "value": "dxUGQ5OD-UgugwkTyRqB_JDdtsx2QuZPUJIn4xAxuZ3ES5WQLt3NTeg32wXV9ySPfr467tfPkC2EkOckKA0vDw"
+      }
+    },
+    {
+      "sequence": 2,
+      "eventId": "enforcement-receipt-fixture-1",
+      "eventType": "enforcement_receipt",
+      "payloadHash": "sha256:87294816d68abdc884152f1d8c83edbef863c722bcb6721a136c0f9921378514",
+      "previousEventHash": "sha256:1071152a1952773d81019559146ca6b318d1afb53989838872ddff950f18235d",
+      "eventHash": "sha256:3e07e1aa006fbb13952ecc7950a3727ce7b02ffb5da3800c91ae0ab2ec332291",
+      "timestamp": "2026-08-01T00:00:17Z",
+      "payload": {
+        "schemaVersion": "agent-eval-enforcement-receipt-1",
+        "id": "enforcement-receipt-fixture-1",
+        "sourceEventId": "escalation-fixture-1",
+        "sourceEventDigest": "sha256:2768d69d52c9406c48e2a1bbce1a89a8882ceca1d640eec7bca85b30a030f1a5",
+        "affectedScope": {
+          "scopeDigest": "sha256:b59491fd25d11e97fbad312086031faf0bc48aecb17ba897800aaf344d27d602",
+          "riskTier": "high",
+          "decisionId": "decision-fixture-1",
+          "scorecardId": "scorecard-fixture-1",
+          "claimIds": [
+            "claim-fixture-1"
+          ]
+        },
+        "stopAction": "stop_governance_use",
+        "scopeAction": "revoke_affected_scope",
+        "requestedAt": "2026-08-01T00:00:13Z",
+        "startedAt": "2026-08-01T00:00:15Z",
+        "completedAt": "2026-08-01T00:00:16Z",
+        "outcome": "applied",
+        "executor": {
+          "id": "fixture-enforcement-executor",
+          "role": "policy_enforcer",
+          "authorizationEvidenceId": "fixture-executor-authorization-1"
+        },
+        "evidence": [
+          "enforcement-log-fixture-1"
+        ],
+        "verifier": {
+          "id": "fixture-enforcement-verifier",
+          "version": "0.1.0",
+          "digest": "sha256:f6c831a7dc917e6748d5396a79f2906d4214857d9af130e7bddd291d653ecd13"
+        },
+        "digest": "sha256:5231797a88568d3983488c6a0714f61b03b4a014f05022755c59e1421a5cc789",
+        "signature": {
+          "profileId": "fixture-signature-profile",
+          "algorithm": "Ed25519",
+          "keyId": "rfc8032-test-key-1",
+          "signedAt": "2026-08-01T00:00:17Z",
+          "value": "mcW4Rlb4JabmPx1R1ZYW9fGkfo6CMNAh7RPTexpvEhoNOxfNYIJgr5mUciPL16orTKpCvFRmvvVkvsL4nLacCA"
+        }
+      },
+      "signature": {
+        "profileId": "fixture-signature-profile",
+        "algorithm": "Ed25519",
+        "keyId": "rfc8032-test-key-1",
+        "signedAt": "2026-08-01T00:00:21Z",
+        "value": "SI--S33nSBWibJwW_3FnMQ9Mbu9BkY4JQ4XDrVgfZsCplOE9ZqAa38-uhQ0R4LIbPjtV7MtG3qs2BMi3R6ebAg"
+      }
+    },
+    {
+      "sequence": 3,
+      "eventId": "resolution-fixture-1",
+      "eventType": "resolution",
+      "payloadHash": "sha256:8af3bd6edb656d186249284f146d947c0cea6ff9fdc788682c7df0977d09890c",
+      "previousEventHash": "sha256:3e07e1aa006fbb13952ecc7950a3727ce7b02ffb5da3800c91ae0ab2ec332291",
+      "eventHash": "sha256:00fcca336f6958792867cdd291ba1ff592ab498da16aeeec3831bf815b260ca5",
+      "timestamp": "2026-08-01T00:00:19Z",
+      "payload": {
+        "schemaVersion": "agent-eval-governance-resolution-1",
+        "eventId": "resolution-fixture-1",
+        "action": "resolve",
+        "sourceEventId": "escalation-fixture-1",
+        "sourceEventType": "measurementBoundaryCompromise",
+        "sourceEventHash": "sha256:2768d69d52c9406c48e2a1bbce1a89a8882ceca1d640eec7bca85b30a030f1a5",
+        "sourceTriageArtifact": "triage-fixture-1",
+        "sourceFindingRef": "finding-fixture-1",
+        "governanceStatusId": "security_review_required",
+        "riskTier": "high",
+        "waivability": "non_waivable",
+        "scorecardId": "scorecard-fixture-1",
+        "scorecardHash": "sha256:f35a333e9eb55ce203be8719987e45823fd5231e3535c389733f5c1f3dba8f6b",
+        "findingId": "finding-fixture-1",
+        "policyInstanceHash": "sha256:a6a4cfb47b88f4d0ade7432e61f4d22c23654b3875a7db7c7855c03d655cc9cf",
+        "matrixInstanceHash": "sha256:35746a0015230a7dd56f9fe75a77f00e7ad0166a0403f0dce85df95d481f10f1",
+        "enforcementReceipt": {
+          "id": "enforcement-receipt-fixture-1",
+          "uri": "artifact:fixture:enforcement-receipt-fixture-1",
+          "digest": "sha256:5231797a88568d3983488c6a0714f61b03b4a014f05022755c59e1421a5cc789"
+        },
+        "actor": {
+          "id": "fixture-status-resolver",
+          "role": "status_resolver"
+        },
+        "policyClause": "measurement-boundary-compromise-resolution",
+        "scope": "affected-scope-fixture-1",
+        "evidence": [
+          "fixture-evidence-1",
+          "enforcement-log-fixture-1"
+        ],
+        "separationOfDutiesEvidence": "fixture-separation-of-duties-1",
+        "timestamp": "2026-08-01T00:00:18Z",
+        "signature": {
+          "profileId": "fixture-signature-profile",
+          "algorithm": "Ed25519",
+          "keyId": "rfc8032-test-key-1",
+          "signedAt": "2026-08-01T00:00:19Z",
+          "value": "TeKsjBCX_q_7ENLmR_etowgQSf2xWU2rN1voLdBITgux3Uk9doZmAjNGSLr5r-ggn_F5FoJvwLTBaRM0zPKCBw"
+        }
+      },
+      "signature": {
+        "profileId": "fixture-signature-profile",
+        "algorithm": "Ed25519",
+        "keyId": "rfc8032-test-key-1",
+        "signedAt": "2026-08-01T00:00:22Z",
+        "value": "5I8aTGxMHA7Wmp-bCiwENZRB1ZkCo-k3bpY3nsfIJE5OlzAooNHlLC0NRJ57VOIG20NLr1HB41Y_Q7SvHPw4Dg"
+      }
+    }
+  ],
+  "issuer": {
+    "id": "fixture-ledger-issuer",
+    "role": "ledger_issuer"
+  },
+  "issuedAt": "2026-08-01T00:00:23Z",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:24Z",
+    "value": "-_O6cWtOYaagFzGQ6jRA_uC-b7f2RWgZMs1iAtck1EuNLquhXe8qhJkhSWNuxY27jYA9-OcbXNp12zWrquVdCw"
+  }
+}

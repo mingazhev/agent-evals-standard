@@ -1,0 +1,1 @@
+{"allowedLocatorKinds":["repository_relative"],"byteLengthRule":"exact_stored_bytes","digestAlgorithm":"SHA-256","id":"machine-contract-resolution-v1","locatorBase":"binding_document","schemaVersion":"agent-eval-machine-contract-resolution-1","unknownEffect":"insufficient_evidence","uriRule":"artifact_sha256_equals_digest","version":"0.1.0"}

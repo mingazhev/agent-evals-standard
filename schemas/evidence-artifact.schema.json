@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:evidence-artifact:1",
+  "title": "Canonical authenticated evidence artifact",
+  "type": "object",
+  "required": [
+    "id",
+    "uri",
+    "mediaType",
+    "digest",
+    "byteLength",
+    "payload",
+    "producer",
+    "creationPhase",
+    "createdAt",
+    "schemaMetadata",
+    "mediaInterpretation",
+    "accessClass",
+    "accessPolicyBinding",
+    "privacyAndIp",
+    "retention",
+    "attestation"
+  ],
+  "properties": {
+    "id": { "$ref": "#/$defs/artifactId" },
+    "artifactType": { "$comment": "Required by a selected terminal-evidence contract when the evidence is a terminal work artifact; profile-specific non-diff types use a namespace prefix.", "$ref": "#/$defs/artifactType" },
+    "uri": { "type": "string", "minLength": 1 },
+    "mediaType": { "type": "string", "minLength": 1 },
+    "digest": { "$ref": "#/$defs/digest" },
+    "byteLength": { "type": "integer", "minimum": 0 },
+    "payload": {
+      "$comment": "A locator is mandatory because digest-only metadata is not material evidence. Semantic verification must resolve this locator to bytes and compare those bytes with the artifact's mediaType, byteLength, and digest. A repository_relative path is resolved against an explicitly supplied evidence root, never the process working directory by implication.",
+      "$ref": "#/$defs/payloadLocator"
+    },
+    "producer": {
+      "type": "object",
+      "required": ["id", "role", "trustDomain"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "minLength": 1 },
+        "trustDomain": { "enum": ["runner", "grader", "case_qa", "governance", "external"] }
+      },
+      "additionalProperties": false
+    },
+    "creationPhase": {
+      "enum": ["authoring", "case_qa", "pre_run", "execution", "teardown", "grading", "aggregation", "governance", "post_decision"]
+    },
+    "createdAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "schemaMetadata": {
+      "oneOf": [
+        { "type": "null" },
+        { "type": "object", "required": ["schemaId", "schemaVersion", "validatorDigest"], "properties": { "schemaId": { "type": "string", "minLength": 1 }, "schemaVersion": { "type": "string", "minLength": 1 }, "validatorDigest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false }
+      ]
+    },
+    "mediaInterpretation": {
+      "type": "object",
+      "required": ["profileId", "profileVersion", "semanticContract"],
+      "properties": {
+        "profileId": { "type": "string", "minLength": 1 }, "profileVersion": { "type": "string", "minLength": 1 },
+        "semanticContract": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/contractBinding" }] }
+      },
+      "additionalProperties": false
+    },
+    "accessClass": { "enum": ["public", "internal", "confidential", "restricted_oracle"] },
+    "accessPolicyBinding": { "$ref": "#/$defs/contractBinding" },
+    "privacyAndIp": { "type": "object", "required": ["classification", "restrictions"], "properties": { "classification": { "enum": ["none", "personal_data", "confidential", "licensed", "trade_secret", "mixed"] }, "restrictions": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true } }, "additionalProperties": false },
+    "retention": {
+      "type": "object",
+      "required": ["class", "expiresAt", "disposition", "legalHold"],
+      "properties": {
+        "class": { "type": "string", "minLength": 1 },
+        "expiresAt": { "type": ["string", "null"], "format": "date-time", "pattern": "Z$" },
+        "disposition": { "enum": ["delete", "redact", "archive", "retain_under_hold"] },
+        "legalHold": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "attestation": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "type": "object",
+        "properties": { "artifactType": { "const": "workspace_diff" } },
+        "required": ["artifactType"]
+      },
+      "then": {
+        "$comment": "A workspace diff can be terminal evidence only as non-empty, content-addressed material bytes. Cross-field equality between uri and digest is enforced by semantic verification.",
+        "type": "object",
+        "properties": {
+          "uri": { "type": "string", "pattern": "^artifact:sha256:[a-f0-9]{64}$" },
+          "byteLength": { "type": "integer", "minimum": 1 }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "artifactId": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "artifactType": { "oneOf": [{ "const": "workspace_diff" }, { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*:[A-Za-z0-9][A-Za-z0-9_.-]*$" }] },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "contractBinding": { "type": "object", "required": ["id", "version", "digest"], "properties": { "id": { "$ref": "#/$defs/artifactId" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
+    "payloadLocator": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind", "contentBase64"],
+          "properties": {
+            "kind": { "const": "inline_base64" },
+            "contentBase64": {
+              "type": "string",
+              "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "path"],
+          "properties": {
+            "kind": { "const": "repository_relative" },
+            "path": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "uri"],
+          "properties": {
+            "kind": { "const": "immutable_external" },
+            "uri": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}

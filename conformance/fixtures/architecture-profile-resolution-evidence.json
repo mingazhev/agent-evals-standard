@@ -1,0 +1,47 @@
+{
+  "id": "architecture-profile-resolution-evidence",
+  "uri": "architecture-profile-resolution-evidence-payload.json",
+  "mediaType": "application/json",
+  "digest": "sha256:fa5c7d134e5fc8645bbb28e65cde7decb1493deba8eda4a54edb78e5add7a016",
+  "byteLength": 2985,
+  "producer": {
+    "id": "architecture-profile-resolution-input-builder",
+    "role": "profile_resolution_input_builder",
+    "trustDomain": "case_qa"
+  },
+  "creationPhase": "authoring",
+  "createdAt": "2026-08-01T00:00:00Z",
+  "schemaMetadata": null,
+  "mediaInterpretation": {
+    "profileId": "json-rfc8785",
+    "profileVersion": "0.1.0",
+    "semanticContract": null
+  },
+  "accessClass": "internal",
+  "accessPolicyBinding": {
+    "id": "architecture-fixture-access-policy",
+    "version": "0.1.0",
+    "digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+  },
+  "privacyAndIp": {
+    "classification": "none",
+    "restrictions": []
+  },
+  "retention": {
+    "class": "conformance_fixture",
+    "expiresAt": "2027-08-01T00:00:00Z",
+    "disposition": "archive",
+    "legalHold": false
+  },
+  "attestation": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:00Z",
+    "value": "34WVv8N8Vb4OKPtJBB6AP-NlX0kDD1l0IXzpEwejfUMchA6JQxYdyZDO3j7frXv7iZGzHbuJBC1P5-vpqYQNDg"
+  },
+  "payload": {
+    "kind": "repository_relative",
+    "path": "architecture-profile-resolution-evidence-payload.json"
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "agent-eval-workspace-manifest-1",
+  "id": "repository-snapshot-fixture-1",
+  "version": "0.1.0",
+  "repositories": [
+    {
+      "id": "fixture-repository-primary",
+      "path": ".",
+      "baseRevision": "3d7ac2c2a8dcc0ced4dbf7889317e528ee2915c0",
+      "treeDigest": "sha256:41d23f0113e48429c017c34e394e6b64e90a6f94b31a155bf5cf1ba0a2bf355e",
+      "historyProjection": {
+        "mode": "full_ancestry",
+        "cutoffRevision": "3d7ac2c2a8dcc0ced4dbf7889317e528ee2915c0",
+        "baseRef": "refs/heads/eval-base",
+        "objectGraphDigest": "sha256:e45f969a08a6e6e4d0b6708c7cc4601b85b6b8d4dec9e22d9a299982f4389ed1",
+        "reachableObjectCount": 7,
+        "verifier": {
+          "id": "agent-evals-standard.git-repository-state-verifier",
+          "version": "0.1.0",
+          "algorithm": "git-repository-state-v1"
+        }
+      },
+      "files": [
+        {
+          "path": ".github/workflows/ci.yml",
+          "mode": "100644",
+          "mediaType": "text/yaml",
+          "byteLength": 14,
+          "digest": "sha256:0af6a6b64794de7e02c5e17c7d532d8fa22b7e5fce51b803a46439e6637cb269",
+          "contentBase64": "bmFtZTogZml4dHVyZQo="
+        },
+        {
+          "path": "src/answer.js",
+          "mode": "100644",
+          "mediaType": "text/javascript",
+          "byteLength": 26,
+          "digest": "sha256:a2098bd92b10bf8b816d24b7556b1ce8c49a879d130489065ef1051c17e042f6",
+          "contentBase64": "ZXhwb3J0IGNvbnN0IGFuc3dlciA9IDQyOwo="
+        }
+      ],
+      "objectFormat": "sha1",
+      "gitObjectGraph": {
+        "baseRef": "refs/heads/eval-base",
+        "refs": [
+          {
+            "name": "refs/heads/eval-base",
+            "target": "3d7ac2c2a8dcc0ced4dbf7889317e528ee2915c0"
+          }
+        ],
+        "objects": [
+          {
+            "objectId": "12fcd8c30af55f85c3e332a7d89785cbd4d7e3d8",
+            "type": "tree",
+            "byteLength": 36,
+            "contentBase64": "NDAwMDAgd29ya2Zsb3dzAPcGinzUPHelBDOTx5FZyT93/mWL"
+          },
+          {
+            "objectId": "13ab388648e4c49e35a74ae725c82a18424201b4",
+            "type": "tree",
+            "byteLength": 64,
+            "contentBase64": "NDAwMDAgLmdpdGh1YgAS/NjDCvVfhcPjMqfYl4XL1Nfj2DQwMDAwIHNyYwBTRry15Aa11bvSbPeHq3k2pfNhKw=="
+          },
+          {
+            "objectId": "3d7ac2c2a8dcc0ced4dbf7889317e528ee2915c0",
+            "type": "commit",
+            "byteLength": 208,
+            "contentBase64": "dHJlZSAxM2FiMzg4NjQ4ZTRjNDllMzVhNzRhZTcyNWM4MmExODQyNDIwMWI0CmF1dGhvciBGaXh0dXJlIEJ1aWxkZXIgPGZpeHR1cmVAZXhhbXBsZS5pbnZhbGlkPiAwICswMDAwCmNvbW1pdHRlciBGaXh0dXJlIEJ1aWxkZXIgPGZpeHR1cmVAZXhhbXBsZS5pbnZhbGlkPiAwICswMDAwCgpzZWFsZWQgd29ya3NwYWNlIGZpeHR1cmUtcmVwb3NpdG9yeS1wcmltYXJ5Cg=="
+          },
+          {
+            "objectId": "5346bcb5e406b5d5bbd26cf787ab7936a5f3612b",
+            "type": "tree",
+            "byteLength": 37,
+            "contentBase64": "MTAwNjQ0IGFuc3dlci5qcwBkoy/SkeQFqWOqz5ZKAhgJ3SBsRg=="
+          },
+          {
+            "objectId": "64a32fd291e405a963aacf964a021809dd206c46",
+            "type": "blob",
+            "byteLength": 26,
+            "contentBase64": "ZXhwb3J0IGNvbnN0IGFuc3dlciA9IDQyOwo="
+          },
+          {
+            "objectId": "908941adcfed7b16f8ef47292e326448f1de1af2",
+            "type": "blob",
+            "byteLength": 14,
+            "contentBase64": "bmFtZTogZml4dHVyZQo="
+          },
+          {
+            "objectId": "f7068a7cd43c77a5043393c79159c93f77fe658b",
+            "type": "tree",
+            "byteLength": 34,
+            "contentBase64": "MTAwNjQ0IGNpLnltbACQiUGtz+17FvjvRykuMmRI8d4a8g=="
+          }
+        ],
+        "digest": "sha256:e45f969a08a6e6e4d0b6708c7cc4601b85b6b8d4dec9e22d9a299982f4389ed1"
+      }
+    }
+  ],
+  "workspaceRootDigest": "sha256:f876dc9e9febfd4115f6e2a6a31e710e1bd01ab0f11e8c139673541ec6abea6a"
+}

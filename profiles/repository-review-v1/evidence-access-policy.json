@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "repository-review-evidence-access-policy-1",
+  "id": "repository-review-evidence-access-policy",
+  "version": "0.1.0",
+  "allowedRoles": [
+    "runner",
+    "independent_review_grader",
+    "case_qa_reviewer"
+  ],
+  "export": "deny_by_default",
+  "retention": "conformance_fixture_archive",
+  "oracleMaterialIncluded": false
+}

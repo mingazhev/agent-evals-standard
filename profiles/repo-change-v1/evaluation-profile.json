@@ -1,0 +1,761 @@
+{
+  "schemaVersion": "agent-eval-evaluation-profile-1",
+  "id": "repo-change-v1",
+  "namespace": "agent-evals-standard.repo-change",
+  "owner": {
+    "id": "agent-evals-standard-maintainers",
+    "role": "profile_maintainer"
+  },
+  "version": "0.1.0",
+  "parentProfile": null,
+  "baseCompatibility": {
+    "standardVersion": "0.1.0",
+    "requirementRegistry": {
+      "id": "agent-evals-standard-requirements",
+      "version": "0.1.0",
+      "uri": "../../standard/requirement-registry.json",
+      "digest": "sha256:860614b558286306940b3a2fdb50b5c7024ba44bf474c0ea22ef3b193ce89a83"
+    },
+    "verdict": "compatible_no_weakening"
+  },
+  "signatureProfile": {
+    "id": "fixture-signature-profile",
+    "version": "0.1.0",
+    "uri": "signature-profile.json",
+    "digest": "sha256:d3d2fd1c85f32d1881ad55160b31737f5fa53d9453ce42c9064812a4b1ecb872"
+  },
+  "claimTrustProfile": {
+    "id": "repo-change-operational-signature-profile",
+    "version": "0.1.0",
+    "uri": "operational-signature-profile.json",
+    "digest": "sha256:187832651a0b2317ca06b864a158c551082bf9f097b318dbe09ad78dd585b3b5"
+  },
+  "claimTrustUse": "conformance_fixture_requires_external_rekey",
+  "supportedAssuranceLevels": [
+    "A1",
+    "A2",
+    "A3"
+  ],
+  "effectiveRiskRange": [
+    "low",
+    "medium",
+    "high",
+    "critical"
+  ],
+  "capabilityFamilies": [
+    "CAP.IMPLEMENT_CHANGE",
+    "CAP.VERIFY_ASSURE"
+  ],
+  "interactionModes": [
+    "noninteractive_repository_task",
+    "interactive_repository_session",
+    "pull_request_workflow",
+    "ci_or_release_workflow"
+  ],
+  "workArtifactRegistry": {
+    "id": "repository-sdlc-work-artifact-registry",
+    "version": "0.1.0",
+    "uri": "../../standard/work-artifact-registry.json",
+    "digest": "sha256:151684e0e5c35023ec07d6f4554ebedb9ecd4e52ef7738bd77c1eb31c95053c7"
+  },
+  "allowedOutcomeProfiles": [
+    {
+      "id": "workspace-change-v1",
+      "version": "0.1.0",
+      "uri": "outcome-profile.json",
+      "digest": "sha256:d5caa138041d104bff90c38f9f3735ab4f9afac87efb167f61dd5e916ecbd10d"
+    }
+  ],
+  "caseContract": {
+    "id": "repo-change-case-contract",
+    "version": "0.1.0",
+    "uri": "case-contract.json",
+    "digest": "sha256:9e905bd4844001d514670cf3b2239232d31bdcbf710448ee146593bf99ced1d9"
+  },
+  "gateRegistry": {
+    "id": "repo-change-gate-registry",
+    "version": "0.1.0",
+    "uri": "gate-registry.json",
+    "digest": "sha256:0217e32dd00b239e5d860890b66aa8c1eaa9262e536dda3a97621727a784b146"
+  },
+  "caseQa": {
+    "id": "repo-change-case-qa-contract",
+    "version": "0.1.0",
+    "uri": "case-qa-contract.json",
+    "digest": "sha256:d17987895c74e0fec9b6b7433ee80974758c49ddee61a7c56476326a77c15b98"
+  },
+  "metrics": [
+    {
+      "id": "repo-change-metric-registry",
+      "version": "0.1.0",
+      "uri": "metric-registry.json",
+      "digest": "sha256:cc3122197b1e8ffee86dbad60ab9f49971a7e8ef032cd7c0dea07dc814ab565c"
+    }
+  ],
+  "failureTaxonomy": {
+    "id": "repo-change-failure-taxonomy",
+    "version": "0.1.0",
+    "uri": "failure-taxonomy.json",
+    "digest": "sha256:40b163062c44b813605d6126f95e31ebff7d172958fc2b97ef3e136058910636"
+  },
+  "additionalAssuranceRequirements": [],
+  "exclusions": [
+    {
+      "scope": "CAP.DISCOVER_SPECIFY",
+      "reason": "No requirements-discovery or specification artifact contract is bundled.",
+      "claimEffect": "forbidden"
+    },
+    {
+      "scope": "CAP.PLAN_DESIGN",
+      "reason": "No architecture or design outcome profile is bundled.",
+      "claimEffect": "forbidden"
+    },
+    {
+      "scope": "CAP.REVIEW_DECIDE",
+      "reason": "No finding-reference set or decision rubric is bundled.",
+      "claimEffect": "forbidden"
+    },
+    {
+      "scope": "CAP.RELEASE_OPERATE",
+      "reason": "No controlled simulated deployment, rollout, observability, rollback, or incident-action outcome contract is bundled.",
+      "claimEffect": "forbidden"
+    },
+    {
+      "scope": "CAP.REMEDIATE_LEARN",
+      "reason": "No incident or learning-cycle outcome profile is bundled.",
+      "claimEffect": "forbidden"
+    }
+  ],
+  "fixtures": [
+    {
+      "id": "repo-change-positive",
+      "manifestUri": "../../conformance/fixtures/manifest.json",
+      "manifestDigest": "sha256:c22b9d6ecf78b383b969eff9725e095a72e8258b7782b4829bd8881b8354ccfe",
+      "manifestExpectationId": "requirement-implementation-contract-positive",
+      "expectedVerdict": "pass"
+    },
+    {
+      "id": "reject-general-agent-capability",
+      "manifestUri": "../../conformance/fixtures/manifest.json",
+      "manifestDigest": "sha256:c22b9d6ecf78b383b969eff9725e095a72e8258b7782b4829bd8881b8354ccfe",
+      "manifestExpectationId": "evaluation-profile-reject-general-agent-capability",
+      "expectedVerdict": "fail"
+    }
+  ],
+  "requirementMapping": [
+    {
+      "requirementId": "ARCH-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "ASSURE-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "CASE-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "CASE-002",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "CASE-003",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "CASE-004",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "CASE-005",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "CLAIM-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "CLAIM-002",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "CONF-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "CONF-002",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "CONF-003",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "DATA-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "DATA-002",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "EVID-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "EVID-002",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "EXP-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "EXP-002",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "EXP-003",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "GATE-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "GOV-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "GOV-002",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "HEALTH-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "HOLD-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "HOLD-002",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "I1",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "I10",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "I11",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "I12",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "I13",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "I2",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "I3",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "I4",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "I5",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "I6",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "I7",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "I8",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "I9",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "INT-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "JUDGE-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "JUDGE-002",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "JUDGE-003",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "OUT-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "OUTPROF-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "PROFILE-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "RISK-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "RUN-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "RUN-002",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "RUN-003",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "SCOPE-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "SCOPE-002",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "SCOPE-003",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "STAT-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "STAT-002",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "STAT-003",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "TRACE-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "VALID-001",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "VALID-002",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    },
+    {
+      "requirementId": "VALID-003",
+      "sourceProfileId": "repo-change-v1",
+      "implementation": {
+        "id": "repo-change-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:3e61055b69fe0b6b1550857b216cf517b6332af3ad213616617022b419c471bf"
+      }
+    }
+  ],
+  "conflictReport": {
+    "status": "no_unresolved_conflicts",
+    "evidence": {
+      "id": "repo-change-v1-profile-resolution",
+      "version": "0.1.0",
+      "uri": "profile-resolution.json",
+      "digest": "sha256:57a1f38695d18d712e0824957b80b183dac4d4c91dcf77744baae0301e16d02c"
+    }
+  },
+  "resolutionEvidence": {
+    "id": "repo-change-v1-profile-resolution",
+    "version": "0.1.0",
+    "uri": "profile-resolution.json",
+    "digest": "sha256:57a1f38695d18d712e0824957b80b183dac4d4c91dcf77744baae0301e16d02c"
+  },
+  "effectiveProfileDigest": "sha256:9747356974d11b587fb8ba07659c63e641122c611866d0e165ec2245d587b61a",
+  "digest": "sha256:82135cb0af1b99baf73146b7b8df1f6c1b80e9c1fa847486aee0196e4bcdcd46",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:00Z",
+    "value": "zJellbIu_a37bzcqxwbYRtpEBH1iju6rkSu5H_NRhtNG0X92gahsqxYAR2OfcugDhB3rHTo4p3v4bFg6dRIrCQ"
+  }
+}

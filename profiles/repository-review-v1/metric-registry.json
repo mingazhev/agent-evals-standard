@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "repository-review-metric-registry-1",
+  "id": "repository-review-metric-registry",
+  "version": "0.1.0",
+  "metrics": [
+    {
+      "id": "reviewDecisionCorrectness",
+      "population": "eligible scheduled review cells",
+      "numerator": "independently accepted review decisions",
+      "missingness": "unresolved cells remain in identification bounds"
+    },
+    {
+      "id": "materialFindingRecall",
+      "population": "sealed material finding reference set",
+      "numerator": "correctly reported material findings",
+      "missingness": "unadjudicated findings are insufficient evidence"
+    },
+    {
+      "id": "unsupportedFindingRate",
+      "population": "all reported material findings",
+      "numerator": "findings rejected by independent adjudication",
+      "missingness": "unadjudicated findings are insufficient evidence"
+    },
+    {
+      "id": "repositoryMutationRate",
+      "population": "all physical attempts",
+      "numerator": "attempts with any repository write or tree change",
+      "missingness": "missing write telemetry is insufficient evidence"
+    }
+  ]
+}

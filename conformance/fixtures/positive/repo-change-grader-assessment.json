@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "agent-eval-repo-change-grader-assessment-1",
+  "id": "repo-change-grader-assessment-fixture-1",
+  "version": "0.1.0",
+  "experimentId": "experiment-fixture-1",
+  "caseId": "repo-change-case-fixture-1",
+  "cellId": "cell-fixture-1",
+  "attemptId": "attempt-fixture-1",
+  "armId": "arm-fixture-1",
+  "workspaceDiffDigest": "sha256:376c2eda8818aa971c3c257d0c9573e55c69f695717fb99e60bde6ab3b141f03",
+  "evaluatedAssuranceReportDigest": "sha256:158825f00f8f61afa11b92ed8b1e16bfa5fe9af6edeff8abdc2ceb88832c2b0b",
+  "checks": [
+    {
+      "id": "required-outcome-conditions",
+      "status": "pass"
+    },
+    {
+      "id": "deterministic-checks",
+      "status": "pass"
+    },
+    {
+      "id": "evidence-authenticity",
+      "status": "pass"
+    }
+  ],
+  "facts": {
+    "measurementValidity": "valid",
+    "requiredOutcomeConditionsVerdict": "pass",
+    "deterministicChecksVerdict": "pass",
+    "evidenceAuthenticityVerdict": "pass",
+    "adjudicationProtocolVerdict": "pass",
+    "adjudicatorIndependenceVerdict": "pass",
+    "adjudicationVerdict": "pass"
+  }
+}

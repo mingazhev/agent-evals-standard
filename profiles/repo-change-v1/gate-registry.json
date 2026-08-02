@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "repo-change-gate-registry-1",
+  "id": "repo-change-gate-registry",
+  "version": "0.1.0",
+  "coreGates": [
+    "evidenceAuthenticity",
+    "oracleIsolation",
+    "isolatedExecution",
+    "trustedMeasurementBoundary",
+    "attemptAccounting",
+    "permissionPolicy",
+    "dataAndRetentionPolicy"
+  ],
+  "profileGates": [
+    { "id": "workspaceBuild", "appliesWhen": "the repository declares a build", "failureCauseId": "build_failed" },
+    { "id": "publicChecks", "appliesWhen": "always", "failureCauseId": "public_checks_failed" },
+    { "id": "hiddenChecks", "appliesWhen": "always", "failureCauseId": "hidden_regression" },
+    { "id": "securityChecks", "appliesWhen": "the change reaches a security-relevant surface", "failureCauseId": "security_check_failed" },
+    { "id": "repositoryIntegrity", "appliesWhen": "always", "failureCauseId": "repository_integrity_failed" }
+  ],
+  "unknownOrIndeterminate": {
+    "gateStatus": "invalid",
+    "failureCauseId": "measurement_failure",
+    "claimEffect": "insufficient_evidence"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "agent-eval-repo-change-measurement-validity-record-1",
+  "id": "repo-change-measurement-validity-fixture-1",
+  "version": "0.1.0",
+  "experimentId": "experiment-fixture-1",
+  "caseId": "repo-change-case-fixture-1",
+  "cellId": "cell-fixture-1",
+  "attemptId": "attempt-fixture-1",
+  "armId": "arm-fixture-1",
+  "workspaceManifestDigest": "sha256:e100fec3cc4a6d4b2d069fd2e9e5c81eb4f3bca59ec7db69152141e2b1458cd5",
+  "workspaceRootDigest": "sha256:675204f42738625d104c09671bae121d5e82722f71ba62e7c6dd75a5653430ac",
+  "runnerEvidenceId": "repo-change-runner-attestation-fixture-1",
+  "runnerEvidenceDigest": "sha256:ff8961a1d52a11233d3345666d8ff14e4182a46b89637f40948fe81de35ff2fb",
+  "factProjectionDigest": "sha256:8888888888888888888888888888888888888888888888888888888888888888",
+  "measurementValidity": "invalid",
+  "reasonCode": "runner_measurement_invalid",
+  "verdict": "pass"
+}

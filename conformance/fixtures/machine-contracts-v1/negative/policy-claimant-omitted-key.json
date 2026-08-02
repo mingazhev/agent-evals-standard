@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "agent-eval-evaluation-control-authority-policy-1",
+  "id": "fixture-evaluation-control-authority-policy",
+  "version": "0.1.0",
+  "issuer": {
+    "id": "fixture-evaluation-governance-root",
+    "role": "evaluation_governance_root",
+    "trustDomain": "external_governance"
+  },
+  "validFrom": "2026-08-01T00:00:00Z",
+  "validUntil": "2027-08-01T00:00:00Z",
+  "claimantIdentities": {
+    "actorIds": [
+      "suite-owner"
+    ],
+    "trustDomains": [
+      "claimant"
+    ],
+    "keyIds": [
+      "rfc8032-test-key-1-claimant"
+    ],
+    "keys": [
+      {
+        "actor": {
+          "id": "suite-owner",
+          "role": "evaluation_claimant",
+          "trustDomain": "claimant"
+        },
+        "profileId": "fixture-claimant-profile",
+        "algorithm": "Ed25519",
+        "keyId": "rfc8032-test-key-1-claimant",
+        "publicKey": {
+          "format": "spki_der_base64",
+          "contentBase64": "MCowBQYDK2VwAyEA11qYAYKxCrfVS/7TyWQHOg7hcvPapiMlrwIaaPcHURo=",
+          "digest": "sha256:06e3fd8fda29bb60ab59557de61edb0aecdb231134be30e75b455f8e1b792fa9"
+        }
+      },
+      {
+        "actor": {
+          "id": "suite-owner",
+          "role": "evaluation_claimant",
+          "trustDomain": "claimant"
+        },
+        "profileId": "fixture-secondary-claimant-profile",
+        "algorithm": "Ed25519",
+        "keyId": "fixture-secondary-claimant-key",
+        "publicKey": {
+          "format": "spki_der_base64",
+          "contentBase64": "MCowBQYDK2VwAyEAebVWLo/mVPlAeLES6KmLp5AfhTrmlb7X4OORC60ElmQ=",
+          "digest": "sha256:646d6be49d9f0048f94f67749eca35156eed4f7a7be18e4fc4a94bfd44e300b0"
+        }
+      }
+    ]
+  },
+  "authorizations": [
+    {
+      "purpose": "validity_review",
+      "actor": {
+        "id": "fixture-independent-validity-reviewer",
+        "role": "validity_reviewer",
+        "trustDomain": "independent_review"
+      },
+      "profileId": "fixture-validity-review-profile",
+      "algorithm": "Ed25519",
+      "keyId": "rfc8032-test-key-3-validity-reviewer",
+      "publicKey": {
+        "format": "spki_der_base64",
+        "contentBase64": "MCowBQYDK2VwAyEA/FHNjmIYoaONpH7QAjDwWAgW7RO6MwOsXeuRFUiQgCU=",
+        "digest": "sha256:8d39ba50abe50f77b6bb8ae7b6927aff7ffbeba35ad2837c0e51e82bcbcc60d5"
+      }
+    },
+    {
+      "purpose": "held_out_budget_authorization",
+      "actor": {
+        "id": "fixture-held-out-budget-authority",
+        "role": "held_out_budget_authority",
+        "trustDomain": "evaluation_governance"
+      },
+      "profileId": "fixture-held-out-budget-profile",
+      "algorithm": "Ed25519",
+      "keyId": "fixture-held-out-budget-key",
+      "publicKey": {
+        "format": "spki_der_base64",
+        "contentBase64": "MCowBQYDK2VwAyEAOTFMeQOORBDFpmcXvdpU0WVTxnHFpYUqUj7pXSmQ/gQ=",
+        "digest": "sha256:fb569d8de02aefe7e84ba117e4662b4d8f41894cf44018c86bdb234353c635c3"
+      }
+    },
+    {
+      "purpose": "held_out_ledger_checkpoint",
+      "actor": {
+        "id": "fixture-held-out-ledger-custodian",
+        "role": "held_out_ledger_custodian",
+        "trustDomain": "independent_scheduler"
+      },
+      "profileId": "fixture-held-out-ledger-checkpoint-profile",
+      "algorithm": "Ed25519",
+      "keyId": "rfc8032-test-key-2-ledger-custodian",
+      "publicKey": {
+        "format": "spki_der_base64",
+        "contentBase64": "MCowBQYDK2VwAyEAPUAXw+hDiVqStwqnTRt+vJyYLM8uxJaMwM1V8Sr0Zgw=",
+        "digest": "sha256:deb2ded39dc26fce0e6085b6fc34bf6b5941913bbfe2ea614113cff9e004c170"
+      }
+    }
+  ],
+  "components": [
+    {
+      "componentKind": "verifier",
+      "id": "machine-contract-focused-verifier",
+      "version": "0.1.0",
+      "digest": "sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+      "mediaType": "text/javascript",
+      "entrypoint": "verify-machine-contract-bindings-v1"
+    },
+    {
+      "componentKind": "resolution_contract",
+      "id": "machine-contract-resolution-v1",
+      "version": "0.1.0",
+      "digest": "sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+      "mediaType": "application/json",
+      "schemaId": "agent-eval-machine-contract-resolution-1"
+    }
+  ],
+  "ledgerLog": {
+    "logId": "fixture-held-out-ledger-log",
+    "checkpointRule": "externally_observed_monotonic_signed_head",
+    "rollbackEffect": "insufficient_evidence"
+  },
+  "digest": "sha256:484df6ecf95d3beda44d4ebd97048416bdd8f7145fee6b8959443b7371306749",
+  "signature": {
+    "profileId": "fixture-evaluation-governance-root-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-4-governance-root",
+    "signedAt": "2026-08-01T00:00:00Z",
+    "value": "8draogsnmQFpIwaajuL4nHvMyFhU4CREWKIrdRZ2-M4N071VymHkLmGqWKHKNVTUgaH-G6bk-udzjQ9XePqTBA"
+  }
+}

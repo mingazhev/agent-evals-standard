@@ -1,0 +1,113 @@
+{
+  "schemaVersion": "agent-eval-environment-contract-1",
+  "id": "environment-contract-fixture-1",
+  "version": "0.1.0",
+  "evaluationMode": "controlled_fixture",
+  "inputOrigin": "synthetic",
+  "productionDerivedInput": null,
+  "productionActionAllowed": false,
+  "productionTelemetryPolicy": {
+    "allowedPurposes": [
+      "validity"
+    ],
+    "taskInputAllowed": false,
+    "trialOutcomeEvidenceAllowed": false,
+    "scheduledCellAllowed": false
+  },
+  "runtimes": [
+    {
+      "id": "node-runtime",
+      "version": "25.2.1",
+      "digest": "sha256:0505bd25b10c2daa9871047f573f00f62f3e649a96a5ec35ea3c2273d7c2471f"
+    }
+  ],
+  "dependencyResolution": {
+    "id": "dependency-resolution-contract",
+    "version": "0.1.0",
+    "digest": "sha256:bba9abdc3befe7e9d962b4a0b759ba07affee254792353d96b718913f3553f5d",
+    "schemaId": "dependency-resolution-contract-schema",
+    "verifier": {
+      "id": "fixture-contract-verifier",
+      "version": "0.1.0",
+      "digest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+    }
+  },
+  "network": {
+    "default": "deny",
+    "allowlist": [
+      "registry.npmjs.org"
+    ],
+    "auditEvidenceRequired": true
+  },
+  "filesystem": {
+    "ephemeral": true,
+    "agentWritableRoots": [
+      "/workspace"
+    ],
+    "oracleReadable": false,
+    "controlPlaneAccessible": false,
+    "contract": {
+      "id": "filesystem-isolation-contract",
+      "version": "0.1.0",
+      "digest": "sha256:dabeda144d538e3e5140ca5620b443ec2f1b7025f1ecdeb3b3718a64bf74481b",
+      "schemaId": "filesystem-isolation-contract-schema",
+      "verifier": {
+        "id": "fixture-contract-verifier",
+        "version": "0.1.0",
+        "digest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+      }
+    }
+  },
+  "process": {
+    "ephemeral": true,
+    "agentWritableRoots": [
+      "/workspace"
+    ],
+    "oracleReadable": false,
+    "controlPlaneAccessible": false,
+    "contract": {
+      "id": "process-isolation-contract",
+      "version": "0.1.0",
+      "digest": "sha256:ce77396cc754b8176208b11024fb247e6af7634e7879fff2a6c2b2933300ccd7",
+      "schemaId": "process-isolation-contract-schema",
+      "verifier": {
+        "id": "fixture-contract-verifier",
+        "version": "0.1.0",
+        "digest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+      }
+    }
+  },
+  "resources": {
+    "cpu": 2,
+    "memoryBytes": 2147483648,
+    "diskBytes": 10737418240,
+    "wallClockSeconds": 900
+  },
+  "cache": {
+    "resetPerAttempt": true,
+    "sharedState": "none"
+  },
+  "logging": {
+    "id": "logging-contract",
+    "version": "0.1.0",
+    "digest": "sha256:1e63a369c6db2a9d8a7ccd1bc8243df7eb57d19ec4140c3190e09fd1890efd13",
+    "schemaId": "logging-contract-schema",
+    "verifier": {
+      "id": "fixture-contract-verifier",
+      "version": "0.1.0",
+      "digest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+    }
+  },
+  "teardown": {
+    "id": "teardown-contract",
+    "version": "0.1.0",
+    "digest": "sha256:44d18bbd2bd2ecde67ba3bd8ac1151e37afa1ab7d2b90467b450d1cac6b3785d",
+    "schemaId": "teardown-contract-schema",
+    "verifier": {
+      "id": "fixture-contract-verifier",
+      "version": "0.1.0",
+      "digest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+    }
+  },
+  "digest": "sha256:4a4becf74792a578e4fcc16621ca8748f86ccdaa2c4a81e2b94717e0e6de4fdc"
+}

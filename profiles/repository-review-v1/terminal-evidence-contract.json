@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "repository-review-terminal-evidence-contract-1",
+  "id": "repository-review-terminal-evidence-contract",
+  "version": "0.1.0",
+  "artifactType": "repository-review:review-decision",
+  "workArtifactType": "review_decision",
+  "mediaType": "application/json",
+  "requiredFields": [
+    "artifactClass",
+    "decisionAuthority",
+    "workspaceManifestDigest",
+    "baseTreeDigest",
+    "terminalTreeDigest",
+    "reviewScope",
+    "findings",
+    "decision",
+    "rationale",
+    "repositoryMutationObserved"
+  ],
+  "invariants": {
+    "artifactClass": "review_decision",
+    "assuranceReportIsReviewDecision": false,
+    "decisionAuthorityRequired": true,
+    "findingDispositionRequired": true,
+    "repositoryMutationObserved": false,
+    "baseTreeEqualsTerminalTree": true,
+    "allowedDecisions": [
+      "approved",
+      "changes_requested",
+      "findings_reported"
+    ]
+  },
+  "validation": "sealed_deterministic_oracle_or_independent_hybrid_review"
+}

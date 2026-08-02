@@ -1,0 +1,192 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:workspace-manifest:1",
+  "title": "Sealed Git repository workspace manifest",
+  "$comment": "Informative navigation: executable mode, closure, gitlink, LFS, and verdict semantics are defined by standard.md#git-repository-state-boundary-contract-scope-003 and enforced by git-repository-state-v1.",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "repositories", "workspaceRootDigest"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-workspace-manifest-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "$comment": "This is the adopter-owned snapshot artifact version, not the standard contract version carried by schemaVersion.", "type": "string", "minLength": 1 },
+    "repositories": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/repository" }
+    },
+    "workspaceRootDigest": { "$ref": "#/$defs/digest" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "objectId": { "type": "string", "pattern": "^(?:[a-f0-9]{40}|[a-f0-9]{64})$" },
+    "refName": { "type": "string", "pattern": "^refs/heads/[A-Za-z0-9][A-Za-z0-9._/-]*$" },
+    "repositoryStateVerifier": {
+      "type": "object",
+      "required": ["id", "version", "algorithm"],
+      "properties": {
+        "id": { "const": "agent-evals-standard.git-repository-state-verifier" },
+        "version": { "const": "0.1.0" },
+        "algorithm": { "const": "git-repository-state-v1" }
+      },
+      "additionalProperties": false
+    },
+    "gitObject": {
+      "type": "object",
+      "required": ["objectId", "type", "byteLength", "contentBase64"],
+      "properties": {
+        "objectId": { "$ref": "#/$defs/objectId" },
+        "type": { "enum": ["blob", "tree", "commit"] },
+        "byteLength": { "type": "integer", "minimum": 0 },
+        "contentBase64": { "type": "string", "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$" }
+      },
+      "additionalProperties": false
+    },
+    "gitRef": {
+      "type": "object",
+      "required": ["name", "target"],
+      "properties": {
+        "name": { "$ref": "#/$defs/refName" },
+        "target": { "$ref": "#/$defs/objectId" }
+      },
+      "additionalProperties": false
+    },
+    "gitObjectGraph": {
+      "$comment": "Informative navigation: exact graph semantics are defined by the Git Repository-State Boundary Contract; this schema validates only the closed serialized shape.",
+      "type": "object",
+      "required": ["refs", "objects", "digest"],
+      "properties": {
+        "baseRef": { "$ref": "#/$defs/refName" },
+        "refs": { "type": "array", "items": { "$ref": "#/$defs/gitRef" } },
+        "objects": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/gitObject" } },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "treeSnapshotProjection": {
+      "type": "object",
+      "required": ["mode", "baseTree", "objectGraphDigest", "reachableObjectCount", "verifier"],
+      "properties": {
+        "mode": { "const": "tree_snapshot" },
+        "baseTree": { "$ref": "#/$defs/objectId" },
+        "objectGraphDigest": { "$ref": "#/$defs/digest" },
+        "reachableObjectCount": { "type": "integer", "minimum": 1 },
+        "verifier": { "$ref": "#/$defs/repositoryStateVerifier" }
+      },
+      "additionalProperties": false
+    },
+    "boundedAncestryProjection": {
+      "type": "object",
+      "required": ["mode", "cutoffRevision", "baseRef", "maxParentDepth", "boundaryParentObjectIds", "objectGraphDigest", "reachableObjectCount", "verifier"],
+      "properties": {
+        "mode": { "const": "bounded_ancestry" },
+        "cutoffRevision": { "$ref": "#/$defs/objectId" },
+        "baseRef": { "$ref": "#/$defs/refName" },
+        "maxParentDepth": { "type": "integer", "minimum": 0 },
+        "boundaryParentObjectIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/objectId" }
+        },
+        "objectGraphDigest": { "$ref": "#/$defs/digest" },
+        "reachableObjectCount": { "type": "integer", "minimum": 2 },
+        "verifier": { "$ref": "#/$defs/repositoryStateVerifier" }
+      },
+      "additionalProperties": false
+    },
+    "fullAncestryProjection": {
+      "type": "object",
+      "required": ["mode", "cutoffRevision", "baseRef", "objectGraphDigest", "reachableObjectCount", "verifier"],
+      "properties": {
+        "mode": { "const": "full_ancestry" },
+        "cutoffRevision": { "$ref": "#/$defs/objectId" },
+        "baseRef": { "$ref": "#/$defs/refName" },
+        "objectGraphDigest": { "$ref": "#/$defs/digest" },
+        "reachableObjectCount": { "type": "integer", "minimum": 2 },
+        "verifier": { "$ref": "#/$defs/repositoryStateVerifier" }
+      },
+      "additionalProperties": false
+    },
+    "historyProjection": {
+      "type": "object",
+      "oneOf": [
+        { "$ref": "#/$defs/treeSnapshotProjection" },
+        { "$ref": "#/$defs/boundedAncestryProjection" },
+        { "$ref": "#/$defs/fullAncestryProjection" }
+      ]
+    },
+    "gitlink": {
+      "type": "object",
+      "required": ["path", "repositoryId", "targetCommit"],
+      "properties": {
+        "path": { "$ref": "#/$defs/repositoryRelativePath" },
+        "repositoryId": { "$ref": "#/$defs/id" },
+        "targetCommit": { "$ref": "#/$defs/objectId" }
+      },
+      "additionalProperties": false
+    },
+    "repository": {
+      "type": "object",
+      "required": ["id", "path", "objectFormat", "treeDigest", "gitObjectGraph", "historyProjection", "files"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "path": {
+          "oneOf": [
+            { "const": "." },
+            { "$ref": "#/$defs/repositoryRelativePath" }
+          ]
+        },
+        "objectFormat": { "enum": ["sha1", "sha256"] },
+        "baseTree": { "$ref": "#/$defs/objectId" },
+        "baseRevision": { "$ref": "#/$defs/objectId" },
+        "treeDigest": { "$ref": "#/$defs/digest" },
+        "gitObjectGraph": { "$ref": "#/$defs/gitObjectGraph" },
+        "historyProjection": { "$ref": "#/$defs/historyProjection" },
+        "gitlinks": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/gitlink" }
+        },
+        "files": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/file" }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "historyProjection": { "type": "object", "properties": { "mode": { "const": "tree_snapshot" } }, "required": ["mode"] } } },
+          "then": { "required": ["baseTree"], "properties": { "baseTree": { "$ref": "#/$defs/objectId" }, "baseRevision": false } },
+          "else": { "required": ["baseRevision"], "properties": { "baseRevision": { "$ref": "#/$defs/objectId" }, "baseTree": false } }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "repositoryRelativePath": {
+      "$comment": "Version 0.1.0 represents Git paths as exact, non-normalized Unicode strings whose UTF-8 bytes equal the tree-entry bytes. Semantic validation additionally rejects non-scalar strings. Paths are relative, use slash separators, and contain no empty, dot, dot-dot, backslash, NUL, POSIX-absolute, or drive-absolute component/form.",
+      "type": "string",
+      "minLength": 1,
+      "allOf": [
+        { "not": { "pattern": "^/" } },
+        { "not": { "pattern": "^[A-Za-z]:/" } },
+        { "not": { "pattern": "\\\\" } },
+        { "not": { "pattern": "\\u0000" } },
+        { "not": { "pattern": "(?:^|/)\\.{1,2}(?:/|$)" } },
+        { "not": { "pattern": "//" } }
+      ]
+    },
+    "file": {
+      "type": "object",
+      "required": ["path", "mode", "mediaType", "byteLength", "digest", "contentBase64"],
+      "properties": {
+        "path": { "$ref": "#/$defs/repositoryRelativePath" },
+        "mode": { "enum": ["100644", "100755", "120000"] },
+        "mediaType": { "type": "string", "pattern": "^[A-Za-z0-9!#$&^_.+-]+/[A-Za-z0-9!#$&^_.+-]+$" },
+        "byteLength": { "type": "integer", "minimum": 0 },
+        "digest": { "$ref": "#/$defs/digest" },
+        "contentBase64": { "type": "string", "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

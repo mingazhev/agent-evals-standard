@@ -1,0 +1,352 @@
+{
+  "schemaVersion": "repository-review-interoperability-vectors-1",
+  "id": "repository-review-v1-interoperability-vectors",
+  "version": "0.1.0",
+  "artifacts": {
+    "evaluationProfile": "../../../profiles/repository-review-v1/evaluation-profile.json",
+    "outcomeProfile": "../../../profiles/repository-review-v1/outcome-profile.json",
+    "profileResolution": "../../../profiles/repository-review-v1/profile-resolution.json",
+    "environment": "positive/environment.json",
+    "terminalEvidence": "positive/review-decision-evidence.json"
+    ,"reviewDecision": "positive/review-decision-payload.json"
+    ,"reviewOracle": "positive/review-oracle.json"
+  },
+  "baseCase": {
+    "capabilityFamilyIds": [
+      "CAP.REVIEW_DECIDE"
+    ],
+    "interactionModeId": "noninteractive_repository_task",
+    "workArtifactTypes": [
+      "review_decision"
+    ],
+    "repository": {
+      "rootPath": "/workspace/repository",
+      "baseTreeDigest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "terminalTreeDigest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "repositoryMutationObserved": false
+    },
+    "resultChannel": {
+      "owner": "runner",
+      "authenticated": true
+    },
+    "terminalEvidenceId": "repository-review-decision-evidence-positive"
+  },
+  "baseQa": {
+    "profileId": "repository-review-v1",
+    "outcomeProfileId": "repository-review-outcome-v1",
+    "applicableValidationVerdict": "pass",
+    "repositoryWriteAttemptCount": 0,
+    "baseAndTerminalTreeEqual": true,
+    "workspaceDiffObserved": false,
+    "knownGoodControl": {
+      "verdict": "pass",
+      "evidenceId": "known-good-review-control"
+    },
+    "knownBadControl": {
+      "verdict": "fail",
+      "evidenceId": "known-bad-review-control"
+    },
+    "alternativeValidResult": {
+      "producerId": "independent-review-qa-agent",
+      "independentOfCaseAuthor": true,
+      "referenceAccess": false,
+      "materiallyDifferent": true,
+      "differenceDimensions": [
+        "findings",
+        "rationale",
+        "evidence_trace"
+      ],
+      "applicableValidationVerdict": "pass",
+      "evidenceId": "independent-alternative-review-result"
+    }
+  },
+  "expectations": [
+    {
+      "id": "repository-review-positive-read-only",
+      "valid": true,
+      "mutations": []
+    },
+    {
+      "id": "reject-profile-capability-expansion",
+      "valid": false,
+      "expectedError": "profile capabilityFamilies must be exactly CAP.REVIEW_DECIDE",
+      "mutations": [
+        {
+          "target": "profile",
+          "pointer": "/capabilityFamilies",
+          "value": [
+            "CAP.REVIEW_DECIDE",
+            "CAP.IMPLEMENT_CHANGE"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reject-outcome-workspace-change-support",
+      "valid": false,
+      "expectedError": "outcome workArtifactTypes must be exactly review_decision",
+      "mutations": [
+        {
+          "target": "outcome",
+          "pointer": "/workArtifactTypes",
+          "value": [
+            "review_decision",
+            "code_change"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reject-case-passenger-assurance-capability",
+      "valid": false,
+      "expectedError": "case capabilityFamilyIds must be exactly CAP.REVIEW_DECIDE",
+      "mutations": [
+        {
+          "target": "case",
+          "pointer": "/capabilityFamilyIds",
+          "value": [
+            "CAP.REVIEW_DECIDE",
+            "CAP.VERIFY_ASSURE"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reject-case-workspace-diff",
+      "valid": false,
+      "expectedError": "case workArtifactTypes must be exactly review_decision",
+      "mutations": [
+        {
+          "target": "case",
+          "pointer": "/workArtifactTypes",
+          "value": [
+            "workspace_diff"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reject-profile-digest-substitution",
+      "valid": false,
+      "expectedError": "case evaluation-profile binding mismatch",
+      "mutations": [
+        {
+          "target": "case",
+          "pointer": "/evaluationProfile/digest",
+          "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "id": "reject-outcome-digest-substitution",
+      "valid": false,
+      "expectedError": "case outcome-profile binding mismatch",
+      "mutations": [
+        {
+          "target": "case",
+          "pointer": "/outcomeProfile/digest",
+          "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "id": "reject-agent-writable-root",
+      "valid": false,
+      "expectedError": "environment must grant zero agent-writable roots",
+      "mutations": [
+        {
+          "target": "environment",
+          "pointer": "/filesystem/agentWritableRoots",
+          "value": [
+            "/workspace/repository"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reject-repository-mutation",
+      "valid": false,
+      "expectedError": "repository mutation is forbidden",
+      "mutations": [
+        {
+          "target": "case",
+          "pointer": "/repository/repositoryMutationObserved",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "reject-tree-change",
+      "valid": false,
+      "expectedError": "base and terminal repository trees must be identical",
+      "mutations": [
+        {
+          "target": "case",
+          "pointer": "/repository/terminalTreeDigest",
+          "value": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+        }
+      ]
+    },
+    {
+      "id": "reject-workspace-diff-terminal-evidence",
+      "valid": false,
+      "expectedError": "terminal evidence artifactType must be repository-review:review-decision",
+      "mutations": [
+        {
+          "target": "evidence",
+          "pointer": "/artifactType",
+          "value": "workspace_diff"
+        }
+      ]
+    },
+    {
+      "id": "reject-nonmaterial-terminal-evidence",
+      "valid": false,
+      "expectedError": "terminal evidence byteLength mismatch",
+      "mutations": [
+        {
+          "target": "evidence",
+          "pointer": "/byteLength",
+          "value": 0
+        }
+      ]
+    },
+    {
+      "id": "reject-tampered-terminal-evidence-digest",
+      "valid": false,
+      "expectedError": "terminal evidence digest mismatch",
+      "mutations": [
+        {
+          "target": "evidence",
+          "pointer": "/digest",
+          "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ]
+    },
+    {
+      "id": "reject-invalid-terminal-evidence-attestation",
+      "valid": false,
+      "expectedError": "terminal evidence attestation invalid",
+      "mutations": [
+        {
+          "target": "evidence",
+          "pointer": "/attestation/value",
+          "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ]
+    },
+    {
+      "id": "reject-qa-reference-access",
+      "valid": false,
+      "expectedError": "alternative valid result must not access reference material",
+      "mutations": [
+        {
+          "target": "qa",
+          "pointer": "/alternativeValidResult/referenceAccess",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "reject-qa-nonmaterial-alternative",
+      "valid": false,
+      "expectedError": "alternative valid result must differ materially",
+      "mutations": [
+        {
+          "target": "qa",
+          "pointer": "/alternativeValidResult/materiallyDifferent",
+          "value": false
+        }
+      ]
+    },
+    {
+      "id": "reject-qa-write-attempt",
+      "valid": false,
+      "expectedError": "QA repositoryWriteAttemptCount must be zero",
+      "mutations": [
+        {
+          "target": "qa",
+          "pointer": "/repositoryWriteAttemptCount",
+          "value": 1
+        }
+      ]
+    },
+    {
+      "id": "reject-interaction-mode-expansion",
+      "valid": false,
+      "expectedError": "case interactionModeId is outside profile",
+      "mutations": [
+        {
+          "target": "case",
+          "pointer": "/interactionModeId",
+          "value": "pull_request_workflow"
+        }
+      ]
+    },
+    {
+      "id": "reject-missed-material-finding",
+      "valid": false,
+      "expectedError": "material finding omitted",
+      "mutations": [
+        {
+          "target": "decision",
+          "pointer": "/findings",
+          "value": []
+        }
+      ]
+    },
+    {
+      "id": "reject-false-finding",
+      "valid": false,
+      "expectedError": "unsupported finding reported",
+      "mutations": [
+        {
+          "target": "decision",
+          "pointer": "/findings/0/id",
+          "value": "finding-invented"
+        }
+      ]
+    },
+    {
+      "id": "reject-wrong-disposition",
+      "valid": false,
+      "expectedError": "review disposition does not match sealed oracle",
+      "mutations": [
+        {
+          "target": "decision",
+          "pointer": "/decision",
+          "value": "approved"
+        }
+      ]
+    },
+    {
+      "id": "reject-assurance-report-as-review-decision",
+      "valid": false,
+      "expectedError": "artifactClass must distinguish review_decision from assurance_report",
+      "mutations": [
+        {
+          "target": "decision",
+          "pointer": "/artifactClass",
+          "value": "assurance_report"
+        }
+      ]
+    },
+    {
+      "id": "reject-findings-without-disposition",
+      "valid": false,
+      "expectedError": "every review finding requires an accountable disposition",
+      "mutations": [
+        {
+          "target": "decision",
+          "pointer": "/decision",
+          "value": "findings_reported"
+        },
+        {
+          "target": "decision",
+          "pointer": "/findings/0/disposition",
+          "delete": true
+        }
+      ]
+    }
+  ]
+}

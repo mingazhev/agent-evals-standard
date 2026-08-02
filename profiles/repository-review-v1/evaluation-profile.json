@@ -1,0 +1,758 @@
+{
+  "schemaVersion": "agent-eval-evaluation-profile-1",
+  "id": "repository-review-v1",
+  "namespace": "agent-evals-standard.repository-review",
+  "owner": {
+    "id": "agent-evals-standard-maintainers",
+    "role": "profile_maintainer"
+  },
+  "version": "0.1.0",
+  "parentProfile": null,
+  "baseCompatibility": {
+    "standardVersion": "0.1.0",
+    "requirementRegistry": {
+      "id": "agent-evals-standard-requirements",
+      "version": "0.1.0",
+      "uri": "../../standard/requirement-registry.json",
+      "digest": "sha256:860614b558286306940b3a2fdb50b5c7024ba44bf474c0ea22ef3b193ce89a83"
+    },
+    "verdict": "compatible_no_weakening"
+  },
+  "signatureProfile": {
+    "id": "fixture-signature-profile",
+    "version": "0.1.0",
+    "uri": "../repo-change-v1/signature-profile.json",
+    "digest": "sha256:d3d2fd1c85f32d1881ad55160b31737f5fa53d9453ce42c9064812a4b1ecb872"
+  },
+  "claimTrustProfile": {
+    "id": "repo-change-operational-signature-profile",
+    "version": "0.1.0",
+    "uri": "../repo-change-v1/operational-signature-profile.json",
+    "digest": "sha256:187832651a0b2317ca06b864a158c551082bf9f097b318dbe09ad78dd585b3b5"
+  },
+  "claimTrustUse": "conformance_fixture_requires_external_rekey",
+  "supportedAssuranceLevels": [
+    "A1"
+  ],
+  "effectiveRiskRange": [
+    "low",
+    "medium"
+  ],
+  "capabilityFamilies": [
+    "CAP.REVIEW_DECIDE"
+  ],
+  "interactionModes": [
+    "noninteractive_repository_task"
+  ],
+  "workArtifactRegistry": {
+    "id": "repository-sdlc-work-artifact-registry",
+    "version": "0.1.0",
+    "uri": "../../standard/work-artifact-registry.json",
+    "digest": "sha256:151684e0e5c35023ec07d6f4554ebedb9ecd4e52ef7738bd77c1eb31c95053c7"
+  },
+  "allowedOutcomeProfiles": [
+    {
+      "id": "repository-review-outcome-v1",
+      "version": "0.1.0",
+      "uri": "outcome-profile.json",
+      "digest": "sha256:7ec1a08e02d5a5b45880d9765ce61e6a4b20a0f4286f948ceed78baa15091c40"
+    }
+  ],
+  "caseContract": {
+    "id": "repository-review-case-contract",
+    "version": "0.1.0",
+    "uri": "case-contract.json",
+    "digest": "sha256:87f0756213439c0d89987b359b9414815f86ceb65582db4154ec011143f265b3"
+  },
+  "gateRegistry": {
+    "id": "repository-review-gate-registry",
+    "version": "0.1.0",
+    "uri": "gate-registry.json",
+    "digest": "sha256:4a01e0ffe40af91c03f77a4b99a5cec617d671a40fb0c216446f56753b4f032e"
+  },
+  "caseQa": {
+    "id": "repository-review-case-qa-contract",
+    "version": "0.1.0",
+    "uri": "case-qa-contract.json",
+    "digest": "sha256:32441fd7d255b9d16b3df47af96942d6097a8d8f22295e3ad4b9039bacb2b514"
+  },
+  "metrics": [
+    {
+      "id": "repository-review-metric-registry",
+      "version": "0.1.0",
+      "uri": "metric-registry.json",
+      "digest": "sha256:36cd77e12c53bb148662ae54b28d76f17cfc56fa05b1f0269689639c77fb824a"
+    }
+  ],
+  "failureTaxonomy": {
+    "id": "repository-review-failure-taxonomy",
+    "version": "0.1.0",
+    "uri": "failure-taxonomy.json",
+    "digest": "sha256:79bfed5a847f7807faf01005ad44a51f059c56b7658f334600b80e206ba35256"
+  },
+  "additionalAssuranceRequirements": [],
+  "exclusions": [
+    {
+      "scope": "CAP.DISCOVER_SPECIFY",
+      "reason": "No requirements or specification result is evaluated.",
+      "claimEffect": "forbidden"
+    },
+    {
+      "scope": "CAP.IMPLEMENT_CHANGE",
+      "reason": "The repository is sealed read-only and no repository change is an admissible result.",
+      "claimEffect": "forbidden"
+    },
+    {
+      "scope": "CAP.PLAN_DESIGN",
+      "reason": "No implementation plan or design result is evaluated.",
+      "claimEffect": "forbidden"
+    },
+    {
+      "scope": "CAP.RELEASE_OPERATE",
+      "reason": "No release or operational action is permitted.",
+      "claimEffect": "forbidden"
+    },
+    {
+      "scope": "CAP.REMEDIATE_LEARN",
+      "reason": "No incident learning or prevention result is evaluated.",
+      "claimEffect": "forbidden"
+    },
+    {
+      "scope": "CAP.VERIFY_ASSURE",
+      "reason": "Bare fact-finding and assurance reports are outside this accountable review-decision profile.",
+      "claimEffect": "forbidden"
+    }
+  ],
+  "fixtures": [
+    {
+      "id": "repository-review-positive",
+      "manifestUri": "../../conformance/fixtures/repository-review-v1/vectors.json",
+      "manifestDigest": "sha256:5b3b373e2f896cdebd7804936b539ed87297a1a0fe941816686ceef0b2742ca7",
+      "manifestExpectationId": "repository-review-positive-read-only",
+      "expectedVerdict": "pass"
+    },
+    {
+      "id": "repository-review-reject-writable-root",
+      "manifestUri": "../../conformance/fixtures/repository-review-v1/vectors.json",
+      "manifestDigest": "sha256:5b3b373e2f896cdebd7804936b539ed87297a1a0fe941816686ceef0b2742ca7",
+      "manifestExpectationId": "reject-agent-writable-root",
+      "expectedVerdict": "fail"
+    }
+  ],
+  "requirementMapping": [
+    {
+      "requirementId": "ARCH-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "ASSURE-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "CASE-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "CASE-002",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "CASE-003",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "CASE-004",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "CASE-005",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "CLAIM-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "CLAIM-002",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "CONF-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "CONF-002",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "CONF-003",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "DATA-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "DATA-002",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "EVID-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "EVID-002",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "EXP-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "EXP-002",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "EXP-003",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "GATE-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "GOV-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "GOV-002",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "HEALTH-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "HOLD-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "HOLD-002",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "I1",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "I10",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "I11",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "I12",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "I13",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "I2",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "I3",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "I4",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "I5",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "I6",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "I7",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "I8",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "I9",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "INT-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "JUDGE-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "JUDGE-002",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "JUDGE-003",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "OUT-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "OUTPROF-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "PROFILE-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "RISK-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "RUN-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "RUN-002",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "RUN-003",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "SCOPE-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "SCOPE-002",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "SCOPE-003",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "STAT-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "STAT-002",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "STAT-003",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "TRACE-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "VALID-001",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "VALID-002",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    },
+    {
+      "requirementId": "VALID-003",
+      "sourceProfileId": "repository-review-v1",
+      "implementation": {
+        "id": "repository-review-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "implementation-contract.json",
+        "digest": "sha256:10c45b0517936a578f695e1b74450b16f6768abeff6b368d2966430b2cddee64"
+      }
+    }
+  ],
+  "conflictReport": {
+    "status": "no_unresolved_conflicts",
+    "evidence": {
+      "id": "repository-review-v1-profile-resolution",
+      "version": "0.1.0",
+      "uri": "profile-resolution.json",
+      "digest": "sha256:1bdd57ecbabd3e9302f4645ef0f61b92f2c33e688323bce7bdba9749a4f20f20"
+    }
+  },
+  "resolutionEvidence": {
+    "id": "repository-review-v1-profile-resolution",
+    "version": "0.1.0",
+    "uri": "profile-resolution.json",
+    "digest": "sha256:1bdd57ecbabd3e9302f4645ef0f61b92f2c33e688323bce7bdba9749a4f20f20"
+  },
+  "effectiveProfileDigest": "sha256:502320d65a145e6dcfae7e1042278378d8d73cf1a1482e0b019d8618e6a3df2b",
+  "digest": "sha256:26b772b880e4acc288f3dc94a818a709fa33f9c0c8047071662cc3d544d7d0c1",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:00Z",
+    "value": "GezEyE0s63V0agLHU8A9XgIV3Ss4tv9eUQxUhCd29Cd4zJ5gsVJ9_l86SUjxblFYckOaBB-cPsWZ48w6c15rDQ"
+  }
+}

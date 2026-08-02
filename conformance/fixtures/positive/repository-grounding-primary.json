@@ -1,0 +1,112 @@
+{
+  "schemaVersion": "agent-eval-repository-grounding-evidence-1",
+  "id": "repository-grounding-primary",
+  "version": "0.1.0",
+  "statementId": "conformance-decision-fixture-1",
+  "scopeSliceId": "repository-change-primary",
+  "target": "decision",
+  "targetSubject": {
+    "id": "governance-decision-fixture-1",
+    "version": "0.1.0",
+    "uri": "governance-decision.json",
+    "digest": "sha256:d3065afbedb22f0e988747bb92bff3db5d9ff2e00bfc515fcb8f365c0f46634c"
+  },
+  "dependencyManifestDigest": "sha256:d97e915651cb530b38e8e0d7f4c91cf97b043330344e869baed8f728697fbda1",
+  "workspaceManifest": {
+    "id": "repository-snapshot-fixture-1",
+    "version": "0.1.0",
+    "uri": "workspace-manifest-primary.json",
+    "digest": "sha256:9f4be8ab7e12ef1481606c38173673aa012cf88e383313716b5cc95b5d0342e8"
+  },
+  "subjectCoverage": {
+    "outcomes": [],
+    "claims": []
+  },
+  "verifierExecution": {
+    "verifier": {
+      "id": "repository-grounding-verifier",
+      "version": "0.1.0",
+      "uri": "../../../tools/verify-repository-grounding.mjs",
+      "digest": "sha256:33d0e4202b783677b260696ba701bb7bcc67180cfc36381eebced7adfcdb1dcf"
+    },
+    "inputs": [
+      {
+        "role": "workspace_manifest",
+        "id": "repository-snapshot-fixture-1",
+        "digest": "sha256:9f4be8ab7e12ef1481606c38173673aa012cf88e383313716b5cc95b5d0342e8"
+      },
+      {
+        "role": "target_subject",
+        "id": "governance-decision-fixture-1",
+        "digest": "sha256:d3065afbedb22f0e988747bb92bff3db5d9ff2e00bfc515fcb8f365c0f46634c"
+      },
+      {
+        "role": "dependency_manifest",
+        "id": "conformance-decision-target-dependencies",
+        "digest": "sha256:d97e915651cb530b38e8e0d7f4c91cf97b043330344e869baed8f728697fbda1"
+      }
+    ],
+    "output": {
+      "overallVerdict": "insufficient_evidence",
+      "reasonCodes": [
+        "no_executable_subject_contract"
+      ],
+      "assertionResults": [
+        {
+          "type": "repository_necessity",
+          "verdict": "insufficient_evidence",
+          "resultDigest": "sha256:b2b9dc6eb26a66ffc22eac3d8e3db4d9b3148f8b6026b980c03cc58b1152331a"
+        },
+        {
+          "type": "claim_invariant_traceability",
+          "verdict": "insufficient_evidence",
+          "resultDigest": "sha256:72ba3fc121b685fe03a02693a5211ff2ff54cc2fe11dc2dfbadf8d67c75aa16b"
+        },
+        {
+          "type": "repository_governed_outcome",
+          "verdict": "insufficient_evidence",
+          "resultDigest": "sha256:ff3836a33b2f209b914d728e8d898fe8ab9480d20ec210bd5ba1f510f9d166ab"
+        },
+        {
+          "type": "removal_counterfactual",
+          "verdict": "insufficient_evidence",
+          "resultDigest": "sha256:186b524c93716b94d0191f8d743c6148b8d7a679c00316f08bf366c6344335b2"
+        }
+      ],
+      "outputDigest": "sha256:a2f44e4622d197f4d317d2aa179bd046d623746a7f654c0920ccd1420e09223c"
+    }
+  },
+  "assertions": [
+    {
+      "id": "primary-repository-necessity",
+      "type": "repository_necessity",
+      "verdict": "insufficient_evidence",
+      "reasonCode": "no_executable_subject_contract",
+      "resultDigest": "sha256:b2b9dc6eb26a66ffc22eac3d8e3db4d9b3148f8b6026b980c03cc58b1152331a"
+    },
+    {
+      "id": "primary-claim-invariant-traceability",
+      "type": "claim_invariant_traceability",
+      "verdict": "insufficient_evidence",
+      "reasonCode": "no_executable_subject_contract",
+      "resultDigest": "sha256:72ba3fc121b685fe03a02693a5211ff2ff54cc2fe11dc2dfbadf8d67c75aa16b"
+    },
+    {
+      "id": "primary-repository-governed-outcome",
+      "type": "repository_governed_outcome",
+      "verdict": "insufficient_evidence",
+      "reasonCode": "no_executable_subject_contract",
+      "resultDigest": "sha256:ff3836a33b2f209b914d728e8d898fe8ab9480d20ec210bd5ba1f510f9d166ab"
+    },
+    {
+      "id": "primary-removal-counterfactual",
+      "type": "removal_counterfactual",
+      "verdict": "insufficient_evidence",
+      "reasonCode": "no_executable_subject_contract",
+      "resultDigest": "sha256:186b524c93716b94d0191f8d743c6148b8d7a679c00316f08bf366c6344335b2"
+    }
+  ],
+  "verdict": "insufficient_evidence",
+  "causalContract": null,
+  "causalReplay": null
+}

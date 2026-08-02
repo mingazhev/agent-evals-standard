@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "agent-eval-retry-policy-1",
+  "id": "retry-policy",
+  "version": "0.1.0",
+  "maxAttemptsPerCell": 2,
+  "retryableMeasurementValidity": [
+    "invalid",
+    "not_assessable"
+  ],
+  "linearParentChain": true,
+  "firstEligibleValidWins": true,
+  "allowRetryAfterValid": false,
+  "digest": "sha256:303e5c7fb3db3f3e683270692d635da940447a945645f6e04aa0bbf2cfb50c8e"
+}

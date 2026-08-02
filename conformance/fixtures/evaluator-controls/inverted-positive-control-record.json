@@ -1,0 +1,51 @@
+{
+  "id": "fixture-evaluator-inverted-positive-control",
+  "uri": "artifact:sha256:bda5a2e9686f0fd051daf76bcbde3f42bcede22891385790e97f86d59be67be6",
+  "mediaType": "application/vnd.agent-evals.evaluator-control+json",
+  "digest": "sha256:bda5a2e9686f0fd051daf76bcbde3f42bcede22891385790e97f86d59be67be6",
+  "byteLength": 1451,
+  "payload": {
+    "kind": "inline_base64",
+    "contentBase64": "eyJzY2hlbWFWZXJzaW9uIjoiYWdlbnQtZXZhbC1ldmFsdWF0b3ItY29udHJvbC1yZXN1bHQtMSIsImlkIjoiZml4dHVyZS1ldmFsdWF0b3ItaW52ZXJ0ZWQtcG9zaXRpdmUtY29udHJvbCIsInZlcnNpb24iOiIwLjEuMCIsImNvbnRyb2xLaW5kIjoicG9zaXRpdmUiLCJldmFsdWF0b3IiOnsiaWQiOiJldmFsdWF0b3ItbWFuaWZlc3QtZml4dHVyZS0xIiwidmVyc2lvbiI6IjAuMS4wIiwiaW1wbGVtZW50YXRpb25EaWdlc3QiOiJzaGEyNTY6MTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMSJ9LCJkZXRlY3RvckNvbXBvbmVudHMiOlt7ImlkIjoiZml4dHVyZS1zZW1hbnRpYy12YWxpZGF0b3IiLCJkaWdlc3QiOiJzaGEyNTY6MTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMSIsImNvbmZpZ3VyYXRpb25EaWdlc3QiOiJzaGEyNTY6MTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMTExMSJ9XSwic3RpbXVsdXMiOnsiaWQiOiJrbm93bi12aW9sYXRpb24tZGlnZXN0LW1pc21hdGNoIiwiY2xhc3NpZmljYXRpb24iOiJrbm93bl92aW9sYXRpb24iLCJtZWRpYVR5cGUiOiJhcHBsaWNhdGlvbi9qc29uIiwiZGlnZXN0Ijoic2hhMjU2OmU4MGI4MGVjYmYyNzljMTAyMDczYTlmYjc5NTRjMTQyY2ZiYzI2ZTU2N2QwOTVmZTgxOWM4OGMzM2RkOWIwNWYiLCJieXRlTGVuZ3RoIjoyMTUsImNvbnRlbnRCYXNlNjQiOiJleUpsZG1WdWRDSTZJbk4xWW1wbFkzUmZaR2xuWlhOMFgyMXBjMjFoZEdOb0lpd2laR1ZqYkdGeVpXUkVhV2RsYzNRaU9pSnphR0V5TlRZNk1EQXdNREF3TURBd01EQXdNREF3TURBd01EQXdNREF3TURBd01EQXdNREF3TURBd01EQXdNREF3TURBd01EQXdNREF3TURBd01EQXdNREF3TURBd01DSXNJbUZqZEhWaGJFUnBaMlZ6ZENJNkluTm9ZVEkxTmpveE1URXhNVEV4TVRFeE1URXhNVEV4TVRFeE1URXhNVEV4TVRFeE1URXhNVEV4TVRFeE1URXhNVEV4TVRFeE1URXhNVEV4TVRFeE1URXhNVEV4TVRFeEluMD0ifSwiZXhwZWN0ZWREZXRlY3Rpb24iOnRydWUsIm9ic2VydmVkRGV0ZWN0aW9uIjpmYWxzZSwib2JzZXJ2YXRpb24iOnsibWVkaWFUeXBlIjoiYXBwbGljYXRpb24vanNvbiIsImRpZ2VzdCI6InNoYTI1Njo5YjVkOWVkZjYwYzAzNzFkY2RmMDgwZTNmZTE4YTNhYjIwOTliZWVlZWJhYWMxNmMzZWJlZTJlMjkyYjQ5NGVhIiwiYnl0ZUxlbmd0aCI6ODgsImNvbnRlbnRCYXNlNjQiOiJleUprWlhSbFkzUmxaQ0k2Wm1Gc2MyVXNJbVJsZEdWamRHOXlRMjl0Y0c5dVpXNTBTV1J6SWpwYkltWnBlSFIxY21VdGMyVnRZVzUwYVdNdGRtRnNhV1JoZEc5eUlsMHNJbVpwYm1ScGJtZEpaSE1pT2x0ZGZRPT0ifSwiZXhlY3V0ZWRBdCI6IjIwMjYtMDgtMDFUMDA6MjI6MDBaIn0="
+  },
+  "producer": {
+    "id": "fixture-independent-control-runner",
+    "role": "evaluator_control_executor",
+    "trustDomain": "external"
+  },
+  "creationPhase": "case_qa",
+  "createdAt": "2026-08-01T00:22:00Z",
+  "schemaMetadata": null,
+  "mediaInterpretation": {
+    "profileId": "evaluator-control-result-json",
+    "profileVersion": "0.1.0",
+    "semanticContract": {
+      "id": "evaluator-control-verifier",
+      "version": "0.1.0",
+      "digest": "sha256:3deae4df82184bab6803bff8f30676d7bbe3fa6d35eaaf915854375583a4040c"
+    }
+  },
+  "accessClass": "internal",
+  "accessPolicyBinding": {
+    "id": "fixture-control-access-policy",
+    "version": "0.1.0",
+    "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  "privacyAndIp": {
+    "classification": "none",
+    "restrictions": []
+  },
+  "retention": {
+    "class": "fixture",
+    "expiresAt": "2027-08-01T00:00:00Z",
+    "disposition": "delete",
+    "legalHold": false
+  },
+  "attestation": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:22:00Z",
+    "value": "K69QCskmSrfRGKxjTYnJnTpvbRl51UYxZApw95vPS1C0oKdicXRDkAaA6NFIXzn8Vf3VuQZMnxUqrz82pqWmAQ"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "agent-eval-profile-resolution-proof-inputs-1",
+  "id": "architecture-profile-resolution-proof-inputs",
+  "version": "0.1.0",
+  "profile": {
+    "id": "architecture-repo-change-child-v1",
+    "version": "0.1.0"
+  },
+  "proofInputs": [
+    {
+      "target": "/allowedOutcomeProfiles/workspace-change-v1",
+      "parent": {
+        "id": "workspace-change-v1",
+        "version": "0.1.0",
+        "uri": "outcome-profile.json",
+        "digest": "sha256:d5caa138041d104bff90c38f9f3735ab4f9afac87efb167f61dd5e916ecbd10d"
+      },
+      "child": {
+        "id": "workspace-change-v1",
+        "version": "0.1.0",
+        "uri": "../../profiles/repo-change-v1/outcome-profile.json",
+        "digest": "sha256:d5caa138041d104bff90c38f9f3735ab4f9afac87efb167f61dd5e916ecbd10d"
+      }
+    },
+    {
+      "target": "/caseQa",
+      "parent": {
+        "id": "repo-change-case-qa-contract",
+        "version": "0.1.0",
+        "uri": "case-qa-contract.json",
+        "digest": "sha256:d17987895c74e0fec9b6b7433ee80974758c49ddee61a7c56476326a77c15b98"
+      },
+      "child": {
+        "id": "repo-change-case-qa-contract",
+        "version": "0.1.0",
+        "uri": "../../profiles/repo-change-v1/case-qa-contract.json",
+        "digest": "sha256:d17987895c74e0fec9b6b7433ee80974758c49ddee61a7c56476326a77c15b98"
+      }
+    },
+    {
+      "target": "/failureTaxonomy",
+      "parent": {
+        "id": "repo-change-failure-taxonomy",
+        "version": "0.1.0",
+        "uri": "failure-taxonomy.json",
+        "digest": "sha256:40b163062c44b813605d6126f95e31ebff7d172958fc2b97ef3e136058910636"
+      },
+      "child": {
+        "id": "repo-change-failure-taxonomy",
+        "version": "0.1.0",
+        "uri": "../../profiles/repo-change-v1/failure-taxonomy.json",
+        "digest": "sha256:40b163062c44b813605d6126f95e31ebff7d172958fc2b97ef3e136058910636"
+      }
+    },
+    {
+      "target": "/gateRegistry",
+      "parent": {
+        "id": "repo-change-gate-registry",
+        "version": "0.1.0",
+        "uri": "gate-registry.json",
+        "digest": "sha256:0217e32dd00b239e5d860890b66aa8c1eaa9262e536dda3a97621727a784b146"
+      },
+      "child": {
+        "id": "architecture-strengthened-gate-registry",
+        "version": "0.1.0",
+        "uri": "architecture-strengthened-gate-registry.json",
+        "digest": "sha256:c189f788ff84c978108474dd6b0564aa3a505ce75e295a1af03787a02c477bc7"
+      }
+    },
+    {
+      "target": "/metrics/repo-change-metric-registry",
+      "parent": {
+        "id": "repo-change-metric-registry",
+        "version": "0.1.0",
+        "uri": "metric-registry.json",
+        "digest": "sha256:cc3122197b1e8ffee86dbad60ab9f49971a7e8ef032cd7c0dea07dc814ab565c"
+      },
+      "child": {
+        "id": "repo-change-metric-registry",
+        "version": "0.1.0",
+        "uri": "../../profiles/repo-change-v1/metric-registry.json",
+        "digest": "sha256:cc3122197b1e8ffee86dbad60ab9f49971a7e8ef032cd7c0dea07dc814ab565c"
+      }
+    }
+  ]
+}

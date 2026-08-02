@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "agent-eval-environment-contract-1",
+  "id": "repository-review-read-only-environment",
+  "version": "0.1.0",
+  "evaluationMode": "controlled_fixture",
+  "inputOrigin": "synthetic",
+  "productionDerivedInput": null,
+  "productionActionAllowed": false,
+  "productionTelemetryPolicy": {
+    "allowedPurposes": [],
+    "taskInputAllowed": false,
+    "trialOutcomeEvidenceAllowed": false,
+    "scheduledCellAllowed": false
+  },
+  "runtimes": [
+    {
+      "id": "repository-review-runner-runtime",
+      "version": "0.1.0",
+      "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+    }
+  ],
+  "dependencyResolution": {
+    "id": "repository-review-dependency-resolution",
+    "version": "0.1.0",
+    "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+    "schemaId": "repository-review-dependency-resolution-contract-1",
+    "verifier": {
+      "id": "repository-review-dependency-verifier",
+      "version": "0.1.0",
+      "digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+    }
+  },
+  "network": {
+    "default": "deny",
+    "allowlist": [],
+    "auditEvidenceRequired": true
+  },
+  "filesystem": {
+    "ephemeral": true,
+    "agentWritableRoots": [],
+    "oracleReadable": false,
+    "controlPlaneAccessible": false,
+    "contract": {
+      "id": "repository-review-filesystem-isolation",
+      "version": "0.1.0",
+      "digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+      "schemaId": "repository-review-isolation-contract-1",
+      "verifier": {
+        "id": "repository-review-isolation-verifier",
+        "version": "0.1.0",
+        "digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+      }
+    }
+  },
+  "process": {
+    "ephemeral": true,
+    "agentWritableRoots": [],
+    "oracleReadable": false,
+    "controlPlaneAccessible": false,
+    "contract": {
+      "id": "repository-review-process-isolation",
+      "version": "0.1.0",
+      "digest": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
+      "schemaId": "repository-review-isolation-contract-1",
+      "verifier": {
+        "id": "repository-review-isolation-verifier",
+        "version": "0.1.0",
+        "digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+      }
+    }
+  },
+  "resources": {
+    "cpu": 2,
+    "memoryBytes": 1073741824,
+    "diskBytes": 1073741824,
+    "wallClockSeconds": 900
+  },
+  "cache": {
+    "resetPerAttempt": true,
+    "sharedState": "none"
+  },
+  "logging": {
+    "id": "repository-review-logging",
+    "version": "0.1.0",
+    "digest": "sha256:7777777777777777777777777777777777777777777777777777777777777777",
+    "schemaId": "repository-review-logging-contract-1",
+    "verifier": {
+      "id": "repository-review-logging-verifier",
+      "version": "0.1.0",
+      "digest": "sha256:8888888888888888888888888888888888888888888888888888888888888888"
+    }
+  },
+  "teardown": {
+    "id": "repository-review-teardown",
+    "version": "0.1.0",
+    "digest": "sha256:9999999999999999999999999999999999999999999999999999999999999999",
+    "schemaId": "repository-review-teardown-contract-1",
+    "verifier": {
+      "id": "repository-review-teardown-verifier",
+      "version": "0.1.0",
+      "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  },
+  "digest": "sha256:bc1eeee30c84a2583aa53b8f725f7c193cfeba8db52862110dc611f553ac3389"
+}

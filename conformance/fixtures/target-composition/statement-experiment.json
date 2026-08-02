@@ -1,0 +1,115 @@
+{
+  "schemaVersion": "agent-eval-conformance-statement-1",
+  "id": "composition-statement-experiment-1",
+  "standardRelease": {
+    "version": "0.1.0",
+    "releaseStatus": "unpublished_draft",
+    "commit": "0123456789abcdef0123456789abcdef01234567"
+  },
+  "claim": "experiment",
+  "targetEvidence": {
+    "experiment": {
+      "targetType": "experiment",
+      "targetId": "experiment-composition-fixture-1",
+      "targetSubject": {
+        "id": "experiment-composition-fixture-1",
+        "version": "0.1.0",
+        "uri": "experiment-subject.json",
+        "digest": "sha256:390fbce7ce1f58c07e7d3b3bf21bf4aa0c3a6e39a89866e0bf70a0262d60a35a"
+      },
+      "subjectSchema": "urn:agent-evals-standard:schema:pre-run-manifest:1",
+      "dependencyManifest": {
+        "id": "composition-experiment-vector-dependencies",
+        "version": "0.1.0",
+        "entries": [
+          {
+            "role": "conformance_dependency",
+            "targetType": "suite",
+            "subjectSchema": "urn:agent-evals-standard:schema:suite-manifest:1",
+            "targetSubject": {
+              "id": "suite-composition-fixture-1",
+              "version": "0.1.0",
+              "uri": "suite-subject.json",
+              "digest": "sha256:88f7c1c68e1966e67cc71532826ed4a3a57a03896b040ac152a10b1486979f98"
+            },
+            "statement": {
+              "id": "composition-statement-suite-1",
+              "contractVersion": "0.1.0",
+              "subjectSchema": "urn:agent-evals-standard:schema:conformance-statement:1",
+              "uri": "statement-suite.json",
+              "digest": "sha256:213b814ad5badfe91f43edc7512672fc1967e293b6892d8a77343c5d60ccd530"
+            },
+            "validationEnvelope": {
+              "id": "composition-envelope-suite-1",
+              "contractVersion": "0.1.0",
+              "subjectSchema": "urn:agent-evals-standard:schema:validation-envelope:1",
+              "uri": "envelope-suite.json",
+              "digest": "sha256:6708c48bdfe40110ec2b7d371e8847e716788d8f06a14c3805bc96d153a7baae"
+            }
+          },
+          {
+            "role": "conformance_dependency",
+            "targetType": "case",
+            "subjectSchema": "urn:agent-evals-standard:schema:case:1",
+            "targetSubject": {
+              "id": "repo-change-case-fixture-1",
+              "version": "0.1.0",
+              "uri": "case-subject.json",
+              "digest": "sha256:2463e4b30e9c301ad0b67f1aac38100f56aedd724a36baff912ca855d0bc1b0c"
+            },
+            "statement": {
+              "id": "composition-statement-case-1",
+              "contractVersion": "0.1.0",
+              "subjectSchema": "urn:agent-evals-standard:schema:conformance-statement:1",
+              "uri": "statement-case.json",
+              "digest": "sha256:0199d785e1eff0a32be6487c36f13150f74f88be00e749602e47221189975b6f"
+            },
+            "validationEnvelope": {
+              "id": "composition-envelope-case-1",
+              "contractVersion": "0.1.0",
+              "subjectSchema": "urn:agent-evals-standard:schema:validation-envelope:1",
+              "uri": "envelope-case.json",
+              "digest": "sha256:cb4d631c8cc80d7523105dd241b307128db70c1af51847bb8a240b735da28454"
+            }
+          },
+          {
+            "role": "conformance_dependency",
+            "targetType": "evaluator",
+            "subjectSchema": "urn:agent-evals-standard:schema:evaluator-manifest:1",
+            "targetSubject": {
+              "id": "evaluator-composition-fixture-1",
+              "version": "0.1.0",
+              "uri": "evaluator-subject.json",
+              "digest": "sha256:9be91bfb8b549b038a4e89aefac73128f121e9fba2ecf1b64966ab4b862d55ec"
+            },
+            "statement": {
+              "id": "composition-statement-evaluator-1",
+              "contractVersion": "0.1.0",
+              "subjectSchema": "urn:agent-evals-standard:schema:conformance-statement:1",
+              "uri": "statement-evaluator.json",
+              "digest": "sha256:8e2f97c509a86bf2a60e85b56a20a64ad1fa01ec6da9b412df888f7ad209ada4"
+            },
+            "validationEnvelope": {
+              "id": "composition-envelope-evaluator-1",
+              "contractVersion": "0.1.0",
+              "subjectSchema": "urn:agent-evals-standard:schema:validation-envelope:1",
+              "uri": "envelope-evaluator.json",
+              "digest": "sha256:1cfbaf38df6c85cdf8c424595c8a8ea5e7031f6bdb7922272637382a620855c4"
+            }
+          }
+        ],
+        "digest": "sha256:7624ec3e4effcae96fc76a79240c2de4d597433e5e16989bd19cbb17417eb2e5"
+      },
+      "verdict": "conforming"
+    }
+  },
+  "issuedAt": "2026-08-01T00:00:00Z",
+  "reviewAt": "2026-08-03T00:00:00Z",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:10Z",
+    "value": "nVHWDXuVFcPmmS4f9yOZK_Ll-pCKI-oAG_NE5X01aPVarEsygy34_GR69lw2pkQxwJlZhm1SKfbViJLaYM3-AA"
+  }
+}

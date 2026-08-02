@@ -1,0 +1,28 @@
+{
+  "capabilityFamilyId": "CAP.VERIFY_ASSURE",
+  "evaluatedConstructIds": [
+    "construct.patch.correctness"
+  ],
+  "materialSubjects": [
+    {
+      "subjectType": "outcome_profile",
+      "subjectId": "architecture-outcome-patch-v1"
+    },
+    {
+      "subjectType": "claim",
+      "subjectId": "claim.patch"
+    }
+  ],
+  "materialWorkArtifactTypes": [
+    "code_change",
+    "test_change"
+  ],
+  "rationale": "Incorrectly infers verification capability only because tests are present in the patch.",
+  "classificationVerifier": {
+    "id": "architecture-capability-classifier",
+    "version": "0.1.0",
+    "digest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c",
+    "schemaId": "agent-eval-case-classification-validity-argument-1",
+    "verifierDigest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c"
+  }
+}

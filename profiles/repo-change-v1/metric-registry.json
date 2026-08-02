@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "repo-change-metric-registry-1",
+  "version": "0.1.0",
+  "metrics": [
+    { "id": "functionalSuccessRate", "population": "eligible scheduled cells", "numerator": "functional-outcome-v1 successes", "missingness": "reported separately with identification bounds" },
+    { "id": "acceptedOutcomeRate", "population": "eligible scheduled cells", "numerator": "accepted-outcome-v1 successes", "missingness": "reported separately with identification bounds" },
+    { "id": "totalAttemptCost", "population": "all physical attempts", "numerator": "all measured resource cost", "missingness": "missing cost is insufficient evidence" }
+  ]
+}

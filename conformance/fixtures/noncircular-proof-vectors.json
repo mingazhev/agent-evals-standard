@@ -1,0 +1,771 @@
+{
+  "schemaVersion": "conformance-fixture-vector-set-1",
+  "id": "noncircular-conformance-proof-vectors",
+  "version": "0.1.0",
+  "purpose": "Schema and semantic proof results require authenticated automated replay; independent accountable review is accepted only for manual-governance requirements.",
+  "vectors": [
+    {
+      "id": "automated-replay-positive",
+      "proof": "noncircular-proof/proof-auto-pass.json",
+      "expectedValid": true,
+      "validationTime": "2026-08-01T00:10:00Z",
+      "proofAuthenticated": true,
+      "claimantKeyIds": [
+        "rfc8032-test-key-1-claimant"
+      ],
+      "claimantTrustDomains": [
+        "fixture-claimant"
+      ],
+      "claimantPublicKeys": [
+        "noncircular-proof/keys/claimant.pem"
+      ],
+      "trust": {
+        "registryAuthorities": [
+          {
+            "keyId": "rfc8032-test-key-4-registry",
+            "profileId": "fixture-proof-registry-profile",
+            "issuerId": "fixture-verifier-registry-authority",
+            "trustDomain": "fixture-registry-authority",
+            "publicKey": "noncircular-proof/keys/registry.pem"
+          }
+        ],
+        "actors": [
+          {
+            "keyId": "rfc8032-test-key-2-verifier",
+            "profileId": "fixture-automated-verifier-profile",
+            "actorId": "fixture-replay-verifier",
+            "trustDomain": "fixture-replay-verifier",
+            "publicKey": "noncircular-proof/keys/automated.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-3-reviewer",
+            "profileId": "fixture-accountable-reviewer-profile",
+            "actorId": "fixture-independent-reviewer",
+            "trustDomain": "fixture-independent-review",
+            "publicKey": "noncircular-proof/keys/reviewer.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-1-claimant",
+            "profileId": "fixture-claimant-profile",
+            "actorId": "fixture-claimant",
+            "trustDomain": "fixture-claimant",
+            "publicKey": "noncircular-proof/keys/claimant.pem"
+          }
+        ]
+      }
+    },
+    {
+      "id": "accountable-review-positive",
+      "proof": "noncircular-proof/proof-review-pass.json",
+      "expectedValid": true,
+      "validationTime": "2026-08-01T00:10:00Z",
+      "proofAuthenticated": true,
+      "claimantKeyIds": [
+        "rfc8032-test-key-1-claimant"
+      ],
+      "claimantTrustDomains": [
+        "fixture-claimant"
+      ],
+      "claimantPublicKeys": [
+        "noncircular-proof/keys/claimant.pem"
+      ],
+      "trust": {
+        "registryAuthorities": [
+          {
+            "keyId": "rfc8032-test-key-4-registry",
+            "profileId": "fixture-proof-registry-profile",
+            "issuerId": "fixture-verifier-registry-authority",
+            "trustDomain": "fixture-registry-authority",
+            "publicKey": "noncircular-proof/keys/registry.pem"
+          }
+        ],
+        "actors": [
+          {
+            "keyId": "rfc8032-test-key-2-verifier",
+            "profileId": "fixture-automated-verifier-profile",
+            "actorId": "fixture-replay-verifier",
+            "trustDomain": "fixture-replay-verifier",
+            "publicKey": "noncircular-proof/keys/automated.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-3-reviewer",
+            "profileId": "fixture-accountable-reviewer-profile",
+            "actorId": "fixture-independent-reviewer",
+            "trustDomain": "fixture-independent-review",
+            "publicKey": "noncircular-proof/keys/reviewer.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-1-claimant",
+            "profileId": "fixture-claimant-profile",
+            "actorId": "fixture-claimant",
+            "trustDomain": "fixture-claimant",
+            "publicKey": "noncircular-proof/keys/claimant.pem"
+          }
+        ]
+      }
+    },
+    {
+      "id": "self-reported-pass-rejected",
+      "proof": "noncircular-proof/proof-auto-false-self-report.json",
+      "expectedValid": false,
+      "expectedError": "replayed result fail differs from recorded result pass",
+      "validationTime": "2026-08-01T00:10:00Z",
+      "proofAuthenticated": true,
+      "claimantKeyIds": [
+        "rfc8032-test-key-1-claimant"
+      ],
+      "claimantTrustDomains": [
+        "fixture-claimant"
+      ],
+      "claimantPublicKeys": [
+        "noncircular-proof/keys/claimant.pem"
+      ],
+      "trust": {
+        "registryAuthorities": [
+          {
+            "keyId": "rfc8032-test-key-4-registry",
+            "profileId": "fixture-proof-registry-profile",
+            "issuerId": "fixture-verifier-registry-authority",
+            "trustDomain": "fixture-registry-authority",
+            "publicKey": "noncircular-proof/keys/registry.pem"
+          }
+        ],
+        "actors": [
+          {
+            "keyId": "rfc8032-test-key-2-verifier",
+            "profileId": "fixture-automated-verifier-profile",
+            "actorId": "fixture-replay-verifier",
+            "trustDomain": "fixture-replay-verifier",
+            "publicKey": "noncircular-proof/keys/automated.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-3-reviewer",
+            "profileId": "fixture-accountable-reviewer-profile",
+            "actorId": "fixture-independent-reviewer",
+            "trustDomain": "fixture-independent-review",
+            "publicKey": "noncircular-proof/keys/reviewer.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-1-claimant",
+            "profileId": "fixture-claimant-profile",
+            "actorId": "fixture-claimant",
+            "trustDomain": "fixture-claimant",
+            "publicKey": "noncircular-proof/keys/claimant.pem"
+          }
+        ]
+      }
+    },
+    {
+      "id": "input-digest-mismatch-rejected",
+      "proof": "noncircular-proof/proof-auto-bad-input-digest.json",
+      "expectedValid": false,
+      "expectedError": "raw digest must be",
+      "validationTime": "2026-08-01T00:10:00Z",
+      "proofAuthenticated": true,
+      "claimantKeyIds": [
+        "rfc8032-test-key-1-claimant"
+      ],
+      "claimantTrustDomains": [
+        "fixture-claimant"
+      ],
+      "claimantPublicKeys": [
+        "noncircular-proof/keys/claimant.pem"
+      ],
+      "trust": {
+        "registryAuthorities": [
+          {
+            "keyId": "rfc8032-test-key-4-registry",
+            "profileId": "fixture-proof-registry-profile",
+            "issuerId": "fixture-verifier-registry-authority",
+            "trustDomain": "fixture-registry-authority",
+            "publicKey": "noncircular-proof/keys/registry.pem"
+          }
+        ],
+        "actors": [
+          {
+            "keyId": "rfc8032-test-key-2-verifier",
+            "profileId": "fixture-automated-verifier-profile",
+            "actorId": "fixture-replay-verifier",
+            "trustDomain": "fixture-replay-verifier",
+            "publicKey": "noncircular-proof/keys/automated.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-3-reviewer",
+            "profileId": "fixture-accountable-reviewer-profile",
+            "actorId": "fixture-independent-reviewer",
+            "trustDomain": "fixture-independent-review",
+            "publicKey": "noncircular-proof/keys/reviewer.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-1-claimant",
+            "profileId": "fixture-claimant-profile",
+            "actorId": "fixture-claimant",
+            "trustDomain": "fixture-claimant",
+            "publicKey": "noncircular-proof/keys/claimant.pem"
+          }
+        ]
+      }
+    },
+    {
+      "id": "requirement-semantics-drift-rejected",
+      "proof": "noncircular-proof/proof-auto-requirement-drift.json",
+      "expectedValid": false,
+      "expectedError": "registered requirement-entry digest must be",
+      "validationTime": "2026-08-01T00:10:00Z",
+      "proofAuthenticated": true,
+      "claimantKeyIds": [
+        "rfc8032-test-key-1-claimant"
+      ],
+      "claimantTrustDomains": [
+        "fixture-claimant"
+      ],
+      "claimantPublicKeys": [
+        "noncircular-proof/keys/claimant.pem"
+      ],
+      "trust": {
+        "registryAuthorities": [
+          {
+            "keyId": "rfc8032-test-key-4-registry",
+            "profileId": "fixture-proof-registry-profile",
+            "issuerId": "fixture-verifier-registry-authority",
+            "trustDomain": "fixture-registry-authority",
+            "publicKey": "noncircular-proof/keys/registry.pem"
+          }
+        ],
+        "actors": [
+          {
+            "keyId": "rfc8032-test-key-2-verifier",
+            "profileId": "fixture-automated-verifier-profile",
+            "actorId": "fixture-replay-verifier",
+            "trustDomain": "fixture-replay-verifier",
+            "publicKey": "noncircular-proof/keys/automated.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-3-reviewer",
+            "profileId": "fixture-accountable-reviewer-profile",
+            "actorId": "fixture-independent-reviewer",
+            "trustDomain": "fixture-independent-review",
+            "publicKey": "noncircular-proof/keys/reviewer.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-1-claimant",
+            "profileId": "fixture-claimant-profile",
+            "actorId": "fixture-claimant",
+            "trustDomain": "fixture-claimant",
+            "publicKey": "noncircular-proof/keys/claimant.pem"
+          }
+        ]
+      }
+    },
+    {
+      "id": "implementation-digest-mismatch-rejected",
+      "proof": "noncircular-proof/proof-auto-bad-implementation.json",
+      "expectedValid": false,
+      "expectedError": "verifier implementation: raw digest must be",
+      "validationTime": "2026-08-01T00:10:00Z",
+      "proofAuthenticated": true,
+      "claimantKeyIds": [
+        "rfc8032-test-key-1-claimant"
+      ],
+      "claimantTrustDomains": [
+        "fixture-claimant"
+      ],
+      "claimantPublicKeys": [
+        "noncircular-proof/keys/claimant.pem"
+      ],
+      "trust": {
+        "registryAuthorities": [
+          {
+            "keyId": "rfc8032-test-key-4-registry",
+            "profileId": "fixture-proof-registry-profile",
+            "issuerId": "fixture-verifier-registry-authority",
+            "trustDomain": "fixture-registry-authority",
+            "publicKey": "noncircular-proof/keys/registry.pem"
+          }
+        ],
+        "actors": [
+          {
+            "keyId": "rfc8032-test-key-2-verifier",
+            "profileId": "fixture-automated-verifier-profile",
+            "actorId": "fixture-replay-verifier",
+            "trustDomain": "fixture-replay-verifier",
+            "publicKey": "noncircular-proof/keys/automated.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-3-reviewer",
+            "profileId": "fixture-accountable-reviewer-profile",
+            "actorId": "fixture-independent-reviewer",
+            "trustDomain": "fixture-independent-review",
+            "publicKey": "noncircular-proof/keys/reviewer.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-1-claimant",
+            "profileId": "fixture-claimant-profile",
+            "actorId": "fixture-claimant",
+            "trustDomain": "fixture-claimant",
+            "publicKey": "noncircular-proof/keys/claimant.pem"
+          }
+        ]
+      }
+    },
+    {
+      "id": "uninstalled-adapter-rejected",
+      "proof": "noncircular-proof/proof-auto-unknown-adapter.json",
+      "expectedValid": false,
+      "expectedError": "is not installed in the validator allow-list",
+      "validationTime": "2026-08-01T00:10:00Z",
+      "proofAuthenticated": true,
+      "claimantKeyIds": [
+        "rfc8032-test-key-1-claimant"
+      ],
+      "claimantTrustDomains": [
+        "fixture-claimant"
+      ],
+      "claimantPublicKeys": [
+        "noncircular-proof/keys/claimant.pem"
+      ],
+      "trust": {
+        "registryAuthorities": [
+          {
+            "keyId": "rfc8032-test-key-4-registry",
+            "profileId": "fixture-proof-registry-profile",
+            "issuerId": "fixture-verifier-registry-authority",
+            "trustDomain": "fixture-registry-authority",
+            "publicKey": "noncircular-proof/keys/registry.pem"
+          }
+        ],
+        "actors": [
+          {
+            "keyId": "rfc8032-test-key-2-verifier",
+            "profileId": "fixture-automated-verifier-profile",
+            "actorId": "fixture-replay-verifier",
+            "trustDomain": "fixture-replay-verifier",
+            "publicKey": "noncircular-proof/keys/automated.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-3-reviewer",
+            "profileId": "fixture-accountable-reviewer-profile",
+            "actorId": "fixture-independent-reviewer",
+            "trustDomain": "fixture-independent-review",
+            "publicKey": "noncircular-proof/keys/reviewer.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-1-claimant",
+            "profileId": "fixture-claimant-profile",
+            "actorId": "fixture-claimant",
+            "trustDomain": "fixture-claimant",
+            "publicKey": "noncircular-proof/keys/claimant.pem"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tampered-registry-rejected",
+      "proof": "noncircular-proof/proof-auto-tampered-registry.json",
+      "expectedValid": false,
+      "expectedError": "verifier registry: self digest must be",
+      "validationTime": "2026-08-01T00:10:00Z",
+      "proofAuthenticated": true,
+      "claimantKeyIds": [
+        "rfc8032-test-key-1-claimant"
+      ],
+      "claimantTrustDomains": [
+        "fixture-claimant"
+      ],
+      "claimantPublicKeys": [
+        "noncircular-proof/keys/claimant.pem"
+      ],
+      "trust": {
+        "registryAuthorities": [
+          {
+            "keyId": "rfc8032-test-key-4-registry",
+            "profileId": "fixture-proof-registry-profile",
+            "issuerId": "fixture-verifier-registry-authority",
+            "trustDomain": "fixture-registry-authority",
+            "publicKey": "noncircular-proof/keys/registry.pem"
+          }
+        ],
+        "actors": [
+          {
+            "keyId": "rfc8032-test-key-2-verifier",
+            "profileId": "fixture-automated-verifier-profile",
+            "actorId": "fixture-replay-verifier",
+            "trustDomain": "fixture-replay-verifier",
+            "publicKey": "noncircular-proof/keys/automated.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-3-reviewer",
+            "profileId": "fixture-accountable-reviewer-profile",
+            "actorId": "fixture-independent-reviewer",
+            "trustDomain": "fixture-independent-review",
+            "publicKey": "noncircular-proof/keys/reviewer.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-1-claimant",
+            "profileId": "fixture-claimant-profile",
+            "actorId": "fixture-claimant",
+            "trustDomain": "fixture-claimant",
+            "publicKey": "noncircular-proof/keys/claimant.pem"
+          }
+        ]
+      }
+    },
+    {
+      "id": "incomplete-review-rejected",
+      "proof": "noncircular-proof/proof-review-missing-criterion.json",
+      "expectedValid": false,
+      "expectedError": "criterion coverage",
+      "validationTime": "2026-08-01T00:10:00Z",
+      "proofAuthenticated": true,
+      "claimantKeyIds": [
+        "rfc8032-test-key-1-claimant"
+      ],
+      "claimantTrustDomains": [
+        "fixture-claimant"
+      ],
+      "claimantPublicKeys": [
+        "noncircular-proof/keys/claimant.pem"
+      ],
+      "trust": {
+        "registryAuthorities": [
+          {
+            "keyId": "rfc8032-test-key-4-registry",
+            "profileId": "fixture-proof-registry-profile",
+            "issuerId": "fixture-verifier-registry-authority",
+            "trustDomain": "fixture-registry-authority",
+            "publicKey": "noncircular-proof/keys/registry.pem"
+          }
+        ],
+        "actors": [
+          {
+            "keyId": "rfc8032-test-key-2-verifier",
+            "profileId": "fixture-automated-verifier-profile",
+            "actorId": "fixture-replay-verifier",
+            "trustDomain": "fixture-replay-verifier",
+            "publicKey": "noncircular-proof/keys/automated.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-3-reviewer",
+            "profileId": "fixture-accountable-reviewer-profile",
+            "actorId": "fixture-independent-reviewer",
+            "trustDomain": "fixture-independent-review",
+            "publicKey": "noncircular-proof/keys/reviewer.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-1-claimant",
+            "profileId": "fixture-claimant-profile",
+            "actorId": "fixture-claimant",
+            "trustDomain": "fixture-claimant",
+            "publicKey": "noncircular-proof/keys/claimant.pem"
+          }
+        ]
+      }
+    },
+    {
+      "id": "claimant-review-rejected",
+      "proof": "noncircular-proof/proof-review-claimant-signed.json",
+      "expectedValid": false,
+      "expectedError": "actor/key/trust-domain tuple is not uniquely authorized",
+      "validationTime": "2026-08-01T00:10:00Z",
+      "proofAuthenticated": true,
+      "claimantKeyIds": [
+        "rfc8032-test-key-1-claimant"
+      ],
+      "claimantTrustDomains": [
+        "fixture-claimant"
+      ],
+      "claimantPublicKeys": [
+        "noncircular-proof/keys/claimant.pem"
+      ],
+      "trust": {
+        "registryAuthorities": [
+          {
+            "keyId": "rfc8032-test-key-4-registry",
+            "profileId": "fixture-proof-registry-profile",
+            "issuerId": "fixture-verifier-registry-authority",
+            "trustDomain": "fixture-registry-authority",
+            "publicKey": "noncircular-proof/keys/registry.pem"
+          }
+        ],
+        "actors": [
+          {
+            "keyId": "rfc8032-test-key-2-verifier",
+            "profileId": "fixture-automated-verifier-profile",
+            "actorId": "fixture-replay-verifier",
+            "trustDomain": "fixture-replay-verifier",
+            "publicKey": "noncircular-proof/keys/automated.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-3-reviewer",
+            "profileId": "fixture-accountable-reviewer-profile",
+            "actorId": "fixture-independent-reviewer",
+            "trustDomain": "fixture-independent-review",
+            "publicKey": "noncircular-proof/keys/reviewer.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-1-claimant",
+            "profileId": "fixture-claimant-profile",
+            "actorId": "fixture-claimant",
+            "trustDomain": "fixture-claimant",
+            "publicKey": "noncircular-proof/keys/claimant.pem"
+          }
+        ]
+      }
+    },
+    {
+      "id": "weakened-review-criterion-rejected",
+      "proof": "noncircular-proof/proof-review-weakened-criterion.json",
+      "expectedValid": false,
+      "expectedError": "differs from the requirement-owned complete criterion",
+      "validationTime": "2026-08-01T00:10:00Z",
+      "proofAuthenticated": true,
+      "claimantKeyIds": [
+        "rfc8032-test-key-1-claimant"
+      ],
+      "claimantTrustDomains": [
+        "fixture-claimant"
+      ],
+      "claimantPublicKeys": [
+        "noncircular-proof/keys/claimant.pem"
+      ],
+      "trust": {
+        "registryAuthorities": [
+          {
+            "keyId": "rfc8032-test-key-4-registry",
+            "profileId": "fixture-proof-registry-profile",
+            "issuerId": "fixture-verifier-registry-authority",
+            "trustDomain": "fixture-registry-authority",
+            "publicKey": "noncircular-proof/keys/registry.pem"
+          }
+        ],
+        "actors": [
+          {
+            "keyId": "rfc8032-test-key-2-verifier",
+            "profileId": "fixture-automated-verifier-profile",
+            "actorId": "fixture-replay-verifier",
+            "trustDomain": "fixture-replay-verifier",
+            "publicKey": "noncircular-proof/keys/automated.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-3-reviewer",
+            "profileId": "fixture-accountable-reviewer-profile",
+            "actorId": "fixture-independent-reviewer",
+            "trustDomain": "fixture-independent-review",
+            "publicKey": "noncircular-proof/keys/reviewer.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-1-claimant",
+            "profileId": "fixture-claimant-profile",
+            "actorId": "fixture-claimant",
+            "trustDomain": "fixture-claimant",
+            "publicKey": "noncircular-proof/keys/claimant.pem"
+          }
+        ]
+      }
+    },
+    {
+      "id": "outcome-accountable-review-only-rejected",
+      "proof": "noncircular-proof/proof-review-outcome-only.json",
+      "expectedValid": false,
+      "expectedError": "method accountable_review is not permitted for OUT-001",
+      "validationTime": "2026-08-01T00:10:00Z",
+      "proofAuthenticated": true,
+      "claimantKeyIds": [
+        "rfc8032-test-key-1-claimant"
+      ],
+      "claimantTrustDomains": [
+        "fixture-claimant"
+      ],
+      "claimantPublicKeys": [
+        "noncircular-proof/keys/claimant.pem"
+      ],
+      "trust": {
+        "registryAuthorities": [
+          {
+            "keyId": "rfc8032-test-key-4-registry",
+            "profileId": "fixture-proof-registry-profile",
+            "issuerId": "fixture-verifier-registry-authority",
+            "trustDomain": "fixture-registry-authority",
+            "publicKey": "noncircular-proof/keys/registry.pem"
+          }
+        ],
+        "actors": [
+          {
+            "keyId": "rfc8032-test-key-2-verifier",
+            "profileId": "fixture-automated-verifier-profile",
+            "actorId": "fixture-replay-verifier",
+            "trustDomain": "fixture-replay-verifier",
+            "publicKey": "noncircular-proof/keys/automated.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-3-reviewer",
+            "profileId": "fixture-accountable-reviewer-profile",
+            "actorId": "fixture-independent-reviewer",
+            "trustDomain": "fixture-independent-review",
+            "publicKey": "noncircular-proof/keys/reviewer.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-1-claimant",
+            "profileId": "fixture-claimant-profile",
+            "actorId": "fixture-claimant",
+            "trustDomain": "fixture-claimant",
+            "publicKey": "noncircular-proof/keys/claimant.pem"
+          }
+        ]
+      }
+    },
+    {
+      "id": "evidence-accountable-review-only-rejected",
+      "proof": "noncircular-proof/proof-review-evidence-only.json",
+      "expectedValid": false,
+      "expectedError": "method accountable_review is not permitted for EVID-001",
+      "validationTime": "2026-08-01T00:10:00Z",
+      "proofAuthenticated": true,
+      "claimantKeyIds": [
+        "rfc8032-test-key-1-claimant"
+      ],
+      "claimantTrustDomains": [
+        "fixture-claimant"
+      ],
+      "claimantPublicKeys": [
+        "noncircular-proof/keys/claimant.pem"
+      ],
+      "trust": {
+        "registryAuthorities": [
+          {
+            "keyId": "rfc8032-test-key-4-registry",
+            "profileId": "fixture-proof-registry-profile",
+            "issuerId": "fixture-verifier-registry-authority",
+            "trustDomain": "fixture-registry-authority",
+            "publicKey": "noncircular-proof/keys/registry.pem"
+          }
+        ],
+        "actors": [
+          {
+            "keyId": "rfc8032-test-key-2-verifier",
+            "profileId": "fixture-automated-verifier-profile",
+            "actorId": "fixture-replay-verifier",
+            "trustDomain": "fixture-replay-verifier",
+            "publicKey": "noncircular-proof/keys/automated.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-3-reviewer",
+            "profileId": "fixture-accountable-reviewer-profile",
+            "actorId": "fixture-independent-reviewer",
+            "trustDomain": "fixture-independent-review",
+            "publicKey": "noncircular-proof/keys/reviewer.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-1-claimant",
+            "profileId": "fixture-claimant-profile",
+            "actorId": "fixture-claimant",
+            "trustDomain": "fixture-claimant",
+            "publicKey": "noncircular-proof/keys/claimant.pem"
+          }
+        ]
+      }
+    },
+    {
+      "id": "unauthenticated-proof-set-rejected",
+      "proof": "noncircular-proof/proof-auto-pass.json",
+      "expectedValid": false,
+      "expectedError": "proof-set bytes were not authenticated",
+      "validationTime": "2026-08-01T00:10:00Z",
+      "proofAuthenticated": false,
+      "claimantKeyIds": [
+        "rfc8032-test-key-1-claimant"
+      ],
+      "claimantTrustDomains": [
+        "fixture-claimant"
+      ],
+      "claimantPublicKeys": [
+        "noncircular-proof/keys/claimant.pem"
+      ],
+      "trust": {
+        "registryAuthorities": [
+          {
+            "keyId": "rfc8032-test-key-4-registry",
+            "profileId": "fixture-proof-registry-profile",
+            "issuerId": "fixture-verifier-registry-authority",
+            "trustDomain": "fixture-registry-authority",
+            "publicKey": "noncircular-proof/keys/registry.pem"
+          }
+        ],
+        "actors": [
+          {
+            "keyId": "rfc8032-test-key-2-verifier",
+            "profileId": "fixture-automated-verifier-profile",
+            "actorId": "fixture-replay-verifier",
+            "trustDomain": "fixture-replay-verifier",
+            "publicKey": "noncircular-proof/keys/automated.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-3-reviewer",
+            "profileId": "fixture-accountable-reviewer-profile",
+            "actorId": "fixture-independent-reviewer",
+            "trustDomain": "fixture-independent-review",
+            "publicKey": "noncircular-proof/keys/reviewer.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-1-claimant",
+            "profileId": "fixture-claimant-profile",
+            "actorId": "fixture-claimant",
+            "trustDomain": "fixture-claimant",
+            "publicKey": "noncircular-proof/keys/claimant.pem"
+          }
+        ]
+      }
+    },
+    {
+      "id": "legacy-declared-status-rejected",
+      "proof": "noncircular-proof/proof-legacy-self-status.json",
+      "expectedValid": false,
+      "expectedError": "schema invalid",
+      "validationTime": "2026-08-01T00:10:00Z",
+      "proofAuthenticated": true,
+      "claimantKeyIds": [
+        "rfc8032-test-key-1-claimant"
+      ],
+      "claimantTrustDomains": [
+        "fixture-claimant"
+      ],
+      "claimantPublicKeys": [
+        "noncircular-proof/keys/claimant.pem"
+      ],
+      "trust": {
+        "registryAuthorities": [
+          {
+            "keyId": "rfc8032-test-key-4-registry",
+            "profileId": "fixture-proof-registry-profile",
+            "issuerId": "fixture-verifier-registry-authority",
+            "trustDomain": "fixture-registry-authority",
+            "publicKey": "noncircular-proof/keys/registry.pem"
+          }
+        ],
+        "actors": [
+          {
+            "keyId": "rfc8032-test-key-2-verifier",
+            "profileId": "fixture-automated-verifier-profile",
+            "actorId": "fixture-replay-verifier",
+            "trustDomain": "fixture-replay-verifier",
+            "publicKey": "noncircular-proof/keys/automated.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-3-reviewer",
+            "profileId": "fixture-accountable-reviewer-profile",
+            "actorId": "fixture-independent-reviewer",
+            "trustDomain": "fixture-independent-review",
+            "publicKey": "noncircular-proof/keys/reviewer.pem"
+          },
+          {
+            "keyId": "rfc8032-test-key-1-claimant",
+            "profileId": "fixture-claimant-profile",
+            "actorId": "fixture-claimant",
+            "trustDomain": "fixture-claimant",
+            "publicKey": "noncircular-proof/keys/claimant.pem"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "agent-eval-evaluation-control-authority-evidence-1",
+  "id": "forged-held-out-budget-authorization-v1",
+  "version": "0.1.0",
+  "evidenceKind": "held_out_budget_authorization",
+  "subject": {
+    "schemaId": "urn:agent-evals-standard:schema:held-out-exposure-budget:1",
+    "id": "held-out-exposure-budget-v1",
+    "version": "0.1.0",
+    "projection": "full_document_without_authorization_evidence",
+    "digest": "sha256:dc469bdf89072c3932bfc7c92ff9cc9b8c87139d5a6e86f6a4a6eee68571d1b5"
+  },
+  "decision": "authorized",
+  "actor": {
+    "id": "suite-owner",
+    "role": "evaluation_claimant",
+    "trustDomain": "claimant"
+  },
+  "issuedAt": "2026-08-01T00:05:00Z",
+  "authorityPolicy": {
+    "id": "fixture-evaluation-control-authority-policy",
+    "version": "0.1.0",
+    "digest": "sha256:b29e42e61605ba520a84839a71402698d8656d0f0fc29fb98fca210d4198b9e6"
+  },
+  "digest": "sha256:3e19cde2af53557b15a641c49478301fee6719e1caeb71247ad8985606eba454",
+  "signature": {
+    "profileId": "fixture-claimant-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1-claimant",
+    "signedAt": "2026-08-01T00:05:00Z",
+    "value": "Jx6QBSx5nl3E8YC99TXeymbhHsmYJm5V9e-aTKHvraqIpBmq_Tq-BEO6RMoifnQqa8Dj7B4LQsvEDYFKfX9oCw"
+  }
+}

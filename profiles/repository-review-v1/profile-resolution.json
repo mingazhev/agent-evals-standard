@@ -1,0 +1,245 @@
+{
+  "schemaVersion": "agent-eval-profile-resolution-record-1",
+  "id": "repository-review-v1-profile-resolution",
+  "version": "0.1.0",
+  "profile": {
+    "id": "repository-review-v1",
+    "version": "0.1.0"
+  },
+  "parentChain": [],
+  "fieldProvenance": [
+    {
+      "pointer": "/baseCompatibility",
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/capabilityFamilies",
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/caseContract",
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/caseQa",
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/claimTrustProfile",
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/claimTrustUse",
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/effectiveRiskRange",
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/failureTaxonomy",
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/gateRegistry",
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/id",
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/interactionModes",
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/namespace",
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/owner",
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/parentProfile",
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "derived"
+    },
+    {
+      "pointer": "/schemaVersion",
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/signatureProfile",
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/supportedAssuranceLevels",
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/version",
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/workArtifactRegistry",
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    }
+  ],
+  "keyedProvenance": [
+    {
+      "collection": "allowedOutcomeProfiles",
+      "keys": [
+        "repository-review-outcome-v1"
+      ],
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "preserves"
+    },
+    {
+      "collection": "exclusions",
+      "keys": [
+        "CAP.DISCOVER_SPECIFY",
+        "CAP.IMPLEMENT_CHANGE",
+        "CAP.PLAN_DESIGN",
+        "CAP.RELEASE_OPERATE",
+        "CAP.REMEDIATE_LEARN",
+        "CAP.VERIFY_ASSURE"
+      ],
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "preserves"
+    },
+    {
+      "collection": "metrics",
+      "keys": [
+        "repository-review-metric-registry"
+      ],
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "preserves"
+    },
+    {
+      "collection": "requirementMapping",
+      "keys": [
+        "ARCH-001",
+        "ASSURE-001",
+        "CASE-001",
+        "CASE-002",
+        "CASE-003",
+        "CASE-004",
+        "CASE-005",
+        "CLAIM-001",
+        "CLAIM-002",
+        "CONF-001",
+        "CONF-002",
+        "CONF-003",
+        "DATA-001",
+        "DATA-002",
+        "EVID-001",
+        "EVID-002",
+        "EXP-001",
+        "EXP-002",
+        "EXP-003",
+        "GATE-001",
+        "GOV-001",
+        "GOV-002",
+        "HEALTH-001",
+        "HOLD-001",
+        "HOLD-002",
+        "I1",
+        "I10",
+        "I11",
+        "I12",
+        "I13",
+        "I2",
+        "I3",
+        "I4",
+        "I5",
+        "I6",
+        "I7",
+        "I8",
+        "I9",
+        "INT-001",
+        "JUDGE-001",
+        "JUDGE-002",
+        "JUDGE-003",
+        "OUT-001",
+        "OUTPROF-001",
+        "PROFILE-001",
+        "RISK-001",
+        "RUN-001",
+        "RUN-002",
+        "RUN-003",
+        "SCOPE-001",
+        "SCOPE-002",
+        "SCOPE-003",
+        "STAT-001",
+        "STAT-002",
+        "STAT-003",
+        "TRACE-001",
+        "VALID-001",
+        "VALID-002",
+        "VALID-003"
+      ],
+      "sourceProfileId": "repository-review-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_complete"
+    }
+  ],
+  "replacementProofs": [],
+  "evidenceManifest": [],
+  "canonicalOrdering": {
+    "parentChain": "base_to_direct_parent",
+    "fieldProvenance": "lexical_json_pointer",
+    "keyedProvenance": "collection_then_key_lexical",
+    "replacementProofs": "target_pointer_then_key_lexical"
+  },
+  "conflictStatus": "no_unresolved_conflicts",
+  "effectiveProfileDigest": "sha256:502320d65a145e6dcfae7e1042278378d8d73cf1a1482e0b019d8618e6a3df2b",
+  "digest": "sha256:1bdd57ecbabd3e9302f4645ef0f61b92f2c33e688323bce7bdba9749a4f20f20",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:00Z",
+    "value": "o--_IEeW2ni7Ol031MOFb_PO6hx54lJqdXrcoNeYOmyO17SppBqyp_EtSDFQjsL1RnFN3VHeq6RenAqQMUTsBw"
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "fixture-requirement-registry-1",
+  "id": "fixture-requirements",
+  "version": "0.1.0",
+  "requirements": [
+    {
+      "id": "FIX-AUTO-001",
+      "targets": [
+        "case"
+      ],
+      "normativeReference": "fixture#fix-auto-001",
+      "verificationKind": "semantic",
+      "verificationContract": {
+        "criterionId": "FIX-AUTO-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "fixture#fix-auto-001",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of FIX-AUTO-001 at fixture#fix-auto-001 and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "FIX-MANUAL-001",
+      "targets": [
+        "case"
+      ],
+      "normativeReference": "fixture#fix-manual-001",
+      "verificationKind": "manual_governance",
+      "verificationContract": {
+        "criterionId": "FIX-MANUAL-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "fixture#fix-manual-001",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of FIX-MANUAL-001 at fixture#fix-manual-001 and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "accountable_review"
+        ]
+      }
+    },
+    {
+      "id": "OUT-001",
+      "targets": [
+        "case",
+        "evaluator",
+        "experiment"
+      ],
+      "normativeReference": "scorecard-contract.md#successful-functional-and-accepted-outcomes",
+      "verificationKind": "semantic",
+      "verificationContract": {
+        "criterionId": "OUT-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "scorecard-contract.md#successful-functional-and-accepted-outcomes",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of OUT-001 at scorecard-contract.md#successful-functional-and-accepted-outcomes and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    },
+    {
+      "id": "EVID-001",
+      "targets": [
+        "suite",
+        "case",
+        "evaluator",
+        "experiment",
+        "decision"
+      ],
+      "normativeReference": "evidence-and-validation-contract.md#canonical-evidence-artifact",
+      "verificationKind": "semantic",
+      "verificationContract": {
+        "criterionId": "EVID-001.complete",
+        "strength": "complete_primary_definition",
+        "normativeReference": "evidence-and-validation-contract.md#canonical-evidence-artifact",
+        "question": "Does the target satisfy every applicable REQUIRED obligation of EVID-001 at evidence-and-validation-contract.md#canonical-evidence-artifact and every named semantic contract invoked there, and either satisfy or record an approved, scoped deviation for every applicable RECOMMENDED obligation?",
+        "permittedMethods": [
+          "automated_replay"
+        ]
+      }
+    }
+  ]
+}

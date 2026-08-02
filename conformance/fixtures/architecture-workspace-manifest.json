@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "agent-eval-workspace-manifest-1",
+  "id": "architecture-workspace-manifest",
+  "version": "0.1.0",
+  "repositories": [
+    {
+      "id": "architecture-fixture-component",
+      "path": ".",
+      "baseRevision": "3a994e373d8a9834095f36ab89860eec2070de29",
+      "treeDigest": "sha256:41d23f0113e48429c017c34e394e6b64e90a6f94b31a155bf5cf1ba0a2bf355e",
+      "historyProjection": {
+        "mode": "full_ancestry",
+        "cutoffRevision": "3a994e373d8a9834095f36ab89860eec2070de29",
+        "baseRef": "refs/heads/eval-base",
+        "objectGraphDigest": "sha256:a2a3cfb5b2dd8826e1aff8508e2f797474a2d16808c00e393e0a8ed10ce00c4c",
+        "reachableObjectCount": 7,
+        "verifier": {
+          "id": "agent-evals-standard.git-repository-state-verifier",
+          "version": "0.1.0",
+          "algorithm": "git-repository-state-v1"
+        }
+      },
+      "files": [
+        {
+          "path": ".github/workflows/ci.yml",
+          "mode": "100644",
+          "mediaType": "text/yaml",
+          "byteLength": 14,
+          "digest": "sha256:0af6a6b64794de7e02c5e17c7d532d8fa22b7e5fce51b803a46439e6637cb269",
+          "contentBase64": "bmFtZTogZml4dHVyZQo="
+        },
+        {
+          "path": "src/answer.js",
+          "mode": "100644",
+          "mediaType": "text/javascript",
+          "byteLength": 26,
+          "digest": "sha256:a2098bd92b10bf8b816d24b7556b1ce8c49a879d130489065ef1051c17e042f6",
+          "contentBase64": "ZXhwb3J0IGNvbnN0IGFuc3dlciA9IDQyOwo="
+        }
+      ],
+      "objectFormat": "sha1",
+      "gitObjectGraph": {
+        "baseRef": "refs/heads/eval-base",
+        "refs": [
+          {
+            "name": "refs/heads/eval-base",
+            "target": "3a994e373d8a9834095f36ab89860eec2070de29"
+          }
+        ],
+        "objects": [
+          {
+            "objectId": "12fcd8c30af55f85c3e332a7d89785cbd4d7e3d8",
+            "type": "tree",
+            "byteLength": 36,
+            "contentBase64": "NDAwMDAgd29ya2Zsb3dzAPcGinzUPHelBDOTx5FZyT93/mWL"
+          },
+          {
+            "objectId": "13ab388648e4c49e35a74ae725c82a18424201b4",
+            "type": "tree",
+            "byteLength": 64,
+            "contentBase64": "NDAwMDAgLmdpdGh1YgAS/NjDCvVfhcPjMqfYl4XL1Nfj2DQwMDAwIHNyYwBTRry15Aa11bvSbPeHq3k2pfNhKw=="
+          },
+          {
+            "objectId": "3a994e373d8a9834095f36ab89860eec2070de29",
+            "type": "commit",
+            "byteLength": 212,
+            "contentBase64": "dHJlZSAxM2FiMzg4NjQ4ZTRjNDllMzVhNzRhZTcyNWM4MmExODQyNDIwMWI0CmF1dGhvciBGaXh0dXJlIEJ1aWxkZXIgPGZpeHR1cmVAZXhhbXBsZS5pbnZhbGlkPiAwICswMDAwCmNvbW1pdHRlciBGaXh0dXJlIEJ1aWxkZXIgPGZpeHR1cmVAZXhhbXBsZS5pbnZhbGlkPiAwICswMDAwCgpzZWFsZWQgd29ya3NwYWNlIGFyY2hpdGVjdHVyZS1maXh0dXJlLWNvbXBvbmVudAo="
+          },
+          {
+            "objectId": "5346bcb5e406b5d5bbd26cf787ab7936a5f3612b",
+            "type": "tree",
+            "byteLength": 37,
+            "contentBase64": "MTAwNjQ0IGFuc3dlci5qcwBkoy/SkeQFqWOqz5ZKAhgJ3SBsRg=="
+          },
+          {
+            "objectId": "64a32fd291e405a963aacf964a021809dd206c46",
+            "type": "blob",
+            "byteLength": 26,
+            "contentBase64": "ZXhwb3J0IGNvbnN0IGFuc3dlciA9IDQyOwo="
+          },
+          {
+            "objectId": "908941adcfed7b16f8ef47292e326448f1de1af2",
+            "type": "blob",
+            "byteLength": 14,
+            "contentBase64": "bmFtZTogZml4dHVyZQo="
+          },
+          {
+            "objectId": "f7068a7cd43c77a5043393c79159c93f77fe658b",
+            "type": "tree",
+            "byteLength": 34,
+            "contentBase64": "MTAwNjQ0IGNpLnltbACQiUGtz+17FvjvRykuMmRI8d4a8g=="
+          }
+        ],
+        "digest": "sha256:a2a3cfb5b2dd8826e1aff8508e2f797474a2d16808c00e393e0a8ed10ce00c4c"
+      }
+    }
+  ],
+  "workspaceRootDigest": "sha256:675204f42738625d104c09671bae121d5e82722f71ba62e7c6dd75a5653430ac"
+}

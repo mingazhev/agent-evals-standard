@@ -1,0 +1,556 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:validity-argument:1",
+  "title": "Evaluation validity argument",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "version",
+    "suite",
+    "intendedUse",
+    "targetPopulation",
+    "constructs",
+    "claims",
+    "threatsToValidity",
+    "assumptions",
+    "limitations",
+    "evidencePlan",
+    "review"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "agent-eval-validity-argument-1"
+    },
+    "id": {
+      "$ref": "#/$defs/id"
+    },
+    "version": {
+      "const": "0.1.0"
+    },
+    "suite": {
+      "$ref": "#/$defs/subject"
+    },
+    "intendedUse": {
+      "type": "string",
+      "minLength": 1
+    },
+    "targetPopulation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "constructs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/construct"
+      },
+      "uniqueItems": true
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/claim"
+      },
+      "uniqueItems": true
+    },
+    "threatsToValidity": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "$ref": "#/$defs/validityThreat"
+      },
+      "allOf": [
+        {
+          "contains": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "const": "construct"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          }
+        },
+        {
+          "contains": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "const": "internal"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          }
+        },
+        {
+          "contains": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "const": "external"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          }
+        },
+        {
+          "contains": {
+            "type": "object",
+            "properties": {
+              "category": {
+                "const": "statistical_conclusion"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          }
+        }
+      ]
+    },
+    "assumptions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "evidencePlan": {
+      "type": "object",
+      "required": [
+        "requiredEvidenceKinds",
+        "referenceBaselines",
+        "incumbentDisposition",
+        "unknownEffect"
+      ],
+      "properties": {
+        "requiredEvidenceKinds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "uniqueItems": true
+        },
+        "referenceBaselines": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "$ref": "#/$defs/referenceBaseline"
+          },
+          "uniqueItems": true
+        },
+        "incumbentDisposition": {
+          "$ref": "#/$defs/incumbentDisposition"
+        },
+        "unknownEffect": {
+          "const": "insufficient_evidence"
+        }
+      },
+      "additionalProperties": false
+    },
+    "review": {
+      "type": "object",
+      "required": [
+        "owner",
+        "independentReviewer",
+        "reviewedAt",
+        "verdict",
+        "revisitTriggers",
+        "evidence"
+      ],
+      "properties": {
+        "owner": {
+          "$ref": "#/$defs/actor"
+        },
+        "independentReviewer": {
+          "$ref": "#/$defs/actor"
+        },
+        "reviewedAt": {
+          "$ref": "#/$defs/dateTime"
+        },
+        "verdict": {
+          "const": "approved_for_declared_use"
+        },
+        "revisitTriggers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "evidence": {
+          "$ref": "urn:agent-evals-standard:schema:verified-machine-contract:1#/$defs/evaluationControlAuthorityEvidenceBinding"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "dateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "subject": {
+      "type": "object",
+      "required": [
+        "id",
+        "artifactVersion",
+        "schemaId",
+        "projection",
+        "digest"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "artifactVersion": {
+          "const": "0.1.0"
+        },
+        "schemaId": {
+          "const": "urn:agent-evals-standard:schema:suite-manifest:1"
+        },
+        "projection": {
+          "const": "suite_precontrol_projection_v1"
+        },
+        "digest": {
+          "$ref": "#/$defs/digest"
+        }
+      },
+      "additionalProperties": false
+    },
+    "actor": {
+      "type": "object",
+      "required": [
+        "id",
+        "role",
+        "trustDomain"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "role": {
+          "$ref": "#/$defs/id"
+        },
+        "trustDomain": {
+          "$ref": "#/$defs/id"
+        }
+      },
+      "additionalProperties": false
+    },
+    "construct": {
+      "type": "object",
+      "required": [
+        "id",
+        "definition",
+        "includedEvidence",
+        "excludedEvidence"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "definition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "includedEvidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "uniqueItems": true
+        },
+        "excludedEvidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "claim": {
+      "type": "object",
+      "required": [
+        "id",
+        "constructIds",
+        "population",
+        "permittedTypes",
+        "acceptanceRule",
+        "evidenceRequired"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "constructIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "uniqueItems": true
+        },
+        "population": {
+          "type": "string",
+          "minLength": 1
+        },
+        "permittedTypes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "acceptanceRule": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidenceRequired": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "referenceBaseline": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "agentInvolvement",
+        "conditions",
+        "resources",
+        "tools",
+        "scoring"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "enum": [
+            "current_workflow",
+            "incumbent_system",
+            "qualified_human_or_team",
+            "deterministic_automation",
+            "base_state_no_action",
+            "prior_approved_configuration",
+            "other_non_agent"
+          ]
+        },
+        "agentInvolvement": {
+          "enum": [
+            "none",
+            "present"
+          ]
+        },
+        "conditions": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resources": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tools": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scoring": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "enum": [
+                  "deterministic_automation",
+                  "base_state_no_action",
+                  "other_non_agent"
+                ]
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "agentInvolvement": {
+                "const": "none"
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "incumbentDisposition": {
+      "type": "object",
+      "required": [
+        "status",
+        "rationale",
+        "evidenceReferences"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "incumbent_available",
+            "no_incumbent_exists"
+          ]
+        },
+        "baselineId": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidenceReferences": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "uniqueItems": true
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "const": "incumbent_available"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "type": "object",
+            "required": [
+              "baselineId"
+            ],
+            "properties": {
+              "baselineId": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          },
+          "else": {
+            "type": "object",
+            "required": [
+              "baselineId"
+            ],
+            "properties": {
+              "baselineId": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "validityThreat": {
+      "type": "object",
+      "required": [
+        "id",
+        "category",
+        "risk",
+        "mitigations",
+        "residualEffect"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "category": {
+          "enum": [
+            "construct",
+            "internal",
+            "external",
+            "statistical_conclusion"
+          ]
+        },
+        "risk": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mitigations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "residualEffect": {
+          "enum": [
+            "none",
+            "bounded_claim",
+            "insufficient_evidence"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

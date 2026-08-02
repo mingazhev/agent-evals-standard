@@ -1,0 +1,402 @@
+{
+  "schemaVersion": "agent-eval-profile-resolution-record-1",
+  "id": "architecture-profile-child-resolution",
+  "version": "0.1.0",
+  "profile": {
+    "id": "architecture-repo-change-child-v1",
+    "version": "0.1.0"
+  },
+  "parentChain": [
+    {
+      "id": "repo-change-v1",
+      "version": "0.1.0",
+      "uri": "../../profiles/repo-change-v1/evaluation-profile.json",
+      "digest": "sha256:82135cb0af1b99baf73146b7b8df1f6c1b80e9c1fa847486aee0196e4bcdcd46"
+    }
+  ],
+  "fieldProvenance": [
+    {
+      "pointer": "/baseCompatibility",
+      "sourceProfileId": "repo-change-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "exact_match"
+    },
+    {
+      "pointer": "/capabilityFamilies",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "subset_replace"
+    },
+    {
+      "pointer": "/caseContract",
+      "sourceProfileId": "repo-change-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "exact_match"
+    },
+    {
+      "pointer": "/caseQa",
+      "sourceProfileId": "repo-change-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "content_equal"
+    },
+    {
+      "pointer": "/claimTrustProfile",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/claimTrustUse",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/effectiveRiskRange",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "subset_replace"
+    },
+    {
+      "pointer": "/failureTaxonomy",
+      "sourceProfileId": "repo-change-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "content_equal"
+    },
+    {
+      "pointer": "/gateRegistry",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "strengthens"
+    },
+    {
+      "pointer": "/id",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/interactionModes",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "subset_replace"
+    },
+    {
+      "pointer": "/namespace",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/owner",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/parentProfile",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "derived"
+    },
+    {
+      "pointer": "/schemaVersion",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/signatureProfile",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/supportedAssuranceLevels",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "subset_replace"
+    },
+    {
+      "pointer": "/version",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_identity"
+    },
+    {
+      "pointer": "/workArtifactRegistry",
+      "sourceProfileId": "repo-change-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "exact_match"
+    }
+  ],
+  "keyedProvenance": [
+    {
+      "collection": "allowedOutcomeProfiles",
+      "keys": [
+        "workspace-change-v1"
+      ],
+      "sourceProfileId": "repo-change-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "content_equal"
+    },
+    {
+      "collection": "exclusions",
+      "keys": [
+        "CAP.DISCOVER_SPECIFY",
+        "CAP.PLAN_DESIGN",
+        "CAP.RELEASE_OPERATE",
+        "CAP.REMEDIATE_LEARN",
+        "CAP.REVIEW_DECIDE"
+      ],
+      "sourceProfileId": "repo-change-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "inherited"
+    },
+    {
+      "collection": "metrics",
+      "keys": [
+        "repo-change-metric-registry"
+      ],
+      "sourceProfileId": "repo-change-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "content_equal"
+    },
+    {
+      "collection": "requirementMapping",
+      "keys": [
+        "ARCH-001",
+        "ASSURE-001",
+        "CASE-001",
+        "CASE-002",
+        "CASE-003",
+        "CASE-004",
+        "CASE-005",
+        "CLAIM-001",
+        "CLAIM-002",
+        "CONF-001",
+        "CONF-002",
+        "CONF-003",
+        "DATA-001",
+        "DATA-002",
+        "EVID-001",
+        "EVID-002",
+        "EXP-001",
+        "EXP-002",
+        "EXP-003",
+        "GATE-001",
+        "GOV-001",
+        "GOV-002",
+        "HEALTH-001",
+        "HOLD-001",
+        "HOLD-002",
+        "I1",
+        "I10",
+        "I11",
+        "I12",
+        "I13",
+        "I2",
+        "I3",
+        "I4",
+        "I5",
+        "I6",
+        "I7",
+        "I8",
+        "I9",
+        "INT-001",
+        "JUDGE-001",
+        "JUDGE-002",
+        "JUDGE-003",
+        "OUT-001",
+        "OUTPROF-001",
+        "PROFILE-001",
+        "RISK-001",
+        "RUN-001",
+        "RUN-002",
+        "RUN-003",
+        "SCOPE-001",
+        "SCOPE-002",
+        "SCOPE-003",
+        "STAT-001",
+        "STAT-002",
+        "STAT-003",
+        "TRACE-001",
+        "VALID-001",
+        "VALID-002",
+        "VALID-003"
+      ],
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "sourceProfileVersion": "0.1.0",
+      "operation": "leaf_complete"
+    }
+  ],
+  "replacementProofs": [
+    {
+      "targetKind": "keyed",
+      "pointer": "/allowedOutcomeProfiles",
+      "key": "workspace-change-v1",
+      "parent": {
+        "id": "workspace-change-v1",
+        "version": "0.1.0",
+        "uri": "outcome-profile.json",
+        "digest": "sha256:d5caa138041d104bff90c38f9f3735ab4f9afac87efb167f61dd5e916ecbd10d"
+      },
+      "child": {
+        "id": "workspace-change-v1",
+        "version": "0.1.0",
+        "uri": "../../profiles/repo-change-v1/outcome-profile.json",
+        "digest": "sha256:d5caa138041d104bff90c38f9f3735ab4f9afac87efb167f61dd5e916ecbd10d"
+      },
+      "relation": "content_equal",
+      "evidenceIds": [
+        "architecture-profile-resolution-evidence"
+      ]
+    },
+    {
+      "targetKind": "singleton",
+      "pointer": "/caseQa",
+      "parent": {
+        "id": "repo-change-case-qa-contract",
+        "version": "0.1.0",
+        "uri": "case-qa-contract.json",
+        "digest": "sha256:d17987895c74e0fec9b6b7433ee80974758c49ddee61a7c56476326a77c15b98"
+      },
+      "child": {
+        "id": "repo-change-case-qa-contract",
+        "version": "0.1.0",
+        "uri": "../../profiles/repo-change-v1/case-qa-contract.json",
+        "digest": "sha256:d17987895c74e0fec9b6b7433ee80974758c49ddee61a7c56476326a77c15b98"
+      },
+      "relation": "content_equal",
+      "evidenceIds": [
+        "architecture-profile-resolution-evidence"
+      ]
+    },
+    {
+      "targetKind": "singleton",
+      "pointer": "/failureTaxonomy",
+      "parent": {
+        "id": "repo-change-failure-taxonomy",
+        "version": "0.1.0",
+        "uri": "failure-taxonomy.json",
+        "digest": "sha256:40b163062c44b813605d6126f95e31ebff7d172958fc2b97ef3e136058910636"
+      },
+      "child": {
+        "id": "repo-change-failure-taxonomy",
+        "version": "0.1.0",
+        "uri": "../../profiles/repo-change-v1/failure-taxonomy.json",
+        "digest": "sha256:40b163062c44b813605d6126f95e31ebff7d172958fc2b97ef3e136058910636"
+      },
+      "relation": "content_equal",
+      "evidenceIds": [
+        "architecture-profile-resolution-evidence"
+      ]
+    },
+    {
+      "targetKind": "singleton",
+      "pointer": "/gateRegistry",
+      "parent": {
+        "id": "repo-change-gate-registry",
+        "version": "0.1.0",
+        "uri": "gate-registry.json",
+        "digest": "sha256:0217e32dd00b239e5d860890b66aa8c1eaa9262e536dda3a97621727a784b146"
+      },
+      "child": {
+        "id": "architecture-strengthened-gate-registry",
+        "version": "0.1.0",
+        "uri": "architecture-strengthened-gate-registry.json",
+        "digest": "sha256:c189f788ff84c978108474dd6b0564aa3a505ce75e295a1af03787a02c477bc7"
+      },
+      "relation": "strengthens",
+      "evidenceIds": [
+        "architecture-profile-resolution-evidence"
+      ]
+    },
+    {
+      "targetKind": "keyed",
+      "pointer": "/metrics",
+      "key": "repo-change-metric-registry",
+      "parent": {
+        "id": "repo-change-metric-registry",
+        "version": "0.1.0",
+        "uri": "metric-registry.json",
+        "digest": "sha256:cc3122197b1e8ffee86dbad60ab9f49971a7e8ef032cd7c0dea07dc814ab565c"
+      },
+      "child": {
+        "id": "repo-change-metric-registry",
+        "version": "0.1.0",
+        "uri": "../../profiles/repo-change-v1/metric-registry.json",
+        "digest": "sha256:cc3122197b1e8ffee86dbad60ab9f49971a7e8ef032cd7c0dea07dc814ab565c"
+      },
+      "relation": "content_equal",
+      "evidenceIds": [
+        "architecture-profile-resolution-evidence"
+      ]
+    }
+  ],
+  "evidenceManifest": [
+    {
+      "id": "architecture-profile-resolution-evidence",
+      "uri": "architecture-profile-resolution-evidence-payload.json",
+      "mediaType": "application/json",
+      "digest": "sha256:fa5c7d134e5fc8645bbb28e65cde7decb1493deba8eda4a54edb78e5add7a016",
+      "byteLength": 2985,
+      "producer": {
+        "id": "architecture-profile-resolution-input-builder",
+        "role": "profile_resolution_input_builder",
+        "trustDomain": "case_qa"
+      },
+      "creationPhase": "authoring",
+      "createdAt": "2026-08-01T00:00:00Z",
+      "schemaMetadata": null,
+      "mediaInterpretation": {
+        "profileId": "json-rfc8785",
+        "profileVersion": "0.1.0",
+        "semanticContract": null
+      },
+      "accessClass": "internal",
+      "accessPolicyBinding": {
+        "id": "architecture-fixture-access-policy",
+        "version": "0.1.0",
+        "digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+      },
+      "privacyAndIp": {
+        "classification": "none",
+        "restrictions": []
+      },
+      "retention": {
+        "class": "conformance_fixture",
+        "expiresAt": "2027-08-01T00:00:00Z",
+        "disposition": "archive",
+        "legalHold": false
+      },
+      "attestation": {
+        "profileId": "fixture-signature-profile",
+        "algorithm": "Ed25519",
+        "keyId": "rfc8032-test-key-1",
+        "signedAt": "2026-08-01T00:00:00Z",
+        "value": "34WVv8N8Vb4OKPtJBB6AP-NlX0kDD1l0IXzpEwejfUMchA6JQxYdyZDO3j7frXv7iZGzHbuJBC1P5-vpqYQNDg"
+      },
+      "payload": {
+        "kind": "repository_relative",
+        "path": "architecture-profile-resolution-evidence-payload.json"
+      }
+    }
+  ],
+  "canonicalOrdering": {
+    "parentChain": "base_to_direct_parent",
+    "fieldProvenance": "lexical_json_pointer",
+    "keyedProvenance": "collection_then_key_lexical",
+    "replacementProofs": "target_pointer_then_key_lexical"
+  },
+  "conflictStatus": "no_unresolved_conflicts",
+  "effectiveProfileDigest": "sha256:139a853fd2ec94d65fc4112e497c8b01550f938d52025a19cb44b8c4e302b651",
+  "digest": "sha256:2d8c6595dd7b96fc0ce14bd28e58abb7ad902ed6201e39caa9c30be5ce5ccb54",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:00Z",
+    "value": "WF_nIvUiq2Hrx5klS8f0ESO3c92dEm0mcomqJDO-S6a23oAkdQE4b-foGwKYoo0613t6W97XY2vjqLCw1dyrBw"
+  }
+}

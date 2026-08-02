@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "agent-eval-attempt-ledger-1",
+  "id": "material-attempt-ledger",
+  "version": "0.1.0",
+  "experimentId": "material-integrity-experiment",
+  "scheduledSetCommitment": {
+    "id": "pre-run-material-integrity-1",
+    "uri": "pre-run-material-integrity.json",
+    "digest": "sha256:7171717171717171717171717171717171717171717171717171717171717171"
+  },
+  "rootAlgorithm": "sha256-jcs-chain-v1",
+  "initialLedgerRoot": "sha256:13a1c9d5a3c21694deffc64a4aec54a696f2a417f3a58e33097c86764f4d6652",
+  "terminalLedgerRoot": "sha256:ee830187e612ed3c708384c322a25d4702a85508f6d964d544cec7706a6df40a",
+  "attemptRecords": [
+    {
+      "attemptId": "attempt-failed-1",
+      "cellId": "cell-1",
+      "terminalState": "completed",
+      "measurementValidity": "invalid",
+      "parentAttemptId": null,
+      "retryReason": null,
+      "startedAt": "2026-08-01T02:00:00Z",
+      "finishedAt": "2026-08-01T02:01:00Z",
+      "artifactIds": [
+        "failed-capture"
+      ],
+      "metrics": {
+        "wallClockSeconds": 60,
+        "costUsd": 0.4
+      }
+    },
+    {
+      "attemptId": "attempt-success-2",
+      "cellId": "cell-1",
+      "terminalState": "completed",
+      "measurementValidity": "valid",
+      "parentAttemptId": "attempt-failed-1",
+      "retryReason": "invalid_measurement",
+      "startedAt": "2026-08-01T02:02:00Z",
+      "finishedAt": "2026-08-01T02:03:00Z",
+      "artifactIds": [
+        "material-workspace-diff"
+      ],
+      "metrics": {
+        "wallClockSeconds": 60,
+        "costUsd": 0.6
+      }
+    }
+  ],
+  "digest": "sha256:967703d84b4a608718324225c4adab34143d85ee6a3858518aa5a335e363c083"
+}

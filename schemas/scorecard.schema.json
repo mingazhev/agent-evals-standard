@@ -1,648 +1,280 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:agent-evals-standard:schema:scorecard:2",
-  "title": "Agent evaluation sealed-run scorecard",
+  "$id": "urn:agent-evals-standard:schema:scorecard:1",
+  "title": "Sealed-run evaluation scorecard",
   "type": "object",
-  "required": [
-    "schemaVersion",
-    "run",
-    "scoring",
-    "caseResults",
-    "attemptIntegrity",
-    "metrics",
-    "evidenceManifest",
-    "provenance"
-  ],
+  "required": ["schemaVersion", "experiment", "arms", "comparativeDesign", "gateRegistry", "governanceStatusRegistry", "claims", "claimResults", "caseResults", "attemptIntegrity", "metrics", "evidenceManifest", "provenance", "digest", "signature"],
   "properties": {
-    "schemaVersion": { "const": "agent-eval-scorecard-2" },
-    "run": {
-      "type": "object",
-      "required": [
-        "id",
-        "mode",
-        "declaredTrialsPerCell",
-        "comparative",
-        "capabilityEligible",
-        "governanceEligible"
-      ],
+    "schemaVersion": { "const": "agent-eval-scorecard-1" },
+    "experiment": {
+      "$comment": "Semantic validation must require caseProfiles to exactly match the sealed pre-run bindings and every cell's profile fields.",
+      "type": "object", "required": ["id", "manifestDigest", "suite", "caseSetDigest", "assuranceLevel", "runMode", "claimEligibility", "riskAssessment", "effectiveRiskTier", "caseProfiles", "intendedUse", "effectiveRiskRange", "scheduledSetCommitment", "startedAt", "closedAt"],
       "properties": {
-        "id": { "type": "string", "minLength": 1 },
-        "mode": { "enum": ["development", "capability", "comparative", "governance"] },
-        "declaredTrialsPerCell": { "type": "integer", "minimum": 1 },
-        "comparative": { "type": "boolean" },
-        "capabilityEligible": { "type": ["boolean", "null"] },
-        "governanceEligible": { "type": ["boolean", "null"] }
+        "id": { "$ref": "#/$defs/id" }, "manifestDigest": { "$ref": "#/$defs/digest" },
+        "suite": { "$ref": "#/$defs/versionedArtifactPointer" }, "caseSetDigest": { "$ref": "#/$defs/digest" },
+        "assuranceLevel": { "enum": ["A0", "A1", "A2", "A3"] }, "runMode": { "enum": ["diagnostic_run", "evaluation"] }, "claimEligibility": { "enum": ["none", "claims_eligible"] },
+        "riskAssessment": { "$comment": "The exact authenticated risk-assessment identity sealed by the pre-run manifest.", "$ref": "#/$defs/versionedArtifactPointer" },
+        "effectiveRiskTier": { "$comment": "Equals the exact tier in both the sealed pre-run manifest and risk assessment.", "enum": ["low", "medium", "high", "critical"] },
+        "caseProfiles": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/caseProfile" } }, "intendedUse": { "type": "string", "minLength": 1 },
+        "effectiveRiskRange": { "$comment": "Eligibility boundary projected from the bound profiles; this is not the experiment's actual tier.", "type": "array", "minItems": 1, "items": { "enum": ["low", "medium", "high", "critical"] }, "uniqueItems": true },
+        "scheduledSetCommitment": { "$ref": "#/$defs/artifactPointer" },
+        "startedAt": { "type": "string", "format": "date-time", "pattern": "Z$" }, "closedAt": { "type": "string", "format": "date-time", "pattern": "Z$" }
       },
       "additionalProperties": false
     },
-    "scoring": {
-      "type": "object",
-      "required": ["claim", "composite"],
-      "properties": {
-        "claim": { "$ref": "#/$defs/claim" },
-        "composite": { "$ref": "#/$defs/composite" }
-      },
-      "additionalProperties": false
+    "arms": { "$comment": "Semantic validation must reject duplicate arm IDs.", "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/arm" } },
+    "comparativeDesign": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/comparativeDesign" }] },
+    "gateRegistry": { "$ref": "#/$defs/artifactPointer" },
+    "governanceStatusRegistry": { "$ref": "#/$defs/artifactPointer" },
+    "claims": {
+      "$comment": "Semantic validation must reject duplicate claim IDs.",
+      "type": "array", "items": { "$ref": "#/$defs/claim" }
     },
-    "caseResults": {
-      "type": "array",
-      "minItems": 1,
-      "items": { "$ref": "#/$defs/caseResult" }
+    "claimResults": {
+      "$comment": "Semantic validation must enforce exactly one result per claims[] ID and reject unknown or duplicate claimId values.",
+      "type": "array", "items": { "$ref": "#/$defs/claimResult" }
     },
+    "caseResults": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/caseResult" } },
     "attemptIntegrity": { "$ref": "#/$defs/attemptIntegrity" },
     "metrics": { "$ref": "#/$defs/runMetrics" },
     "evidenceManifest": {
-      "type": "array",
-      "minItems": 1,
-      "items": { "$ref": "#/$defs/evidenceArtifact" }
+      "$comment": "Semantic validation must reject duplicate evidence artifact IDs even when the remaining object fields differ.",
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": { "$ref": "urn:agent-evals-standard:schema:evidence-artifact:1" }
     },
-    "provenance": { "$ref": "#/$defs/provenance" }
+    "provenance": { "$ref": "#/$defs/provenance" },
+    "digest": { "$ref": "#/$defs/digest" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
   },
   "allOf": [
     {
-      "if": {
-        "properties": {
-          "scoring": {
-            "properties": {
-              "claim": {
-                "properties": { "status": { "const": "supported" } },
-                "required": ["status"]
-              }
-            },
-            "required": ["claim"]
-          }
-        },
-        "required": ["scoring"]
-      },
-      "then": {
-        "properties": {
-          "attemptIntegrity": {
-            "properties": { "status": { "const": "valid" } },
-            "required": ["status"]
-          },
-          "scoring": {
-            "properties": {
-              "claim": {
-                "properties": {
-                  "estimate": { "type": "number" },
-                  "interval": { "$ref": "#/$defs/interval" },
-                  "threshold": { "type": "number" },
-                  "confidenceLevel": { "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1 }
-                }
-              }
-            }
-          }
-        }
-      }
+      "if": { "type": "object", "properties": { "claimResults": { "type": "array", "contains": { "type": "object", "properties": { "status": { "const": "supported" } }, "required": ["status"] } } }, "required": ["claimResults"] },
+      "then": { "type": "object", "properties": { "attemptIntegrity": { "type": "object", "properties": { "status": { "const": "valid" } } } } }
     },
     {
-      "if": {
-        "properties": {
-          "run": {
-            "properties": { "governanceEligible": { "const": true } },
-            "required": ["governanceEligible"]
-          }
-        },
-        "required": ["run"]
-      },
-      "then": {
-        "properties": {
-          "run": { "properties": { "mode": { "const": "governance" } } },
-          "provenance": { "required": ["decisionPlan"] }
-        }
-      }
+      "if": { "type": "object", "properties": { "claims": { "type": "array", "contains": { "type": "object", "properties": { "type": { "const": "governance_evidence" } }, "required": ["type"] } } }, "required": ["claims"] },
+      "then": { "type": "object", "properties": { "provenance": { "type": "object", "properties": { "decisionPlan": {} }, "required": ["decisionPlan"] } } }
+    },
+    {
+      "if": { "type": "object", "properties": { "comparativeDesign": { "type": "object" } }, "required": ["comparativeDesign"] },
+      "then": { "type": "object", "properties": { "arms": { "type": "array", "minItems": 2 } } }
+    },
+    {
+      "if": { "type": "object", "properties": { "experiment": { "type": "object", "properties": { "assuranceLevel": { "const": "A0" } }, "required": ["assuranceLevel"] } }, "required": ["experiment"] },
+      "then": { "type": "object", "properties": { "experiment": { "type": "object", "properties": { "runMode": { "const": "diagnostic_run" }, "claimEligibility": { "const": "none" }, "caseProfiles": { "type": "array", "minItems": 1, "items": { "type": "object", "properties": { "bindingUse": { "const": "diagnostic_only" } } } } } }, "claims": { "type": "array", "maxItems": 0 }, "claimResults": { "type": "array", "maxItems": 0 } } },
+      "else": { "type": "object", "properties": { "experiment": { "type": "object", "properties": { "runMode": { "const": "evaluation" }, "claimEligibility": { "const": "claims_eligible" }, "caseProfiles": { "type": "array", "minItems": 1, "items": { "type": "object", "properties": { "bindingUse": { "const": "claims_eligible" } } } } } }, "claims": { "type": "array", "minItems": 1 }, "claimResults": { "type": "array", "minItems": 1 } } }
     }
   ],
   "additionalProperties": false,
   "$defs": {
-    "digest": {
-      "type": "string",
-      "pattern": "^sha256:[a-f0-9]{64}$"
-    },
-    "artifactRef": {
-      "type": "string",
-      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
-    },
-    "signature": {
-      "type": "object",
-      "required": ["algorithm", "keyId", "value"],
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "artifactPointer": { "type": "object", "required": ["id", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
+    "versionedArtifactPointer": { "type": "object", "required": ["id", "version", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
+    "component": { "type": "object", "required": ["id", "version", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
+    "caseProfile": { "type": "object", "required": ["caseId", "bindingUse", "evaluationProfile", "effectiveProfileDigest", "outcomeProfile"], "properties": { "caseId": { "$ref": "#/$defs/id" }, "bindingUse": { "enum": ["diagnostic_only", "claims_eligible"] }, "evaluationProfile": { "$ref": "#/$defs/component" }, "effectiveProfileDigest": { "$ref": "#/$defs/digest" }, "outcomeProfile": { "$ref": "#/$defs/component" } }, "additionalProperties": false },
+    "arm": {
+      "type": "object", "required": ["id", "label", "treatmentRole", "model", "agentConfiguration", "prompts", "policies", "harness", "adapter", "tools", "permissions", "budgets", "retrieval", "memory", "agentVisibleProjection", "environment", "externalServices", "graderSet", "identityDigest"],
       "properties": {
-        "algorithm": { "type": "string", "minLength": 1 },
-        "keyId": { "type": "string", "minLength": 1 },
-        "value": { "type": "string", "minLength": 1 }
+        "id": { "$ref": "#/$defs/id" }, "label": { "type": "string", "minLength": 1 }, "treatmentRole": { "enum": ["single", "baseline", "treatment", "active_comparator"] },
+        "model": { "$ref": "#/$defs/component" }, "agentConfiguration": { "$ref": "#/$defs/component" }, "prompts": { "$ref": "#/$defs/component" }, "policies": { "$ref": "#/$defs/component" },
+        "harness": { "$ref": "#/$defs/component" }, "adapter": { "$ref": "#/$defs/component" }, "tools": { "$ref": "#/$defs/component" }, "permissions": { "$ref": "#/$defs/component" }, "budgets": { "$ref": "#/$defs/component" },
+        "retrieval": { "$ref": "#/$defs/component" }, "memory": { "$ref": "#/$defs/component" }, "agentVisibleProjection": { "$ref": "#/$defs/component" },
+        "environment": { "$ref": "#/$defs/component" }, "externalServices": { "$ref": "#/$defs/component" }, "graderSet": { "$ref": "#/$defs/component" },
+        "identityDigest": { "$ref": "#/$defs/digest" }
       },
       "additionalProperties": false
     },
-    "evidenceArtifact": {
-      "type": "object",
-      "required": [
-        "id",
-        "uri",
-        "digest",
-        "mediaType",
-        "sizeBytes",
-        "producer",
-        "phase",
-        "createdAt",
-        "attestation"
-      ],
+    "pairedRepetition": { "type": "object", "required": ["repetition", "seed"], "properties": { "repetition": { "type": "integer", "minimum": 1 }, "seed": { "$ref": "#/$defs/id" } }, "additionalProperties": false },
+    "pairedUnit": { "type": "object", "required": ["caseId", "blockId", "repetitions"], "properties": { "caseId": { "$ref": "#/$defs/id" }, "blockId": { "$ref": "#/$defs/id" }, "repetitions": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/pairedRepetition" }, "uniqueItems": true } }, "additionalProperties": false },
+    "comparativeDesign": {
+      "$comment": "pairedUnits is the exact sealed pre-run case/block/repetition/seed matrix. Semantic validation requires one and only one cell for every comparator arm and paired tuple and rejects marginally equal but differently paired sets.",
+      "type": "object", "required": ["id", "comparatorArmIds", "treatmentBundle", "treatmentBundleDigest", "pairedUnits", "randomizationOrOrdering", "resetAndCarryoverRules", "interferenceControls", "sharedMeasurementIdentity", "hypotheses", "statisticalPlan"],
       "properties": {
-        "id": { "$ref": "#/$defs/artifactRef" },
-        "uri": { "type": "string", "minLength": 1 },
-        "digest": { "$ref": "#/$defs/digest" },
-        "mediaType": { "type": "string", "minLength": 1 },
-        "sizeBytes": { "type": "integer", "minimum": 0 },
-        "producer": {
-          "type": "object",
-          "required": ["id", "role", "trustDomain"],
-          "properties": {
-            "id": { "type": "string", "minLength": 1 },
-            "role": { "type": "string", "minLength": 1 },
-            "trustDomain": { "enum": ["runner", "grader", "governance", "agent", "external"] }
-          },
-          "additionalProperties": false
-        },
-        "phase": { "enum": ["pre_run", "execution", "teardown", "grading", "aggregation", "governance"] },
-        "createdAt": { "type": "string", "format": "date-time" },
-        "attestation": { "$ref": "#/$defs/signature" }
-      },
-      "additionalProperties": false
-    },
-    "interval": {
-      "type": "object",
-      "required": ["method", "version", "confidenceLevel", "lower", "upper"],
-      "properties": {
-        "method": { "type": "string", "minLength": 1 },
-        "version": { "type": "string", "minLength": 1 },
-        "confidenceLevel": { "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1 },
-        "lower": { "type": "number" },
-        "upper": { "type": "number" }
-      },
-      "additionalProperties": false
-    },
-    "bound": {
-      "type": "object",
-      "required": ["method", "version", "direction", "lower", "upper"],
-      "properties": {
-        "method": { "type": "string", "minLength": 1 },
-        "version": { "type": "string", "minLength": 1 },
-        "direction": { "enum": ["positive", "harm", "difference"] },
-        "lower": { "type": "number" },
-        "upper": { "type": "number" }
+        "id": { "$ref": "#/$defs/id" }, "comparatorArmIds": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "treatmentBundle": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }, "treatmentBundleDigest": { "$ref": "#/$defs/digest" },
+        "pairedUnits": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/pairedUnit" }, "uniqueItems": true },
+        "randomizationOrOrdering": { "$ref": "#/$defs/artifactPointer" }, "resetAndCarryoverRules": { "$ref": "#/$defs/artifactPointer" }, "interferenceControls": { "$ref": "#/$defs/artifactPointer" },
+        "sharedMeasurementIdentity": { "$ref": "#/$defs/digest" }, "hypotheses": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "statisticalPlan": { "$ref": "#/$defs/artifactPointer" }
       },
       "additionalProperties": false
     },
     "claim": {
       "type": "object",
-      "required": [
-        "id",
-        "type",
-        "status",
-        "reasons",
-        "estimand",
-        "successDefinition",
-        "unitOfAnalysis",
-        "targetPopulation",
-        "slice",
-        "weightingRule",
-        "comparator",
-        "direction",
-        "threshold",
-        "confidenceLevel",
-        "statisticalPlan",
-        "estimate",
-        "interval",
-        "conservativeBound",
-        "decisionRule"
-      ],
+      "required": ["id", "type", "intendedDecision", "construct", "estimand", "direction", "successDefinition", "analysisUnit", "targetPopulation", "samplingFrame", "representedStrata", "slice", "weights", "coverageGaps", "assuranceLevel", "effectiveRiskRange", "exposureBoundary", "evaluationProfile", "outcomeProfiles", "comparatorArmIds", "threshold", "confidenceLevel", "statisticalPlan", "decisionRule"],
       "properties": {
-        "id": {
-          "type": "string",
-          "minLength": 1,
-          "description": "Must resolve to a key in each relevant sealed case claimRegistry; semantic validation downgrades this claim when that ID is listed by a material declared-gap restriction."
-        },
-        "type": { "enum": ["capability", "comparative", "governance"] },
-        "status": { "enum": ["supported", "insufficient_evidence", "not_applicable"] },
-        "reasons": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
-        "estimand": { "type": "string", "minLength": 1 },
-        "successDefinition": { "$ref": "#/$defs/successDefinition" },
-        "unitOfAnalysis": { "const": "case" },
-        "targetPopulation": { "type": "string", "minLength": 1 },
-        "slice": { "type": "string", "minLength": 1 },
-        "weightingRule": { "type": "string", "minLength": 1 },
-        "comparator": { "type": ["string", "null"] },
-        "direction": { "enum": ["positive", "harm", "difference"] },
-        "threshold": { "type": ["number", "null"] },
-        "confidenceLevel": { "type": ["number", "null"], "exclusiveMinimum": 0, "exclusiveMaximum": 1 },
-        "statisticalPlan": { "$ref": "#/$defs/artifactRef" },
-        "estimate": { "type": ["number", "null"] },
-        "interval": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/interval" }] },
-        "conservativeBound": { "$ref": "#/$defs/bound" },
-        "decisionRule": { "type": "string", "minLength": 1 }
-      },
-      "additionalProperties": false
-    },
-    "composite": {
-      "type": "object",
-      "required": ["status", "value", "formula"],
-      "properties": {
-        "status": { "enum": ["valid", "blocked", "not_rankable", "not_applicable"] },
-        "value": { "type": ["number", "null"] },
-        "formula": { "type": ["string", "null"] }
+        "id": { "$ref": "#/$defs/id" }, "type": { "type": "string", "pattern": "^(capability|reliability|comparative|quality|safety|cost|governance_evidence|[A-Za-z0-9][A-Za-z0-9_.-]*:[A-Za-z0-9_.-]+)$" },
+        "intendedDecision": { "type": "string", "minLength": 1 }, "construct": { "type": "string", "minLength": 1 }, "estimand": { "type": "string", "minLength": 1 }, "direction": { "enum": ["positive", "harm", "difference"] },
+        "successDefinition": { "$ref": "#/$defs/successDefinition" }, "analysisUnit": { "type": "string", "minLength": 1 }, "targetPopulation": { "type": "string", "minLength": 1 }, "samplingFrame": { "type": "string", "minLength": 1 },
+        "representedStrata": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "slice": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "weights": { "$ref": "#/$defs/artifactPointer" },
+        "coverageGaps": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+        "assuranceLevel": { "enum": ["A0", "A1", "A2", "A3"] }, "effectiveRiskRange": { "type": "array", "minItems": 1, "items": { "enum": ["low", "medium", "high", "critical"] }, "uniqueItems": true },
+        "exposureBoundary": { "$ref": "#/$defs/artifactPointer" }, "evaluationProfile": { "$ref": "#/$defs/component" }, "outcomeProfiles": { "$comment": "Semantic validation must reject duplicate outcome-profile IDs or digests and require every eligible cell to use one of these exact bindings.", "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/component" } },
+        "comparatorArmIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "threshold": { "type": ["number", "null"] },
+        "confidenceLevel": { "type": ["number", "null"], "exclusiveMinimum": 0, "exclusiveMaximum": 1 }, "statisticalPlan": { "$ref": "#/$defs/artifactPointer" }, "decisionRule": { "$ref": "#/$defs/versionedArtifactPointer" }
       },
       "allOf": [
         {
-          "if": { "properties": { "status": { "const": "valid" } }, "required": ["status"] },
-          "then": { "properties": { "value": { "type": "number" }, "formula": { "type": "string", "minLength": 1 } } }
+          "if": { "properties": { "type": { "const": "governance_evidence" } }, "required": ["type"] },
+          "then": { "type": "object", "properties": { "successDefinition": { "type": "object", "properties": { "id": { "const": "accepted-outcome-v1" } } } } }
         },
         {
-          "if": { "properties": { "status": { "enum": ["blocked", "not_rankable"] } }, "required": ["status"] },
-          "then": { "properties": { "value": { "type": "null" }, "formula": { "type": "string", "minLength": 1 } } }
-        },
-        {
-          "if": { "properties": { "status": { "const": "not_applicable" } }, "required": ["status"] },
-          "then": { "properties": { "value": { "type": "null" }, "formula": { "type": "null" } } }
+          "if": { "properties": { "type": { "const": "comparative" } }, "required": ["type"] },
+          "then": { "type": "object", "properties": { "comparatorArmIds": { "type": "array", "minItems": 2 }, "direction": { "const": "difference" } } }
         }
       ],
       "additionalProperties": false
     },
-    "successDefinition": {
-      "type": "object",
-      "required": ["id", "version"],
+    "claimResult": {
+      "type": "object", "required": ["claimId", "status", "reasonIds", "eligibleCellIds", "successAssignments", "estimate", "interval", "identificationBounds", "missingness", "coverage", "decisionRuleResult"],
       "properties": {
-        "id": { "enum": ["functional-outcome-v2", "accepted-outcome-v2"] },
-        "version": { "const": "0.2.0" }
+        "claimId": { "$ref": "#/$defs/id" }, "status": { "enum": ["supported", "insufficient_evidence", "not_applicable"] }, "reasonIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "eligibleCellIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "successAssignments": { "type": "array", "items": { "type": "object", "required": ["cellId", "success", "evidenceIds"], "properties": { "cellId": { "$ref": "#/$defs/id" }, "success": { "type": "boolean" }, "evidenceIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true } }, "additionalProperties": false } },
+        "estimate": { "type": ["number", "null"] }, "interval": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/interval" }] }, "identificationBounds": { "$ref": "#/$defs/bound" },
+        "missingness": { "$ref": "#/$defs/artifactPointer" }, "coverage": { "$ref": "#/$defs/artifactPointer" }, "decisionRuleResult": { "enum": ["pass", "fail", "insufficient_evidence", "not_applicable"] }
       },
+      "allOf": [{ "if": { "properties": { "status": { "const": "supported" } }, "required": ["status"] }, "then": { "properties": { "estimate": { "type": "number" }, "interval": { "$ref": "#/$defs/interval" }, "decisionRuleResult": { "const": "pass" } } }, "else": { "properties": { "estimate": { "type": "null" } } } }],
       "additionalProperties": false
     },
-    "validity": {
-      "type": "object",
-      "required": ["status", "reasons"],
+    "successDefinition": { "type": "object", "required": ["id", "version"], "properties": { "id": { "enum": ["functional-outcome-v1", "accepted-outcome-v1"] }, "version": { "const": "0.1.0" } }, "additionalProperties": false },
+    "interval": { "type": "object", "required": ["method", "version", "confidenceLevel", "lower", "upper"], "properties": { "method": { "type": "string", "minLength": 1 }, "version": { "type": "string", "minLength": 1 }, "confidenceLevel": { "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1 }, "lower": { "type": "number" }, "upper": { "type": "number" } }, "additionalProperties": false },
+    "bound": { "type": "object", "required": ["method", "version", "direction", "lower", "upper"], "properties": { "method": { "type": "string", "minLength": 1 }, "version": { "type": "string", "minLength": 1 }, "direction": { "enum": ["positive", "harm", "difference"] }, "lower": { "type": "number" }, "upper": { "type": "number" } }, "additionalProperties": false },
+    "caseResult": {
+      "type": "object", "required": ["case", "stratum", "weight", "gateCoverage", "governanceCoverage", "cells", "statistics", "contributions"],
       "properties": {
-        "status": { "enum": ["valid", "invalid"] },
-        "reasons": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
-      },
-      "additionalProperties": false
-    },
-    "attemptValidity": {
-      "type": "object",
-      "required": ["status", "reasons"],
-      "properties": {
-        "status": { "enum": ["valid", "invalid", "not_assessable"] },
-        "reasons": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
+        "case": { "$ref": "#/$defs/caseIdentity" }, "stratum": { "type": "string", "minLength": 1 }, "weight": { "type": "number", "exclusiveMinimum": 0 },
+        "gateCoverage": { "$ref": "#/$defs/registryCoverage" }, "governanceCoverage": { "$ref": "#/$defs/registryCoverage" },
+        "cells": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/cellResult" } },
+        "statistics": { "type": "array", "items": { "$ref": "#/$defs/statistic" } },
+        "contributions": { "type": "object", "minProperties": 1, "additionalProperties": { "type": ["number", "null"] } }
       },
       "additionalProperties": false
     },
     "caseIdentity": {
-      "type": "object",
-      "required": ["id", "version", "hash", "profile", "profileVersion", "riskTier", "setMembership", "qaRecord"],
+      "type": "object", "required": ["id", "version", "digest", "riskTier", "memberships", "sliceIds", "qaRecord"],
       "properties": {
-        "id": { "type": "string", "minLength": 1 },
-        "version": { "type": "string", "minLength": 1 },
-        "hash": { "$ref": "#/$defs/digest" },
-        "profile": { "type": "string", "minLength": 1 },
-        "profileVersion": { "type": "string", "minLength": 1 },
-        "riskTier": { "enum": ["low", "medium", "high", "critical"] },
-        "setMembership": { "enum": ["development", "held-out", "smoke"] },
-        "qaRecord": { "$ref": "#/$defs/artifactRef" }
+        "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" },
+        "riskTier": { "enum": ["low", "medium", "high", "critical"] }, "memberships": { "type": "array", "minItems": 1, "items": { "enum": ["development", "held_out", "smoke", "regression"] }, "uniqueItems": true },
+        "sliceIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "qaRecord": { "$ref": "#/$defs/artifactPointer" }
       },
       "additionalProperties": false
     },
-    "caseResult": {
-      "type": "object",
-      "required": [
-        "case",
-        "stratum",
-        "weight",
-        "gateCoverage",
-        "governanceCoverage",
-        "cells",
-        "passAtK",
-        "reliabilityAtK",
-        "contribution"
-      ],
+    "registryCoverage": {
+      "type": "object", "required": ["registry", "expectedIds", "expectedDigest", "evaluatedIds", "evaluatedDigest"],
       "properties": {
-        "case": { "$ref": "#/$defs/caseIdentity" },
-        "stratum": { "type": "string", "minLength": 1 },
-        "weight": { "type": "number", "minimum": 0 },
-        "gateCoverage": { "$ref": "#/$defs/gateCoverage" },
-        "governanceCoverage": { "$ref": "#/$defs/governanceCoverage" },
-        "cells": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/cellResult" } },
-        "passAtK": { "type": "array", "items": { "$ref": "#/$defs/passAtK" } },
-        "reliabilityAtK": { "type": "array", "items": { "$ref": "#/$defs/reliabilityAtK" } },
-        "contribution": { "type": ["number", "null"] }
+        "registry": { "$ref": "#/$defs/component" }, "expectedIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "expectedDigest": { "$ref": "#/$defs/digest" }, "evaluatedIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "evaluatedDigest": { "$ref": "#/$defs/digest" }
       },
       "additionalProperties": false
     },
     "cellResult": {
-      "type": "object",
-      "required": ["cellId", "configurationId", "repetition", "state", "lineage", "resolvedAttemptId", "trialResult"],
+      "type": "object", "required": ["cellId", "armId", "evaluationProfileDigest", "outcomeProfile", "repetition", "blockId", "seed", "state", "lineage", "selectedAttemptId", "trialResult"],
       "properties": {
-        "cellId": { "type": "string", "minLength": 1 },
-        "configurationId": { "type": "string", "minLength": 1 },
-        "repetition": { "type": "integer", "minimum": 1 },
-        "state": { "enum": ["resolved_success", "resolved_failure", "unresolved"] },
-        "lineage": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
-        "resolvedAttemptId": { "type": ["string", "null"] },
-        "trialResult": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/trialResult" }] }
+        "cellId": { "$ref": "#/$defs/id" }, "armId": { "$ref": "#/$defs/id" }, "evaluationProfileDigest": { "$ref": "#/$defs/digest" }, "outcomeProfile": { "$ref": "#/$defs/component" }, "repetition": { "type": "integer", "minimum": 1 }, "blockId": { "$ref": "#/$defs/id" }, "seed": { "$ref": "#/$defs/id" },
+        "state": { "$comment": "Measurement state only. Success and failure are claim-specific and belong in claimResults[].successAssignments.", "enum": ["resolved", "unresolved"] },
+        "lineage": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "selectedAttemptId": { "type": ["string", "null"] }, "trialResult": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/trialResult" }] }
       },
-      "allOf": [
-        {
-          "if": { "properties": { "state": { "const": "unresolved" } }, "required": ["state"] },
-          "then": { "properties": { "resolvedAttemptId": { "type": "null" }, "trialResult": { "type": "null" } } },
-          "else": { "properties": { "resolvedAttemptId": { "type": "string", "minLength": 1 }, "trialResult": { "$ref": "#/$defs/trialResult" } } }
-        }
-      ],
+      "allOf": [{ "if": { "properties": { "state": { "const": "unresolved" } } }, "then": { "properties": { "selectedAttemptId": { "type": "null" }, "trialResult": { "type": "null" } } }, "else": { "properties": { "selectedAttemptId": { "type": "string", "minLength": 1 }, "trialResult": { "$ref": "#/$defs/trialResult" } } } }],
       "additionalProperties": false
     },
     "trialResult": {
-      "type": "object",
-      "required": ["attemptId", "validity", "accepted", "primaryOutcome", "failureCauses", "hardGates", "governanceStatuses", "decisionSurfaceResults", "metrics", "artifacts"],
+      "type": "object", "required": ["attemptId", "validity", "functional", "accepted", "primaryOutcome", "profileOutcome", "terminalState", "validAlternativeId", "evidenceModeVerdicts", "failureCauses", "hardGates", "governanceStatuses", "decisionSurfaces", "transcriptEvidence", "interactionEvidence", "metrics", "artifactIds"],
       "properties": {
-        "attemptId": { "type": "string", "minLength": 1 },
-        "validity": { "$ref": "#/$defs/validity" },
-        "accepted": { "type": "boolean" },
+        "attemptId": { "$ref": "#/$defs/id" }, "validity": { "enum": ["valid", "invalid"] }, "functional": { "type": "boolean" }, "accepted": { "type": "boolean" },
         "primaryOutcome": { "$ref": "#/$defs/primaryOutcome" },
-        "failureCauses": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
-        "hardGates": { "type": "array", "minItems": 15, "items": { "$ref": "#/$defs/hardGate" } },
-        "governanceStatuses": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/governanceStatus" } },
-        "decisionSurfaceResults": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/decisionSurfaceResult" } },
-        "metrics": { "$ref": "#/$defs/trialMetrics" },
-        "artifacts": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/artifactRef" }, "uniqueItems": true }
+        "profileOutcome": { "$comment": "Preserves the exact profile-native result that was normalized into primaryOutcome. Semantic validation resolves id exactly once in the cell's authenticated outcome profile, requires its baseOutcome to equal primaryOutcome, requires one registered substatus when that native outcome declares any, and otherwise requires null.", "$ref": "#/$defs/profileOutcome" },
+        "terminalState": { "$ref": "#/$defs/outcomeTerminalState" },
+        "validAlternativeId": { "$comment": "Semantic validation must resolve a non-null ID in the cell's exact outcome-profile binding and require its registered primaryOutcome to match this trial.", "type": ["string", "null"], "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+        "evidenceModeVerdicts": { "$comment": "Semantic validation must reject duplicate mode IDs, resolve each ID in the cell's exact outcome profile, and require every mode used by the assigned outcome rule.", "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidenceModeVerdict" } },
+        "failureCauses": { "type": "array", "items": { "$ref": "#/$defs/failureCause" } },
+        "hardGates": { "$comment": "Semantic validation must reconcile exactly the expected core, profile, risk, and case gate registry.", "type": "array", "minItems": 7, "items": { "$ref": "#/$defs/hardGate" } },
+        "governanceStatuses": { "$comment": "Semantic validation must reconcile exactly the expected four core statuses plus registered extensions.", "type": "array", "minItems": 4, "items": { "$ref": "#/$defs/governanceStatus" } },
+        "decisionSurfaces": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/decisionSurfaceResult" } },
+        "transcriptEvidence": { "$ref": "#/$defs/evidenceCompleteness" }, "interactionEvidence": { "$ref": "#/$defs/evidenceCompleteness" },
+        "metrics": { "type": "object", "minProperties": 1 }, "artifactIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "outcomeReplay": { "$comment": "Required semantically for every resolved trial used by a claim. The validator resolves executor identity only from the distribution registry and receipt trust only from verifier configuration; neither is discovered from this claimant-controlled object.", "$ref": "#/$defs/outcomeReplay" }
       },
       "allOf": [
+        { "if": { "type": "object", "properties": { "validity": { "const": "invalid" } } }, "then": { "type": "object", "properties": { "functional": { "const": false }, "accepted": { "const": false }, "primaryOutcome": { "const": "infra_failure" }, "terminalState": { "const": "measurement_unavailable" } } } },
         {
-          "if": {
-            "properties": { "validity": { "properties": { "status": { "const": "invalid" } }, "required": ["status"] } },
-            "required": ["validity"]
-          },
+          "if": { "type": "object", "properties": { "functional": { "const": true } }, "required": ["functional"] },
           "then": {
+            "type": "object",
             "properties": {
-              "accepted": { "const": false },
-              "primaryOutcome": { "const": "infra_failure" }
+              "validity": { "const": "valid" },
+              "primaryOutcome": { "enum": ["solved", "correct_refusal", "already_satisfied"] },
+              "hardGates": { "type": "array", "items": { "type": "object", "properties": { "status": { "const": "pass" } } } },
+              "transcriptEvidence": { "type": "object", "properties": { "status": { "const": "complete" } } },
+              "evidenceModeVerdicts": { "type": "array", "contains": { "type": "object", "properties": { "status": { "const": "pass" } }, "required": ["status"] } }
             }
           }
         },
-        {
-          "if": { "properties": { "accepted": { "const": true } }, "required": ["accepted"] },
-          "then": {
+        { "if": { "type": "object", "properties": { "accepted": { "const": true } }, "required": ["accepted"] }, "then": { "type": "object", "properties": { "functional": { "const": true }, "governanceStatuses": { "type": "array", "items": { "type": "object", "properties": { "state": { "const": "not_applicable" } } } } } } },
+        { "if": { "type": "object", "properties": { "primaryOutcome": { "const": "solved" } }, "required": ["primaryOutcome"] }, "then": { "type": "object", "properties": { "terminalState": { "const": "task_satisfied" }, "validAlternativeId": { "type": "null" } } } },
+        { "if": { "type": "object", "properties": { "primaryOutcome": { "const": "correct_refusal" } }, "required": ["primaryOutcome"] }, "then": { "type": "object", "properties": { "terminalState": { "const": "safe_refusal" }, "validAlternativeId": { "type": "string", "minLength": 1 } } } },
+        { "if": { "type": "object", "properties": { "primaryOutcome": { "const": "already_satisfied" } }, "required": ["primaryOutcome"] }, "then": { "type": "object", "properties": { "terminalState": { "const": "base_state_already_satisfied" }, "validAlternativeId": { "type": "string", "minLength": 1 } } } },
+        { "if": { "type": "object", "properties": { "primaryOutcome": { "const": "partial" } }, "required": ["primaryOutcome"] }, "then": { "type": "object", "properties": { "terminalState": { "const": "assessable_partial" }, "validAlternativeId": { "type": "null" } } } },
+        { "if": { "type": "object", "properties": { "primaryOutcome": { "const": "failed" } }, "required": ["primaryOutcome"] }, "then": { "type": "object", "properties": { "terminalState": { "const": "assessable_failure" }, "validAlternativeId": { "type": "null" } } } },
+        { "if": { "type": "object", "properties": { "primaryOutcome": { "const": "no_relevant_result" } }, "required": ["primaryOutcome"] }, "then": { "type": "object", "properties": { "terminalState": { "const": "no_relevant_result" }, "validAlternativeId": { "type": "null" } } } },
+        { "if": { "type": "object", "properties": { "primaryOutcome": { "const": "unsafe_policy_violation" } }, "required": ["primaryOutcome"] }, "then": { "type": "object", "properties": { "terminalState": { "const": "unsafe_behavior" }, "validAlternativeId": { "type": "null" } } } },
+        { "if": { "type": "object", "properties": { "primaryOutcome": { "const": "infra_failure" } }, "required": ["primaryOutcome"] }, "then": { "type": "object", "properties": { "terminalState": { "const": "measurement_unavailable" }, "validAlternativeId": { "type": "null" } } } }
+      ],
+      "additionalProperties": false
+    },
+    "primaryOutcome": { "enum": ["solved", "correct_refusal", "already_satisfied", "partial", "failed", "no_relevant_result", "unsafe_policy_violation", "infra_failure"] },
+    "profileOutcome": { "type": "object", "required": ["id", "substatus"], "properties": { "id": { "$ref": "#/$defs/id" }, "substatus": { "type": ["string", "null"], "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" } }, "additionalProperties": false },
+    "outcomeTerminalState": { "enum": ["task_satisfied", "safe_refusal", "base_state_already_satisfied", "assessable_partial", "assessable_failure", "no_relevant_result", "unsafe_behavior", "measurement_unavailable"] },
+    "evidenceModeVerdict": { "$comment": "evidenceKindBindings is exact: its kind IDs equal the selected profile mode's requiredEvidenceKinds, its flattened evidence IDs equal evidenceIds without passengers, and the distribution-owned replay executor validates each artifact against the registered kind semantics.", "type": "object", "required": ["modeId", "status", "evidenceIds", "evidenceKindBindings"], "properties": { "modeId": { "$ref": "#/$defs/id" }, "status": { "enum": ["pass", "fail", "invalid", "not_applicable"] }, "evidenceIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "evidenceKindBindings": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidenceKindBinding" } } }, "allOf": [{ "if": { "type": "object", "properties": { "status": { "enum": ["pass", "fail", "invalid"] } }, "required": ["status"] }, "then": { "type": "object", "properties": { "evidenceIds": { "type": "array", "minItems": 1 } } } }], "additionalProperties": false },
+    "evidenceKindBinding": { "type": "object", "required": ["kindId", "evidenceIds"], "properties": { "kindId": { "$ref": "#/$defs/id" }, "evidenceIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true } }, "additionalProperties": false },
+    "failureCause": { "$comment": "id is a cause ID from the bound outcome profile's failure taxonomy. Semantic validation must reject unknown IDs and reconcile failed gates through failureCauseId.", "type": "object", "required": ["id", "taxonomy", "evidenceIds"], "properties": { "id": { "$ref": "#/$defs/id" }, "taxonomy": { "$ref": "#/$defs/component" }, "evidenceIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true } }, "additionalProperties": false },
+    "hardGate": { "$comment": "failureCauseId identifies taxonomy detail and is never a primary outcome. Semantic validation must require every non-null ID to occur in trialResult.failureCauses.", "type": "object", "required": ["id", "status", "backingEvidenceIds", "assignmentEvidenceId", "triggerEvidenceId", "failureCauseId"], "properties": { "id": { "$ref": "#/$defs/id" }, "status": { "enum": ["pass", "fail", "invalid"] }, "backingEvidenceIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "assignmentEvidenceId": { "$ref": "#/$defs/id" }, "triggerEvidenceId": { "$ref": "#/$defs/id" }, "failureCauseId": { "type": ["string", "null"], "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" } }, "allOf": [{ "if": { "type": "object", "properties": { "status": { "const": "pass" } }, "required": ["status"] }, "then": { "type": "object", "properties": { "failureCauseId": { "type": "null" } } }, "else": { "type": "object", "properties": { "failureCauseId": { "type": "string", "minLength": 1 } } } }], "additionalProperties": false },
+    "governanceStatus": { "$comment": "Version 0.1.0 prohibits waivers. A resolved status is retained for governance-ledger reporting but cannot close accepted-outcome-v1 inside a trial; only not_applicable statuses can coexist with accepted=true.", "type": "object", "required": ["id", "state", "triggerEvidenceId", "findingEvidenceId"], "properties": { "id": { "enum": ["security_review_required", "manual_review_required", "data_owner_review_required", "risk_acceptance_required"] }, "state": { "enum": ["not_applicable", "open", "resolved", "waived"] }, "triggerEvidenceId": { "$ref": "#/$defs/id" }, "findingEvidenceId": { "$ref": "#/$defs/id" }, "resolutionEventId": { "$ref": "#/$defs/id" } }, "allOf": [{ "if": { "type": "object", "properties": { "state": { "enum": ["resolved", "waived"] } } }, "then": { "type": "object", "properties": { "resolutionEventId": {} }, "required": ["resolutionEventId"] } }], "additionalProperties": false },
+    "decisionSurfaceResult": { "type": "object", "required": ["surfaceId", "materiality", "applicability", "coverage", "status", "evidenceIds"], "properties": { "surfaceId": { "$ref": "#/$defs/id" }, "materiality": { "enum": ["outcome", "risk", "diagnostic"] }, "applicability": { "enum": ["applicable", "not_applicable", "indeterminate"] }, "coverage": { "enum": ["checked", "covered_by_final_state", "not_applicable", "declared_gap", "not_determined"] }, "status": { "enum": ["pass", "fail", "not_applicable", "insufficient_evidence", "not_evaluated"] }, "evidenceIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "claimRestrictionIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true } }, "allOf": [{ "if": { "type": "object", "properties": { "applicability": { "const": "indeterminate" } } }, "then": { "type": "object", "properties": { "coverage": { "const": "not_determined" }, "status": { "const": "insufficient_evidence" } } } }, { "if": { "type": "object", "properties": { "coverage": { "const": "declared_gap" } } }, "then": { "type": "object", "required": ["claimRestrictionIds"], "properties": { "claimRestrictionIds": {}, "status": { "const": "not_evaluated" } } } }], "additionalProperties": false },
+    "evidenceCompleteness": { "type": "object", "required": ["status", "artifactIds"], "properties": { "status": { "enum": ["complete", "partial", "unavailable", "not_applicable"] }, "artifactIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true } }, "allOf": [{ "if": { "type": "object", "properties": { "status": { "const": "complete" } } }, "then": { "type": "object", "properties": { "artifactIds": { "type": "array", "minItems": 1 } } } }], "additionalProperties": false },
+    "outcomeReplay": {
+      "type": "object",
+      "required": ["executor", "receiptEvidenceId", "materialArtifacts"],
+      "properties": {
+        "executor": { "$ref": "#/$defs/component" },
+        "receiptEvidenceId": { "$ref": "#/$defs/id" },
+        "materialArtifacts": {
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "type": "object",
+            "required": ["workArtifactType", "evidenceIds"],
             "properties": {
-              "validity": { "properties": { "status": { "const": "valid" } } },
-              "primaryOutcome": { "enum": ["solved", "correct_refusal", "already_solved"] },
-              "hardGates": { "items": { "properties": { "status": { "const": "pass" } } } },
-              "governanceStatuses": { "items": { "properties": { "state": { "enum": ["not_applicable", "resolved", "waived"] } } } },
-              "decisionSurfaceResults": {
-                "not": {
-                  "contains": {
-                    "allOf": [
-                      { "properties": { "materiality": { "enum": ["outcome", "risk"] } }, "required": ["materiality"] },
-                      { "properties": { "status": { "not": { "enum": ["pass", "not_applicable"] } } }, "required": ["status"] },
-                      { "properties": { "coverage": { "not": { "const": "declared_gap" } } }, "required": ["coverage"] }
-                    ]
-                  }
-                }
-              },
-              "metrics": {
-                "properties": {
-                  "transcriptEvidence": { "properties": { "status": { "const": "complete" } } },
-                  "interaction": { "properties": { "status": { "enum": ["complete", "not_applicable"] } } }
-                }
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "decisionSurfaceResults": {
-                "contains": {
-                  "properties": { "applicability": { "const": "indeterminate" } },
-                  "required": ["applicability"]
-                }
-              }
+              "workArtifactType": { "$ref": "#/$defs/id" },
+              "evidenceIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }
             },
-            "required": ["decisionSurfaceResults"]
-          },
-          "then": { "properties": { "accepted": { "const": false } } }
-        },
-        {
-          "if": {
-            "properties": {
-              "metrics": {
-                "properties": { "transcriptEvidence": { "properties": { "status": { "enum": ["partial", "unavailable"] } }, "required": ["status"] } },
-                "required": ["transcriptEvidence"]
-              }
-            },
-            "required": ["metrics"]
-          },
-          "then": {
-            "properties": {
-              "validity": { "properties": { "status": { "const": "invalid" } } },
-              "accepted": { "const": false },
-              "primaryOutcome": { "const": "infra_failure" }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "metrics": {
-                "properties": { "interaction": { "properties": { "status": { "const": "partial" } }, "required": ["status"] } },
-                "required": ["interaction"]
-              }
-            },
-            "required": ["metrics"]
-          },
-          "then": {
-            "properties": {
-              "validity": { "properties": { "status": { "const": "invalid" } } },
-              "accepted": { "const": false },
-              "primaryOutcome": { "const": "infra_failure" }
-            }
+            "additionalProperties": false
           }
         }
-      ],
-      "additionalProperties": false
-    },
-    "decisionSurfaceResult": {
-      "type": "object",
-      "required": ["surfaceId", "materiality", "applicability", "assignmentEvidence", "triggerEvidence", "coverage", "status", "evidence", "rationale"],
-      "properties": {
-        "surfaceId": { "type": "string", "minLength": 1 },
-        "materiality": {
-          "enum": ["outcome", "risk", "diagnostic"],
-          "description": "Must equal the materiality on the sealed case decision surface with the same surfaceId; semantic validation resolves the pinned case hash."
-        },
-        "applicability": { "enum": ["applicable", "not_applicable", "indeterminate"] },
-        "assignmentEvidence": { "$ref": "#/$defs/artifactRef" },
-        "triggerEvidence": { "$ref": "#/$defs/artifactRef" },
-        "coverage": {
-          "enum": ["checked", "covered_by_final_state", "not_applicable", "declared_gap", "not_determined"],
-          "description": "Must equal the coverage of the same-ID sealed case decision surface, except an indeterminate runtime applicability result which fails closed; semantic validation resolves the pinned case hash."
-        },
-        "status": { "enum": ["pass", "fail", "not_applicable", "insufficient_evidence", "not_evaluated"] },
-        "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/artifactRef" }, "uniqueItems": true },
-        "rationale": { "type": "string", "minLength": 1 },
-        "claimRestriction": {
-          "type": "object",
-          "description": "Must equal the typed restriction on the same-ID sealed case decision surface when coverage is declared_gap.",
-          "required": ["effect", "affectedClaimIds", "scope", "rationale"],
-          "properties": {
-            "effect": { "const": "insufficient_evidence" },
-            "affectedClaimIds": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
-            "scope": { "type": "string", "minLength": 1 },
-            "rationale": { "type": "string", "minLength": 1 }
-          },
-          "additionalProperties": false
-        }
-      },
-      "allOf": [
-        {
-          "if": { "properties": { "applicability": { "const": "indeterminate" } }, "required": ["applicability"] },
-          "then": { "properties": { "coverage": { "const": "not_determined" }, "status": { "const": "insufficient_evidence" } } }
-        },
-        {
-          "if": { "properties": { "coverage": { "const": "not_determined" } }, "required": ["coverage"] },
-          "then": { "properties": { "applicability": { "const": "indeterminate" }, "status": { "const": "insufficient_evidence" } } }
-        },
-        {
-          "if": { "properties": { "applicability": { "const": "not_applicable" } }, "required": ["applicability"] },
-          "then": { "properties": { "coverage": { "const": "not_applicable" }, "status": { "const": "not_applicable" } } }
-        },
-        {
-          "if": { "properties": { "applicability": { "const": "applicable" } }, "required": ["applicability"] },
-          "then": {
-            "properties": {
-              "coverage": { "not": { "const": "not_applicable" } },
-              "status": { "not": { "const": "not_applicable" } }
-            }
-          }
-        },
-        {
-          "if": { "properties": { "coverage": { "const": "declared_gap" } }, "required": ["coverage"] },
-          "then": { "required": ["claimRestriction"], "properties": { "applicability": { "const": "applicable" }, "status": { "const": "not_evaluated" } } }
-        },
-        {
-          "if": { "properties": { "status": { "const": "not_evaluated" } }, "required": ["status"] },
-          "then": { "properties": { "coverage": { "const": "declared_gap" } } }
-        }
-      ],
-      "additionalProperties": false
-    },
-    "primaryOutcome": {
-      "enum": ["solved", "correct_refusal", "already_solved", "partial", "build_fail", "public_pass_hidden_fail", "unsafe_policy_violation", "noop_irrelevant", "infra_failure"]
-    },
-    "hardGate": {
-      "type": "object",
-      "required": ["id", "status", "backedBy", "artifacts", "appliesWhen", "assignmentEvidence", "triggerEvidence", "failureOutcome"],
-      "properties": {
-        "id": { "type": "string", "minLength": 1 },
-        "status": { "enum": ["pass", "fail", "invalid"] },
-        "backedBy": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/artifactRef" }, "uniqueItems": true },
-        "artifacts": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/artifactRef" }, "uniqueItems": true },
-        "appliesWhen": { "type": "string", "minLength": 1 },
-        "assignmentEvidence": { "$ref": "#/$defs/artifactRef" },
-        "triggerEvidence": { "$ref": "#/$defs/artifactRef" },
-        "failureOutcome": { "enum": ["build_fail", "public_pass_hidden_fail", "unsafe_policy_violation", "infra_failure"] }
       },
       "additionalProperties": false
     },
-    "governanceStatus": {
+    "statistic": { "type": "object", "required": ["claimId", "estimand", "k", "scheduledN", "validN", "validSuccesses", "estimator", "status", "value", "interval"], "properties": { "claimId": { "$ref": "#/$defs/id" }, "estimand": { "enum": ["pass_at_k", "reliability_at_k"] }, "k": { "type": "integer", "minimum": 1 }, "scheduledN": { "type": "integer", "minimum": 1 }, "validN": { "type": "integer", "minimum": 0 }, "validSuccesses": { "type": "integer", "minimum": 0 }, "estimator": { "$ref": "#/$defs/component" }, "status": { "enum": ["supported", "insufficient_evidence"] }, "value": { "type": ["number", "null"], "minimum": 0, "maximum": 1 }, "interval": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/interval" }] } }, "additionalProperties": false },
+    "attemptIntegrityRate": {
       "type": "object",
-      "required": ["id", "state", "triggerEvidence", "findingEvidence"],
+      "required": ["caseId", "armId", "scheduledCells", "resolvedCells", "unresolvedCells", "physicalAttemptCount", "validAttempts", "invalidAttempts", "interruptedAttempts", "missingCaptureAttempts", "replacementAttempts", "unresolvedCellRate"],
       "properties": {
-        "id": { "enum": ["security_review_required", "manual_review_required"] },
-        "state": { "enum": ["not_applicable", "open", "resolved", "waived"] },
-        "triggerEvidence": { "$ref": "#/$defs/artifactRef" },
-        "findingEvidence": { "$ref": "#/$defs/artifactRef" },
-        "disposition": { "type": "string", "minLength": 1 },
-        "resolverId": { "type": "string", "minLength": 1 },
-        "resolverRole": { "type": "string", "minLength": 1 },
-        "resolvedAt": { "type": "string", "format": "date-time" },
-        "resolutionEvidence": { "$ref": "#/$defs/artifactRef" },
-        "policyClause": { "type": "string", "minLength": 1 },
-        "waiverAuthorityId": { "type": "string", "minLength": 1 },
-        "authorizationEvidence": { "$ref": "#/$defs/artifactRef" }
-      },
-      "allOf": [
-        {
-          "if": { "properties": { "state": { "enum": ["resolved", "waived"] } }, "required": ["state"] },
-          "then": { "required": ["disposition", "resolverId", "resolverRole", "resolvedAt", "resolutionEvidence", "policyClause"] }
-        },
-        {
-          "if": { "properties": { "state": { "const": "waived" } }, "required": ["state"] },
-          "then": { "required": ["waiverAuthorityId", "authorizationEvidence"] }
-        }
-      ],
-      "additionalProperties": false
-    },
-    "gateCoverage": {
-      "type": "object",
-      "required": ["registryVersion", "expectedIds", "expectedHash", "rulesHash", "postDiffAdditions", "evaluatedIds", "evaluatedHash"],
-      "properties": {
-        "registryVersion": { "const": "baseline-hard-gates-1" },
-        "expectedIds": { "type": "array", "minItems": 15, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
-        "expectedHash": { "$ref": "#/$defs/digest" },
-        "rulesHash": { "$ref": "#/$defs/digest" },
-        "postDiffAdditions": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
-        "evaluatedIds": { "type": "array", "minItems": 15, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
-        "evaluatedHash": { "$ref": "#/$defs/digest" }
+        "caseId": { "$ref": "#/$defs/id" }, "armId": { "$ref": "#/$defs/id" },
+        "scheduledCells": { "type": "integer", "minimum": 1 }, "resolvedCells": { "type": "integer", "minimum": 0 }, "unresolvedCells": { "type": "integer", "minimum": 0 },
+        "physicalAttemptCount": { "type": "integer", "minimum": 0 }, "validAttempts": { "type": "integer", "minimum": 0 }, "invalidAttempts": { "type": "integer", "minimum": 0 },
+        "interruptedAttempts": { "type": "integer", "minimum": 0 }, "missingCaptureAttempts": { "type": "integer", "minimum": 0 }, "replacementAttempts": { "type": "integer", "minimum": 0 },
+        "unresolvedCellRate": { "type": "number", "minimum": 0, "maximum": 1 }
       },
       "additionalProperties": false
-    },
-    "governanceCoverage": {
-      "type": "object",
-      "required": ["registryVersion", "expectedIds", "expectedHash", "rulesHash", "evaluatedIds", "evaluatedHash"],
-      "properties": {
-        "registryVersion": { "const": "blocking-governance-statuses-1" },
-        "expectedIds": { "type": "array", "minItems": 2, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
-        "expectedHash": { "$ref": "#/$defs/digest" },
-        "rulesHash": { "$ref": "#/$defs/digest" },
-        "evaluatedIds": { "type": "array", "minItems": 2, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
-        "evaluatedHash": { "$ref": "#/$defs/digest" }
-      },
-      "additionalProperties": false
-    },
-    "passAtK": {
-      "allOf": [
-        { "$ref": "#/$defs/passAtKBody" },
-        { "properties": { "estimatorId": { "const": "pass-at-k-combinatorial-v1" } } }
-      ]
-    },
-    "passAtKBody": {
-      "type": "object",
-      "required": ["k", "scheduledN", "validN", "validSuccesses", "estimatorId", "status", "value", "interval", "reasons"],
-      "properties": {
-        "k": { "type": "integer", "minimum": 1 },
-        "scheduledN": { "type": "integer", "minimum": 1 },
-        "validN": { "type": "integer", "minimum": 0 },
-        "validSuccesses": { "type": "integer", "minimum": 0 },
-        "estimatorId": { "type": "string", "minLength": 1 },
-        "status": { "enum": ["supported", "insufficient_evidence"] },
-        "value": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
-        "interval": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/interval" }] },
-        "reasons": { "type": "array", "items": { "type": "string", "minLength": 1 } }
-      },
-      "allOf": [
-        {
-          "if": { "properties": { "status": { "const": "supported" } }, "required": ["status"] },
-          "then": { "properties": { "value": { "type": "number" }, "interval": { "$ref": "#/$defs/interval" } } },
-          "else": { "properties": { "value": { "type": "null" } } }
-        }
-      ],
-      "additionalProperties": false
-    },
-    "reliabilityAtK": {
-      "allOf": [
-        { "$ref": "#/$defs/passAtKBody" },
-        { "properties": { "estimatorId": { "const": "pass-power-k-combinatorial-v1" } } }
-      ]
     },
     "attemptIntegrity": {
       "type": "object",
       "required": [
         "status",
         "ledger",
+        "externalAttemptCheckpoint",
         "scheduledSetCommitment",
         "initialLedgerRoot",
         "terminalLedgerRoot",
@@ -650,441 +282,125 @@
         "resolvedCells",
         "unresolvedCells",
         "physicalAttemptCount",
+        "validAttempts",
         "invalidAttempts",
         "interruptedAttempts",
         "missingCaptureAttempts",
         "replacementAttempts",
+        "ratesByArmAndCase",
         "unresolvedCellRate",
         "unresolvedCellRateThreshold",
-        "differentialUnresolvedCellRate",
-        "attemptRecords",
-        "ledgerEvents"
+        "attemptRecords"
       ],
       "properties": {
         "status": { "enum": ["valid", "invalid"] },
-        "ledger": { "$ref": "#/$defs/artifactRef" },
-        "scheduledSetCommitment": { "$ref": "#/$defs/artifactRef" },
+        "ledger": { "$ref": "#/$defs/artifactPointer" },
+        "externalAttemptCheckpoint": {
+          "$comment": "Pointer to agent-eval-attempt-checkpoint-1. Semantic verification must resolve it through an externally configured scheduler trust boundary; a key supplied only by the scorecard is not trust.",
+          "allOf": [
+            { "$ref": "#/$defs/versionedArtifactPointer" },
+            { "type": "object", "properties": { "version": { "const": "0.1.0" } } }
+          ]
+        },
+        "scheduledSetCommitment": { "$ref": "#/$defs/artifactPointer" },
         "initialLedgerRoot": { "$ref": "#/$defs/digest" },
         "terminalLedgerRoot": { "$ref": "#/$defs/digest" },
         "scheduledCells": { "type": "integer", "minimum": 1 },
         "resolvedCells": { "type": "integer", "minimum": 0 },
         "unresolvedCells": { "type": "integer", "minimum": 0 },
         "physicalAttemptCount": { "type": "integer", "minimum": 0 },
+        "validAttempts": { "type": "integer", "minimum": 0 },
         "invalidAttempts": { "type": "integer", "minimum": 0 },
         "interruptedAttempts": { "type": "integer", "minimum": 0 },
         "missingCaptureAttempts": { "type": "integer", "minimum": 0 },
         "replacementAttempts": { "type": "integer", "minimum": 0 },
+        "ratesByArmAndCase": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/attemptIntegrityRate" } },
         "unresolvedCellRate": { "type": "number", "minimum": 0, "maximum": 1 },
-        "unresolvedCellRateThreshold": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
-        "differentialUnresolvedCellRate": {
-          "oneOf": [
-            { "type": "null" },
-            {
-              "type": "object",
-              "required": ["configurationA", "configurationB", "direction", "difference", "interval", "threshold", "status"],
-              "properties": {
-                "configurationA": { "type": "string", "minLength": 1 },
-                "configurationB": { "type": "string", "minLength": 1 },
-                "direction": { "enum": ["absolute", "a_minus_b", "b_minus_a"] },
-                "difference": { "type": "number" },
-                "interval": { "$ref": "#/$defs/interval" },
-                "threshold": { "type": "number", "minimum": 0, "maximum": 1 },
-                "status": { "enum": ["pass", "breach"] }
-              },
-              "additionalProperties": false
-            }
-          ]
-        },
-        "attemptRecords": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/attemptRecord" } },
-        "ledgerEvents": { "type": "array", "minItems": 3, "items": { "$ref": "#/$defs/ledgerEvent" } }
+        "unresolvedCellRateThreshold": { "type": "number", "minimum": 0, "maximum": 1 },
+        "attemptRecords": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/attemptRecord" } }
       },
       "additionalProperties": false
     },
-    "attemptRecord": {
+    "attemptRecord": { "type": "object", "required": ["attemptId", "cellId", "terminalState", "measurementValidity", "parentAttemptId", "retryReason", "startedAt", "finishedAt", "artifactIds", "metrics"], "properties": { "attemptId": { "$ref": "#/$defs/id" }, "cellId": { "$ref": "#/$defs/id" }, "terminalState": { "enum": ["completed", "interrupted", "missing_capture"] }, "measurementValidity": { "enum": ["valid", "invalid", "not_assessable"] }, "parentAttemptId": { "type": ["string", "null"] }, "retryReason": { "type": ["string", "null"] }, "startedAt": { "type": "string", "format": "date-time", "pattern": "Z$" }, "finishedAt": { "type": "string", "format": "date-time", "pattern": "Z$" }, "artifactIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "metrics": { "type": "object", "minProperties": 1 } }, "allOf": [{ "if": { "properties": { "terminalState": { "const": "completed" } } }, "then": { "properties": { "measurementValidity": { "enum": ["valid", "invalid"] } } }, "else": { "properties": { "measurementValidity": { "const": "not_assessable" } } } }], "additionalProperties": false },
+    "decisionRuleContract": {
       "type": "object",
-      "required": ["attemptId", "cellId", "terminalState", "measurementValidity", "parentAttemptId", "retryReason", "startedAt", "finishedAt", "artifactManifest", "metrics"],
+      "required": ["schemaVersion", "id", "version", "operator", "input", "inclusive", "missingInputResult", "digest"],
       "properties": {
-        "attemptId": { "type": "string", "minLength": 1 },
-        "cellId": { "type": "string", "minLength": 1 },
-        "terminalState": { "enum": ["completed", "interrupted", "missing_capture"] },
-        "measurementValidity": { "$ref": "#/$defs/attemptValidity" },
-        "parentAttemptId": { "type": ["string", "null"] },
-        "retryReason": { "type": ["string", "null"] },
-        "startedAt": { "type": "string", "format": "date-time" },
-        "finishedAt": { "type": "string", "format": "date-time" },
-        "artifactManifest": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/artifactRef" }] },
-        "metrics": { "$ref": "#/$defs/trialMetrics" }
-      },
-      "allOf": [
-        {
-          "if": { "properties": { "terminalState": { "const": "completed" } }, "required": ["terminalState"] },
-          "then": { "properties": { "measurementValidity": { "properties": { "status": { "enum": ["valid", "invalid"] } } } } }
-        },
-        {
-          "if": { "properties": { "terminalState": { "enum": ["interrupted", "missing_capture"] } }, "required": ["terminalState"] },
-          "then": { "properties": { "measurementValidity": { "properties": { "status": { "const": "not_assessable" } } } } }
-        }
-      ],
-      "additionalProperties": false
-    },
-    "ledgerEvent": {
-      "type": "object",
-      "required": ["sequence", "eventId", "attemptId", "eventType", "fromState", "toState", "timestamp", "previousEventHash", "eventHash", "signature"],
-      "properties": {
-        "sequence": { "type": "integer", "minimum": 1 },
-        "eventId": { "type": "string", "minLength": 1 },
-        "attemptId": { "type": "string", "minLength": 1 },
-        "eventType": { "enum": ["register", "start", "close", "recover"] },
-        "fromState": {
-          "enum": [null, "scheduled", "started"]
-        },
-        "toState": {
-          "enum": ["scheduled", "started", "completed", "interrupted", "missing_capture"]
-        },
-        "timestamp": { "type": "string", "format": "date-time" },
-        "previousEventHash": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/digest" }] },
-        "eventHash": { "$ref": "#/$defs/digest" },
-        "signature": { "$ref": "#/$defs/signature" }
-      },
-      "additionalProperties": false
-    },
-    "trialMetrics": {
-      "type": "object",
-      "required": ["telemetry", "execution", "trajectory", "transcriptEvidence", "interaction", "economics"],
-      "properties": {
-        "telemetry": {
-          "type": "object",
-          "required": ["status", "provider", "schemaVersion", "cli", "normalizer", "rawNativeEvents", "errors"],
-          "properties": {
-            "status": { "enum": ["complete", "partial", "unavailable"] },
-            "provider": { "type": ["string", "null"] },
-            "schemaVersion": { "type": ["string", "null"] },
-            "cli": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/component" }] },
-            "normalizer": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/component" }] },
-            "rawNativeEvents": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/artifactRef" }] },
-            "errors": { "type": "array", "items": { "type": "string", "minLength": 1 } }
-          },
-          "additionalProperties": false
-        },
-        "execution": {
-          "type": "object",
-          "required": ["trial", "agent", "checksBySection"],
-          "properties": {
-            "trial": { "$ref": "#/$defs/timing" },
-            "agent": { "$ref": "#/$defs/agentTiming" },
-            "checksBySection": { "type": "object" }
-          },
-          "additionalProperties": false
-        },
-        "trajectory": {
-          "type": "object",
-          "required": ["nativeTurnCount", "nativeTurnDefinition", "toolCallCount", "toolCallDefinition", "toolCallBreakdown"],
-          "properties": {
-            "nativeTurnCount": { "type": ["integer", "null"], "minimum": 0 },
-            "nativeTurnDefinition": { "type": ["string", "null"] },
-            "toolCallCount": { "type": ["integer", "null"], "minimum": 0 },
-            "toolCallDefinition": { "type": ["string", "null"] },
-            "toolCallBreakdown": { "type": ["object", "null"] }
-          },
-          "additionalProperties": false
-        },
-        "transcriptEvidence": {
-          "type": "object",
-          "required": ["status", "rawEventStream", "appendOnlyRoot", "preTransformCapture", "contextEvents", "contextEventCount", "agentMemoryTrust", "errors"],
-          "properties": {
-            "status": { "enum": ["complete", "partial", "unavailable"] },
-            "rawEventStream": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/artifactRef" }] },
-            "appendOnlyRoot": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/digest" }] },
-            "preTransformCapture": { "type": "boolean" },
-            "contextEvents": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/artifactRef" }] },
-            "contextEventCount": { "type": "integer", "minimum": 0 },
-            "agentMemoryTrust": { "const": "untrusted" },
-            "errors": { "type": "array", "items": { "type": "string", "minLength": 1 } }
-          },
-          "allOf": [
-            {
-              "if": { "properties": { "status": { "const": "complete" } }, "required": ["status"] },
-              "then": {
-                "properties": {
-                  "rawEventStream": { "$ref": "#/$defs/artifactRef" },
-                  "appendOnlyRoot": { "$ref": "#/$defs/digest" },
-                  "preTransformCapture": { "const": true }
-                }
-              }
-            }
-          ],
-          "additionalProperties": false
-        },
-        "interaction": {
-          "type": "object",
-          "required": ["status", "protocol", "eventLedger", "initialSharedStateHash", "finalSharedStateHash", "actorIds", "actorComponents", "unattributedMutationCount", "errors"],
-          "properties": {
-            "status": { "enum": ["not_applicable", "complete", "partial"] },
-            "protocol": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/component" }] },
-            "eventLedger": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/artifactRef" }] },
-            "initialSharedStateHash": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/digest" }] },
-            "finalSharedStateHash": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/digest" }] },
-            "actorIds": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
-            "actorComponents": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "required": ["actorId", "role", "component"],
-                "properties": {
-                  "actorId": { "type": "string", "minLength": 1 },
-                  "role": { "enum": ["evaluated_agent", "requester", "simulator", "human", "helper", "environment"] },
-                  "component": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/component" }] }
-                },
-                "additionalProperties": false
-              }
-            },
-            "unattributedMutationCount": { "type": "integer", "minimum": 0 },
-            "errors": { "type": "array", "items": { "type": "string", "minLength": 1 } }
-          },
-          "allOf": [
-            {
-              "if": { "properties": { "status": { "const": "complete" } }, "required": ["status"] },
-              "then": {
-                "properties": {
-                  "protocol": { "$ref": "#/$defs/component" },
-                  "eventLedger": { "$ref": "#/$defs/artifactRef" },
-                  "initialSharedStateHash": { "$ref": "#/$defs/digest" },
-                  "finalSharedStateHash": { "$ref": "#/$defs/digest" },
-                  "actorIds": { "minItems": 2 },
-                  "actorComponents": { "minItems": 2 },
-                  "unattributedMutationCount": { "const": 0 }
-                }
-              }
-            },
-            {
-              "if": { "properties": { "status": { "const": "not_applicable" } }, "required": ["status"] },
-              "then": {
-                "properties": {
-                  "protocol": { "type": "null" },
-                  "eventLedger": { "type": "null" },
-                  "initialSharedStateHash": { "type": "null" },
-                  "finalSharedStateHash": { "type": "null" },
-                  "actorIds": { "maxItems": 0 },
-                  "actorComponents": { "maxItems": 0 },
-                  "unattributedMutationCount": { "const": 0 }
-                }
-              }
-            }
-          ],
-          "additionalProperties": false
-        },
-        "economics": {
-          "type": "object",
-          "required": ["tokens", "cost"],
-          "properties": {
-            "tokens": {
-              "type": "object",
-              "required": ["input", "cachedInput", "cacheWriteInput", "output", "reasoningOutput"],
-              "properties": {
-                "input": { "type": ["integer", "null"], "minimum": 0 },
-                "cachedInput": { "type": ["integer", "null"], "minimum": 0 },
-                "cacheWriteInput": { "type": ["integer", "null"], "minimum": 0 },
-                "output": { "type": ["integer", "null"], "minimum": 0 },
-                "reasoningOutput": { "type": ["integer", "null"], "minimum": 0 }
-              },
-              "additionalProperties": false
-            },
-            "cost": {
-              "type": "object",
-              "required": ["costUsd", "currency", "priceTable", "priceTimestamp", "priceEvidence", "providerDurationMs"],
-              "properties": {
-                "costUsd": { "type": ["number", "null"], "minimum": 0 },
-                "currency": { "type": ["string", "null"], "pattern": "^[A-Z]{3}$" },
-                "priceTable": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/component" }] },
-                "priceTimestamp": { "type": ["string", "null"], "format": "date-time" },
-                "priceEvidence": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/artifactRef" }] },
-                "providerDurationMs": { "type": ["integer", "null"], "minimum": 0 }
-              },
-              "additionalProperties": false
-            }
-          },
-          "additionalProperties": false
-        }
-      },
-      "additionalProperties": false
-    },
-    "timing": {
-      "type": "object",
-      "required": ["startedAt", "finishedAt", "wallClockMs"],
-      "properties": {
-        "startedAt": { "type": ["string", "null"], "format": "date-time" },
-        "finishedAt": { "type": ["string", "null"], "format": "date-time" },
-        "wallClockMs": { "type": ["integer", "null"], "minimum": 0 }
-      },
-      "additionalProperties": false
-    },
-    "agentTiming": {
-      "type": "object",
-      "required": ["startedAt", "finishedAt", "wallClockMs", "budget", "stopReason"],
-      "properties": {
-        "startedAt": { "type": ["string", "null"], "format": "date-time" },
-        "finishedAt": { "type": ["string", "null"], "format": "date-time" },
-        "wallClockMs": { "type": ["integer", "null"], "minimum": 0 },
-        "budget": { "type": ["object", "null"] },
-        "stopReason": { "type": ["string", "null"] }
-      },
-      "additionalProperties": false
-    },
-    "runMetrics": {
-      "type": "object",
-      "required": ["outcome", "meanCostConditionalOnSuccess", "totalAttemptCostPerSuccess"],
-      "properties": {
-        "outcome": { "type": "object" },
-        "meanCostConditionalOnSuccess": { "$ref": "#/$defs/costEstimate" },
-        "totalAttemptCostPerSuccess": { "$ref": "#/$defs/costEstimate" }
-      },
-      "additionalProperties": true
-    },
-    "costEstimate": {
-      "type": "object",
-      "required": ["status", "reasons", "denominatorPredicate", "valueUsd", "numeratorCostUsd", "successCount", "physicalAttemptCount", "reportedCostCount", "requiredCostCount", "missingCostPolicy", "bound", "priceTable"],
-      "properties": {
-        "status": { "enum": ["supported", "insufficient_evidence"] },
-        "reasons": { "type": "array", "items": { "type": "string", "minLength": 1 } },
-        "denominatorPredicate": {
-          "const": "functional-outcome-v2",
-          "description": "Both cost estimands use valid functional outcomes as their denominator; total-resource cost still retains every physical attempt in its numerator."
-        },
-        "valueUsd": { "type": ["number", "null"], "minimum": 0 },
-        "numeratorCostUsd": { "type": ["number", "null"], "minimum": 0 },
-        "successCount": { "type": "integer", "minimum": 0 },
-        "physicalAttemptCount": { "type": "integer", "minimum": 0 },
-        "reportedCostCount": { "type": "integer", "minimum": 0 },
-        "requiredCostCount": { "type": "integer", "minimum": 0 },
-        "missingCostPolicy": { "enum": ["fail_closed", "pre_registered_bound"] },
-        "bound": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/bound" }] },
-        "priceTable": {
-          "type": "object",
-          "required": ["id", "version", "digest", "currency", "timestamp", "evidence"],
-          "properties": {
-            "id": { "type": "string", "minLength": 1 },
-            "version": { "type": "string", "minLength": 1 },
-            "digest": { "$ref": "#/$defs/digest" },
-            "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
-            "timestamp": { "type": "string", "format": "date-time" },
-            "evidence": { "$ref": "#/$defs/artifactRef" }
-          },
-          "additionalProperties": false
-        }
-      },
-      "allOf": [
-        {
-          "if": { "properties": { "successCount": { "const": 0 } }, "required": ["successCount"] },
-          "then": {
-            "properties": {
-              "status": { "const": "insufficient_evidence" },
-              "valueUsd": { "type": "null" },
-              "reasons": { "contains": { "const": "zero_success_denominator" } }
-            }
-          }
-        },
-        {
-          "if": { "properties": { "status": { "const": "supported" } }, "required": ["status"] },
-          "then": {
-            "properties": {
-              "successCount": { "type": "integer", "minimum": 1 },
-              "valueUsd": { "type": "number", "minimum": 0 }
-            }
-          }
-        }
-      ],
-      "additionalProperties": false
-    },
-    "component": {
-      "type": "object",
-      "required": ["id", "version", "digest"],
-      "properties": {
-        "id": { "type": "string", "minLength": 1 },
-        "version": { "type": "string", "minLength": 1 },
+        "schemaVersion": { "const": "agent-eval-scorecard-decision-rule-1" },
+        "id": { "$ref": "#/$defs/id" }, "version": { "const": "0.1.0" },
+        "operator": { "enum": ["gte", "lte"] },
+        "input": { "enum": ["estimate", "lower_bound", "upper_bound"] },
+        "inclusive": { "type": "boolean" },
+        "missingInputResult": { "const": "insufficient_evidence" },
         "digest": { "$ref": "#/$defs/digest" }
       },
       "additionalProperties": false
     },
-    "provenance": {
+    "retryPolicyContract": {
       "type": "object",
-      "required": [
-        "standardRelease",
-        "contracts",
-        "evaluator",
-        "preRunManifest",
-        "statisticalPlan",
-        "model",
-        "agentConfiguration",
-        "harness",
-        "adapter",
-        "graderSet",
-        "scoringFormula",
-        "suite",
-        "caseSetHash",
-        "semanticValidator"
-      ],
+      "required": ["schemaVersion", "id", "version", "maxAttemptsPerCell", "retryableMeasurementValidity", "linearParentChain", "firstEligibleValidWins", "allowRetryAfterValid", "digest"],
       "properties": {
-        "standardRelease": {
-          "type": "object",
-          "required": ["version", "tag", "commit"],
-          "properties": {
-            "version": { "const": "0.2.0" },
-            "tag": { "const": "v0.2.0" },
-            "commit": { "type": "string", "pattern": "^[a-f0-9]{40,64}$" }
-          },
-          "additionalProperties": false
-        },
-        "contracts": {
-          "type": "object",
-          "required": ["scorecard", "governancePolicy", "escalationStopMatrix", "case", "environment", "semanticValidation"],
-          "properties": {
-            "scorecard": {
-              "allOf": [
-                { "$ref": "#/$defs/component" },
-                { "properties": { "id": { "const": "scorecard-contract" }, "version": { "const": "0.2.0" } } }
-              ]
-            },
-            "governancePolicy": { "$ref": "#/$defs/component" },
-            "escalationStopMatrix": { "$ref": "#/$defs/component" },
-            "case": {
-              "allOf": [
-                { "$ref": "#/$defs/component" },
-                { "properties": { "id": { "const": "case-contract" }, "version": { "const": "0.2.0" } } }
-              ]
-            },
-            "environment": { "$ref": "#/$defs/component" },
-            "semanticValidation": {
-              "allOf": [
-                { "$ref": "#/$defs/component" },
-                { "properties": { "id": { "const": "semantic-validation" }, "version": { "const": "semantic-validation-0.2.0" } } }
-              ]
-            }
-          },
-          "additionalProperties": false
-        },
-        "evaluator": { "$ref": "#/$defs/component" },
-        "preRunManifest": { "$ref": "#/$defs/artifactRef" },
-        "decisionPlan": { "$ref": "#/$defs/artifactRef" },
-        "statisticalPlan": { "$ref": "#/$defs/artifactRef" },
-        "model": { "$ref": "#/$defs/component" },
-        "agentConfiguration": { "$ref": "#/$defs/component" },
-        "harness": { "$ref": "#/$defs/component" },
-        "adapter": { "$ref": "#/$defs/component" },
-        "graderSet": { "$ref": "#/$defs/component" },
-        "scoringFormula": { "$ref": "#/$defs/component" },
-        "suite": { "$ref": "#/$defs/component" },
-        "caseSetHash": { "$ref": "#/$defs/digest" },
-        "semanticValidator": {
-          "type": "object",
-          "required": ["id", "version", "implementationDigest", "resultEvidence"],
-          "properties": {
-            "id": { "const": "agent-evals-semantic-validator" },
-            "version": { "const": "semantic-validation-0.2.0" },
-            "implementationDigest": { "$ref": "#/$defs/digest" },
-            "resultEvidence": { "$ref": "#/$defs/artifactRef" }
-          },
-          "additionalProperties": false
-        }
+        "schemaVersion": { "const": "agent-eval-retry-policy-1" },
+        "id": { "$ref": "#/$defs/id" }, "version": { "const": "0.1.0" },
+        "maxAttemptsPerCell": { "type": "integer", "minimum": 1 },
+        "retryableMeasurementValidity": { "type": "array", "minItems": 1, "items": { "enum": ["invalid", "not_assessable"] }, "uniqueItems": true },
+        "linearParentChain": { "const": true },
+        "firstEligibleValidWins": { "const": true },
+        "allowRetryAfterValid": { "const": false },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "attemptLedger": {
+      "type": "object",
+      "required": ["schemaVersion", "id", "version", "experimentId", "scheduledSetCommitment", "rootAlgorithm", "initialLedgerRoot", "terminalLedgerRoot", "attemptRecords", "digest"],
+      "properties": {
+        "schemaVersion": { "const": "agent-eval-attempt-ledger-1" },
+        "id": { "$ref": "#/$defs/id" }, "version": { "const": "0.1.0" },
+        "experimentId": { "$ref": "#/$defs/id" },
+        "scheduledSetCommitment": { "$ref": "#/$defs/artifactPointer" },
+        "rootAlgorithm": { "const": "sha256-jcs-chain-v1" },
+        "initialLedgerRoot": { "$ref": "#/$defs/digest" },
+        "terminalLedgerRoot": { "$ref": "#/$defs/digest" },
+        "attemptRecords": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/attemptRecord" } },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "runMetrics": {
+      "type": "object", "required": ["outcomes", "cost", "composite"],
+      "properties": {
+        "outcomes": { "type": "array", "minItems": 1, "items": { "type": "object", "required": ["armId", "category", "count", "denominator"], "properties": { "armId": { "$ref": "#/$defs/id" }, "category": { "$ref": "#/$defs/primaryOutcome" }, "count": { "type": "integer", "minimum": 0 }, "denominator": { "type": "integer", "minimum": 1 } }, "additionalProperties": false } },
+        "cost": { "type": "object", "required": ["meanConditionalOnFunctionalSuccess", "totalAttemptCostPerFunctionalSuccess"], "properties": { "meanConditionalOnFunctionalSuccess": { "$ref": "#/$defs/costEstimate" }, "totalAttemptCostPerFunctionalSuccess": { "$ref": "#/$defs/costEstimate" } }, "additionalProperties": false },
+        "composite": { "$ref": "#/$defs/composite" }
+      },
+      "additionalProperties": false
+    },
+    "costEstimate": { "type": "object", "required": ["status", "valueUsd", "numeratorCostUsd", "successCount", "physicalAttemptCount", "reportedCostCount", "requiredCostCount", "currency", "priceTableTimestamp", "evidenceIds", "reasonIds", "missingCostPolicy", "bound", "priceTable"], "properties": { "status": { "enum": ["supported", "insufficient_evidence"] }, "valueUsd": { "type": ["number", "null"], "minimum": 0 }, "numeratorCostUsd": { "type": "number", "minimum": 0 }, "successCount": { "type": "integer", "minimum": 0 }, "physicalAttemptCount": { "type": "integer", "minimum": 0 }, "reportedCostCount": { "type": "integer", "minimum": 0 }, "requiredCostCount": { "type": "integer", "minimum": 0 }, "currency": { "const": "USD" }, "priceTableTimestamp": { "type": "string", "format": "date-time", "pattern": "Z$" }, "evidenceIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "reasonIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "missingCostPolicy": { "enum": ["fail_closed", "pre_registered_bound"] }, "bound": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/bound" }] }, "priceTable": { "$ref": "#/$defs/component" } }, "additionalProperties": false },
+    "composite": {
+      "type": "object", "required": ["status", "value", "formula", "weights", "normalization", "inputPopulation", "breakdown"],
+      "properties": {
+        "status": { "enum": ["valid", "blocked", "not_rankable", "not_applicable"] }, "value": { "type": ["number", "null"] },
+        "formula": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/component" }] },
+        "weights": { "type": "array", "items": { "type": "object", "required": ["inputId", "weight"], "properties": { "inputId": { "$ref": "#/$defs/id" }, "weight": { "type": "number", "minimum": 0 } }, "additionalProperties": false } },
+        "normalization": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/component" }] }, "inputPopulation": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "breakdown": { "type": "object", "required": ["byRiskTier", "byTaskClass", "byOutcome", "byCost"], "properties": { "byRiskTier": { "type": "array" }, "byTaskClass": { "type": "array" }, "byOutcome": { "type": "array" }, "byCost": { "type": "array" } }, "additionalProperties": false }
+      },
+      "allOf": [
+        { "if": { "type": "object", "properties": { "status": { "const": "valid" } } }, "then": { "type": "object", "properties": { "value": { "type": "number" }, "formula": { "$ref": "#/$defs/component" }, "weights": { "type": "array", "minItems": 1 }, "normalization": { "$ref": "#/$defs/component" }, "inputPopulation": { "type": "array", "minItems": 1 } } } },
+        { "if": { "type": "object", "properties": { "status": { "enum": ["blocked", "not_rankable"] } } }, "then": { "type": "object", "properties": { "value": { "type": "null" } } } },
+        { "if": { "type": "object", "properties": { "status": { "const": "not_applicable" } } }, "then": { "type": "object", "properties": { "value": { "type": "null" }, "formula": { "type": "null" }, "weights": { "type": "array", "maxItems": 0 }, "normalization": { "type": "null" }, "inputPopulation": { "type": "array", "maxItems": 0 } } } }
+      ],
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object", "required": ["standardRelease", "contracts", "preRunManifest", "statisticalPlan", "suite", "caseSetDigest", "requirementRegistry", "signatureProfile"],
+      "properties": {
+        "standardRelease": { "$ref": "#/$defs/component" },
+        "contracts": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/component" } },
+        "preRunManifest": { "$ref": "#/$defs/artifactPointer" }, "decisionPlan": { "$ref": "#/$defs/artifactPointer" },
+        "statisticalPlan": { "$ref": "#/$defs/artifactPointer" }, "suite": { "$ref": "#/$defs/versionedArtifactPointer" },
+        "caseSetDigest": { "$ref": "#/$defs/digest" }, "requirementRegistry": { "$ref": "#/$defs/artifactPointer" }, "signatureProfile": { "$comment": "The exact versioned signature-verification profile pinned by the sealed pre-run manifest.", "$ref": "#/$defs/versionedArtifactPointer" }
       },
       "additionalProperties": false
     }

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:grader-validation:1",
+  "title": "Shared non-vacuous grader validation record",
+  "type": "object",
+  "required": ["schemaVersion", "id", "grader", "graderComponents", "protocol", "sealedAt", "validationWindow", "samplingFrame", "minimumSampleRule", "classBalance", "humanLabelUncertainty", "humanLabelStrata", "blindedAdjudication", "judgeBiasSuite", "falsePositive", "falseNegative", "controls", "verdict", "digest", "signature"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-grader-validation-1" },
+    "id": { "$ref": "#/$defs/id" }, "grader": { "$ref": "#/$defs/component" }, "protocol": { "$ref": "#/$defs/verifiedContract" },
+    "graderComponents": { "type": "object", "required": ["promptDigest", "rubricDigest", "parserDigest", "modelDigest"], "properties": { "promptDigest": { "$ref": "#/$defs/digest" }, "rubricDigest": { "$ref": "#/$defs/digest" }, "parserDigest": { "$ref": "#/$defs/digest" }, "modelDigest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
+    "sealedAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "validationWindow": { "type": "object", "required": ["startedAt", "expiresAt"], "properties": { "startedAt": { "type": "string", "format": "date-time", "pattern": "Z$" }, "expiresAt": { "type": "string", "format": "date-time", "pattern": "Z$" } }, "additionalProperties": false },
+    "samplingFrame": { "$ref": "#/$defs/verifiedContract" }, "minimumSampleRule": { "$ref": "#/$defs/verifiedContract" },
+    "classBalance": { "type": "object", "required": ["knownGood", "knownBad"], "properties": { "knownGood": { "type": "integer", "minimum": 2 }, "knownBad": { "type": "integer", "minimum": 2 } }, "additionalProperties": false },
+    "humanLabelUncertainty": { "$ref": "#/$defs/verifiedContract" },
+    "humanLabelStrata": { "type": "array", "minItems": 2, "items": { "type": "object", "required": ["id", "sampleSize", "agreement", "evidenceId"], "properties": { "id": { "$ref": "#/$defs/id" }, "sampleSize": { "type": "integer", "minimum": 2 }, "agreement": { "$ref": "#/$defs/interval" }, "evidenceId": { "$ref": "#/$defs/id" } }, "additionalProperties": false } },
+    "blindedAdjudication": { "$ref": "#/$defs/verifiedContract" },
+    "judgeBiasSuite": { "$comment": "Semantic validation must require each of identity, position, verbosity, style, reference_anchoring, prompt_injection, and judge_family exactly once by projected biasClass.", "type": "array", "minItems": 7, "items": { "type": "object", "required": ["biasClass", "protocol", "evidenceId", "verdict"], "properties": { "biasClass": { "enum": ["identity", "position", "verbosity", "style", "reference_anchoring", "prompt_injection", "judge_family", "other"] }, "protocol": { "$ref": "#/$defs/verifiedContract" }, "evidenceId": { "$ref": "#/$defs/id" }, "verdict": { "const": "pass" } }, "additionalProperties": false } },
+    "falsePositive": { "$ref": "#/$defs/rate" }, "falseNegative": { "$ref": "#/$defs/rate" },
+    "controls": { "$comment": "Semantic validation must reject duplicate control IDs.", "type": "array", "minItems": 2, "contains": { "type": "object", "properties": { "expected": { "const": "pass" } }, "required": ["expected"] }, "minContains": 1, "items": { "$ref": "#/$defs/control" } },
+    "verdict": { "const": "pass" }, "digest": { "$ref": "#/$defs/digest" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+  },
+  "allOf": [{ "type": "object", "properties": { "controls": { "type": "array", "contains": { "type": "object", "properties": { "expected": { "const": "fail" } }, "required": ["expected"] }, "minContains": 1 } } }],
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" }, "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "component": { "type": "object", "required": ["id", "version", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
+    "verifiedContract": { "type": "object", "required": ["id", "version", "digest", "schemaId", "verifierDigest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" }, "schemaId": { "$ref": "#/$defs/id" }, "verifierDigest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
+    "rate": { "type": "object", "required": ["sampleSize", "estimate", "interval", "threshold", "rule", "verdict"], "properties": { "sampleSize": { "type": "integer", "minimum": 2 }, "estimate": { "type": "number", "minimum": 0, "maximum": 1 }, "interval": { "$ref": "#/$defs/interval" }, "threshold": { "type": "number", "minimum": 0, "exclusiveMaximum": 1 }, "rule": { "$ref": "#/$defs/verifiedContract" }, "verdict": { "const": "pass" } }, "additionalProperties": false },
+    "interval": { "type": "object", "required": ["method", "confidenceLevel", "lower", "upper"], "properties": { "method": { "type": "string", "minLength": 1 }, "confidenceLevel": { "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1 }, "lower": { "type": "number", "minimum": 0, "maximum": 1 }, "upper": { "type": "number", "minimum": 0, "maximum": 1 } }, "additionalProperties": false },
+    "control": { "type": "object", "required": ["id", "expected", "observed", "inputDigest", "evidenceId"], "properties": { "id": { "$ref": "#/$defs/id" }, "expected": { "enum": ["pass", "fail"] }, "observed": { "enum": ["pass", "fail"] }, "inputDigest": { "$ref": "#/$defs/digest" }, "evidenceId": { "$ref": "#/$defs/id" } }, "allOf": [{ "if": { "properties": { "expected": { "const": "pass" } } }, "then": { "properties": { "observed": { "const": "pass" } } }, "else": { "properties": { "observed": { "const": "fail" } } } }], "additionalProperties": false }
+  }
+}

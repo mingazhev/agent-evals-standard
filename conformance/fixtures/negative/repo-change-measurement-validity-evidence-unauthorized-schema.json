@@ -1,0 +1,56 @@
+{
+  "id": "measurement-validity-evidence-unauthorized-schema",
+  "uri": "artifact:sha256:9f93875fdb2cbb0c67a9e16b5abd9ec8f9a1cd757470b0e603641bb4cbfe8f87",
+  "mediaType": "application/json",
+  "digest": "sha256:9f93875fdb2cbb0c67a9e16b5abd9ec8f9a1cd757470b0e603641bb4cbfe8f87",
+  "byteLength": 907,
+  "producer": {
+    "id": "fixture-independent-outcome-verifier",
+    "role": "verifier",
+    "trustDomain": "external"
+  },
+  "creationPhase": "grading",
+  "createdAt": "2026-08-01T01:00:18Z",
+  "schemaMetadata": {
+    "schemaId": "agent-eval-repo-change-runner-check-record-1",
+    "schemaVersion": "0.1.0",
+    "validatorDigest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
+  },
+  "mediaInterpretation": {
+    "profileId": "json-rfc8785",
+    "profileVersion": "0.1.0",
+    "semanticContract": {
+      "id": "agent-evals-standard.repo-change-outcome-replay",
+      "version": "0.1.0",
+      "digest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
+    }
+  },
+  "accessClass": "internal",
+  "accessPolicyBinding": {
+    "id": "fixture-access-policy",
+    "version": "0.1.0",
+    "digest": "sha256:fa27c0767d27b454693112c7d9fce5380b56204929ac1be3f361a6dc0369c9b5"
+  },
+  "privacyAndIp": {
+    "classification": "none",
+    "restrictions": []
+  },
+  "retention": {
+    "class": "fixture",
+    "expiresAt": "2027-08-01T00:00:00Z",
+    "disposition": "delete",
+    "legalHold": false
+  },
+  "attestation": {
+    "profileId": "fixture-automated-verifier-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-2-verifier",
+    "signedAt": "2026-08-01T01:00:18Z",
+    "value": "h_BVIqX60bSmd0Zpy2GoO47Vaq3hsDSWNhNDp1Zn84HTMXCJI1NC312Y3CafoxCt7qZO3f0HWxAxFvD5_g1YDg"
+  },
+  "payload": {
+    "kind": "inline_base64",
+    "contentBase64": "ewogICJzY2hlbWFWZXJzaW9uIjogImFnZW50LWV2YWwtcmVwby1jaGFuZ2UtbWVhc3VyZW1lbnQtdmFsaWRpdHktcmVjb3JkLTEiLAogICJpZCI6ICJyZXBvLWNoYW5nZS1tZWFzdXJlbWVudC12YWxpZGl0eS1maXh0dXJlLTEiLAogICJ2ZXJzaW9uIjogIjAuMS4wIiwKICAiZXhwZXJpbWVudElkIjogImV4cGVyaW1lbnQtZml4dHVyZS0xIiwKICAiY2FzZUlkIjogInJlcG8tY2hhbmdlLWNhc2UtZml4dHVyZS0xIiwKICAiY2VsbElkIjogImNlbGwtZml4dHVyZS0xIiwKICAiYXR0ZW1wdElkIjogImF0dGVtcHQtZml4dHVyZS0xIiwKICAiYXJtSWQiOiAiYXJtLWZpeHR1cmUtMSIsCiAgIndvcmtzcGFjZU1hbmlmZXN0RGlnZXN0IjogInNoYTI1NjplMTAwZmVjM2NjNGE2ZDRiMmQwNjlmZDJlOWU1YzgxZWI0ZjNiY2E1OWVjN2RiNjkxNTIxNDFlMmIxNDU4Y2Q1IiwKICAid29ya3NwYWNlUm9vdERpZ2VzdCI6ICJzaGEyNTY6Njc1MjA0ZjQyNzM4NjI1ZDEwNGMwOTY3MWJhZTEyMWQ1ZTgyNzIyZjcxYmE2MmU3YzZkZDc1YTU2NTM0MzBhYyIsCiAgInJ1bm5lckV2aWRlbmNlSWQiOiAicmVwby1jaGFuZ2UtcnVubmVyLWF0dGVzdGF0aW9uLWZpeHR1cmUtMSIsCiAgInJ1bm5lckV2aWRlbmNlRGlnZXN0IjogInNoYTI1NjpmZjg5NjFhMWQ1MmExMTIzM2QzMzQ1NjY2ZDhmZjE0ZTQxODJhNDZiODk2MzdmNDA5NDhmZTgxZGUzNWZmMmZiIiwKICAiZmFjdFByb2plY3Rpb25EaWdlc3QiOiAic2hhMjU2Ojg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODg4ODgiLAogICJtZWFzdXJlbWVudFZhbGlkaXR5IjogImludmFsaWQiLAogICJyZWFzb25Db2RlIjogInJ1bm5lcl9tZWFzdXJlbWVudF9pbnZhbGlkIiwKICAidmVyZGljdCI6ICJwYXNzIgp9Cg=="
+  },
+  "artifactType": "repo-change-v1:measurement_validity_record"
+}

@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:signature-profile:1",
+  "title": "Operational signature verification profile",
+  "$comment": "Before verifying any signature, semantic validation must resolve signature.profileId to the exact versioned, digest-bound signature-profile artifact pinned by the governing evaluation profile, sealed run, independently verifiable statement/envelope, or other schema-authorized signed implementation contract. Unknown, duplicate, unpinned, version-ambiguous, or digest-mismatched profiles are insufficient_evidence.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "version",
+    "allowedAlgorithms",
+    "algorithmConformanceVectors",
+    "trustAnchors",
+    "keyResolutionContract",
+    "revocationContract",
+    "timeValidationContract",
+    "antiRollbackPolicy",
+    "digest"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-signature-profile-1" },
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "version": { "type": "string", "minLength": 1 },
+    "allowedAlgorithms": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "enum": ["Ed25519", "ES256", "PS256"] },
+      "uniqueItems": true
+    },
+    "algorithmConformanceVectors": {
+      "$comment": "The referenced artifact must contain an executable positive vector for every allowed algorithm and profile-negative vectors for every pinned restriction. ES256 requires high-S and zero/out-of-range R or S rejection; PS256 requires wrong salt length, wrong MGF hash, and undersized-modulus rejection. A suite without complete passing vectors is unavailable in that operational profile.",
+      "$ref": "#/$defs/artifactPointer"
+    },
+    "ed25519Parameters": {
+      "type": "object",
+      "required": ["mode", "encoding", "reference"],
+      "properties": {
+        "mode": { "const": "pure" },
+        "encoding": { "const": "rfc8032_64_octet_signature" },
+        "reference": { "const": "RFC 8032" }
+      },
+      "additionalProperties": false
+    },
+    "es256Parameters": {
+      "type": "object",
+      "required": ["curve", "hash", "encoding", "signerS", "verifierHighS", "reference"],
+      "properties": {
+        "curve": { "const": "P-256" },
+        "hash": { "const": "SHA-256" },
+        "encoding": { "const": "jwa_raw_r_then_s_64_octets" },
+        "signerS": { "const": "low_s_only" },
+        "verifierHighS": { "const": "reject" },
+        "reference": { "const": "RFC 7518 section 3.4 plus this profile's low-S restriction" }
+      },
+      "additionalProperties": false
+    },
+    "ps256Parameters": {
+      "type": "object",
+      "required": ["scheme", "hash", "maskGenerationFunction", "mgfHash", "saltLengthBytes", "minimumModulusBits", "reference"],
+      "properties": {
+        "scheme": { "const": "RSASSA-PSS" },
+        "hash": { "const": "SHA-256" },
+        "maskGenerationFunction": { "const": "MGF1" },
+        "mgfHash": { "const": "SHA-256" },
+        "saltLengthBytes": { "const": 32 },
+        "minimumModulusBits": { "type": "integer", "minimum": 2048 },
+        "reference": { "const": "RFC 7518 section 3.5 and RFC 8017" }
+      },
+      "additionalProperties": false
+    },
+    "trustAnchors": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/artifactPointer" },
+      "uniqueItems": true
+    },
+    "keyResolutionContract": { "oneOf": [{ "$ref": "#/$defs/artifactPointer" }, { "$ref": "#/$defs/keyResolutionPointer" }] },
+    "revocationContract": { "oneOf": [{ "$ref": "#/$defs/artifactPointer" }, { "$ref": "#/$defs/revocationPointer" }] },
+    "timeValidationContract": { "oneOf": [{ "$ref": "#/$defs/artifactPointer" }, { "$ref": "#/$defs/trustedTimePointer" }] },
+    "antiRollbackPolicy": { "oneOf": [{ "$ref": "#/$defs/artifactPointer" }, { "$ref": "#/$defs/antiRollbackPointer" }] },
+    "operationalReference": {
+      "$comment": "A repository reference bundle is never deployment trust. If present, semantic validation must enforce every deployment precondition and reject governance use of the bundled reference keys.",
+      "type": "object",
+      "required": ["classification", "deploymentUse", "externalRekeyRequired", "referenceVerificationTime", "requiredDeploymentEvidence"],
+      "properties": {
+        "classification": { "const": "operational_reference" },
+        "deploymentUse": { "const": "prohibited_until_external_rekey_and_owner_verification" },
+        "externalRekeyRequired": { "const": true },
+        "referenceVerificationTime": { "type": "string", "format": "date-time", "pattern": "Z$" },
+        "requiredDeploymentEvidence": {
+          "type": "array",
+          "minItems": 4,
+          "items": { "enum": ["external_key_custody", "operator_identity_verification", "endpoint_ownership_verification", "role_separation_verification"] },
+          "uniqueItems": true,
+          "allOf": [
+            { "contains": { "const": "external_key_custody" } },
+            { "contains": { "const": "operator_identity_verification" } },
+            { "contains": { "const": "endpoint_ownership_verification" } },
+            { "contains": { "const": "role_separation_verification" } }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "digest": { "$ref": "#/$defs/digest" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "type": "object",
+        "properties": { "allowedAlgorithms": { "type": "array", "contains": { "const": "Ed25519" } } },
+        "required": ["allowedAlgorithms"]
+      },
+      "then": {
+        "type": "object",
+        "properties": { "ed25519Parameters": { "type": "object" } },
+        "required": ["ed25519Parameters"]
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": { "allowedAlgorithms": { "type": "array", "contains": { "const": "ES256" } } },
+        "required": ["allowedAlgorithms"]
+      },
+      "then": {
+        "type": "object",
+        "properties": { "es256Parameters": { "type": "object" } },
+        "required": ["es256Parameters"]
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "properties": { "allowedAlgorithms": { "type": "array", "contains": { "const": "PS256" } } },
+        "required": ["allowedAlgorithms"]
+      },
+      "then": {
+        "type": "object",
+        "properties": { "ps256Parameters": { "type": "object" } },
+        "required": ["ps256Parameters"]
+      }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "artifactPointer": {
+      "type": "object",
+      "required": ["id", "uri", "digest"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+        "uri": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "typedContractPointerBase": {
+      "type": "object",
+      "required": ["contractType", "schemaVersion", "id", "version", "uri", "digest"],
+      "properties": {
+        "contractType": { "type": "string", "minLength": 1 },
+        "schemaVersion": { "type": "string", "minLength": 1 },
+        "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+        "version": { "const": "0.1.0" },
+        "uri": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "keyResolutionPointer": {
+      "allOf": [
+        { "$ref": "#/$defs/typedContractPointerBase" },
+        { "type": "object", "properties": { "contractType": { "const": "key_resolution_and_authorization" }, "schemaVersion": { "const": "agent-eval-key-authorization-contract-1" } } }
+      ]
+    },
+    "revocationPointer": {
+      "allOf": [
+        { "$ref": "#/$defs/typedContractPointerBase" },
+        { "type": "object", "properties": { "contractType": { "const": "revocation_state" }, "schemaVersion": { "const": "agent-eval-revocation-state-contract-1" } } }
+      ]
+    },
+    "trustedTimePointer": {
+      "allOf": [
+        { "$ref": "#/$defs/typedContractPointerBase" },
+        { "type": "object", "properties": { "contractType": { "const": "trusted_time" }, "schemaVersion": { "const": "agent-eval-trusted-time-contract-1" } } }
+      ]
+    },
+    "antiRollbackPointer": {
+      "allOf": [
+        { "$ref": "#/$defs/typedContractPointerBase" },
+        { "type": "object", "properties": { "contractType": { "const": "anti_rollback" }, "schemaVersion": { "const": "agent-eval-anti-rollback-policy-1" } } }
+      ]
+    },
+    "signature": {
+      "$comment": "For ES256, JSON Schema checks only the 64-octet base64url length. Semantic verification must decode R and S, reject zero/out-of-range values, and reject high-S. For PS256 it must enforce all pinned PSS parameters and exact modulus-sized signature bytes.",
+      "type": "object",
+      "required": ["profileId", "algorithm", "keyId", "signedAt", "value"],
+      "properties": {
+        "profileId": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+        "algorithm": { "enum": ["Ed25519", "ES256", "PS256"] },
+        "keyId": { "type": "string", "minLength": 1 },
+        "signedAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
+        "value": { "type": "string", "minLength": 16, "pattern": "^[A-Za-z0-9_-]+$" }
+      },
+      "allOf": [
+        {
+          "if": { "type": "object", "properties": { "algorithm": { "enum": ["Ed25519", "ES256"] } }, "required": ["algorithm"] },
+          "then": { "type": "object", "properties": { "value": { "type": "string", "minLength": 86, "maxLength": 86 } } }
+        },
+        {
+          "if": { "type": "object", "properties": { "algorithm": { "const": "PS256" } }, "required": ["algorithm"] },
+          "then": { "type": "object", "properties": { "value": { "type": "string", "minLength": 342 } } }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

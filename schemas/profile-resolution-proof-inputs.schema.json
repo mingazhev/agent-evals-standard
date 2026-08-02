@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:profile-resolution-proof-inputs:1",
+  "title": "Authenticated inputs for evaluation-profile replacement proofs",
+  "$comment": "This artifact supplies only the parent and child declarations consumed by the distribution-owned PROFILE-001 resolver. It cannot declare a verifier, relation, verdict, preservation result, or strengthening result.",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "profile", "proofInputs"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-profile-resolution-proof-inputs-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "const": "0.1.0" },
+    "profile": {
+      "type": "object",
+      "required": ["id", "version"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "const": "0.1.0" }
+      },
+      "additionalProperties": false
+    },
+    "proofInputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["target", "parent", "child"],
+        "properties": {
+          "target": { "$ref": "#/$defs/jsonPointer" },
+          "parent": { "$ref": "#/$defs/versionedArtifactPointer" },
+          "child": { "$ref": "#/$defs/versionedArtifactPointer" }
+        },
+        "additionalProperties": false
+      },
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "jsonPointer": { "type": "string", "pattern": "^/(?:[^~/]|~0|~1)*(?:/(?:[^~/]|~0|~1)*)*$" },
+    "versionedArtifactPointer": {
+      "type": "object",
+      "required": ["id", "version", "uri", "digest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "minLength": 1 },
+        "uri": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

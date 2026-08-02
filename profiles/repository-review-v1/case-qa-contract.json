@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "repository-review-case-qa-contract-1",
+  "id": "repository-review-case-qa-contract",
+  "version": "0.1.0",
+  "applicableStages": [
+    "author_self_check",
+    "automated_lint",
+    "semantic_review",
+    "independent_qa_result",
+    "control_proofs",
+    "trivial_strategy_battery",
+    "adversarial_exploit_pass",
+    "alternative_valid_result_probe",
+    "pilot_stability"
+  ],
+  "alternativeValidResult": {
+    "independentProducerRequired": true,
+    "referenceAccessAllowed": false,
+    "materialDifferenceDimensions": [
+      "findings",
+      "rationale",
+      "evidence_trace",
+      "disposition"
+    ],
+    "mustPassApplicableValidation": true,
+    "singletonException": {
+      "status": "not_applicable",
+      "requiresAuthenticatedApplicabilityEquivalenceExhaustivenessAndCounterexampleEvidence": true,
+      "requiresCanonicalPassingControl": true,
+      "minimumDistinctFailingNearMissControls": 2,
+      "unknownOrIndeterminate": "reject"
+    }
+  },
+  "mutationControls": {
+    "repositoryWriteAttemptsExpected": 0,
+    "baseAndTerminalTreeMustMatch": true,
+    "workspaceDiffEvidenceAllowed": false
+  },
+  "requiredEvidence": [
+    "material_review_decision",
+    "sealed_substantive_review_oracle_or_blinded_expert_adjudication",
+    "review_decision_vs_assurance_report_discriminator",
+    "repository_read_only_enforcement",
+    "independent_alternative_valid_result_or_proven_singleton_controls",
+    "known_good_and_known_bad_review_controls"
+  ],
+  "unknownOrIndeterminate": "reject"
+}
