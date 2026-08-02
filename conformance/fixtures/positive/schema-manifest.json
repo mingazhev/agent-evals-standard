@@ -20,7 +20,7 @@
       "id": "urn:agent-evals-standard:schema:assurance-observation:1",
       "version": "0.1.0",
       "uri": "schemas/assurance-observation.schema.json",
-      "digest": "sha256:50baff28f4f21469d97f71675d71f2635a8e7e0567d5a914b78149c007ad0709"
+      "digest": "sha256:3f944a2053b73e54c64cb01675a88b1550ba3006dcd3bae41149f21f5963c730"
     },
     {
       "id": "urn:agent-evals-standard:schema:attempt-checkpoint:1",
@@ -56,7 +56,7 @@
       "id": "urn:agent-evals-standard:schema:conformance-statement:1",
       "version": "0.1.0",
       "uri": "schemas/conformance-statement.schema.json",
-      "digest": "sha256:7b8089a28405e99f0600bfbf3189096328c739b15e9fa6f7050964ec07da8052"
+      "digest": "sha256:0026dd1f3ead64e8d18c9fb44b50cb628b2499e243925fbedf1186e7028f9c19"
     },
     {
       "id": "urn:agent-evals-standard:schema:distribution-manifest:1",
@@ -86,7 +86,7 @@
       "id": "urn:agent-evals-standard:schema:escalation-event:1",
       "version": "0.1.0",
       "uri": "schemas/escalation-event.schema.json",
-      "digest": "sha256:9fa22396d00a0b86fd84837f53181e6927289c6e94f091720a4a8688e3c5f73d"
+      "digest": "sha256:6652f1ee5281f4e46523e38524cdedc06ebe21b5a350ed546a47809c3440e29e"
     },
     {
       "id": "urn:agent-evals-standard:schema:evaluation-control-authority-evidence:1",
@@ -134,19 +134,19 @@
       "id": "urn:agent-evals-standard:schema:governance-decision:1",
       "version": "0.1.0",
       "uri": "schemas/governance-decision.schema.json",
-      "digest": "sha256:a8a7e85eb4fd87f8a01905fcadfc81a5b636d9318c3df56ee8c98dc21483a776"
+      "digest": "sha256:e86cb029c0766a74b38e4656bc63c0574b627716302a05c3bbd9272aa57acafe"
     },
     {
       "id": "urn:agent-evals-standard:schema:governance-resolution-ledger:1",
       "version": "0.1.0",
       "uri": "schemas/governance-resolution-ledger.schema.json",
-      "digest": "sha256:e88297006490769070f8c4fd125a11711c4e734dca4cfee446f37acfe0bfc354"
+      "digest": "sha256:8926121fdb1c163a63626122c1c7b4b5dfd5ed2ef749b038089e8fadbe9f8261"
     },
     {
       "id": "urn:agent-evals-standard:schema:governance-resolution:1",
       "version": "0.1.0",
       "uri": "schemas/governance-resolution.schema.json",
-      "digest": "sha256:9f3da8ab0b0383aa2bf3296bb481ad427defd03ffbd9ffd2b94a5272a4088196"
+      "digest": "sha256:a228ef35de2457ae20b01821b8d4ceafc821dd5535f6599792f45f80b7f589fb"
     },
     {
       "id": "urn:agent-evals-standard:schema:grader-validation:1",
@@ -407,5 +407,5 @@
       "digest": "sha256:391e6dc98e4753b01bc8b160891eee65cedb340bc083bc42a856b4c268637cce"
     }
   ],
-  "entriesDigest": "sha256:06d19eb90deaf0981e7aaa26507818f3c7033bb4644cda4525ee12fa0cc9b8c3"
+  "entriesDigest": "sha256:c39471f087ec988fc87eb54ec440fb4e410d6647a409a0487ee0e5b7996c83d8"
 }

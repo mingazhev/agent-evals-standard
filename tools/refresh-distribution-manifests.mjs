@@ -28,6 +28,11 @@ async function filesWithExtensions(directory, extensions) {
 async function entryFor(absolute, kind) {
   const bytes = await readFile(absolute);
   const relativeUri = path.relative(root, absolute).split(path.sep).join("/");
+  if (bytes.includes(0x0d)) {
+    throw new Error(
+      `manifest source must use LF-only bytes; normalize ${relativeUri} before generating the distribution`
+    );
+  }
   const isJson = absolute.endsWith(".json");
   const document = isJson ? JSON.parse(bytes.toString("utf8")) : null;
   const id = isJson

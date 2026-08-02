@@ -76,11 +76,18 @@ for (let pass = 1; pass <= maximumPasses; pass += 1) {
   for (const generator of generators) {
     const invocation = [generator.script, ...(generator.args ?? [])];
     process.stdout.write(`==> ${invocation.join(" ")}\n`);
-    const result = spawnSync(process.execPath, invocation, {
-      cwd: root,
-      encoding: "utf8",
-      stdio: "inherit"
-    });
+    let result;
+    for (let attempt = 1; attempt <= 4; attempt += 1) {
+      result = spawnSync(process.execPath, invocation, {
+        cwd: root,
+        encoding: "utf8",
+        stdio: "inherit"
+      });
+      if (!result.error && result.status === 0) break;
+      if (attempt < 4) {
+        process.stderr.write(`${invocation.join(" ")} failed; retrying (${attempt}/3)\n`);
+      }
+    }
     if (result.error) throw result.error;
     if (result.status !== 0) {
       process.stderr.write(`${invocation.join(" ")} failed with exit code ${result.status}\n`);

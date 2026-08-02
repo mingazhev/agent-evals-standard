@@ -289,7 +289,7 @@
         "artifactVersion": "0.1.0",
         "schemaId": "urn:agent-evals-standard:schema:pre-run-manifest:1",
         "identityProjection": "full_document_without_evaluation_control_bindings_digest_signature",
-        "digest": "sha256:b56f24539a2dd5d149b78debdf3f447fe4a5537e2fa698caaf937c8abe32eb2c"
+        "digest": "sha256:6a731b74b84df5faa98b1ad463bf8699d7a7fc925f0ec4737b9f516843ad0195"
       },
       "scopeDigest": "sha256:b3a4730a593b3a244a73837238238ac3617ba485b10604bdaea505fd0830eb0c",
       "minimumLedgerSequence": 1,

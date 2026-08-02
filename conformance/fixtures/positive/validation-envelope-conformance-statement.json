@@ -5,13 +5,13 @@
     "type": "conformance_statement",
     "id": "conformance-decision-fixture-1",
     "claimTarget": "decision",
-    "digest": "sha256:2714cb2bf2d6b0c1936750e867c19c0f3d3144e9650ce8cade8e13276ebe8a1a",
+    "digest": "sha256:4a726d5e6b39225cb16ee30037ab2325a874974c00662c6248ee031caea3c2cf",
     "projection": "full_document_without_digest_and_signature",
     "targetSubject": {
       "id": "governance-decision-fixture-1",
       "version": "0.1.0",
       "uri": "governance-decision.json",
-      "digest": "sha256:d3065afbedb22f0e988747bb92bff3db5d9ff2e00bfc515fcb8f365c0f46634c"
+      "digest": "sha256:583007784bea94c30e3cb5ad4b57948bd7d092b604d0d47125d445cb2edea7f3"
     },
     "dependencyManifest": {
       "id": "conformance-decision-target-dependencies",
@@ -22,7 +22,7 @@
           "id": "governance-decision-fixture-1",
           "version": "0.1.0",
           "uri": "governance-decision.json",
-          "digest": "sha256:d3065afbedb22f0e988747bb92bff3db5d9ff2e00bfc515fcb8f365c0f46634c"
+          "digest": "sha256:583007784bea94c30e3cb5ad4b57948bd7d092b604d0d47125d445cb2edea7f3"
         },
         {
           "role": "repository_snapshot",
@@ -96,7 +96,7 @@
           "digest": "sha256:c6af0e5a359b6f29b05db203697264875d0d581abc1d6f551c65e78d80e92026"
         }
       ],
-      "digest": "sha256:d97e915651cb530b38e8e0d7f4c91cf97b043330344e869baed8f728697fbda1"
+      "digest": "sha256:947e2bf218edc872508d8d4d717e1c8e710eaa65bff65a62d341c97d8c1e42b7"
     }
   },
   "validationContractVersion": "0.1.0",
@@ -313,7 +313,7 @@
       "id": "repository-grounding-primary",
       "uri": "repository-grounding-primary.json",
       "mediaType": "application/json",
-      "digest": "sha256:c465c72aca928de17f463eaafd3236f01000450563065905b428747bc1d7623a",
+      "digest": "sha256:9395cdf2dc201fbb66a45d5b8047a3d35a24bf2abc85c0b137657d2c2f533c73",
       "byteLength": 4185,
       "producer": {
         "id": "repository-grounding-verifier",
@@ -357,7 +357,7 @@
         "algorithm": "Ed25519",
         "keyId": "rfc8032-test-key-1",
         "signedAt": "2026-08-01T00:00:21Z",
-        "value": "oGaQoLBBkHNqavSoxvoTcDv6PpQthC-R0s8Nya__z8MFH8-uc0JFo72cb_EXRoHeiFLNnvMh5dUd8aJu-rFkDw"
+        "value": "TRGrkG1j9wtjGxSV1pZmo0Md3eSb9CC9stKuwMl058DnSjciCVcQI2rg_TyrUAbnCc2kS9pQ2V_NUHNOu0D0Aw"
       },
       "payload": {
         "kind": "repository_relative",
@@ -368,7 +368,7 @@
       "id": "repository-grounding-secondary",
       "uri": "repository-grounding-secondary.json",
       "mediaType": "application/json",
-      "digest": "sha256:2dcd4b89a54928a02a3e4a49c45d8a9d5e192d92c841ec865b1ea022626505cc",
+      "digest": "sha256:49642c39bb74c5791a84b961ca8b1f66fda4badf44e2252089c6ae9f2277a0a3",
       "byteLength": 4199,
       "producer": {
         "id": "repository-grounding-verifier",
@@ -412,7 +412,7 @@
         "algorithm": "Ed25519",
         "keyId": "rfc8032-test-key-1",
         "signedAt": "2026-08-01T00:00:22Z",
-        "value": "foHGrMKiy4IuC6-1W_e3OpmWaFPoldwI31M5emQBW5qY2JjAXha5L_1Plf4NtZAy3QGWAp7HT6SOSPTY4XcFDw"
+        "value": "Fq6_IVnqPKvg5P_Y4hyX25vQwgaLdPngCvVTc5vvsApAdLCD3O_SzvQnxtF3fMBTqj3LXT-BP-dzYwgz7jNKAA"
       },
       "payload": {
         "kind": "repository_relative",
@@ -431,6 +431,6 @@
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:30Z",
-    "value": "PEdoGQKBOPdXmNk_5gIPXYX0gjMYis23IMjfV0t3clECEXeNZKQG4td8rtlnuZGuTmRcd4pCOxOrU81rl14vAQ"
+    "value": "0s1g4DYhnxkaomdo1TwmZ8ByBPqaLtAHHSm6bxhdUppFnq8PFvumqI_nH_jpSQdeffhLkJvycPS_yAy3SJDGBQ"
   }
 }

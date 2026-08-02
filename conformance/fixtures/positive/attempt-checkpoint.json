@@ -6,12 +6,12 @@
   "scheduledSetCommitment": {
     "id": "pre-run-manifest-fixture-1",
     "uri": "pre-run-manifest.json",
-    "digest": "sha256:49995c31d137be228939cf3c4b3b118232788b9cf22effeceb82ebf95a9aa5ab"
+    "digest": "sha256:a1a7dd8293b039703fc5c23c073e043f7deba32ff6430c803fb8ff98f2d1c10e"
   },
   "ledger": {
     "id": "attempt-ledger",
     "uri": "attempt-ledger.json",
-    "digest": "sha256:4301b273a91ef94e349f2bcf0636f652d06f83b952f8051c0f6e129d30eebaed"
+    "digest": "sha256:46da35a6e4817dda92741c3c4c673014745ee5da71aa424e62a2f49e0849a12b"
   },
   "issuer": {
     "id": "fixture-independent-scheduler",
@@ -31,38 +31,38 @@
     {
       "sequence": 1,
       "experimentId": "experiment-fixture-1",
-      "scheduledSetCommitmentDigest": "sha256:49995c31d137be228939cf3c4b3b118232788b9cf22effeceb82ebf95a9aa5ab",
+      "scheduledSetCommitmentDigest": "sha256:a1a7dd8293b039703fc5c23c073e043f7deba32ff6430c803fb8ff98f2d1c10e",
       "attemptId": "attempt-fixture-1",
       "cellId": "cell-fixture-1",
       "parentAttemptId": null,
       "startedAt": "2026-08-01T01:01:00Z",
       "previousReceiptDigest": null,
-      "receiptDigest": "sha256:ef4c2d2032098471bdb18c32eebc1a609f2e6ddf90f15a9188ed210dae1f39fe",
+      "receiptDigest": "sha256:f099eee4d74a21658e7af52fe797ec36fa76885450661c312bb58d10d69d1f2b",
       "signature": {
         "profileId": "fixture-independent-scheduler-profile",
         "algorithm": "Ed25519",
         "keyId": "rfc8032-test-key-2-scheduler",
         "signedAt": "2026-08-01T01:01:00Z",
-        "value": "FVpie-s3SPd0aHNklD3NeaipX4Pr9Ibs5hhn-egEIR0YzmVhhm8n1i8Wabr_lgg80jsgnXzw-eRT0p2tN9fsDA"
+        "value": "FijkAqblXdhorhApqdWBNliA7m2IU3XjHDjEOwqW2sg-0uRyLdIFpMzC4Qx6rsQX2YUCydkRbGrgbhEi4mChAw"
       }
     }
   ],
   "terminalBinding": {
     "receiptCount": 1,
-    "terminalReceiptDigest": "sha256:ef4c2d2032098471bdb18c32eebc1a609f2e6ddf90f15a9188ed210dae1f39fe",
+    "terminalReceiptDigest": "sha256:f099eee4d74a21658e7af52fe797ec36fa76885450661c312bb58d10d69d1f2b",
     "orderedAttemptIdsDigest": "sha256:bcbe819277ea440b03bcba000ba7216735119d5bd5b22fe8158c3471dc35a78e",
     "attemptRecordsDigest": "sha256:f168c01c2d38da0985d6bafc16add87c03722c0028d31f0ddd67c58643fd89aa",
-    "initialLedgerRoot": "sha256:47dc675e966705715a137261567110572d989cc08dc67ff160bb00f08fd430fd",
-    "terminalLedgerRoot": "sha256:6cc4b7968e195746e2803d26234d1d37746aa2540000e39d794c38e4c9f55687",
+    "initialLedgerRoot": "sha256:6185c1be28edf5cabc213b77aa16ffa1482f863a4f2318fa730683d5bec0d088",
+    "terminalLedgerRoot": "sha256:245d89bc586a1c627f19926280af21145f45c4ba84951ebfb3f0357ea003b654",
     "closedAt": "2026-08-01T01:03:00Z"
   },
   "issuedAt": "2026-08-01T01:03:01Z",
-  "digest": "sha256:ffbe55553f09e1628fe14ec34b77b9c71bc0664c72c6352dc21b8c8397c5184d",
+  "digest": "sha256:2844901157cafc75798f905dd1829e1df0d8846a987555e1526522b05d748acc",
   "signature": {
     "profileId": "fixture-independent-scheduler-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-2-scheduler",
     "signedAt": "2026-08-01T01:03:01Z",
-    "value": "-ksB_YOyhPshwsIIBpjTIiHVhMB7NR-aSZ6KTbBRuo5tyvaiAm5ibVJIzPp0AUEsjcOg1DPEpVVi-SZj2H1LCg"
+    "value": "V_g0pev3-QsPOPDMx2QBbW1LocKBjhyc3DRVv523JueQEjgyopXzFLQmVd8Q-zfv2sK2gdAe41kPQgT1Jw5-Ag"
   }
 }

@@ -224,7 +224,7 @@
       "id": "normative-prose:standard/case-qa-playbook.md",
       "version": "0.1.0",
       "uri": "standard/case-qa-playbook.md",
-      "digest": "sha256:b961a7548fbb26369b89d7daa5da429915998427ef4dbb47f22a54701a617a9a"
+      "digest": "sha256:a2d2ee7adf1562557e81932a72bb2fddf563c15a1673046b502586fe266a07f9"
     },
     {
       "id": "normative-prose:standard/conformance.md",
@@ -242,7 +242,7 @@
       "id": "normative-prose:standard/escalation-stop-matrix.md",
       "version": "0.1.0",
       "uri": "standard/escalation-stop-matrix.md",
-      "digest": "sha256:0b8d5feb22f05b37ee9dbb7f5609259ec659224a6bd087692b9ad68067d05fd0"
+      "digest": "sha256:cacf9846037dd59c41096be3b17538d1b7a259149457b12e1db30c94aa0574c4"
     },
     {
       "id": "normative-prose:standard/evidence-and-validation-contract.md",
@@ -260,13 +260,13 @@
       "id": "normative-prose:standard/governance-policy.md",
       "version": "0.1.0",
       "uri": "standard/governance-policy.md",
-      "digest": "sha256:82d03cc67a24dc28498ccc4cfcc149956df61f07df113951b6512209aa9d2635"
+      "digest": "sha256:17a7c2571bd04f1922444b74d898f6d9afa68fce3678f3b1554e7467aaa882aa"
     },
     {
       "id": "normative-prose:standard/integrity-and-semantic-validation.md",
       "version": "0.1.0",
       "uri": "standard/integrity-and-semantic-validation.md",
-      "digest": "sha256:56d0b8e0214ca1386aa5923f47770de406aa2c54fdc130b1538c747ece87a4c2"
+      "digest": "sha256:811d07b8d300e02979a5e79346f727f6002a5e55c10afec6082371a1cfdf2a95"
     },
     {
       "id": "agent-evals-standard-outcome-replay-executors",
@@ -347,5 +347,5 @@
       "digest": "sha256:151684e0e5c35023ec07d6f4554ebedb9ecd4e52ef7738bd77c1eb31c95053c7"
     }
   ],
-  "entriesDigest": "sha256:1f3f8daf0a881882dc4f7cdc2eb490f5ccfe822c6c30f858440409cd033a67d1"
+  "entriesDigest": "sha256:bbf755519598efab0ef0212a8ec5163c17fc86469dbdb687bcd855653c437cf9"
 }

@@ -118,9 +118,22 @@ function seal(document, identity, signedAt) {
   return result;
 }
 
+async function writeFileWithRetry(absolute, bytes) {
+  const retryable = new Set(["EBUSY", "EPERM", "UNKNOWN"]);
+  for (let attempt = 0; attempt < 8; attempt += 1) {
+    try {
+      await writeFile(absolute, bytes);
+      return;
+    } catch (error) {
+      if (!retryable.has(error?.code) || attempt === 7) throw error;
+      await new Promise((resolve) => setTimeout(resolve, 25 * (2 ** attempt)));
+    }
+  }
+}
+
 async function writeJson(absolute, value) {
   const bytes = Buffer.from(JSON.stringify(value, null, 2) + "\n", "utf8");
-  await writeFile(absolute, bytes);
+  await writeFileWithRetry(absolute, bytes);
   return { absolute, bytes, digest: sha256(bytes), byteLength: bytes.length, document: value };
 }
 
@@ -769,7 +782,7 @@ async function buildScopeGraphVariant(name, mutation) {
     "stage-case-2.json"
   ];
   for (const filename of inheritedArtifacts) {
-    await writeFile(path.join(directory, filename), await readFile(path.join(positive, filename)));
+    await writeFileWithRetry(path.join(directory, filename), await readFile(path.join(positive, filename)));
   }
   const preRun = structuredClone(preRunStageBase);
   const statisticalPlan = structuredClone(statisticalPlanArtifact.document);

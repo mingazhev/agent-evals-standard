@@ -21,7 +21,7 @@
     "id": "evaluator-manifest-fixture-1",
     "version": "0.1.0",
     "uri": "evaluator-manifest.json",
-    "digest": "sha256:1d84d720098e2167be7fa5858f6c313d92edc403103ab5d4b4a720eaff35ee2b"
+    "digest": "sha256:53fd8681ad1555e14db426955755250b5e0177bd933919f55cf32659409e2467"
   },
   "assuranceLevel": "A1",
   "runMode": "evaluation",
@@ -196,13 +196,13 @@
     "digest": "sha256:a1da9a3933951d7e27b03cea8ef0414770bc233c0edc04665daa520fc3d57055"
   },
   "extensions": [],
-  "digest": "sha256:49995c31d137be228939cf3c4b3b118232788b9cf22effeceb82ebf95a9aa5ab",
+  "digest": "sha256:a1a7dd8293b039703fc5c23c073e043f7deba32ff6430c803fb8ff98f2d1c10e",
   "signature": {
     "profileId": "fixture-signature-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T01:00:07Z",
-    "value": "y-O0sa51gdLhnQjVPWJJ5alpqyD6fKgo8sT_eZ742mSWJEoUqF-Bsd2fa4QoiDr74wj8-Uu6neTVLCewTePPCQ"
+    "value": "wxh4lRD6FGLiiTCqGlqRUV0U4In5TNifBtfH07ujFbU3LQI0DqcuLIrV41Oo557H5mkeMOLh_JqyJssxnhz6AA"
   },
   "signatureProfile": {
     "id": "fixture-signature-profile",
@@ -222,8 +222,8 @@
     "id": "evaluation-control-bindings-v1",
     "version": "0.1.0",
     "schemaId": "urn:agent-evals-standard:schema:evaluation-control-bindings:1",
-    "uri": "artifact:sha256:9a2824ae552c78e48d6b0c0cd18f5c48c40ca552e1df435d260877bc77824ed9",
-    "digest": "sha256:9a2824ae552c78e48d6b0c0cd18f5c48c40ca552e1df435d260877bc77824ed9",
+    "uri": "artifact:sha256:e22f19ecd5aa440e71a2f9de5d41439d49e76a6e2edcfb7d337df73e04e31b68",
+    "digest": "sha256:e22f19ecd5aa440e71a2f9de5d41439d49e76a6e2edcfb7d337df73e04e31b68",
     "byteLength": 14597,
     "mediaType": "application/json",
     "locator": {

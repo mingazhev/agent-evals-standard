@@ -10,15 +10,15 @@
     "id": "standard-contract-manifest",
     "version": "0.1.0",
     "uri": "contract-manifest.json",
-    "digest": "sha256:4fa8b12e744a40a4fd36ef7c784b84fdb6d344211b4bc9d7b5bc650c89c1b915",
-    "entriesDigest": "sha256:1f3f8daf0a881882dc4f7cdc2eb490f5ccfe822c6c30f858440409cd033a67d1"
+    "digest": "sha256:769c9fed47ff9ac417d477850dd6f6fc1faeb4d32e28dcb1dd19e47de94a46b2",
+    "entriesDigest": "sha256:bbf755519598efab0ef0212a8ec5163c17fc86469dbdb687bcd855653c437cf9"
   },
   "schemas": {
     "id": "standard-schema-manifest",
     "version": "0.1.0",
     "uri": "schema-manifest.json",
-    "digest": "sha256:200f3303a121e5ccf3d2502a6603cf6769d972f865d11ffbca4e88c33bfb5796",
-    "entriesDigest": "sha256:06d19eb90deaf0981e7aaa26507818f3c7033bb4644cda4525ee12fa0cc9b8c3"
+    "digest": "sha256:359f92cddcdafcf160f6ec6afb503b7973c5b6d17cf7562c5a985b0cd0379d74",
+    "entriesDigest": "sha256:c39471f087ec988fc87eb54ec440fb4e410d6647a409a0487ee0e5b7996c83d8"
   },
   "validatorCapabilities": {
     "draft": "2020-12",
@@ -159,7 +159,7 @@
         "id": "governance-decision-fixture-1",
         "version": "0.1.0",
         "uri": "governance-decision.json",
-        "digest": "sha256:d3065afbedb22f0e988747bb92bff3db5d9ff2e00bfc515fcb8f365c0f46634c"
+        "digest": "sha256:583007784bea94c30e3cb5ad4b57948bd7d092b604d0d47125d445cb2edea7f3"
       },
       "dependencyManifest": {
         "id": "conformance-decision-target-dependencies",
@@ -170,7 +170,7 @@
             "id": "governance-decision-fixture-1",
             "version": "0.1.0",
             "uri": "governance-decision.json",
-            "digest": "sha256:d3065afbedb22f0e988747bb92bff3db5d9ff2e00bfc515fcb8f365c0f46634c"
+            "digest": "sha256:583007784bea94c30e3cb5ad4b57948bd7d092b604d0d47125d445cb2edea7f3"
           },
           {
             "role": "repository_snapshot",
@@ -244,7 +244,7 @@
             "digest": "sha256:c6af0e5a359b6f29b05db203697264875d0d581abc1d6f551c65e78d80e92026"
           }
         ],
-        "digest": "sha256:d97e915651cb530b38e8e0d7f4c91cf97b043330344e869baed8f728697fbda1"
+        "digest": "sha256:947e2bf218edc872508d8d4d717e1c8e710eaa65bff65a62d341c97d8c1e42b7"
       },
       "verdict": "not_claimed",
       "requirementResults": [
@@ -657,7 +657,7 @@
       "id": "repository-grounding-primary",
       "uri": "repository-grounding-primary.json",
       "mediaType": "application/json",
-      "digest": "sha256:c465c72aca928de17f463eaafd3236f01000450563065905b428747bc1d7623a",
+      "digest": "sha256:9395cdf2dc201fbb66a45d5b8047a3d35a24bf2abc85c0b137657d2c2f533c73",
       "byteLength": 4185,
       "producer": {
         "id": "repository-grounding-verifier",
@@ -701,7 +701,7 @@
         "algorithm": "Ed25519",
         "keyId": "rfc8032-test-key-1",
         "signedAt": "2026-08-01T00:00:21Z",
-        "value": "oGaQoLBBkHNqavSoxvoTcDv6PpQthC-R0s8Nya__z8MFH8-uc0JFo72cb_EXRoHeiFLNnvMh5dUd8aJu-rFkDw"
+        "value": "TRGrkG1j9wtjGxSV1pZmo0Md3eSb9CC9stKuwMl058DnSjciCVcQI2rg_TyrUAbnCc2kS9pQ2V_NUHNOu0D0Aw"
       },
       "payload": {
         "kind": "repository_relative",
@@ -712,7 +712,7 @@
       "id": "repository-grounding-secondary",
       "uri": "repository-grounding-secondary.json",
       "mediaType": "application/json",
-      "digest": "sha256:2dcd4b89a54928a02a3e4a49c45d8a9d5e192d92c841ec865b1ea022626505cc",
+      "digest": "sha256:49642c39bb74c5791a84b961ca8b1f66fda4badf44e2252089c6ae9f2277a0a3",
       "byteLength": 4199,
       "producer": {
         "id": "repository-grounding-verifier",
@@ -756,7 +756,7 @@
         "algorithm": "Ed25519",
         "keyId": "rfc8032-test-key-1",
         "signedAt": "2026-08-01T00:00:22Z",
-        "value": "foHGrMKiy4IuC6-1W_e3OpmWaFPoldwI31M5emQBW5qY2JjAXha5L_1Plf4NtZAy3QGWAp7HT6SOSPTY4XcFDw"
+        "value": "Fq6_IVnqPKvg5P_Y4hyX25vQwgaLdPngCvVTc5vvsApAdLCD3O_SzvQnxtF3fMBTqj3LXT-BP-dzYwgz7jNKAA"
       },
       "payload": {
         "kind": "repository_relative",
@@ -821,6 +821,6 @@
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:27Z",
-    "value": "mfvrdc97pA5yjmB7TC1G6ht2j4d2s6Sh4VHg2Nq7wKMh7C2FF1aT03DSI_I1fs1sCSnUe9s1_1WMrg9uuT2RAg"
+    "value": "d5U_HWpbycjfiBdvL5MI8Hk1QqYLEmk1yxXG4N8srUcyYjooNDPk9BUxAdohAOydBGe5Kop8Pou3L5B8dnoiAQ"
   }
 }

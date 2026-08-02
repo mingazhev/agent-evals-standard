@@ -21,7 +21,7 @@
     "id": "evaluator-manifest-fixture-1",
     "version": "0.1.0",
     "uri": "../../positive/evaluator-manifest.json",
-    "digest": "sha256:1d84d720098e2167be7fa5858f6c313d92edc403103ab5d4b4a720eaff35ee2b"
+    "digest": "sha256:53fd8681ad1555e14db426955755250b5e0177bd933919f55cf32659409e2467"
   },
   "assuranceLevel": "A1",
   "runMode": "evaluation",
@@ -444,8 +444,8 @@
     "id": "evaluation-control-bindings-v1",
     "version": "0.1.0",
     "schemaId": "urn:agent-evals-standard:schema:evaluation-control-bindings:1",
-    "uri": "artifact:sha256:9a4317aadf9083057a75c1030bd9eddde96b9d18d66f03b875257f00bb052688",
-    "digest": "sha256:9a4317aadf9083057a75c1030bd9eddde96b9d18d66f03b875257f00bb052688",
+    "uri": "artifact:sha256:8d77e7a19ed5b6b7a7ea052bd0a3e726d3ec1561680f7f79f15bfebcd807c84f",
+    "digest": "sha256:8d77e7a19ed5b6b7a7ea052bd0a3e726d3ec1561680f7f79f15bfebcd807c84f",
     "byteLength": 14621,
     "mediaType": "application/json",
     "locator": {
@@ -487,12 +487,12 @@
       "policyDigest": "sha256:b29e42e61605ba520a84839a71402698d8656d0f0fc29fb98fca210d4198b9e6"
     }
   },
-  "digest": "sha256:e2d96363eea14ecfabe9f91d5b87491bf629efe4e5bd391b13f5f3aad46940d4",
+  "digest": "sha256:e66a755f51e0348207300964b29ed4a325a97f2307d8968ddae6e892c753ec0b",
   "signature": {
     "profileId": "fixture-claimant-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1-claimant",
     "signedAt": "2026-08-01T01:05:00Z",
-    "value": "BbBO9DwPuJsamA_hkcLAXNGG_XIx40qr9vbvay-ciMvZ9xieybxB40YItyVXm3pZE46juAm815JtkOkv4rAEDQ"
+    "value": "mpq309UNnOTaR4bjcTDfZcUk4FJd8Hdrt0gZz7lOcAdn8pGhrZS0JDUjJ1xvGkjuAmJGuzGL_sX11DiX2LXoCg"
   }
 }

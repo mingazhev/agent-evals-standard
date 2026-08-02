@@ -30,7 +30,7 @@
     {
       "id": "scorecard-fixture-1",
       "location": "artifact:fixture:scorecard-fixture-1",
-      "digest": "sha256:2d9ac4c42f92edb3e7f85df86c2fc88a579c9d041bfe184f21bb2b680d386e82"
+      "digest": "sha256:c4e85f6ae9418c7a4ca1bf654b58cfc2b9d60a39ef0680bbe12555811e67c96f"
     }
   ],
   "resolutionLedger": {
@@ -132,6 +132,6 @@
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:26Z",
-    "value": "hKVTFUJL5Mo-IVhsjZDdIDMrhtqvE4YuIaMgdVD4cCG-frBIo_gXiwJo5CViIvcHlvVTgOzdjGmAlZqOK2kBDw"
+    "value": "0NqqzusLHrG6BkCovYz44fp_k_xghTAyif8W9s73wuMZ5fJBAITEXvOTvLqtVxCu4QJpc8WROrs-jd7LOPhvBQ"
   }
 }
