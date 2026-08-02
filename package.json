@@ -1,0 +1,24 @@
+{
+  "name": "agent-evals-standard",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node tools/check-repository.mjs",
+    "generate": "node tools/refresh-all-generated-artifacts.mjs",
+    "check:generated": "node tools/check-generated-artifacts.mjs",
+    "test:profile-requirement-routing": "node tools/verify-profile-requirement-routing-vectors.mjs",
+    "test:profile-resolution-contracts": "node tools/verify-profile-resolution-contract-vectors.mjs",
+    "test:profile-fixture-execution": "node tools/verify-profile-fixture-execution-vectors.mjs",
+    "test:case-qa": "node tools/verify-case-qa-record-vectors.mjs",
+    "test:assurance-policy": "node tools/verify-assurance-policy-vectors.mjs",
+    "test:profile-trust-binding": "node tools/verify-profile-trust-binding-vectors.mjs",
+    "test:source-evidence": "node tools/validate-fixtures.mjs --group source-evidence",
+    "test": "node tools/check-repository.mjs && node tools/verify-profile-requirement-routing-vectors.mjs && node tools/verify-profile-resolution-contract-vectors.mjs && node tools/verify-profile-fixture-execution-vectors.mjs && node tools/verify-case-qa-record-vectors.mjs && node tools/verify-assurance-policy-vectors.mjs && node tools/verify-profile-trust-binding-vectors.mjs && node tools/verify-environment-read-only.mjs && node tools/verify-risk-assessment-chain.mjs && node tools/verify-machine-contract-bindings.mjs && node tools/verify-validation-envelope-aggregate.mjs && node tools/verify-evaluator-controls.mjs && node tools/verify-case-validation-strategy.mjs && node tools/verify-workspace-boundary-vectors.mjs && node tools/verify-conformance-target-composition.mjs && node tools/verify-conformance-scope-binding-vectors.mjs && node tools/verify-repo-change-bound-verification-vectors.mjs && node tools/verify-distribution-manifest-vectors.mjs && node tools/verify-outcome-replay-vectors.mjs && node tools/run-grounding-hardening-vectors.mjs && node tools/verify-material-integrity.mjs conformance/fixtures/material-integrity/vectors.json && node tools/verify-fixture-evidence-materiality.mjs && node tools/run-production-derived-authority-vectors.mjs && node tools/validate-fixtures.mjs && node tools/verify-noncircular-conformance-proofs.mjs && node profiles/repo-change-v1/verify-signature-vectors.mjs && node profiles/repo-change-v1/verify-operational-trust.mjs && node profiles/repository-review-v1/verify-profile.mjs",
+    "release:check": "npm run check:generated && npm test && node tools/check-publication-readiness.mjs"
+  },
+  "devDependencies": {
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1"
+  }
+}

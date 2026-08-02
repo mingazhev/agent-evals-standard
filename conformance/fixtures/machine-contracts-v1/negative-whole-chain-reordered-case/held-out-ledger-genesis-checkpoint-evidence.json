@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "agent-eval-evaluation-control-authority-evidence-1",
+  "id": "held-out-ledger-genesis-checkpoint-v1",
+  "version": "0.1.0",
+  "evidenceKind": "held_out_ledger_checkpoint",
+  "subject": {
+    "schemaId": "urn:agent-evals-standard:schema:held-out-exposure-ledger:1",
+    "id": "held-out-exposure-ledger-genesis-v1",
+    "version": "0.1.0",
+    "projection": "full_document_without_checkpoint_evidence",
+    "digest": "sha256:d1060a0f216fbaacb209a28a1125216a78f48912f3c52e65b8e8e0e46c0d1c84"
+  },
+  "decision": "sealed",
+  "checkpoint": {
+    "ledgerSequence": 0,
+    "previousLedgerDigest": null,
+    "previousCheckpointDigest": null,
+    "logBinding": {
+      "logId": "fixture-held-out-ledger-log",
+      "checkpointSequence": 0
+    }
+  },
+  "actor": {
+    "id": "fixture-held-out-ledger-custodian",
+    "role": "held_out_ledger_custodian",
+    "trustDomain": "independent_scheduler"
+  },
+  "issuedAt": "2026-08-01T00:40:00Z",
+  "authorityPolicy": {
+    "id": "fixture-evaluation-control-authority-policy",
+    "version": "0.1.0",
+    "digest": "sha256:b29e42e61605ba520a84839a71402698d8656d0f0fc29fb98fca210d4198b9e6"
+  },
+  "digest": "sha256:f8d14c0d578402f35246de4902e59f4b508ae5dbde8549313366fcca5a495703",
+  "signature": {
+    "profileId": "fixture-held-out-ledger-checkpoint-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-2-ledger-custodian",
+    "signedAt": "2026-08-01T00:40:00Z",
+    "value": "EPSjpxkSbDiwI_0dv74xtQg6DxhYK7qYloS7-irEoex55xeiVOd5-iChXMuwzcwf99lXnM6emwW00iPPhoV4BQ"
+  }
+}

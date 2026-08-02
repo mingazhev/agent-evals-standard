@@ -1,0 +1,7 @@
+{
+  "profileId": "fixture-signature-profile",
+  "algorithm": "Ed25519",
+  "keyId": "rfc8032-test-key-1",
+  "signedAt": "2026-08-01T00:00:00Z",
+  "value": "zc7x-NnzQFgCzE8PHAYqyW8NRw2QZfOA_DPqavSX8KC7mNoFvmS3QhuEsX0tQON4M4xoGYleO4YFHVhZT_UDAg"
+}

@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:repo-change-adjudication-record:1",
+  "title": "Independent adjudication record for repository-SDLC outcome evidence",
+  "$comment": "The outcome executor binds protocol exactly to the arm's sealed graderSet and semantically verifies the JUDGE-003 rater, blinding, qualification, conflict, reason, presentation-order, and agreement invariants.",
+  "type": "object",
+  "required": [
+    "schemaVersion", "id", "version", "experimentId", "caseId", "cellId", "attemptId", "armId",
+    "workspaceManifestDigest", "workspaceRootDigest", "subjectKind", "subjectDigest", "factProjectionDigest",
+    "protocol", "presentation", "raters", "agreement", "overallVerdict"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-repo-change-adjudication-record-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "const": "0.1.0" },
+    "experimentId": { "$ref": "#/$defs/id" },
+    "caseId": { "$ref": "#/$defs/id" },
+    "cellId": { "$ref": "#/$defs/id" },
+    "attemptId": { "$ref": "#/$defs/id" },
+    "armId": { "$ref": "#/$defs/id" },
+    "workspaceManifestDigest": { "$ref": "#/$defs/digest" },
+    "workspaceRootDigest": { "$ref": "#/$defs/digest" },
+    "subjectKind": { "enum": ["workspace_diff", "registered_alternative_terminal_evidence"] },
+    "subjectDigest": { "$ref": "#/$defs/digest" },
+    "factProjectionDigest": { "$ref": "#/$defs/digest" },
+    "protocol": { "$ref": "#/$defs/component" },
+    "presentation": {
+      "type": "object",
+      "required": ["treatmentBlinding", "identityHandling", "orderEffectApplicability", "presentationOrder", "orderRationale"],
+      "properties": {
+        "treatmentBlinding": { "const": "blinded" },
+        "identityHandling": { "enum": ["blinded", "construct_relevant"] },
+        "identityConstructRationale": { "type": "string", "minLength": 1 },
+        "orderEffectApplicability": { "enum": ["applicable", "not_applicable"] },
+        "presentationOrder": { "enum": ["randomized", "counterbalanced", "not_applicable"] },
+        "orderRationale": { "type": "string", "minLength": 1 }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "identityHandling": { "const": "construct_relevant" } }, "required": ["identityHandling"] },
+          "then": {
+            "properties": { "identityConstructRationale": { "type": "string", "minLength": 1 } },
+            "required": ["identityConstructRationale"]
+          },
+          "else": { "not": { "required": ["identityConstructRationale"] } }
+        },
+        {
+          "if": { "properties": { "orderEffectApplicability": { "const": "applicable" } }, "required": ["orderEffectApplicability"] },
+          "then": { "properties": { "presentationOrder": { "enum": ["randomized", "counterbalanced"] } } },
+          "else": { "properties": { "presentationOrder": { "const": "not_applicable" } } }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "raters": {
+      "$comment": "Semantic validation additionally requires pairwise-distinct rater IDs, identity digests, and trust domains and requires agreement.sampleSize to equal this array length.",
+      "type": "array",
+      "minItems": 2,
+      "items": { "$ref": "#/$defs/rater" }
+    },
+    "agreement": {
+      "type": "object",
+      "required": ["method", "sampleSize", "estimate", "confidenceLevel", "lower", "upper"],
+      "properties": {
+        "method": { "type": "string", "minLength": 1 },
+        "sampleSize": { "type": "integer", "minimum": 2 },
+        "estimate": { "type": "number", "minimum": 0, "maximum": 1 },
+        "confidenceLevel": { "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1 },
+        "lower": { "type": "number", "minimum": 0, "maximum": 1 },
+        "upper": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "overallVerdict": { "enum": ["pass", "fail", "insufficient_evidence"] }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "component": {
+      "type": "object",
+      "required": ["id", "version", "digest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "const": "0.1.0" },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "rater": {
+      "type": "object",
+      "required": [
+        "raterId", "raterIdentityDigest", "trustDomain", "qualificationRuleDigest",
+        "qualificationEvidenceDigest", "qualificationVerdict", "conflictCheckEvidenceDigest",
+        "conflictOfInterestVerdict", "ratingEvidenceDigest", "blinded", "verdict", "reason"
+      ],
+      "properties": {
+        "raterId": { "$ref": "#/$defs/id" },
+        "raterIdentityDigest": { "$ref": "#/$defs/digest" },
+        "trustDomain": { "$ref": "#/$defs/id" },
+        "qualificationRuleDigest": { "$ref": "#/$defs/digest" },
+        "qualificationEvidenceDigest": { "$ref": "#/$defs/digest" },
+        "qualificationVerdict": { "const": "pass" },
+        "conflictCheckEvidenceDigest": { "$ref": "#/$defs/digest" },
+        "conflictOfInterestVerdict": { "const": "pass" },
+        "ratingEvidenceDigest": { "$ref": "#/$defs/digest" },
+        "blinded": { "const": true },
+        "verdict": { "enum": ["pass", "fail", "insufficient_evidence"] },
+        "reason": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    }
+  }
+}

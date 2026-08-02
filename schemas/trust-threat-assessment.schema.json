@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:trust-threat-assessment:1",
+  "title": "Operational trust and anti-rollback threat assessment",
+  "$comment": "Semantic validation must require the current assurance level and risk tier in scope, verify reviewedAt < expiresAt and current review, resolve every bound contract, require notary, witness, time-authority, revocation-authority, decision-approver, evaluator and subject-owner principal sets to be pairwise disjoint, and reopen after any listed trigger.",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "assuranceLevels", "effectiveRiskTiers", "threats", "requiredControls", "roleOwners", "reviewedAt", "expiresAt", "reopenTriggers", "residualRisk", "contractBindings", "digest", "signature"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-trust-threat-assessment-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "const": "0.1.0" },
+    "assuranceLevels": { "type": "array", "minItems": 3, "items": { "enum": ["A1", "A2", "A3"] }, "uniqueItems": true },
+    "effectiveRiskTiers": { "type": "array", "minItems": 4, "items": { "enum": ["low", "medium", "high", "critical"] }, "uniqueItems": true },
+    "threats": { "type": "array", "minItems": 6, "items": { "enum": ["rollback", "equivocation", "ledger_fork", "stale_trust_state", "split_view", "operator_compromise"] }, "uniqueItems": true },
+    "requiredControls": { "type": "array", "minItems": 5, "items": { "enum": ["independent_notary", "independent_witness", "trusted_time_quorum", "revocation_quorum", "fail_closed_governance"] }, "uniqueItems": true },
+    "roleOwners": { "type": "object", "required": ["notaryOperator", "witnessOperators", "timeAuthorityOperators", "revocationAuthorities", "decisionApprovers", "evaluators", "subjectOwners"], "properties": { "notaryOperator": { "$ref": "#/$defs/id" }, "witnessOperators": { "$ref": "#/$defs/idSet" }, "timeAuthorityOperators": { "$ref": "#/$defs/idSet" }, "revocationAuthorities": { "$ref": "#/$defs/idSet" }, "decisionApprovers": { "$ref": "#/$defs/idSet" }, "evaluators": { "$ref": "#/$defs/idSet" }, "subjectOwners": { "$ref": "#/$defs/idSet" } }, "additionalProperties": false },
+    "reviewedAt": { "$ref": "#/$defs/time" },
+    "expiresAt": { "$ref": "#/$defs/time" },
+    "reopenTriggers": { "type": "array", "minItems": 4, "items": { "enum": ["assurance_change", "risk_change", "threat_change", "scope_change"] }, "uniqueItems": true },
+    "residualRisk": { "type": "string", "minLength": 1 },
+    "contractBindings": { "type": "array", "minItems": 3, "items": { "$ref": "#/$defs/versionedPointer" } },
+    "digest": { "$ref": "#/$defs/digest" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "idSet": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "time": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "versionedPointer": { "type": "object", "required": ["id", "version", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "const": "0.1.0" }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false }
+  }
+}

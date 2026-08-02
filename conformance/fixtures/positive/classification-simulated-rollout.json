@@ -1,0 +1,28 @@
+{
+  "capabilityFamilyId": "CAP.RELEASE_OPERATE",
+  "evaluatedConstructIds": [
+    "construct.simulated-rollout.control"
+  ],
+  "materialSubjects": [
+    {
+      "subjectType": "outcome_profile",
+      "subjectId": "architecture-outcome-simulated-rollout-v1"
+    },
+    {
+      "subjectType": "claim",
+      "subjectId": "claim.simulated_rollout"
+    }
+  ],
+  "materialWorkArtifactTypes": [
+    "release_artifact",
+    "operational_change_record"
+  ],
+  "rationale": "A controlled simulated rollout and rollback are material evaluated state transitions.",
+  "classificationVerifier": {
+    "id": "architecture-capability-classifier",
+    "version": "0.1.0",
+    "digest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c",
+    "schemaId": "agent-eval-case-classification-validity-argument-1",
+    "verifierDigest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c"
+  }
+}

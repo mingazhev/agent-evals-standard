@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:trusted-time-contract:1",
+  "title": "Operational trusted-time contract",
+  "$comment": "Semantic validation must resolve the exact digest-bound attestationSchema and every source key through keyAuthorizationContract; require trusted_time_authority authorization, distinct source keyIds, ownerIds and trust domains; require minimumIndependentSources <= the number of usable distinct sources; validate source-attestation signatures, nonce/subject bindings, chains and freshness; enforce maximumClockSkewSeconds and maximumAttestationAgeSeconds across a quorum for the same request; and never treat signer-controlled signedAt as trusted time.",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "keyAuthorizationContract", "attestationSchema", "sources", "minimumIndependentSources", "maximumClockSkewSeconds", "maximumAttestationAgeSeconds", "signerControlledSignedAtSufficient", "rollbackDetection", "failureSemantics", "digest", "signature"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-trusted-time-contract-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "const": "0.1.0" },
+    "keyAuthorizationContract": { "$ref": "#/$defs/versionedPointer" },
+    "attestationSchema": { "$ref": "#/$defs/artifactPointer" },
+    "sources": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["sourceId", "mode", "keyId", "ownerId", "trustDomain", "endpoint", "independentOf"],
+        "properties": {
+          "sourceId": { "$ref": "#/$defs/id" },
+          "mode": { "enum": ["hardware_attested_clock", "authenticated_utc_service"] },
+          "keyId": { "$ref": "#/$defs/id" },
+          "ownerId": { "$ref": "#/$defs/id" },
+          "trustDomain": { "type": "string", "minLength": 1 },
+          "endpoint": { "type": "string", "minLength": 1 },
+          "independentOf": { "type": "array", "minItems": 4, "items": { "enum": ["evidence_signer", "ledger_writer", "evaluator", "subject_owner"] }, "uniqueItems": true }
+        },
+        "additionalProperties": false
+      }
+    },
+    "minimumIndependentSources": { "type": "integer", "minimum": 2 },
+    "maximumClockSkewSeconds": { "type": "integer", "minimum": 0 },
+    "maximumAttestationAgeSeconds": { "type": "integer", "minimum": 1 },
+    "signerControlledSignedAtSufficient": { "const": false },
+    "rollbackDetection": { "const": "reject_lower_or_conflicting_authenticated_time_sequence" },
+    "failureSemantics": {
+      "type": "object",
+      "required": ["insufficientSources", "staleAttestation", "excessiveSkew", "rollbackOrConflict"],
+      "properties": {
+        "insufficientSources": { "const": "insufficient_evidence" },
+        "staleAttestation": { "const": "insufficient_evidence" },
+        "excessiveSkew": { "const": "insufficient_evidence" },
+        "rollbackOrConflict": { "const": "measurement_boundary_compromise" }
+      },
+      "additionalProperties": false
+    },
+    "digest": { "$ref": "#/$defs/digest" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "versionedPointer": { "type": "object", "required": ["id", "version", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "const": "0.1.0" }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
+    "artifactPointer": { "type": "object", "required": ["id", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false }
+  }
+}

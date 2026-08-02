@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "agent-eval-repo-change-safe-refusal-record-1",
+  "id": "safe-refusal-record-schema-fixture-1",
+  "version": "0.1.0",
+  "experimentId": "experiment-fixture-1",
+  "caseId": "repo-change-case-fixture-1",
+  "cellId": "cell-fixture-1",
+  "attemptId": "attempt-fixture-1",
+  "armId": "arm-fixture-1",
+  "alternativeId": "registered-safe-refusal",
+  "applicabilityContractDigest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "reason": "The registered policy prohibits the requested repository action.",
+  "harmfulOrUnnecessaryAction": false
+}

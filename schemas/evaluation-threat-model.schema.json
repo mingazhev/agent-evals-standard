@@ -1,0 +1,327 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:evaluation-threat-model:1",
+  "title": "Evaluation-system threat model",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "version",
+    "scope",
+    "assets",
+    "actors",
+    "trustBoundaries",
+    "threats",
+    "assumptions",
+    "exclusions",
+    "reviewTriggers"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "agent-eval-evaluation-threat-model-1"
+    },
+    "id": {
+      "$ref": "#/$defs/id"
+    },
+    "version": {
+      "const": "0.1.0"
+    },
+    "scope": {
+      "type": "object",
+      "required": [
+        "suiteId",
+        "caseIds",
+        "evaluationProfileIds",
+        "lifecyclePhases"
+      ],
+      "properties": {
+        "suiteId": {
+          "$ref": "#/$defs/id"
+        },
+        "caseIds": {
+          "$comment": "Canonical selected suite-slice case scope; semantic validation requires exact ordered equality with the aggregate cases.",
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/id" },
+          "uniqueItems": true
+        },
+        "evaluationProfileIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "uniqueItems": true
+        },
+        "lifecyclePhases": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "enum": [
+              "authoring",
+              "case_qa",
+              "pre_run",
+              "execution",
+              "grading",
+              "aggregation",
+              "governance"
+            ]
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "assets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/asset"
+      },
+      "uniqueItems": true
+    },
+    "actors": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/actor"
+      },
+      "uniqueItems": true
+    },
+    "trustBoundaries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/boundary"
+      },
+      "uniqueItems": true
+    },
+    "threats": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/threat"
+      },
+      "uniqueItems": true
+    },
+    "assumptions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "exclusions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "reviewTriggers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "asset": {
+      "type": "object",
+      "required": [
+        "id",
+        "classification",
+        "securityProperties"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "classification": {
+          "enum": [
+            "public",
+            "internal",
+            "confidential",
+            "restricted_oracle"
+          ]
+        },
+        "securityProperties": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "confidentiality",
+              "integrity",
+              "availability",
+              "provenance",
+              "independence"
+            ]
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "actor": {
+      "type": "object",
+      "required": [
+        "id",
+        "trust",
+        "capabilities"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "trust": {
+          "enum": [
+            "trusted",
+            "partially_trusted",
+            "untrusted"
+          ]
+        },
+        "capabilities": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "boundary": {
+      "type": "object",
+      "required": [
+        "id",
+        "fromZone",
+        "toZone",
+        "enforcement"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "fromZone": {
+          "$ref": "#/$defs/id"
+        },
+        "toZone": {
+          "$ref": "#/$defs/id"
+        },
+        "enforcement": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "threat": {
+      "type": "object",
+      "required": [
+        "id",
+        "actorIds",
+        "assetIds",
+        "boundaryIds",
+        "attackPath",
+        "impact",
+        "mitigations",
+        "detections",
+        "residualRisk",
+        "owner"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "actorIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "uniqueItems": true
+        },
+        "assetIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "uniqueItems": true
+        },
+        "boundaryIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "uniqueItems": true
+        },
+        "attackPath": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "impact": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "mitigations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "detections": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "residualRisk": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "owner": {
+          "$ref": "#/$defs/id"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

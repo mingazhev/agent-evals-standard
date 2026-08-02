@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "agent-eval-repository-grounding-executor-registry-1",
+  "id": "repository-grounding-executor-registry",
+  "version": "0.1.0",
+  "executors": [
+    {
+      "id": "agent-evals-standard.repository-contract-predicate",
+      "version": "0.1.0",
+      "uri": "../tools/repository-grounding-predicate-executor.mjs",
+      "digest": "sha256:c224dd0a46020738c79b33d61bc484c021c0cbfbae984bf214d9f9713b7eb175",
+      "algorithms": [
+        "json-field-equals-js-export-v1"
+      ]
+    }
+  ]
+}

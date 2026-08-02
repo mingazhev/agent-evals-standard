@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "agent-eval-conformance-statement-1",
+  "id": "composition-statement-decision-1",
+  "standardRelease": {
+    "version": "0.1.0",
+    "releaseStatus": "unpublished_draft",
+    "commit": "0123456789abcdef0123456789abcdef01234567"
+  },
+  "claim": "decision",
+  "targetEvidence": {
+    "decision": {
+      "targetType": "decision",
+      "targetId": "decision-composition-fixture-1",
+      "targetSubject": {
+        "id": "decision-composition-fixture-1",
+        "version": "0.1.0",
+        "uri": "decision-subject.json",
+        "digest": "sha256:53e6fbb9c3129c0184b9a19dd83211635685771df3c1097a9dba88fe1cb1b59b"
+      },
+      "subjectSchema": "urn:agent-evals-standard:schema:governance-decision:1",
+      "dependencyManifest": {
+        "id": "composition-decision-vector-dependencies",
+        "version": "0.1.0",
+        "entries": [
+          {
+            "role": "conformance_dependency",
+            "targetType": "experiment",
+            "subjectSchema": "urn:agent-evals-standard:schema:pre-run-manifest:1",
+            "targetSubject": {
+              "id": "experiment-composition-fixture-1",
+              "version": "0.1.0",
+              "uri": "experiment-subject.json",
+              "digest": "sha256:390fbce7ce1f58c07e7d3b3bf21bf4aa0c3a6e39a89866e0bf70a0262d60a35a"
+            },
+            "statement": {
+              "id": "composition-statement-experiment-1",
+              "contractVersion": "0.1.0",
+              "subjectSchema": "urn:agent-evals-standard:schema:conformance-statement:1",
+              "uri": "statement-experiment.json",
+              "digest": "sha256:efd369bb657ca5d431f967f3f6fd0bac01036a9990da1048677fc27b0a709cb1"
+            },
+            "validationEnvelope": {
+              "id": "composition-envelope-experiment-1",
+              "contractVersion": "0.1.0",
+              "subjectSchema": "urn:agent-evals-standard:schema:validation-envelope:1",
+              "uri": "envelope-experiment.json",
+              "digest": "sha256:5256d3cd9911be48a76d71470d906160207e85d19a32d8491adb3f803a713b68"
+            }
+          },
+          {
+            "role": "target_artifact",
+            "artifactType": "scorecard",
+            "id": "scorecard-composition-fixture-1",
+            "subjectSchema": "urn:agent-evals-standard:schema:scorecard:1",
+            "uri": "scorecard-subject.json",
+            "rawDigest": "sha256:99520b863cfeb4020bf8d2b3adafa03c519eb646bbc57d2338464467ea346aa3",
+            "subjectDigest": "sha256:8d6e58ae834868b8106a821534f82d0c37ffacce5ee069f498b047fcfdc39479"
+          }
+        ],
+        "digest": "sha256:bc1546934862fbdf8cb1d0972ff3c63893c60a2f94a82607abae774f33de45dc"
+      },
+      "verdict": "conforming"
+    }
+  },
+  "issuedAt": "2026-08-01T00:01:00Z",
+  "reviewAt": "2026-08-03T00:00:00Z",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:01:00Z",
+    "value": "FcirwtddF7QifOtec-H2SGlLUf0Xy6fZGO60-hy50nY6FithoUwRiVXb2HvnkFAkpbLMnExlMf6xVPVtM_-WBQ"
+  }
+}

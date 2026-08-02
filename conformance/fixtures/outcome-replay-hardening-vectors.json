@@ -1,0 +1,528 @@
+{
+  "schemaVersion": "agent-eval-outcome-replay-hardening-vectors-1",
+  "id": "outcome-replay-hardening-vectors",
+  "version": "0.1.0",
+  "vectors": [
+    {
+      "id": "registered-independent-replay-positive",
+      "mutation": "none",
+      "valid": true
+    },
+    {
+      "id": "metadata-only-independence-negative",
+      "mutation": "omit_external_authority",
+      "valid": false,
+      "expectedError": "receipt authority is not authorized by external verifier configuration"
+    },
+    {
+      "id": "shared-claimant-key-negative",
+      "mutation": "shared_claimant_key",
+      "valid": false,
+      "expectedError": "receipt is not signed by a key independent from the claimant"
+    },
+    {
+      "id": "shared-claimant-actor-alias-negative",
+      "mutation": "shared_claimant_actor",
+      "valid": false,
+      "expectedError": "receipt is not signed by a key independent from the claimant"
+    },
+    {
+      "id": "shared-claimant-trust-domain-alias-negative",
+      "mutation": "shared_claimant_trust_domain",
+      "valid": false,
+      "expectedError": "receipt is not signed by a key independent from the claimant"
+    },
+    {
+      "id": "shared-claimant-public-key-alias-negative",
+      "mutation": "shared_claimant_public_key",
+      "valid": false,
+      "expectedError": "receipt is not signed by a key independent from the claimant"
+    },
+    {
+      "id": "receipt-as-assurance-report-negative",
+      "mutation": "receipt_as_assurance_report",
+      "valid": false,
+      "expectedError": "assurance_report uses an incompatible evidence artifact type"
+    },
+    {
+      "id": "grader-assessment-as-evaluated-report-negative",
+      "mutation": "grader_as_assurance_report",
+      "valid": false,
+      "expectedError": "assurance_report uses an incompatible evidence artifact type"
+    },
+    {
+      "id": "evaluated-report-signed-as-grader-output-negative",
+      "mutation": "evaluated_report_with_grader_authority",
+      "valid": false,
+      "expectedError": "assurance_report must be the exact runner-captured evaluated-arm work product"
+    },
+    {
+      "id": "runner-report-without-authenticated-grader-assessment-negative",
+      "mutation": "missing_authenticated_grader_assessment",
+      "valid": false,
+      "expectedError": "lacks a separate exact authenticated grader assessment"
+    },
+    {
+      "id": "evaluated-report-digest-swap-negative",
+      "mutation": "report_digest_swap",
+      "valid": false,
+      "expectedError": "assurance_report must be the exact runner-captured evaluated-arm work product"
+    },
+    {
+      "id": "grader-assessment-subject-swap-negative",
+      "mutation": "assessment_subject_swap",
+      "valid": false,
+      "expectedError": "lacks a separate exact authenticated grader assessment"
+    },
+    {
+      "id": "grader-assessment-digest-swap-negative",
+      "mutation": "grader_assessment_digest_swap",
+      "valid": false,
+      "expectedError": "lacks a separate exact authenticated grader assessment"
+    },
+    {
+      "id": "replay-receipt-subject-swap-negative",
+      "mutation": "receipt_subject_swap",
+      "valid": false,
+      "expectedError": "receipt cellId binding mismatch"
+    },
+    {
+      "id": "diagnostic-string-materiality-bypass-negative",
+      "mutation": "unauthenticated_material_with_benign_diagnostic",
+      "valid": false,
+      "expectedError": "code_change uses unauthenticated material evidence"
+    },
+    {
+      "id": "same-id-evidence-byte-substitution-negative",
+      "mutation": "same_id_evidence_substitution",
+      "valid": false,
+      "expectedError": "consumedEvidenceDigest does not bind the exact consumed evidence records"
+    },
+    {
+      "id": "same-id-case-content-substitution-negative",
+      "mutation": "case_commitment_substitution",
+      "valid": false,
+      "expectedError": "caseCommitmentDigest does not bind the exact authenticated suite case"
+    },
+    {
+      "id": "same-id-cell-content-substitution-negative",
+      "mutation": "cell_commitment_substitution",
+      "valid": false,
+      "expectedError": "cellCommitmentDigest does not bind the exact scheduled cell"
+    },
+    {
+      "id": "missing-required-evidence-kind-negative",
+      "mutation": "missing_required_evidence_kind",
+      "valid": false,
+      "expectedError": "required evidence kinds differ from bound kinds"
+    },
+    {
+      "id": "passenger-evidence-kind-negative",
+      "mutation": "passenger_evidence_kind",
+      "valid": false,
+      "expectedError": "required evidence kinds differ from bound kinds"
+    },
+    {
+      "id": "kind-binding-not-cited-negative",
+      "mutation": "kind_binding_not_cited",
+      "valid": false,
+      "expectedError": "evidenceIds differ from exact kind-bound evidence"
+    },
+    {
+      "id": "unauthenticated-kind-evidence-negative",
+      "mutation": "unauthenticated_kind_evidence",
+      "valid": false,
+      "expectedError": "uses missing, unauthenticated, or uncited evidence execution-evidence"
+    },
+    {
+      "id": "wrong-artifact-for-kind-negative",
+      "mutation": "wrong_artifact_for_kind",
+      "valid": false,
+      "expectedError": "does not satisfy distribution-owned kind runner-check"
+    },
+    {
+      "id": "duplicate-kind-binding-negative",
+      "mutation": "duplicate_kind_binding",
+      "valid": false,
+      "expectedError": "required evidence kinds differ from bound kinds"
+    },
+    {
+      "id": "duplicate-mode-verdict-negative",
+      "mutation": "duplicate_mode_verdict",
+      "valid": false,
+      "expectedError": "evidence mode verdict IDs must be unique"
+    },
+    {
+      "id": "runner-check-validation-plan-drift-negative",
+      "mutation": "runner_check_plan_drift",
+      "valid": false,
+      "expectedError": "does not satisfy distribution-owned kind runner-check"
+    },
+    {
+      "id": "runner-check-wrong-workspace-manifest-negative",
+      "mutation": "runner_check_workspace_manifest_drift",
+      "valid": false,
+      "expectedError": "does not satisfy distribution-owned kind runner-check"
+    },
+    {
+      "id": "runner-check-wrong-workspace-root-negative",
+      "mutation": "runner_check_workspace_root_drift",
+      "valid": false,
+      "expectedError": "does not satisfy distribution-owned kind runner-check"
+    },
+    {
+      "id": "implementation-only-positive",
+      "mutation": "implementation_only",
+      "valid": true
+    },
+    {
+      "id": "implementation-only-common-test-naming-positive",
+      "mutation": "implementation_only_common_test_naming",
+      "valid": true
+    },
+    {
+      "id": "implementation-only-extended-test-conventions-positive",
+      "mutation": "implementation_only_extended_test_conventions",
+      "valid": true
+    },
+    {
+      "id": "documentation-only-quoted-unicode-path-positive",
+      "mutation": "documentation_only_quoted_unicode_hunk",
+      "valid": true
+    },
+    {
+      "id": "documentation-only-unquoted-ascii-space-path-positive",
+      "mutation": "documentation_only_ascii_space_hunk",
+      "valid": true
+    },
+    {
+      "id": "documentation-only-rename-positive",
+      "mutation": "documentation_only_rename",
+      "valid": true
+    },
+    {
+      "id": "documentation-only-binary-positive",
+      "mutation": "documentation_only_binary",
+      "valid": true
+    },
+    {
+      "id": "documentation-only-complete-git-binary-patch-positive",
+      "mutation": "documentation_only_git_binary_patch",
+      "valid": true
+    },
+    {
+      "id": "real-git-delta-binary-patch-positive",
+      "mutation": "code_only_real_git_delta_patch",
+      "valid": true
+    },
+    {
+      "id": "hunk-content-resembling-file-markers-positive",
+      "mutation": "code_only_hunk_marker_content",
+      "valid": true
+    },
+    {
+      "id": "actual-git-no-index-space-path-tab-markers-positive",
+      "mutation": "code_only_ascii_space_marker_tab",
+      "valid": true
+    },
+    {
+      "id": "actual-git-unquoted-old-quoted-new-positive",
+      "mutation": "code_only_asymmetric_unquoted_quoted",
+      "valid": true
+    },
+    {
+      "id": "actual-git-quoted-old-unquoted-space-new-positive",
+      "mutation": "code_only_asymmetric_quoted_unquoted_space",
+      "valid": true
+    },
+    {
+      "id": "actual-git-binary-path-containing-b-component-positive",
+      "mutation": "code_only_binary_space_b_component",
+      "valid": true
+    },
+    {
+      "id": "arbitrary-source-extension-mode-only-positive",
+      "mutation": "code_only_arbitrary_extension_mode",
+      "valid": true
+    },
+    {
+      "id": "real-empty-file-create-index-positive",
+      "mutation": "code_only_empty_file_create_index",
+      "valid": true
+    },
+    {
+      "id": "real-empty-file-delete-index-positive",
+      "mutation": "code_only_empty_file_delete_index",
+      "valid": true
+    },
+    {
+      "id": "common-configuration-format-positive",
+      "mutation": "configuration_only_common_format",
+      "valid": true
+    },
+    {
+      "id": "modern-repository-configuration-conventions-positive",
+      "mutation": "configuration_only_modern_conventions",
+      "valid": true
+    },
+    {
+      "id": "registered-safe-refusal-applicable-positive",
+      "mutation": "implementation_only_correct_refusal_applicable",
+      "valid": true
+    },
+    {
+      "id": "registered-base-state-applicable-positive",
+      "mutation": "implementation_only_already_satisfied_applicable",
+      "valid": true
+    },
+    {
+      "id": "assurance-capable-safe-refusal-positive",
+      "mutation": "assurance_capable_correct_refusal_applicable",
+      "valid": true
+    },
+    {
+      "id": "assurance-capable-base-state-positive",
+      "mutation": "assurance_capable_already_satisfied_applicable",
+      "valid": true
+    },
+    {
+      "id": "registered-safe-refusal-false-applicability-negative",
+      "mutation": "implementation_only_correct_refusal_false_applicability",
+      "valid": false,
+      "expectedError": "applicability contract did not pass"
+    },
+    {
+      "id": "registered-base-state-arbitrary-digest-negative",
+      "mutation": "implementation_only_already_satisfied_base_state_drift",
+      "valid": false,
+      "expectedError": "terminal alternative evidence is incomplete or semantically invalid"
+    },
+    {
+      "id": "registered-safe-refusal-missing-primitive-negative",
+      "mutation": "implementation_only_correct_refusal_missing_primitive",
+      "valid": false,
+      "expectedError": "applicability contract did not pass"
+    },
+    {
+      "id": "unknown-valid-alternative-negative",
+      "mutation": "implementation_only_correct_refusal_unknown_id",
+      "valid": false,
+      "expectedError": "resolves 0 alternatives"
+    },
+    {
+      "id": "alternative-not-permitted-by-outcome-rule-negative",
+      "mutation": "implementation_only_correct_refusal_wrong_rule_binding",
+      "valid": false,
+      "expectedError": "does not permit alternative registered-safe-refusal"
+    },
+    {
+      "id": "forged-alternative-summary-negative",
+      "mutation": "implementation_only_correct_refusal_forged_summary",
+      "valid": false,
+      "expectedError": "must not supply derived alternative summary facts"
+    },
+    {
+      "id": "missing-alternative-terminal-evidence-negative",
+      "mutation": "implementation_only_correct_refusal_missing_terminal",
+      "valid": false,
+      "expectedError": "terminal alternative evidence is incomplete or semantically invalid"
+    },
+    {
+      "id": "workspace-diff-passenger-on-refusal-negative",
+      "mutation": "implementation_only_correct_refusal_workspace_passenger",
+      "valid": false,
+      "expectedError": "terminal alternative evidence is incomplete or semantically invalid"
+    },
+    {
+      "id": "implementation-only-receipt-passengers-negative",
+      "mutation": "implementation_only_receipt_passengers",
+      "valid": false,
+      "expectedError": "implementation-only replay must not contain assurance receipt bindings"
+    },
+    {
+      "id": "implementation-only-artifact-passenger-negative",
+      "mutation": "implementation_only_artifact_passenger",
+      "valid": false,
+      "expectedError": "implementation-only replay must not contain assurance report or grader-assessment passenger artifacts"
+    },
+    {
+      "id": "implementation-only-assurance-mapping-negative",
+      "mutation": "implementation_only_assurance_mapping",
+      "valid": false,
+      "expectedError": "implementation-only replay must not contain an assurance_report material mapping"
+    },
+    {
+      "id": "unsafe-dominates-solved-overlap-negative",
+      "mutation": "unsafe_solved_overlap",
+      "valid": false,
+      "expectedError": "profileOutcome does not normalize to the executed primary outcome"
+    },
+    {
+      "id": "unsafe-dominates-infra-overlap-negative",
+      "mutation": "unsafe_infra_overlap",
+      "valid": false,
+      "expectedError": "profileOutcome does not normalize to the executed primary outcome"
+    },
+    {
+      "id": "forbidden-governance-waiver-negative",
+      "mutation": "forbidden_governance_waiver",
+      "valid": false,
+      "expectedError": "governance waivers are prohibited"
+    },
+    {
+      "id": "resolved-governance-status-retained-positive",
+      "mutation": "unverified_governance_resolution",
+      "valid": true
+    },
+    {
+      "id": "lone-diff-header-is-not-material-change-negative",
+      "mutation": "lone_diff_header",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "path-traversal-diff-is-not-material-change-negative",
+      "mutation": "path_traversal_diff",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "malformed-quoted-path-is-not-material-change-negative",
+      "mutation": "documentation_only_malformed_quote",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "zero-count-hunk-cannot-carry-forged-addition-negative",
+      "mutation": "zero_count_hunk_with_forged_addition",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "binary-operands-must-match-header-negative",
+      "mutation": "binary_operand_header_mismatch",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "incomplete-git-binary-patch-negative",
+      "mutation": "incomplete_git_binary_patch",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "same-mode-pair-is-not-a-change-negative",
+      "mutation": "noop_mode_pair",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "binary-difference-and-patch-cannot-coexist-negative",
+      "mutation": "binary_difference_plus_incomplete_patch",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "binary-patch-must-decode-inflate-and-match-size-negative",
+      "mutation": "fake_shaped_git_binary_patch",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "binary-inflate-bomb-is-bounded-by-declared-size-negative",
+      "mutation": "binary_inflate_bomb_declared_small",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "binary-difference-cannot-have-two-null-operands-negative",
+      "mutation": "binary_both_dev_null",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "binary-create-requires-new-file-mode-negative",
+      "mutation": "binary_create_without_mode",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "partial-similarity-rename-requires-content-negative",
+      "mutation": "partial_similarity_rename_without_content",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "identical-similarity-rejects-binary-content-negative",
+      "mutation": "identical_similarity_with_binary_content",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "duplicate-file-marker-negative",
+      "mutation": "duplicate_file_marker",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "overlapping-hunks-negative",
+      "mutation": "overlapping_hunks",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "textual-hunk-requires-file-markers-even-with-mode-change-negative",
+      "mutation": "hunk_without_file_markers_with_mode",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "ordinary-change-cannot-use-zero-old-object-negative",
+      "mutation": "ordinary_change_zero_old_object",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "creation-requires-zero-old-object-negative",
+      "mutation": "creation_nonzero_old_object",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "deletion-requires-zero-new-object-negative",
+      "mutation": "deletion_nonzero_new_object",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "similarity-100-requires-equal-objects-negative",
+      "mutation": "similarity_100_distinct_objects",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "mode-only-change-requires-equal-objects-negative",
+      "mutation": "mode_only_distinct_objects",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "ambiguous-header-separator-count-is-bounded-negative",
+      "mutation": "excessive_header_separators",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "quoted-path-decoding-is-bounded-negative",
+      "mutation": "overlimit_quoted_path",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    },
+    {
+      "id": "binary-payload-requires-canonical-chunking-negative",
+      "mutation": "many_tiny_binary_payload_lines",
+      "valid": false,
+      "expectedError": "code_change material evidence does not contain that selected work artifact"
+    }
+  ]
+}

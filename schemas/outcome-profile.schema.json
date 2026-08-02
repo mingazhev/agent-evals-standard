@@ -1,0 +1,311 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:outcome-profile:1",
+  "title": "Versioned outcome profile",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "namespace",
+    "owner",
+    "version",
+    "workArtifactRegistry",
+    "workArtifactTypes",
+    "terminalEvidenceRequirements",
+    "primaryOutcomeTaxonomy",
+    "nativeOutcomes",
+    "outcomeRules",
+    "validAlternatives",
+    "evidenceModes",
+    "gateRegistry",
+    "failureTaxonomy",
+    "claimCompatibility",
+    "functionalSuccess",
+    "acceptedOutcome",
+    "digest",
+    "signature"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-outcome-profile-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "namespace": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$" },
+    "owner": {
+      "type": "object",
+      "required": ["id", "role"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "role": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "version": { "type": "string", "minLength": 1 },
+    "workArtifactRegistry": {
+      "$comment": "The authenticated sole work-artifact taxonomy. Semantic validation must require exact identity with the resolved evaluation profile and case bindings.",
+      "$ref": "#/$defs/artifactBinding"
+    },
+    "workArtifactTypes": {
+      "$comment": "The outcome profile's supported material work-product classes. This is a closed subset of workArtifactRegistry; it does not imply support for every SDLC capability family.",
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "urn:agent-evals-standard:schema:work-artifact-registry:1#/$defs/workArtifactTypeId" },
+      "uniqueItems": true
+    },
+    "terminalEvidenceRequirements": {
+      "$comment": "Closed accepted-outcome evidence contract. Semantic validation must apply the requirement for the selected primary outcome and resolve each referenced terminal artifact as canonical authenticated evidence. artifact_sha256_matches_digest requires an artifact:sha256:<hex> URI whose locator digest equals the evidence digest; a digest field alone is insufficient.",
+      "type": "object",
+      "required": ["solved", "correct_refusal", "already_satisfied"],
+      "properties": {
+        "solved": { "$ref": "#/$defs/terminalEvidenceSet" },
+        "correct_refusal": { "$ref": "#/$defs/terminalEvidenceSet" },
+        "already_satisfied": { "$ref": "#/$defs/terminalEvidenceSet" }
+      },
+      "additionalProperties": false
+    },
+    "primaryOutcomeTaxonomy": {
+      "$comment": "The base taxonomy is closed and normalized for aggregation. It never replaces nativeOutcomes or a trial's profileOutcome.",
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "prefixItems": [
+        { "const": "solved" },
+        { "const": "correct_refusal" },
+        { "const": "already_satisfied" },
+        { "const": "partial" },
+        { "const": "failed" },
+        { "const": "no_relevant_result" },
+        { "const": "unsafe_policy_violation" },
+        { "const": "infra_failure" }
+      ],
+      "items": false
+    },
+    "nativeOutcomes": {
+      "$comment": "The closed profile-owned outcome vocabulary. Semantic validation must reject duplicate IDs, require every normalized primary outcome to have at least one native mapping, and require every recorded profileOutcome ID and optional substatus to resolve exactly once here with baseOutcome equal to the trial primaryOutcome.",
+      "type": "array",
+      "minItems": 8,
+      "items": { "$ref": "#/$defs/nativeOutcome" }
+    },
+    "outcomeRules": {
+      "$comment": "Semantic validation must resolve every evidenceModeId and validAlternativeId within this profile.",
+      "type": "object",
+      "required": ["solved", "correct_refusal", "already_satisfied", "partial", "failed", "no_relevant_result", "unsafe_policy_violation", "infra_failure"],
+      "properties": {
+        "solved": { "allOf": [{ "$ref": "#/$defs/outcomeRule" }, { "type": "object", "properties": { "terminalState": { "const": "task_satisfied" }, "priority": { "const": 8 } } }] },
+        "correct_refusal": { "allOf": [{ "$ref": "#/$defs/outcomeRule" }, { "type": "object", "properties": { "terminalState": { "const": "safe_refusal" }, "priority": { "const": 7 } } }] },
+        "already_satisfied": { "allOf": [{ "$ref": "#/$defs/outcomeRule" }, { "type": "object", "properties": { "terminalState": { "const": "base_state_already_satisfied" }, "priority": { "const": 6 } } }] },
+        "partial": { "allOf": [{ "$ref": "#/$defs/outcomeRule" }, { "type": "object", "properties": { "terminalState": { "const": "assessable_partial" }, "priority": { "const": 4 } } }] },
+        "failed": { "allOf": [{ "$ref": "#/$defs/outcomeRule" }, { "type": "object", "properties": { "terminalState": { "const": "assessable_failure" }, "priority": { "const": 3 } } }] },
+        "no_relevant_result": { "allOf": [{ "$ref": "#/$defs/outcomeRule" }, { "type": "object", "properties": { "terminalState": { "const": "no_relevant_result" }, "priority": { "const": 5 } } }] },
+        "unsafe_policy_violation": { "allOf": [{ "$ref": "#/$defs/outcomeRule" }, { "type": "object", "properties": { "terminalState": { "const": "unsafe_behavior" }, "priority": { "const": 1 } } }] },
+        "infra_failure": { "allOf": [{ "$ref": "#/$defs/outcomeRule" }, { "type": "object", "properties": { "terminalState": { "const": "measurement_unavailable" }, "priority": { "const": 2 } } }] }
+      },
+      "additionalProperties": false
+    },
+    "validAlternatives": {
+      "$comment": "Semantic validation must reject duplicate IDs and must require every alternative to be referenced by the rule for its primary outcome.",
+      "type": "array",
+      "minItems": 2,
+      "items": { "$ref": "#/$defs/validAlternative" },
+      "allOf": [
+        { "contains": { "type": "object", "properties": { "primaryOutcome": { "const": "correct_refusal" } }, "required": ["primaryOutcome"] } },
+        { "contains": { "type": "object", "properties": { "primaryOutcome": { "const": "already_satisfied" } }, "required": ["primaryOutcome"] } }
+      ]
+    },
+    "evidenceModes": {
+      "$comment": "Semantic validation must reject duplicate IDs and require every referenced evidence mode to be declared exactly once.",
+      "type": "array",
+      "minItems": 2,
+      "items": { "$ref": "#/$defs/evidenceMode" },
+      "allOf": [
+        { "contains": { "type": "object", "properties": { "id": { "const": "deterministic" } }, "required": ["id"] } },
+        { "contains": { "type": "object", "properties": { "id": { "const": "expert_adjudication" } }, "required": ["id"] } }
+      ]
+    },
+    "gateRegistry": { "$ref": "#/$defs/artifactBinding" },
+    "failureTaxonomy": { "$ref": "#/$defs/artifactBinding" },
+    "claimCompatibility": {
+      "type": "object",
+      "required": ["allowedClaimTypes", "functionalPrimaryOutcomes", "acceptedPrimaryOutcomes", "incompatibleOutcomeEffect", "governanceEvidenceRequiresAcceptedOutcome"],
+      "properties": {
+        "allowedClaimTypes": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "pattern": "^(capability|reliability|comparative|quality|safety|cost|governance_evidence|[A-Za-z0-9][A-Za-z0-9_.-]*:[A-Za-z0-9_.-]+)$" },
+          "uniqueItems": true
+        },
+        "functionalPrimaryOutcomes": { "$ref": "#/$defs/successOutcomeSet" },
+        "acceptedPrimaryOutcomes": { "$ref": "#/$defs/successOutcomeSet" },
+        "incompatibleOutcomeEffect": { "const": "claim_specific_non_success" },
+        "governanceEvidenceRequiresAcceptedOutcome": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "functionalSuccess": { "allOf": [{ "$ref": "#/$defs/predicate" }, { "type": "object", "properties": { "id": { "const": "functional-outcome-v1" } } }] },
+    "acceptedOutcome": { "allOf": [{ "$ref": "#/$defs/predicate" }, { "type": "object", "properties": { "id": { "const": "accepted-outcome-v1" } } }] },
+    "digest": { "$ref": "#/$defs/digest" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "terminalEvidenceSet": {
+      "type": "object",
+      "required": ["requiredArtifacts"],
+      "properties": {
+        "requiredArtifacts": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/terminalEvidenceArtifactRequirement" },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "terminalEvidenceArtifactRequirement": {
+      "type": "object",
+      "required": ["artifactType", "cardinality", "uriBinding", "attestation"],
+      "properties": {
+        "artifactType": {
+          "oneOf": [
+            { "const": "workspace_diff" },
+            { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*:[A-Za-z0-9][A-Za-z0-9_.-]*$" }
+          ]
+        },
+        "cardinality": { "enum": ["exactly_one", "one_or_more"] },
+        "uriBinding": { "enum": ["artifact_sha256_matches_digest", "authenticated_immutable_uri"] },
+        "attestation": { "const": "required" }
+      },
+      "additionalProperties": false
+    },
+    "artifactBinding": {
+      "type": "object",
+      "required": ["id", "version", "uri", "digest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "minLength": 1 },
+        "uri": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "outcomeRule": {
+      "type": "object",
+      "required": ["terminalState", "priority", "condition", "evidenceModeIds", "validAlternativeIds"],
+      "properties": {
+        "terminalState": { "enum": ["task_satisfied", "safe_refusal", "base_state_already_satisfied", "assessable_partial", "assessable_failure", "no_relevant_result", "unsafe_behavior", "measurement_unavailable"] },
+        "priority": { "type": "integer", "minimum": 1, "maximum": 8 },
+        "condition": { "$ref": "#/$defs/conditionContract" },
+        "evidenceModeIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "validAlternativeIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }
+      },
+      "additionalProperties": false
+    },
+    "nativeOutcome": {
+      "type": "object",
+      "required": ["id", "baseOutcome", "definition", "allowedSubstatuses"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "baseOutcome": { "$ref": "#/$defs/primaryOutcome" },
+        "definition": { "type": "string", "minLength": 1 },
+        "allowedSubstatuses": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }
+      },
+      "additionalProperties": false
+    },
+    "validAlternative": {
+      "type": "object",
+      "required": ["id", "primaryOutcome", "applicabilityContract", "evidenceModeIds"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "primaryOutcome": { "enum": ["correct_refusal", "already_satisfied"] },
+        "applicabilityContract": { "$ref": "#/$defs/conditionContract" },
+        "evidenceModeIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }
+      },
+      "additionalProperties": false
+    },
+    "evidenceMode": {
+      "type": "object",
+      "required": ["id", "version", "requiredEvidenceKinds", "verdictRule"],
+      "properties": {
+        "id": { "enum": ["deterministic", "expert_adjudication", "hybrid", "measurement_failure_attestation"] },
+        "version": { "type": "string", "minLength": 1 },
+        "requiredEvidenceKinds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "verdictRule": { "$ref": "#/$defs/conditionContract" }
+      },
+      "additionalProperties": false
+    },
+    "conditionContract": {
+      "type": "object",
+      "required": ["id", "version", "expression"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "minLength": 1 },
+        "expression": { "$ref": "#/$defs/conditionExpression" }
+      },
+      "additionalProperties": false
+    },
+    "conditionExpression": {
+      "oneOf": [
+        { "$ref": "#/$defs/atomicCondition" },
+        { "$ref": "#/$defs/allCondition" },
+        { "$ref": "#/$defs/anyCondition" },
+        { "$ref": "#/$defs/notCondition" }
+      ]
+    },
+    "atomicCondition": {
+      "type": "object",
+      "required": ["fact", "operator", "expected"],
+      "properties": {
+        "fact": { "$ref": "#/$defs/id" },
+        "operator": { "enum": ["equals", "not_equals", "in", "not_in", "exists"] },
+        "expected": {}
+      },
+      "allOf": [
+        {
+          "if": { "type": "object", "properties": { "operator": { "const": "exists" } }, "required": ["operator"] },
+          "then": { "type": "object", "properties": { "expected": { "type": "boolean" } } }
+        },
+        {
+          "if": { "type": "object", "properties": { "operator": { "enum": ["in", "not_in"] } }, "required": ["operator"] },
+          "then": { "type": "object", "properties": { "expected": { "type": "array", "minItems": 1 } } }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "allCondition": {
+      "type": "object",
+      "required": ["all"],
+      "properties": { "all": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/conditionExpression" } } },
+      "additionalProperties": false
+    },
+    "anyCondition": {
+      "type": "object",
+      "required": ["any"],
+      "properties": { "any": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/conditionExpression" } } },
+      "additionalProperties": false
+    },
+    "notCondition": {
+      "type": "object",
+      "required": ["not"],
+      "properties": { "not": { "$ref": "#/$defs/conditionExpression" } },
+      "additionalProperties": false
+    },
+    "successOutcomeSet": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "prefixItems": [{ "const": "solved" }, { "const": "correct_refusal" }, { "const": "already_satisfied" }],
+      "items": false
+    },
+    "primaryOutcome": { "enum": ["solved", "correct_refusal", "already_satisfied", "partial", "failed", "no_relevant_result", "unsafe_policy_violation", "infra_failure"] },
+    "predicate": {
+      "type": "object",
+      "required": ["id", "version", "contractDigest"],
+      "properties": {
+        "id": { "enum": ["functional-outcome-v1", "accepted-outcome-v1"] },
+        "version": { "const": "0.1.0" },
+        "contractDigest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

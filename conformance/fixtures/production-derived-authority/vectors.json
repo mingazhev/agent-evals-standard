@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "fixture-production-derived-authority-vectors-1",
+  "version": "0.1.0",
+  "environmentPath": "environment.json",
+  "relatedPath": "pre-run.json",
+  "evidencePath": "evidence-bundle.json",
+  "cases": [
+    {
+      "id": "authenticated-independent-authorities",
+      "mutation": "none",
+      "valid": true
+    },
+    {
+      "id": "reject-unregistered-verifier",
+      "mutation": "unregistered_verifier",
+      "valid": false,
+      "expectedError": "absent from the evaluator-controlled registry"
+    },
+    {
+      "id": "reject-self-named-producer",
+      "mutation": "self_named_producer",
+      "valid": false,
+      "expectedError": "producer or phase is not authorized"
+    },
+    {
+      "id": "reject-reused-authority-boundaries",
+      "mutation": "reused_authority_boundaries",
+      "valid": false,
+      "expectedError": "producer IDs must be distinct"
+    },
+    {
+      "id": "reject-provenance-cutoff-mismatch",
+      "mutation": "provenance_cutoff_mismatch",
+      "valid": false,
+      "expectedError": "sourceCutoff must equal the sealed value"
+    },
+    {
+      "id": "reject-provenance-transformation-mismatch",
+      "mutation": "provenance_transformation_mismatch",
+      "valid": false,
+      "expectedError": "transformationDigest must equal the sealed value"
+    },
+    {
+      "id": "reject-authorization-owner-mismatch",
+      "mutation": "authorization_owner_mismatch",
+      "valid": false,
+      "expectedError": "ownerId must equal the sealed value"
+    },
+    {
+      "id": "reject-redaction-secret-finding",
+      "mutation": "redaction_secret_finding",
+      "valid": false,
+      "expectedError": "secretsFound must be zero"
+    },
+    {
+      "id": "reject-excess-reidentification-risk",
+      "mutation": "excess_reidentification_risk",
+      "valid": false,
+      "expectedError": "sealed maximumResidualRisk"
+    },
+    {
+      "id": "reject-production-read-path",
+      "mutation": "production_read_path",
+      "valid": false,
+      "expectedError": "productionReadPathAvailable must equal the sealed value"
+    },
+    {
+      "id": "reject-wrong-authority-key",
+      "mutation": "wrong_authority_key",
+      "valid": false,
+      "expectedError": "attestation identity is not authorized"
+    },
+    {
+      "id": "reject-authority-contract-byte-substitution",
+      "mutation": "authority_contract_tamper",
+      "valid": false,
+      "expectedError": "authority-contract pointer must bind"
+    },
+    {
+      "id": "reject-unsealed-environment",
+      "mutation": "unsealed_environment",
+      "valid": false,
+      "expectedError": "does not seal this environment contract"
+    }
+  ]
+}

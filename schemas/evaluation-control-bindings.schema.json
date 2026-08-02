@@ -1,0 +1,261 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:evaluation-control-bindings:1",
+  "title": "Suite, case, and pre-run authoritative evaluation-control bindings",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "version",
+    "suite",
+    "suiteSliceId",
+    "cases",
+    "authorityPolicy",
+    "validityArgument",
+    "evaluationThreatModel",
+    "heldOutExposure",
+    "stageBindings"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "agent-eval-evaluation-control-bindings-1"
+    },
+    "id": {
+      "$ref": "#/$defs/id"
+    },
+    "version": {
+      "const": "0.1.0"
+    },
+    "suite": {
+      "$ref": "#/$defs/suiteMaterialStageSubject"
+    },
+    "suiteSliceId": {
+      "$comment": "The selected suite slice whose ordered caseIds define the aggregate case scope.",
+      "$ref": "#/$defs/id"
+    },
+    "cases": {
+      "$comment": "Canonical non-empty ordered material case set. Semantic validation requires exact ordered equality with the selected suite slice, case stage bindings, the pre-run manifest, risk and threat scopes, held-out budget, and every statistical claim and eligible-cell commitment.",
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/caseMaterialStageSubject" },
+      "uniqueItems": true
+    },
+    "authorityPolicy": {
+      "$ref": "urn:agent-evals-standard:schema:verified-machine-contract:1#/$defs/evaluationControlAuthorityPolicyBinding"
+    },
+    "validityArgument": {
+      "$ref": "urn:agent-evals-standard:schema:verified-machine-contract:1#/$defs/validityArgumentBinding"
+    },
+    "evaluationThreatModel": {
+      "$ref": "urn:agent-evals-standard:schema:verified-machine-contract:1#/$defs/evaluationThreatModelBinding"
+    },
+    "heldOutExposure": {
+      "$ref": "urn:agent-evals-standard:schema:verified-machine-contract:1#/$defs/heldOutExposureControl"
+    },
+    "stageBindings": {
+      "$comment": "Canonical order is suite, every case in cases order, then pre_run. Every scopeDigest commits the exact ordered suite-and-cases material projection.",
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "$ref": "#/$defs/stageBinding"
+      },
+      "uniqueItems": true,
+      "allOf": [
+        {
+          "contains": {
+            "type": "object",
+            "properties": {
+              "stage": {
+                "const": "suite"
+              }
+            },
+            "required": [
+              "stage"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "type": "object",
+            "properties": {
+              "stage": {
+                "const": "case"
+              }
+            },
+            "required": [
+              "stage"
+            ]
+          },
+          "minContains": 1
+        },
+        {
+          "contains": {
+            "type": "object",
+            "properties": {
+              "stage": {
+                "const": "pre_run"
+              }
+            },
+            "required": [
+              "stage"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "dateTime": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "locator": {
+      "type": "object",
+      "required": ["kind", "base", "path"],
+      "properties": {
+        "kind": { "const": "repository_relative" },
+        "base": { "const": "binding_document" },
+        "path": { "type": "string", "minLength": 1, "pattern": "^(?!/)(?![A-Za-z]:).+$" }
+      },
+      "additionalProperties": false
+    },
+    "materialStageSubject": {
+      "type": "object",
+      "required": [
+        "id",
+        "artifactVersion",
+        "schemaId",
+        "identityProjection",
+        "uri",
+        "digest",
+        "byteLength",
+        "mediaType",
+        "locator",
+        "selfDigest"
+      ],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "artifactVersion": { "const": "0.1.0" },
+        "schemaId": {
+          "enum": [
+            "urn:agent-evals-standard:schema:suite-manifest:1",
+            "urn:agent-evals-standard:schema:case:1"
+          ]
+        },
+        "identityProjection": { "const": "full_signed_document" },
+        "uri": { "type": "string", "pattern": "^artifact:sha256:[a-f0-9]{64}$" },
+        "digest": { "$ref": "#/$defs/digest" },
+        "byteLength": { "type": "integer", "minimum": 1 },
+        "mediaType": { "const": "application/json" },
+        "locator": { "$ref": "#/$defs/locator" },
+        "selfDigest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "suiteMaterialStageSubject": {
+      "allOf": [
+        { "$ref": "#/$defs/materialStageSubject" },
+        {
+          "type": "object",
+          "properties": {
+            "schemaId": { "const": "urn:agent-evals-standard:schema:suite-manifest:1" }
+          }
+        }
+      ]
+    },
+    "caseMaterialStageSubject": {
+      "allOf": [
+        { "$ref": "#/$defs/materialStageSubject" },
+        {
+          "type": "object",
+          "properties": {
+            "schemaId": { "const": "urn:agent-evals-standard:schema:case:1" }
+          }
+        }
+      ]
+    },
+    "preRunProjectionSubject": {
+      "type": "object",
+      "required": ["id", "artifactVersion", "schemaId", "identityProjection", "digest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "artifactVersion": { "const": "0.1.0" },
+        "schemaId": { "const": "urn:agent-evals-standard:schema:pre-run-manifest:1" },
+        "identityProjection": { "const": "full_document_without_evaluation_control_bindings_digest_signature" },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "stageSubject": {
+      "oneOf": [
+        { "$ref": "#/$defs/materialStageSubject" },
+        { "$ref": "#/$defs/preRunProjectionSubject" }
+      ]
+    },
+    "stageBinding": {
+      "type": "object",
+      "required": [
+        "stage",
+        "subject",
+        "scopeDigest",
+        "minimumLedgerSequence",
+        "sealedAt",
+        "unknownEffect"
+      ],
+      "properties": {
+        "stage": {
+          "enum": [
+            "suite",
+            "case",
+            "pre_run"
+          ]
+        },
+        "subject": {
+          "$ref": "#/$defs/stageSubject"
+        },
+        "scopeDigest": {
+          "$ref": "#/$defs/digest"
+        },
+        "minimumLedgerSequence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sealedAt": {
+          "$ref": "#/$defs/dateTime"
+        },
+        "unknownEffect": {
+          "const": "insufficient_evidence"
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "stage": { "const": "suite" } }, "required": ["stage"] },
+          "then": { "properties": { "subject": { "$ref": "#/$defs/suiteMaterialStageSubject" } } }
+        },
+        {
+          "if": { "properties": { "stage": { "const": "case" } }, "required": ["stage"] },
+          "then": { "properties": { "subject": { "$ref": "#/$defs/caseMaterialStageSubject" } } }
+        },
+        {
+          "if": { "properties": { "stage": { "const": "pre_run" } }, "required": ["stage"] },
+          "then": { "properties": { "subject": { "$ref": "#/$defs/preRunProjectionSubject" } } }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

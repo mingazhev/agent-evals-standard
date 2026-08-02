@@ -1,0 +1,27 @@
+{
+  "capabilityFamilyId": "CAP.IMPLEMENT_CHANGE",
+  "evaluatedConstructIds": [
+    "construct.test-design.quality"
+  ],
+  "materialSubjects": [
+    {
+      "subjectType": "outcome_profile",
+      "subjectId": "architecture-outcome-test-design-v1"
+    },
+    {
+      "subjectType": "claim",
+      "subjectId": "claim.test_design"
+    }
+  ],
+  "materialWorkArtifactTypes": [
+    "assurance_report"
+  ],
+  "rationale": "Incorrectly treats an independently graded verification construct as implementation.",
+  "classificationVerifier": {
+    "id": "architecture-capability-classifier",
+    "version": "0.1.0",
+    "digest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c",
+    "schemaId": "agent-eval-case-classification-validity-argument-1",
+    "verifierDigest": "sha256:a3f68cbe84918dd3b4fbfffb7c449d2903422b24f0b88bc6d76d2e3fea2a360c"
+  }
+}

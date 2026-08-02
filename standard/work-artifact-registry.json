@@ -1,0 +1,79 @@
+{
+  "schemaVersion": "agent-eval-work-artifact-registry-1",
+  "id": "repository-sdlc-work-artifact-registry",
+  "version": "0.1.0",
+  "artifactTypes": [
+    {
+      "id": "requirements_or_specification",
+      "capabilityFamilyId": "CAP.DISCOVER_SPECIFY",
+      "definition": "A claim-bearing requirement set, acceptance specification, or materially equivalent problem definition grounded in repository state.",
+      "boundary": "Incidental notes or navigation do not qualify; the specification itself must receive an independent verdict."
+    },
+    {
+      "id": "repository_analysis",
+      "capabilityFamilyId": "CAP.DISCOVER_SPECIFY",
+      "definition": "A claim-bearing analysis of repository behavior, constraints, or change requirements that establishes what must be addressed.",
+      "boundary": "Analysis used only as an intermediate step for another output is ancillary and does not select this type."
+    },
+    {
+      "id": "technical_plan_or_design",
+      "capabilityFamilyId": "CAP.PLAN_DESIGN",
+      "definition": "A claim-bearing implementation plan, architecture, interface, data, migration, or threat design tied to the sealed workspace.",
+      "boundary": "A task checklist without an independently evaluated design construct does not qualify."
+    },
+    {
+      "id": "code_change",
+      "capabilityFamilyId": "CAP.IMPLEMENT_CHANGE",
+      "definition": "A material repository-content implementation change that is not separately classified as test_change or repository_configuration, including source code in any language, generated code, repository documentation, and implementation assets.",
+      "boundary": "The token code does not imply that source-code bytes changed. The presence of analysis or verification steps does not change the implementation classification of the repository-content change itself."
+    },
+    {
+      "id": "test_change",
+      "capabilityFamilyId": "CAP.IMPLEMENT_CHANGE",
+      "definition": "A material test-code or test-fixture change delivered as a repository change.",
+      "boundary": "Writing tests is implementation; an independently evaluated verification conclusion must use assurance_report."
+    },
+    {
+      "id": "repository_configuration",
+      "capabilityFamilyId": "CAP.IMPLEMENT_CHANGE",
+      "definition": "A material build, dependency, policy-as-code, workflow, or other repository-governed configuration change.",
+      "boundary": "Observed configuration state without a delivered change is not this work-artifact type."
+    },
+    {
+      "id": "assurance_report",
+      "capabilityFamilyId": "CAP.VERIFY_ASSURE",
+      "definition": "A claim-bearing test, debugging, security, privacy, performance, or reliability assessment with evidence and a verdict.",
+      "boundary": "A fact-finding assessment of repository or system properties is assurance_report. Raw test execution performed only to support an implementation verdict does not independently select verification capability."
+    },
+    {
+      "id": "review_decision",
+      "capabilityFamilyId": "CAP.REVIEW_DECIDE",
+      "definition": "A claim-bearing accountable disposition or recommendation about proposed repository work, such as approval, rejection, prioritization, risk acceptance, required remediation, or release readiness.",
+      "boundary": "A finding or fact-finding assessment without an accountable disposition is assurance_report, not review_decision. A case evaluating both factual assurance and a disposition declares both material artifacts. Executing a rollout or repository change is classified by its own delivered artifact, not as review."
+    },
+    {
+      "id": "release_artifact",
+      "capabilityFamilyId": "CAP.RELEASE_OPERATE",
+      "definition": "A material package, release manifest, deployment plan, runbook, or rollback artifact used in a controlled release workflow.",
+      "boundary": "A recommendation to release without operational execution or artifact production is review_decision."
+    },
+    {
+      "id": "operational_change_record",
+      "capabilityFamilyId": "CAP.RELEASE_OPERATE",
+      "definition": "A claim-bearing record of a controlled simulated deployment, rollout, observability, rollback, or incident action and its resulting simulated state.",
+      "boundary": "A plan or recommendation without the evaluated simulated state transition is not an operational change record. Real production actions are outside evaluation cases; sealed production-derived telemetry may be used only for post-decision assurance."
+    },
+    {
+      "id": "incident_analysis",
+      "capabilityFamilyId": "CAP.REMEDIATE_LEARN",
+      "definition": "A claim-bearing repository-linked incident or escaped-defect analysis that establishes causes and learning.",
+      "boundary": "A corrective patch without independently evaluated incident learning remains code_change."
+    },
+    {
+      "id": "prevention_plan",
+      "capabilityFamilyId": "CAP.REMEDIATE_LEARN",
+      "definition": "A claim-bearing prevention, follow-up, or evaluation-suite improvement plan derived from an incident or escaped defect.",
+      "boundary": "Generic future-work notes without an independently evaluated learning construct do not qualify."
+    }
+  ]
+}

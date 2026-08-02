@@ -1,0 +1,9 @@
+Synthetic conformance study A
+
+Population: Repository-agent task population A.
+Sampling: A predeclared sample from organization A's independent repository-task frame.
+Method: Replay-based assessment by evaluator A.
+Result: The bounded fixture mechanism was observed under study A's declared conditions.
+Data or benchmark lineage: LINEAGE-FIXTURE-A.
+Limitation: Inference is limited to study A's sampled frame; no external empirical conclusion is implied.
+Funding disclosure: No external funding.

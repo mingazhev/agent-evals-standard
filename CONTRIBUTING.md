@@ -8,46 +8,52 @@ reproducible, or implementable without weakening existing protections.
 1. Open an issue describing the observed failure mode and affected normative
    artifact.
 2. Submit a pull request with the smallest enforceable change.
-3. Update the artifact-local changelog and the repository changelog when the
-   change is normative.
-4. Update every affected schema, example, cross-reference, and conformance
+3. Update every affected schema, example, cross-reference, and conformance
    rule in the same pull request.
-5. State whether the change is major, minor, or patch and justify that choice.
+4. Add or update positive and negative conformance fixtures for every
+   machine-verifiable requirement that changes.
 
 Normative pull requests should include:
 
 - conflicting or insufficient text quoted precisely;
 - a concrete implementation, measurement, adversarial, logic, or governance
   failure mode;
-- migration impact for existing conformance statements and scorecards;
+- impact on existing draft artifacts and implementations;
 - verification evidence, including schema and local-link validation.
 
 ## Validation
 
-Run `./scripts/validate.sh` (requires the `jsonschema` Python package) before
-opening a pull request. It checks that:
+Run the local checks before opening a pull request:
 
-- every schema in `schemas/` is valid JSON with a unique `$id`, and every
-  `$ref` resolves;
-- every example in `examples/` validates against its schema and is
-  semantically coherent;
-- prose registries and enums (gate IDs, outcome categories, lifecycle states,
-  escalation event IDs, conformance targets) match the schemas;
-- `versions.json` agrees with the schema constants and the `VERSION` file.
+- `npm ci` — install the pinned toolchain;
+- `npm run check` — repository consistency: schema well-formedness, `$ref`
+  resolution, generated-artifact freshness, and cross-document links;
+- `npm test` — the full corpus of conformance fixtures, vectors, and verifier
+  tools, including schema validation of every fixture.
 
-The same checks run in CI. When you change a schema, update the affected
-examples and `versions.json` in the same pull request; when you add a
-contract version, bump `versions.json` first.
+The same checks run in CI on every pull request. When you change a schema or a
+normative requirement, update the affected fixtures and run `npm test` in the
+same pull request; the `tools/` verifiers encode the expected behavior and
+fail on drift.
 
-## Version discipline
+## Pre-publication discipline
 
-Do not rewrite a released tag. A correction that can change whether a case,
-run, scorecard, or decision conforms is not editorial and cannot be a patch.
-Before `1.0.0`, renaming stable IDs or changing outcome priority requires the
-next minor release; from `1.0.0` onward, it requires a major release.
+The standard has not been published. Until publication, every component remains
+version `0.1.0`, and incompatible changes replace the working draft in place.
+Do not add migration aliases or legacy contracts unless publication has created
+compatibility obligations.
+
+The publication process MUST freeze an exact commit and its conformance
+corpus. The candidate commit MUST pass `npm run release:check` from a clean
+checkout; that command first proves generated-artifact freshness, runs the full
+test corpus, and then checks evidence readiness. The first release MUST use the
+annotated tag `v0.1.0`; its CI run MUST resolve that tag to the exact checked-out
+commit. Repository administrators MUST protect the tag with a GitHub ruleset,
+and a published tag must never be rewritten.
 
 ## Style
 
-Use RFC 2119 key words only where a requirement is intended to be normative.
+Use uppercase RFC 2119 key words only where a requirement is intended to be
+normative.
 Define a term once in the glossary and reference it elsewhere. Keep examples
 clearly non-normative and implementation-neutral.

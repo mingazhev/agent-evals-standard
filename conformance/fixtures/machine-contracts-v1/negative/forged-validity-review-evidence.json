@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "agent-eval-evaluation-control-authority-evidence-1",
+  "id": "forged-validity-review-evidence-v1",
+  "version": "0.1.0",
+  "evidenceKind": "validity_review",
+  "subject": {
+    "schemaId": "urn:agent-evals-standard:schema:validity-argument:1",
+    "id": "suite-validity-argument-v1",
+    "version": "0.1.0",
+    "projection": "full_document_without_review_evidence",
+    "digest": "sha256:7b40db19281e713cb4f68260370ef02d1beb328bbcf256474355848399a9a64a"
+  },
+  "decision": "approved_for_declared_use",
+  "actor": {
+    "id": "suite-owner",
+    "role": "evaluation_claimant",
+    "trustDomain": "claimant"
+  },
+  "issuedAt": "2026-08-01T00:30:00Z",
+  "authorityPolicy": {
+    "id": "fixture-evaluation-control-authority-policy",
+    "version": "0.1.0",
+    "digest": "sha256:b29e42e61605ba520a84839a71402698d8656d0f0fc29fb98fca210d4198b9e6"
+  },
+  "digest": "sha256:4968d261e9b1d3e3dc88b0fb6ca4162dc4c39eeb643f89c7885738b40ca3d4ca",
+  "signature": {
+    "profileId": "fixture-claimant-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1-claimant",
+    "signedAt": "2026-08-01T00:30:00Z",
+    "value": "S53hy_DRj7w-B8MB8eRKjIM541A56tq5xicpZ2FJdWOu1h-m1zCuZGjpK5Sz03CP3W1R3VEnZ2Tqyul8ki1oBQ"
+  }
+}

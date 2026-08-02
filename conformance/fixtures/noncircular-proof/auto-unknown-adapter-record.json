@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "agent-eval-conformance-verification-record-1",
+  "id": "auto-unknown-adapter-record",
+  "version": "0.1.0",
+  "proofAssertionId": "auto-unknown-adapter-assertion",
+  "scopeSliceId": "fixture-slice",
+  "target": "case",
+  "targetId": "fixture-case-true",
+  "targetSubjectDigest": "sha256:2d1df346a439bffce8f8bcd40a0dff67b39954b46b4b101188714eee4250db90",
+  "dependencyManifestDigest": "sha256:445f222a919d929ab133f072ea2d1f194089649aa9b47c62eabc24b6dcf99655",
+  "requirementId": "FIX-AUTO-001",
+  "method": "automated_replay",
+  "registry": {
+    "id": "fixture-conformance-verifier-registry",
+    "version": "0.1.0",
+    "digest": "sha256:9b1f6cb2caa644fed44dffd6d4d3b9833f33dbf85036671b0de550e46035422e"
+  },
+  "entryId": "fixture-automated-entry",
+  "inputBindings": [
+    {
+      "role": "requirement_registry",
+      "id": "fixture-requirements",
+      "version": "0.1.0",
+      "uri": "requirements.json",
+      "digest": "sha256:58dc343f84bb7e85989dc1d1ce16de2762a8fcce3bb73c42ac80ac71257f8d51",
+      "byteLength": 3369
+    },
+    {
+      "role": "target_subject",
+      "id": "fixture-case-true",
+      "version": "0.1.0",
+      "uri": "target-true.json",
+      "digest": "sha256:2d1df346a439bffce8f8bcd40a0dff67b39954b46b4b101188714eee4250db90",
+      "byteLength": 142
+    },
+    {
+      "role": "applicability_contract",
+      "id": "fixture-applicability",
+      "version": "0.1.0",
+      "uri": "applicability.json",
+      "digest": "sha256:76e60f6a389dd58ed5ca5f28d04f7d84daa128e005fa95fa9b0ba7ea59057e47",
+      "byteLength": 527
+    }
+  ],
+  "result": "pass",
+  "findingIds": [],
+  "actor": {
+    "id": "fixture-replay-verifier",
+    "trustDomain": "fixture-replay-verifier"
+  },
+  "executedAt": "2026-08-01T00:05:00Z",
+  "signature": {
+    "profileId": "fixture-automated-verifier-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-2-verifier",
+    "signedAt": "2026-08-01T00:05:00Z",
+    "value": "wo18Jr6PDKugTATvKKd4VVu9zgqyRPd_g40V_2R-rpHDKEuG_3mfYlef981KK92vWk36W5h163lPfA5Sk9O5AQ"
+  },
+  "digest": "sha256:fa5d523dc35bf28acb20052619d9ffbea1b42dc240c5f8cf96c5a044f66b45a6"
+}

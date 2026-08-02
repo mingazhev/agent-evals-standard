@@ -1,0 +1,227 @@
+{
+  "schemaVersion": "agent-eval-source-evidence-triangulation-fixture-1",
+  "standardVersion": "0.1.0",
+  "sources": [
+    {
+      "id": "SRC-FIXTURE-EMPIRICAL-A",
+      "title": "Independent repository-agent study A",
+      "authorsOrOrganization": [
+        "Fixture Research Group A"
+      ],
+      "producerIds": [
+        "ORG-FIXTURE-A"
+      ],
+      "publicationDate": "2026-01-01",
+      "sourceType": "industry_report",
+      "versionIdentity": {
+        "kind": "edition",
+        "value": "fixture-a-1"
+      },
+      "mutableLocator": null,
+      "archive": {
+        "status": "verified",
+        "immutableLocator": "source-evidence-archives/study-a.txt",
+        "byteLength": 496,
+        "digest": "sha256:7e809df7c8c3b48849b0796996649f7a68cd702c0f93a9b07a732de87a5f742d"
+      },
+      "retrievalDate": "2026-01-02",
+      "evidenceClass": "primary_empirical_report",
+      "empiricalRole": "primary_empirical_source",
+      "limitations": [
+        "Synthetic positive fixture; it tests evidence semantics and makes no real-world claim."
+      ],
+      "population": "Repository-agent task population A",
+      "fundingDisclosure": {
+        "status": "verified_from_archived_source",
+        "sponsorIds": [],
+        "basis": "The archived source states that the study received no external funding.",
+        "evidence": {
+          "archiveDigest": "sha256:7e809df7c8c3b48849b0796996649f7a68cd702c0f93a9b07a732de87a5f742d",
+          "location": "Line 9, Funding disclosure",
+          "statement": "No external funding.",
+          "sponsorIds": []
+        }
+      },
+      "contraryEvidence": [],
+      "sourceReview": {
+        "status": "pending",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "synthetic-fixture-reviewer",
+        "reviewerIdentity": "urn:fixture:reviewer",
+        "reviewRecordLocator": "urn:fixture:review-record",
+        "reviewedAt": "2026-01-02",
+        "reviewedLocator": null,
+        "versionLocator": null,
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity"
+        ],
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [],
+        "reviewedCapabilityIds": [],
+        "reviewedContentDigest": null,
+        "limitations": "Synthetic conformance source with no external publisher record."
+      }
+    },
+    {
+      "id": "SRC-FIXTURE-EMPIRICAL-B",
+      "title": "Independent repository-agent study B",
+      "authorsOrOrganization": [
+        "Fixture Research Group B"
+      ],
+      "producerIds": [
+        "ORG-FIXTURE-B"
+      ],
+      "publicationDate": "2026-02-01",
+      "sourceType": "paper",
+      "versionIdentity": {
+        "kind": "doi",
+        "value": "10.0000/fixture-b"
+      },
+      "mutableLocator": null,
+      "archive": {
+        "status": "verified",
+        "immutableLocator": "source-evidence-archives/study-b.txt",
+        "byteLength": 497,
+        "digest": "sha256:d9cb803940de358970b29eb48b00a0bd470eb0b618972844b2b0760cbf191ca9"
+      },
+      "retrievalDate": "2026-02-02",
+      "evidenceClass": "peer_reviewed_research",
+      "empiricalRole": "primary_empirical_source",
+      "limitations": [
+        "Synthetic positive fixture; it tests evidence semantics and makes no real-world claim."
+      ],
+      "population": "Repository-agent task population B",
+      "fundingDisclosure": {
+        "status": "verified_from_archived_source",
+        "sponsorIds": [],
+        "basis": "The archived source states that the study received no external funding.",
+        "evidence": {
+          "archiveDigest": "sha256:d9cb803940de358970b29eb48b00a0bd470eb0b618972844b2b0760cbf191ca9",
+          "location": "Line 9, Acknowledgements",
+          "statement": "No external funding.",
+          "sponsorIds": []
+        }
+      },
+      "contraryEvidence": [],
+      "sourceReview": {
+        "status": "pending",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "synthetic-fixture-reviewer",
+        "reviewerIdentity": "urn:fixture:reviewer",
+        "reviewRecordLocator": "urn:fixture:review-record",
+        "reviewedAt": "2026-02-02",
+        "reviewedLocator": null,
+        "versionLocator": null,
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity"
+        ],
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [],
+        "reviewedCapabilityIds": [],
+        "reviewedContentDigest": null,
+        "limitations": "Synthetic conformance source with no external publisher record."
+      }
+    }
+  ],
+  "observations": [
+    {
+      "id": "OBS-FIXTURE-A",
+      "sourceId": "SRC-FIXTURE-EMPIRICAL-A",
+      "role": "primary_empirical_observation",
+      "population": "Repository-agent task population A",
+      "sampling": "A predeclared sample from organization A's independent repository-task frame.",
+      "method": "Replay-based assessment by evaluator A.",
+      "result": "The bounded fixture mechanism was observed under study A's declared conditions.",
+      "sourceLocations": {
+        "population": "Line 3, Population",
+        "sampling": "Line 4, Sampling",
+        "method": "Line 5, Method",
+        "result": "Line 6, Result",
+        "dataOrBenchmarkLineageIds": [
+          "Line 7, Data or benchmark lineage"
+        ]
+      },
+      "uncertaintyAndSelectionConditions": [
+        "Inference is limited to study A's sampled frame."
+      ],
+      "limits": [
+        "Synthetic conformance datum; no external empirical conclusion is implied."
+      ],
+      "dataOrBenchmarkLineageIds": [
+        "LINEAGE-FIXTURE-A"
+      ]
+    },
+    {
+      "id": "OBS-FIXTURE-B",
+      "sourceId": "SRC-FIXTURE-EMPIRICAL-B",
+      "role": "primary_empirical_observation",
+      "population": "Repository-agent task population B",
+      "sampling": "A predeclared sample from organization B's independent repository-task frame.",
+      "method": "Artifact-review assessment by evaluator B.",
+      "result": "The bounded fixture mechanism was observed under study B's declared conditions.",
+      "sourceLocations": {
+        "population": "Line 3, Population",
+        "sampling": "Line 4, Sampling",
+        "method": "Line 5, Method",
+        "result": "Line 6, Result",
+        "dataOrBenchmarkLineageIds": [
+          "Line 7, Data or benchmark lineage"
+        ]
+      },
+      "uncertaintyAndSelectionConditions": [
+        "Inference is limited to study B's sampled frame."
+      ],
+      "limits": [
+        "Synthetic conformance datum; no external empirical conclusion is implied."
+      ],
+      "dataOrBenchmarkLineageIds": [
+        "LINEAGE-FIXTURE-B"
+      ]
+    }
+  ],
+  "claim": {
+    "requirementId": "FIXTURE-TRI-001",
+    "kind": "source_evidence",
+    "sourceIds": [
+      "SRC-FIXTURE-EMPIRICAL-A",
+      "SRC-FIXTURE-EMPIRICAL-B"
+    ],
+    "observationIds": [
+      "OBS-FIXTURE-A",
+      "OBS-FIXTURE-B"
+    ],
+    "representedPopulation": "The union of the two explicitly bounded synthetic repository-agent study populations.",
+    "support": "triangulated_empirical",
+    "supportedClaims": [
+      "Two independently produced synthetic observations report the same bounded fixture mechanism."
+    ],
+    "limitations": [
+      "This fixture validates manifest semantics only and is not real empirical evidence."
+    ],
+    "independenceAssessment": {
+      "observationIds": [
+        "OBS-FIXTURE-A",
+        "OBS-FIXTURE-B"
+      ],
+      "producerIds": [
+        "ORG-FIXTURE-A",
+        "ORG-FIXTURE-B"
+      ],
+      "sharedAuthorNames": [],
+      "sharedDataOrBenchmarkLineageIds": [],
+      "identicalPopulationStatements": [],
+      "populationOverlapAssessment": "The two sampling frames are separately produced; the represented population is their explicit union.",
+      "identicalMethodStatements": [],
+      "methodOverlapAssessment": "The studies use different evaluator methods and disclose their distinct method statements.",
+      "sharedSponsorIds": [],
+      "commonModeAssessment": "No shared producer, author name, benchmark lineage, or sponsor is present in the synthetic fixture; remaining conceptual overlap is explicit in the bounded claim.",
+      "conclusion": "sufficiently_independent_for_the_bounded_claim"
+    }
+  }
+}

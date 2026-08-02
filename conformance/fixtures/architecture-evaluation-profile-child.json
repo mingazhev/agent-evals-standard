@@ -1,0 +1,733 @@
+{
+  "schemaVersion": "agent-eval-evaluation-profile-1",
+  "id": "architecture-repo-change-child-v1",
+  "namespace": "agent-evals-standard.architecture-fixtures",
+  "owner": {
+    "id": "agent-evals-standard-maintainers",
+    "role": "profile_maintainer"
+  },
+  "version": "0.1.0",
+  "parentProfile": {
+    "id": "repo-change-v1",
+    "version": "0.1.0",
+    "uri": "../../profiles/repo-change-v1/evaluation-profile.json",
+    "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210"
+  },
+  "baseCompatibility": {
+    "standardVersion": "0.1.0",
+    "requirementRegistry": {
+      "id": "agent-evals-standard-requirements",
+      "version": "0.1.0",
+      "uri": "../../standard/requirement-registry.json",
+      "digest": "sha256:be32eaebcbee3200baa3c0f3edc49183ccafb550feba1801e8292ef85cfce771"
+    },
+    "verdict": "compatible_no_weakening"
+  },
+  "signatureProfile": {
+    "id": "fixture-signature-profile",
+    "version": "0.1.0",
+    "uri": "../../profiles/repo-change-v1/signature-profile.json",
+    "digest": "sha256:d3d2fd1c85f32d1881ad55160b31737f5fa53d9453ce42c9064812a4b1ecb872"
+  },
+  "claimTrustProfile": {
+    "id": "repo-change-operational-signature-profile",
+    "version": "0.1.0",
+    "uri": "../../profiles/repo-change-v1/operational-signature-profile.json",
+    "digest": "sha256:187832651a0b2317ca06b864a158c551082bf9f097b318dbe09ad78dd585b3b5"
+  },
+  "claimTrustUse": "conformance_fixture_requires_external_rekey",
+  "supportedAssuranceLevels": [
+    "A1",
+    "A2"
+  ],
+  "effectiveRiskRange": [
+    "low",
+    "medium"
+  ],
+  "capabilityFamilies": [
+    "CAP.IMPLEMENT_CHANGE"
+  ],
+  "interactionModes": [
+    "noninteractive_repository_task"
+  ],
+  "workArtifactRegistry": {
+    "id": "repository-sdlc-work-artifact-registry",
+    "version": "0.1.0",
+    "uri": "../../standard/work-artifact-registry.json",
+    "digest": "sha256:151684e0e5c35023ec07d6f4554ebedb9ecd4e52ef7738bd77c1eb31c95053c7"
+  },
+  "allowedOutcomeProfiles": [
+    {
+      "id": "workspace-change-v1",
+      "version": "0.1.0",
+      "uri": "../../profiles/repo-change-v1/outcome-profile.json",
+      "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
+    }
+  ],
+  "caseContract": {
+    "id": "repo-change-case-contract",
+    "version": "0.1.0",
+    "uri": "../../profiles/repo-change-v1/case-contract.json",
+    "digest": "sha256:9e905bd4844001d514670cf3b2239232d31bdcbf710448ee146593bf99ced1d9"
+  },
+  "gateRegistry": {
+    "id": "architecture-strengthened-gate-registry",
+    "version": "0.1.0",
+    "uri": "architecture-strengthened-gate-registry.json",
+    "digest": "sha256:c189f788ff84c978108474dd6b0564aa3a505ce75e295a1af03787a02c477bc7"
+  },
+  "caseQa": {
+    "id": "repo-change-case-qa-contract",
+    "version": "0.1.0",
+    "uri": "../../profiles/repo-change-v1/case-qa-contract.json",
+    "digest": "sha256:d17987895c74e0fec9b6b7433ee80974758c49ddee61a7c56476326a77c15b98"
+  },
+  "metrics": [
+    {
+      "id": "repo-change-metric-registry",
+      "version": "0.1.0",
+      "uri": "../../profiles/repo-change-v1/metric-registry.json",
+      "digest": "sha256:cc3122197b1e8ffee86dbad60ab9f49971a7e8ef032cd7c0dea07dc814ab565c"
+    }
+  ],
+  "failureTaxonomy": {
+    "id": "repo-change-failure-taxonomy",
+    "version": "0.1.0",
+    "uri": "../../profiles/repo-change-v1/failure-taxonomy.json",
+    "digest": "sha256:40b163062c44b813605d6126f95e31ebff7d172958fc2b97ef3e136058910636"
+  },
+  "additionalAssuranceRequirements": [],
+  "exclusions": [],
+  "fixtures": [
+    {
+      "id": "architecture-profile-child-positive",
+      "manifestUri": "manifest.json",
+      "manifestDigest": "sha256:0ca3e8c34bb302044b57e70c51ce1469e02d0afc1c87cbe7f8280082d67d3d31",
+      "manifestExpectationId": "architecture-profile-resolution-proof-inputs-valid",
+      "expectedVerdict": "pass"
+    },
+    {
+      "id": "architecture-profile-child-expansion-negative",
+      "manifestUri": "manifest.json",
+      "manifestDigest": "sha256:0ca3e8c34bb302044b57e70c51ce1469e02d0afc1c87cbe7f8280082d67d3d31",
+      "manifestExpectationId": "architecture-profile-resolution-proof-inputs-reject-verdict",
+      "expectedVerdict": "fail"
+    }
+  ],
+  "requirementMapping": [
+    {
+      "requirementId": "ARCH-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "ASSURE-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "CASE-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "CASE-002",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "CASE-003",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "CASE-004",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "CASE-005",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "CLAIM-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "CLAIM-002",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "CONF-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "CONF-002",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "CONF-003",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "DATA-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "DATA-002",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "EVID-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "EVID-002",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "EXP-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "EXP-002",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "EXP-003",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "GATE-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "GOV-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "GOV-002",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "HEALTH-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "HOLD-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "HOLD-002",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "I1",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "I10",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "I11",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "I12",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "I13",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "I2",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "I3",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "I4",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "I5",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "I6",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "I7",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "I8",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "I9",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "INT-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "JUDGE-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "JUDGE-002",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "JUDGE-003",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "OUT-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "OUTPROF-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "PROFILE-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "RISK-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "RUN-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "RUN-002",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "RUN-003",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "SCOPE-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "SCOPE-002",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "SCOPE-003",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "STAT-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "STAT-002",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "STAT-003",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "TRACE-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "VALID-001",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "VALID-002",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    },
+    {
+      "requirementId": "VALID-003",
+      "sourceProfileId": "architecture-repo-change-child-v1",
+      "implementation": {
+        "id": "architecture-repo-change-child-v1-requirement-implementation-contract",
+        "version": "0.1.0",
+        "uri": "architecture-requirement-implementation-contract.json",
+        "digest": "sha256:94f28dbd440082f49d0c3da9667d67388277eeb5e27f0f8bdb8865c50ae785ca"
+      }
+    }
+  ],
+  "conflictReport": {
+    "status": "no_unresolved_conflicts",
+    "evidence": {
+      "id": "architecture-profile-child-resolution",
+      "version": "0.1.0",
+      "uri": "architecture-profile-child-resolution.json",
+      "digest": "sha256:0ffc18929424372383e105711ed617a1e62f72ba39c72caee3256572a461babb"
+    }
+  },
+  "resolutionEvidence": {
+    "id": "architecture-profile-child-resolution",
+    "version": "0.1.0",
+    "uri": "architecture-profile-child-resolution.json",
+    "digest": "sha256:0ffc18929424372383e105711ed617a1e62f72ba39c72caee3256572a461babb"
+  },
+  "effectiveProfileDigest": "sha256:eea047da6b946604b94dcc7852a513f7bdc6817a95d91a61d58a7aedafefb5fc",
+  "digest": "sha256:1d6cf1f62520e3d825ea9d80e60e3a8cfc945d13094a32fe96f4c2f218413fa9",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:00Z",
+    "value": "1XiEP9_DJEPlelItMyli32F6vnvseH5vP1LnjwChu4YwP-hr06DsJxii9bkhv9Trmh4bFmCxaV_5QYlHnb-CCg"
+  }
+}

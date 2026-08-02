@@ -1,0 +1,125 @@
+{
+  "schemaVersion": "conformance-fixture-vector-set-1",
+  "id": "architecture-case-classification-vectors",
+  "version": "0.1.0",
+  "manifestEntries": [
+    {
+      "id": "architecture-case-full-valid-multi-label",
+      "path": "architecture-case-full.json",
+      "schema": "urn:agent-evals-standard:schema:case:1",
+      "valid": true,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": ["caseCapabilityClassification"]
+    },
+    {
+      "id": "classification-patch-with-tests",
+      "path": "positive/classification-patch-with-tests.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": true,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": ["caseCapabilityClassificationBoundary"]
+    },
+    {
+      "id": "classification-patch-with-tests-as-verification",
+      "path": "negative/classification-patch-with-tests-as-verification.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": false,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": ["caseCapabilityClassificationBoundary"],
+      "expectedError": "CASE-001 capability classification mismatch for construct.patch.correctness: declared [CAP.VERIFY_ASSURE], expected [CAP.IMPLEMENT_CHANGE]"
+    },
+    {
+      "id": "classification-independent-test-design",
+      "path": "positive/classification-independent-test-design.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": true,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": ["caseCapabilityClassificationBoundary"]
+    },
+    {
+      "id": "classification-independent-test-design-as-implementation",
+      "path": "negative/classification-independent-test-design-as-implementation.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": false,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": ["caseCapabilityClassificationBoundary"],
+      "expectedError": "CASE-001 capability classification mismatch for construct.test-design.quality: declared [CAP.IMPLEMENT_CHANGE], expected [CAP.VERIFY_ASSURE]"
+    },
+    {
+      "id": "classification-escaped-defect-repair",
+      "path": "positive/classification-escaped-defect-repair.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": true,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": ["caseCapabilityClassificationBoundary"]
+    },
+    {
+      "id": "classification-escaped-defect-repair-as-learning",
+      "path": "negative/classification-escaped-defect-repair-as-learning.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": false,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": ["caseCapabilityClassificationBoundary"],
+      "expectedError": "CASE-001 capability classification mismatch for construct.escaped-defect.repair: declared [CAP.REMEDIATE_LEARN], expected [CAP.IMPLEMENT_CHANGE]"
+    },
+    {
+      "id": "classification-incident-learning",
+      "path": "positive/classification-incident-learning.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": true,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": ["caseCapabilityClassificationBoundary"]
+    },
+    {
+      "id": "classification-readiness-review",
+      "path": "positive/classification-readiness-review.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": true,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": ["caseCapabilityClassificationBoundary"]
+    },
+    {
+      "id": "classification-readiness-as-rollout",
+      "path": "negative/classification-readiness-as-rollout.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": false,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": ["caseCapabilityClassificationBoundary"],
+      "expectedError": "CASE-001 capability classification mismatch for construct.release-readiness.recommendation: declared [CAP.RELEASE_OPERATE], expected [CAP.REVIEW_DECIDE]"
+    },
+    {
+      "id": "classification-simulated-rollout",
+      "path": "positive/classification-simulated-rollout.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": true,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": ["caseCapabilityClassificationBoundary"]
+    },
+    {
+      "id": "classification-rollout-as-review",
+      "path": "negative/classification-rollout-as-review.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": false,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": ["caseCapabilityClassificationBoundary"],
+      "expectedError": "CASE-001 capability classification mismatch for construct.simulated-rollout.control: declared [CAP.REVIEW_DECIDE], expected [CAP.RELEASE_OPERATE]"
+    },
+    {
+      "id": "classification-ancillary-research",
+      "path": "positive/classification-ancillary-research.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": true,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": ["caseCapabilityClassificationBoundary"]
+    },
+    {
+      "id": "classification-ancillary-research-as-discovery",
+      "path": "negative/classification-ancillary-research-as-discovery.json",
+      "schema": "urn:agent-evals-standard:schema:case:1#/$defs/capabilityClassification",
+      "valid": false,
+      "relatedPath": "architecture-case-validity-argument.json",
+      "semanticChecks": ["caseCapabilityClassificationBoundary"],
+      "expectedError": "CASE-001 ancillary construct construct.repository-research.ancillary cannot justify capability CAP.DISCOVER_SPECIFY"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "agent-eval-conformance-verification-record-1",
+  "id": "review-weakened-criterion-record",
+  "version": "0.1.0",
+  "proofAssertionId": "review-weakened-criterion-assertion",
+  "scopeSliceId": "fixture-slice",
+  "target": "case",
+  "targetId": "fixture-case-true",
+  "targetSubjectDigest": "sha256:2d1df346a439bffce8f8bcd40a0dff67b39954b46b4b101188714eee4250db90",
+  "dependencyManifestDigest": "sha256:445f222a919d929ab133f072ea2d1f194089649aa9b47c62eabc24b6dcf99655",
+  "requirementId": "FIX-MANUAL-001",
+  "method": "accountable_review",
+  "registry": {
+    "id": "fixture-conformance-verifier-registry",
+    "version": "0.1.0",
+    "digest": "sha256:c4bcf7728556ea0525ba5ec2607cd03b92f4ab468f17c0c5852db4827c380daf"
+  },
+  "entryId": "fixture-review-entry",
+  "inputBindings": [
+    {
+      "role": "requirement_registry",
+      "id": "fixture-requirements",
+      "version": "0.1.0",
+      "uri": "requirements.json",
+      "digest": "sha256:58dc343f84bb7e85989dc1d1ce16de2762a8fcce3bb73c42ac80ac71257f8d51",
+      "byteLength": 3369
+    },
+    {
+      "role": "target_subject",
+      "id": "fixture-case-true",
+      "version": "0.1.0",
+      "uri": "target-true.json",
+      "digest": "sha256:2d1df346a439bffce8f8bcd40a0dff67b39954b46b4b101188714eee4250db90",
+      "byteLength": 142
+    },
+    {
+      "role": "manual_evidence",
+      "id": "fixture-manual-evidence",
+      "version": "0.1.0",
+      "uri": "manual-evidence.json",
+      "digest": "sha256:d997dfd4fed9cd3debfc335f5306e4bafe51b555fd02a7ff7d05067a7b86af24",
+      "byteLength": 163
+    }
+  ],
+  "result": "pass",
+  "findingIds": [],
+  "actor": {
+    "id": "fixture-independent-reviewer",
+    "trustDomain": "fixture-independent-review"
+  },
+  "executedAt": "2026-08-01T00:05:00Z",
+  "criteria": [
+    {
+      "criterionId": "FIX-MANUAL-001.complete",
+      "result": "pass",
+      "evidenceInputIds": [
+        "fixture-manual-evidence"
+      ],
+      "rationale": "A review note exists."
+    }
+  ],
+  "signature": {
+    "profileId": "fixture-accountable-reviewer-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-3-reviewer",
+    "signedAt": "2026-08-01T00:05:00Z",
+    "value": "WmdUpXfC-VnhjOCDByF-Xtg626rrIum6ndmZG8i7Yesip5yjUhWBdLSXnJ0xhyPYQwLrf93ctAEO5s-QRlm2Cg"
+  },
+  "digest": "sha256:67b1ed69d3b1430c918f9c65e31183c11e88ea417f32f5f612f461d5d1ac81cc"
+}

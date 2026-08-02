@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:work-artifact-registry:1",
+  "title": "Closed repository SDLC work-artifact registry",
+  "$comment": "This registry is the sole normative work-artifact-type to capability-family mapping. The ordered artifactTypes array is closed for 0.1.0. Semantic validation must authenticate the registry pointer, reject duplicate or missing IDs, and require every selected material capability family to be represented by at least one selected material work-artifact type mapped to that family.",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "artifactTypes"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-work-artifact-registry-1" },
+    "id": { "const": "repository-sdlc-work-artifact-registry" },
+    "version": { "const": "0.1.0" },
+    "artifactTypes": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "prefixItems": [
+        { "$ref": "#/$defs/requirementsOrSpecification" },
+        { "$ref": "#/$defs/repositoryAnalysis" },
+        { "$ref": "#/$defs/technicalPlanOrDesign" },
+        { "$ref": "#/$defs/codeChange" },
+        { "$ref": "#/$defs/testChange" },
+        { "$ref": "#/$defs/repositoryConfiguration" },
+        { "$ref": "#/$defs/assuranceReport" },
+        { "$ref": "#/$defs/reviewDecision" },
+        { "$ref": "#/$defs/releaseArtifact" },
+        { "$ref": "#/$defs/operationalChangeRecord" },
+        { "$ref": "#/$defs/incidentAnalysis" },
+        { "$ref": "#/$defs/preventionPlan" }
+      ],
+      "items": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "capabilityFamilyId": {
+      "enum": [
+        "CAP.DISCOVER_SPECIFY",
+        "CAP.PLAN_DESIGN",
+        "CAP.IMPLEMENT_CHANGE",
+        "CAP.VERIFY_ASSURE",
+        "CAP.REVIEW_DECIDE",
+        "CAP.RELEASE_OPERATE",
+        "CAP.REMEDIATE_LEARN"
+      ]
+    },
+    "workArtifactTypeId": {
+      "enum": [
+        "requirements_or_specification",
+        "repository_analysis",
+        "technical_plan_or_design",
+        "code_change",
+        "test_change",
+        "repository_configuration",
+        "assurance_report",
+        "review_decision",
+        "release_artifact",
+        "operational_change_record",
+        "incident_analysis",
+        "prevention_plan"
+      ]
+    },
+    "entry": {
+      "type": "object",
+      "required": ["id", "capabilityFamilyId", "definition", "boundary"],
+      "properties": {
+        "id": { "$ref": "#/$defs/workArtifactTypeId" },
+        "capabilityFamilyId": { "$ref": "#/$defs/capabilityFamilyId" },
+        "definition": { "type": "string", "minLength": 1 },
+        "boundary": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "requirementsOrSpecification": { "allOf": [{ "$ref": "#/$defs/entry" }, { "type": "object", "properties": { "id": { "const": "requirements_or_specification" }, "capabilityFamilyId": { "const": "CAP.DISCOVER_SPECIFY" } } }] },
+    "repositoryAnalysis": { "allOf": [{ "$ref": "#/$defs/entry" }, { "type": "object", "properties": { "id": { "const": "repository_analysis" }, "capabilityFamilyId": { "const": "CAP.DISCOVER_SPECIFY" } } }] },
+    "technicalPlanOrDesign": { "allOf": [{ "$ref": "#/$defs/entry" }, { "type": "object", "properties": { "id": { "const": "technical_plan_or_design" }, "capabilityFamilyId": { "const": "CAP.PLAN_DESIGN" } } }] },
+    "codeChange": { "allOf": [{ "$ref": "#/$defs/entry" }, { "type": "object", "properties": { "id": { "const": "code_change" }, "capabilityFamilyId": { "const": "CAP.IMPLEMENT_CHANGE" } } }] },
+    "testChange": { "allOf": [{ "$ref": "#/$defs/entry" }, { "type": "object", "properties": { "id": { "const": "test_change" }, "capabilityFamilyId": { "const": "CAP.IMPLEMENT_CHANGE" } } }] },
+    "repositoryConfiguration": { "allOf": [{ "$ref": "#/$defs/entry" }, { "type": "object", "properties": { "id": { "const": "repository_configuration" }, "capabilityFamilyId": { "const": "CAP.IMPLEMENT_CHANGE" } } }] },
+    "assuranceReport": { "allOf": [{ "$ref": "#/$defs/entry" }, { "type": "object", "properties": { "id": { "const": "assurance_report" }, "capabilityFamilyId": { "const": "CAP.VERIFY_ASSURE" } } }] },
+    "reviewDecision": { "allOf": [{ "$ref": "#/$defs/entry" }, { "type": "object", "properties": { "id": { "const": "review_decision" }, "capabilityFamilyId": { "const": "CAP.REVIEW_DECIDE" } } }] },
+    "releaseArtifact": { "allOf": [{ "$ref": "#/$defs/entry" }, { "type": "object", "properties": { "id": { "const": "release_artifact" }, "capabilityFamilyId": { "const": "CAP.RELEASE_OPERATE" } } }] },
+    "operationalChangeRecord": { "allOf": [{ "$ref": "#/$defs/entry" }, { "type": "object", "properties": { "id": { "const": "operational_change_record" }, "capabilityFamilyId": { "const": "CAP.RELEASE_OPERATE" } } }] },
+    "incidentAnalysis": { "allOf": [{ "$ref": "#/$defs/entry" }, { "type": "object", "properties": { "id": { "const": "incident_analysis" }, "capabilityFamilyId": { "const": "CAP.REMEDIATE_LEARN" } } }] },
+    "preventionPlan": { "allOf": [{ "$ref": "#/$defs/entry" }, { "type": "object", "properties": { "id": { "const": "prevention_plan" }, "capabilityFamilyId": { "const": "CAP.REMEDIATE_LEARN" } } }] }
+  }
+}

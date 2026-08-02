@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:anti-rollback-receipt:1",
+  "title": "Authenticated anti-rollback notary receipt",
+  "$comment": "The notary signing projection omits signature.value and the complete witnessSignature; the witness signing projection includes the complete notary signature and omits only witnessSignature.value. Each projection is prefixed by schemaVersion and a zero octet. Semantic validation must resolve serviceIdentity and signature.keyId as the same active anti_rollback_receipt_signer, resolve witnessSignature.keyId as an active anti_rollback_witness distinct from the notary owner, verify both signatures through the pinned authorization and revocation contracts, bind ledgerId and root to the governed ledger view, validate observedAt through the pinned trusted-time quorum rather than either signedAt, and reject a lower or conflicting sequence. previousReceiptDigest is null only for sequence zero; otherwise it is the SHA-256 digest of the RFC 8785 canonical complete preceding receipt for the same ledgerId.",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "ledgerId", "sequence", "root", "previousReceiptDigest", "observedAt", "serviceIdentity", "signature", "witnessSignature"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-anti-rollback-receipt-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "const": "0.1.0" },
+    "ledgerId": { "$ref": "#/$defs/id" },
+    "sequence": { "type": "integer", "minimum": 0 },
+    "root": { "$ref": "#/$defs/digest" },
+    "previousReceiptDigest": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/digest" }] },
+    "observedAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "serviceIdentity": { "$ref": "#/$defs/id" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" },
+    "witnessSignature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+  }
+}

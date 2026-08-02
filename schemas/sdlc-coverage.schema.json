@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:sdlc-coverage:1",
+  "title": "Closed SDLC capability coverage map",
+  "$comment": "Semantic validation must require exactly one entry for each of the seven closed capability families. covered entries must be reproduced from suite cases, their effective evaluation profiles, selected outcome profiles, and the standard work-artifact registry. gap entries must have no case projection and must prohibit capability claims until their closure criteria are met.",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "suite", "workArtifactRegistry", "capabilities", "digest", "signature"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-sdlc-coverage-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "const": "0.1.0" },
+    "suite": { "$ref": "#/$defs/component" },
+    "workArtifactRegistry": { "$ref": "#/$defs/artifactPointer" },
+    "capabilities": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "items": { "$ref": "#/$defs/capabilityCoverage" }
+    },
+    "digest": { "$ref": "#/$defs/digest" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "component": {
+      "type": "object",
+      "required": ["id", "version"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "artifactPointer": {
+      "type": "object",
+      "required": ["id", "version", "uri", "digest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "minLength": 1 },
+        "uri": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "capabilityId": {
+      "enum": [
+        "CAP.DISCOVER_SPECIFY",
+        "CAP.PLAN_DESIGN",
+        "CAP.IMPLEMENT_CHANGE",
+        "CAP.VERIFY_ASSURE",
+        "CAP.REVIEW_DECIDE",
+        "CAP.RELEASE_OPERATE",
+        "CAP.REMEDIATE_LEARN"
+      ]
+    },
+    "idSet": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/id" },
+      "uniqueItems": true
+    },
+    "capabilityCoverage": {
+      "type": "object",
+      "required": ["capabilityId", "status", "caseIds", "evaluationProfileIds", "outcomeProfileIds", "workArtifactTypes", "claimEffect", "evidence"],
+      "properties": {
+        "capabilityId": { "$ref": "#/$defs/capabilityId" },
+        "status": { "enum": ["covered", "gap"] },
+        "caseIds": { "$ref": "#/$defs/idSet" },
+        "evaluationProfileIds": { "$ref": "#/$defs/idSet" },
+        "outcomeProfileIds": { "$ref": "#/$defs/idSet" },
+        "workArtifactTypes": { "$ref": "#/$defs/idSet" },
+        "claimEffect": { "enum": ["claimable_only_for_listed_cases", "forbidden_until_covered"] },
+        "evidence": {
+          "type": "object",
+          "required": ["basis", "limitations", "closureCriteria"],
+          "properties": {
+            "basis": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+            "limitations": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+            "closureCriteria": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true }
+          },
+          "additionalProperties": false
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "covered" } }, "required": ["status"] },
+          "then": {
+            "properties": {
+              "caseIds": { "type": "array", "minItems": 1 },
+              "evaluationProfileIds": { "type": "array", "minItems": 1 },
+              "outcomeProfileIds": { "type": "array", "minItems": 1 },
+              "workArtifactTypes": { "type": "array", "minItems": 1 },
+              "claimEffect": { "const": "claimable_only_for_listed_cases" },
+              "evidence": {
+                "type": "object",
+                "properties": {
+                  "basis": { "type": "array", "minItems": 1 },
+                  "closureCriteria": { "type": "array", "maxItems": 0 }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "status": { "const": "gap" } }, "required": ["status"] },
+          "then": {
+            "properties": {
+              "caseIds": { "type": "array", "maxItems": 0 },
+              "evaluationProfileIds": { "type": "array", "maxItems": 0 },
+              "outcomeProfileIds": { "type": "array", "maxItems": 0 },
+              "workArtifactTypes": { "type": "array", "maxItems": 0 },
+              "claimEffect": { "const": "forbidden_until_covered" },
+              "evidence": {
+                "type": "object",
+                "properties": {
+                  "basis": { "type": "array", "maxItems": 0 },
+                  "closureCriteria": { "type": "array", "minItems": 1 }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

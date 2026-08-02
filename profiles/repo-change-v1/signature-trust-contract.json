@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "agent-evals-signature-trust-contract-1",
+  "id": "fixture-signature-trust-contract",
+  "version": "0.1.0",
+  "purpose": "conformance_fixture_only",
+  "operationalUse": "prohibited",
+  "trustDomain": "repository conformance corpus",
+  "keys": [
+    {
+      "keyId": "rfc8032-test-key-1",
+      "algorithm": "Ed25519",
+      "publicKeyUri": "../../conformance/fixtures/keys/rfc8032-test-key-1.pem",
+      "publicKeyDigest": "sha256:7f2d9ed0b71b8e5a6c5cf30e647d6e20b5bca6dac8071f11abe3fef8014db610",
+      "owner": "agent-evals-standard conformance maintainers",
+      "authorizedRoles": [
+        "conformance-fixture-signer"
+      ],
+      "authorizedArtifactTypes": [
+        "agent-evals-signature-conformance-vectors-1",
+        "agent-eval-anti-rollback-policy-1",
+        "agent-evals-signature-trust-contract-1",
+        "agent-evals-requirement-implementation-pin-1"
+      ],
+      "authorizedScope": "profiles/repo-change-v1 conformance artifacts only",
+      "validFrom": "2026-08-01T00:00:00Z",
+      "validUntil": "2027-08-01T00:00:00Z",
+      "status": "active",
+      "reassignment": "forbidden"
+    }
+  ],
+  "keyResolution": {
+    "unknownKey": "insufficient_evidence",
+    "duplicateKeyId": "insufficient_evidence",
+    "digestMismatch": "insufficient_evidence"
+  },
+  "revocation": {
+    "authority": "agent-evals-standard conformance maintainers",
+    "authenticatedAppendOnlyEventRequired": true,
+    "maximumTrustStateAgeSeconds": 86400,
+    "unknownOrStaleState": "insufficient_evidence"
+  },
+  "timeValidation": {
+    "authoritativeClock": "verifier clock with recorded UTC verifiedAt",
+    "signerControlledSignedAtAloneIsSufficient": false,
+    "outsideAuthorizedInterval": "insufficient_evidence"
+  },
+  "riskAcceptance": {
+    "assuranceLevel": "A0",
+    "effectiveRiskTier": "low",
+    "justification": "This bundle tests conformance mechanics and is explicitly prohibited from making governance decisions; it is not an operational trust deployment.",
+    "acceptedByRole": "conformance-maintainer",
+    "subjectOwnerIndependent": true,
+    "reviewedAt": "2026-08-01T00:00:00Z",
+    "expiresAt": "2027-08-01T00:00:00Z"
+  },
+  "digest": "sha256:a2c72ddc9ef55199505552f76c84fabecc82fb5cc576fc733865615435eef614",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:00Z",
+    "value": "GbeA3BjH9wRh5FtI2d8UU61__l-Q7IuNx5HhN1l-Mp5z6cPYUIrYxokknOpNxDkWZGTR4YmYpEo1AZAhXparBg"
+  }
+}

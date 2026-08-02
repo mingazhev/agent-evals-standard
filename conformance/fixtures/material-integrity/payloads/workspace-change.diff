@@ -1,0 +1,7 @@
+diff --git a/src/example.js b/src/example.js
+index 1111111..2222222 100644
+--- a/src/example.js
++++ b/src/example.js
+@@ -1 +1 @@
+-export const mode = "old";
++export const mode = "new";

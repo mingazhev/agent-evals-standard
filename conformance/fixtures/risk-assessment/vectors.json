@@ -1,0 +1,96 @@
+{
+  "schemaVersion": "risk-assessment-chain-vectors-1",
+  "documents": {
+    "caseRiskAssessment": "../architecture-case-risk-assessment.json",
+    "caseDocument": "../architecture-case-full.json",
+    "experimentRiskAssessment": "../positive/risk-assessment.json",
+    "preRun": "../positive/pre-run-manifest.json",
+    "scorecard": "../positive/scorecard.json",
+    "governanceDecision": "../positive/governance-decision.json"
+  },
+  "profileEligibility": [
+    {
+      "profileId": "repo-change-v1",
+      "effectiveRiskRange": ["low", "medium", "high", "critical"]
+    }
+  ],
+  "negativeVectors": [
+    {
+      "id": "reject-factor-input-digest-drift",
+      "target": "experimentRiskAssessment",
+      "pointer": "/derivation/factorInputDigest",
+      "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "expectedError": "factorInputDigest does not authenticate the complete factors object"
+    },
+    {
+      "id": "reject-understated-derived-tier",
+      "target": "experimentRiskAssessment",
+      "pointer": "/effectiveRiskTier",
+      "value": "low",
+      "expectedError": "effectiveRiskTier must be medium, found low"
+    },
+    {
+      "id": "reject-bounded-uncertainty-cross-tier",
+      "target": "experimentRiskAssessment",
+      "pointer": "/factors/likelihoodAndUncertainty/uncertainty",
+      "value": "bounded_within_tier",
+      "expectedError": "bounded uncertainty must remain within one tier"
+    },
+    {
+      "id": "reject-case-risk-identity-drift",
+      "target": "caseDocument",
+      "pointer": "/inherentRiskAssessment/digest",
+      "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "expectedError": "inherentRiskAssessment identity differs from the authenticated risk record"
+    },
+    {
+      "id": "reject-case-inherent-tier-drift",
+      "target": "caseDocument",
+      "pointer": "/inherentRiskTier",
+      "value": "critical",
+      "expectedError": "inherentRiskTier differs from the authenticated risk record"
+    },
+    {
+      "id": "reject-pre-run-risk-identity-drift",
+      "target": "preRun",
+      "pointer": "/riskAssessment/id",
+      "value": "different-risk-record",
+      "expectedError": "riskAssessment identity differs from the authenticated experiment risk record"
+    },
+    {
+      "id": "reject-pre-run-tier-drift",
+      "target": "preRun",
+      "pointer": "/effectiveRiskTier",
+      "value": "high",
+      "expectedError": "effectiveRiskTier differs from the authenticated experiment risk record"
+    },
+    {
+      "id": "reject-scorecard-risk-identity-drift",
+      "target": "scorecard",
+      "pointer": "/experiment/riskAssessment/digest",
+      "value": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "expectedError": "riskAssessment identity differs from the sealed pre-run manifest"
+    },
+    {
+      "id": "reject-scorecard-tier-outside-eligibility",
+      "target": "scorecard",
+      "pointer": "/experiment/effectiveRiskRange",
+      "value": ["low"],
+      "expectedError": "actual effectiveRiskTier is outside the declared profile eligibility range"
+    },
+    {
+      "id": "reject-governance-risk-tier-drift",
+      "target": "governanceDecision",
+      "pointer": "/effectiveRiskTier",
+      "value": "critical",
+      "expectedError": "effectiveRiskTier differs from the sealed pre-run manifest"
+    },
+    {
+      "id": "reject-governance-scorecard-digest-drift",
+      "target": "governanceDecision",
+      "pointer": "/scorecards/0/digest",
+      "value": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "expectedError": "no bound scorecard authenticates the evaluated scorecard digest"
+    }
+  ]
+}

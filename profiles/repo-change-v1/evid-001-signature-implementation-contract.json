@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "agent-evals-requirement-implementation-pin-1",
+  "id": "repo-change-v1-evid-001-signature-pin",
+  "version": "0.1.0",
+  "requirementId": "EVID-001",
+  "profileScope": "repo-change-v1 conformance corpus",
+  "operationalUse": "prohibited",
+  "signatureProfile": {
+    "id": "fixture-signature-profile",
+    "uri": "signature-profile.json",
+    "digest": "sha256:d3d2fd1c85f32d1881ad55160b31737f5fa53d9453ce42c9064812a4b1ecb872"
+  },
+  "resolutionRule": "Every signature.profileId in this conformance scope must equal fixture-signature-profile and resolve to the exact digest above before cryptographic verification.",
+  "failureSemantics": "unknown, duplicate, unpinned, version-ambiguous, or digest-mismatched profiles yield insufficient_evidence",
+  "digest": "sha256:e3c9b6f428dca26563f034ed31050d78b2ae49b46525f40cba4db1d0328180ee",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:00Z",
+    "value": "lee0QCVLyy1ixOXEP72Dj-EE-XuKUKFPD9n5rpex1EF1n7SxWSDaO-GmLsl2_wLN85o7Ff4O2L1RZq4cQOhcDw"
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "agent-eval-trust-threat-assessment-1",
+  "id": "repo-change-operational-trust-threat-assessment",
+  "version": "0.1.0",
+  "assuranceLevels": [
+    "A1",
+    "A2",
+    "A3"
+  ],
+  "effectiveRiskTiers": [
+    "low",
+    "medium",
+    "high",
+    "critical"
+  ],
+  "threats": [
+    "rollback",
+    "equivocation",
+    "ledger_fork",
+    "stale_trust_state",
+    "split_view",
+    "operator_compromise"
+  ],
+  "requiredControls": [
+    "independent_notary",
+    "independent_witness",
+    "trusted_time_quorum",
+    "revocation_quorum",
+    "fail_closed_governance"
+  ],
+  "roleOwners": {
+    "notaryOperator": "independent-notary-operator",
+    "witnessOperators": [
+      "independent-witness-operator"
+    ],
+    "timeAuthorityOperators": [
+      "trusted-time-operator-a",
+      "trusted-time-operator-b"
+    ],
+    "revocationAuthorities": [
+      "revocation-authority-a",
+      "revocation-authority-b"
+    ],
+    "decisionApprovers": [
+      "governance-approver-a",
+      "governance-approver-b"
+    ],
+    "evaluators": [
+      "repo-change-independent-evaluator"
+    ],
+    "subjectOwners": [
+      "repo-change-subject-owner"
+    ]
+  },
+  "reviewedAt": "2026-08-01T00:00:00Z",
+  "expiresAt": "2027-08-01T00:00:00Z",
+  "reopenTriggers": [
+    "assurance_change",
+    "risk_change",
+    "threat_change",
+    "scope_change"
+  ],
+  "residualRisk": "A quorum-wide compromise of both trusted-time operators or both revocation authorities remains possible. Governance use therefore fails closed on quorum loss, divergent views, stale state, or unverifiable independence evidence.",
+  "contractBindings": [
+    {
+      "id": "repo-change-operational-key-authorization",
+      "version": "0.1.0",
+      "uri": "operational-key-authorization-contract.json",
+      "digest": "sha256:cc7c8b81642b5d5736610703409cabb5750ff97ba84fb30cbd6a8bf4b053ba1d"
+    },
+    {
+      "id": "repo-change-operational-revocation-state",
+      "version": "0.1.0",
+      "uri": "operational-revocation-state-contract.json",
+      "digest": "sha256:4c04e72536e07337f848eebe9e5c2387a3d1ef9616b67db448dabc5cc41a1b70"
+    },
+    {
+      "id": "repo-change-operational-trusted-time",
+      "version": "0.1.0",
+      "uri": "operational-trusted-time-contract.json",
+      "digest": "sha256:956479a9658de74f8f2f7c2c14c5064c39e15d70cf84ade7ce2905599af66899"
+    }
+  ],
+  "digest": "sha256:a485db71ba2b9740d962bc581ddbca505a9c6eb61e829c1e5c4c9c039fdbe798",
+  "signature": {
+    "profileId": "repo-change-operational-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "repo-change-trust-root-2026",
+    "signedAt": "2026-08-01T00:00:00Z",
+    "value": "a0VgCW8SdcXO-zOYfb6rLH95rKW_jDJ9CzmJddesX5Y38gz1mF9r_Z2g8mH8_nnjqWoLLBi0-WUrji2XIG01DQ"
+  }
+}

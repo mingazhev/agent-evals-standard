@@ -1,0 +1,232 @@
+{
+  "schemaVersion": "agent-eval-grader-validation-1",
+  "id": "grader-validation-fixture-1",
+  "grader": {
+    "id": "fixture-model-grader",
+    "version": "0.1.0",
+    "digest": "sha256:6c1a977ed71dfc8efb259efe6ea1637071ccc71dbf216a50c315a68da62f72a9"
+  },
+  "graderComponents": {
+    "promptDigest": "sha256:ba9a8329030e5f5f73cdab1d980aabe726b77416798045a46c2ca136c539d53f",
+    "rubricDigest": "sha256:be56670677b11de94719e92dbe6c403590631fdfe44dcc600d4235fd74aa6a67",
+    "parserDigest": "sha256:fa6c475f0c0c2c5b2ea24354d7984c58c479fc0e12d3570b6df793bfd64271e1",
+    "modelDigest": "sha256:becf814710878c298275466ae30df44a0b9ad9a3c01c8f4da186651214bc617e"
+  },
+  "protocol": {
+    "id": "grader-validation-protocol",
+    "version": "0.1.0",
+    "digest": "sha256:90a8c659fe09abdbbd4a3dfd1b92bc62536f2f0f952c61fc194cf36496313e6a",
+    "schemaId": "grader-validation-protocol-schema",
+    "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+  },
+  "sealedAt": "2026-08-01T01:00:04Z",
+  "validationWindow": {
+    "startedAt": "2026-08-01T00:00:00Z",
+    "expiresAt": "2027-08-01T00:00:00Z"
+  },
+  "samplingFrame": {
+    "id": "grader-sampling-frame",
+    "version": "0.1.0",
+    "digest": "sha256:e836f86094a768bda471416b89c5fbbeb72cabed92eb25b499a0a5aa1929ee3f",
+    "schemaId": "grader-sampling-frame-schema",
+    "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+  },
+  "minimumSampleRule": {
+    "id": "grader-minimum-sample-rule",
+    "version": "0.1.0",
+    "digest": "sha256:030cae4feadad39030185c1a050ea39e52374a0021fa85f92135508de2111015",
+    "schemaId": "grader-minimum-sample-rule-schema",
+    "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+  },
+  "classBalance": {
+    "knownGood": 20,
+    "knownBad": 20
+  },
+  "humanLabelUncertainty": {
+    "id": "human-label-uncertainty",
+    "version": "0.1.0",
+    "digest": "sha256:88f5eca392b543a48a102c796a8e469e0dd0447625abd078524450ab2d2a3af3",
+    "schemaId": "human-label-uncertainty-schema",
+    "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+  },
+  "humanLabelStrata": [
+    {
+      "id": "known-good",
+      "sampleSize": 20,
+      "agreement": {
+        "method": "wilson",
+        "confidenceLevel": 0.95,
+        "lower": 0.85,
+        "upper": 1
+      },
+      "evidenceId": "grader-known-good-evidence"
+    },
+    {
+      "id": "known-bad",
+      "sampleSize": 20,
+      "agreement": {
+        "method": "wilson",
+        "confidenceLevel": 0.95,
+        "lower": 0.85,
+        "upper": 1
+      },
+      "evidenceId": "grader-known-bad-evidence"
+    }
+  ],
+  "blindedAdjudication": {
+    "id": "blinded-adjudication",
+    "version": "0.1.0",
+    "digest": "sha256:7656dc12fcfe2afe1bd83c82d13ae44a1dc8a483d6b2eaa34b2e8887d95db514",
+    "schemaId": "blinded-adjudication-schema",
+    "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+  },
+  "judgeBiasSuite": [
+    {
+      "biasClass": "identity",
+      "protocol": {
+        "id": "bias-identity-protocol",
+        "version": "0.1.0",
+        "digest": "sha256:25f8cc584f498380eadda0a8226f5bb0a9e2ade0ef71741ffa9e44e569dda3d6",
+        "schemaId": "bias-identity-protocol-schema",
+        "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+      },
+      "evidenceId": "bias-identity-evidence",
+      "verdict": "pass"
+    },
+    {
+      "biasClass": "position",
+      "protocol": {
+        "id": "bias-position-protocol",
+        "version": "0.1.0",
+        "digest": "sha256:b809489e1d7f37dffe04560647221eed57e32ce5b49bac344a94f2fde8529e10",
+        "schemaId": "bias-position-protocol-schema",
+        "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+      },
+      "evidenceId": "bias-position-evidence",
+      "verdict": "pass"
+    },
+    {
+      "biasClass": "verbosity",
+      "protocol": {
+        "id": "bias-verbosity-protocol",
+        "version": "0.1.0",
+        "digest": "sha256:7e8af8f6810f4250261da2426d57c3b3d733f748ea19237bb4cb72bc1ff34485",
+        "schemaId": "bias-verbosity-protocol-schema",
+        "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+      },
+      "evidenceId": "bias-verbosity-evidence",
+      "verdict": "pass"
+    },
+    {
+      "biasClass": "style",
+      "protocol": {
+        "id": "bias-style-protocol",
+        "version": "0.1.0",
+        "digest": "sha256:89f3f603c65f01857a832672abaf38aa81628dbefd0bc68b2dd550e67e11bf7d",
+        "schemaId": "bias-style-protocol-schema",
+        "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+      },
+      "evidenceId": "bias-style-evidence",
+      "verdict": "pass"
+    },
+    {
+      "biasClass": "reference_anchoring",
+      "protocol": {
+        "id": "bias-reference_anchoring-protocol",
+        "version": "0.1.0",
+        "digest": "sha256:baedbbaae7ec32575c21c73982e50c9be14874ed4b5fcfce92338f1b39793d67",
+        "schemaId": "bias-reference_anchoring-protocol-schema",
+        "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+      },
+      "evidenceId": "bias-reference_anchoring-evidence",
+      "verdict": "pass"
+    },
+    {
+      "biasClass": "prompt_injection",
+      "protocol": {
+        "id": "bias-prompt_injection-protocol",
+        "version": "0.1.0",
+        "digest": "sha256:71311e19d3ba5185fcc87c29c8669267c5ef25fb35f38f75e6914b01d7dec0d5",
+        "schemaId": "bias-prompt_injection-protocol-schema",
+        "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+      },
+      "evidenceId": "bias-prompt_injection-evidence",
+      "verdict": "pass"
+    },
+    {
+      "biasClass": "judge_family",
+      "protocol": {
+        "id": "bias-judge_family-protocol",
+        "version": "0.1.0",
+        "digest": "sha256:956a2d9174fe2b771b084c9f38bb1333de480c85a67bfe517f98dbd1d522e940",
+        "schemaId": "bias-judge_family-protocol-schema",
+        "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+      },
+      "evidenceId": "bias-judge_family-evidence",
+      "verdict": "pass"
+    }
+  ],
+  "falsePositive": {
+    "sampleSize": 40,
+    "estimate": 0.025,
+    "interval": {
+      "method": "wilson",
+      "confidenceLevel": 0.95,
+      "lower": 0.004,
+      "upper": 0.086
+    },
+    "threshold": 0.1,
+    "rule": {
+      "id": "false-positive-rule",
+      "version": "0.1.0",
+      "digest": "sha256:c11a5a91d1b83ef43ad3a35bfaddf6e87dd7dd0e746027c6c712ab7b24047c98",
+      "schemaId": "false-positive-rule-schema",
+      "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+    },
+    "verdict": "pass"
+  },
+  "falseNegative": {
+    "sampleSize": 40,
+    "estimate": 0.025,
+    "interval": {
+      "method": "wilson",
+      "confidenceLevel": 0.95,
+      "lower": 0.004,
+      "upper": 0.086
+    },
+    "threshold": 0.1,
+    "rule": {
+      "id": "false-negative-rule",
+      "version": "0.1.0",
+      "digest": "sha256:d0be085511bb62c5c2f230a8c362d90fd8d6e8a195d093638413eba2985708fc",
+      "schemaId": "false-negative-rule-schema",
+      "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+    },
+    "verdict": "pass"
+  },
+  "controls": [
+    {
+      "id": "positive-control",
+      "expected": "pass",
+      "observed": "pass",
+      "inputDigest": "sha256:fa68c0e847c7df18342b7b8c43a596b7c46cbd212589d7956ea04f93161e1aaa",
+      "evidenceId": "positive-control-evidence"
+    },
+    {
+      "id": "negative-control",
+      "expected": "fail",
+      "observed": "fail",
+      "inputDigest": "sha256:1721c53cbd607c8dd72da2e84e618af03b06926ceb454db7c65cae2bc3c4c41a",
+      "evidenceId": "negative-control-evidence"
+    }
+  ],
+  "verdict": "pass",
+  "digest": "sha256:6f81fa9c241cae98202f7cc160516392191f61ebd09c391918554a0cfecaf73f",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T01:00:05Z",
+    "value": "j0asq2j8e8W7TBcuRnJXupdbhxsaKIUC0hxFG2POMjxKmIYRnGK0nNJejffBhPx5bdSgijced-PkqMxi7xwADg"
+  }
+}

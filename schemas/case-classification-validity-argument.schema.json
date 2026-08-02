@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:case-classification-validity-argument:1",
+  "title": "Authenticated case capability-classification validity argument",
+  "$comment": "The semantic verifier must authenticate and reproduce the evaluation-profile, outcome-profile, work-artifact-registry, case identity, verifier bytes, and every construct-to-artifact-to-capability mapping. The signed document is not an authority to redefine the standard-owned work-artifact registry.",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "caseIdentity", "effectiveEvaluationProfile", "selectedOutcomeProfile", "constructRegistry", "fullCaseExpectation", "boundaryVectors", "verifier", "issuer", "digest", "signature"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-case-classification-validity-argument-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "const": "0.1.0" },
+    "caseIdentity": {
+      "type": "object",
+      "required": ["id", "version"],
+      "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 } },
+      "additionalProperties": false
+    },
+    "effectiveEvaluationProfile": {
+      "type": "object",
+      "required": ["id", "version", "uri", "rawDigest", "subjectDigest", "effectiveProfileDigest", "interactionModes", "workArtifactRegistry", "capabilityFamilies"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "minLength": 1 },
+        "uri": { "type": "string", "minLength": 1 },
+        "rawDigest": { "$comment": "SHA-256 of the exact resolved JSON bytes.", "$ref": "#/$defs/digest" },
+        "subjectDigest": { "$comment": "Authenticated self-digest declared by the resolved signed profile.", "$ref": "#/$defs/digest" },
+        "effectiveProfileDigest": { "$ref": "#/$defs/digest" },
+        "interactionModes": { "$ref": "#/$defs/idSet" },
+        "workArtifactRegistry": { "$ref": "#/$defs/artifactPointer" },
+        "capabilityFamilies": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/capabilityId" }, "uniqueItems": true }
+      },
+      "additionalProperties": false
+    },
+    "selectedOutcomeProfile": {
+      "type": "object",
+      "required": ["id", "version", "uri", "rawDigest", "subjectDigest", "workArtifactRegistry", "workArtifactTypes"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "minLength": 1 },
+        "uri": { "type": "string", "minLength": 1 },
+        "rawDigest": { "$comment": "SHA-256 of the exact resolved JSON bytes.", "$ref": "#/$defs/digest" },
+        "subjectDigest": { "$comment": "Authenticated self-digest declared by the resolved signed outcome profile.", "$ref": "#/$defs/digest" },
+        "workArtifactRegistry": { "$ref": "#/$defs/artifactPointer" },
+        "workArtifactTypes": { "$ref": "#/$defs/idSet" }
+      },
+      "additionalProperties": false
+    },
+    "constructRegistry": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "materiality", "capabilityFamilyIds", "workArtifactTypes"],
+        "properties": {
+          "id": { "$ref": "#/$defs/id" },
+          "materiality": { "enum": ["material", "ancillary"] },
+          "capabilityFamilyIds": { "type": "array", "items": { "$ref": "#/$defs/capabilityId" }, "uniqueItems": true },
+          "workArtifactTypes": { "$ref": "#/$defs/idSet" }
+        },
+        "allOf": [
+          { "if": { "properties": { "materiality": { "const": "material" } }, "required": ["materiality"] }, "then": { "properties": { "capabilityFamilyIds": { "type": "array", "minItems": 1 }, "workArtifactTypes": { "type": "array", "minItems": 1 } } } },
+          { "if": { "properties": { "materiality": { "const": "ancillary" } }, "required": ["materiality"] }, "then": { "properties": { "capabilityFamilyIds": { "type": "array", "maxItems": 0 } } } }
+        ],
+        "additionalProperties": false
+      }
+    },
+    "fullCaseExpectation": {
+      "type": "object",
+      "required": ["capabilityFamilyIds", "interactionModeId", "workArtifactTypes", "workspaceManifestDigest", "subjectCapabilityFamilyIds", "expectedVerdict"],
+      "properties": {
+        "capabilityFamilyIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/capabilityId" }, "uniqueItems": true },
+        "interactionModeId": { "$ref": "#/$defs/id" },
+        "workArtifactTypes": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "workspaceManifestDigest": { "$ref": "#/$defs/digest" },
+        "subjectCapabilityFamilyIds": {
+          "type": "object",
+          "minProperties": 1,
+          "patternProperties": {
+            "^(outcome_profile|claim):[A-Za-z0-9][A-Za-z0-9_.:-]*$": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/capabilityId" }, "uniqueItems": true }
+          },
+          "additionalProperties": false
+        },
+        "expectedVerdict": { "const": "pass" }
+      },
+      "additionalProperties": false
+    },
+    "boundaryVectors": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["path", "expectedCapabilityFamilyIds", "expectedVerdict"],
+        "properties": {
+          "path": { "type": "string", "minLength": 1 },
+          "expectedCapabilityFamilyIds": { "type": "array", "items": { "$ref": "#/$defs/capabilityId" }, "uniqueItems": true },
+          "ancillaryConstructIds": { "$ref": "#/$defs/idSet" },
+          "expectedVerdict": { "enum": ["pass", "fail"] },
+          "expectedSemanticError": { "type": "string", "minLength": 1 }
+        },
+        "allOf": [
+          { "if": { "properties": { "expectedVerdict": { "const": "fail" } }, "required": ["expectedVerdict"] }, "then": { "properties": { "expectedSemanticError": { "type": "string", "minLength": 1 } }, "required": ["expectedSemanticError"] } }
+        ],
+        "additionalProperties": false
+      }
+    },
+    "verifier": { "$ref": "#/$defs/verifierContract" },
+    "issuer": {
+      "type": "object",
+      "required": ["id", "role"],
+      "properties": { "id": { "$ref": "#/$defs/id" }, "role": { "const": "case_validity_authority" } },
+      "additionalProperties": false
+    },
+    "digest": { "$ref": "#/$defs/digest" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "idSet": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+    "capabilityId": { "enum": ["CAP.DISCOVER_SPECIFY", "CAP.PLAN_DESIGN", "CAP.IMPLEMENT_CHANGE", "CAP.VERIFY_ASSURE", "CAP.REVIEW_DECIDE", "CAP.RELEASE_OPERATE", "CAP.REMEDIATE_LEARN"] },
+    "artifactPointer": {
+      "type": "object",
+      "required": ["id", "version", "uri", "digest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 },
+        "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "verifierContract": {
+      "type": "object",
+      "required": ["id", "version", "uri", "digest", "schemaId"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" }, "version": { "const": "0.1.0" },
+        "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" },
+        "schemaId": { "const": "agent-eval-case-classification-validity-argument-1" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

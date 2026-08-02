@@ -1,0 +1,93 @@
+{
+  "schemaVersion": "agent-eval-conformance-requirement-proof-set-1",
+  "id": "proof-auto-false-self-report",
+  "version": "0.1.0",
+  "statementId": "fixture-conformance-statement",
+  "target": "case",
+  "targetId": "fixture-case-false",
+  "targetSubject": {
+    "id": "fixture-case-false",
+    "version": "0.1.0",
+    "uri": "target-false.json",
+    "digest": "sha256:0d7f47c8ab2075966571d3cc255235e1903f1ad1a7e8e2be4df281730ec25bbc"
+  },
+  "dependencyManifest": {
+    "id": "fixture-proof-target-dependencies",
+    "version": "0.1.0",
+    "entries": [
+      {
+        "role": "target_subject",
+        "id": "fixture-case-false",
+        "version": "0.1.0",
+        "uri": "target-false.json",
+        "digest": "sha256:0d7f47c8ab2075966571d3cc255235e1903f1ad1a7e8e2be4df281730ec25bbc"
+      }
+    ],
+    "digest": "sha256:0b94565d3a3a619945f93ee3918d31e66f0144a52c6c61eaeadc4748661f7bd6"
+  },
+  "scopeSlices": [
+    {
+      "scopeSliceId": "fixture-slice",
+      "repositorySnapshotDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "evaluationProfile": {
+        "id": "fixture-profile",
+        "version": "0.1.0",
+        "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+        "effectiveProfileDigest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+      },
+      "workArtifactRegistry": {
+        "id": "fixture-work-artifact-registry",
+        "version": "0.1.0",
+        "digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+      },
+      "outcomeProfiles": [
+        {
+          "id": "fixture-outcome-profile",
+          "version": "0.1.0",
+          "digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+        }
+      ],
+      "materialRepositoryGrounding": {
+        "evidenceId": "fixture-grounding-evidence",
+        "assertionIds": {
+          "repositoryNecessity": "fixture-repository-necessity",
+          "claimInvariantTraceability": "fixture-claim-traceability",
+          "repositoryGovernedOutcome": "fixture-governed-outcome",
+          "removalCounterfactual": "fixture-removal-counterfactual"
+        }
+      }
+    }
+  ],
+  "applicabilityContract": {
+    "id": "fixture-applicability",
+    "version": "0.1.0",
+    "digest": "sha256:76e60f6a389dd58ed5ca5f28d04f7d84daa128e005fa95fa9b0ba7ea59057e47"
+  },
+  "verifierRegistry": {
+    "id": "fixture-conformance-verifier-registry",
+    "version": "0.1.0",
+    "uri": "registry.json",
+    "digest": "sha256:7a3545452bf9d1e5832c3e862127a8b78362cb4e08ad3e801234b949766e0e8b",
+    "byteLength": 6316
+  },
+  "proofAssertions": [
+    {
+      "id": "auto-false-self-report-assertion",
+      "type": "requirement_verification",
+      "evidenceId": "fixture-proof-evidence",
+      "scopeSliceId": "fixture-slice",
+      "target": "case",
+      "targetId": "fixture-case-false",
+      "targetSubjectDigest": "sha256:0d7f47c8ab2075966571d3cc255235e1903f1ad1a7e8e2be4df281730ec25bbc",
+      "dependencyManifestDigest": "sha256:0b94565d3a3a619945f93ee3918d31e66f0144a52c6c61eaeadc4748661f7bd6",
+      "requirementId": "FIX-AUTO-001",
+      "verificationRecord": {
+        "id": "auto-false-self-report-record",
+        "version": "0.1.0",
+        "uri": "auto-false-self-report-record.json",
+        "digest": "sha256:4b33979f718657610673d54b4daae8280bba103d142d0e523a931c1b3cfedbab",
+        "byteLength": 2144
+      }
+    }
+  ]
+}

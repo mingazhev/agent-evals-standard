@@ -1,0 +1,93 @@
+{
+  "schemaVersion": "agent-eval-conformance-requirement-proof-set-1",
+  "id": "proof-review-pass",
+  "version": "0.1.0",
+  "statementId": "fixture-conformance-statement",
+  "target": "case",
+  "targetId": "fixture-case-true",
+  "targetSubject": {
+    "id": "fixture-case-true",
+    "version": "0.1.0",
+    "uri": "target-true.json",
+    "digest": "sha256:2d1df346a439bffce8f8bcd40a0dff67b39954b46b4b101188714eee4250db90"
+  },
+  "dependencyManifest": {
+    "id": "fixture-proof-target-dependencies",
+    "version": "0.1.0",
+    "entries": [
+      {
+        "role": "target_subject",
+        "id": "fixture-case-true",
+        "version": "0.1.0",
+        "uri": "target-true.json",
+        "digest": "sha256:2d1df346a439bffce8f8bcd40a0dff67b39954b46b4b101188714eee4250db90"
+      }
+    ],
+    "digest": "sha256:445f222a919d929ab133f072ea2d1f194089649aa9b47c62eabc24b6dcf99655"
+  },
+  "scopeSlices": [
+    {
+      "scopeSliceId": "fixture-slice",
+      "repositorySnapshotDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "evaluationProfile": {
+        "id": "fixture-profile",
+        "version": "0.1.0",
+        "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+        "effectiveProfileDigest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+      },
+      "workArtifactRegistry": {
+        "id": "fixture-work-artifact-registry",
+        "version": "0.1.0",
+        "digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+      },
+      "outcomeProfiles": [
+        {
+          "id": "fixture-outcome-profile",
+          "version": "0.1.0",
+          "digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+        }
+      ],
+      "materialRepositoryGrounding": {
+        "evidenceId": "fixture-grounding-evidence",
+        "assertionIds": {
+          "repositoryNecessity": "fixture-repository-necessity",
+          "claimInvariantTraceability": "fixture-claim-traceability",
+          "repositoryGovernedOutcome": "fixture-governed-outcome",
+          "removalCounterfactual": "fixture-removal-counterfactual"
+        }
+      }
+    }
+  ],
+  "applicabilityContract": {
+    "id": "fixture-applicability",
+    "version": "0.1.0",
+    "digest": "sha256:76e60f6a389dd58ed5ca5f28d04f7d84daa128e005fa95fa9b0ba7ea59057e47"
+  },
+  "verifierRegistry": {
+    "id": "fixture-conformance-verifier-registry",
+    "version": "0.1.0",
+    "uri": "registry.json",
+    "digest": "sha256:7a3545452bf9d1e5832c3e862127a8b78362cb4e08ad3e801234b949766e0e8b",
+    "byteLength": 6316
+  },
+  "proofAssertions": [
+    {
+      "id": "review-pass-assertion",
+      "type": "requirement_verification",
+      "evidenceId": "fixture-proof-evidence",
+      "scopeSliceId": "fixture-slice",
+      "target": "case",
+      "targetId": "fixture-case-true",
+      "targetSubjectDigest": "sha256:2d1df346a439bffce8f8bcd40a0dff67b39954b46b4b101188714eee4250db90",
+      "dependencyManifestDigest": "sha256:445f222a919d929ab133f072ea2d1f194089649aa9b47c62eabc24b6dcf99655",
+      "requirementId": "FIX-MANUAL-001",
+      "verificationRecord": {
+        "id": "review-pass-record",
+        "version": "0.1.0",
+        "uri": "review-pass-record.json",
+        "digest": "sha256:640ed6e6d6bb6fea7ee3e13b6d881c9c00ef8b36ef69bb899c50d7caafba2551",
+        "byteLength": 2442
+      }
+    }
+  ]
+}

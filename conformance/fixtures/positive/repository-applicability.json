@@ -1,0 +1,60 @@
+{
+  "repositoryStateNecessityEvidence": {
+    "id": "repo-state-necessity",
+    "uri": "evidence/repo-state-necessity.json",
+    "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "acceptanceInvariantTraceEvidence": {
+    "id": "acceptance-invariant-trace",
+    "uri": "evidence/acceptance-invariant-trace.json",
+    "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  "repositoryGovernedResultEvidence": {
+    "id": "repository-governed-result",
+    "uri": "evidence/repository-governed-result.json",
+    "digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+  },
+  "removalCounterfactualEvidence": {
+    "id": "repository-removal-counterfactual",
+    "uri": "evidence/repository-removal-counterfactual.json",
+    "digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+  },
+  "materialSubjectDependencies": [
+    {
+      "subjectType": "outcome_profile",
+      "subjectId": "workspace-change-v1",
+      "capabilityFamilyIds": ["CAP.IMPLEMENT_CHANGE"],
+      "repositoryDependencyEvidence": {
+        "id": "outcome-repository-dependency",
+        "uri": "evidence/outcome-repository-dependency.json",
+        "digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+      },
+      "removalCounterfactualEvidence": {
+        "id": "outcome-removal-counterfactual",
+        "version": "0.1.0",
+        "digest": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
+        "schemaId": "repository-removal-counterfactual-1",
+        "verifierDigest": "sha256:7777777777777777777777777777777777777777777777777777777777777777"
+      },
+      "verdict": "pass"
+    },
+    {
+      "subjectType": "claim",
+      "subjectId": "repository-change-capability",
+      "capabilityFamilyIds": ["CAP.IMPLEMENT_CHANGE", "CAP.VERIFY_ASSURE"],
+      "repositoryDependencyEvidence": {
+        "id": "claim-repository-dependency",
+        "uri": "evidence/claim-repository-dependency.json",
+        "digest": "sha256:8888888888888888888888888888888888888888888888888888888888888888"
+      },
+      "removalCounterfactualEvidence": {
+        "id": "claim-removal-counterfactual",
+        "version": "0.1.0",
+        "digest": "sha256:9999999999999999999999999999999999999999999999999999999999999999",
+        "schemaId": "repository-removal-counterfactual-1",
+        "verifierDigest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "verdict": "pass"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "agent-eval-conformance-statement-1",
+  "id": "composition-statement-case-1",
+  "standardRelease": {
+    "version": "0.1.0",
+    "releaseStatus": "unpublished_draft",
+    "commit": "0123456789abcdef0123456789abcdef01234567"
+  },
+  "claim": "case",
+  "targetEvidence": {
+    "case": {
+      "targetType": "case",
+      "targetId": "repo-change-case-fixture-1",
+      "targetSubject": {
+        "id": "repo-change-case-fixture-1",
+        "version": "0.1.0",
+        "uri": "case-subject.json",
+        "digest": "sha256:2463e4b30e9c301ad0b67f1aac38100f56aedd724a36baff912ca855d0bc1b0c"
+      },
+      "subjectSchema": "urn:agent-evals-standard:schema:case:1",
+      "dependencyManifest": {
+        "id": "composition-case-empty-dependencies",
+        "version": "0.1.0",
+        "entries": [],
+        "digest": "sha256:d95f0d00fa905857a2b97a873e29e63ff52ed462323ee512fe0963f71a733947"
+      },
+      "verdict": "conforming"
+    }
+  },
+  "issuedAt": "2026-08-01T00:00:00Z",
+  "reviewAt": "2026-08-03T00:00:00Z",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:10Z",
+    "value": "IF8rlKfqWTt4zN_sZTtRZbVyQGU-lbUt9s-ZMBEBeiPKtvRj9eFZ0GHqShYvjnLo5TkhQcVpxwkPlW8HDDofBA"
+  }
+}

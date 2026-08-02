@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "agent-eval-attempt-ledger-1",
+  "id": "material-attempt-ledger",
+  "version": "0.1.0",
+  "experimentId": "material-integrity-experiment",
+  "scheduledSetCommitment": {
+    "id": "pre-run-material-integrity-1",
+    "uri": "pre-run-material-integrity.json",
+    "digest": "sha256:7171717171717171717171717171717171717171717171717171717171717171"
+  },
+  "rootAlgorithm": "sha256-jcs-chain-v1",
+  "initialLedgerRoot": "sha256:13a1c9d5a3c21694deffc64a4aec54a696f2a417f3a58e33097c86764f4d6652",
+  "terminalLedgerRoot": "sha256:597a27a81086ee9076b47c7a51f8a68f6c78d22ef20c4af5cc1b3eb650d1aadf",
+  "attemptRecords": [
+    {
+      "attemptId": "attempt-success-2",
+      "cellId": "cell-1",
+      "terminalState": "completed",
+      "measurementValidity": "valid",
+      "parentAttemptId": null,
+      "retryReason": null,
+      "startedAt": "2026-08-01T02:02:00Z",
+      "finishedAt": "2026-08-01T02:03:00Z",
+      "artifactIds": [
+        "material-workspace-diff"
+      ],
+      "metrics": {
+        "wallClockSeconds": 60,
+        "costUsd": 0.6
+      }
+    }
+  ],
+  "digest": "sha256:4a79cd91496d38f2f479a9e775f4dbf38b1c43b932d64c95de3bf75592fad6b0"
+}

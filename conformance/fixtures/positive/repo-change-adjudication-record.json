@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "agent-eval-repo-change-adjudication-record-1",
+  "id": "repo-change-adjudication-fixture-1",
+  "version": "0.1.0",
+  "experimentId": "experiment-fixture-1",
+  "caseId": "repo-change-case-fixture-1",
+  "cellId": "cell-fixture-1",
+  "attemptId": "attempt-fixture-1",
+  "armId": "arm-fixture-1",
+  "workspaceManifestDigest": "sha256:e100fec3cc4a6d4b2d069fd2e9e5c81eb4f3bca59ec7db69152141e2b1458cd5",
+  "workspaceRootDigest": "sha256:675204f42738625d104c09671bae121d5e82722f71ba62e7c6dd75a5653430ac",
+  "subjectKind": "workspace_diff",
+  "subjectDigest": "sha256:376c2eda8818aa971c3c257d0c9573e55c69f695717fb99e60bde6ab3b141f03",
+  "factProjectionDigest": "sha256:f1ab694e7743c80146e58dfdf6ab948576b4a414a8d94b2b7bd7ca43de5a87f3",
+  "protocol": {
+    "id": "fixture-model-grader",
+    "version": "0.1.0",
+    "digest": "sha256:6c1a977ed71dfc8efb259efe6ea1637071ccc71dbf216a50c315a68da62f72a9"
+  },
+  "presentation": {
+    "treatmentBlinding": "blinded",
+    "identityHandling": "blinded",
+    "orderEffectApplicability": "applicable",
+    "presentationOrder": "counterbalanced",
+    "orderRationale": "Candidate order was reversed across the two independent ratings."
+  },
+  "raters": [
+    {
+      "raterId": "fixture-rater-alpha",
+      "raterIdentityDigest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "trustDomain": "fixture-rater-domain-alpha",
+      "qualificationRuleDigest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "qualificationEvidenceDigest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "qualificationVerdict": "pass",
+      "conflictCheckEvidenceDigest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+      "conflictOfInterestVerdict": "pass",
+      "ratingEvidenceDigest": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "blinded": true,
+      "verdict": "pass",
+      "reason": "The repository change satisfies the sealed construct rubric."
+    },
+    {
+      "raterId": "fixture-rater-beta",
+      "raterIdentityDigest": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "trustDomain": "fixture-rater-domain-beta",
+      "qualificationRuleDigest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "qualificationEvidenceDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "qualificationVerdict": "pass",
+      "conflictCheckEvidenceDigest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "conflictOfInterestVerdict": "pass",
+      "ratingEvidenceDigest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+      "blinded": true,
+      "verdict": "pass",
+      "reason": "The observed diff and checks meet every decision-bearing rubric item."
+    }
+  ],
+  "agreement": {
+    "method": "percent_agreement_with_wilson_interval",
+    "sampleSize": 2,
+    "estimate": 1,
+    "confidenceLevel": 0.95,
+    "lower": 0.34237195288961925,
+    "upper": 1
+  },
+  "overallVerdict": "pass"
+}

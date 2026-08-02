@@ -1,0 +1,260 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:evaluator-manifest:1",
+  "title": "Repository SDLC evaluation runner and measurement-stack manifest",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "version",
+    "implementation",
+    "supportedStandard",
+    "supportedAssuranceLevels",
+    "effectiveRiskRange",
+    "measurementComponents",
+    "trustDomains",
+    "dataFlows",
+    "enforcementContracts",
+    "externalDependencies",
+    "positiveControlRecords",
+    "negativeControlRecords",
+    "digest",
+    "signature"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-evaluator-manifest-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "type": "string", "minLength": 1 },
+    "implementation": {
+      "type": "object",
+      "required": ["name", "version", "commit", "digest", "buildProvenance"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "commit": { "type": "string", "minLength": 7 },
+        "digest": { "$ref": "#/$defs/digest" },
+        "buildProvenance": { "$ref": "#/$defs/artifactPointer" }
+      },
+      "additionalProperties": false
+    },
+    "supportedStandard": {
+      "type": "object",
+      "required": ["version", "releaseStatus", "commit", "requirementRegistry", "schemaManifest"],
+      "properties": {
+        "version": { "const": "0.1.0" },
+        "releaseStatus": { "const": "unpublished_draft" },
+        "commit": { "type": "string", "pattern": "^[a-f0-9]{40,64}$" },
+        "requirementRegistry": { "$ref": "#/$defs/versionedArtifactPointer" },
+        "schemaManifest": { "$ref": "#/$defs/artifactPointer" }
+      },
+      "additionalProperties": false
+    },
+    "supportedAssuranceLevels": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "enum": ["A0", "A1", "A2", "A3"] },
+      "uniqueItems": true
+    },
+    "effectiveRiskRange": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "enum": ["low", "medium", "high", "critical"] },
+      "uniqueItems": true
+    },
+    "measurementComponents": {
+      "$comment": "Semantic validation must reject duplicate IDs; require every enforcement contract and data-flow endpoint to resolve exactly once; and require every outcome-relevant runner, grader, capture, policy, statistics, and external-service component to be represented.",
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/measurementComponent" }
+    },
+    "trustDomains": {
+      "$comment": "Semantic validation must reject duplicate IDs, require componentIds to partition the measurement components exactly once, and prohibit an evaluated_arm component from owning a runner_owned enforcement contract.",
+      "type": "array",
+      "minItems": 2,
+      "contains": { "type": "object", "properties": { "kind": { "const": "runner_owned" } }, "required": ["kind"] },
+      "items": { "$ref": "#/$defs/trustDomain" }
+    },
+    "dataFlows": {
+      "$comment": "The closed flow inventory makes parser, provenance, and authentication boundaries reviewable. Semantic validation must reject unknown endpoints and undeclared cross-domain flows.",
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/dataFlow" }
+    },
+    "enforcementContracts": {
+      "type": "object",
+      "required": [
+        "systemIdentity",
+        "oracleIsolation",
+        "cleanState",
+        "leastPrivilege",
+        "attemptAccounting",
+        "trustedCapture",
+        "teardown",
+        "canonicalEvidence",
+        "detachedValidation",
+        "gateEvaluation",
+        "outcomeAssignment",
+        "statistics"
+      ],
+      "properties": {
+        "systemIdentity": { "$ref": "#/$defs/enforcementBinding" },
+        "oracleIsolation": { "$ref": "#/$defs/enforcementBinding" },
+        "cleanState": { "$ref": "#/$defs/enforcementBinding" },
+        "leastPrivilege": { "$ref": "#/$defs/enforcementBinding" },
+        "attemptAccounting": { "$ref": "#/$defs/enforcementBinding" },
+        "trustedCapture": { "$ref": "#/$defs/enforcementBinding" },
+        "teardown": { "$ref": "#/$defs/enforcementBinding" },
+        "canonicalEvidence": { "$ref": "#/$defs/enforcementBinding" },
+        "detachedValidation": { "$ref": "#/$defs/enforcementBinding" },
+        "gateEvaluation": { "$ref": "#/$defs/enforcementBinding" },
+        "outcomeAssignment": { "$ref": "#/$defs/enforcementBinding" },
+        "statistics": { "$ref": "#/$defs/enforcementBinding" }
+      },
+      "additionalProperties": false
+    },
+    "externalDependencies": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/externalDependency" }
+    },
+    "positiveControlRecords": {
+      "$comment": "Every pointer must resolve exactly once to a signed material evaluator-control record. The pointer digest authenticates the record bytes; payloadDigest authenticates the record's evidence payload. A positive control must contain a known violation with expectedDetection=true and observedDetection=true for the exact bound evaluator implementation and detector components.",
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/controlRecordPointer" },
+      "uniqueItems": true
+    },
+    "negativeControlRecords": {
+      "$comment": "Every pointer must resolve exactly once to a signed material evaluator-control record. A negative control must contain a known benign stimulus with expectedDetection=false and observedDetection=false for the exact bound evaluator implementation and detector components.",
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/controlRecordPointer" },
+      "uniqueItems": true
+    },
+    "digest": { "$ref": "#/$defs/digest" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "artifactPointer": {
+      "type": "object",
+      "required": ["id", "uri", "digest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "uri": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "versionedArtifactPointer": {
+      "type": "object",
+      "required": ["id", "version", "uri", "digest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "minLength": 1 },
+        "uri": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "controlRecordPointer": {
+      "type": "object",
+      "required": ["id", "version", "uri", "digest", "payloadDigest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "const": "0.1.0" },
+        "uri": { "type": "string", "minLength": 1 },
+        "digest": { "$comment": "SHA-256 of the exact signed control-record file bytes.", "$ref": "#/$defs/digest" },
+        "payloadDigest": { "$comment": "SHA-256 of the material control-result payload bytes authenticated by the record attestation.", "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "measurementComponent": {
+      "type": "object",
+      "required": ["id", "kind", "version", "digest", "configurationDigest", "trustDomainId", "operator", "dependencyIds"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "kind": {
+          "enum": [
+            "runner",
+            "scheduler",
+            "workspace_materializer",
+            "environment_controller",
+            "policy_enforcer",
+            "tool_gateway",
+            "network_controller",
+            "projection_builder",
+            "actor_simulator",
+            "event_capture",
+            "attempt_ledger",
+            "grader_executor",
+            "adjudication_packager",
+            "artifact_capture",
+            "semantic_validator",
+            "signature_verifier",
+            "statistics_engine",
+            "scorecard_builder",
+            "governance_status_resolver",
+            "external_service_adapter"
+          ]
+        },
+        "version": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" },
+        "configurationDigest": { "$ref": "#/$defs/digest" },
+        "trustDomainId": { "$ref": "#/$defs/id" },
+        "operator": { "$ref": "#/$defs/id" },
+        "dependencyIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }
+      },
+      "additionalProperties": false
+    },
+    "trustDomain": {
+      "type": "object",
+      "required": ["id", "kind", "owner", "componentIds", "boundaryContract"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "kind": { "enum": ["evaluated_arm", "runner_owned", "external_authority"] },
+        "owner": { "$ref": "#/$defs/id" },
+        "componentIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "boundaryContract": { "$ref": "#/$defs/artifactPointer" }
+      },
+      "additionalProperties": false
+    },
+    "dataFlow": {
+      "type": "object",
+      "required": ["id", "fromComponentId", "toComponentId", "artifactClass", "direction", "authenticationContract", "parserContract"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "fromComponentId": { "$ref": "#/$defs/id" },
+        "toComponentId": { "$ref": "#/$defs/id" },
+        "artifactClass": { "type": "string", "minLength": 1 },
+        "direction": { "enum": ["input", "output", "bidirectional"] },
+        "authenticationContract": { "$ref": "#/$defs/artifactPointer" },
+        "parserContract": { "$ref": "#/$defs/artifactPointer" }
+      },
+      "additionalProperties": false
+    },
+    "enforcementBinding": {
+      "type": "object",
+      "required": ["contract", "enforcingComponentIds", "failureEffect"],
+      "properties": {
+        "contract": { "$ref": "#/$defs/artifactPointer" },
+        "enforcingComponentIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "failureEffect": { "enum": ["invalid_measurement", "hard_gate_failure", "insufficient_evidence"] }
+      },
+      "additionalProperties": false
+    },
+    "externalDependency": {
+      "type": "object",
+      "required": ["id", "version", "digest", "purpose", "immutabilityEvidence"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" },
+        "purpose": { "type": "string", "minLength": 1 },
+        "immutabilityEvidence": { "$ref": "#/$defs/artifactPointer" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

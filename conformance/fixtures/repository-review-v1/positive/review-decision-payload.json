@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "repository-review-decision-1",
+  "id": "repository-review-decision-positive",
+  "version": "0.1.0",
+  "artifactClass": "review_decision",
+  "decisionAuthority": {
+    "id": "independent-review-board",
+    "role": "accountable_reviewer"
+  },
+  "workspaceManifestDigest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "baseTreeDigest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "terminalTreeDigest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "reviewScope": [
+    "src/auth/authorization.ts",
+    "tests/auth/authorization.test.ts"
+  ],
+  "findings": [
+    {
+      "id": "finding-authz-guard-order",
+      "severity": "high",
+      "repositoryPath": "src/auth/authorization.ts",
+      "evidence": "The authorization guard is evaluated after the state-changing call.",
+      "disposition": "must_fix"
+    }
+  ],
+  "decision": "changes_requested",
+  "rationale": "The material authorization finding is traceable to the sealed repository state and blocks approval.",
+  "repositoryMutationObserved": false
+}

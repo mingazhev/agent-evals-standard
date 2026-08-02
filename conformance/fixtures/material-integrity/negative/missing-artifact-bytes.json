@@ -1,0 +1,48 @@
+{
+  "id": "material-workspace-diff-missing-bytes",
+  "artifactType": "workspace_diff",
+  "uri": "artifact:sha256:e3fc3d3c54199605989f2f7e032d2952ac0f92dd17d7ee6bc764ae3e4ed8f253",
+  "mediaType": "application/vnd.git.diff",
+  "digest": "sha256:e3fc3d3c54199605989f2f7e032d2952ac0f92dd17d7ee6bc764ae3e4ed8f253",
+  "byteLength": 185,
+  "payload": {
+    "kind": "repository_relative",
+    "path": "payloads/intentionally-missing-workspace-change.diff"
+  },
+  "producer": {
+    "id": "material-integrity-fixture-runner",
+    "role": "runner",
+    "trustDomain": "runner"
+  },
+  "creationPhase": "execution",
+  "createdAt": "2026-08-01T01:00:00Z",
+  "schemaMetadata": null,
+  "mediaInterpretation": {
+    "profileId": "git-diff",
+    "profileVersion": "0.1.0",
+    "semanticContract": null
+  },
+  "accessClass": "internal",
+  "accessPolicyBinding": {
+    "id": "fixture-access-policy",
+    "version": "0.1.0",
+    "digest": "sha256:fa27c0767d27b454693112c7d9fce5380b56204929ac1be3f361a6dc0369c9b5"
+  },
+  "privacyAndIp": {
+    "classification": "none",
+    "restrictions": []
+  },
+  "retention": {
+    "class": "fixture",
+    "expiresAt": "2027-08-01T00:00:00Z",
+    "disposition": "delete",
+    "legalHold": false
+  },
+  "attestation": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T01:00:01Z",
+    "value": "zJfi16ziuwZTBEBlURPnsPCbGk307zqWDIN8z7JtWsBfNiSfw9ZaVciZwv4SSDLNBbeRVrjvNeV_qn0OZLc4CQ"
+  }
+}

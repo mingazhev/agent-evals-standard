@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "agent-eval-trusted-time-contract-1",
+  "id": "repo-change-operational-trusted-time",
+  "version": "0.1.0",
+  "keyAuthorizationContract": {
+    "id": "repo-change-operational-key-authorization",
+    "version": "0.1.0",
+    "uri": "operational-key-authorization-contract.json",
+    "digest": "sha256:cc7c8b81642b5d5736610703409cabb5750ff97ba84fb30cbd6a8bf4b053ba1d"
+  },
+  "attestationSchema": {
+    "id": "trusted-time-attestation-schema-0.1.0",
+    "uri": "../../schemas/trusted-time-attestation.schema.json",
+    "digest": "sha256:9bba093280bbbc2b85329d7b83952b20d12ded7c713eb79e511fe2a667ec2d4d"
+  },
+  "sources": [
+    {
+      "sourceId": "repo-change-time-source-a",
+      "mode": "authenticated_utc_service",
+      "keyId": "repo-change-time-a-2026",
+      "ownerId": "trusted-time-operator-a",
+      "trustDomain": "independent-time-domain-a",
+      "endpoint": "urn:agent-evals-standard:operational-time-source:repo-change:time-a",
+      "independentOf": [
+        "evidence_signer",
+        "ledger_writer",
+        "evaluator",
+        "subject_owner"
+      ]
+    },
+    {
+      "sourceId": "repo-change-time-source-b",
+      "mode": "authenticated_utc_service",
+      "keyId": "repo-change-time-b-2026",
+      "ownerId": "trusted-time-operator-b",
+      "trustDomain": "independent-time-domain-b",
+      "endpoint": "urn:agent-evals-standard:operational-time-source:repo-change:time-b",
+      "independentOf": [
+        "evidence_signer",
+        "ledger_writer",
+        "evaluator",
+        "subject_owner"
+      ]
+    }
+  ],
+  "minimumIndependentSources": 2,
+  "maximumClockSkewSeconds": 5,
+  "maximumAttestationAgeSeconds": 300,
+  "signerControlledSignedAtSufficient": false,
+  "rollbackDetection": "reject_lower_or_conflicting_authenticated_time_sequence",
+  "failureSemantics": {
+    "insufficientSources": "insufficient_evidence",
+    "staleAttestation": "insufficient_evidence",
+    "excessiveSkew": "insufficient_evidence",
+    "rollbackOrConflict": "measurement_boundary_compromise"
+  },
+  "digest": "sha256:956479a9658de74f8f2f7c2c14c5064c39e15d70cf84ade7ce2905599af66899",
+  "signature": {
+    "profileId": "repo-change-operational-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "repo-change-trust-root-2026",
+    "signedAt": "2026-08-01T00:00:00Z",
+    "value": "aRFYJegTjVBJAW6d_WT79GIuA9VQd-_VRNwZ8IA3sS1RJhsy4p4Y910NPeXNSBxGuyaP3OvbUFgmLn7NxqxFCQ"
+  }
+}

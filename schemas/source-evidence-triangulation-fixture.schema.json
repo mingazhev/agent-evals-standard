@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:source-evidence-triangulation-fixture:1",
+  "title": "Focused source-evidence triangulation conformance fixture",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "standardVersion",
+    "sources",
+    "observations",
+    "claim"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-source-evidence-triangulation-fixture-1" },
+    "standardVersion": { "const": "0.1.0" },
+    "sources": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "$ref": "urn:agent-evals-standard:schema:source-evidence-manifest:1#/$defs/source" }
+    },
+    "observations": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "$ref": "urn:agent-evals-standard:schema:source-evidence-manifest:1#/$defs/empiricalObservation" }
+    },
+    "claim": {
+      "allOf": [
+        { "$ref": "urn:agent-evals-standard:schema:source-evidence-manifest:1#/$defs/sourceEvidenceMapping" },
+        {
+          "type": "object",
+          "properties": { "support": { "const": "triangulated_empirical" } },
+          "required": ["support"]
+        }
+      ]
+    }
+  },
+  "additionalProperties": false
+}

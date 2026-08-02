@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "architecture-gate-registry-1",
+  "id": "architecture-weakened-gate-registry",
+  "version": "0.1.0",
+  "preserves": "repo-change-gate-registry@0.1.0",
+  "coreGates": [
+    "evidenceAuthenticity",
+    "oracleIsolation",
+    "isolatedExecution",
+    "trustedMeasurementBoundary",
+    "attemptAccounting",
+    "permissionPolicy"
+  ],
+  "profileGates": [
+    "workspaceBuild",
+    "publicChecks",
+    "hiddenChecks",
+    "securityChecks"
+  ],
+  "unknownOrIndeterminate": {
+    "gateStatus": "warning",
+    "claimEffect": "none"
+  }
+}

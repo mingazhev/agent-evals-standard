@@ -1,0 +1,8 @@
+{
+  "schemaVersion": "fixture-case-target-1",
+  "id": "fixture-case-true",
+  "version": "0.1.0",
+  "checks": {
+    "FIX-AUTO-001": true
+  }
+}

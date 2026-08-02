@@ -1,0 +1,137 @@
+{
+  "baseDocument": {
+    "schemaVersion": "agent-eval-environment-contract-1",
+    "id": "read-only-environment-vector",
+    "version": "0.1.0",
+    "evaluationMode": "controlled_fixture",
+    "inputOrigin": "synthetic",
+    "productionDerivedInput": null,
+    "productionActionAllowed": false,
+    "productionTelemetryPolicy": {
+      "allowedPurposes": [],
+      "taskInputAllowed": false,
+      "trialOutcomeEvidenceAllowed": false,
+      "scheduledCellAllowed": false
+    },
+    "runtimes": [
+      {
+        "id": "read-only-runtime",
+        "version": "0.1.0",
+        "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+      }
+    ],
+    "dependencyResolution": {
+      "id": "read-only-dependency-resolution",
+      "version": "0.1.0",
+      "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "schemaId": "read-only-dependency-resolution-contract-1",
+      "verifier": {
+        "id": "read-only-environment-verifier",
+        "version": "0.1.0",
+        "digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+      }
+    },
+    "network": {
+      "default": "deny",
+      "allowlist": [],
+      "auditEvidenceRequired": true
+    },
+    "filesystem": {
+      "ephemeral": true,
+      "agentWritableRoots": [],
+      "oracleReadable": false,
+      "controlPlaneAccessible": false,
+      "contract": {
+        "id": "read-only-filesystem-contract",
+        "version": "0.1.0",
+        "digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+        "schemaId": "read-only-filesystem-contract-1",
+        "verifier": {
+          "id": "read-only-environment-verifier",
+          "version": "0.1.0",
+          "digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+        }
+      }
+    },
+    "process": {
+      "ephemeral": true,
+      "agentWritableRoots": [],
+      "oracleReadable": false,
+      "controlPlaneAccessible": false,
+      "contract": {
+        "id": "read-only-process-contract",
+        "version": "0.1.0",
+        "digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+        "schemaId": "read-only-process-contract-1",
+        "verifier": {
+          "id": "read-only-environment-verifier",
+          "version": "0.1.0",
+          "digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+        }
+      }
+    },
+    "resources": {
+      "cpu": 1,
+      "memoryBytes": 1073741824,
+      "diskBytes": 1073741824,
+      "wallClockSeconds": 60
+    },
+    "cache": {
+      "resetPerAttempt": true,
+      "sharedState": "none"
+    },
+    "logging": {
+      "id": "read-only-logging-contract",
+      "version": "0.1.0",
+      "digest": "sha256:6666666666666666666666666666666666666666666666666666666666666666",
+      "schemaId": "read-only-logging-contract-1",
+      "verifier": {
+        "id": "read-only-environment-verifier",
+        "version": "0.1.0",
+        "digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+      }
+    },
+    "teardown": {
+      "id": "read-only-teardown-contract",
+      "version": "0.1.0",
+      "digest": "sha256:7777777777777777777777777777777777777777777777777777777777777777",
+      "schemaId": "read-only-teardown-contract-1",
+      "verifier": {
+        "id": "read-only-environment-verifier",
+        "version": "0.1.0",
+        "digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+      }
+    },
+    "digest": "sha256:8888888888888888888888888888888888888888888888888888888888888888"
+  },
+  "vectors": [
+    {
+      "id": "accept-explicit-read-only-boundaries",
+      "valid": true,
+      "mutations": []
+    },
+    {
+      "id": "reject-omitted-write-allowlist",
+      "valid": false,
+      "expectedError": "/filesystem must have required property 'agentWritableRoots'",
+      "mutations": [
+        {
+          "operation": "remove",
+          "pointer": "/filesystem/agentWritableRoots"
+        }
+      ]
+    },
+    {
+      "id": "reject-empty-write-root-entry",
+      "valid": false,
+      "expectedError": "/filesystem/agentWritableRoots/0 must NOT have fewer than 1 characters",
+      "mutations": [
+        {
+          "operation": "replace",
+          "pointer": "/filesystem/agentWritableRoots",
+          "value": [""]
+        }
+      ]
+    }
+  ]
+}

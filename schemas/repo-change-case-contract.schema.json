@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:repo-change-case-contract:1",
+  "title": "Repository-change case-shape contract 0.1.0",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "caseSchema", "requiredCaseProperties", "requiredProfileBindings", "unknownOrIndeterminate"],
+  "properties": {
+    "schemaVersion": { "const": "repo-change-case-contract-1" },
+    "id": { "const": "repo-change-case-contract" },
+    "version": { "const": "0.1.0" },
+    "caseSchema": {
+      "type": "object",
+      "required": ["id", "version"],
+      "properties": {
+        "id": { "const": "urn:agent-evals-standard:schema:case:1" },
+        "version": { "const": "0.1.0" }
+      },
+      "additionalProperties": false
+    },
+    "requiredCaseProperties": {
+      "$comment": "Closed profile-specific case-shape projection layered on the base case schema.",
+      "type": "array",
+      "minItems": 9,
+      "maxItems": 9,
+      "prefixItems": [
+        { "const": "/evaluationProfile" },
+        { "const": "/outcomeProfile" },
+        { "const": "/capabilityFamilyIds" },
+        { "const": "/interactionModeId" },
+        { "const": "/workArtifactRegistry" },
+        { "const": "/workArtifactTypes" },
+        { "const": "/repository/workspaceManifest" },
+        { "const": "/scoring" },
+        { "const": "/artifactPolicy" }
+      ],
+      "items": false
+    },
+    "requiredProfileBindings": {
+      "$comment": "Closed cross-artifact obligations for every case selected through repo-change-v1.",
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "prefixItems": [
+        { "const": "evaluation_profile_exact" },
+        { "const": "outcome_profile_allowed" },
+        { "const": "capability_families_subset" },
+        { "const": "interaction_mode_exact_member" },
+        { "const": "work_artifact_registry_exact" },
+        { "const": "work_artifact_types_subset_outcome" },
+        { "const": "material_capability_work_product_coverage" },
+        { "const": "change_bound_verify_requires_implement_change" },
+        { "const": "change_bound_verify_requires_assurance_report" },
+        { "const": "assurance_report_requires_verify_assure" },
+        { "const": "workspace_manifest_content_addressed" },
+        { "const": "terminal_evidence_outcome_specific" }
+      ],
+      "items": false
+    },
+    "unknownOrIndeterminate": { "const": "reject" }
+  },
+  "additionalProperties": false
+}

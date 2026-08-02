@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "agent-eval-repo-change-runner-check-record-1",
+  "id": "repo-change-runner-check-fixture-1",
+  "version": "0.1.0",
+  "experimentId": "experiment-fixture-1",
+  "caseId": "repo-change-case-fixture-1",
+  "cellId": "cell-fixture-1",
+  "attemptId": "attempt-fixture-1",
+  "armId": "arm-fixture-1",
+  "workspaceManifestDigest": "sha256:e100fec3cc4a6d4b2d069fd2e9e5c81eb4f3bca59ec7db69152141e2b1458cd5",
+  "workspaceRootDigest": "sha256:675204f42738625d104c09671bae121d5e82722f71ba62e7c6dd75a5653430ac",
+  "validationPlanDigest": "sha256:81f7982f1caf60d23593bce3c088c8e862a75c8ac134a387148f1a4a762ed604",
+  "subjectKind": "workspace_diff",
+  "subjectDigest": "sha256:376c2eda8818aa971c3c257d0c9573e55c69f695717fb99e60bde6ab3b141f03",
+  "checks": [
+    {
+      "id": "hidden-functional-check",
+      "contractDigest": "sha256:3232323232323232323232323232323232323232323232323232323232323232",
+      "status": "pass"
+    },
+    {
+      "id": "security-check",
+      "contractDigest": "sha256:3434343434343434343434343434343434343434343434343434343434343434",
+      "status": "pass"
+    },
+    {
+      "id": "control-proof",
+      "contractDigest": "sha256:3636363636363636363636363636363636363636363636363636363636363636",
+      "status": "pass"
+    }
+  ],
+  "overallVerdict": "pass"
+}

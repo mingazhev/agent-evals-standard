@@ -26,7 +26,8 @@
     "producer",
     "reviewer",
     "evidence",
-    "observedAt"
+    "observedAt",
+    "signature"
   ],
   "properties": {
     "schemaVersion": { "const": "agent-eval-assurance-observation-1" },
@@ -38,8 +39,8 @@
       "type": "object",
       "required": ["startedAt", "endedAt"],
       "properties": {
-        "startedAt": { "type": "string", "format": "date-time" },
-        "endedAt": { "type": "string", "format": "date-time" }
+        "startedAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
+        "endedAt": { "type": "string", "format": "date-time", "pattern": "Z$" }
       },
       "additionalProperties": false
     },
@@ -87,7 +88,8 @@
     "producer": { "$ref": "#/$defs/actor" },
     "reviewer": { "$ref": "#/$defs/actor" },
     "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/artifactRef" }, "uniqueItems": true },
-    "observedAt": { "type": "string", "format": "date-time" }
+    "observedAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
   },
   "additionalProperties": false,
   "$defs": {

@@ -1,0 +1,56 @@
+{
+  "id": "repository-review-decision-evidence-positive",
+  "artifactType": "repository-review:review-decision",
+  "uri": "artifact:sha256:b35ae1f32c2317466e03352ccee134313ccea35e514617df65298733054e9e0f",
+  "mediaType": "application/json",
+  "digest": "sha256:b35ae1f32c2317466e03352ccee134313ccea35e514617df65298733054e9e0f",
+  "byteLength": 1124,
+  "payload": {
+    "kind": "repository_relative",
+    "path": "review-decision-payload.json"
+  },
+  "producer": {
+    "id": "repository-review-runner",
+    "role": "terminal_artifact_capture",
+    "trustDomain": "runner"
+  },
+  "creationPhase": "teardown",
+  "createdAt": "2026-08-01T00:05:00Z",
+  "schemaMetadata": {
+    "schemaId": "repository-review-decision-1",
+    "schemaVersion": "0.1.0",
+    "validatorDigest": "sha256:c6e09080e84d844b40157c34ed856b2800a1fd0214b5478f7797a8d455023d7e"
+  },
+  "mediaInterpretation": {
+    "profileId": "json-rfc8785",
+    "profileVersion": "0.1.0",
+    "semanticContract": {
+      "id": "repository-review-terminal-evidence-contract",
+      "version": "0.1.0",
+      "digest": "sha256:1863fe5a3e1cab290254228f10864998fb01547d9a2c2f42986bc759a5c19b10"
+    }
+  },
+  "accessClass": "internal",
+  "accessPolicyBinding": {
+    "id": "repository-review-evidence-access-policy",
+    "version": "0.1.0",
+    "digest": "sha256:49d945287804c4982eaf224467cc0ee6856a5fec55009d77ff6fe685693aff13"
+  },
+  "privacyAndIp": {
+    "classification": "none",
+    "restrictions": []
+  },
+  "retention": {
+    "class": "conformance_fixture",
+    "expiresAt": null,
+    "disposition": "archive",
+    "legalHold": false
+  },
+  "attestation": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:05:00Z",
+    "value": "mFH5Fp9c5STf8Z4dJA838iXpABiYD2tgK74XaypNcnAJ7gIhatMH549FugIijEy-N7wxU9WdchObUI5ER-I2CA"
+  }
+}

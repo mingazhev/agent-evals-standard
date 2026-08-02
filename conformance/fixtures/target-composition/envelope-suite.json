@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "agent-eval-validation-envelope-1",
+  "envelopeId": "composition-envelope-suite-1",
+  "subject": {
+    "type": "conformance_statement",
+    "id": "composition-statement-suite-1",
+    "claimTarget": "suite",
+    "digest": "sha256:018912fd9bacd0c1123ff271a9183fa09fd59667511f184d3afb16c662896c46",
+    "projection": "full_document_without_digest_and_signature"
+  },
+  "result": "pass",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T00:00:20Z",
+    "value": "0awjlgvBimjsbUIdwypiv4aD9F0rEgMHXP6usYIBBUDAu-TAbIHMKlSOhP07Avj209gbtoKATe6TBhejuGFXDg"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "agent-eval-machine-contract-resolution-1",
+  "id": "machine-contract-resolution-v1",
+  "version": "0.1.0",
+  "locatorBase": "binding_document",
+  "allowedLocatorKinds": [
+    "repository_relative"
+  ],
+  "digestAlgorithm": "SHA-256",
+  "uriRule": "artifact_sha256_equals_digest",
+  "byteLengthRule": "exact_stored_bytes",
+  "unknownEffect": "insufficient_evidence"
+}

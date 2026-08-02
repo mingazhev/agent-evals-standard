@@ -1,0 +1,159 @@
+{
+  "schemaVersion": "fixture-case-validation-strategy-vectors-1",
+  "trustedApplicabilityRegistry": [
+    {
+      "validationClass": "publicChecks",
+      "determination": "not_applicable",
+      "rule": {
+        "id": "rule-public",
+        "version": "0.1.0",
+        "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+        "schemaId": "agent-eval-validation-class-applicability-rule-1",
+        "verifierDigest": "sha256:1212121212121212121212121212121212121212121212121212121212121212"
+      }
+    },
+    {
+      "validationClass": "hiddenChecks",
+      "determination": "not_applicable",
+      "rule": {
+        "id": "rule-hidden",
+        "version": "0.1.0",
+        "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+        "schemaId": "agent-eval-validation-class-applicability-rule-1",
+        "verifierDigest": "sha256:2323232323232323232323232323232323232323232323232323232323232323"
+      }
+    },
+    {
+      "validationClass": "securityChecks",
+      "determination": "applicable",
+      "rule": {
+        "id": "rule-security",
+        "version": "0.1.0",
+        "digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+        "schemaId": "agent-eval-validation-class-applicability-rule-1",
+        "verifierDigest": "sha256:3434343434343434343434343434343434343434343434343434343434343434"
+      }
+    },
+    {
+      "validationClass": "controlProofs",
+      "determination": "applicable",
+      "rule": {
+        "id": "rule-controls",
+        "version": "0.1.0",
+        "digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+        "schemaId": "agent-eval-validation-class-applicability-rule-1",
+        "verifierDigest": "sha256:4545454545454545454545454545454545454545454545454545454545454545"
+      }
+    }
+  ],
+  "baseDocument": {
+    "validation": {
+      "strategy": {
+        "publicChecks": {
+          "coverage": "not_applicable",
+          "applicabilityRule": {
+            "id": "rule-public",
+            "version": "0.1.0",
+            "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+            "schemaId": "agent-eval-validation-class-applicability-rule-1",
+            "verifierDigest": "sha256:1212121212121212121212121212121212121212121212121212121212121212"
+          },
+          "applicabilityEvidence": [{ "id": "evidence-public" }],
+          "unknownApplicabilityResult": "invalid"
+        },
+        "hiddenChecks": {
+          "coverage": "not_applicable",
+          "applicabilityRule": {
+            "id": "rule-hidden",
+            "version": "0.1.0",
+            "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+            "schemaId": "agent-eval-validation-class-applicability-rule-1",
+            "verifierDigest": "sha256:2323232323232323232323232323232323232323232323232323232323232323"
+          },
+          "applicabilityEvidence": [{ "id": "evidence-hidden" }],
+          "unknownApplicabilityResult": "invalid"
+        },
+        "securityChecks": {
+          "coverage": "checked",
+          "applicabilityRule": {
+            "id": "rule-security",
+            "version": "0.1.0",
+            "digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+            "schemaId": "agent-eval-validation-class-applicability-rule-1",
+            "verifierDigest": "sha256:3434343434343434343434343434343434343434343434343434343434343434"
+          },
+          "applicabilityEvidence": [{ "id": "evidence-security" }],
+          "unknownApplicabilityResult": "invalid"
+        },
+        "controlProofs": {
+          "coverage": "checked",
+          "applicabilityRule": {
+            "id": "rule-controls",
+            "version": "0.1.0",
+            "digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+            "schemaId": "agent-eval-validation-class-applicability-rule-1",
+            "verifierDigest": "sha256:4545454545454545454545454545454545454545454545454545454545454545"
+          },
+          "applicabilityEvidence": [{ "id": "evidence-controls" }],
+          "unknownApplicabilityResult": "invalid"
+        }
+      },
+      "publicChecks": [],
+      "hiddenChecks": [],
+      "securityChecks": [{ "id": "security-check" }],
+      "controlProofs": [{ "id": "control-proof" }]
+    }
+  },
+  "vectors": [
+    { "id": "positive-read-only-classes-explicitly-inapplicable", "valid": true, "mutations": [] },
+    {
+      "id": "reject-self-declared-security-not-applicable",
+      "valid": false,
+      "expectedError": "securityChecks trusted result is applicable",
+      "mutations": [
+        { "pointer": "/validation/strategy/securityChecks/coverage", "value": "not_applicable" },
+        { "pointer": "/validation/securityChecks", "value": [] }
+      ]
+    },
+    {
+      "id": "reject-untrusted-applicability-rule",
+      "valid": false,
+      "expectedError": "hiddenChecks applicability rule is not evaluator-trusted",
+      "mutations": [
+        { "pointer": "/validation/strategy/hiddenChecks/applicabilityRule/digest", "value": "sha256:9999999999999999999999999999999999999999999999999999999999999999" }
+      ]
+    },
+    {
+      "id": "reject-applicability-rule-schema-substitution",
+      "valid": false,
+      "expectedError": "publicChecks applicability rule is not evaluator-trusted",
+      "mutations": [
+        { "pointer": "/validation/strategy/publicChecks/applicabilityRule/schemaId", "value": "substituted-applicability-rule-schema" }
+      ]
+    },
+    {
+      "id": "reject-applicable-class-without-check",
+      "valid": false,
+      "expectedError": "controlProofs is applicable but has no checks",
+      "mutations": [
+        { "pointer": "/validation/controlProofs", "value": [] }
+      ]
+    },
+    {
+      "id": "reject-missing-material-applicability-evidence",
+      "valid": false,
+      "expectedError": "publicChecks has no material applicability evidence",
+      "mutations": [
+        { "pointer": "/validation/strategy/publicChecks/applicabilityEvidence", "value": [] }
+      ]
+    },
+    {
+      "id": "reject-unknown-applicability-does-not-weaken",
+      "valid": false,
+      "expectedError": "hiddenChecks unknown applicability must be invalid",
+      "mutations": [
+        { "pointer": "/validation/strategy/hiddenChecks/unknownApplicabilityResult", "value": "not_applicable" }
+      ]
+    }
+  ]
+}

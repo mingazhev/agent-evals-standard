@@ -1,0 +1,85 @@
+{
+  "schemaVersion": "agent-eval-anti-rollback-policy-1",
+  "id": "repo-change-operational-anti-rollback-policy",
+  "version": "0.1.0",
+  "applicability": {
+    "assuranceLevels": [
+      "A1",
+      "A2",
+      "A3"
+    ],
+    "effectiveRiskTiers": [
+      "low",
+      "medium",
+      "high",
+      "critical"
+    ],
+    "threatAssessment": {
+      "id": "repo-change-operational-trust-threat-assessment",
+      "uri": "operational-trust-threat-assessment.json",
+      "digest": "sha256:a485db71ba2b9740d962bc581ddbca505a9c6eb61e829c1e5c4c9c039fdbe798"
+    }
+  },
+  "objective": "detect_rollback_and_equivocation_before_governance_acceptance",
+  "mechanism": {
+    "type": "independent_notary",
+    "serviceIdentity": {
+      "id": "repo-change-operational-key-authorization",
+      "uri": "operational-key-authorization-contract.json",
+      "digest": "sha256:cc7c8b81642b5d5736610703409cabb5750ff97ba84fb30cbd6a8bf4b053ba1d"
+    },
+    "trustAssumptions": {
+      "trustDomain": "independent-notary operational reference domain",
+      "operatorIndependentOf": [
+        "run_workspace",
+        "ledger_writer",
+        "evidence_signer",
+        "decision_approver",
+        "evaluator",
+        "subject_owner"
+      ],
+      "compromiseAssumptions": "The notary can be compromised; an independent witness and trusted-time quorum must expose rollback, split views, or stale receipts before governance acceptance.",
+      "verifierIndependence": "The verifier resolves notary and witness keys from the separately governed authorization contract and obtains their evidence outside the evaluated run workspace."
+    },
+    "receiptSchema": {
+      "id": "anti-rollback-receipt-schema-0.1.0",
+      "uri": "../../schemas/anti-rollback-receipt.schema.json",
+      "digest": "sha256:a9704d5611e92445719dd04eedf644bb81df1bdd37ed6bc71f72da589fd4830f"
+    },
+    "boundReceiptFields": [
+      "ledgerId",
+      "sequence",
+      "root",
+      "previousReceiptDigest",
+      "observedAt",
+      "serviceIdentity",
+      "signature"
+    ],
+    "continuityEvidence": "signed_monotonic_receipt_chain",
+    "witnessPolicy": {
+      "mode": "independent_witness",
+      "minimumIndependentWitnesses": 1,
+      "witnessRegistry": {
+        "id": "repo-change-operational-key-authorization",
+        "uri": "operational-key-authorization-contract.json",
+        "digest": "sha256:cc7c8b81642b5d5736610703409cabb5750ff97ba84fb30cbd6a8bf4b053ba1d"
+      },
+      "splitViewDisposition": "measurement_boundary_compromise"
+    }
+  },
+  "freshnessLimitSeconds": 300,
+  "failureSemantics": {
+    "rollback": "insufficient_evidence_and_measurement_boundary_compromise",
+    "equivocation": "insufficient_evidence_and_measurement_boundary_compromise",
+    "staleEvidence": "insufficient_evidence",
+    "unavailableEvidence": "stop_governance_use"
+  },
+  "digest": "sha256:e9408f6d65ed405d4e7a794a6f23f72327b62f28ae872b6aeb0aa26cba936b9a",
+  "signature": {
+    "profileId": "repo-change-operational-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "repo-change-trust-root-2026",
+    "signedAt": "2026-08-01T00:00:00Z",
+    "value": "-dX791HVK3mNWwmBRRAdWWdta6dk6HPH7Z_SpiDtnC7HNNFyar8jQw030KjQnfesqNZbxZq3LX4I4ZhxqUhICA"
+  }
+}

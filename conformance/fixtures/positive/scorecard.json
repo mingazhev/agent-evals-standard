@@ -1,0 +1,1329 @@
+{
+  "schemaVersion": "agent-eval-scorecard-1",
+  "experiment": {
+    "id": "experiment-fixture-1",
+    "manifestDigest": "sha256:58066bec3d8aa1df933df7afddd641f36cb2dd9fd5c5e5e7834e2d3b2faf7819",
+    "suite": {
+      "id": "suite-manifest-fixture-1",
+      "version": "0.1.0",
+      "uri": "suite-manifest.json",
+      "digest": "sha256:b530236278def85a27e840b0b13140f8105c2c84fb0104839db9136e132a9954"
+    },
+    "caseSetDigest": "sha256:6b45aa7b8c455a460e3a3f1d26e0407a67f21319b25866af04093309c99a3796",
+    "assuranceLevel": "A1",
+    "runMode": "evaluation",
+    "claimEligibility": "claims_eligible",
+    "riskAssessment": {
+      "id": "repo-change-experiment-risk-fixture-1",
+      "version": "0.1.0",
+      "uri": "risk-assessment.json",
+      "digest": "sha256:f6a204351e4c842b8c63d1435760ecdf1783bd1b370471db3a5d4eb071622c9c"
+    },
+    "effectiveRiskTier": "medium",
+    "caseProfiles": [
+      {
+        "caseId": "repo-change-case-fixture-1",
+        "bindingUse": "claims_eligible",
+        "evaluationProfile": {
+          "id": "repo-change-v1",
+          "version": "0.1.0",
+          "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210"
+        },
+        "effectiveProfileDigest": "sha256:6ec98f997cbaa51d30eeb1bdc6a3bb91e76cc2ec505fdd155850d115b0146869",
+        "outcomeProfile": {
+          "id": "workspace-change-v1",
+          "version": "0.1.0",
+          "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
+        }
+      }
+    ],
+    "intendedUse": "Held-out evaluation of enterprise repository changes under controlled execution.",
+    "effectiveRiskRange": [
+      "medium"
+    ],
+    "scheduledSetCommitment": {
+      "id": "pre-run-manifest-fixture-1",
+      "uri": "pre-run-manifest.json",
+      "digest": "sha256:58066bec3d8aa1df933df7afddd641f36cb2dd9fd5c5e5e7834e2d3b2faf7819"
+    },
+    "startedAt": "2026-08-01T01:01:00Z",
+    "closedAt": "2026-08-01T01:03:00Z"
+  },
+  "arms": [
+    {
+      "id": "arm-fixture-1",
+      "label": "Pinned repository agent",
+      "treatmentRole": "single",
+      "model": {
+        "id": "model-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:e38b84963f6884e3d8f94e8b618261b7f0a61bdd5115e5654e601efa7c190e00"
+      },
+      "agentConfiguration": {
+        "id": "agent-configuration-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:692d8cf23b6a0dba904029403ab241edc88fa5fe4dab6a79c957e58cae46ebf5"
+      },
+      "prompts": {
+        "id": "prompts-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:c9060f072c3f476d66e2372808cc49fc4f0bfb9cb7e523762f2db25c4c917a2e"
+      },
+      "policies": {
+        "id": "policies-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:c2a441a02504c8b7dd8e7f8eaf526fd56b620938af39616eef98804a854d4db4"
+      },
+      "harness": {
+        "id": "harness-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:635d0d6e70584b4d0069bf8ade23516ae5dc82f14885b5a1ce2b34c0ece2d294"
+      },
+      "adapter": {
+        "id": "adapter-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:9e90c8ad9d1a051c62adebf120655729ee2f807ca6230ce4106955b3059d03ff"
+      },
+      "tools": {
+        "id": "tools-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:62cf2c7c93581bb33a9405ff151315cc980ad2b6685100e7137f3132a1555a42"
+      },
+      "permissions": {
+        "id": "permissions-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:bf3d4f3dd46241bb0c689b949d08f7f3cfb5cb1ae9385c31f1e04d142d3c827d"
+      },
+      "budgets": {
+        "id": "budgets-component-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:f862674d8bb1354c6324f9945d0f31b034a0dfe514e481a730febe0374f09207"
+      },
+      "retrieval": {
+        "id": "retrieval-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:7e11cb17adf3d1c908c3437ee3db755f9d0e2bd83ca3ca6cde0588d7cf79a7e0"
+      },
+      "memory": {
+        "id": "memory-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:7e9d0e08614fe04e257faddf0ce3c6beaa442f6a9916ae759f9cd8e9489316a3"
+      },
+      "agentVisibleProjection": {
+        "id": "agent-visible-projection-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:37d0ce898502594a97f5a639ad2f42dc4a60d9da85ee62d8b88c5d74a78e71fd"
+      },
+      "environment": {
+        "id": "environment-contract-fixture-1",
+        "version": "0.1.0",
+        "digest": "sha256:8042d5effd722ffb74d3eba33d2801dc00971c38b9e9da840d1337bb0bfede80"
+      },
+      "externalServices": {
+        "id": "external-services-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:6f21d633974dd52cbf3443545df0eb5bb27a6e46155c2eb8d6cc9995af6d7b69"
+      },
+      "graderSet": {
+        "id": "fixture-model-grader",
+        "version": "0.1.0",
+        "digest": "sha256:6c1a977ed71dfc8efb259efe6ea1637071ccc71dbf216a50c315a68da62f72a9"
+      },
+      "identityDigest": "sha256:d4669c0c4e5f0ba10b8aa8b1402508ebff282963b784ac766e194e937e1ff36a"
+    }
+  ],
+  "comparativeDesign": null,
+  "gateRegistry": {
+    "id": "repo-change-gate-registry",
+    "uri": "../../../profiles/repo-change-v1/gate-registry.json",
+    "digest": "sha256:0217e32dd00b239e5d860890b66aa8c1eaa9262e536dda3a97621727a784b146"
+  },
+  "governanceStatusRegistry": {
+    "id": "base-escalation-event-registry",
+    "uri": "escalation-event-registry.json",
+    "digest": "sha256:c71559aa50901c3a938ecd7475da49aef27e6dff8c1f12ac656fe765d043d642"
+  },
+  "claims": [
+    {
+      "id": "claim-repo-change-functional",
+      "type": "capability",
+      "intendedDecision": "Assess repository-change capability",
+      "construct": "functional repository change",
+      "estimand": "functional success probability",
+      "direction": "positive",
+      "successDefinition": {
+        "id": "functional-outcome-v1",
+        "version": "0.1.0"
+      },
+      "analysisUnit": "scheduled_cell",
+      "targetPopulation": "enterprise SDLC repository changes",
+      "samplingFrame": "held-out active cases",
+      "representedStrata": [
+        "medium-risk-change"
+      ],
+      "slice": [
+        "repo-change-case-fixture-1"
+      ],
+      "weights": {
+        "id": "claim-weights",
+        "uri": "artifact:fixture:claim-weights",
+        "digest": "sha256:af7d7064230737d3cda214aa2ac91f39f7a075e6daa9ae80e1b53215c81975e7"
+      },
+      "coverageGaps": [],
+      "assuranceLevel": "A1",
+      "effectiveRiskRange": [
+        "medium"
+      ],
+      "exposureBoundary": {
+        "id": "held-out-exposure-boundary",
+        "uri": "artifact:fixture:held-out-exposure-boundary",
+        "digest": "sha256:429fe60fc15e67a5d4d8ccf253c965b503bd7dfa794cff7195743c1cb3b08624"
+      },
+      "evaluationProfile": {
+        "id": "repo-change-v1",
+        "version": "0.1.0",
+        "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210"
+      },
+      "outcomeProfiles": [
+        {
+          "id": "workspace-change-v1",
+          "version": "0.1.0",
+          "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
+        }
+      ],
+      "comparatorArmIds": [],
+      "threshold": 0.8,
+      "confidenceLevel": 0.95,
+      "statisticalPlan": {
+        "id": "statistical-plan-fixture-1",
+        "uri": "statistical-plan.json",
+        "digest": "sha256:c23c994ed7d9450f5be68137bae78f713fa818069e84d1780389fb5367600a74"
+      },
+      "decisionRule": {
+        "id": "functional-success-decision-rule",
+        "version": "0.1.0",
+        "uri": "functional-success-decision-rule.json",
+        "digest": "sha256:f6f7539ee734c7167dbc5d922a3abd69e548a5a1465bd74a0f515021aefba070"
+      }
+    }
+  ],
+  "claimResults": [
+    {
+      "claimId": "claim-repo-change-functional",
+      "status": "supported",
+      "reasonIds": [],
+      "eligibleCellIds": [
+        "cell-fixture-1"
+      ],
+      "successAssignments": [
+        {
+          "cellId": "cell-fixture-1",
+          "success": true,
+          "evidenceIds": [
+            "outcome-replay-receipt"
+          ]
+        }
+      ],
+      "estimate": 1,
+      "interval": {
+        "method": "wilson",
+        "version": "0.1.0",
+        "confidenceLevel": 0.95,
+        "lower": 0.20654931437723745,
+        "upper": 1
+      },
+      "identificationBounds": {
+        "method": "complete-case",
+        "version": "0.1.0",
+        "direction": "positive",
+        "lower": 1,
+        "upper": 1
+      },
+      "missingness": {
+        "id": "missingness-report",
+        "uri": "artifact:fixture:missingness-report",
+        "digest": "sha256:30d001faee8a0909f908fed11cc193f401b74177baa7e694e70efc5a460129b3"
+      },
+      "coverage": {
+        "id": "coverage-report",
+        "uri": "artifact:fixture:coverage-report",
+        "digest": "sha256:8dee3fc3d8b3aca4bda7762ead5166ec81a6f78d410b04fc9f869ad67583d243"
+      },
+      "decisionRuleResult": "pass"
+    }
+  ],
+  "caseResults": [
+    {
+      "case": {
+        "id": "repo-change-case-fixture-1",
+        "version": "0.1.0",
+        "digest": "sha256:fee4aea77fe718f780bd236fe56eb16b058b9cef083fa58db09948caf5a5e702",
+        "riskTier": "medium",
+        "memberships": [
+          "held_out"
+        ],
+        "sliceIds": [
+          "held-out-medium-risk"
+        ],
+        "qaRecord": {
+          "id": "case-qa-record-fixture-1",
+          "uri": "artifact:fixture:case-qa-record-fixture-1",
+          "digest": "sha256:eb81353e8357c8ae9369047696af90e2bf74224b791e21e863f2ecc5aae2133e"
+        }
+      },
+      "stratum": "medium-risk-change",
+      "weight": 1,
+      "gateCoverage": {
+        "registry": {
+          "id": "repo-change-gate-registry",
+          "version": "0.1.0",
+          "digest": "sha256:0217e32dd00b239e5d860890b66aa8c1eaa9262e536dda3a97621727a784b146"
+        },
+        "expectedIds": [
+          "evidenceAuthenticity",
+          "oracleIsolation",
+          "isolatedExecution",
+          "trustedMeasurementBoundary",
+          "attemptAccounting",
+          "permissionPolicy",
+          "dataAndRetentionPolicy"
+        ],
+        "expectedDigest": "sha256:0217e32dd00b239e5d860890b66aa8c1eaa9262e536dda3a97621727a784b146",
+        "evaluatedIds": [
+          "evidenceAuthenticity",
+          "oracleIsolation",
+          "isolatedExecution",
+          "trustedMeasurementBoundary",
+          "attemptAccounting",
+          "permissionPolicy",
+          "dataAndRetentionPolicy"
+        ],
+        "evaluatedDigest": "sha256:0217e32dd00b239e5d860890b66aa8c1eaa9262e536dda3a97621727a784b146"
+      },
+      "governanceCoverage": {
+        "registry": {
+          "id": "base-escalation-event-registry",
+          "version": "0.1.0",
+          "digest": "sha256:c71559aa50901c3a938ecd7475da49aef27e6dff8c1f12ac656fe765d043d642"
+        },
+        "expectedIds": [
+          "security_review_required",
+          "manual_review_required",
+          "data_owner_review_required",
+          "risk_acceptance_required"
+        ],
+        "expectedDigest": "sha256:c71559aa50901c3a938ecd7475da49aef27e6dff8c1f12ac656fe765d043d642",
+        "evaluatedIds": [
+          "security_review_required",
+          "manual_review_required",
+          "data_owner_review_required",
+          "risk_acceptance_required"
+        ],
+        "evaluatedDigest": "sha256:c71559aa50901c3a938ecd7475da49aef27e6dff8c1f12ac656fe765d043d642"
+      },
+      "cells": [
+        {
+          "cellId": "cell-fixture-1",
+          "armId": "arm-fixture-1",
+          "evaluationProfileDigest": "sha256:6ec98f997cbaa51d30eeb1bdc6a3bb91e76cc2ec505fdd155850d115b0146869",
+          "outcomeProfile": {
+            "id": "workspace-change-v1",
+            "version": "0.1.0",
+            "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
+          },
+          "repetition": 1,
+          "state": "resolved",
+          "lineage": [
+            "attempt-fixture-1"
+          ],
+          "selectedAttemptId": "attempt-fixture-1",
+          "trialResult": {
+            "attemptId": "attempt-fixture-1",
+            "validity": "valid",
+            "functional": true,
+            "accepted": true,
+            "primaryOutcome": "solved",
+            "profileOutcome": {
+              "id": "workspace_changed",
+              "substatus": "code_and_tests"
+            },
+            "terminalState": "task_satisfied",
+            "validAlternativeId": null,
+            "evidenceModeVerdicts": [
+              {
+                "modeId": "deterministic",
+                "status": "pass",
+                "evidenceIds": [
+                  "execution-evidence",
+                  "workspace-diff-evidence"
+                ],
+                "evidenceKindBindings": [
+                  {
+                    "kindId": "runner-check",
+                    "evidenceIds": [
+                      "execution-evidence"
+                    ]
+                  },
+                  {
+                    "kindId": "artifact-digest",
+                    "evidenceIds": [
+                      "workspace-diff-evidence"
+                    ]
+                  }
+                ]
+              },
+              {
+                "modeId": "hybrid",
+                "status": "pass",
+                "evidenceIds": [
+                  "execution-evidence",
+                  "adjudication-evidence",
+                  "workspace-diff-evidence"
+                ],
+                "evidenceKindBindings": [
+                  {
+                    "kindId": "runner-check",
+                    "evidenceIds": [
+                      "execution-evidence"
+                    ]
+                  },
+                  {
+                    "kindId": "adjudication-record",
+                    "evidenceIds": [
+                      "adjudication-evidence"
+                    ]
+                  },
+                  {
+                    "kindId": "artifact-digest",
+                    "evidenceIds": [
+                      "workspace-diff-evidence"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "failureCauses": [],
+            "hardGates": [
+              {
+                "id": "evidenceAuthenticity",
+                "status": "pass",
+                "backingEvidenceIds": [
+                  "gate-evidence"
+                ],
+                "assignmentEvidenceId": "gate-evidence",
+                "triggerEvidenceId": "gate-evidence",
+                "failureCauseId": null
+              },
+              {
+                "id": "oracleIsolation",
+                "status": "pass",
+                "backingEvidenceIds": [
+                  "gate-evidence"
+                ],
+                "assignmentEvidenceId": "gate-evidence",
+                "triggerEvidenceId": "gate-evidence",
+                "failureCauseId": null
+              },
+              {
+                "id": "isolatedExecution",
+                "status": "pass",
+                "backingEvidenceIds": [
+                  "gate-evidence"
+                ],
+                "assignmentEvidenceId": "gate-evidence",
+                "triggerEvidenceId": "gate-evidence",
+                "failureCauseId": null
+              },
+              {
+                "id": "trustedMeasurementBoundary",
+                "status": "pass",
+                "backingEvidenceIds": [
+                  "gate-evidence"
+                ],
+                "assignmentEvidenceId": "gate-evidence",
+                "triggerEvidenceId": "gate-evidence",
+                "failureCauseId": null
+              },
+              {
+                "id": "attemptAccounting",
+                "status": "pass",
+                "backingEvidenceIds": [
+                  "gate-evidence"
+                ],
+                "assignmentEvidenceId": "gate-evidence",
+                "triggerEvidenceId": "gate-evidence",
+                "failureCauseId": null
+              },
+              {
+                "id": "permissionPolicy",
+                "status": "pass",
+                "backingEvidenceIds": [
+                  "gate-evidence"
+                ],
+                "assignmentEvidenceId": "gate-evidence",
+                "triggerEvidenceId": "gate-evidence",
+                "failureCauseId": null
+              },
+              {
+                "id": "dataAndRetentionPolicy",
+                "status": "pass",
+                "backingEvidenceIds": [
+                  "gate-evidence"
+                ],
+                "assignmentEvidenceId": "gate-evidence",
+                "triggerEvidenceId": "gate-evidence",
+                "failureCauseId": null
+              }
+            ],
+            "governanceStatuses": [
+              {
+                "id": "security_review_required",
+                "state": "not_applicable",
+                "triggerEvidenceId": "governance-evidence",
+                "findingEvidenceId": "governance-evidence"
+              },
+              {
+                "id": "manual_review_required",
+                "state": "not_applicable",
+                "triggerEvidenceId": "governance-evidence",
+                "findingEvidenceId": "governance-evidence"
+              },
+              {
+                "id": "data_owner_review_required",
+                "state": "not_applicable",
+                "triggerEvidenceId": "governance-evidence",
+                "findingEvidenceId": "governance-evidence"
+              },
+              {
+                "id": "risk_acceptance_required",
+                "state": "not_applicable",
+                "triggerEvidenceId": "governance-evidence",
+                "findingEvidenceId": "governance-evidence"
+              }
+            ],
+            "decisionSurfaces": [
+              {
+                "surfaceId": "repository-final-state",
+                "materiality": "outcome",
+                "applicability": "applicable",
+                "coverage": "checked",
+                "status": "pass",
+                "evidenceIds": [
+                  "workspace-diff-evidence",
+                  "outcome-replay-receipt"
+                ]
+              }
+            ],
+            "transcriptEvidence": {
+              "status": "complete",
+              "artifactIds": [
+                "transcript-evidence"
+              ]
+            },
+            "interactionEvidence": {
+              "status": "complete",
+              "artifactIds": [
+                "interaction-evidence"
+              ]
+            },
+            "metrics": {
+              "wallClockSeconds": 42,
+              "costUsd": 1
+            },
+            "artifactIds": [
+              "workspace-diff-evidence",
+              "execution-evidence",
+              "gate-evidence",
+              "governance-evidence",
+              "transcript-evidence",
+              "interaction-evidence",
+              "outcome-replay-receipt",
+              "assurance-report-evidence",
+              "grader-assessment-evidence",
+              "adjudication-evidence"
+            ],
+            "outcomeReplay": {
+              "executor": {
+                "id": "agent-evals-standard.repo-change-outcome-replay",
+                "version": "0.1.0",
+                "digest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
+              },
+              "receiptEvidenceId": "outcome-replay-receipt",
+              "materialArtifacts": [
+                {
+                  "workArtifactType": "code_change",
+                  "evidenceIds": [
+                    "workspace-diff-evidence"
+                  ]
+                },
+                {
+                  "workArtifactType": "test_change",
+                  "evidenceIds": [
+                    "workspace-diff-evidence"
+                  ]
+                },
+                {
+                  "workArtifactType": "assurance_report",
+                  "evidenceIds": [
+                    "assurance-report-evidence"
+                  ]
+                }
+              ]
+            }
+          },
+          "blockId": "single-block-1",
+          "seed": "single-seed-1"
+        }
+      ],
+      "statistics": [
+        {
+          "claimId": "claim-repo-change-functional",
+          "estimand": "pass_at_k",
+          "k": 1,
+          "scheduledN": 1,
+          "validN": 1,
+          "validSuccesses": 1,
+          "estimator": {
+            "id": "pass-at-one-estimator",
+            "version": "0.1.0",
+            "digest": "sha256:3fa699993443b6150493b985f98f8911e374d6edc42c2e3dd5a32ab529aef88e"
+          },
+          "status": "supported",
+          "value": 1,
+          "interval": {
+            "method": "wilson",
+            "version": "0.1.0",
+            "confidenceLevel": 0.95,
+            "lower": 0.20654931437723745,
+            "upper": 1
+          }
+        }
+      ],
+      "contributions": {
+        "functional_success": 1
+      }
+    }
+  ],
+  "attemptIntegrity": {
+    "status": "valid",
+    "ledger": {
+      "id": "attempt-ledger",
+      "uri": "attempt-ledger.json",
+      "digest": "sha256:6db3b7d6b53e820e8529544f34fb3777e10d19b47bcac644de449be6d953bb3f"
+    },
+    "scheduledSetCommitment": {
+      "id": "pre-run-manifest-fixture-1",
+      "uri": "pre-run-manifest.json",
+      "digest": "sha256:58066bec3d8aa1df933df7afddd641f36cb2dd9fd5c5e5e7834e2d3b2faf7819"
+    },
+    "initialLedgerRoot": "sha256:0a2e14d29481a3edb1281387de0fd98e6a806a7cd1f2c7233ebb63b96fd81c2b",
+    "terminalLedgerRoot": "sha256:63e64c9a826b4ebe0231edb481f5c0d847dc5b55c551957ef2f952ae7f2d6c81",
+    "scheduledCells": 1,
+    "resolvedCells": 1,
+    "unresolvedCells": 0,
+    "physicalAttemptCount": 1,
+    "validAttempts": 1,
+    "invalidAttempts": 0,
+    "interruptedAttempts": 0,
+    "missingCaptureAttempts": 0,
+    "replacementAttempts": 0,
+    "ratesByArmAndCase": [
+      {
+        "caseId": "repo-change-case-fixture-1",
+        "armId": "arm-fixture-1",
+        "scheduledCells": 1,
+        "resolvedCells": 1,
+        "unresolvedCells": 0,
+        "physicalAttemptCount": 1,
+        "validAttempts": 1,
+        "invalidAttempts": 0,
+        "interruptedAttempts": 0,
+        "missingCaptureAttempts": 0,
+        "replacementAttempts": 0,
+        "unresolvedCellRate": 0
+      }
+    ],
+    "unresolvedCellRate": 0,
+    "unresolvedCellRateThreshold": 0,
+    "attemptRecords": [
+      {
+        "attemptId": "attempt-fixture-1",
+        "cellId": "cell-fixture-1",
+        "terminalState": "completed",
+        "measurementValidity": "valid",
+        "parentAttemptId": null,
+        "retryReason": null,
+        "startedAt": "2026-08-01T01:01:00Z",
+        "finishedAt": "2026-08-01T01:02:00Z",
+        "artifactIds": [
+          "workspace-diff-evidence",
+          "execution-evidence"
+        ],
+        "metrics": {
+          "wallClockSeconds": 42,
+          "costUsd": 1
+        }
+      }
+    ],
+    "externalAttemptCheckpoint": {
+      "id": "attempt-checkpoint-fixture-1",
+      "version": "0.1.0",
+      "uri": "attempt-checkpoint.json",
+      "digest": "sha256:83aaabc56725de2f5e98874a1f2a9f58d54b35ec65ddcadf3230a7b17a10ad61"
+    }
+  },
+  "metrics": {
+    "outcomes": [
+      {
+        "armId": "arm-fixture-1",
+        "category": "solved",
+        "count": 1,
+        "denominator": 1
+      }
+    ],
+    "cost": {
+      "meanConditionalOnFunctionalSuccess": {
+        "status": "supported",
+        "valueUsd": 1,
+        "numeratorCostUsd": 1,
+        "successCount": 1,
+        "physicalAttemptCount": 1,
+        "reportedCostCount": 1,
+        "requiredCostCount": 1,
+        "currency": "USD",
+        "priceTableTimestamp": "2026-08-01T00:59:00Z",
+        "evidenceIds": [
+          "execution-evidence"
+        ],
+        "reasonIds": [],
+        "missingCostPolicy": "fail_closed",
+        "bound": null,
+        "priceTable": {
+          "id": "price-table",
+          "version": "0.1.0",
+          "digest": "sha256:8c0c677b723c78cc2278e600d2d27413f548d7e791c3a6e62cbdd5d8120a5ace"
+        }
+      },
+      "totalAttemptCostPerFunctionalSuccess": {
+        "status": "supported",
+        "valueUsd": 1,
+        "numeratorCostUsd": 1,
+        "successCount": 1,
+        "physicalAttemptCount": 1,
+        "reportedCostCount": 1,
+        "requiredCostCount": 1,
+        "currency": "USD",
+        "priceTableTimestamp": "2026-08-01T00:59:00Z",
+        "evidenceIds": [
+          "execution-evidence"
+        ],
+        "reasonIds": [],
+        "missingCostPolicy": "fail_closed",
+        "bound": null,
+        "priceTable": {
+          "id": "price-table",
+          "version": "0.1.0",
+          "digest": "sha256:8c0c677b723c78cc2278e600d2d27413f548d7e791c3a6e62cbdd5d8120a5ace"
+        }
+      }
+    },
+    "composite": {
+      "status": "not_applicable",
+      "value": null,
+      "formula": null,
+      "weights": [],
+      "normalization": null,
+      "inputPopulation": [],
+      "breakdown": {
+        "byRiskTier": [],
+        "byTaskClass": [],
+        "byOutcome": [],
+        "byCost": []
+      }
+    }
+  },
+  "evidenceManifest": [
+    {
+      "id": "workspace-diff-evidence",
+      "artifactType": "workspace_diff",
+      "uri": "artifact:sha256:376c2eda8818aa971c3c257d0c9573e55c69f695717fb99e60bde6ab3b141f03",
+      "mediaType": "application/vnd.git.diff",
+      "digest": "sha256:376c2eda8818aa971c3c257d0c9573e55c69f695717fb99e60bde6ab3b141f03",
+      "byteLength": 480,
+      "producer": {
+        "id": "fixture-runner",
+        "role": "runner",
+        "trustDomain": "runner"
+      },
+      "creationPhase": "execution",
+      "createdAt": "2026-08-01T01:00:09Z",
+      "schemaMetadata": null,
+      "mediaInterpretation": {
+        "profileId": "git-diff",
+        "profileVersion": "0.1.0",
+        "semanticContract": null
+      },
+      "accessClass": "internal",
+      "accessPolicyBinding": {
+        "id": "fixture-access-policy",
+        "version": "0.1.0",
+        "digest": "sha256:fa27c0767d27b454693112c7d9fce5380b56204929ac1be3f361a6dc0369c9b5"
+      },
+      "privacyAndIp": {
+        "classification": "none",
+        "restrictions": []
+      },
+      "retention": {
+        "class": "fixture",
+        "expiresAt": "2027-08-01T00:00:00Z",
+        "disposition": "delete",
+        "legalHold": false
+      },
+      "attestation": {
+        "profileId": "fixture-signature-profile",
+        "algorithm": "Ed25519",
+        "keyId": "rfc8032-test-key-1",
+        "signedAt": "2026-08-01T01:00:19Z",
+        "value": "Ebp1C-wfPSq2dHAQqNZEwgB6Q9u14kJkAINmkV36__eSWbju6F4qaVAklkSRhU2MqDNU_MdOyF50BRLVNQxqBg"
+      },
+      "payload": {
+        "kind": "inline_base64",
+        "contentBase64": "ZGlmZiAtLWdpdCBhL3NyYy9ncmVldGluZy5qcyBiL3NyYy9ncmVldGluZy5qcwpuZXcgZmlsZSBtb2RlIDEwMDY0NAppbmRleCAwMDAwMDAwLi4xMTExMTExCi0tLSAvZGV2L251bGwKKysrIGIvc3JjL2dyZWV0aW5nLmpzCkBAIC0wLDAgKzEgQEAKK2V4cG9ydCBjb25zdCBncmVldGluZyA9ICJoZWxsbyI7CmRpZmYgLS1naXQgYS90ZXN0L2dyZWV0aW5nLnRlc3QuanMgYi90ZXN0L2dyZWV0aW5nLnRlc3QuanMKbmV3IGZpbGUgbW9kZSAxMDA2NDQKaW5kZXggMDAwMDAwMC4uMjIyMjIyMgotLS0gL2Rldi9udWxsCisrKyBiL3Rlc3QvZ3JlZXRpbmcudGVzdC5qcwpAQCAtMCwwICsxLDIgQEAKK2ltcG9ydCB7IGdyZWV0aW5nIH0gZnJvbSAiLi4vc3JjL2dyZWV0aW5nLmpzIjsKK3Rlc3QoImdyZWV0aW5nIiwgKCkgPT4geyBpZiAoZ3JlZXRpbmcgIT09ICJoZWxsbyIpIHRocm93IG5ldyBFcnJvcigidW5leHBlY3RlZCBncmVldGluZyIpOyB9KTsK"
+      }
+    },
+    {
+      "id": "execution-evidence",
+      "uri": "artifact:sha256:a9ad3031974ee6677c50365e63858ae902ce896917ca4f13f2ba12a9f923866c",
+      "mediaType": "application/json",
+      "digest": "sha256:a9ad3031974ee6677c50365e63858ae902ce896917ca4f13f2ba12a9f923866c",
+      "byteLength": 1299,
+      "producer": {
+        "id": "fixture-runner",
+        "role": "runner",
+        "trustDomain": "runner"
+      },
+      "creationPhase": "execution",
+      "createdAt": "2026-08-01T01:00:10Z",
+      "schemaMetadata": {
+        "schemaId": "agent-eval-repo-change-runner-check-record-1",
+        "schemaVersion": "0.1.0",
+        "validatorDigest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
+      },
+      "mediaInterpretation": {
+        "profileId": "json-rfc8785",
+        "profileVersion": "0.1.0",
+        "semanticContract": {
+          "id": "agent-evals-standard.repo-change-outcome-replay",
+          "version": "0.1.0",
+          "digest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
+        }
+      },
+      "accessClass": "internal",
+      "accessPolicyBinding": {
+        "id": "fixture-access-policy",
+        "version": "0.1.0",
+        "digest": "sha256:fa27c0767d27b454693112c7d9fce5380b56204929ac1be3f361a6dc0369c9b5"
+      },
+      "privacyAndIp": {
+        "classification": "none",
+        "restrictions": []
+      },
+      "retention": {
+        "class": "fixture",
+        "expiresAt": "2027-08-01T00:00:00Z",
+        "disposition": "delete",
+        "legalHold": false
+      },
+      "attestation": {
+        "profileId": "fixture-runner-capture-profile",
+        "algorithm": "Ed25519",
+        "keyId": "rfc8032-test-key-3-runner",
+        "signedAt": "2026-08-01T01:00:08Z",
+        "value": "Un92Ko2Z8jlzwQKyUsmHDs57ooXpFMaXITO0LhTyWw6Hc-QbAzQCQCj5rI5FL-qS7yzMCYIE_fgYQtZbIGCOCg"
+      },
+      "payload": {
+        "kind": "inline_base64",
+        "contentBase64": "ewogICJzY2hlbWFWZXJzaW9uIjogImFnZW50LWV2YWwtcmVwby1jaGFuZ2UtcnVubmVyLWNoZWNrLXJlY29yZC0xIiwKICAiaWQiOiAicmVwby1jaGFuZ2UtcnVubmVyLWNoZWNrLWZpeHR1cmUtMSIsCiAgInZlcnNpb24iOiAiMC4xLjAiLAogICJleHBlcmltZW50SWQiOiAiZXhwZXJpbWVudC1maXh0dXJlLTEiLAogICJjYXNlSWQiOiAicmVwby1jaGFuZ2UtY2FzZS1maXh0dXJlLTEiLAogICJjZWxsSWQiOiAiY2VsbC1maXh0dXJlLTEiLAogICJhdHRlbXB0SWQiOiAiYXR0ZW1wdC1maXh0dXJlLTEiLAogICJhcm1JZCI6ICJhcm0tZml4dHVyZS0xIiwKICAid29ya3NwYWNlTWFuaWZlc3REaWdlc3QiOiAic2hhMjU2OmUxMDBmZWMzY2M0YTZkNGIyZDA2OWZkMmU5ZTVjODFlYjRmM2JjYTU5ZWM3ZGI2OTE1MjE0MWUyYjE0NThjZDUiLAogICJ3b3Jrc3BhY2VSb290RGlnZXN0IjogInNoYTI1Njo2NzUyMDRmNDI3Mzg2MjVkMTA0YzA5NjcxYmFlMTIxZDVlODI3MjJmNzFiYTYyZTdjNmRkNzVhNTY1MzQzMGFjIiwKICAidmFsaWRhdGlvblBsYW5EaWdlc3QiOiAic2hhMjU2OjgxZjc5ODJmMWNhZjYwZDIzNTkzYmNlM2MwODhjOGU4NjJhNzVjOGFjMTM0YTM4NzE0OGYxYTRhNzYyZWQ2MDQiLAogICJzdWJqZWN0S2luZCI6ICJ3b3Jrc3BhY2VfZGlmZiIsCiAgInN1YmplY3REaWdlc3QiOiAic2hhMjU2OjM3NmMyZWRhODgxOGFhOTcxYzNjMjU3ZDBjOTU3M2U1NWM2OWY2OTU3MTdmYjk5ZTYwYmRlNmFiM2IxNDFmMDMiLAogICJjaGVja3MiOiBbCiAgICB7CiAgICAgICJpZCI6ICJoaWRkZW4tZnVuY3Rpb25hbC1jaGVjayIsCiAgICAgICJjb250cmFjdERpZ2VzdCI6ICJzaGEyNTY6MzIzMjMyMzIzMjMyMzIzMjMyMzIzMjMyMzIzMjMyMzIzMjMyMzIzMjMyMzIzMjMyMzIzMjMyMzIzMjMyMzIzMiIsCiAgICAgICJzdGF0dXMiOiAicGFzcyIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJzZWN1cml0eS1jaGVjayIsCiAgICAgICJjb250cmFjdERpZ2VzdCI6ICJzaGEyNTY6MzQzNDM0MzQzNDM0MzQzNDM0MzQzNDM0MzQzNDM0MzQzNDM0MzQzNDM0MzQzNDM0MzQzNDM0MzQzNDM0MzQzNCIsCiAgICAgICJzdGF0dXMiOiAicGFzcyIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJjb250cm9sLXByb29mIiwKICAgICAgImNvbnRyYWN0RGlnZXN0IjogInNoYTI1NjozNjM2MzYzNjM2MzYzNjM2MzYzNjM2MzYzNjM2MzYzNjM2MzYzNjM2MzYzNjM2MzYzNjM2MzYzNjM2MzYzNjM2IiwKICAgICAgInN0YXR1cyI6ICJwYXNzIgogICAgfQogIF0sCiAgIm92ZXJhbGxWZXJkaWN0IjogInBhc3MiCn0K"
+      },
+      "artifactType": "repo-change-v1:runner_check_record"
+    },
+    {
+      "id": "gate-evidence",
+      "uri": "artifact:sha256:89d80da42bf460ab25cf2ecea00a18e0e5684bf939d2885f45cd8cc904a96015",
+      "mediaType": "application/json",
+      "digest": "sha256:89d80da42bf460ab25cf2ecea00a18e0e5684bf939d2885f45cd8cc904a96015",
+      "byteLength": 123,
+      "producer": {
+        "id": "fixture-runner",
+        "role": "runner",
+        "trustDomain": "runner"
+      },
+      "creationPhase": "grading",
+      "createdAt": "2026-08-01T01:00:11Z",
+      "schemaMetadata": {
+        "schemaId": "scorecard-evidence-record",
+        "schemaVersion": "0.1.0",
+        "validatorDigest": "sha256:fbd4718000d0bfd23f42134c147e31e47dd16665ea2f633644970f2c079972e0"
+      },
+      "mediaInterpretation": {
+        "profileId": "json-rfc8259",
+        "profileVersion": "0.1.0",
+        "semanticContract": null
+      },
+      "accessClass": "internal",
+      "accessPolicyBinding": {
+        "id": "fixture-access-policy",
+        "version": "0.1.0",
+        "digest": "sha256:fa27c0767d27b454693112c7d9fce5380b56204929ac1be3f361a6dc0369c9b5"
+      },
+      "privacyAndIp": {
+        "classification": "none",
+        "restrictions": []
+      },
+      "retention": {
+        "class": "fixture",
+        "expiresAt": "2027-08-01T00:00:00Z",
+        "disposition": "delete",
+        "legalHold": false
+      },
+      "attestation": {
+        "profileId": "fixture-signature-profile",
+        "algorithm": "Ed25519",
+        "keyId": "rfc8032-test-key-1",
+        "signedAt": "2026-08-01T01:00:21Z",
+        "value": "MiKzFhaBBGiJU5UO0VnYZ56Iv19tXfczoZTUwMnySngLFZGBqEhk5ZuB1iaL1DbcCk6N75v7_sBOG2W6v-xzAg"
+      },
+      "payload": {
+        "kind": "inline_base64",
+        "contentBase64": "eyJzY2hlbWFWZXJzaW9uIjoiZml4dHVyZS1ldmlkZW5jZS1wYXlsb2FkLTEiLCJpZCI6ImdhdGUtZXZpZGVuY2UtcGF5bG9hZCIsInZlcnNpb24iOiIwLjEuMCIsImV2aWRlbmNlSWQiOiJnYXRlLWV2aWRlbmNlIn0K"
+      }
+    },
+    {
+      "id": "governance-evidence",
+      "uri": "artifact:sha256:0ed56d4b0129aee4c5ac89ce0a8f695f00dd543b586330479b88dae8c8ea0133",
+      "mediaType": "application/json",
+      "digest": "sha256:0ed56d4b0129aee4c5ac89ce0a8f695f00dd543b586330479b88dae8c8ea0133",
+      "byteLength": 135,
+      "producer": {
+        "id": "fixture-runner",
+        "role": "runner",
+        "trustDomain": "runner"
+      },
+      "creationPhase": "grading",
+      "createdAt": "2026-08-01T01:00:12Z",
+      "schemaMetadata": {
+        "schemaId": "scorecard-evidence-record",
+        "schemaVersion": "0.1.0",
+        "validatorDigest": "sha256:fbd4718000d0bfd23f42134c147e31e47dd16665ea2f633644970f2c079972e0"
+      },
+      "mediaInterpretation": {
+        "profileId": "json-rfc8259",
+        "profileVersion": "0.1.0",
+        "semanticContract": null
+      },
+      "accessClass": "internal",
+      "accessPolicyBinding": {
+        "id": "fixture-access-policy",
+        "version": "0.1.0",
+        "digest": "sha256:fa27c0767d27b454693112c7d9fce5380b56204929ac1be3f361a6dc0369c9b5"
+      },
+      "privacyAndIp": {
+        "classification": "none",
+        "restrictions": []
+      },
+      "retention": {
+        "class": "fixture",
+        "expiresAt": "2027-08-01T00:00:00Z",
+        "disposition": "delete",
+        "legalHold": false
+      },
+      "attestation": {
+        "profileId": "fixture-signature-profile",
+        "algorithm": "Ed25519",
+        "keyId": "rfc8032-test-key-1",
+        "signedAt": "2026-08-01T01:00:22Z",
+        "value": "BamFdy9hQBCj71Ugf3CKs18veGgaxOI5bBHfnBPwWZ8mJ2f8L8UWFUP9DUa_KWMCpYVcXsOzgAKVRk8vIwIPDQ"
+      },
+      "payload": {
+        "kind": "inline_base64",
+        "contentBase64": "eyJzY2hlbWFWZXJzaW9uIjoiZml4dHVyZS1ldmlkZW5jZS1wYXlsb2FkLTEiLCJpZCI6ImdvdmVybmFuY2UtZXZpZGVuY2UtcGF5bG9hZCIsInZlcnNpb24iOiIwLjEuMCIsImV2aWRlbmNlSWQiOiJnb3Zlcm5hbmNlLWV2aWRlbmNlIn0K"
+      }
+    },
+    {
+      "id": "transcript-evidence",
+      "uri": "artifact:sha256:824eb962fb96721245ca14131680e701c682fb863b045f2f7499c08be647455c",
+      "mediaType": "application/json",
+      "digest": "sha256:824eb962fb96721245ca14131680e701c682fb863b045f2f7499c08be647455c",
+      "byteLength": 135,
+      "producer": {
+        "id": "fixture-runner",
+        "role": "runner",
+        "trustDomain": "runner"
+      },
+      "creationPhase": "grading",
+      "createdAt": "2026-08-01T01:00:13Z",
+      "schemaMetadata": {
+        "schemaId": "scorecard-evidence-record",
+        "schemaVersion": "0.1.0",
+        "validatorDigest": "sha256:fbd4718000d0bfd23f42134c147e31e47dd16665ea2f633644970f2c079972e0"
+      },
+      "mediaInterpretation": {
+        "profileId": "json-rfc8259",
+        "profileVersion": "0.1.0",
+        "semanticContract": null
+      },
+      "accessClass": "internal",
+      "accessPolicyBinding": {
+        "id": "fixture-access-policy",
+        "version": "0.1.0",
+        "digest": "sha256:fa27c0767d27b454693112c7d9fce5380b56204929ac1be3f361a6dc0369c9b5"
+      },
+      "privacyAndIp": {
+        "classification": "none",
+        "restrictions": []
+      },
+      "retention": {
+        "class": "fixture",
+        "expiresAt": "2027-08-01T00:00:00Z",
+        "disposition": "delete",
+        "legalHold": false
+      },
+      "attestation": {
+        "profileId": "fixture-signature-profile",
+        "algorithm": "Ed25519",
+        "keyId": "rfc8032-test-key-1",
+        "signedAt": "2026-08-01T01:00:23Z",
+        "value": "hl81apLXRdBZaXYZunJufMa6LaKDri9-NqNJ-_YisqW9_WYekFqw8_VQVX4WFIntFgj1BaI1YFG54327jL4WAQ"
+      },
+      "payload": {
+        "kind": "inline_base64",
+        "contentBase64": "eyJzY2hlbWFWZXJzaW9uIjoiZml4dHVyZS1ldmlkZW5jZS1wYXlsb2FkLTEiLCJpZCI6InRyYW5zY3JpcHQtZXZpZGVuY2UtcGF5bG9hZCIsInZlcnNpb24iOiIwLjEuMCIsImV2aWRlbmNlSWQiOiJ0cmFuc2NyaXB0LWV2aWRlbmNlIn0K"
+      }
+    },
+    {
+      "id": "interaction-evidence",
+      "uri": "artifact:sha256:ea72f00227a41d4533657d18d563cbb179fdfb3ff411922f3f6f385ba7b6f479",
+      "mediaType": "application/json",
+      "digest": "sha256:ea72f00227a41d4533657d18d563cbb179fdfb3ff411922f3f6f385ba7b6f479",
+      "byteLength": 137,
+      "producer": {
+        "id": "fixture-runner",
+        "role": "runner",
+        "trustDomain": "runner"
+      },
+      "creationPhase": "grading",
+      "createdAt": "2026-08-01T01:00:14Z",
+      "schemaMetadata": {
+        "schemaId": "scorecard-evidence-record",
+        "schemaVersion": "0.1.0",
+        "validatorDigest": "sha256:fbd4718000d0bfd23f42134c147e31e47dd16665ea2f633644970f2c079972e0"
+      },
+      "mediaInterpretation": {
+        "profileId": "json-rfc8259",
+        "profileVersion": "0.1.0",
+        "semanticContract": null
+      },
+      "accessClass": "internal",
+      "accessPolicyBinding": {
+        "id": "fixture-access-policy",
+        "version": "0.1.0",
+        "digest": "sha256:fa27c0767d27b454693112c7d9fce5380b56204929ac1be3f361a6dc0369c9b5"
+      },
+      "privacyAndIp": {
+        "classification": "none",
+        "restrictions": []
+      },
+      "retention": {
+        "class": "fixture",
+        "expiresAt": "2027-08-01T00:00:00Z",
+        "disposition": "delete",
+        "legalHold": false
+      },
+      "attestation": {
+        "profileId": "fixture-signature-profile",
+        "algorithm": "Ed25519",
+        "keyId": "rfc8032-test-key-1",
+        "signedAt": "2026-08-01T01:00:24Z",
+        "value": "8McFC1vrD8TzMOI5A2m6BCrDxj3ca-MkgKBEQoDD2An_BKY8NTWcDyGQnNSvNv_1QGlrFuGtonmzcuHnSWQsAg"
+      },
+      "payload": {
+        "kind": "inline_base64",
+        "contentBase64": "eyJzY2hlbWFWZXJzaW9uIjoiZml4dHVyZS1ldmlkZW5jZS1wYXlsb2FkLTEiLCJpZCI6ImludGVyYWN0aW9uLWV2aWRlbmNlLXBheWxvYWQiLCJ2ZXJzaW9uIjoiMC4xLjAiLCJldmlkZW5jZUlkIjoiaW50ZXJhY3Rpb24tZXZpZGVuY2UifQo="
+      }
+    },
+    {
+      "id": "assurance-report-evidence",
+      "uri": "artifact:sha256:158825f00f8f61afa11b92ed8b1e16bfa5fe9af6edeff8abdc2ceb88832c2b0b",
+      "mediaType": "application/json",
+      "digest": "sha256:158825f00f8f61afa11b92ed8b1e16bfa5fe9af6edeff8abdc2ceb88832c2b0b",
+      "byteLength": 858,
+      "producer": {
+        "id": "fixture-runner",
+        "role": "runner",
+        "trustDomain": "runner"
+      },
+      "creationPhase": "execution",
+      "createdAt": "2026-08-01T01:00:09Z",
+      "schemaMetadata": {
+        "schemaId": "agent-eval-repo-change-assurance-report-1",
+        "schemaVersion": "0.1.0",
+        "validatorDigest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
+      },
+      "mediaInterpretation": {
+        "profileId": "json-rfc8785",
+        "profileVersion": "0.1.0",
+        "semanticContract": {
+          "id": "agent-evals-standard.repo-change-outcome-replay",
+          "version": "0.1.0",
+          "digest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
+        }
+      },
+      "accessClass": "internal",
+      "accessPolicyBinding": {
+        "id": "fixture-access-policy",
+        "version": "0.1.0",
+        "digest": "sha256:fa27c0767d27b454693112c7d9fce5380b56204929ac1be3f361a6dc0369c9b5"
+      },
+      "privacyAndIp": {
+        "classification": "none",
+        "restrictions": []
+      },
+      "retention": {
+        "class": "fixture",
+        "expiresAt": "2027-08-01T00:00:00Z",
+        "disposition": "delete",
+        "legalHold": false
+      },
+      "attestation": {
+        "profileId": "fixture-runner-capture-profile",
+        "algorithm": "Ed25519",
+        "keyId": "rfc8032-test-key-3-runner",
+        "signedAt": "2026-08-01T01:00:10Z",
+        "value": "_kOup0gS9ZESLSOBGhXsfIBAwX04FwMcfHx813WZbm7z0dHqDbt0otzj2Dxq09c95izxar4w-CS_Fue3Oi5GDQ"
+      },
+      "payload": {
+        "kind": "repository_relative",
+        "path": "repo-change-assurance-report.json"
+      },
+      "artifactType": "repo-change-v1:assurance_report"
+    },
+    {
+      "id": "grader-assessment-evidence",
+      "uri": "artifact:sha256:85767a1d4dfb04a2d39e729331b28e63f97e4ce825bd56646ab5e15402c073ed",
+      "mediaType": "application/json",
+      "digest": "sha256:85767a1d4dfb04a2d39e729331b28e63f97e4ce825bd56646ab5e15402c073ed",
+      "byteLength": 1082,
+      "producer": {
+        "id": "fixture-independent-outcome-verifier",
+        "role": "verifier",
+        "trustDomain": "external"
+      },
+      "creationPhase": "grading",
+      "createdAt": "2026-08-01T01:00:17Z",
+      "schemaMetadata": {
+        "schemaId": "agent-eval-repo-change-grader-assessment-1",
+        "schemaVersion": "0.1.0",
+        "validatorDigest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
+      },
+      "mediaInterpretation": {
+        "profileId": "json-rfc8785",
+        "profileVersion": "0.1.0",
+        "semanticContract": {
+          "id": "agent-evals-standard.repo-change-outcome-replay",
+          "version": "0.1.0",
+          "digest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
+        }
+      },
+      "accessClass": "internal",
+      "accessPolicyBinding": {
+        "id": "fixture-access-policy",
+        "version": "0.1.0",
+        "digest": "sha256:fa27c0767d27b454693112c7d9fce5380b56204929ac1be3f361a6dc0369c9b5"
+      },
+      "privacyAndIp": {
+        "classification": "none",
+        "restrictions": []
+      },
+      "retention": {
+        "class": "fixture",
+        "expiresAt": "2027-08-01T00:00:00Z",
+        "disposition": "delete",
+        "legalHold": false
+      },
+      "attestation": {
+        "profileId": "fixture-automated-verifier-profile",
+        "algorithm": "Ed25519",
+        "keyId": "rfc8032-test-key-2-verifier",
+        "signedAt": "2026-08-01T01:00:18Z",
+        "value": "44JQdE5HgTJs388zqEmy0D8asFW0jl7LVyJ04jUJ5Ms-bKWvhT2p8aocYYCjLIrWLZLnl591LssGZ3xRwaXQAQ"
+      },
+      "payload": {
+        "kind": "repository_relative",
+        "path": "repo-change-grader-assessment.json"
+      },
+      "artifactType": "repo-change-v1:grader_assessment"
+    },
+    {
+      "id": "adjudication-evidence",
+      "uri": "artifact:sha256:d236350c3b95cc8d6b6396af0f9719bdcef1a3b67571e4dee1e7d2e08c9c206d",
+      "mediaType": "application/json",
+      "digest": "sha256:d236350c3b95cc8d6b6396af0f9719bdcef1a3b67571e4dee1e7d2e08c9c206d",
+      "byteLength": 3147,
+      "producer": {
+        "id": "fixture-independent-outcome-verifier",
+        "role": "verifier",
+        "trustDomain": "external"
+      },
+      "creationPhase": "grading",
+      "createdAt": "2026-08-01T01:00:17Z",
+      "schemaMetadata": {
+        "schemaId": "agent-eval-repo-change-adjudication-record-1",
+        "schemaVersion": "0.1.0",
+        "validatorDigest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
+      },
+      "mediaInterpretation": {
+        "profileId": "json-rfc8785",
+        "profileVersion": "0.1.0",
+        "semanticContract": {
+          "id": "agent-evals-standard.repo-change-outcome-replay",
+          "version": "0.1.0",
+          "digest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
+        }
+      },
+      "accessClass": "internal",
+      "accessPolicyBinding": {
+        "id": "fixture-access-policy",
+        "version": "0.1.0",
+        "digest": "sha256:fa27c0767d27b454693112c7d9fce5380b56204929ac1be3f361a6dc0369c9b5"
+      },
+      "privacyAndIp": {
+        "classification": "none",
+        "restrictions": []
+      },
+      "retention": {
+        "class": "fixture",
+        "expiresAt": "2027-08-01T00:00:00Z",
+        "disposition": "delete",
+        "legalHold": false
+      },
+      "attestation": {
+        "profileId": "fixture-automated-verifier-profile",
+        "algorithm": "Ed25519",
+        "keyId": "rfc8032-test-key-2-verifier",
+        "signedAt": "2026-08-01T01:00:18Z",
+        "value": "1QYfSQ6k4hH4PHK8qpJGnZrlpFX_xZd8FlzehRedjXQQ9Yeavqu3ER5dk5xLlQ2pWfZB9Xtqm4ynOyulrXHdBw"
+      },
+      "payload": {
+        "kind": "repository_relative",
+        "path": "repo-change-adjudication-record.json"
+      },
+      "artifactType": "repo-change-v1:adjudication_record"
+    },
+    {
+      "id": "outcome-replay-receipt",
+      "uri": "artifact:sha256:e8cb2e66d1fe356f2f275cc9af6a117a2938558c7cbdb45d39dc45f6230f64a5",
+      "mediaType": "application/json",
+      "digest": "sha256:e8cb2e66d1fe356f2f275cc9af6a117a2938558c7cbdb45d39dc45f6230f64a5",
+      "byteLength": 1878,
+      "producer": {
+        "id": "fixture-independent-outcome-verifier",
+        "role": "verifier",
+        "trustDomain": "external"
+      },
+      "creationPhase": "grading",
+      "createdAt": "2026-08-01T01:00:18Z",
+      "schemaMetadata": {
+        "schemaId": "agent-eval-outcome-replay-receipt-1",
+        "schemaVersion": "0.1.0",
+        "validatorDigest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
+      },
+      "mediaInterpretation": {
+        "profileId": "json-rfc8785",
+        "profileVersion": "0.1.0",
+        "semanticContract": {
+          "id": "agent-evals-standard.repo-change-outcome-replay",
+          "version": "0.1.0",
+          "digest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
+        }
+      },
+      "accessClass": "internal",
+      "accessPolicyBinding": {
+        "id": "fixture-access-policy",
+        "version": "0.1.0",
+        "digest": "sha256:fa27c0767d27b454693112c7d9fce5380b56204929ac1be3f361a6dc0369c9b5"
+      },
+      "privacyAndIp": {
+        "classification": "none",
+        "restrictions": []
+      },
+      "retention": {
+        "class": "fixture",
+        "expiresAt": "2027-08-01T00:00:00Z",
+        "disposition": "delete",
+        "legalHold": false
+      },
+      "attestation": {
+        "profileId": "fixture-automated-verifier-profile",
+        "algorithm": "Ed25519",
+        "keyId": "rfc8032-test-key-2-verifier",
+        "signedAt": "2026-08-01T01:00:19Z",
+        "value": "egmiJ9iYGcDW8apdCaSj88rCKy3KlL0fwf-E3dfnVlD1b-nYW4XvzB8I0_DwaxvJKlmPOGy3-QQlhqlwHrdnAQ"
+      },
+      "payload": {
+        "kind": "repository_relative",
+        "path": "outcome-replay-receipt.json"
+      },
+      "artifactType": "repo-change-v1:outcome_replay_receipt"
+    }
+  ],
+  "provenance": {
+    "standardRelease": {
+      "id": "repository-sdlc-agent-evals-standard",
+      "version": "0.1.0",
+      "digest": "sha256:a8fa5524e5a4e2d8f684b97943e45a794684833b1663795f4fc0f08dace3844f"
+    },
+    "contracts": [
+      {
+        "id": "scorecard-contract",
+        "version": "0.1.0",
+        "digest": "sha256:13199032d408b954af4e61acedf66ffd850072950fe11c387127dcdfc344b296"
+      }
+    ],
+    "preRunManifest": {
+      "id": "pre-run-manifest-fixture-1",
+      "uri": "pre-run-manifest.json",
+      "digest": "sha256:58066bec3d8aa1df933df7afddd641f36cb2dd9fd5c5e5e7834e2d3b2faf7819"
+    },
+    "statisticalPlan": {
+      "id": "statistical-plan-fixture-1",
+      "uri": "statistical-plan.json",
+      "digest": "sha256:c23c994ed7d9450f5be68137bae78f713fa818069e84d1780389fb5367600a74"
+    },
+    "suite": {
+      "id": "suite-manifest-fixture-1",
+      "version": "0.1.0",
+      "uri": "suite-manifest.json",
+      "digest": "sha256:b530236278def85a27e840b0b13140f8105c2c84fb0104839db9136e132a9954"
+    },
+    "caseSetDigest": "sha256:6b45aa7b8c455a460e3a3f1d26e0407a67f21319b25866af04093309c99a3796",
+    "requirementRegistry": {
+      "id": "agent-evals-standard-requirements",
+      "uri": "artifact:fixture:agent-evals-standard-requirements",
+      "digest": "sha256:e58c6762efe45ca689c746559b7a40ceee1dd593b613017179d35dce6ed55b1f"
+    },
+    "signatureProfile": {
+      "id": "fixture-signature-profile",
+      "uri": "../../../profiles/repo-change-v1/signature-profile.json",
+      "digest": "sha256:d3d2fd1c85f32d1881ad55160b31737f5fa53d9453ce42c9064812a4b1ecb872",
+      "version": "0.1.0"
+    }
+  },
+  "digest": "sha256:a7337bf0c3610bb13309fcf07818af74707a84e4d994caf2835a1258e4a19ce3",
+  "signature": {
+    "profileId": "fixture-signature-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-1",
+    "signedAt": "2026-08-01T01:03:01Z",
+    "value": "T8YQQN_0TvfAyZNKfzPr0UsCGAARPV4GhS9SlCjxbCiwd7MKKj6Wi40ntO4iRBkuKIZtSmLlFt_6dfdNNW4tDw"
+  }
+}

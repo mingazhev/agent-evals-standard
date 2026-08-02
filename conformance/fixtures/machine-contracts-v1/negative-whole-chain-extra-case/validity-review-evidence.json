@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "agent-eval-evaluation-control-authority-evidence-1",
+  "id": "validity-review-evidence-v1",
+  "version": "0.1.0",
+  "evidenceKind": "validity_review",
+  "subject": {
+    "schemaId": "urn:agent-evals-standard:schema:validity-argument:1",
+    "id": "suite-validity-argument-v1",
+    "version": "0.1.0",
+    "projection": "full_document_without_review_evidence",
+    "digest": "sha256:4a917e2ddc34b1fa058aade1dffbea6a8e5b80534334235c62715cb61604e52c"
+  },
+  "decision": "approved_for_declared_use",
+  "actor": {
+    "id": "fixture-independent-validity-reviewer",
+    "role": "validity_reviewer",
+    "trustDomain": "independent_review"
+  },
+  "issuedAt": "2026-08-01T00:30:00Z",
+  "authorityPolicy": {
+    "id": "fixture-evaluation-control-authority-policy",
+    "version": "0.1.0",
+    "digest": "sha256:b29e42e61605ba520a84839a71402698d8656d0f0fc29fb98fca210d4198b9e6"
+  },
+  "digest": "sha256:dc096ce171fcbb5593b528f897d3672426dae450af79b05e58986f91028f4928",
+  "signature": {
+    "profileId": "fixture-validity-review-profile",
+    "algorithm": "Ed25519",
+    "keyId": "rfc8032-test-key-3-validity-reviewer",
+    "signedAt": "2026-08-01T00:30:00Z",
+    "value": "iQY227F5g6zYW6K3WjPLDA1sHCaCJuWYpPgR1FGq7bx6btQ7tkj__A9KinqoMWVNb4sc_7MIy9LECkj2F47DAA"
+  }
+}

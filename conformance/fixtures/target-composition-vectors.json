@@ -1,0 +1,220 @@
+{
+  "schemaVersion": "conformance-fixture-vector-set-1",
+  "id": "conformance-target-composition-vectors",
+  "version": "0.1.0",
+  "purpose": "Standalone semantic vectors for target-specific subject dispatch and cryptographic prerequisite composition. Compact vector statements exercise composition only and are not standalone conformance claims.",
+  "fixturePublicKey": "keys/rfc8032-test-key-1.pem",
+  "vectors": [
+    {
+      "id": "suite-target-composition-positive",
+      "documentPath": "target-composition/statement-suite.json",
+      "target": "suite",
+      "valid": true
+    },
+    {
+      "id": "suite-target-reject-wrong-subject-schema",
+      "documentPath": "target-composition/statement-suite.json",
+      "target": "suite",
+      "mutations": [
+        {
+          "pointer": "/targetEvidence/suite/subjectSchema",
+          "value": "urn:agent-evals-standard:schema:case:1"
+        }
+      ],
+      "valid": false,
+      "expectedError": "suite: subjectSchema must be urn:agent-evals-standard:schema:suite-manifest:1"
+    },
+    {
+      "id": "case-target-composition-positive",
+      "documentPath": "target-composition/statement-case.json",
+      "target": "case",
+      "valid": true
+    },
+    {
+      "id": "case-target-reject-subject-digest-mismatch",
+      "documentPath": "target-composition/statement-case.json",
+      "target": "case",
+      "mutations": [
+        {
+          "pointer": "/targetEvidence/case/targetSubject/digest",
+          "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      ],
+      "valid": false,
+      "expectedError": "targetComposition case targetSubject: digest must be"
+    },
+    {
+      "id": "evaluator-target-composition-positive",
+      "documentPath": "target-composition/statement-evaluator.json",
+      "target": "evaluator",
+      "valid": true
+    },
+    {
+      "id": "evaluator-target-reject-wrong-subject-schema",
+      "documentPath": "target-composition/statement-evaluator.json",
+      "target": "evaluator",
+      "mutations": [
+        {
+          "pointer": "/targetEvidence/evaluator/subjectSchema",
+          "value": "urn:agent-evals-standard:schema:suite-manifest:1"
+        }
+      ],
+      "valid": false,
+      "expectedError": "evaluator: subjectSchema must be urn:agent-evals-standard:schema:evaluator-manifest:1"
+    },
+    {
+      "id": "experiment-target-composition-positive",
+      "documentPath": "target-composition/statement-experiment.json",
+      "target": "experiment",
+      "valid": true
+    },
+    {
+      "id": "experiment-target-reject-pointer-version-substitution",
+      "documentPath": "target-composition/statement-experiment.json",
+      "target": "experiment",
+      "reseal": true,
+      "mutations": [
+        {
+          "pointer": "/targetEvidence/experiment/targetSubject/version",
+          "value": "0.1.1"
+        }
+      ],
+      "valid": false,
+      "expectedError": "targetSubject.version differs from resolved subject version"
+    },
+    {
+      "id": "experiment-target-reject-sealed-evaluator-digest-substitution",
+      "documentPath": "target-composition/statement-experiment.json",
+      "target": "experiment",
+      "mutations": [
+        {
+          "pointer": "/targetEvidence/experiment/targetSubject/uri",
+          "value": "experiment-subject-mismatched-evaluator.json"
+        },
+        {
+          "pointer": "/targetEvidence/experiment/targetSubject/digest",
+          "value": "sha256:7bf22507cf233de7d755c52635d01630d26123c105d8ab0b740b0216512425cb"
+        }
+      ],
+      "valid": false,
+      "expectedError": "evaluator dependency differs from the sealed experiment evaluator"
+    },
+    {
+      "id": "experiment-target-reject-sealed-case-digest-substitution",
+      "documentPath": "target-composition/statement-experiment.json",
+      "target": "experiment",
+      "mutations": [
+        {
+          "pointer": "/targetEvidence/experiment/targetSubject/uri",
+          "value": "experiment-subject-mismatched-case.json"
+        },
+        {
+          "pointer": "/targetEvidence/experiment/targetSubject/digest",
+          "value": "sha256:823ed903cf505e0740a330fabb05c58617705a867e4e04f47f6396c26ecde28a"
+        }
+      ],
+      "valid": false,
+      "expectedError": "case dependency repo-change-case-fixture-1 differs from the sealed caseSet"
+    },
+    {
+      "id": "experiment-target-reject-unsealed-evaluator",
+      "documentPath": "target-composition/statement-experiment.json",
+      "target": "experiment",
+      "mutations": [
+        {
+          "pointer": "/targetEvidence/experiment/targetSubject/uri",
+          "value": "experiment-subject-missing-evaluator.json"
+        },
+        {
+          "pointer": "/targetEvidence/experiment/targetSubject/digest",
+          "value": "sha256:7fbf22b8660f978b521d415a2206eb4dd0a4c991377d10f7c183e4cc821dc02a"
+        }
+      ],
+      "valid": false,
+      "expectedError": "sealed experiment evaluator is missing"
+    },
+    {
+      "id": "experiment-target-reject-missing-evaluator",
+      "documentPath": "target-composition/statement-experiment.json",
+      "target": "experiment",
+      "mutations": [
+        {
+          "pointer": "/targetEvidence/experiment/dependencyManifest/entries/2"
+        }
+      ],
+      "valid": false,
+      "expectedError": "experiment requires exactly one evaluator conformance dependency"
+    },
+    {
+      "id": "decision-target-composition-positive",
+      "documentPath": "target-composition/statement-decision.json",
+      "target": "decision",
+      "valid": true
+    },
+    {
+      "id": "decision-target-reject-pointer-version-substitution",
+      "documentPath": "target-composition/statement-decision.json",
+      "target": "decision",
+      "reseal": true,
+      "mutations": [
+        {
+          "pointer": "/targetEvidence/decision/targetSubject/version",
+          "value": "0.1.1"
+        }
+      ],
+      "valid": false,
+      "expectedError": "targetSubject.version differs from resolved subject version"
+    },
+    {
+      "id": "decision-scorecard-reject-false-self-digest-with-valid-signature",
+      "kind": "scorecard_authentication",
+      "documentPath": "positive/scorecard.json",
+      "target": "decision",
+      "reseal": true,
+      "mutations": [
+        {
+          "pointer": "/digest",
+          "value": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        }
+      ],
+      "valid": false,
+      "expectedError": "canonical self digest must be"
+    },
+    {
+      "id": "decision-target-not-claimed-allows-incomplete-prerequisites",
+      "documentPath": "target-composition/statement-decision.json",
+      "target": "decision",
+      "reseal": true,
+      "mutations": [
+        {
+          "pointer": "/targetEvidence/decision/verdict",
+          "value": "not_claimed"
+        },
+        {
+          "pointer": "/targetEvidence/decision/dependencyManifest/entries/1"
+        },
+        {
+          "pointer": "/targetEvidence/decision/dependencyManifest/entries/0"
+        },
+        {
+          "pointer": "/targetEvidence/decision/dependencyManifest/digest",
+          "value": "sha256:d6322d42bf79d1fcc943e29a93947cac8a6daa0392ef996046dbbf37beb6e0ed"
+        }
+      ],
+      "valid": true
+    },
+    {
+      "id": "decision-target-reject-mismatched-experiment-envelope",
+      "documentPath": "target-composition/statement-decision.json",
+      "target": "decision",
+      "mutations": [
+        {
+          "pointer": "/targetEvidence/decision/dependencyManifest/entries/0/validationEnvelope/uri",
+          "value": "envelope-suite.json"
+        }
+      ],
+      "valid": false,
+      "expectedError": "detached envelope does not cryptographically bind a passing validation of the dependency statement"
+    }
+  ]
+}

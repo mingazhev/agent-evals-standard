@@ -8,7 +8,10 @@
     "eventId",
     "action",
     "sourceEventId",
+    "sourceEventType",
     "sourceEventHash",
+    "sourceTriageArtifact",
+    "sourceFindingRef",
     "governanceStatusId",
     "riskTier",
     "waivability",
@@ -16,27 +19,25 @@
     "scorecardHash",
     "policyInstanceHash",
     "matrixInstanceHash",
+    "enforcementReceipt",
     "actor",
     "policyClause",
     "scope",
     "evidence",
     "separationOfDutiesEvidence",
-    "timestamp"
+    "timestamp",
+    "signature"
   ],
   "properties": {
     "schemaVersion": { "const": "agent-eval-governance-resolution-1" },
     "eventId": { "type": "string", "minLength": 1 },
     "action": { "enum": ["resolve", "waive", "expire", "narrow", "renew", "rollback", "supersede"] },
-    "sourceEventId": {
-      "oneOf": [
-        {
-          "enum": ["hardGateRegression", "untriagedCriticalScannerFinding", "heldOutLeakage", "escapedCriticalDefect", "repeatedReviewRejection", "staleMeasurement", "measurementErrorThreshold", "suiteHealthDegradation", "decisionExpired", "reviewDue", "measurementBoundaryCompromise", "irreversibleCriticalOperation", "productionCredentialsProhibited", "approvedConfigurationChanged", "productionConcordanceDegraded", "assuranceEvidenceMissing"]
-        },
-        { "type": "string", "pattern": "^baselineGate:[A-Za-z0-9][A-Za-z0-9_.-]*$" }
-      ]
-    },
+    "sourceEventId": { "type": "string", "minLength": 1 },
+    "sourceEventType": { "$ref": "urn:agent-evals-standard:schema:escalation-event-registry:1#/$defs/eventId" },
     "sourceEventHash": { "$ref": "#/$defs/digest" },
-    "governanceStatusId": { "enum": ["security_review_required", "manual_review_required"] },
+    "sourceTriageArtifact": { "type": "string", "minLength": 1 },
+    "sourceFindingRef": { "type": "string", "minLength": 1 },
+    "governanceStatusId": { "$ref": "urn:agent-evals-standard:schema:escalation-event-registry:1#/$defs/escalationGovernanceStatus" },
     "riskTier": { "enum": ["low", "medium", "high", "critical"] },
     "waivability": { "enum": ["waivable", "non_waivable"] },
     "scorecardId": { "type": "string", "minLength": 1 },
@@ -44,6 +45,7 @@
     "findingId": { "type": "string", "minLength": 1 },
     "policyInstanceHash": { "$ref": "#/$defs/digest" },
     "matrixInstanceHash": { "$ref": "#/$defs/digest" },
+    "enforcementReceipt": { "$ref": "#/$defs/artifactPointer" },
     "actor": {
       "type": "object",
       "required": ["id", "role"],
@@ -57,56 +59,56 @@
     "scope": { "type": "string", "minLength": 1 },
     "evidence": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
     "separationOfDutiesEvidence": { "type": "string", "minLength": 1 },
-    "timestamp": { "type": "string", "format": "date-time" },
-    "expiresAt": { "type": "string", "format": "date-time" }
+    "timestamp": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "expiresAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
   },
   "allOf": [
     {
       "if": { "properties": { "action": { "enum": ["resolve", "waive"] } }, "required": ["action"] },
-      "then": { "required": ["findingId"] }
+      "then": { "type": "object", "properties": { "findingId": {} }, "required": ["findingId"] }
     },
     {
       "if": { "properties": { "action": { "enum": ["waive", "renew"] } }, "required": ["action"] },
-      "then": { "required": ["expiresAt"] }
+      "then": { "type": "object", "properties": { "expiresAt": {} }, "required": ["expiresAt"] }
     },
     {
       "if": { "properties": { "action": { "const": "waive" } }, "required": ["action"] },
       "then": { "properties": { "waivability": { "const": "waivable" } } }
     },
     {
-      "if": { "properties": { "sourceEventId": { "enum": ["approvedConfigurationChanged", "assuranceEvidenceMissing"] } }, "required": ["sourceEventId"] },
+      "if": { "properties": { "sourceEventType": { "$ref": "urn:agent-evals-standard:schema:escalation-event-registry:1#/$defs/waivableEventId" } }, "required": ["sourceEventType"] },
+      "then": { "properties": { "waivability": { "const": "waivable" } } }
+    },
+    {
+      "if": { "properties": { "sourceEventType": { "$ref": "urn:agent-evals-standard:schema:escalation-event-registry:1#/$defs/nonWaivableEventId" } }, "required": ["sourceEventType"] },
       "then": {
         "properties": {
           "waivability": { "const": "non_waivable" },
+          "action": { "not": { "const": "waive" } }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "sourceEventType": { "enum": ["approvedConfigurationChanged", "assuranceEvidenceMissing"] } }, "required": ["sourceEventType"] },
+      "then": {
+        "properties": {
           "action": { "enum": ["resolve", "narrow", "rollback", "supersede"] }
         }
       }
     },
     {
-      "if": { "properties": { "sourceEventId": { "enum": ["heldOutLeakage", "measurementBoundaryCompromise", "irreversibleCriticalOperation", "productionCredentialsProhibited"] } }, "required": ["sourceEventId"] },
-      "then": {
-        "properties": {
-          "waivability": { "const": "non_waivable" },
-          "action": { "not": { "const": "waive" } }
-        }
-      }
-    },
-    {
-      "if": { "properties": { "sourceEventId": { "type": "string", "pattern": "^baselineGate:" } }, "required": ["sourceEventId"] },
-      "then": {
-        "properties": {
-          "waivability": { "const": "non_waivable" },
-          "action": { "not": { "const": "waive" } }
-        }
-      }
-    },
-    {
-      "if": { "properties": { "sourceEventId": { "const": "productionConcordanceDegraded" } }, "required": ["sourceEventId"] },
+      "if": { "properties": { "sourceEventType": { "enum": ["productionConcordanceDegraded", "productionMonitoringBreach"] } }, "required": ["sourceEventType"] },
       "then": { "properties": { "action": { "enum": ["resolve", "narrow", "rollback", "supersede"] } } }
+    },
+    {
+      "if": { "properties": { "sourceEventType": { "enum": ["suspectedContamination", "privacyIpRetentionBreach"] } }, "required": ["sourceEventType"] },
+      "then": { "properties": { "action": { "enum": ["resolve", "narrow", "supersede"] } } }
     }
   ],
   "additionalProperties": false,
   "$defs": {
-    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "artifactPointer": { "type": "object", "required": ["id", "uri", "digest"], "properties": { "id": { "type": "string", "minLength": 1 }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false }
   }
 }

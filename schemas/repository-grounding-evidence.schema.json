@@ -1,0 +1,387 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:repository-grounding-evidence:1",
+  "title": "Executable semantic repository-grounding evidence",
+  "$comment": "Established grounding requires exact verifier-supplied claim/outcome contracts, a distribution-pinned executor, and reproduced semantic pass-to-fail execution. Missing bytes or an unexecuted predicate is insufficient_evidence, never proof of grounding.",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "statementId", "scopeSliceId", "target", "targetSubject", "dependencyManifestDigest", "workspaceManifest", "subjectCoverage", "causalContract", "causalReplay", "verifierExecution", "assertions", "verdict"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-repository-grounding-evidence-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "const": "0.1.0" },
+    "statementId": { "$ref": "#/$defs/id" },
+    "scopeSliceId": { "$ref": "#/$defs/id" },
+    "target": { "enum": ["suite", "case", "evaluator", "experiment", "decision"] },
+    "targetSubject": { "$ref": "#/$defs/versionedArtifactPointer" },
+    "dependencyManifestDigest": { "$ref": "#/$defs/digest" },
+    "workspaceManifest": { "$ref": "#/$defs/versionedArtifactPointer" },
+    "subjectCoverage": {
+      "type": "object",
+      "required": ["outcomes", "claims"],
+      "properties": {
+        "outcomes": { "type": "array", "items": { "$ref": "#/$defs/coveredSubject" } },
+        "claims": { "type": "array", "items": { "$ref": "#/$defs/coveredSubject" } }
+      },
+      "additionalProperties": false
+    },
+    "causalContract": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/causalContract" }
+      ]
+    },
+    "causalReplay": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/causalReplay" }
+      ]
+    },
+    "verifierExecution": {
+      "type": "object",
+      "required": ["verifier", "inputs", "output"],
+      "properties": {
+        "verifier": { "$ref": "#/$defs/versionedArtifactPointer" },
+        "inputs": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "type": "object",
+            "required": ["role", "id", "digest"],
+            "properties": {
+              "role": { "enum": ["workspace_manifest", "target_subject", "dependency_manifest", "outcome_subject", "claim_subject", "causal_contract", "grounding_executor"] },
+              "id": { "$ref": "#/$defs/id" },
+              "digest": { "$ref": "#/$defs/digest" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "output": {
+          "oneOf": [
+            { "$ref": "#/$defs/noContractOutput" },
+            { "$ref": "#/$defs/replayOutput" }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "assertions": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "prefixItems": [
+        { "$ref": "#/$defs/repositoryNecessity" },
+        { "$ref": "#/$defs/claimInvariantTraceability" },
+        { "$ref": "#/$defs/repositoryGovernedOutcome" },
+        { "$ref": "#/$defs/removalCounterfactual" }
+      ],
+      "items": false
+    },
+    "verdict": { "enum": ["established", "insufficient_evidence"] }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": { "properties": { "causalContract": { "type": "null" } }, "required": ["causalContract"] },
+      "then": {
+        "properties": {
+          "causalReplay": { "type": "null" },
+          "subjectCoverage": {
+            "type": "object",
+            "properties": {
+              "outcomes": { "type": "array", "maxItems": 0 },
+              "claims": { "type": "array", "maxItems": 0 }
+            }
+          },
+          "verdict": { "const": "insufficient_evidence" },
+          "verifierExecution": { "type": "object", "properties": { "output": { "$ref": "#/$defs/noContractOutput" } } },
+          "assertions": {
+            "type": "array",
+            "minItems": 4,
+            "maxItems": 4,
+            "prefixItems": [
+              { "$ref": "#/$defs/noContractAssertion" },
+              { "$ref": "#/$defs/noContractAssertion" },
+              { "$ref": "#/$defs/noContractAssertion" },
+              { "$ref": "#/$defs/noContractAssertion" }
+            ],
+            "items": false
+          }
+        }
+      },
+      "else": { "properties": { "causalReplay": { "$ref": "#/$defs/causalReplay" } } }
+    },
+    {
+      "if": { "properties": { "verdict": { "const": "established" } }, "required": ["verdict"] },
+      "then": {
+        "properties": {
+          "causalContract": { "$ref": "#/$defs/causalContract" },
+          "verifierExecution": { "type": "object", "properties": { "output": { "allOf": [{ "$ref": "#/$defs/replayOutput" }, { "type": "object", "properties": { "overallVerdict": { "const": "established" } } }] } } },
+          "assertions": { "type": "array", "items": { "type": "object", "properties": { "verdict": { "const": "established" } } } }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "versionedArtifactPointer": {
+      "type": "object",
+      "required": ["id", "version", "uri", "digest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "minLength": 1 },
+        "uri": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "coveredSubject": {
+      "type": "object",
+      "required": ["id", "version", "digest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "executorPointer": {
+      "type": "object",
+      "required": ["id", "version", "digest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "predicate": {
+      "type": "object",
+      "required": ["id", "version", "algorithm", "parameters", "digest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "minLength": 1 },
+        "algorithm": { "$ref": "#/$defs/id" },
+        "parameters": { "type": "object" },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "subjectPredicate": {
+      "type": "object",
+      "required": ["subjectKind", "subjectId", "subjectVersion", "subjectDigest", "executor", "predicate"],
+      "properties": {
+        "subjectKind": { "enum": ["outcome", "claim"] },
+        "subjectId": { "$ref": "#/$defs/id" },
+        "subjectVersion": { "type": "string", "minLength": 1 },
+        "subjectDigest": { "$ref": "#/$defs/digest" },
+        "executor": { "$ref": "#/$defs/executorPointer" },
+        "predicate": { "$ref": "#/$defs/predicate" }
+      },
+      "additionalProperties": false
+    },
+    "replacement": {
+      "type": "object",
+      "required": ["repositoryId", "path", "originalDigest", "replacementContentBase64", "replacementDigest"],
+      "properties": {
+        "repositoryId": { "$ref": "#/$defs/id" },
+        "path": { "type": "string", "minLength": 1 },
+        "originalDigest": { "$ref": "#/$defs/digest" },
+        "replacementContentBase64": { "type": "string", "contentEncoding": "base64" },
+        "replacementDigest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "causalContract": {
+      "type": "object",
+      "required": ["id", "version", "algorithm", "subjectPredicates", "counterfactual", "digest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "version": { "type": "string", "minLength": 1 },
+        "algorithm": { "const": "registered-semantic-counterfactual-v1" },
+        "subjectPredicates": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/subjectPredicate" } },
+        "counterfactual": {
+          "type": "object",
+          "required": ["id", "version", "replacements"],
+          "properties": {
+            "id": { "$ref": "#/$defs/id" },
+            "version": { "type": "string", "minLength": 1 },
+            "replacements": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/replacement" } }
+          },
+          "additionalProperties": false
+        },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "consumedObject": {
+      "type": "object",
+      "required": ["repositoryId", "path", "digest"],
+      "properties": {
+        "repositoryId": { "$ref": "#/$defs/id" },
+        "path": { "type": "string", "minLength": 1 },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "replaySubjectResult": {
+      "type": "object",
+      "required": ["subjectKind", "subjectId", "subjectVersion", "subjectDigest", "executor", "predicateDigest", "executionStatus", "semanticResult", "consumedObjects", "resultDigest"],
+      "properties": {
+        "subjectKind": { "enum": ["outcome", "claim"] },
+        "subjectId": { "$ref": "#/$defs/id" },
+        "subjectVersion": { "type": "string", "minLength": 1 },
+        "subjectDigest": { "$ref": "#/$defs/digest" },
+        "executor": { "$ref": "#/$defs/executorPointer" },
+        "predicateDigest": { "$ref": "#/$defs/digest" },
+        "executionStatus": { "enum": ["executed", "insufficient_evidence"] },
+        "semanticResult": { "enum": ["pass", "fail", "insufficient_evidence"] },
+        "consumedObjects": { "type": "array", "items": { "$ref": "#/$defs/consumedObject" } },
+        "resultDigest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "baselineReplay": {
+      "type": "object",
+      "required": ["workspaceRootDigest", "subjectResults", "digest"],
+      "properties": {
+        "workspaceRootDigest": { "$ref": "#/$defs/digest" },
+        "subjectResults": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/replaySubjectResult" } },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "counterfactualReplay": {
+      "type": "object",
+      "required": ["replacements", "inputDigest", "subjectResults", "digest"],
+      "properties": {
+        "replacements": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/replacement" } },
+        "inputDigest": { "$ref": "#/$defs/digest" },
+        "subjectResults": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/replaySubjectResult" } },
+        "digest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "causalReplay": {
+      "type": "object",
+      "required": ["algorithm", "contractDigest", "baseline", "counterfactual"],
+      "properties": {
+        "algorithm": { "const": "registered-semantic-counterfactual-v1" },
+        "contractDigest": { "$ref": "#/$defs/digest" },
+        "baseline": { "$ref": "#/$defs/baselineReplay" },
+        "counterfactual": { "$ref": "#/$defs/counterfactualReplay" }
+      },
+      "additionalProperties": false
+    },
+    "assertionVerdict": { "enum": ["established", "insufficient_evidence"] },
+    "assertionBaseProperties": {
+      "id": { "$ref": "#/$defs/id" },
+      "verdict": { "$ref": "#/$defs/assertionVerdict" },
+      "reasonCode": { "const": "no_executable_subject_contract" },
+      "resultDigest": { "$ref": "#/$defs/digest" }
+    },
+    "repositoryNecessity": {
+      "type": "object",
+      "required": ["id", "type", "verdict", "resultDigest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" }, "type": { "const": "repository_necessity" }, "verdict": { "$ref": "#/$defs/assertionVerdict" }, "reasonCode": { "const": "no_executable_subject_contract" }, "resultDigest": { "$ref": "#/$defs/digest" },
+        "observedObjectDigests": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/digest" }, "uniqueItems": true },
+        "requiredDependencyRoles": { "type": "array", "minItems": 2, "items": { "enum": ["repository_snapshot", "target_subject", "causal_contract"] }, "uniqueItems": true }
+      },
+      "additionalProperties": false
+    },
+    "traceBinding": {
+      "type": "object",
+      "required": ["subjectKind", "subjectId", "subjectVersion", "subjectDigest", "predicateDigest", "repositoryObjectDigests"],
+      "properties": {
+        "subjectKind": { "enum": ["outcome", "claim"] }, "subjectId": { "$ref": "#/$defs/id" }, "subjectVersion": { "type": "string", "minLength": 1 }, "subjectDigest": { "$ref": "#/$defs/digest" }, "predicateDigest": { "$ref": "#/$defs/digest" }, "repositoryObjectDigests": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/digest" }, "uniqueItems": true }
+      },
+      "additionalProperties": false
+    },
+    "claimInvariantTraceability": {
+      "type": "object",
+      "required": ["id", "type", "verdict", "resultDigest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" }, "type": { "const": "claim_invariant_traceability" }, "verdict": { "$ref": "#/$defs/assertionVerdict" }, "reasonCode": { "const": "no_executable_subject_contract" }, "resultDigest": { "$ref": "#/$defs/digest" },
+        "bindings": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/traceBinding" } }
+      },
+      "additionalProperties": false
+    },
+    "outcomeBinding": {
+      "type": "object",
+      "required": ["outcomeId", "outcomeVersion", "outcomeDigest", "predicateDigest", "governingRepositoryObjectDigests"],
+      "properties": {
+        "outcomeId": { "$ref": "#/$defs/id" }, "outcomeVersion": { "type": "string", "minLength": 1 }, "outcomeDigest": { "$ref": "#/$defs/digest" }, "predicateDigest": { "$ref": "#/$defs/digest" }, "governingRepositoryObjectDigests": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/digest" }, "uniqueItems": true }
+      },
+      "additionalProperties": false
+    },
+    "repositoryGovernedOutcome": {
+      "type": "object",
+      "required": ["id", "type", "verdict", "resultDigest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" }, "type": { "const": "repository_governed_outcome" }, "verdict": { "$ref": "#/$defs/assertionVerdict" }, "reasonCode": { "const": "no_executable_subject_contract" }, "resultDigest": { "$ref": "#/$defs/digest" },
+        "outcomeBindings": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/outcomeBinding" } }
+      },
+      "additionalProperties": false
+    },
+    "removalCounterfactual": {
+      "type": "object",
+      "required": ["id", "type", "verdict", "resultDigest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" }, "type": { "const": "removal_counterfactual" }, "verdict": { "$ref": "#/$defs/assertionVerdict" }, "reasonCode": { "const": "no_executable_subject_contract" }, "resultDigest": { "$ref": "#/$defs/digest" },
+        "interventions": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/replacement" } },
+        "counterfactualInputDigest": { "$ref": "#/$defs/digest" },
+        "baselineResult": { "const": "pass" },
+        "counterfactualResult": { "const": "fail" },
+        "affectedSubjectDigests": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/digest" }, "uniqueItems": true }
+      },
+      "additionalProperties": false
+    },
+    "noContractAssertion": {
+      "type": "object",
+      "required": ["id", "type", "verdict", "reasonCode", "resultDigest"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "type": { "enum": ["repository_necessity", "claim_invariant_traceability", "repository_governed_outcome", "removal_counterfactual"] },
+        "verdict": { "const": "insufficient_evidence" },
+        "reasonCode": { "const": "no_executable_subject_contract" },
+        "resultDigest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "assertionResult": {
+      "type": "object",
+      "required": ["type", "verdict", "resultDigest"],
+      "properties": {
+        "type": { "enum": ["repository_necessity", "claim_invariant_traceability", "repository_governed_outcome", "removal_counterfactual"] },
+        "verdict": { "$ref": "#/$defs/assertionVerdict" },
+        "resultDigest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "noContractOutput": {
+      "type": "object",
+      "required": ["overallVerdict", "reasonCodes", "assertionResults", "outputDigest"],
+      "properties": {
+        "overallVerdict": { "const": "insufficient_evidence" },
+        "reasonCodes": { "type": "array", "minItems": 1, "maxItems": 1, "prefixItems": [{ "const": "no_executable_subject_contract" }], "items": false },
+        "assertionResults": { "type": "array", "minItems": 4, "maxItems": 4, "items": { "$ref": "#/$defs/assertionResult" } },
+        "outputDigest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    },
+    "replayOutput": {
+      "type": "object",
+      "required": ["overallVerdict", "causalContractDigest", "baselineReplayDigest", "counterfactualReplayDigest", "assertionResults", "outputDigest"],
+      "properties": {
+        "overallVerdict": { "enum": ["established", "insufficient_evidence"] },
+        "causalContractDigest": { "$ref": "#/$defs/digest" },
+        "baselineReplayDigest": { "$ref": "#/$defs/digest" },
+        "counterfactualReplayDigest": { "$ref": "#/$defs/digest" },
+        "assertionResults": { "type": "array", "minItems": 4, "maxItems": 4, "items": { "$ref": "#/$defs/assertionResult" } },
+        "outputDigest": { "$ref": "#/$defs/digest" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

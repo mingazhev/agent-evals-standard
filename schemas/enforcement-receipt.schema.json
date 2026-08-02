@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:enforcement-receipt:1",
+  "title": "Detached enforcement receipt",
+  "type": "object",
+  "required": ["schemaVersion", "id", "sourceEventId", "sourceEventDigest", "affectedScope", "stopAction", "scopeAction", "requestedAt", "startedAt", "completedAt", "outcome", "executor", "evidence", "verifier", "digest", "signature"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-enforcement-receipt-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "sourceEventId": { "$ref": "#/$defs/id" },
+    "sourceEventDigest": { "$ref": "#/$defs/digest" },
+    "affectedScope": { "type": "object", "required": ["scopeDigest", "riskTier", "claimIds"], "properties": { "scopeDigest": { "$ref": "#/$defs/digest" }, "riskTier": { "enum": ["low", "medium", "high", "critical"] }, "decisionId": { "$ref": "#/$defs/id" }, "scorecardId": { "$ref": "#/$defs/id" }, "claimIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true } }, "additionalProperties": false },
+    "stopAction": { "$ref": "urn:agent-evals-standard:schema:escalation-event-registry:1#/$defs/stopAction" },
+    "scopeAction": { "$ref": "urn:agent-evals-standard:schema:escalation-event-registry:1#/$defs/scopeAction" },
+    "requestedAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "startedAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "completedAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
+    "outcome": { "const": "applied" },
+    "executor": { "type": "object", "required": ["id", "role", "authorizationEvidenceId"], "properties": { "id": { "$ref": "#/$defs/id" }, "role": { "type": "string", "minLength": 1 }, "authorizationEvidenceId": { "$ref": "#/$defs/id" } }, "additionalProperties": false },
+    "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+    "verifier": { "type": "object", "required": ["id", "version", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
+    "digest": { "$ref": "#/$defs/digest" },
+    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+  }
+}

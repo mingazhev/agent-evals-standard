@@ -1,0 +1,411 @@
+{
+  "schemaVersion": "agent-eval-distribution-manifest-1",
+  "id": "standard-schema-manifest",
+  "version": "0.1.0",
+  "kind": "schemas",
+  "entries": [
+    {
+      "id": "urn:agent-evals-standard:schema:anti-rollback-policy:1",
+      "version": "0.1.0",
+      "uri": "schemas/anti-rollback-policy.schema.json",
+      "digest": "sha256:f51eb5f2b7cc18706daaa5ca2ed80b27afea8e7cb8390e4cce7fdb8ed63ba8b2"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:anti-rollback-receipt:1",
+      "version": "0.1.0",
+      "uri": "schemas/anti-rollback-receipt.schema.json",
+      "digest": "sha256:a9704d5611e92445719dd04eedf644bb81df1bdd37ed6bc71f72da589fd4830f"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:assurance-observation:1",
+      "version": "0.1.0",
+      "uri": "schemas/assurance-observation.schema.json",
+      "digest": "sha256:3f944a2053b73e54c64cb01675a88b1550ba3006dcd3bae41149f21f5963c730"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:attempt-checkpoint:1",
+      "version": "0.1.0",
+      "uri": "schemas/attempt-checkpoint.schema.json",
+      "digest": "sha256:455a076d82c24937bab96a3bac0738f6683016628ddb13220b602f41dac12112"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:case-classification-validity-argument:1",
+      "version": "0.1.0",
+      "uri": "schemas/case-classification-validity-argument.schema.json",
+      "digest": "sha256:dab25c5aa82a5f753a50bd7f12611860869c0c7bbb736237307c266d367074d9"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:case-qa-record:1",
+      "version": "0.1.0",
+      "uri": "schemas/case-qa-record.schema.json",
+      "digest": "sha256:b2eb1660899aac18ab5bfe167b6f2149c378d65292161b36a712cf6d4cc0bae9"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:case:1",
+      "version": "0.1.0",
+      "uri": "schemas/case.schema.json",
+      "digest": "sha256:7b8a61d557d72002144050853fb7eea07e5f50771f89a499c155457af54bfb41"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:conformance-applicability-contract:1",
+      "version": "0.1.0",
+      "uri": "schemas/conformance-applicability-contract.schema.json",
+      "digest": "sha256:6f8a409910e339d9c60596d03fd64b39c2098f42c51fa1533197a2f43d7a88bd"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:conformance-statement:1",
+      "version": "0.1.0",
+      "uri": "schemas/conformance-statement.schema.json",
+      "digest": "sha256:0026dd1f3ead64e8d18c9fb44b50cb628b2499e243925fbedf1186e7028f9c19"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:distribution-manifest:1",
+      "version": "0.1.0",
+      "uri": "schemas/distribution-manifest.schema.json",
+      "digest": "sha256:e965cab582d42a23f4ed4c09606616f8427a32c0d6fa2f688e7e2156246a6c83"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:enforcement-receipt:1",
+      "version": "0.1.0",
+      "uri": "schemas/enforcement-receipt.schema.json",
+      "digest": "sha256:2e3530eaa6176e48b5a85e17d758990c2f0d1787f92c2dfc23bcf51cf84aa8e9"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:environment-contract:1",
+      "version": "0.1.0",
+      "uri": "schemas/environment-contract.schema.json",
+      "digest": "sha256:a972d879cfa24cf5776d9bf6c65196efa10b62ca907710ef65884ed4dde2d30f"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:escalation-event-registry:1",
+      "version": "0.1.0",
+      "uri": "schemas/escalation-event-registry.schema.json",
+      "digest": "sha256:d83cbb07214f791b6f0210f65f76648f5f9002acdd24290208c80e25b4305465"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:escalation-event:1",
+      "version": "0.1.0",
+      "uri": "schemas/escalation-event.schema.json",
+      "digest": "sha256:6652f1ee5281f4e46523e38524cdedc06ebe21b5a350ed546a47809c3440e29e"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:evaluation-control-authority-evidence:1",
+      "version": "0.1.0",
+      "uri": "schemas/evaluation-control-authority-evidence.schema.json",
+      "digest": "sha256:dbfc72462d06b93fea31883a61e04ed26f98be4039db6dccdc234490431c4e11"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:evaluation-control-authority-policy:1",
+      "version": "0.1.0",
+      "uri": "schemas/evaluation-control-authority-policy.schema.json",
+      "digest": "sha256:150aa6ece92d8737088b385595eb0ce1094b98ae7959c1bf2efaa3bdb933c56b"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:evaluation-control-bindings:1",
+      "version": "0.1.0",
+      "uri": "schemas/evaluation-control-bindings.schema.json",
+      "digest": "sha256:84f77590eb69b827f39c85e2918f34eb4785ee3020f21012c41d565c9ec73e2c"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:evaluation-profile:1",
+      "version": "0.1.0",
+      "uri": "schemas/evaluation-profile.schema.json",
+      "digest": "sha256:53dadb05563f848f59f552b73f02febb94acb31261b44070cadc18afc0c3d53f"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:evaluation-threat-model:1",
+      "version": "0.1.0",
+      "uri": "schemas/evaluation-threat-model.schema.json",
+      "digest": "sha256:8b301625b398ef6996a50e6234f70d4e8677b85cab21c563b8dfffcc2969890e"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:evaluator-manifest:1",
+      "version": "0.1.0",
+      "uri": "schemas/evaluator-manifest.schema.json",
+      "digest": "sha256:b10aaf70e1934563b1f56091eaa88c2889f2c4b49ce5f1b0a28bfc1c34214f0e"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:evidence-artifact:1",
+      "version": "0.1.0",
+      "uri": "schemas/evidence-artifact.schema.json",
+      "digest": "sha256:3525e9f25dd77ff04a557f970ce7aef85d5e3c302c07ca1eca1852a9024d29d3"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:governance-decision:1",
+      "version": "0.1.0",
+      "uri": "schemas/governance-decision.schema.json",
+      "digest": "sha256:e86cb029c0766a74b38e4656bc63c0574b627716302a05c3bbd9272aa57acafe"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:governance-resolution-ledger:1",
+      "version": "0.1.0",
+      "uri": "schemas/governance-resolution-ledger.schema.json",
+      "digest": "sha256:8926121fdb1c163a63626122c1c7b4b5dfd5ed2ef749b038089e8fadbe9f8261"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:governance-resolution:1",
+      "version": "0.1.0",
+      "uri": "schemas/governance-resolution.schema.json",
+      "digest": "sha256:a228ef35de2457ae20b01821b8d4ceafc821dd5535f6599792f45f80b7f589fb"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:grader-validation:1",
+      "version": "0.1.0",
+      "uri": "schemas/grader-validation.schema.json",
+      "digest": "sha256:e7cc4b4db957e0a44c1ac4c3fef3c4a5d8f62c84c12a9cae7cf963b924e70f9f"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:held-out-exposure-budget:1",
+      "version": "0.1.0",
+      "uri": "schemas/held-out-exposure-budget.schema.json",
+      "digest": "sha256:30422e7a40527721c6abc703a14856a85d1cc1b6c324b9b706f7b62416c318af"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:held-out-exposure-ledger:1",
+      "version": "0.1.0",
+      "uri": "schemas/held-out-exposure-ledger.schema.json",
+      "digest": "sha256:c69026065adb6c774d11cfe103514a2fb2df4626eee36825cfac5533eb123f80"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:key-authorization-contract:1",
+      "version": "0.1.0",
+      "uri": "schemas/key-authorization-contract.schema.json",
+      "digest": "sha256:16e6c63caddfbfc92e8b1ec0c32b706194081119549e2bea4804bab48e9265f2"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:operational-escalation-matrix:1",
+      "version": "0.1.0",
+      "uri": "schemas/operational-escalation-matrix.schema.json",
+      "digest": "sha256:dc171f08421162a627216b9670c144713704a090c229738d1201b93cf6ec8010"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:operational-governance-policy:1",
+      "version": "0.1.0",
+      "uri": "schemas/operational-governance-policy.schema.json",
+      "digest": "sha256:837ac5bf5555410527bd10e7d282e3550f32668c50fd6dfdc29d8952c4346840"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:outcome-profile:1",
+      "version": "0.1.0",
+      "uri": "schemas/outcome-profile.schema.json",
+      "digest": "sha256:e4c4604d4445bbd86b20a53b67c13837c7367cd65b567543be62d96beee61f27"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:outcome-replay-executor-registry:1",
+      "version": "0.1.0",
+      "uri": "schemas/outcome-replay-executor-registry.schema.json",
+      "digest": "sha256:b1484666eb135f31d8c5963dfb93f07c02a488e24cf874fd2b4740b0291dd579"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:outcome-replay-receipt:1",
+      "version": "0.1.0",
+      "uri": "schemas/outcome-replay-receipt.schema.json",
+      "digest": "sha256:c270132e7fed9c6a7a811b924072c98ca7f756cf8a1014006bebe79bc4d2ea6d"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:pre-run-manifest:1",
+      "version": "0.1.0",
+      "uri": "schemas/pre-run-manifest.schema.json",
+      "digest": "sha256:9fcccc65d84b4781c6d49dcfde90e64717dd68b033e59e312d9bd14314887381"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:production-derived-authority-contract:1",
+      "version": "0.1.0",
+      "uri": "schemas/production-derived-authority-contract.schema.json",
+      "digest": "sha256:83f557cd4fae7809925d0b3ea044a0ec090ed1f87f9f0215bb67fb030d9efad6"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:profile-resolution-proof-inputs:1",
+      "version": "0.1.0",
+      "uri": "schemas/profile-resolution-proof-inputs.schema.json",
+      "digest": "sha256:881d57aaa2cd91e8226f5189db0dd609eda9b02af4c09d29c1ea38fea47114f3"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:profile-resolution-record:1",
+      "version": "0.1.0",
+      "uri": "schemas/profile-resolution-record.schema.json",
+      "digest": "sha256:374e4b10f90f1714199c37a83ca7aa057402875931a778737a9ed39123b3d1df"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:repo-change-adjudication-record:1",
+      "version": "0.1.0",
+      "uri": "schemas/repo-change-adjudication-record.schema.json",
+      "digest": "sha256:9bc1308ae8ca6667d9eb91dca1ff5ce3544fe60245bea686c084e038f8fe3f1f"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:repo-change-alternative-terminal-record:1",
+      "version": "0.1.0",
+      "uri": "schemas/repo-change-alternative-terminal-record.schema.json",
+      "digest": "sha256:88b86168306dd33a6b5ff824e4eb4bd67a291d15efd950ac7c8a35f1dd70687d"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:repo-change-assurance-report:1",
+      "version": "0.1.0",
+      "uri": "schemas/repo-change-assurance-report.schema.json",
+      "digest": "sha256:a4d088206f902c8941a8b1acf6983baae22c0b0e92daed0cef4640c376c7efc5"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:repo-change-case-contract:1",
+      "version": "0.1.0",
+      "uri": "schemas/repo-change-case-contract.schema.json",
+      "digest": "sha256:aee77c4431462f18d687358df16af45dc9a6c8fe8dbe8854328f538d938aac66"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:repo-change-failure-taxonomy:1",
+      "version": "0.1.0",
+      "uri": "schemas/repo-change-failure-taxonomy.schema.json",
+      "digest": "sha256:ca30478abfdc3909ba1ad944ea3554d68f9f941114aa5c6cc7931221c50b77ec"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:repo-change-gate-registry:1",
+      "version": "0.1.0",
+      "uri": "schemas/repo-change-gate-registry.schema.json",
+      "digest": "sha256:9e46170b4b2159f93b445387c3722b9f334d3031e989fe35647486caf2d9459d"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:repo-change-grader-assessment:1",
+      "version": "0.1.0",
+      "uri": "schemas/repo-change-grader-assessment.schema.json",
+      "digest": "sha256:34ffb35a9ad14bb54f96c871d8a08a2e235b038e2340cca8e14661978008a9b5"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:repo-change-measurement-validity-record:1",
+      "version": "0.1.0",
+      "uri": "schemas/repo-change-measurement-validity-record.schema.json",
+      "digest": "sha256:519f8d40e0d7eef25ea47b31e9a622b764d38fe2301135c1e9cfeec8c765813e"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:repo-change-runner-check-record:1",
+      "version": "0.1.0",
+      "uri": "schemas/repo-change-runner-check-record.schema.json",
+      "digest": "sha256:20769ecad221b990153be262bff6e8fa01eaa3d1e826a1e782e77383101ab6bb"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:repository-grounding-evidence:1",
+      "version": "0.1.0",
+      "uri": "schemas/repository-grounding-evidence.schema.json",
+      "digest": "sha256:4e724c1262deb3db8079f44d45039b455a2cce00f8d60f523b246a093f878fc6"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:repository-grounding-executor-registry:1",
+      "version": "0.1.0",
+      "uri": "schemas/repository-grounding-executor-registry.schema.json",
+      "digest": "sha256:777311958161a6aa7a4eae93ab02d67dd34556a8a119ed43c211c2fc4ae3bf9e"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:requirement-implementation-contract:1",
+      "version": "0.1.0",
+      "uri": "schemas/requirement-implementation-contract.schema.json",
+      "digest": "sha256:3ebcba8dce7ee9e6deec294a0307639053c30ebbbfb63873d505dcbc43806ed5"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:requirement-registry:1",
+      "version": "0.1.0",
+      "uri": "schemas/requirement-registry.schema.json",
+      "digest": "sha256:1a84c548b287ca756322e7ff39fa963119d31a6e79542d699f93a7d2b0f8d66b"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:revocation-state-contract:1",
+      "version": "0.1.0",
+      "uri": "schemas/revocation-state-contract.schema.json",
+      "digest": "sha256:8de2444ddbc627eb27c056885c648d7c79ae792fb1fdf7bc8491550c1b55dcf7"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:risk-assessment:1",
+      "version": "0.1.0",
+      "uri": "schemas/risk-assessment.schema.json",
+      "digest": "sha256:93b68f95bb2c0b478689b7d0fbec32d1c1f8d7e9d77a11de41fd3d9b2bff4097"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:scorecard:1",
+      "version": "0.1.0",
+      "uri": "schemas/scorecard.schema.json",
+      "digest": "sha256:1ec7ca37d5a1c0e8e4a3609e2472e52ecb46034d62fa34a9c5dfb8af48ec261d"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:sdlc-coverage:1",
+      "version": "0.1.0",
+      "uri": "schemas/sdlc-coverage.schema.json",
+      "digest": "sha256:3db41d5837f14ea4210873fcf133033ec53bfb77bf2bf37c643fd6bcda26ed9f"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:signature-profile:1",
+      "version": "0.1.0",
+      "uri": "schemas/signature-profile.schema.json",
+      "digest": "sha256:d99da91f0c074d0edbe24e4ef3aa97b0d69bf1782fbd9f12ee437525ebf9b59c"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:source-evidence-manifest:1",
+      "version": "0.1.0",
+      "uri": "schemas/source-evidence-manifest.schema.json",
+      "digest": "sha256:e63e4262f130950679f0ca9a22e3663fa27335f8253e5d57451ea1d72bc84c16"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:source-evidence-triangulation-fixture:1",
+      "version": "0.1.0",
+      "uri": "schemas/source-evidence-triangulation-fixture.schema.json",
+      "digest": "sha256:a33b954be446f98566d8327eaa08a6436f2127d762ad5635eea93f535b0c095f"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:statistical-plan:1",
+      "version": "0.1.0",
+      "uri": "schemas/statistical-plan.schema.json",
+      "digest": "sha256:75d95224da876a69ccf60397681de653cafbc4c08caec0801fce0b8f4314ab1d"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:suite-manifest:1",
+      "version": "0.1.0",
+      "uri": "schemas/suite-manifest.schema.json",
+      "digest": "sha256:f8936eab7cab80d99b5fe5e52a80f7592d1e17fcd09c89d0cb1a4cdbe170d0c7"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:trust-threat-assessment:1",
+      "version": "0.1.0",
+      "uri": "schemas/trust-threat-assessment.schema.json",
+      "digest": "sha256:f261a7467b5e4c50b8607e5a932f373899326a3bd8af7058620606c1513c796a"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:trusted-time-attestation:1",
+      "version": "0.1.0",
+      "uri": "schemas/trusted-time-attestation.schema.json",
+      "digest": "sha256:9bba093280bbbc2b85329d7b83952b20d12ded7c713eb79e511fe2a667ec2d4d"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:trusted-time-contract:1",
+      "version": "0.1.0",
+      "uri": "schemas/trusted-time-contract.schema.json",
+      "digest": "sha256:1f9e0d853afe44320779ae7893c16fbd25eb9c4843b79a1ad7f04622193758e7"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:validation-envelope:1",
+      "version": "0.1.0",
+      "uri": "schemas/validation-envelope.schema.json",
+      "digest": "sha256:e0d910641e0792dd71c80964fd7fca6dd7f7978471ac5161bae5d0fe68c6d4b3"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:validity-argument:1",
+      "version": "0.1.0",
+      "uri": "schemas/validity-argument.schema.json",
+      "digest": "sha256:0892f70b0e622bbe994922f04e39082a5d60541c5b3100235481c9c67cf38083"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:verified-machine-contract:1",
+      "version": "0.1.0",
+      "uri": "schemas/verified-machine-contract.schema.json",
+      "digest": "sha256:a191aba4ac05412a39b05f14bc06b234fabb2130fb7898125cd82b11bc0deed9"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:work-artifact-registry:1",
+      "version": "0.1.0",
+      "uri": "schemas/work-artifact-registry.schema.json",
+      "digest": "sha256:e629bfda1233168ac7bc363412f92f540a169bb01afa1f4cdb50ffceb3b3429b"
+    },
+    {
+      "id": "urn:agent-evals-standard:schema:workspace-manifest:1",
+      "version": "0.1.0",
+      "uri": "schemas/workspace-manifest.schema.json",
+      "digest": "sha256:391e6dc98e4753b01bc8b160891eee65cedb340bc083bc42a856b4c268637cce"
+    }
+  ],
+  "entriesDigest": "sha256:a96a2ce69f81fb633445037ed08ce537b79b002340d92e63f7c307e26153e416"
+}

@@ -1,0 +1,246 @@
+{
+  "schemaVersion": "agent-eval-environment-contract-1",
+  "id": "environment-contract-production-derived-authority-fixture",
+  "version": "0.1.0",
+  "evaluationMode": "controlled_fixture",
+  "productionActionAllowed": false,
+  "productionTelemetryPolicy": {
+    "allowedPurposes": [
+      "validity"
+    ],
+    "taskInputAllowed": false,
+    "trialOutcomeEvidenceAllowed": false,
+    "scheduledCellAllowed": false
+  },
+  "runtimes": [
+    {
+      "id": "node-runtime",
+      "version": "0.1.0",
+      "digest": "sha256:928ce5fb5936d1b8368f3cc9e070d0a6c3949a01fe81813f6cd74e62d829e9f4"
+    }
+  ],
+  "dependencyResolution": {
+    "id": "dependency-resolution-contract",
+    "version": "0.1.0",
+    "digest": "sha256:9f991864360160f26015cbf956158fb8c4c9a4251691b0cefb889ece3a41d2ab",
+    "schemaId": "dependency-resolution-contract-schema",
+    "verifier": {
+      "id": "repo-change-production-derived-verifier",
+      "version": "0.1.0",
+      "digest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+    }
+  },
+  "network": {
+    "default": "deny",
+    "allowlist": [],
+    "auditEvidenceRequired": true
+  },
+  "filesystem": {
+    "ephemeral": true,
+    "agentWritableRoots": [
+      "/workspace"
+    ],
+    "oracleReadable": false,
+    "controlPlaneAccessible": false,
+    "contract": {
+      "id": "filesystem-isolation-contract",
+      "version": "0.1.0",
+      "digest": "sha256:8f2111cda897144f60ea1e73d5d525e7488b2e0a4f747bb43e74b74ec055021d",
+      "schemaId": "filesystem-isolation-contract-schema",
+      "verifier": {
+        "id": "repo-change-production-derived-verifier",
+        "version": "0.1.0",
+        "digest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+      }
+    }
+  },
+  "process": {
+    "ephemeral": true,
+    "agentWritableRoots": [
+      "/workspace"
+    ],
+    "oracleReadable": false,
+    "controlPlaneAccessible": false,
+    "contract": {
+      "id": "process-isolation-contract",
+      "version": "0.1.0",
+      "digest": "sha256:6ab1fd022998137721c4218fbcce218f7b617eb796256c53ce3ad25660810e43",
+      "schemaId": "process-isolation-contract-schema",
+      "verifier": {
+        "id": "repo-change-production-derived-verifier",
+        "version": "0.1.0",
+        "digest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+      }
+    }
+  },
+  "resources": {
+    "cpu": 2,
+    "memoryBytes": 2147483648,
+    "diskBytes": 10737418240,
+    "wallClockSeconds": 900
+  },
+  "cache": {
+    "resetPerAttempt": true,
+    "sharedState": "none"
+  },
+  "logging": {
+    "id": "logging-contract",
+    "version": "0.1.0",
+    "digest": "sha256:867f96acc3ec4f38a3da5232fa513e86dda50b46a7f047a81b0d2447932b4eb3",
+    "schemaId": "logging-contract-schema",
+    "verifier": {
+      "id": "repo-change-production-derived-verifier",
+      "version": "0.1.0",
+      "digest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+    }
+  },
+  "teardown": {
+    "id": "teardown-contract",
+    "version": "0.1.0",
+    "digest": "sha256:dd1249e287b6f44d34d7929535b552178e6909f7e441be5d7720cacc7f98264c",
+    "schemaId": "teardown-contract-schema",
+    "verifier": {
+      "id": "repo-change-production-derived-verifier",
+      "version": "0.1.0",
+      "digest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+    }
+  },
+  "inputOrigin": "production_derived",
+  "productionDerivedInput": {
+    "authorityContract": {
+      "id": "repo-change-production-derived-authorities",
+      "version": "0.1.0",
+      "schemaId": "urn:agent-evals-standard:schema:production-derived-authority-contract:1",
+      "uri": "artifact:sha256:70bdc225d87f41b03732cd37dff14954aff2293aa691ac8fb0325509907c3ebc",
+      "digest": "sha256:70bdc225d87f41b03732cd37dff14954aff2293aa691ac8fb0325509907c3ebc",
+      "byteLength": 5241
+    },
+    "sourceCutoff": "2026-07-31T22:00:00Z",
+    "sourceSystemIds": [
+      "fixture-production-export-ledger"
+    ],
+    "inputSnapshot": {
+      "id": "production-derived-input-snapshot-fixture",
+      "uri": "artifact:sha256:343d5474f27c16f12bbab129b12c0e619761dd8dbe41a045437ff5b6950a3a76",
+      "digest": "sha256:343d5474f27c16f12bbab129b12c0e619761dd8dbe41a045437ff5b6950a3a76",
+      "mediaType": "application/vnd.agent-evals.input-snapshot+json",
+      "byteLength": 190,
+      "createdAt": "2026-07-31T22:10:00Z"
+    },
+    "provenanceControl": {
+      "exportLedgerDigest": "sha256:6bb4541317cd61a68dba3d1769efbd75e9a1cb7e3d4e9ad59e6b0a25e5b17cb2",
+      "transformation": {
+        "id": "sealed-redaction-pipeline-v1",
+        "version": "0.1.0",
+        "digest": "sha256:56269fbebbd91173524ff9747eb8d1a0b5a993e6d802a75dce1b13b9d2eca5cc"
+      }
+    },
+    "provenance": {
+      "subjectDigest": "sha256:343d5474f27c16f12bbab129b12c0e619761dd8dbe41a045437ff5b6950a3a76",
+      "evidence": {
+        "id": "production-input-provenance-evidence-fixture",
+        "uri": "artifact:sha256:744729d02897ee17d1658d1adb853596b7d5d160f23fa7df6da781eee7b95e8d",
+        "digest": "sha256:744729d02897ee17d1658d1adb853596b7d5d160f23fa7df6da781eee7b95e8d"
+      },
+      "verifier": {
+        "id": "repo-change-production-derived-verifier",
+        "version": "0.1.0",
+        "digest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+      },
+      "verifiedAt": "2026-07-31T22:12:00Z",
+      "result": "pass"
+    },
+    "dataOwnerAuthorization": {
+      "ownerId": "fixture-data-owner",
+      "purpose": "evaluation_fixture_use",
+      "decision": "authorized",
+      "scopeDigest": "sha256:343d5474f27c16f12bbab129b12c0e619761dd8dbe41a045437ff5b6950a3a76",
+      "authorizedAt": "2026-07-31T22:15:00Z",
+      "proof": {
+        "subjectDigest": "sha256:343d5474f27c16f12bbab129b12c0e619761dd8dbe41a045437ff5b6950a3a76",
+        "evidence": {
+          "id": "production-input-owner-authorization-evidence-fixture",
+          "uri": "artifact:sha256:cdf8c430836cc5c700f323444a64d59d77e9e3a50b6f4d7f833046cc2809d073",
+          "digest": "sha256:cdf8c430836cc5c700f323444a64d59d77e9e3a50b6f4d7f833046cc2809d073"
+        },
+        "verifier": {
+          "id": "repo-change-production-derived-verifier",
+          "version": "0.1.0",
+          "digest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+        },
+        "verifiedAt": "2026-07-31T22:16:00Z",
+        "result": "pass"
+      }
+    },
+    "redactionVerification": {
+      "policy": {
+        "id": "production-input-redaction-policy-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:30546ab21aa9369fb1b509b6105ca12029145fe98ce877ec4dcd97294d5b2105"
+      },
+      "proof": {
+        "subjectDigest": "sha256:343d5474f27c16f12bbab129b12c0e619761dd8dbe41a045437ff5b6950a3a76",
+        "evidence": {
+          "id": "production-input-redaction-evidence-fixture",
+          "uri": "artifact:sha256:172629c2f94d6321c6e746a81426abb968b03b24988a12775593e9db24a90d1b",
+          "digest": "sha256:172629c2f94d6321c6e746a81426abb968b03b24988a12775593e9db24a90d1b"
+        },
+        "verifier": {
+          "id": "repo-change-production-derived-verifier",
+          "version": "0.1.0",
+          "digest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+        },
+        "verifiedAt": "2026-07-31T22:20:00Z",
+        "result": "pass"
+      }
+    },
+    "reidentificationAssessment": {
+      "method": {
+        "id": "production-input-reidentification-method-fixture",
+        "version": "0.1.0",
+        "digest": "sha256:cb26166e41cc434ab2a262daf2bfdec58634014a55ee4127401ec716751ed152"
+      },
+      "maximumResidualRisk": 0.2,
+      "decision": "approved_for_evaluation_use",
+      "proof": {
+        "subjectDigest": "sha256:343d5474f27c16f12bbab129b12c0e619761dd8dbe41a045437ff5b6950a3a76",
+        "evidence": {
+          "id": "production-input-reidentification-evidence-fixture",
+          "uri": "artifact:sha256:4c79097ddf514893dcd807ae21a24cb34bfa28c2c7ec22ab123c058087d1f2a3",
+          "digest": "sha256:4c79097ddf514893dcd807ae21a24cb34bfa28c2c7ec22ab123c058087d1f2a3"
+        },
+        "verifier": {
+          "id": "repo-change-production-derived-verifier",
+          "version": "0.1.0",
+          "digest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+        },
+        "verifiedAt": "2026-07-31T22:25:00Z",
+        "result": "pass"
+      }
+    },
+    "productionIsolationVerification": {
+      "boundaryProjection": "environment_production_path_boundary_v1",
+      "boundaryDigest": "sha256:1cf22871d4331bc763a3a0fe40ca664a96ff51f611ec014a4dc446b597c9f2e0",
+      "productionReadPathAvailable": false,
+      "productionWritePathAvailable": false,
+      "liveProductionConnectivityAvailable": false,
+      "productionCredentialsPresent": false,
+      "proof": {
+        "subjectDigest": "sha256:1cf22871d4331bc763a3a0fe40ca664a96ff51f611ec014a4dc446b597c9f2e0",
+        "evidence": {
+          "id": "production-input-isolation-evidence-fixture",
+          "uri": "artifact:sha256:b34984738a54f33fcb422b0677412b91fa63ecd08f43e8f15e8de56ad4973b15",
+          "digest": "sha256:b34984738a54f33fcb422b0677412b91fa63ecd08f43e8f15e8de56ad4973b15"
+        },
+        "verifier": {
+          "id": "repo-change-production-derived-verifier",
+          "version": "0.1.0",
+          "digest": "sha256:d8c1ea13cfa6fed680dfbce6f20f4cde8ea3144dc5ce295764f068d781b8a3fa"
+        },
+        "verifiedAt": "2026-07-31T22:30:00Z",
+        "result": "pass"
+      }
+    }
+  },
+  "digest": "sha256:99a01a658c5519f30e079655f94863cf8d735f003a69b8f216f22d46ef811980"
+}

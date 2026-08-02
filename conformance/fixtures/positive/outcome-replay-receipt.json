@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "agent-eval-outcome-replay-receipt-1",
+  "receiptId": "outcome-replay-receipt-fixture-1",
+  "version": "0.1.0",
+  "trustUse": "conformance_fixture_only",
+  "executor": {
+    "id": "agent-evals-standard.repo-change-outcome-replay",
+    "version": "0.1.0",
+    "digest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
+  },
+  "experimentId": "experiment-fixture-1",
+  "caseId": "repo-change-case-fixture-1",
+  "cellId": "cell-fixture-1",
+  "attemptId": "attempt-fixture-1",
+  "armId": "arm-fixture-1",
+  "outcomeProfile": {
+    "id": "workspace-change-v1",
+    "version": "0.1.0",
+    "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
+  },
+  "caseCommitmentDigest": "sha256:ab1a0283e5cd358ebe66fba07af5ed0b73263dd52b8cf4c32a5b3417724aea0e",
+  "cellCommitmentDigest": "sha256:947ed1f3200facbea9b6d4ecf58baef6586afe8ae0c5a239d6b2faf37c66c5e5",
+  "trialProjectionDigest": "sha256:95bae28af035c8df765f195de59c9e9f3813a9a48662ec6e7c7a39c23aaebbb0",
+  "materialArtifactsDigest": "sha256:373b2127dbe9ad56c149208367accfac2490d184926747bcdde7c2f88113a113",
+  "consumedEvidenceDigest": "sha256:fe547c2491ecca7bf9b865970139b8dbad6d5869896c6bc6b18ead0543744245",
+  "evaluatedAssuranceReport": {
+    "evidenceId": "assurance-report-evidence",
+    "digest": "sha256:158825f00f8f61afa11b92ed8b1e16bfa5fe9af6edeff8abdc2ceb88832c2b0b"
+  },
+  "graderAssessment": {
+    "evidenceId": "grader-assessment-evidence",
+    "digest": "sha256:85767a1d4dfb04a2d39e729331b28e63f97e4ce825bd56646ab5e15402c073ed"
+  },
+  "facts": {
+    "measurementValidity": "valid",
+    "requiredOutcomeConditionsVerdict": "pass",
+    "deterministicChecksVerdict": "pass",
+    "evidenceAuthenticityVerdict": "pass",
+    "adjudicationProtocolVerdict": "pass",
+    "adjudicatorIndependenceVerdict": "pass",
+    "adjudicationVerdict": "pass"
+  }
+}
