@@ -1,6 +1,6 @@
 # Scorecard Contract
 
-- Status: unpublished working draft
+- Status: unpublished 0.1.0 publication candidate
 - Version: 0.1.0
 - Purpose: machine-interpretable experiment, trial, claim, metric, and
   provenance semantics.

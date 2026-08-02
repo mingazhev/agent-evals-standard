@@ -20,8 +20,9 @@
       "mutableLocator": null,
       "archive": {
         "status": "verified",
-        "immutableLocator": "artifact:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-        "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        "immutableLocator": "source-evidence-archives/study-a.txt",
+        "byteLength": 496,
+        "digest": "sha256:7e809df7c8c3b48849b0796996649f7a68cd702c0f93a9b07a732de87a5f742d"
       },
       "retrievalDate": "2026-01-02",
       "evidenceClass": "primary_empirical_report",
@@ -35,12 +36,34 @@
         "sponsorIds": [],
         "basis": "The archived source states that the study received no external funding.",
         "evidence": {
-          "archiveDigest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-          "location": "Funding disclosure, paragraph 1",
-          "statement": "No external funding."
+          "archiveDigest": "sha256:7e809df7c8c3b48849b0796996649f7a68cd702c0f93a9b07a732de87a5f742d",
+          "location": "Line 9, Funding disclosure",
+          "statement": "No external funding.",
+          "sponsorIds": []
         }
       },
-      "contraryEvidence": []
+      "contraryEvidence": [],
+      "sourceReview": {
+        "status": "pending",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "synthetic-fixture-reviewer",
+        "reviewerIdentity": "urn:fixture:reviewer",
+        "reviewRecordLocator": "urn:fixture:review-record",
+        "reviewedAt": "2026-01-02",
+        "reviewedLocator": null,
+        "versionLocator": null,
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity"
+        ],
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [],
+        "reviewedCapabilityIds": [],
+        "reviewedContentDigest": null,
+        "limitations": "Synthetic conformance source with no external publisher record."
+      }
     },
     {
       "id": "SRC-FIXTURE-EMPIRICAL-B",
@@ -60,8 +83,9 @@
       "mutableLocator": null,
       "archive": {
         "status": "verified",
-        "immutableLocator": "artifact:sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-        "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        "immutableLocator": "source-evidence-archives/study-b.txt",
+        "byteLength": 497,
+        "digest": "sha256:d9cb803940de358970b29eb48b00a0bd470eb0b618972844b2b0760cbf191ca9"
       },
       "retrievalDate": "2026-02-02",
       "evidenceClass": "peer_reviewed_research",
@@ -75,12 +99,34 @@
         "sponsorIds": [],
         "basis": "The archived source states that the study received no external funding.",
         "evidence": {
-          "archiveDigest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-          "location": "Acknowledgements, paragraph 2",
-          "statement": "No external funding."
+          "archiveDigest": "sha256:d9cb803940de358970b29eb48b00a0bd470eb0b618972844b2b0760cbf191ca9",
+          "location": "Line 9, Acknowledgements",
+          "statement": "No external funding.",
+          "sponsorIds": []
         }
       },
-      "contraryEvidence": []
+      "contraryEvidence": [],
+      "sourceReview": {
+        "status": "pending",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "synthetic-fixture-reviewer",
+        "reviewerIdentity": "urn:fixture:reviewer",
+        "reviewRecordLocator": "urn:fixture:review-record",
+        "reviewedAt": "2026-02-02",
+        "reviewedLocator": null,
+        "versionLocator": null,
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity"
+        ],
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [],
+        "reviewedCapabilityIds": [],
+        "reviewedContentDigest": null,
+        "limitations": "Synthetic conformance source with no external publisher record."
+      }
     }
   ],
   "observations": [
@@ -92,6 +138,15 @@
       "sampling": "A predeclared sample from organization A's independent repository-task frame.",
       "method": "Replay-based assessment by evaluator A.",
       "result": "The bounded fixture mechanism was observed under study A's declared conditions.",
+      "sourceLocations": {
+        "population": "Line 3, Population",
+        "sampling": "Line 4, Sampling",
+        "method": "Line 5, Method",
+        "result": "Line 6, Result",
+        "dataOrBenchmarkLineageIds": [
+          "Line 7, Data or benchmark lineage"
+        ]
+      },
       "uncertaintyAndSelectionConditions": [
         "Inference is limited to study A's sampled frame."
       ],
@@ -110,6 +165,15 @@
       "sampling": "A predeclared sample from organization B's independent repository-task frame.",
       "method": "Artifact-review assessment by evaluator B.",
       "result": "The bounded fixture mechanism was observed under study B's declared conditions.",
+      "sourceLocations": {
+        "population": "Line 3, Population",
+        "sampling": "Line 4, Sampling",
+        "method": "Line 5, Method",
+        "result": "Line 6, Result",
+        "dataOrBenchmarkLineageIds": [
+          "Line 7, Data or benchmark lineage"
+        ]
+      },
       "uncertaintyAndSelectionConditions": [
         "Inference is limited to study B's sampled frame."
       ],

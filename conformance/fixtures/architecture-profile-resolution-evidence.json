@@ -2,7 +2,7 @@
   "id": "architecture-profile-resolution-evidence",
   "uri": "architecture-profile-resolution-evidence-payload.json",
   "mediaType": "application/json",
-  "digest": "sha256:fa5c7d134e5fc8645bbb28e65cde7decb1493deba8eda4a54edb78e5add7a016",
+  "digest": "sha256:35799acdf812e4f46b358f66df8ecee8c4fe5fb9ba8b8af9d6e21dfd840ffff7",
   "byteLength": 2985,
   "producer": {
     "id": "architecture-profile-resolution-input-builder",
@@ -38,7 +38,7 @@
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:00Z",
-    "value": "34WVv8N8Vb4OKPtJBB6AP-NlX0kDD1l0IXzpEwejfUMchA6JQxYdyZDO3j7frXv7iZGzHbuJBC1P5-vpqYQNDg"
+    "value": "gu6U6fpaGggWY4UQMCpwJQNedXiYIj99P5Ku-4_cuplceM-Pv5_Em-5Z3dICi-Qc7_rpltmpm9RzfGnnvlItAQ"
   },
   "payload": {
     "kind": "repository_relative",

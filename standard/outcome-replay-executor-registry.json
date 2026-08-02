@@ -9,7 +9,7 @@
         "id": "workspace-change-v1",
         "version": "0.1.0",
         "uri": "../profiles/repo-change-v1/outcome-profile.json",
-        "digest": "sha256:fe8ee26f8d247b2d62c77469b24c2373f287445dbb9ff3f795b487f71fb11566"
+        "digest": "sha256:40fe522e35eed8c50cecfce812d9eb2765ac342d8d81a8651771c9267752c9d1"
       },
       "semanticContract": {
         "id": "workspace-change-v1-outcome-replay-contract",

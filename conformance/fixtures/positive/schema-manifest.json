@@ -338,7 +338,7 @@
       "id": "urn:agent-evals-standard:schema:source-evidence-manifest:1",
       "version": "0.1.0",
       "uri": "schemas/source-evidence-manifest.schema.json",
-      "digest": "sha256:249d2a9467d2e54bc4a3afb62b99568edce0ed731f4e19b1330362895e615985"
+      "digest": "sha256:e63e4262f130950679f0ca9a22e3663fa27335f8253e5d57451ea1d72bc84c16"
     },
     {
       "id": "urn:agent-evals-standard:schema:source-evidence-triangulation-fixture:1",
@@ -407,5 +407,5 @@
       "digest": "sha256:391e6dc98e4753b01bc8b160891eee65cedb340bc083bc42a856b4c268637cce"
     }
   ],
-  "entriesDigest": "sha256:c39471f087ec988fc87eb54ec440fb4e410d6647a409a0487ee0e5b7996c83d8"
+  "entriesDigest": "sha256:a96a2ce69f81fb633445037ed08ce537b79b002340d92e63f7c307e26153e416"
 }

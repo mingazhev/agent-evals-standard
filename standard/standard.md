@@ -1,6 +1,6 @@
 # Git-backed Repository SDLC Agent Evals Standard
 
-- Status: unpublished working draft
+- Status: unpublished 0.1.0 publication candidate
 - Version: 0.1.0
 - Purpose: implementation-independent requirements for evaluating agents that
   work with Git-backed code repositories across the software-development

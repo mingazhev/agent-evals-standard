@@ -1,6 +1,6 @@
 # Escalation and Stop Matrix Contract and Non-Operational Template
 
-- Status: unpublished working draft; bundled matrix instance is non-operational
+- Status: unpublished 0.1.0 publication candidate; bundled matrix instance is non-operational
 - Version: 0.1.0
 - Owner: adopter-defined; a conforming matrix instance requires a resolvable
   team identifier or email before any held-out, release, or autonomy decision.

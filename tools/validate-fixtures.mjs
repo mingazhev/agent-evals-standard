@@ -11,6 +11,7 @@ import {
 } from "./verify-repository-grounding.mjs";
 import { checkProductionDerivedInput } from "./validate-production-derived-input.mjs";
 import { checkSdlcCoverage } from "./verify-sdlc-coverage.mjs";
+import { sourceReviewBindings } from "./source-evidence-review.mjs";
 import { checkSuiteProfileBindings } from "./verify-suite-profile-bindings.mjs";
 import { verifyCaseValidityArgument } from "./verify-case-classification.mjs";
 import {
@@ -343,6 +344,81 @@ function resolveRepositoryPath(baseDirectory, candidate) {
     throw new Error(`path escapes repository root: ${candidate}`);
   }
   return absolute;
+}
+
+function checkArchiveLine(source, lines, location, expectedText, label, issues) {
+  const match = /^Line ([1-9][0-9]*)(?:,|$)/u.exec(location ?? "");
+  if (!match) {
+    issues.push(`sourceEvidenceGraph: source ${source.id} ${label} must use a Line N extraction pointer`);
+    return;
+  }
+  const lineNumber = Number(match[1]);
+  const line = lines[lineNumber - 1];
+  if (line === undefined || !line.includes(expectedText)) {
+    issues.push(`sourceEvidenceGraph: source ${source.id} ${label} is not resolvable at ${location}`);
+  }
+}
+
+async function checkVerifiedSourceArchive(source, sourceAbsolute, observations, issues) {
+  if (source.fundingDisclosure?.status === "verified_from_archived_source"
+    && source.archive?.status !== "verified") {
+    issues.push(`sourceEvidenceGraph: source ${source.id} verified funding disclosure requires a verified archive`);
+  }
+  if (source.archive?.status !== "verified") return;
+  let archiveAbsolute;
+  let bytes;
+  try {
+    archiveAbsolute = resolveRepositoryPath(path.dirname(sourceAbsolute), source.archive.immutableLocator);
+    bytes = await readFile(archiveAbsolute);
+  } catch (error) {
+    issues.push(`sourceEvidenceGraph: source ${source.id} verified archive cannot be resolved: ${error.message}`);
+    return;
+  }
+  const digest = sha256Bytes(bytes);
+  if (source.archive.digest !== digest) {
+    issues.push(`sourceEvidenceGraph: source ${source.id} verified archive digest must be ${digest}`);
+  }
+  if (source.archive.byteLength !== bytes.byteLength) {
+    issues.push(`sourceEvidenceGraph: source ${source.id} verified archive byteLength must be ${bytes.byteLength}`);
+  }
+  const lines = bytes.toString("utf8").split(/\r?\n/u);
+  const fundingEvidence = source.fundingDisclosure?.evidence;
+  if (fundingEvidence) {
+    if (fundingEvidence.archiveDigest !== source.archive.digest) {
+      issues.push(`sourceEvidenceGraph: source ${source.id} funding evidence is not bound to its verified archive digest`);
+    }
+    if (!sameStringSet(fundingEvidence.sponsorIds ?? [], source.fundingDisclosure?.sponsorIds ?? [])) {
+      issues.push(`sourceEvidenceGraph: source ${source.id} sponsor IDs are not bound to its archived funding evidence`);
+    }
+    checkArchiveLine(source, lines, fundingEvidence.location, fundingEvidence.statement, "funding statement", issues);
+  }
+  for (const observation of observations.filter((candidate) => candidate.sourceId === source.id)) {
+    for (const field of ["population", "sampling", "method", "result"]) {
+      checkArchiveLine(
+        source,
+        lines,
+        observation.sourceLocations?.[field],
+        observation[field],
+        `observation ${observation.id} ${field}`,
+        issues
+      );
+    }
+    const lineageIds = observation.dataOrBenchmarkLineageIds ?? [];
+    const lineageLocations = observation.sourceLocations?.dataOrBenchmarkLineageIds ?? [];
+    if (lineageLocations.length !== lineageIds.length) {
+      issues.push(`sourceEvidenceGraph: source ${source.id} observation ${observation.id} lineage extraction count differs from its lineage IDs`);
+    }
+    for (let index = 0; index < lineageIds.length; index += 1) {
+      checkArchiveLine(
+        source,
+        lines,
+        lineageLocations[index],
+        lineageIds[index],
+        `observation ${observation.id} lineage ${lineageIds[index]}`,
+        issues
+      );
+    }
+  }
 }
 
 function applyMutations(document, mutations) {
@@ -5249,7 +5325,7 @@ function checkTriangulation(
   }
 }
 
-async function checkSourceEvidenceTriangulation(document, _sourceAbsolute, issues) {
+async function checkSourceEvidenceTriangulation(document, sourceAbsolute, issues) {
   const sources = document.sources ?? [];
   const observations = document.observations ?? [];
   const sourcesById = new Map(sources.map((source) => [source.id, source]));
@@ -5261,6 +5337,7 @@ async function checkSourceEvidenceTriangulation(document, _sourceAbsolute, issue
     if (count !== 1) issues.push(`sourceEvidenceGraph: triangulation fixture observation ${id} occurs ${count} times`);
   }
   checkDuplicateSourceArtifacts("triangulation fixture", sources, issues);
+  for (const source of sources) await checkVerifiedSourceArchive(source, sourceAbsolute, observations, issues);
   for (const observation of observations) {
     const source = sourcesById.get(observation.sourceId);
     if (!source) {
@@ -5286,7 +5363,7 @@ async function checkSourceEvidenceTriangulation(document, _sourceAbsolute, issue
   );
 }
 
-async function checkSourceEvidenceGraph(document, _sourceAbsolute, issues) {
+async function checkSourceEvidenceGraph(document, sourceAbsolute, issues) {
   let registry;
   try {
     registry = await readJsonStrict(path.join(root, "standard", "requirement-registry.json"));
@@ -5307,8 +5384,31 @@ async function checkSourceEvidenceGraph(document, _sourceAbsolute, issues) {
   }
   checkDuplicateSourceArtifacts("source catalog", sources, issues);
   for (const source of sources) {
-    if (source.archive?.status === "verified") {
-      issues.push(`sourceEvidenceGraph: source ${source.id} claims verified archive status, which is unsupported in 0.1.0 without the deferred authenticated archive-verification contract and out-of-manifest independent signer`);
+    await checkVerifiedSourceArchive(source, sourceAbsolute, document.observations ?? [], issues);
+    const sourceReview = source.sourceReview ?? {};
+    if (sourceReview.status === "maintainer_reviewed" && sourceReview.reviewedLocator !== source.mutableLocator) {
+      issues.push(`sourceEvidenceGraph: source ${source.id} maintainer review is not bound to mutableLocator`);
+    }
+    if (sourceReview.status === "maintainer_reviewed" && (source.producerIds ?? []).includes(sourceReview.reviewerId)) {
+      issues.push(`sourceEvidenceGraph: source ${source.id} maintainer reviewer is also a source producer`);
+    }
+    if (sourceReview.status === "maintainer_reviewed" && sourceReview.reviewedAt < source.retrievalDate) {
+      issues.push(`sourceEvidenceGraph: source ${source.id} maintainer review predates source retrieval`);
+    }
+    if (sourceReview.status === "maintainer_reviewed") {
+      const expected = sourceReviewBindings(document, source);
+      if (!sameStringSet(sourceReview.reviewedObservationIds ?? [], expected.observationIds)) {
+        issues.push(`sourceEvidenceGraph: source ${source.id} maintainer review observation IDs do not match the reviewed content projection`);
+      }
+      if (!sameStringSet(sourceReview.reviewedRequirementIds ?? [], expected.requirementIds)) {
+        issues.push(`sourceEvidenceGraph: source ${source.id} maintainer review requirement IDs do not match the reviewed content projection`);
+      }
+      if (!sameStringSet(sourceReview.reviewedCapabilityIds ?? [], expected.capabilityIds)) {
+        issues.push(`sourceEvidenceGraph: source ${source.id} maintainer review capability IDs do not match the reviewed content projection`);
+      }
+      if (sourceReview.reviewedContentDigest !== expected.digest) {
+        issues.push(`sourceEvidenceGraph: source ${source.id} maintainer review content digest must be ${expected.digest}`);
+      }
     }
     for (const contraryId of source.contraryEvidence ?? []) {
       if (!sourcesById.has(contraryId)) {
@@ -5469,27 +5569,22 @@ async function checkSourceEvidenceGraph(document, _sourceAbsolute, issues) {
     if (targetValidation.status === "single_producer_indication" && targetBasisIds.length < 1) {
       issues.push(`sourceEvidenceGraph: ${owner} single-producer target indication has no basis observation`);
     }
-    if (targetValidation.status === "independently_validated") {
-      issues.push(`sourceEvidenceGraph: ${owner} independently_validated is unsupported in 0.1.0 until a detached target-validation assessment is bound to the exact manifest, capability, target population, observation set, and population relations and authenticated by an independent release authority rooted outside the claimant manifest`);
-    }
   }
 
   const blockers = document.evidenceBlockers ?? {};
-  const expectedUnverifiedSources = sources.map((source) => source.id);
+  const expectedUnreviewedSources = sources
+    .filter((source) => source.sourceReview?.status !== "maintainer_reviewed")
+    .map((source) => source.id);
   const expectedRequirementGaps = mappings
     .filter((mapping) => mapping.kind === "source_evidence" && mapping.support === "evidence_gap")
     .map((mapping) => mapping.requirementId);
-  const expectedCapabilityGaps = capabilities.map((capability) => capability.capabilityId);
-  reportExactIds(expectedUnverifiedSources, blockers.unverifiedSourceIds ?? [],
-    "sourceEvidenceGraph evidence blockers unverified sources", issues);
+  reportExactIds(expectedUnreviewedSources, blockers.missingSourceReviewIds ?? [],
+    "sourceEvidenceGraph evidence blockers missing source reviews", issues);
   reportExactIds(expectedRequirementGaps, blockers.requirementEvidenceGapIds ?? [],
     "sourceEvidenceGraph evidence blockers requirement gaps", issues);
-  reportExactIds(expectedCapabilityGaps, blockers.capabilityTargetValidationGapIds ?? [],
-    "sourceEvidenceGraph evidence blockers capability target-validation gaps", issues);
-  const hasBlocker = expectedUnverifiedSources.length > 0
-    || expectedRequirementGaps.length > 0 || expectedCapabilityGaps.length > 0;
+  const hasBlocker = expectedUnreviewedSources.length > 0 || expectedRequirementGaps.length > 0;
   if (document.evidenceReadiness === "ready" && hasBlocker) {
-    issues.push("sourceEvidenceGraph: evidenceReadiness ready is unsupported in 0.1.0 and has unresolved blockers");
+    issues.push("sourceEvidenceGraph: evidenceReadiness ready has unresolved source-identity or requirement-evidence blockers");
   }
   if (document.evidenceReadiness === "blocked" && !hasBlocker) {
     issues.push("sourceEvidenceGraph: evidenceReadiness blocked has no unresolved blocker");

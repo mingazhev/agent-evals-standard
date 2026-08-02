@@ -1,6 +1,6 @@
 # Conformance Contract
 
-- Status: unpublished working draft
+- Status: unpublished 0.1.0 publication candidate
 - Version: 0.1.0
 - Purpose: define evidence-backed claims of adherence to the Repository SDLC
   Agent Evals Standard.

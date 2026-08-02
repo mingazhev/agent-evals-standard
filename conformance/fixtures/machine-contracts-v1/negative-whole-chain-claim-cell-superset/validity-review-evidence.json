@@ -8,7 +8,7 @@
     "id": "suite-validity-argument-v1",
     "version": "0.1.0",
     "projection": "full_document_without_review_evidence",
-    "digest": "sha256:ce7cf5e7ee417c49885dbf9474ff9948424fe7f4d4053f671fec06000816cf2f"
+    "digest": "sha256:4a917e2ddc34b1fa058aade1dffbea6a8e5b80534334235c62715cb61604e52c"
   },
   "decision": "approved_for_declared_use",
   "actor": {
@@ -22,12 +22,12 @@
     "version": "0.1.0",
     "digest": "sha256:b29e42e61605ba520a84839a71402698d8656d0f0fc29fb98fca210d4198b9e6"
   },
-  "digest": "sha256:a94d6f40f9411b7745505e9e54de874e25d0b1f7a21579a232729933e2a037a1",
+  "digest": "sha256:dc096ce171fcbb5593b528f897d3672426dae450af79b05e58986f91028f4928",
   "signature": {
     "profileId": "fixture-validity-review-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-3-validity-reviewer",
     "signedAt": "2026-08-01T00:30:00Z",
-    "value": "ruEnH54yBwfN61yiYw_fRIhxrHWas82hZiskYhrA1r7q1Mc74GyVE7EXl4McYDJNLpoEdxfGsS7tbVHitRy2BA"
+    "value": "iQY227F5g6zYW6K3WjPLDA1sHCaCJuWYpPgR1FGq7bx6btQ7tkj__A9KinqoMWVNb4sc_7MIy9LECkj2F47DAA"
   }
 }

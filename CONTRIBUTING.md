@@ -21,7 +21,7 @@ Normative pull requests should include:
 - impact on existing draft artifacts and implementations;
 - verification evidence, including schema and local-link validation.
 
-## Draft discipline
+## Pre-publication discipline
 
 The standard has not been published. Until publication, every component remains
 version `0.1.0`, and incompatible changes replace the working draft in place.
@@ -30,8 +30,11 @@ compatibility obligations.
 
 The publication process MUST freeze an exact commit and its conformance
 corpus. The candidate commit MUST pass `npm run release:check` from a clean
-checkout; that command runs the full test corpus before checking evidence
-readiness. A published tag must never be rewritten.
+checkout; that command first proves generated-artifact freshness, runs the full
+test corpus, and then checks evidence readiness. The first release MUST use the
+annotated tag `v0.1.0`; its CI run MUST resolve that tag to the exact checked-out
+commit. Repository administrators MUST protect the tag with a GitHub ruleset,
+and a published tag must never be rewritten.
 
 ## Style
 

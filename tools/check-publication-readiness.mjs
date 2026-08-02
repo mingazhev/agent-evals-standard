@@ -2,6 +2,8 @@ import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import process from "node:process";
+import { sourceReviewBindings } from "./source-evidence-review.mjs";
 
 const root = path.resolve(new URL("..", import.meta.url).pathname.replace(/^\/(?:([A-Za-z]:))/, "$1"));
 
@@ -25,24 +27,41 @@ function git(...args) {
 const manifest = JSON.parse(await readFile(path.join(root, "standard", "source-evidence-manifest.json"), "utf8"));
 const problems = [];
 const blockerFields = [
-  "unverifiedSourceIds",
-  "requirementEvidenceGapIds",
-  "capabilityTargetValidationGapIds"
+  "missingSourceReviewIds",
+  "requirementEvidenceGapIds"
 ];
 
 if (manifest.standardVersion !== "0.1.0") problems.push("source-evidence manifest standardVersion is not 0.1.0");
-problems.push("publication is intentionally unavailable in 0.1.0 until normative detached target-validation and archive-verification assessment contracts are authenticated by release-authority trust roots outside the claimant manifest");
 if (manifest.evidenceReadiness !== "ready") {
   problems.push(`evidenceReadiness is ${JSON.stringify(manifest.evidenceReadiness)}, not "ready"`);
 }
 for (const source of manifest.sources ?? []) {
-  if (source.archive?.status === "verified") {
-    problems.push(`source ${source.id} self-declares verified archive status, which 0.1.0 does not accept without offline byte resolution and an independently signed archive-verification assessment`);
+  if (source.sourceReview?.status !== "maintainer_reviewed") {
+    problems.push(`source ${source.id} has no completed accountable maintainer review`);
   }
-}
-for (const capability of manifest.capabilityCoverage ?? []) {
-  if (capability.targetPopulationValidation?.status === "independently_validated") {
-    problems.push(`capability ${capability.capabilityId} self-declares independently_validated, which is unsupported in 0.1.0`);
+  if (source.sourceReview?.reviewedLocator !== source.mutableLocator) {
+    problems.push(`source ${source.id} maintainer review is not bound to its declared mutableLocator`);
+  }
+  if (!source.sourceReview?.reviewerIdentity) {
+    problems.push(`source ${source.id} maintainer review has no accountable reviewer identity URI`);
+  }
+  if (!source.sourceReview?.reviewRecordLocator) {
+    problems.push(`source ${source.id} maintainer review has no auditable review-record locator`);
+  }
+  if (source.sourceReview?.status === "maintainer_reviewed") {
+    const expected = sourceReviewBindings(manifest, source);
+    if (JSON.stringify([...(source.sourceReview.reviewedObservationIds ?? [])].sort()) !== JSON.stringify([...expected.observationIds].sort())) {
+      problems.push(`source ${source.id} maintainer review is not bound to its exact observation IDs`);
+    }
+    if (JSON.stringify([...(source.sourceReview.reviewedRequirementIds ?? [])].sort()) !== JSON.stringify([...expected.requirementIds].sort())) {
+      problems.push(`source ${source.id} maintainer review is not bound to its exact requirement IDs`);
+    }
+    if (JSON.stringify([...(source.sourceReview.reviewedCapabilityIds ?? [])].sort()) !== JSON.stringify([...expected.capabilityIds].sort())) {
+      problems.push(`source ${source.id} maintainer review is not bound to its exact capability IDs`);
+    }
+    if (source.sourceReview.reviewedContentDigest !== expected.digest) {
+      problems.push(`source ${source.id} maintainer review content digest must be ${expected.digest}`);
+    }
   }
 }
 for (const field of blockerFields) {
@@ -61,6 +80,17 @@ try {
   const dirtyEntries = git("status", "--porcelain=v1", "--untracked-files=all");
   if (dirtyEntries) {
     problems.push("the publication gate must run on a clean checkout of the exact release commit");
+  }
+  if (process.env.GITHUB_REF_TYPE === "tag") {
+    const tagName = process.env.GITHUB_REF_NAME;
+    if (tagName !== "v0.1.0") {
+      problems.push(`release tag must be v0.1.0, found ${JSON.stringify(tagName)}`);
+    } else {
+      const tagType = git("cat-file", "-t", `refs/tags/${tagName}`);
+      if (tagType !== "tag") problems.push(`release tag ${tagName} must be annotated, found Git object type ${tagType}`);
+      const taggedCommit = git("rev-list", "-n", "1", `refs/tags/${tagName}`);
+      if (taggedCommit !== commit) problems.push(`release tag ${tagName} resolves to ${taggedCommit}, not checked-out commit ${commit}`);
+    }
   }
 } catch (error) {
   problems.push(`cannot resolve and verify the exact Git commit: ${error.message}`);

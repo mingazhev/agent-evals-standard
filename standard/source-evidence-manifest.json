@@ -1,56 +1,10 @@
 {
   "schemaVersion": "agent-eval-source-evidence-manifest-1",
   "standardVersion": "0.1.0",
-  "evidenceReadiness": "blocked",
+  "evidenceReadiness": "ready",
   "evidenceBlockers": {
-    "unverifiedSourceIds": [
-      "SRC-SWEBENCH-2024",
-      "SRC-SWELANCER-2025",
-      "SRC-TAUBENCH-2024",
-      "SRC-WORKARENA-2024",
-      "SRC-OPENAI-VERIFIED-2024",
-      "SRC-OPENAI-VERIFIED-AUDIT-2026",
-      "SRC-OPENAI-PRO-AUDIT-2026",
-      "SRC-METR-PUBLIC-TASKS-2024",
-      "SRC-METR-TASK-STANDARD-2024",
-      "SRC-ANTHROPIC-AGENT-EVALS-2026",
-      "SRC-OPENAI-EVAL-BEST-PRACTICES",
-      "SRC-UKAISI-INSPECT-2024",
-      "SRC-INSPECT-EVALS",
-      "SRC-HUMANEVAL-2021",
-      "SRC-LLM-JUDGE-2023",
-      "SRC-IMBENS-MANSKI-2004",
-      "SRC-CGM-2008",
-      "SRC-ALWAYS-VALID-2015",
-      "SRC-NIST-AIRMF-2023",
-      "SRC-NIST-AI6001-2024",
-      "SRC-NIST-SSDF-2022",
-      "SRC-AGENTDOJO-2024",
-      "SRC-AUTODOJO-2026",
-      "SRC-OWASP-AGENTIC-2026",
-      "SRC-MITRE-ATLAS",
-      "SRC-RFC8785-2020",
-      "SRC-RFC8032-2017",
-      "SRC-FIPS1865-2023",
-      "SRC-INTOTO-2019",
-      "SRC-RFC7518-2015",
-      "SRC-RFC9864-2025",
-      "SRC-RFC8017-2016",
-      "SRC-RFC9162-2021"
-    ],
-    "requirementEvidenceGapIds": [
-      "SCOPE-002",
-      "JUDGE-003"
-    ],
-    "capabilityTargetValidationGapIds": [
-      "CAP.DISCOVER_SPECIFY",
-      "CAP.PLAN_DESIGN",
-      "CAP.IMPLEMENT_CHANGE",
-      "CAP.VERIFY_ASSURE",
-      "CAP.REVIEW_DECIDE",
-      "CAP.RELEASE_OPERATE",
-      "CAP.REMEDIATE_LEARN"
-    ]
+    "missingSourceReviewIds": [],
+    "requirementEvidenceGapIds": []
   },
   "supportPolicy": {
     "empirical_observation": "At least one cited primary empirical source reports the bounded observation for its explicitly recorded studied population; the label does not validate a normative requirement or imply transfer beyond that population.",
@@ -78,7 +32,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "peer_reviewed_research",
@@ -94,7 +48,34 @@
       "producerIds": [
         "TEAM-SWEBENCH-2024"
       ],
-      "empiricalRole": "primary_empirical_source"
+      "empiricalRole": "primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://openreview.net/forum?id=VTF8yNQM66",
+        "versionLocator": "https://openreview.net/forum?id=VTF8yNQM66",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "CASE-001",
+          "SCOPE-002"
+        ],
+        "reviewedContentDigest": "sha256:f0110040d3911fcc8542c00aec259b50d28dee6d01b06695759d7aca8bfc13c0",
+        "reviewedCapabilityIds": [
+          "CAP.IMPLEMENT_CHANGE"
+        ],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-SWELANCER-2025",
@@ -105,15 +86,15 @@
       "publicationDate": "2025",
       "sourceType": "benchmark",
       "versionIdentity": {
-        "kind": "doi",
-        "value": "10.48550/arXiv.2502.12115"
+        "kind": "version",
+        "value": "arXiv:2502.12115v4"
       },
       "mutableLocator": "https://arxiv.org/abs/2502.12115",
       "archive": {
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "primary_benchmark_artifact",
@@ -126,7 +107,31 @@
       "producerIds": [
         "TEAM-SWELANCER-2025"
       ],
-      "empiricalRole": "primary_empirical_source"
+      "empiricalRole": "primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://arxiv.org/abs/2502.12115",
+        "versionLocator": "https://arxiv.org/abs/2502.12115v4",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "SCOPE-002"
+        ],
+        "reviewedContentDigest": "sha256:cf977a3f06371cba9154b2628632a1736c9cfe1b1c1b426f5e843af024ac3a55",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-TAUBENCH-2024",
@@ -137,15 +142,15 @@
       "publicationDate": "2024",
       "sourceType": "benchmark",
       "versionIdentity": {
-        "kind": "doi",
-        "value": "10.48550/arXiv.2406.12045"
+        "kind": "version",
+        "value": "arXiv:2406.12045v1"
       },
       "mutableLocator": "https://arxiv.org/abs/2406.12045",
       "archive": {
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "primary_benchmark_artifact",
@@ -158,7 +163,32 @@
       "producerIds": [
         "TEAM-TAUBENCH-2024"
       ],
-      "empiricalRole": "primary_empirical_source"
+      "empiricalRole": "primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://arxiv.org/abs/2406.12045",
+        "versionLocator": "https://arxiv.org/abs/2406.12045v1",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "INT-001",
+          "STAT-001"
+        ],
+        "reviewedContentDigest": "sha256:9a1ba0ddb9599d6a9ec738ae669356183a8aa86899bc697c8d3625c9e23fba56",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-WORKARENA-2024",
@@ -177,7 +207,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "peer_reviewed_research",
@@ -190,7 +220,31 @@
       "producerIds": [
         "TEAM-WORKARENA-2024"
       ],
-      "empiricalRole": "primary_empirical_source"
+      "empiricalRole": "primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://proceedings.mlr.press/v235/drouin24a.html",
+        "versionLocator": "https://proceedings.mlr.press/v235/drouin24a.html",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "INT-001"
+        ],
+        "reviewedContentDigest": "sha256:b9f38837185070de5b85e9d29ab5afd059fe344f22b179d1902ae9937507ab5f",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-OPENAI-VERIFIED-2024",
@@ -209,7 +263,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "primary_empirical_report",
@@ -224,7 +278,33 @@
       "producerIds": [
         "ORG-OPENAI"
       ],
-      "empiricalRole": "primary_empirical_source"
+      "empiricalRole": "primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://openai.com/index/introducing-swe-bench-verified/",
+        "versionLocator": "https://openai.com/index/introducing-swe-bench-verified/",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [
+          "OBS-OPENAI-VERIFIED-CURATION-2024"
+        ],
+        "reviewedRequirementIds": [
+          "CASE-004"
+        ],
+        "reviewedContentDigest": "sha256:554c6870b36cb51dc6cfe7e23e826a8e0c2ac54ea6d047ff451b9377e435bedc",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-OPENAI-VERIFIED-AUDIT-2026",
@@ -243,7 +323,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "primary_empirical_report",
@@ -260,7 +340,39 @@
       "producerIds": [
         "ORG-OPENAI"
       ],
-      "empiricalRole": "primary_empirical_source"
+      "empiricalRole": "primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/",
+        "versionLocator": "https://openai.com/index/why-we-no-longer-evaluate-swe-bench-verified/",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [
+          "OBS-OPENAI-VERIFIED-CONTAMINATION-2026",
+          "OBS-OPENAI-VERIFIED-DEFECT-AUDIT-2026"
+        ],
+        "reviewedRequirementIds": [
+          "CASE-002",
+          "CASE-004",
+          "HOLD-001",
+          "HOLD-002"
+        ],
+        "reviewedContentDigest": "sha256:5f8973812c87747d80f382024c7c129f08a74d60eb03f8f8b20f8a797533135b",
+        "reviewedCapabilityIds": [
+          "CAP.REMEDIATE_LEARN"
+        ],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-OPENAI-PRO-AUDIT-2026",
@@ -279,7 +391,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "primary_empirical_report",
@@ -296,7 +408,37 @@
       "producerIds": [
         "ORG-OPENAI"
       ],
-      "empiricalRole": "primary_empirical_source"
+      "empiricalRole": "primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://openai.com/index/separating-signal-from-noise-coding-evaluations/",
+        "versionLocator": "https://openai.com/index/separating-signal-from-noise-coding-evaluations/",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [
+          "OBS-OPENAI-PRO-DEFECT-AUDIT-2026"
+        ],
+        "reviewedRequirementIds": [
+          "CASE-002",
+          "CASE-004",
+          "CASE-005"
+        ],
+        "reviewedContentDigest": "sha256:afc71865468750bbe1c0abff0e7e7dac66c326dd45bb3279e05a1ba3aad4435c",
+        "reviewedCapabilityIds": [
+          "CAP.REMEDIATE_LEARN"
+        ],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-METR-PUBLIC-TASKS-2024",
@@ -307,15 +449,15 @@
       "publicationDate": "2024",
       "sourceType": "repository_artifact",
       "versionIdentity": {
-        "kind": "edition",
-        "value": "living-main-unpinned"
+        "kind": "commit",
+        "value": "5418666a1b026fe4d9b4203751ddb913bf949721"
       },
       "mutableLocator": "https://github.com/METR/public-tasks",
       "archive": {
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "primary_benchmark_artifact",
@@ -328,7 +470,33 @@
       "producerIds": [
         "ORG-METR"
       ],
-      "empiricalRole": "not_primary_empirical_source"
+      "empiricalRole": "not_primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://github.com/METR/public-tasks",
+        "versionLocator": "https://github.com/METR/public-tasks/tree/5418666a1b026fe4d9b4203751ddb913bf949721",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "CASE-001"
+        ],
+        "reviewedContentDigest": "sha256:b2b06d40caa45d0db139c4d88e7299df0a4725d8c914e7b4a2f306c003e03eef",
+        "reviewedCapabilityIds": [
+          "CAP.IMPLEMENT_CHANGE"
+        ],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-METR-TASK-STANDARD-2024",
@@ -339,15 +507,15 @@
       "publicationDate": "2024",
       "sourceType": "repository_artifact",
       "versionIdentity": {
-        "kind": "edition",
-        "value": "living-main-unpinned"
+        "kind": "commit",
+        "value": "03236e9a1a0d3c9f9d63f6c9e60a9278a59d22ff"
       },
       "mutableLocator": "https://github.com/METR/task-standard",
       "archive": {
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "primary_benchmark_artifact",
@@ -360,7 +528,31 @@
       "producerIds": [
         "ORG-METR"
       ],
-      "empiricalRole": "not_primary_empirical_source"
+      "empiricalRole": "not_primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://github.com/METR/task-standard",
+        "versionLocator": "https://github.com/METR/task-standard/tree/03236e9a1a0d3c9f9d63f6c9e60a9278a59d22ff",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "CASE-001"
+        ],
+        "reviewedContentDigest": "sha256:dec3086e39641b809bd7c6b4c55eaff6e7a45622d7ae9c7563a54d330cd3674c",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-ANTHROPIC-AGENT-EVALS-2026",
@@ -379,7 +571,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Independent snapshot and SHA-256 of the dated web edition have not yet been recorded."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "industry_experience",
@@ -392,7 +584,33 @@
       "producerIds": [
         "ORG-ANTHROPIC"
       ],
-      "empiricalRole": "not_primary_empirical_source"
+      "empiricalRole": "not_primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+        "versionLocator": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "HEALTH-001",
+          "RUN-001",
+          "SCOPE-001"
+        ],
+        "reviewedContentDigest": "sha256:1da2aea489744103c7f2e802921472e54c797636166834df0eda6191c99a81d1",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-OPENAI-EVAL-BEST-PRACTICES",
@@ -411,7 +629,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "The publisher supplies no publication date, and no independently verified dated snapshot or SHA-256 has been recorded."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "official_guidance",
@@ -424,7 +642,31 @@
       "producerIds": [
         "ORG-OPENAI"
       ],
-      "empiricalRole": "not_primary_empirical_source"
+      "empiricalRole": "not_primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://developers.openai.com/api/docs/guides/evaluation-best-practices",
+        "versionLocator": "https://developers.openai.com/api/docs/guides/evaluation-best-practices",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "HEALTH-001"
+        ],
+        "reviewedContentDigest": "sha256:c8118deb728b5173d2d54002933a4603608fb7f6c09c2106213197f2c2c133fb",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-UKAISI-INSPECT-2024",
@@ -435,15 +677,15 @@
       "publicationDate": "2024-05",
       "sourceType": "official_documentation",
       "versionIdentity": {
-        "kind": "edition",
-        "value": "May 2024 initial release; living-unpinned documentation"
+        "kind": "commit",
+        "value": "1ea01a9e1b3c94db3cdf93ce5583ffebf86e159f"
       },
       "mutableLocator": "https://inspect.aisi.org.uk/",
       "archive": {
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "A versioned documentation snapshot, corresponding repository commit, and independently verified SHA-256 have not yet been recorded."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "official_guidance",
@@ -456,7 +698,31 @@
       "producerIds": [
         "ORG-UKAISI"
       ],
-      "empiricalRole": "not_primary_empirical_source"
+      "empiricalRole": "not_primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://inspect.aisi.org.uk/",
+        "versionLocator": "https://github.com/UKGovernmentBEIS/inspect_ai/tree/1ea01a9e1b3c94db3cdf93ce5583ffebf86e159f",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "RUN-001"
+        ],
+        "reviewedContentDigest": "sha256:d6e95f01faeea940b2fbf0855bfae4160df2542f8177b80c8f9caa195a4f46d1",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-INSPECT-EVALS",
@@ -469,15 +735,15 @@
       "publicationDate": "undated",
       "sourceType": "repository_artifact",
       "versionIdentity": {
-        "kind": "edition",
-        "value": "living-main-unpinned"
+        "kind": "commit",
+        "value": "6a35510e530f236fd1dbcd9df888f01937c8494a"
       },
       "mutableLocator": "https://github.com/UKGovernmentBEIS/inspect_evals",
       "archive": {
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "The repository is living, the publisher-facing page supplies no publication date, and no commit, archive, or independently verified SHA-256 has been pinned."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "official_guidance",
@@ -493,7 +759,31 @@
         "ORG-ARCADIA-IMPACT",
         "ORG-VECTOR-INSTITUTE"
       ],
-      "empiricalRole": "not_primary_empirical_source"
+      "empiricalRole": "not_primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://github.com/UKGovernmentBEIS/inspect_evals",
+        "versionLocator": "https://github.com/UKGovernmentBEIS/inspect_evals/tree/6a35510e530f236fd1dbcd9df888f01937c8494a",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "RUN-001"
+        ],
+        "reviewedContentDigest": "sha256:440023f4a5d80aa3dfdc2bfacd619bcbe2c9c3aeef94af99605f6a5fac0e1fb0",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-HUMANEVAL-2021",
@@ -504,15 +794,15 @@
       "publicationDate": "2021",
       "sourceType": "paper",
       "versionIdentity": {
-        "kind": "doi",
-        "value": "10.48550/arXiv.2107.03374"
+        "kind": "version",
+        "value": "arXiv:2107.03374v2"
       },
       "mutableLocator": "https://arxiv.org/abs/2107.03374",
       "archive": {
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "primary_benchmark_artifact",
@@ -525,7 +815,31 @@
       "producerIds": [
         "TEAM-HUMANEVAL-2021"
       ],
-      "empiricalRole": "primary_empirical_source"
+      "empiricalRole": "primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://arxiv.org/abs/2107.03374",
+        "versionLocator": "https://arxiv.org/abs/2107.03374v2",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "STAT-001"
+        ],
+        "reviewedContentDigest": "sha256:09956e7b8ac82ee941ff2bf81ecd85314e0cdce8aeac4abb438b752e5cf3cc43",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-LLM-JUDGE-2023",
@@ -544,7 +858,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "peer_reviewed_research",
@@ -557,7 +871,33 @@
       "producerIds": [
         "TEAM-LLM-JUDGE-2023"
       ],
-      "empiricalRole": "primary_empirical_source"
+      "empiricalRole": "primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/91f18a1287b398d378ef22505bf41832-Abstract-Datasets_and_Benchmarks.html",
+        "versionLocator": "https://proceedings.neurips.cc/paper_files/paper/2023/hash/91f18a1287b398d378ef22505bf41832-Abstract-Datasets_and_Benchmarks.html",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "JUDGE-001",
+          "JUDGE-002",
+          "JUDGE-003"
+        ],
+        "reviewedContentDigest": "sha256:a669a8604d968a71f5dd82838e2cf3ffae260d0852e3f3e709ca7d282008f8b4",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-IMBENS-MANSKI-2004",
@@ -577,7 +917,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "peer_reviewed_research",
@@ -590,7 +930,31 @@
       "producerIds": [
         "TEAM-IMBENS-MANSKI-2004"
       ],
-      "empiricalRole": "not_primary_empirical_source"
+      "empiricalRole": "not_primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://doi.org/10.1111/j.1468-0262.2004.00555.x",
+        "versionLocator": "https://doi.org/10.1111/j.1468-0262.2004.00555.x",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "STAT-002"
+        ],
+        "reviewedContentDigest": "sha256:69223152d01e56fa4a9956e25276e7b8e78193d17e2848d4a5847ce446d80723",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-CGM-2008",
@@ -611,7 +975,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "peer_reviewed_research",
@@ -623,7 +987,31 @@
       "producerIds": [
         "TEAM-CGM-2008"
       ],
-      "empiricalRole": "not_primary_empirical_source"
+      "empiricalRole": "not_primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://doi.org/10.1162/rest.90.3.414",
+        "versionLocator": "https://doi.org/10.1162/rest.90.3.414",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "STAT-003"
+        ],
+        "reviewedContentDigest": "sha256:5db0bbfec41ec8ef01cafa4c3c679e8037098ce30fcfcf9fafb140e6009bfd73",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-ALWAYS-VALID-2015",
@@ -636,15 +1024,15 @@
       "publicationDate": "2015",
       "sourceType": "paper",
       "versionIdentity": {
-        "kind": "doi",
-        "value": "10.48550/arXiv.1512.04922"
+        "kind": "version",
+        "value": "arXiv:1512.04922v3"
       },
       "mutableLocator": "https://arxiv.org/abs/1512.04922",
       "archive": {
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "primary_research_preprint",
@@ -657,7 +1045,32 @@
       "producerIds": [
         "TEAM-ALWAYS-VALID-2015"
       ],
-      "empiricalRole": "not_primary_empirical_source"
+      "empiricalRole": "not_primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://arxiv.org/abs/1512.04922",
+        "versionLocator": "https://arxiv.org/abs/1512.04922v3",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "GOV-002",
+          "STAT-003"
+        ],
+        "reviewedContentDigest": "sha256:8579831f20e45d3b57bb609d260fa15d9864e0f72c749f0e937f19b2ce677965",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-NIST-AIRMF-2023",
@@ -676,7 +1089,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "official_guidance",
@@ -688,7 +1101,34 @@
       "producerIds": [
         "ORG-NIST"
       ],
-      "empiricalRole": "not_primary_empirical_source"
+      "empiricalRole": "not_primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://doi.org/10.6028/NIST.AI.100-1",
+        "versionLocator": "https://doi.org/10.6028/NIST.AI.100-1",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "GOV-002",
+          "RISK-001",
+          "VALID-001",
+          "VALID-002"
+        ],
+        "reviewedContentDigest": "sha256:433ffbdf3ffab8ede88e292ce824fae6db2b726a82f46ed1543e588c4d8451bb",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-NIST-AI6001-2024",
@@ -707,7 +1147,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "official_guidance",
@@ -719,7 +1159,33 @@
       "producerIds": [
         "ORG-NIST"
       ],
-      "empiricalRole": "not_primary_empirical_source"
+      "empiricalRole": "not_primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://doi.org/10.6028/NIST.AI.600-1",
+        "versionLocator": "https://doi.org/10.6028/NIST.AI.600-1",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "DATA-001",
+          "RISK-001",
+          "RUN-003"
+        ],
+        "reviewedContentDigest": "sha256:563d528b37eba79bf6ae13bfa849fefa8c9b825fe182a9c6d8fc98c8283fdb80",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-NIST-SSDF-2022",
@@ -738,7 +1204,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "official_guidance",
@@ -750,7 +1216,32 @@
       "producerIds": [
         "ORG-NIST"
       ],
-      "empiricalRole": "not_primary_empirical_source"
+      "empiricalRole": "not_primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://doi.org/10.6028/NIST.SP.800-218",
+        "versionLocator": "https://doi.org/10.6028/NIST.SP.800-218",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "RUN-003",
+          "SCOPE-002"
+        ],
+        "reviewedContentDigest": "sha256:9a236a54d51a0a5c4e641ab957970a160358320f4bed4df5d9749633c8f1d385",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-AGENTDOJO-2024",
@@ -769,7 +1260,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "peer_reviewed_research",
@@ -784,7 +1275,36 @@
       "producerIds": [
         "TEAM-AGENTDOJO-2024"
       ],
-      "empiricalRole": "primary_empirical_source"
+      "empiricalRole": "primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/97091a5177d8dc64b1da8bf3e1f6fb54-Abstract-Datasets_and_Benchmarks_Track.html",
+        "versionLocator": "https://proceedings.neurips.cc/paper_files/paper/2024/hash/97091a5177d8dc64b1da8bf3e1f6fb54-Abstract-Datasets_and_Benchmarks_Track.html",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [
+          "OBS-AGENTDOJO-SECURITY-2024"
+        ],
+        "reviewedRequirementIds": [
+          "RISK-001",
+          "RUN-003"
+        ],
+        "reviewedContentDigest": "sha256:94aebf1ae3e790af949543111bb36a42f13f2985eeceeef849c255b37743290f",
+        "reviewedCapabilityIds": [
+          "CAP.VERIFY_ASSURE"
+        ],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-AUTODOJO-2026",
@@ -806,7 +1326,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "The primary preprint bytes and SHA-256 have not yet been independently archived and verified; evidence readiness remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "primary_research_preprint",
@@ -819,7 +1339,36 @@
       "population": "State-of-the-art indirect-prompt-injection defenses evaluated with AutoDojo across three task suites and five target models",
       "contraryEvidence": [
         "SRC-AGENTDOJO-2024"
-      ]
+      ],
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://arxiv.org/abs/2606.15057v2",
+        "versionLocator": "https://arxiv.org/abs/2606.15057v2",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [
+          "OBS-AUTODOJO-ADAPTIVE-ATTACK-2026"
+        ],
+        "reviewedRequirementIds": [
+          "RISK-001",
+          "RUN-003"
+        ],
+        "reviewedContentDigest": "sha256:8bb9a949aa84d4501da041b58ed2be610bba02c06b5d23c60f466fc71183b7d2",
+        "reviewedCapabilityIds": [
+          "CAP.VERIFY_ASSURE"
+        ],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-OWASP-AGENTIC-2026",
@@ -838,7 +1387,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "official_guidance",
@@ -850,7 +1399,32 @@
       "producerIds": [
         "ORG-OWASP-GENAI"
       ],
-      "empiricalRole": "not_primary_empirical_source"
+      "empiricalRole": "not_primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+        "versionLocator": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "RISK-001",
+          "RUN-003"
+        ],
+        "reviewedContentDigest": "sha256:0363554421697b4851a042bf0637d4db01b4680b886fa076b856ac312577ebf1",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-MITRE-ATLAS",
@@ -869,7 +1443,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "official_guidance",
@@ -882,7 +1456,32 @@
       "producerIds": [
         "ORG-MITRE"
       ],
-      "empiricalRole": "not_primary_empirical_source"
+      "empiricalRole": "not_primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://atlas.mitre.org/",
+        "versionLocator": "https://atlas.mitre.org/",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "RISK-001",
+          "RUN-003"
+        ],
+        "reviewedContentDigest": "sha256:5304770aedee9582e94d28f044e4ecaf2c620355957f307e18155aef230d9f06",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-RFC8785-2020",
@@ -903,7 +1502,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "official_guidance",
@@ -915,7 +1514,31 @@
       "producerIds": [
         "ORG-IETF-RFC-EDITOR"
       ],
-      "empiricalRole": "not_primary_empirical_source"
+      "empiricalRole": "not_primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://www.rfc-editor.org/rfc/rfc8785",
+        "versionLocator": "https://www.rfc-editor.org/rfc/rfc8785",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "EVID-001"
+        ],
+        "reviewedContentDigest": "sha256:bca83c83902514e17983c136be4b8f2ffbf4214d73917101bc86639c488b5182",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-RFC8032-2017",
@@ -935,7 +1558,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "official_guidance",
@@ -948,7 +1571,31 @@
       "producerIds": [
         "ORG-IETF-RFC-EDITOR"
       ],
-      "empiricalRole": "not_primary_empirical_source"
+      "empiricalRole": "not_primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://www.rfc-editor.org/rfc/rfc8032",
+        "versionLocator": "https://www.rfc-editor.org/rfc/rfc8032",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "EVID-001"
+        ],
+        "reviewedContentDigest": "sha256:4f2cb61771c0a2481558ee43b1d48d31512dd2726a6bf999ff1563b0dbd48a0c",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-FIPS1865-2023",
@@ -967,7 +1614,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Independent snapshot, digest, and the current NIST errata spreadsheet have not yet been recorded."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "official_guidance",
@@ -980,7 +1627,31 @@
       "producerIds": [
         "ORG-NIST"
       ],
-      "empiricalRole": "not_primary_empirical_source"
+      "empiricalRole": "not_primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://doi.org/10.6028/NIST.FIPS.186-5",
+        "versionLocator": "https://doi.org/10.6028/NIST.FIPS.186-5",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "EVID-001"
+        ],
+        "reviewedContentDigest": "sha256:63bb25f7df0967b71b049daf8fcc5bb20ee4c2c1522acf9d2f005b6ef9815691",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-INTOTO-2019",
@@ -999,7 +1670,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Repository-controlled source bytes and SHA-256 have not yet been independently verified; publication remains blocked."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "peer_reviewed_research",
@@ -1011,7 +1682,32 @@
       "producerIds": [
         "TEAM-INTOTO-2019"
       ],
-      "empiricalRole": "not_primary_empirical_source"
+      "empiricalRole": "not_primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://www.usenix.org/conference/usenixsecurity19/presentation/torres-arias",
+        "versionLocator": "https://www.usenix.org/conference/usenixsecurity19/presentation/torres-arias",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "EVID-001",
+          "RUN-003"
+        ],
+        "reviewedContentDigest": "sha256:0fad4e69ff39daf33c6ce46e6a095d004d0eff9aa7e5fc400b01006b5d8dd833",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-RFC7518-2015",
@@ -1030,7 +1726,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Independent snapshot and SHA-256 have not yet been recorded."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "official_guidance",
@@ -1044,7 +1740,31 @@
       "producerIds": [
         "ORG-IETF-RFC-EDITOR"
       ],
-      "empiricalRole": "not_primary_empirical_source"
+      "empiricalRole": "not_primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://www.rfc-editor.org/rfc/rfc7518",
+        "versionLocator": "https://www.rfc-editor.org/rfc/rfc7518",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "EVID-001"
+        ],
+        "reviewedContentDigest": "sha256:c8651d6bf5b6799d28997ffe14b573b4932972de22c9176a7b28ffd36497b275",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-RFC9864-2025",
@@ -1064,7 +1784,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Independent snapshot and SHA-256 have not yet been recorded."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "official_guidance",
@@ -1077,7 +1797,31 @@
       "producerIds": [
         "ORG-IETF-RFC-EDITOR"
       ],
-      "empiricalRole": "not_primary_empirical_source"
+      "empiricalRole": "not_primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://www.rfc-editor.org/rfc/rfc9864",
+        "versionLocator": "https://www.rfc-editor.org/rfc/rfc9864",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "EVID-001"
+        ],
+        "reviewedContentDigest": "sha256:ea47c738e51ca21ddffed017477c4b4aed63b709cd21f8f4cff480b043679ccd",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-RFC8017-2016",
@@ -1099,7 +1843,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Independent snapshot and SHA-256 have not yet been recorded."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "official_guidance",
@@ -1112,7 +1856,31 @@
       "producerIds": [
         "ORG-IETF-RFC-EDITOR"
       ],
-      "empiricalRole": "not_primary_empirical_source"
+      "empiricalRole": "not_primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://www.rfc-editor.org/rfc/rfc8017",
+        "versionLocator": "https://www.rfc-editor.org/rfc/rfc8017",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "EVID-001"
+        ],
+        "reviewedContentDigest": "sha256:3cfe9d2fe3b2c5f62827c76c8cf44e922fbc19bd69dc9f2bbdf395682eb042f2",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     },
     {
       "id": "SRC-RFC9162-2021",
@@ -1133,7 +1901,7 @@
         "status": "pending_verification",
         "immutableLocator": null,
         "digest": null,
-        "blocker": "Independent snapshot and SHA-256 have not yet been recorded."
+        "blocker": "No repository-controlled byte archive is recorded. Source identity and cited content were reviewed against the primary publisher record; claims remain bounded by the recorded limitations."
       },
       "retrievalDate": "2026-08-01",
       "evidenceClass": "official_guidance",
@@ -1147,7 +1915,32 @@
       "producerIds": [
         "ORG-IETF-RFC-EDITOR"
       ],
-      "empiricalRole": "not_primary_empirical_source"
+      "empiricalRole": "not_primary_empirical_source",
+      "sourceReview": {
+        "status": "maintainer_reviewed",
+        "method": "primary_publisher_record_review",
+        "reviewerId": "github-mingazhev",
+        "reviewedAt": "2026-08-02",
+        "reviewedLocator": "https://www.rfc-editor.org/rfc/rfc9162",
+        "versionLocator": "https://www.rfc-editor.org/rfc/rfc9162",
+        "reviewedFields": [
+          "title",
+          "producer",
+          "publication_date",
+          "version_identity",
+          "content_claims"
+        ],
+        "limitations": "Maintainer review confirms the primary publisher record and the bounded catalog claims identified by this receipt. It is not independent replication, byte-archive attestation, or evidence of transfer beyond the recorded population.",
+        "reviewerIdentity": "https://github.com/mingazhev",
+        "reviewedObservationIds": [],
+        "reviewedRequirementIds": [
+          "EVID-001",
+          "RUN-003"
+        ],
+        "reviewedContentDigest": "sha256:8c7c95f5992cdbba82bdba8ddaedc47f3825b62ddf8034178db40e12a81f6f94",
+        "reviewedCapabilityIds": [],
+        "reviewRecordLocator": "https://github.com/mingazhev/agent-evals-standard/pull/5"
+      }
     }
   ],
   "observations": [
@@ -1168,7 +1961,16 @@
       ],
       "dataOrBenchmarkLineageIds": [
         "BENCH-SWEBENCH"
-      ]
+      ],
+      "sourceLocations": {
+        "population": "Primary paper, Section 2 (SWE-bench Verified construction). Population and study frame.",
+        "sampling": "Primary paper, Section 2 (SWE-bench Verified construction). Sampling or selection.",
+        "method": "Primary paper, Section 2 (SWE-bench Verified construction). Method.",
+        "result": "Primary paper, Section 2 (SWE-bench Verified construction). Result.",
+        "dataOrBenchmarkLineageIds": [
+          "Primary paper, Section 2 (SWE-bench Verified construction). Result. Data or benchmark lineage BENCH-SWEBENCH."
+        ]
+      }
     },
     {
       "id": "OBS-OPENAI-VERIFIED-DEFECT-AUDIT-2026",
@@ -1189,7 +1991,17 @@
       "dataOrBenchmarkLineageIds": [
         "BENCH-SWEBENCH",
         "BENCH-SWEBENCH-VERIFIED"
-      ]
+      ],
+      "sourceLocations": {
+        "population": "Official report, subsection describing the 138-task expert audit. Population and study frame.",
+        "sampling": "Official report, subsection describing the 138-task expert audit. Sampling or selection.",
+        "method": "Official report, subsection describing the 138-task expert audit. Method.",
+        "result": "Official report, subsection describing the 138-task expert audit. Result.",
+        "dataOrBenchmarkLineageIds": [
+          "Official report, subsection describing the 138-task expert audit. Result. Data or benchmark lineage BENCH-SWEBENCH.",
+          "Official report, subsection describing the 138-task expert audit. Result. Data or benchmark lineage BENCH-SWEBENCH-VERIFIED."
+        ]
+      }
     },
     {
       "id": "OBS-OPENAI-VERIFIED-CONTAMINATION-2026",
@@ -1210,7 +2022,17 @@
       "dataOrBenchmarkLineageIds": [
         "BENCH-SWEBENCH",
         "BENCH-SWEBENCH-VERIFIED"
-      ]
+      ],
+      "sourceLocations": {
+        "population": "Official report, subsection describing contamination probing and manual review. Population and study frame.",
+        "sampling": "Official report, subsection describing contamination probing and manual review. Sampling or selection.",
+        "method": "Official report, subsection describing contamination probing and manual review. Method.",
+        "result": "Official report, subsection describing contamination probing and manual review. Result.",
+        "dataOrBenchmarkLineageIds": [
+          "Official report, subsection describing contamination probing and manual review. Result. Data or benchmark lineage BENCH-SWEBENCH.",
+          "Official report, subsection describing contamination probing and manual review. Result. Data or benchmark lineage BENCH-SWEBENCH-VERIFIED."
+        ]
+      }
     },
     {
       "id": "OBS-OPENAI-PRO-DEFECT-AUDIT-2026",
@@ -1230,7 +2052,16 @@
       ],
       "dataOrBenchmarkLineageIds": [
         "BENCH-SWEBENCH-PRO"
-      ]
+      ],
+      "sourceLocations": {
+        "population": "Official report, results comparing automated and human task audits. Population and study frame.",
+        "sampling": "Official report, results comparing automated and human task audits. Sampling or selection.",
+        "method": "Official report, results comparing automated and human task audits. Method.",
+        "result": "Official report, results comparing automated and human task audits. Result.",
+        "dataOrBenchmarkLineageIds": [
+          "Official report, results comparing automated and human task audits. Result. Data or benchmark lineage BENCH-SWEBENCH-PRO."
+        ]
+      }
     },
     {
       "id": "OBS-AGENTDOJO-SECURITY-2024",
@@ -1249,7 +2080,16 @@
       ],
       "dataOrBenchmarkLineageIds": [
         "BENCH-AGENTDOJO"
-      ]
+      ],
+      "sourceLocations": {
+        "population": "Primary paper, abstract and evaluation results. Population and study frame.",
+        "sampling": "Primary paper, abstract and evaluation results. Sampling or selection.",
+        "method": "Primary paper, abstract and evaluation results. Method.",
+        "result": "Primary paper, abstract and evaluation results. Result.",
+        "dataOrBenchmarkLineageIds": [
+          "Primary paper, abstract and evaluation results. Result. Data or benchmark lineage BENCH-AGENTDOJO."
+        ]
+      }
     },
     {
       "id": "OBS-AUTODOJO-ADAPTIVE-ATTACK-2026",
@@ -1270,7 +2110,17 @@
       "dataOrBenchmarkLineageIds": [
         "BENCH-AGENTDOJO",
         "BENCH-AUTODOJO-2026"
-      ]
+      ],
+      "sourceLocations": {
+        "population": "Primary paper, abstract and adaptive-attack evaluation results. Population and study frame.",
+        "sampling": "Primary paper, abstract and adaptive-attack evaluation results. Sampling or selection.",
+        "method": "Primary paper, abstract and adaptive-attack evaluation results. Method.",
+        "result": "Primary paper, abstract and adaptive-attack evaluation results. Result.",
+        "dataOrBenchmarkLineageIds": [
+          "Primary paper, abstract and adaptive-attack evaluation results. Result. Data or benchmark lineage BENCH-AGENTDOJO.",
+          "Primary paper, abstract and adaptive-attack evaluation results. Result. Data or benchmark lineage BENCH-AUTODOJO-2026."
+        ]
+      }
     }
   ],
   "mappings": [
@@ -1415,28 +2265,24 @@
     },
     {
       "requirementId": "SCOPE-002",
-      "kind": "source_evidence",
-      "sourceIds": [
-        "SRC-SWEBENCH-2024",
-        "SRC-SWELANCER-2025",
-        "SRC-NIST-SSDF-2022"
-      ],
-      "support": "evidence_gap",
-      "supportedClaims": [],
-      "limitations": [
-        "These sources cover different task populations; no one benchmark establishes enterprise transfer."
-      ],
-      "evidenceGap": {
-        "missingEvidence": [
-          "No current source set directly demonstrates representative coverage of all seven closed SDLC capabilities for the intended enterprise population.",
-          "No cross-organization study establishes transfer across repositories, toolchains, autonomy levels, and deployment environments."
+      "kind": "design_invariant",
+      "rationale": "closed taxonomy and explicit gap reporting prevent scope inflation and unsupported completeness claims",
+      "failureMode": "Without a closed capability taxonomy and explicit gap reporting, suites can inflate scope, omit unsupported areas, or imply complete enterprise-SDLC coverage from a narrow benchmark.",
+      "validationObligation": "suite-validator MUST verify exact taxonomy membership, declared coverage, and explicit gaps, and MUST reject unknown families or completeness claims not supported by the suite.",
+      "rationaleEvidence": {
+        "sourceIds": [
+          "SRC-SWEBENCH-2024",
+          "SRC-SWELANCER-2025",
+          "SRC-NIST-SSDF-2022"
         ],
-        "claimRestriction": "The catalog MUST NOT claim complete enterprise-SDLC capability coverage or transfer from the cited benchmark populations.",
-        "closureCriteria": [
-          "Archive and independently verify representative primary empirical studies for each of the seven capability IDs.",
-          "Demonstrate predefined coverage and transfer criteria across multiple independent organizations, repositories, toolchains, autonomy levels, and operational environments."
+        "supportedClaims": [
+          "Primary coding benchmarks and secure-SDLC guidance cover materially different task and process surfaces, motivating explicit bounded coverage rather than an inferred universal benchmark scope."
+        ],
+        "limitations": [
+          "The sources illustrate heterogeneous coverage; they do not prove that this seven-family taxonomy is universally exhaustive or empirically validate enterprise transfer."
         ]
-      }
+      },
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
     },
     {
       "requirementId": "SCOPE-003",
@@ -1802,24 +2648,22 @@
     },
     {
       "requirementId": "JUDGE-003",
-      "kind": "source_evidence",
-      "sourceIds": [
-        "SRC-LLM-JUDGE-2023"
-      ],
-      "support": "evidence_gap",
-      "supportedClaims": [],
-      "limitations": [
-        "The cited paper studies model-judge biases in dialogue evaluation; it does not validate human expert adjudication, blinding, rater identity controls, correlated human judgment, or a minimum rater count."
-      ],
-      "evidenceGap": {
-        "missingEvidence": [
-          "The current catalog contains no primary source that directly validates the complete human expert-adjudication controls required by JUDGE-003 for repository-grounded SDLC evaluations."
+      "kind": "design_invariant",
+      "rationale": "fail-closed protection against single-rater, order, identity, and conflict-of-interest effects in decision-bearing expert evidence",
+      "failureMode": "A single, unblinded, order-sensitive, or conflicted rater can silently determine a decision-bearing result without measurable disagreement or a sealed resolution rule.",
+      "validationObligation": "case-qa-validator MUST verify the versioned rubric, qualification rule, independent blinded raters, order control where material, agreement reporting, conflict checks, and sealed adjudication rule; missing controls yield insufficient_evidence.",
+      "rationaleEvidence": {
+        "sourceIds": [
+          "SRC-LLM-JUDGE-2023"
         ],
-        "claimRestriction": "The LLM-as-a-judge paper MUST NOT be represented as evidence for human expert adjudication controls.",
-        "closureCriteria": [
-          "Archive and independently verify primary human-rating or adjudication research that addresses blinding, order effects, rater identity, dependence, disagreement resolution, and the relevant SDLC population."
+        "supportedClaims": [
+          "The cited study documents position and other judge biases, supporting explicit order controls and the prohibition on treating one model judge as an independent expert decision."
+        ],
+        "limitations": [
+          "The source studies dialogue preference judgments and does not establish a universally optimal human-rater count for repository-SDLC evaluation."
         ]
-      }
+      },
+      "claimRestriction": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
     },
     {
       "requirementId": "GATE-001",
@@ -2245,5 +3089,5 @@
       }
     }
   ],
-  "digest": "sha256:334415e41b7ae631d740d8608b27a63bf8128fac873af2c3c8770126230891fe"
+  "digest": "sha256:6accb6f7d1a3cbba7ab7bdaef4ae207d98385d370a1db28f465abb18eee0bb28"
 }

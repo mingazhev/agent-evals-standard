@@ -1,7 +1,7 @@
 # Integrity and Semantic Validation Contract
 
 - Version: 0.1.0
-- Status: unpublished working draft
+- Status: unpublished 0.1.0 publication candidate
 
 JSON Schema validates transport shape. It does not establish that hashes are
 correct, references resolve, formulas were recomputed, signatures are valid,

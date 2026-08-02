@@ -486,12 +486,8 @@
       "verificationOwner": "suite-validator",
       "accountableReviewer": "suite-validator-owner",
       "evidenceBasis": {
-        "kind": "source_evidence",
-        "sourceIds": [
-          "SRC-SWEBENCH-2024",
-          "SRC-SWELANCER-2025",
-          "SRC-NIST-SSDF-2022"
-        ]
+        "kind": "design_invariant",
+        "threatRationale": "closed taxonomy and explicit gap reporting prevent scope inflation and unsupported completeness claims"
       },
       "applicability": {
         "rule": "Applies when sdlc capability coverage can affect the declared suite target or any claim derived from it.",
@@ -1328,10 +1324,8 @@
       "verificationOwner": "case-qa-validator",
       "accountableReviewer": "independent-governance-reviewer",
       "evidenceBasis": {
-        "kind": "source_evidence",
-        "sourceIds": [
-          "SRC-LLM-JUDGE-2023"
-        ]
+        "kind": "design_invariant",
+        "threatRationale": "fail-closed protection against single-rater, order, identity, and conflict-of-interest effects in decision-bearing expert evidence"
       },
       "applicability": {
         "rule": "Applies when expert adjudication can affect the declared case, evaluator, experiment target or any claim derived from it.",
@@ -1815,5 +1809,5 @@
       }
     }
   ],
-  "digest": "sha256:860614b558286306940b3a2fdb50b5c7024ba44bf474c0ea22ef3b193ce89a83"
+  "digest": "sha256:be32eaebcbee3200baa3c0f3edc49183ccafb550feba1801e8292ef85cfce771"
 }

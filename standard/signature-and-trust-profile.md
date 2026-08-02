@@ -1,6 +1,6 @@
 # Signature and Trust Profile
 
-- Status: unpublished working draft
+- Status: unpublished 0.1.0 publication candidate
 - Version: 0.1.0
 - Requirement IDs: `EVID-001`, `EVID-002`, `RUN-003`
 

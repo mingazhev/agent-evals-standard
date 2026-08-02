@@ -1,6 +1,6 @@
 # Git-backed Repository SDLC Agent Evals Glossary
 
-- Status: unpublished working draft
+- Status: unpublished 0.1.0 publication candidate
 - Version: 0.1.0
 - Purpose: canonical terms used by the normative artifacts.
 

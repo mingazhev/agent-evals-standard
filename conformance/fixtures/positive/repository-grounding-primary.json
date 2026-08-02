@@ -9,9 +9,9 @@
     "id": "governance-decision-fixture-1",
     "version": "0.1.0",
     "uri": "governance-decision.json",
-    "digest": "sha256:583007784bea94c30e3cb5ad4b57948bd7d092b604d0d47125d445cb2edea7f3"
+    "digest": "sha256:85ac9e9671513291e5c71b305d3a73610c5a8f257c11cf03719a8ff35af392d6"
   },
-  "dependencyManifestDigest": "sha256:947e2bf218edc872508d8d4d717e1c8e710eaa65bff65a62d341c97d8c1e42b7",
+  "dependencyManifestDigest": "sha256:aa8b6cd433a74e08d97f7a8aa31d1b455580cc67e91f9d92d304281975b5d9f4",
   "workspaceManifest": {
     "id": "repository-snapshot-fixture-1",
     "version": "0.1.0",
@@ -38,12 +38,12 @@
       {
         "role": "target_subject",
         "id": "governance-decision-fixture-1",
-        "digest": "sha256:583007784bea94c30e3cb5ad4b57948bd7d092b604d0d47125d445cb2edea7f3"
+        "digest": "sha256:85ac9e9671513291e5c71b305d3a73610c5a8f257c11cf03719a8ff35af392d6"
       },
       {
         "role": "dependency_manifest",
         "id": "conformance-decision-target-dependencies",
-        "digest": "sha256:947e2bf218edc872508d8d4d717e1c8e710eaa65bff65a62d341c97d8c1e42b7"
+        "digest": "sha256:aa8b6cd433a74e08d97f7a8aa31d1b455580cc67e91f9d92d304281975b5d9f4"
       }
     ],
     "output": {

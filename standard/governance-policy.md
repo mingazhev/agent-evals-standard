@@ -1,6 +1,6 @@
 # Governance Policy Contract and Non-Operational Template
 
-- Status: unpublished working draft; bundled policy instance is non-operational
+- Status: unpublished 0.1.0 publication candidate; bundled policy instance is non-operational
 - Version: 0.1.0
 - Owner: adopter-defined; a conforming policy instance requires a resolvable
   team identifier or email before any held-out, release, or autonomy decision.

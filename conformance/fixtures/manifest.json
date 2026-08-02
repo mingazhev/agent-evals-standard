@@ -155,49 +155,63 @@
       "path": "machine-contracts-v1/positive/control-binding.json",
       "schema": "urn:agent-evals-standard:schema:verified-machine-contract:1",
       "valid": true,
-      "semanticChecks": ["evaluationControlGraph"]
+      "semanticChecks": [
+        "evaluationControlGraph"
+      ]
     },
     {
       "id": "evaluation-control-authority-evidence-full-root-positive",
       "path": "machine-contracts-v1/positive/validity-review-evidence.json",
       "schema": "urn:agent-evals-standard:schema:evaluation-control-authority-evidence:1",
       "valid": true,
-      "semanticChecks": ["evaluationControlGraph"]
+      "semanticChecks": [
+        "evaluationControlGraph"
+      ]
     },
     {
       "id": "evaluation-control-authority-policy-full-root-positive",
       "path": "machine-contracts-v1/positive/authority-policy.json",
       "schema": "urn:agent-evals-standard:schema:evaluation-control-authority-policy:1",
       "valid": true,
-      "semanticChecks": ["evaluationControlGraph"]
+      "semanticChecks": [
+        "evaluationControlGraph"
+      ]
     },
     {
       "id": "evaluation-control-bindings-full-root-positive",
       "path": "machine-contracts-v1/positive/control-bindings.json",
       "schema": "urn:agent-evals-standard:schema:evaluation-control-bindings:1",
       "valid": true,
-      "semanticChecks": ["evaluationControlGraph"]
+      "semanticChecks": [
+        "evaluationControlGraph"
+      ]
     },
     {
       "id": "evaluation-threat-model-full-root-positive",
       "path": "machine-contracts-v1/positive/evaluation-threat-model.json",
       "schema": "urn:agent-evals-standard:schema:evaluation-threat-model:1",
       "valid": true,
-      "semanticChecks": ["evaluationControlGraph"]
+      "semanticChecks": [
+        "evaluationControlGraph"
+      ]
     },
     {
       "id": "held-out-exposure-budget-full-root-positive",
       "path": "machine-contracts-v1/positive/held-out-exposure-budget.json",
       "schema": "urn:agent-evals-standard:schema:held-out-exposure-budget:1",
       "valid": true,
-      "semanticChecks": ["evaluationControlGraph"]
+      "semanticChecks": [
+        "evaluationControlGraph"
+      ]
     },
     {
       "id": "held-out-exposure-ledger-full-root-positive",
       "path": "machine-contracts-v1/positive/held-out-exposure-ledger.json",
       "schema": "urn:agent-evals-standard:schema:held-out-exposure-ledger:1",
       "valid": true,
-      "semanticChecks": ["evaluationControlGraph"]
+      "semanticChecks": [
+        "evaluationControlGraph"
+      ]
     },
     {
       "id": "risk-assessment-full-root-positive",
@@ -210,14 +224,18 @@
       "path": "machine-contracts-v1/positive/validity-argument.json",
       "schema": "urn:agent-evals-standard:schema:validity-argument:1",
       "valid": true,
-      "semanticChecks": ["evaluationControlGraph"]
+      "semanticChecks": [
+        "evaluationControlGraph"
+      ]
     },
     {
       "id": "machine-contract-case-stage-full-root-positive",
       "path": "machine-contracts-v1/positive/stage-case.json",
       "schema": "urn:agent-evals-standard:schema:case:1",
       "valid": true,
-      "semanticChecks": ["evaluationControlGraph"]
+      "semanticChecks": [
+        "evaluationControlGraph"
+      ]
     },
     {
       "path": "../../profiles/repo-change-v1/outcome-profile.json",
@@ -1204,18 +1222,14 @@
       "expectedError": "must NOT have additional properties"
     },
     {
-      "id": "source-evidence-reject-forged-verified-archive-without-authenticated-bytes",
+      "id": "source-evidence-reject-identity-verification-locator-mismatch",
       "group": "source-evidence",
       "basePath": "../../standard/source-evidence-manifest.json",
       "recomputeSelfDigest": true,
       "mutations": [
         {
-          "pointer": "/sources/0/archive",
-          "value": {
-            "status": "verified",
-            "immutableLocator": "artifact:sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
-            "digest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
-          }
+          "pointer": "/sources/0/sourceReview/reviewedLocator",
+          "value": "https://example.invalid/not-the-declared-source"
         }
       ],
       "schema": "urn:agent-evals-standard:schema:source-evidence-manifest:1",
@@ -1223,7 +1237,61 @@
       "semanticChecks": [
         "sourceEvidenceGraph"
       ],
-      "expectedError": "claims verified archive status, which is unsupported in 0.1.0"
+      "expectedError": "maintainer review is not bound to mutableLocator"
+    },
+    {
+      "id": "source-evidence-reject-source-producer-as-identity-reviewer",
+      "group": "source-evidence",
+      "basePath": "../../standard/source-evidence-manifest.json",
+      "recomputeSelfDigest": true,
+      "mutations": [
+        {
+          "pointer": "/sources/0/sourceReview/reviewerId",
+          "value": "TEAM-SWEBENCH-2024"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-manifest:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceGraph"
+      ],
+      "expectedError": "maintainer reviewer is also a source producer"
+    },
+    {
+      "id": "source-evidence-reject-stale-review-after-claim-change",
+      "group": "source-evidence",
+      "basePath": "../../standard/source-evidence-manifest.json",
+      "recomputeSelfDigest": true,
+      "mutations": [
+        {
+          "pointer": "/observations/0/result",
+          "value": "A changed result that was not covered by the recorded maintainer review."
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-manifest:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceGraph"
+      ],
+      "expectedError": "maintainer review content digest must be"
+    },
+    {
+      "id": "source-evidence-reject-stale-review-after-rationale-claim-change",
+      "group": "source-evidence",
+      "basePath": "../../standard/source-evidence-manifest.json",
+      "recomputeSelfDigest": true,
+      "mutations": [
+        {
+          "pointer": "/mappings/16/rationaleEvidence/supportedClaims/0",
+          "value": "A changed rationale-evidence claim that was not covered by the recorded maintainer review."
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-manifest:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceGraph"
+      ],
+      "expectedError": "source SRC-SWEBENCH-2024 maintainer review content digest must be"
     },
     {
       "id": "source-evidence-triangulation-positive",
@@ -1234,6 +1302,61 @@
       "semanticChecks": [
         "sourceEvidenceTriangulation"
       ]
+    },
+    {
+      "id": "source-evidence-triangulation-reject-unresolved-byte-digest",
+      "group": "source-evidence",
+      "basePath": "source-evidence-triangulation.json",
+      "mutations": [
+        {
+          "pointer": "/sources/0/archive/digest",
+          "value": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        },
+        {
+          "pointer": "/sources/0/fundingDisclosure/evidence/archiveDigest",
+          "value": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-triangulation-fixture:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceTriangulation"
+      ],
+      "expectedError": "verified archive digest must be sha256:7e809df7c8c3b48849b0796996649f7a68cd702c0f93a9b07a732de87a5f742d"
+    },
+    {
+      "id": "source-evidence-triangulation-reject-unresolved-population-extraction",
+      "group": "source-evidence",
+      "basePath": "source-evidence-triangulation.json",
+      "mutations": [
+        {
+          "pointer": "/observations/0/population",
+          "value": "A population assertion absent from the archived study bytes"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-triangulation-fixture:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceTriangulation"
+      ],
+      "expectedError": "observation OBS-FIXTURE-A population is not resolvable at Line 3, Population"
+    },
+    {
+      "id": "source-evidence-triangulation-reject-unresolved-lineage-extraction",
+      "group": "source-evidence",
+      "basePath": "source-evidence-triangulation.json",
+      "mutations": [
+        {
+          "pointer": "/observations/0/dataOrBenchmarkLineageIds/0",
+          "value": "LINEAGE-INVENTED-A"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-triangulation-fixture:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceTriangulation"
+      ],
+      "expectedError": "observation OBS-FIXTURE-A lineage LINEAGE-INVENTED-A is not resolvable at Line 7, Data or benchmark lineage"
     },
     {
       "id": "source-evidence-triangulation-reject-same-producer",
@@ -1291,6 +1414,24 @@
       "expectedError": "triangulated source SRC-FIXTURE-EMPIRICAL-B lacks verified funding disclosure"
     },
     {
+      "id": "source-evidence-triangulation-reject-unbound-sponsor-classification",
+      "group": "source-evidence",
+      "basePath": "source-evidence-triangulation.json",
+      "mutations": [
+        {
+          "pointer": "/sources/0/fundingDisclosure/sponsorIds/0",
+          "add": true,
+          "value": "SPONSOR-INVENTED-A"
+        }
+      ],
+      "schema": "urn:agent-evals-standard:schema:source-evidence-triangulation-fixture:1",
+      "valid": false,
+      "semanticChecks": [
+        "sourceEvidenceTriangulation"
+      ],
+      "expectedError": "sponsor IDs are not bound to its archived funding evidence"
+    },
+    {
       "id": "source-evidence-triangulation-reject-theoretical-source",
       "group": "source-evidence",
       "basePath": "source-evidence-triangulation.json",
@@ -1314,7 +1455,7 @@
       "mutations": [
         {
           "pointer": "/sources/1/archive/immutableLocator",
-          "value": "artifact:sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          "value": "source-evidence-archives/study-a.txt"
         },
         {
           "pointer": "/sources/1/versionIdentity",
@@ -1338,11 +1479,11 @@
       "mutations": [
         {
           "pointer": "/sources/1/archive/digest",
-          "value": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          "value": "sha256:7e809df7c8c3b48849b0796996649f7a68cd702c0f93a9b07a732de87a5f742d"
         },
         {
           "pointer": "/sources/1/fundingDisclosure/evidence/archiveDigest",
-          "value": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+          "value": "sha256:7e809df7c8c3b48849b0796996649f7a68cd702c0f93a9b07a732de87a5f742d"
         }
       ],
       "schema": "urn:agent-evals-standard:schema:source-evidence-triangulation-fixture:1",
@@ -1367,7 +1508,7 @@
       "semanticChecks": [
         "sourceEvidenceTriangulation"
       ],
-      "expectedError": "funding evidence is not bound to its archived source digest"
+      "expectedError": "funding evidence is not bound to its verified archive digest"
     },
     {
       "path": "../../profiles/repo-change-v1/outcome-profile.json",
@@ -1854,16 +1995,33 @@
       "id": "scorecard-reject-coordinated-claimant-success-rewrite",
       "basePath": "positive/scorecard.json",
       "mutations": [
-        { "pointer": "/caseResults/0/cells/0/trialResult/functional", "value": false },
-        { "pointer": "/caseResults/0/cells/0/trialResult/accepted", "value": false },
-        { "pointer": "/claimResults/0/successAssignments/0/success", "value": false },
-        { "pointer": "/caseResults/0/statistics/0/validSuccesses", "value": 0 },
-        { "pointer": "/caseResults/0/statistics/0/value", "value": 0 }
+        {
+          "pointer": "/caseResults/0/cells/0/trialResult/functional",
+          "value": false
+        },
+        {
+          "pointer": "/caseResults/0/cells/0/trialResult/accepted",
+          "value": false
+        },
+        {
+          "pointer": "/claimResults/0/successAssignments/0/success",
+          "value": false
+        },
+        {
+          "pointer": "/caseResults/0/statistics/0/validSuccesses",
+          "value": 0
+        },
+        {
+          "pointer": "/caseResults/0/statistics/0/value",
+          "value": 0
+        }
       ],
       "schema": "urn:agent-evals-standard:schema:scorecard:1",
       "valid": false,
       "relatedPath": "positive/pre-run-manifest.json",
-      "semanticChecks": ["scorecardGraph"],
+      "semanticChecks": [
+        "scorecardGraph"
+      ],
       "expectedError": "claimant functional=false differs from replay true"
     },
     {
@@ -1878,7 +2036,9 @@
       "schema": "urn:agent-evals-standard:schema:scorecard:1",
       "valid": false,
       "relatedPath": "positive/pre-run-manifest.json",
-      "semanticChecks": ["scorecardGraph"],
+      "semanticChecks": [
+        "scorecardGraph"
+      ],
       "expectedError": "assurance_report uses an incompatible evidence artifact type"
     },
     {
@@ -1893,7 +2053,9 @@
       "schema": "urn:agent-evals-standard:schema:scorecard:1",
       "valid": false,
       "relatedPath": "positive/pre-run-manifest.json",
-      "semanticChecks": ["scorecardGraph"],
+      "semanticChecks": [
+        "scorecardGraph"
+      ],
       "expectedError": "executor differs from the distribution registry"
     },
     {
@@ -1908,7 +2070,9 @@
       "schema": "urn:agent-evals-standard:schema:scorecard:1",
       "valid": false,
       "relatedPath": "positive/pre-run-manifest.json",
-      "semanticChecks": ["scorecardGraph"],
+      "semanticChecks": [
+        "scorecardGraph"
+      ],
       "expectedError": "outcome replay receipt schema invalid"
     },
     {

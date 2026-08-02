@@ -1,6 +1,6 @@
 # Requirements Registry and Traceability
 
-- Status: unpublished working draft
+- Status: unpublished 0.1.0 publication candidate
 - Version: 0.1.0
 - Purpose: stable requirement identifiers, verification ownership, and evidence
   traceability for the Git-backed Repository SDLC Agent Evals Standard.
@@ -35,7 +35,7 @@ addresses requirements by the stable IDs below.
 | `I12` | validated measurement only | Case QA validator | [Standard](standard.md#i12-only-validated-measurement-enters-claims) | task and grader validation |
 | `I13` | trusted measurement boundary | run validator | [Standard](standard.md#i13-trusted-measurement-boundary) | adversarial measurement-system design |
 | `SCOPE-001` | system-under-evaluation identity | run validator | [Standard](standard.md#system-under-evaluation) | agent-evaluation architecture in [Informative References](references.md) |
-| `SCOPE-002` | SDLC capability coverage | suite validator | [Standard](standard.md#sdlc-capability-taxonomy) | production-aligned task design and long-horizon task construction in [Informative References](references.md) |
+| `SCOPE-002` | SDLC capability coverage | suite validator | [Standard](standard.md#sdlc-capability-taxonomy) | closed-taxonomy and explicit-gap design invariant; heterogeneous task and process surfaces in [Informative References](references.md) provide rationale only |
 | `SCOPE-003` | repository-grounded applicability and profile selection | conformance validator | [Standard](standard.md#applicability-boundary-and-profiles) | bounded standard architecture |
 | `PROFILE-001` | evaluation-profile hierarchy and effective measurement identity | suite and case validators | [Standard](standard.md#evaluation-profile-resolution) | deterministic specialization without weakening |
 | `OUTPROF-001` | outcome-profile selection and compatibility | case validator | [Standard](standard.md#outcome-profiles) | artifact-appropriate evaluation without scope expansion |
@@ -62,7 +62,7 @@ addresses requirements by the stable IDs below.
 | `EVID-002` | detached validation envelope | conformance validator | [Evidence and Detached Validation](evidence-and-validation-contract.md#detached-validation-envelope) | non-circular signed validation |
 | `JUDGE-001` | evidence hierarchy | Case QA validator | [Standard](standard.md#evidence-hierarchy) | grader roles and human calibration in [Informative References](references.md) |
 | `JUDGE-002` | deterministic verification | Case QA validator | [Standard](standard.md#evidence-hierarchy) | reproducible correctness evidence |
-| `JUDGE-003` | expert adjudication | Case QA validator | [Standard](standard.md#evidence-hierarchy) | blinded multi-rater measurement |
+| `JUDGE-003` | expert adjudication | Case QA validator | [Standard](standard.md#evidence-hierarchy) | fail-closed multi-rater measurement design invariant; judge-bias evidence provides bounded rationale only |
 | `GATE-001` | universal and profile gate registries | scorecard validator | [Scorecard Contract](scorecard-contract.md#gate-registry) | non-compensable safety and validity |
 | `OUT-001` | outcome taxonomy and predicates | scorecard validator | [Scorecard Contract](scorecard-contract.md#successful-functional-and-accepted-outcomes) | explicit outcome contracts |
 | `CLAIM-001` | closed claims registry and `claims[]` | scorecard validator | [Scorecard Contract](scorecard-contract.md#claims) | claim-bounded reporting |
@@ -161,24 +161,37 @@ empirical artifacts, and derive those artifacts from at least two non-overlappin
 stable producer organizations. `rationale_only` and `evidence_gap` **MUST NOT**
 be presented as empirical validation.
 
-The focused triangulation fixture exercises the intended independence mechanics,
-but canonical 0.1.0 evidence **MUST NOT** claim a verified archive or
-`triangulated_empirical` support. Archive verification is deferred until a
-separate normative contract can resolve immutable bytes offline; recompute and
-bind byte length, digest, and source version; bind every cited result and funding
-statement to source-location extraction pointers; and authenticate the assessment
-with an independent signer authorized by a release-authority trust root outside
-the claimant manifest. A locator, digest, or `archive.status: verified` asserted
-inside the source manifest is not verification.
+Maintainer source review and byte-archive verification are separate. Every
+relied-on source **MUST** have a reviewer-identified and reviewer-dated
+`sourceReview` record bound to the primary publisher locator, an exact version
+locator where the publisher provides one, and review of title, producer,
+publication date, version identity, and the bounded cited content claims. The
+record **MUST** identify the accountable reviewer with a resolvable identity
+URI, cite an auditable version-control or review-system record, and bind the
+exact source, observation, capability, and requirement-claim projection by
+SHA-256. Any projection change invalidates the review until a reviewer issues a
+new receipt. The review record provides accountable process evidence, not a
+cryptographic signature. This review establishes catalog accountability and
+traceability
+only. It **MUST NOT** be represented as independent replication, byte
+preservation, or target-population validation.
 
-When that archive prerequisite exists, every triangulated source will also need
-`fundingDisclosure.status: verified_from_archived_source`, with evidence bound to
-the authenticated archive bytes. Its independence assessment will need to exactly
-identify the cited observations and derived producer IDs, shared author names,
-exact shared data or benchmark lineage, exact identical population and method
-statements, and shared sponsor IDs, and assess population overlap, method overlap,
-and remaining common-mode risk. Shared producer, data or benchmark lineage, or
-sponsor, or pending, missing, or archive-unbound funding evidence invalidates the
+An ordinary informative reference does not require a repository-controlled
+copy or independently signed archive assessment. A claim that explicitly
+depends on immutable source bytes, including `triangulated_empirical`, **MUST**
+instead use `archive.status: verified`, bind a repository-relative artifact
+path, byte length, and SHA-256, and make every cited result and funding statement
+resolvable inside those bytes. Every archived empirical observation **MUST**
+also locate the population, sampling, method, result, and data or benchmark
+lineage fields used by evidence logic. The funding evidence **MUST** bind the
+exact sponsor-ID classification. The validator **MUST** read the artifact,
+recompute byte length and digest, and resolve each recorded extraction pointer.
+For triangulation, every source also needs
+`fundingDisclosure.status: verified_from_archived_source`. The independence
+assessment **MUST** exactly identify observations, producers, authors, data and
+benchmark lineage, population and method overlap, sponsors, and remaining
+common-mode risk. Shared producer, data or benchmark lineage, or sponsor, or
+pending, missing, or archive-unbound funding evidence invalidates the
 independence conclusion.
 
 Every capability row **MUST** state `targetPopulationValidation` separately from
@@ -188,24 +201,26 @@ justification, transfer assumptions, and limitations. Adjacent, simulated,
 provider-owned, shared-lineage, broadly relabeled, or claimant-asserted populations
 do not validate the repository-SDLC target.
 
-The status `independently_validated` is deliberately unavailable in 0.1.0. It can
-be introduced only with a separate normative detached assessment contract that
-binds the exact source-manifest digest, capability, target population, observation
-set, and population relations; verifies an independent assessor distinct from the
-claimant and source producers; and authenticates that assessor through an
-out-of-manifest release-authority trust root. This reservation is not a claim that
-independent validity assessment is completely automatable: accountable review may
-remain necessary, but its identity, authority, evidence, and signed decision must
-be machine-verifiable.
+The status `independently_validated` is not defined in 0.1.0. Capability rows
+therefore record `not_established` or `single_producer_indication` and retain
+their population relations, gaps, and transfer limits. Those limits constrain
+capability claims but do not block publication of a standard whose normative
+requirements are otherwise complete and correctly classified. In particular,
+publication readiness **MUST NOT** be reported as empirical validation of all
+seven capability families or transfer to an adopter's population.
 
-Consequently every 0.1.0 capability remains a target-validation blocker, every
-source remains an unverified-source blocker, and `evidenceReadiness` is fixed to
-`blocked`. Publication is a separate commit-level decision. `npm run
-release:check` **MUST** run the complete `npm test` corpus on a clean checkout of
-the exact candidate commit and **MUST** remain blocked for this draft. Neither the
-manifest alone nor a partial fixture run is a whole-standard release gate.
-Release metadata **MUST NOT** embed a digest of a corpus that recursively embeds
-that same release metadata.
+`evidenceReadiness: ready` requires current, projection-bound maintainer review
+receipts for every cited source and no normative requirement mapped as
+`evidence_gap`.
+Design invariants remain eligible when their threat rationale, failure mode,
+validation obligation, and claim restriction are explicit. `npm run
+release:check` **MUST** first prove generated-artifact freshness, run the
+complete `npm test` corpus, and run the publication checks on a clean checkout
+of the exact candidate commit. On a release tag it **MUST** additionally bind
+the exact `v0.1.0` annotated tag to that commit. Neither the manifest
+alone nor a partial fixture run is a whole-standard release gate. Release
+metadata **MUST NOT** embed a digest of a corpus that recursively embeds that
+same release metadata.
 
 ## Canonical artifact contracts
 

@@ -1,6 +1,6 @@
 # Case QA Playbook
 
-- Status: unpublished working draft
+- Status: unpublished 0.1.0 publication candidate
 - Contract version: 0.1.0
 - Purpose: the operational process for activating an evaluation case. I12 of
   the [Git-backed Repository SDLC Agent Evals Standard](standard.md) requires QA evidence before a

@@ -13,13 +13,13 @@
         "id": "workspace-change-v1",
         "version": "0.1.0",
         "uri": "outcome-profile.json",
-        "digest": "sha256:d5caa138041d104bff90c38f9f3735ab4f9afac87efb167f61dd5e916ecbd10d"
+        "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
       },
       "child": {
         "id": "workspace-change-v1",
         "version": "0.1.0",
         "uri": "../../profiles/repo-change-v1/outcome-profile.json",
-        "digest": "sha256:d5caa138041d104bff90c38f9f3735ab4f9afac87efb167f61dd5e916ecbd10d"
+        "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
       }
     },
     {

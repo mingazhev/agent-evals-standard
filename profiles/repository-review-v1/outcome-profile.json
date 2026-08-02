@@ -533,19 +533,19 @@
   "functionalSuccess": {
     "id": "functional-outcome-v1",
     "version": "0.1.0",
-    "contractDigest": "sha256:53d71eb23e9e20f12cbdf08dd785fc521bcc790c67d353e30ec8330816ac174b"
+    "contractDigest": "sha256:5b9c069ee17aa78d8e8c33d179202fb8ade81e75d6fe837978f2ad6bc39bd401"
   },
   "acceptedOutcome": {
     "id": "accepted-outcome-v1",
     "version": "0.1.0",
-    "contractDigest": "sha256:53d71eb23e9e20f12cbdf08dd785fc521bcc790c67d353e30ec8330816ac174b"
+    "contractDigest": "sha256:5b9c069ee17aa78d8e8c33d179202fb8ade81e75d6fe837978f2ad6bc39bd401"
   },
-  "digest": "sha256:7ec1a08e02d5a5b45880d9765ce61e6a4b20a0f4286f948ceed78baa15091c40",
+  "digest": "sha256:1786a67605589092c123cb39e83fb17dbc4009c2feeca89b387f2390d7fac2b6",
   "signature": {
     "profileId": "fixture-signature-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:00Z",
-    "value": "_CyyShpy-Jj_7HTVLjxtsWMasUROdYNqbXiiwKAk_lekS75D0pk8wq5_OnG3XtixO5U4Exaz2JXxvV8LXaS4Bw"
+    "value": "EaaQftPjEG28MIWZQGb6UA5x8P8N5XDqDI2fuiiAOv1HA77siiX2cGKlq5F5kLGHEwtNRHTWCPpFLEl-yDY8Dg"
   }
 }

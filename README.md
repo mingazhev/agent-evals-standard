@@ -15,41 +15,38 @@ diagnostic claim binds one effective evaluation profile per case and one or more
 authenticated outcome profiles across its eligible cells; each case and cell
 selects exactly one outcome profile.
 
-This repository contains an **unpublished working draft**. Every component is
-version **0.1.0** and may change incompatibly before the first publication.
-The version identifies the draft contract; it does not assert that a release
-has occurred.
+This repository contains an **unpublished 0.1.0 publication candidate**. Every
+component is version **0.1.0** and may change incompatibly until the first
+release commit and protected annotated tag are created. The version identifies the
+candidate contract; it does not assert that a release has occurred.
 
 Normative authority is partitioned by question: the requirement registry and
 linked primary prose own requirement meaning; registered JSON Schemas own JSON
 shape; named semantic contracts own canonical and cross-document algorithms;
 and conformance fixtures are executable projections of those registered rules.
-The source-evidence manifest is the normative traceability and evidence-readiness record, but
-the external sources it cites are informative. Validation tooling and
+The source-evidence manifest is the normative traceability and evidence-
+readiness record, but the external sources it cites are informative. Validation tooling and
 implementation notes are non-normative and cannot redefine a contract or
 fixture. Verdict-changing contradictions fail closed. The authoritative table
 is in [Conformance](standard/conformance.md#normative-artifact-consistency).
 
-Evidence readiness is currently `blocked`: the cited external-source bytes have
-not yet been independently archived and hash-verified, and independent empirical
-validation for all seven repository-SDLC capability families is not established.
-Until those evidence blockers are closed, the draft may describe bounded
-observations and rationale but **MUST NOT** present them as validation of the
-complete standard or of transfer to its target population.
-
-Version 0.1.0 intentionally cannot promote itself out of this state. It has no
-normative detached archive-verification or target-validation assessment contract
-and no out-of-manifest release-authority trust root. Self-declared `verified`,
-`independently_validated`, and `ready` values are rejected. This fail-closed
-reservation does not assume that independent validity review is fully automatable.
+Evidence readiness is `ready`: every cited source and bounded content claim has
+an accountable maintainer review against its primary publisher record, every
+review receipt is bound to the exact reviewed claim projection, every normative
+requirement has a non-gap evidence classification, and the complete repository
+validation corpus passes. This status means that the standard is ready to be
+published; it does not mean that every capability family has been empirically
+validated for every enterprise population. Capability rows preserve those
+transfer limits explicitly. Byte archives remain optional provenance hardening
+unless a claim specifically depends on archived bytes.
 
 The repository provides no evaluation runner, grader, benchmark cases, or
 provider integration.
 
-The bundled executable interoperability corpus is intentionally narrower than
+The bundled executable interoperability corpus is narrower than
 the seven-family taxonomy. Its maturity is explicit:
 
-| Capability surface | Bundled executable profile in 0.1.0 | Independent empirical validation |
+| Capability surface | Bundled executable profile in 0.1.0 | Target-population evidence status |
 | --- | --- | --- |
 | `CAP.IMPLEMENT_CHANGE` | `repo-change-v1` | not yet established |
 | `CAP.VERIFY_ASSURE` | change-bound assurance inside `repo-change-v1`; no pure read-only assurance profile | not yet established |
@@ -88,7 +85,7 @@ outside executable conformance in this draft; non-path commit metadata remains
 byte-preserving and is not required to be UTF-8. The normative rules are in the
 [Git Repository-State Boundary Contract](standard/standard.md#git-repository-state-boundary-contract-scope-003).
 
-## Draft components
+## Candidate components
 
 - Core standard: **0.1.0**
 - Case Contract: **0.1.0**
@@ -138,17 +135,23 @@ explicitly invokes it; it is not a second definition.
 The governance decision template is in
 [templates/governance-decision-record.md](templates/governance-decision-record.md).
 
-## Draft and publication discipline
+## Publication discipline
 
 Until publication, all components remain `0.1.0`; incompatible changes replace
 the working draft in place. A
-future publication must freeze an exact commit, publish the conformance corpus
-for that commit, and create an immutable release tag. The normative release CI
-gate is `npm run release:check`: it runs the complete `npm test` corpus and then
-checks evidence readiness on a clean checkout of that exact commit. It is
-required to fail for this unpublished draft until the missing normative
-assessment contracts, external trust roots, and conformance vectors exist. A raw
-version string or Git tag by itself is not evidence that this draft was published.
+first publication must freeze an exact commit, publish the conformance corpus
+for that commit, and create a protected annotated release tag. Repository
+administrators must enforce tag immutability with a GitHub ruleset; repository
+files cannot make a remotely hosted tag undeletable. The normative release CI
+gate is `npm run release:check`: it proves generated-artifact freshness, runs
+the complete `npm test` corpus, and then checks review receipts, evidence
+readiness, and repository cleanliness on that exact commit. CI invokes this
+same gate for pull requests, `main`, and version tags; tag runs additionally
+require exact annotated tag `v0.1.0` to resolve to the checked-out commit.
+Publication readiness does not promote capability evidence beyond
+the status and population limits recorded in the source-evidence manifest. A
+raw version string or Git tag by itself is not evidence that this candidate was
+published.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
 
@@ -156,7 +159,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 While the draft is unpublished, a claimant asserting draft conformance MUST
 pin version `0.1.0` and the exact commit. After publication it MUST additionally
-pin the immutable release tag. Saying “based on” this standard is not a
+pin the protected annotated release tag. Saying “based on” this standard is not a
 conformance claim. Unknown extensions, omitted mandatory evidence, and
 undocumented deviations fail closed for the affected claim.
 

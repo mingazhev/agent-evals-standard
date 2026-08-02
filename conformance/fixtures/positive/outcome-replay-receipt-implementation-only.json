@@ -16,13 +16,13 @@
   "outcomeProfile": {
     "id": "workspace-change-v1",
     "version": "0.1.0",
-    "digest": "sha256:d5caa138041d104bff90c38f9f3735ab4f9afac87efb167f61dd5e916ecbd10d"
+    "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
   },
-  "caseCommitmentDigest": "sha256:a9e7dca51d347dc9b0b9da0c72e09f2f38c9669393a365069742ede44a821337",
-  "cellCommitmentDigest": "sha256:7b6bedafcf71f8096f358c1e5b2b0dc2f4e3f0201d9831181f093003b6613941",
+  "caseCommitmentDigest": "sha256:a17ff83d688092b0f1b5de4e8e98d811e525c9cd6d9d02462f369fed0e66cc82",
+  "cellCommitmentDigest": "sha256:947ed1f3200facbea9b6d4ecf58baef6586afe8ae0c5a239d6b2faf37c66c5e5",
   "trialProjectionDigest": "sha256:93ab8096c3a675d7cb845f81d6fa84c879c456798ffbaf5fa9c0da6cb1897dd3",
   "materialArtifactsDigest": "sha256:21a9d77ec8624f50651db261a61b9ec83a9463aafe5d7072f179cafe06e20d0b",
-  "consumedEvidenceDigest": "sha256:23f60e51dfd3a8b3533d68fc9ea7f0de60b237b7c1b703cc6bfde3d46fc665ab",
+  "consumedEvidenceDigest": "sha256:4d7b07322b142d7811e25b7534279696bf8e54eed7b241491daf5b4b764266ff",
   "facts": {
     "measurementValidity": "valid",
     "requiredOutcomeConditionsVerdict": "pass",

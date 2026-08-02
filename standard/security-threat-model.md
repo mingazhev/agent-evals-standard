@@ -1,6 +1,6 @@
 # Security Threat Model and Coverage Contract
 
-- Status: unpublished working draft
+- Status: unpublished 0.1.0 publication candidate
 - Version: 0.1.0
 - Requirement IDs: `RISK-001`, `RUN-003`, `DATA-001`, `DATA-002`
 

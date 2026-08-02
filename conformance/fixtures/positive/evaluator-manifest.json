@@ -26,7 +26,7 @@
     "schemaManifest": {
       "id": "standard-schema-manifest",
       "uri": "schema-manifest.json",
-      "digest": "sha256:359f92cddcdafcf160f6ec6afb503b7973c5b6d17cf7562c5a985b0cd0379d74"
+      "digest": "sha256:c998b05b58462d5380016cd7f6cbbfc538aa66425850a152adbff0d25b3b72d9"
     }
   },
   "supportedAssuranceLevels": [
@@ -291,12 +291,12 @@
       "payloadDigest": "sha256:ef8f1ee482129b41ed92986fa1954384b3fb7290c3ddf0a58ed1a57c9d5bebff"
     }
   ],
-  "digest": "sha256:53fd8681ad1555e14db426955755250b5e0177bd933919f55cf32659409e2467",
+  "digest": "sha256:74683789496f8e8233a1e1217590e08358933d74ce963f5f4127f3d24d7d55c5",
   "signature": {
     "profileId": "fixture-signature-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:00Z",
-    "value": "DyNSFAZgTLJgpAiStd4PxDkDvE3HqST6EC0iwNv_sFVdgZ9ffv2byTxXQ0XJtIpgpm7msL2hDrHu0W9QZ_SZAQ"
+    "value": "cSkGi77mR9lSZY7KYsiyGzg1n8VHwVu29mu3RHLd6h9TQSHTuK3NPm_yjx_CFe1XLadFfBbj_wpRLU8xK_FZCg"
   }
 }

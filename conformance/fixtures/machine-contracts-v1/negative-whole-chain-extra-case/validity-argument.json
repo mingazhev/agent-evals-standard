@@ -7,7 +7,7 @@
     "artifactVersion": "0.1.0",
     "schemaId": "urn:agent-evals-standard:schema:suite-manifest:1",
     "projection": "suite_precontrol_projection_v1",
-    "digest": "sha256:d9509a22d5393d930103b778dcd2c5e3359f086af4a5d9c97dd091e5e76a16b2"
+    "digest": "sha256:0acdb2679b3e7da635385d78d3852e565cbd9c79ad8664c843f0a0ba0a543411"
   },
   "intendedUse": "Bounded held-out evaluation of repository SDLC agents.",
   "targetPopulation": "Enterprise repository tasks represented by the sealed suite strata.",
@@ -154,8 +154,8 @@
       "id": "validity-review-evidence-v1",
       "version": "0.1.0",
       "schemaId": "urn:agent-evals-standard:schema:evaluation-control-authority-evidence:1",
-      "uri": "artifact:sha256:bd5235b482af8a835f521000dd8c29e068fd5926628b661075096044715f37be",
-      "digest": "sha256:bd5235b482af8a835f521000dd8c29e068fd5926628b661075096044715f37be",
+      "uri": "artifact:sha256:a6272beed12b1877ee836678800d2157b05f67160394c958759dc060dcaf1a48",
+      "digest": "sha256:a6272beed12b1877ee836678800d2157b05f67160394c958759dc060dcaf1a48",
       "byteLength": 1280,
       "mediaType": "application/json",
       "locator": {

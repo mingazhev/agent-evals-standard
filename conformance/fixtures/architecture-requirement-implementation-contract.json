@@ -13,7 +13,7 @@
   "requirementRegistry": {
     "id": "agent-evals-standard-requirements",
     "version": "0.1.0",
-    "digest": "sha256:860614b558286306940b3a2fdb50b5c7024ba44bf474c0ea22ef3b193ce89a83"
+    "digest": "sha256:be32eaebcbee3200baa3c0f3edc49183ccafb550feba1801e8292ef85cfce771"
   },
   "resolver": {
     "id": "agent-evals-standard-requirement-mapping-resolver",

@@ -1,6 +1,6 @@
 # Security Case Backlog
 
-- Status: informative planning aid for the unpublished working draft
+- Status: informative planning aid for the unpublished 0.1.0 publication candidate
 - Version: 0.1.0
 - Purpose: prioritized case families that instantiate the
   [Security Threat Model](security-threat-model.md).
