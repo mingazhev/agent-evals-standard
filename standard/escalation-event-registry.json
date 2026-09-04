@@ -28,7 +28,9 @@
     { "eventId": "assuranceEvidenceMissing", "claimEffect": "insufficient_evidence", "governanceStatus": "manual_review_required", "stopAction": "suspend_approval", "scopeAction": "narrow_suspend_or_revoke", "waivable": false },
     { "eventId": "suspectedContamination", "claimEffect": "insufficient_evidence", "governanceStatus": "security_review_required", "stopAction": "stop_governance_use", "scopeAction": "quarantine_affected", "waivable": false },
     { "eventId": "confirmedContamination", "claimEffect": "insufficient_evidence", "governanceStatus": "security_review_required", "stopAction": "stop_governance_use", "scopeAction": "revoke_affected_scope", "waivable": false },
-    { "eventId": "privacyIpRetentionBreach", "claimEffect": "insufficient_evidence", "governanceStatus": "security_review_required", "stopAction": "stop_governance_use", "scopeAction": "quarantine_or_delete_affected", "waivable": false }
+    { "eventId": "privacyIpRetentionBreach", "claimEffect": "insufficient_evidence", "governanceStatus": "security_review_required", "stopAction": "stop_governance_use", "scopeAction": "quarantine_or_delete_affected", "waivable": false },
+    { "eventId": "dataOwnerReviewRequired", "claimEffect": "insufficient_evidence", "governanceStatus": "data_owner_review_required", "stopAction": "block_acceptance", "scopeAction": "reject_or_reduce", "waivable": false },
+    { "eventId": "riskAcceptanceRequired", "claimEffect": "insufficient_evidence", "governanceStatus": "risk_acceptance_required", "stopAction": "block_acceptance", "scopeAction": "reject_or_reduce", "waivable": false }
   ],
-  "digest": "sha256:c71559aa50901c3a938ecd7475da49aef27e6dff8c1f12ac656fe765d043d642"
+  "digest": "sha256:1265947822356d25c638fa1b92e2bb6344b8095e21604d1fdcadcfca8d1bc53e"
 }

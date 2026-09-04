@@ -6,8 +6,8 @@
   "suite": {
     "id": "suite-manifest-fixture-1",
     "version": "0.1.0",
-    "uri": "artifact:sha256:f5a4a034ca0c74baa055eba093ff09df2ce6c06ad3ec3835d5adc441b8be1b4f",
-    "digest": "sha256:f5a4a034ca0c74baa055eba093ff09df2ce6c06ad3ec3835d5adc441b8be1b4f",
+    "uri": "artifact:sha256:2160a0dd4b0a91d7ec319a6847fa38b94c5410fe89396ce2ac7a119a0cfebc12",
+    "digest": "sha256:2160a0dd4b0a91d7ec319a6847fa38b94c5410fe89396ce2ac7a119a0cfebc12",
     "byteLength": 11506,
     "mediaType": "application/json",
     "locator": {
@@ -15,13 +15,13 @@
       "base": "binding_document",
       "path": "suite-manifest.json"
     },
-    "selfDigest": "sha256:b530236278def85a27e840b0b13140f8105c2c84fb0104839db9136e132a9954"
+    "selfDigest": "sha256:3b35eae914c0942cefbee6dc980e10ccccc7a6211d471b48a4ed3ce99bb880ef"
   },
   "evaluator": {
     "id": "evaluator-manifest-fixture-1",
     "version": "0.1.0",
     "uri": "evaluator-manifest.json",
-    "digest": "sha256:74683789496f8e8233a1e1217590e08358933d74ce963f5f4127f3d24d7d55c5"
+    "digest": "sha256:bf190335707b6a8630fa3b1dccc11376c029ba90e897334edb774318477f5a93"
   },
   "assuranceLevel": "A1",
   "runMode": "evaluation",
@@ -40,13 +40,13 @@
       "evaluationProfile": {
         "id": "repo-change-v1",
         "version": "0.1.0",
-        "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210"
+        "digest": "sha256:56cb626f8a73bf59d65dc1a13f71d068a5b36b1859cf054ceb497cff33306edc"
       },
-      "effectiveProfileDigest": "sha256:6ec98f997cbaa51d30eeb1bdc6a3bb91e76cc2ec505fdd155850d115b0146869",
+      "effectiveProfileDigest": "sha256:e67c7b326718295c8e63608ad3d33859eece5107f58aa777ee2898dadca8c03e",
       "outcomeProfile": {
         "id": "workspace-change-v1",
         "version": "0.1.0",
-        "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
+        "digest": "sha256:d47d693fbb2528f140b90fa4096820d43c447e1aaed981c2192103807f2dd1bf"
       }
     }
   ],
@@ -54,8 +54,8 @@
     {
       "id": "repo-change-case-fixture-1",
       "version": "0.1.0",
-      "uri": "artifact:sha256:fee4aea77fe718f780bd236fe56eb16b058b9cef083fa58db09948caf5a5e702",
-      "digest": "sha256:fee4aea77fe718f780bd236fe56eb16b058b9cef083fa58db09948caf5a5e702",
+      "uri": "artifact:sha256:d1804309539cccb465c753d940836673c90934a57c5faf38ea6dd116a0861729",
+      "digest": "sha256:d1804309539cccb465c753d940836673c90934a57c5faf38ea6dd116a0861729",
       "byteLength": 22213,
       "mediaType": "application/json",
       "locator": {
@@ -63,7 +63,7 @@
         "base": "binding_document",
         "path": "scorecard-case.json"
       },
-      "selfDigest": "sha256:f518f78bd3ad47606e7b93b9aff5b6f967ef30cf01c974ee3eb5d89cbde5e637"
+      "selfDigest": "sha256:03fe7ea44d55ab7687397f7e79020615a9a4a2327009e093a216fb1320a85921"
     }
   ],
   "arms": [
@@ -183,7 +183,7 @@
   "governanceRegistry": {
     "id": "base-escalation-event-registry",
     "uri": "escalation-event-registry.json",
-    "digest": "sha256:c71559aa50901c3a938ecd7475da49aef27e6dff8c1f12ac656fe765d043d642"
+    "digest": "sha256:1265947822356d25c638fa1b92e2bb6344b8095e21604d1fdcadcfca8d1bc53e"
   },
   "statisticalPlan": {
     "id": "statistical-plan-fixture-1",
@@ -196,13 +196,13 @@
     "digest": "sha256:a1da9a3933951d7e27b03cea8ef0414770bc233c0edc04665daa520fc3d57055"
   },
   "extensions": [],
-  "digest": "sha256:58066bec3d8aa1df933df7afddd641f36cb2dd9fd5c5e5e7834e2d3b2faf7819",
+  "digest": "sha256:8edcd080b6995eecae50d97b55619d5798d74e4f99d8cbcf5b6c141c46358b22",
   "signature": {
     "profileId": "fixture-signature-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T01:00:07Z",
-    "value": "cC9jJODVm5JszuZ1q8OsUlj0vTH6kbE7rh9z26_bUbIWyoKesfhyK7_jej_gsIPVUNma_LbEHQPlYWVCbMlrAg"
+    "value": "GAfaxU0-1BvVZBsZKtQH9Z8lD1jtwpuFX8FJy5W_ktYfPDoQkBq1r3zJRorrP26ngpZb1HXmviOvuc4v7rwrBQ"
   },
   "signatureProfile": {
     "id": "fixture-signature-profile",
@@ -222,8 +222,8 @@
     "id": "evaluation-control-bindings-v1",
     "version": "0.1.0",
     "schemaId": "urn:agent-evals-standard:schema:evaluation-control-bindings:1",
-    "uri": "artifact:sha256:5ef1e8a3cf8ecab28384568cfd8020bbbdc33d278e69a7dae6173fc00b1a145f",
-    "digest": "sha256:5ef1e8a3cf8ecab28384568cfd8020bbbdc33d278e69a7dae6173fc00b1a145f",
+    "uri": "artifact:sha256:c5c8a6c6e7ab863214c2ff77fd282d4425ccd03f6640a7fe238350c6731a3e3b",
+    "digest": "sha256:c5c8a6c6e7ab863214c2ff77fd282d4425ccd03f6640a7fe238350c6731a3e3b",
     "byteLength": 14597,
     "mediaType": "application/json",
     "locator": {

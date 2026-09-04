@@ -14,6 +14,16 @@ their evidence traceability are defined in the
 [Scorecard Contract](scorecard-contract.md), and adherence rules in
 [Conformance](conformance.md).
 
+Reading map (informative):
+
+| Question | Start here |
+| --- | --- |
+| Does this evaluation fit the standard? | [Applicability](#applicability-boundary-and-profiles), [capabilities](#sdlc-capability-taxonomy), and [validity](#intended-use-and-validity-argument) |
+| What applies across all evaluations? | [Invariants](#invariants), [assurance](#assurance-levels), and [risk](#risk-model) |
+| How do I prepare and maintain cases? | [Case lifecycle](#case-lifecycle-requirements) and [Case QA](case-qa-playbook.md) |
+| How do I run, score, and interpret an experiment? | [Execution](#execution-requirements), [judgment](#judgment-requirements), and [statistics](#statistics-and-missingness) |
+| How do I approve and monitor use? | [Governance](#governance-decisions-and-post-decision-assurance) and [suite health](#suite-health) |
+
 ## System Under Evaluation
 
 `SCOPE-001` — An evaluation **MUST** identify the complete system under

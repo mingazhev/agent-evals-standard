@@ -10,9 +10,9 @@
     "id": "repo-change-v1",
     "version": "0.1.0",
     "uri": "../../profiles/repo-change-v1/evaluation-profile.json",
-    "rawDigest": "sha256:3ce26cd98f61262753d85ee91e0a0b8d67986f847e1662d86bb1e98a7a2da28b",
-    "subjectDigest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210",
-    "effectiveProfileDigest": "sha256:6ec98f997cbaa51d30eeb1bdc6a3bb91e76cc2ec505fdd155850d115b0146869",
+    "rawDigest": "sha256:8bbe4fcbf3c19a839893219159ea87919180efcd90d25804ff8aa9ed498a145a",
+    "subjectDigest": "sha256:56cb626f8a73bf59d65dc1a13f71d068a5b36b1859cf054ceb497cff33306edc",
+    "effectiveProfileDigest": "sha256:e67c7b326718295c8e63608ad3d33859eece5107f58aa777ee2898dadca8c03e",
     "interactionModes": [
       "noninteractive_repository_task",
       "interactive_repository_session",
@@ -34,8 +34,8 @@
     "id": "workspace-change-v1",
     "version": "0.1.0",
     "uri": "../../profiles/repo-change-v1/outcome-profile.json",
-    "rawDigest": "sha256:40fe522e35eed8c50cecfce812d9eb2765ac342d8d81a8651771c9267752c9d1",
-    "subjectDigest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635",
+    "rawDigest": "sha256:5d71444c5a0dea058dce9806015bf4d413b4b1a4db0f21e2217001b25a77ecea",
+    "subjectDigest": "sha256:d47d693fbb2528f140b90fa4096820d43c447e1aaed981c2192103807f2dd1bf",
     "workArtifactRegistry": {
       "id": "repository-sdlc-work-artifact-registry",
       "version": "0.1.0",
@@ -259,12 +259,12 @@
     "id": "standard-maintainers",
     "role": "case_validity_authority"
   },
-  "digest": "sha256:517aa76968286555c0f2d5bd39742f545af633264bb83e7205a9949137bc00f2",
+  "digest": "sha256:7b8f711c32e9dd1328be90ee801d06621c8b0e5d1d63682dea451de30d6919d3",
   "signature": {
     "profileId": "fixture-signature-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:00Z",
-    "value": "MiLE9Bvgg9oQ2122jpLfm__fJVzqFSjCH6U3GZq9hd6-M0fiXooTc8mEgHKVpG8rn_IpK6FZzwfHic9y6GE1Dg"
+    "value": "IR4ylQj65swPOYQ74xxVZ-37u1CqIkj7nRBjEek5k6VQSJR0kVglyVVVyIYkCQJxR1zYxDhQIxl3iZlN6KmFCA"
   }
 }

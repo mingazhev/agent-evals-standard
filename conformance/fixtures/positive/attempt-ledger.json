@@ -6,11 +6,11 @@
   "scheduledSetCommitment": {
     "id": "pre-run-manifest-fixture-1",
     "uri": "pre-run-manifest.json",
-    "digest": "sha256:58066bec3d8aa1df933df7afddd641f36cb2dd9fd5c5e5e7834e2d3b2faf7819"
+    "digest": "sha256:8edcd080b6995eecae50d97b55619d5798d74e4f99d8cbcf5b6c141c46358b22"
   },
   "rootAlgorithm": "sha256-jcs-chain-v1",
-  "initialLedgerRoot": "sha256:0a2e14d29481a3edb1281387de0fd98e6a806a7cd1f2c7233ebb63b96fd81c2b",
-  "terminalLedgerRoot": "sha256:63e64c9a826b4ebe0231edb481f5c0d847dc5b55c551957ef2f952ae7f2d6c81",
+  "initialLedgerRoot": "sha256:f68ca1af833244be1215d3c6cf5c059e9611d447c8fc3c574acc6637c5d6072f",
+  "terminalLedgerRoot": "sha256:3bb50a55503890ef110a59112e56e5bb09271feb8ee09f3435123e66149d8e39",
   "attemptRecords": [
     {
       "attemptId": "attempt-fixture-1",
@@ -31,5 +31,5 @@
       }
     }
   ],
-  "digest": "sha256:6db3b7d6b53e820e8529544f34fb3777e10d19b47bcac644de449be6d953bb3f"
+  "digest": "sha256:183208236330499ed8a25bfa6d09200a5025b8a1b0d229fa334ab9ca16560b38"
 }

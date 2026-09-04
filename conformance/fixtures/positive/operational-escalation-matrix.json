@@ -566,14 +566,70 @@
         "digest": "sha256:40b047831a775e44cab0aaed97eb47e8f3f0ae45ec6155e9170641591e5dc11a"
       },
       "rowDigest": "sha256:ddaf3511f3c69f73636db6c77cace3e0489c663fcaedff9b990ab1c96ba2ccb8"
+    },
+    {
+      "eventId": "dataOwnerReviewRequired",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "data_owner_review_required",
+      "stopAction": "block_acceptance",
+      "scopeAction": "reject_or_reduce",
+      "waivable": false,
+      "triggerContract": {
+        "id": "trigger-contract-dataOwnerReviewRequired",
+        "uri": "trigger-contract-dataOwnerReviewRequired.json",
+        "digest": "sha256:4a2c1fb3f9c86f53ad969a56e7b981cb358c2498bde5aeab5a61e26089dc6a85"
+      },
+      "owner": {
+        "id": "fixture-data-owner",
+        "role": "data_owner"
+      },
+      "slaSeconds": 3600,
+      "requiredEvidenceKinds": [
+        "canonical_event_evidence"
+      ],
+      "terminalDisposition": "not_applicable_while_open",
+      "resumeContract": {
+        "id": "resume-contract-dataOwnerReviewRequired",
+        "uri": "resume-contract-dataOwnerReviewRequired.json",
+        "digest": "sha256:920bf53ccbbf7f661855dfa90be2acd058dc60853fd80e30994776484fd44535"
+      },
+      "rowDigest": "sha256:5fac1d6cb3ad4675a3c32ead6dcf7b1c661497a46908e3cd67faf8ebdcd36d04"
+    },
+    {
+      "eventId": "riskAcceptanceRequired",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "risk_acceptance_required",
+      "stopAction": "block_acceptance",
+      "scopeAction": "reject_or_reduce",
+      "waivable": false,
+      "triggerContract": {
+        "id": "trigger-contract-riskAcceptanceRequired",
+        "uri": "trigger-contract-riskAcceptanceRequired.json",
+        "digest": "sha256:253645d92979833a4eb016d3d2623a152d92f61d12e879b2519ab9c9daef54a8"
+      },
+      "owner": {
+        "id": "fixture-risk-acceptance-authority",
+        "role": "risk_acceptance_authority"
+      },
+      "slaSeconds": 3600,
+      "requiredEvidenceKinds": [
+        "canonical_event_evidence"
+      ],
+      "terminalDisposition": "not_applicable_while_open",
+      "resumeContract": {
+        "id": "resume-contract-riskAcceptanceRequired",
+        "uri": "resume-contract-riskAcceptanceRequired.json",
+        "digest": "sha256:a40329f8c30776bc8dfbb24ae9910567abe895e1a94932ad29a7e22b90452ea4"
+      },
+      "rowDigest": "sha256:3c107ddd6df0328b62afb5f65de69d9a2aa7e4674e7ac8de73fd122ad43b708e"
     }
   ],
-  "digest": "sha256:35746a0015230a7dd56f9fe75a77f00e7ad0166a0403f0dce85df95d481f10f1",
+  "digest": "sha256:c2e6fb87a1f3f8936db5de56124ee776d258c67e383dd9e82487ca712169351d",
   "signature": {
     "profileId": "fixture-signature-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:10Z",
-    "value": "ABBu60xmmySJwgJQCzkqKPl6yZakUIZdHhwyswq1VYxdR1XD71c_bLHY5jWG52ZWxXedfQrgooY6hEI-8pNqCg"
+    "value": "WcJYBd4nUdfAiHFS55uHOOPavj1oS_6M77pmmqVYK0l64REa3cXuddqVTkP5JLYgRp6e5RojFq3v45W1nxBbBQ"
   }
 }

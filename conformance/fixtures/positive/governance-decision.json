@@ -14,12 +14,12 @@
   "policyInstance": {
     "id": "operational-governance-policy-fixture-1",
     "location": "artifact:fixture:operational-governance-policy-fixture-1",
-    "digest": "sha256:a6a4cfb47b88f4d0ade7432e61f4d22c23654b3875a7db7c7855c03d655cc9cf"
+    "digest": "sha256:f2fbd75c175344432e7f030a56baf942dc6c1807aa3caf3d30c452afe247c067"
   },
   "matrixInstance": {
     "id": "operational-escalation-matrix-fixture-1",
     "location": "artifact:fixture:operational-escalation-matrix-fixture-1",
-    "digest": "sha256:35746a0015230a7dd56f9fe75a77f00e7ad0166a0403f0dce85df95d481f10f1"
+    "digest": "sha256:c2e6fb87a1f3f8936db5de56124ee776d258c67e383dd9e82487ca712169351d"
   },
   "preRunDecisionPlan": {
     "id": "pre-run-decision-plan-fixture-1",
@@ -30,19 +30,19 @@
     {
       "id": "scorecard-fixture-1",
       "location": "artifact:fixture:scorecard-fixture-1",
-      "digest": "sha256:a7337bf0c3610bb13309fcf07818af74707a84e4d994caf2835a1258e4a19ce3"
+      "digest": "sha256:5c87d8280964352106703322391eb10b9d635e7829392a6e9767bf82bd5bb6da"
     }
   ],
   "resolutionLedger": {
     "id": "governance-resolution-ledger-fixture-1",
     "location": "artifact:fixture:governance-resolution-ledger-fixture-1",
-    "digest": "sha256:16f540504b202fb059fd506732c05b4091d08af3dbe3ce3cd0650177c4be5307"
+    "digest": "sha256:7033bbc9aee5675e513db63a68d6610685f6b2517126ab72e028225601100b1f"
   },
   "enforcementReceipts": [
     {
       "id": "enforcement-receipt-fixture-1",
       "location": "artifact:fixture:enforcement-receipt-fixture-1",
-      "digest": "sha256:5231797a88568d3983488c6a0714f61b03b4a014f05022755c59e1421a5cc789"
+      "digest": "sha256:933be16499a65e0eab7f4765d28b42b813c8cb241da84217dbe118dc92d23454"
     }
   ],
   "effectiveAt": "2026-08-01T00:00:25Z",
@@ -132,6 +132,6 @@
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:26Z",
-    "value": "GvkEedi69hZc3jt5YRlhMejIHa-M8lP0RnIDOD_TKPDiZ0-b1pOufEbkM09YcCvwjjwwp8eY2uKgAGtwabizCw"
+    "value": "m-lRyIYFKfe-fgN-G8zJhUd__ZJNyBCROy60T2YxxzTPrReMNGzLJZdvfPxLCHufcXoe3mxe3L_3mzmh-bddAA"
   }
 }

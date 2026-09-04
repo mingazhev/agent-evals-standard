@@ -41,7 +41,9 @@
         "assuranceEvidenceMissing",
         "suspectedContamination",
         "confirmedContamination",
-        "privacyIpRetentionBreach"
+        "privacyIpRetentionBreach",
+        "dataOwnerReviewRequired",
+        "riskAcceptanceRequired"
       ]
     },
     "waivableEventId": {
@@ -69,11 +71,13 @@
         "assuranceEvidenceMissing",
         "suspectedContamination",
         "confirmedContamination",
-        "privacyIpRetentionBreach"
+        "privacyIpRetentionBreach",
+        "dataOwnerReviewRequired",
+        "riskAcceptanceRequired"
       ]
     },
     "claimEffect": { "enum": ["insufficient_evidence", "not_applicable"] },
-    "escalationGovernanceStatus": { "enum": ["security_review_required", "manual_review_required"] },
+    "escalationGovernanceStatus": { "$ref": "#/$defs/baseGovernanceStatus" },
     "baseGovernanceStatus": { "enum": ["security_review_required", "manual_review_required", "data_owner_review_required", "risk_acceptance_required"] },
     "completeBaseGovernanceStatusArray": {
       "type": "array",
@@ -109,7 +113,9 @@
         { "$ref": "#/$defs/assuranceEvidenceMissing" },
         { "$ref": "#/$defs/suspectedContamination" },
         { "$ref": "#/$defs/confirmedContamination" },
-        { "$ref": "#/$defs/privacyIpRetentionBreach" }
+        { "$ref": "#/$defs/privacyIpRetentionBreach" },
+        { "$ref": "#/$defs/dataOwnerReviewRequired" },
+        { "$ref": "#/$defs/riskAcceptanceRequired" }
       ]
     },
     "registryEvent": {
@@ -128,8 +134,8 @@
     },
     "completeEventTupleArray": {
       "type": "array",
-      "minItems": 20,
-      "maxItems": 20,
+      "minItems": 22,
+      "maxItems": 22,
       "items": { "$ref": "#/$defs/eventTuple" },
       "allOf": [
         { "contains": { "$ref": "#/$defs/hardGateRegression" }, "minContains": 1, "maxContains": 1 },
@@ -151,7 +157,9 @@
         { "contains": { "$ref": "#/$defs/assuranceEvidenceMissing" }, "minContains": 1, "maxContains": 1 },
         { "contains": { "$ref": "#/$defs/suspectedContamination" }, "minContains": 1, "maxContains": 1 },
         { "contains": { "$ref": "#/$defs/confirmedContamination" }, "minContains": 1, "maxContains": 1 },
-        { "contains": { "$ref": "#/$defs/privacyIpRetentionBreach" }, "minContains": 1, "maxContains": 1 }
+        { "contains": { "$ref": "#/$defs/privacyIpRetentionBreach" }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "$ref": "#/$defs/dataOwnerReviewRequired" }, "minContains": 1, "maxContains": 1 },
+        { "contains": { "$ref": "#/$defs/riskAcceptanceRequired" }, "minContains": 1, "maxContains": 1 }
       ]
     },
     "hardGateRegression": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "hardGateRegression" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "manual_review_required" }, "stopAction": { "const": "close_run" }, "scopeAction": { "const": "reject_or_reduce" }, "waivable": { "const": false } } },
@@ -174,6 +182,8 @@
     "suspectedContamination": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "suspectedContamination" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "security_review_required" }, "stopAction": { "const": "stop_governance_use" }, "scopeAction": { "const": "quarantine_affected" }, "waivable": { "const": false } } },
     "confirmedContamination": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "confirmedContamination" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "security_review_required" }, "stopAction": { "const": "stop_governance_use" }, "scopeAction": { "const": "revoke_affected_scope" }, "waivable": { "const": false } } },
     "privacyIpRetentionBreach": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "privacyIpRetentionBreach" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "security_review_required" }, "stopAction": { "const": "stop_governance_use" }, "scopeAction": { "const": "quarantine_or_delete_affected" }, "waivable": { "const": false } } },
+    "dataOwnerReviewRequired": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "dataOwnerReviewRequired" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "data_owner_review_required" }, "stopAction": { "const": "block_acceptance" }, "scopeAction": { "const": "reject_or_reduce" }, "waivable": { "const": false } } },
+    "riskAcceptanceRequired": { "$ref": "#/$defs/tupleBase", "type": "object", "properties": { "eventId": { "const": "riskAcceptanceRequired" }, "claimEffect": { "const": "insufficient_evidence" }, "governanceStatus": { "const": "risk_acceptance_required" }, "stopAction": { "const": "block_acceptance" }, "scopeAction": { "const": "reject_or_reduce" }, "waivable": { "const": false } } },
     "tupleBase": {
       "type": "object",
       "required": ["eventId", "claimEffect", "governanceStatus", "stopAction", "scopeAction", "waivable"],

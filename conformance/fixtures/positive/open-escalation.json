@@ -3,7 +3,7 @@
   "id": "escalation-fixture-1",
   "eventId": "measurementBoundaryCompromise",
   "matrixVersion": "0.1.0",
-  "matrixHash": "sha256:35746a0015230a7dd56f9fe75a77f00e7ad0166a0403f0dce85df95d481f10f1",
+  "matrixHash": "sha256:c2e6fb87a1f3f8936db5de56124ee776d258c67e383dd9e82487ca712169351d",
   "matrixRowHash": "sha256:07376e634331df6614fccf03cb7053a9f49737d5da767f66af73ff38548f89c4",
   "triggeredAt": "2026-08-01T00:00:12Z",
   "state": "open",
@@ -40,6 +40,6 @@
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:14Z",
-    "value": "7gGebbqVMEWI9CTJGTgB9Hfa3KpbRj7tGQM02jS4KlRi-4-8nqnWmtmFsBFAWwa9W0xMtUzZfGZFsiQYS9rKDg"
+    "value": "JYBw2D36vQpeyVgG_DcGwCImHoA2B_GOvRnFXwY2UFdibTXxdNirHXaFJWVO4_h5Gxa5vG8g-_qIh03Db7WYBg"
   }
 }

@@ -1,0 +1,7 @@
+{
+  "id": "trigger-contract-riskAcceptanceRequired",
+  "version": "0.1.0",
+  "use": "conformance_fixture_only",
+  "eventId": "riskAcceptanceRequired",
+  "condition": "sealed review requirement triggered"
+}

@@ -156,9 +156,78 @@ function singletonRecord() {
   return value;
 }
 
+function failedControlRecord(stageId = "stage7", decision = "rejected") {
+  const value = clone(base);
+  value.decision.status = decision;
+  value.decision.unresolvedBlockingDefects = 1;
+  value.case.toState = decision === "quarantined" ? "quarantined" : "candidate";
+  value.stages[stageId].status = "failed";
+  const control = stageId === "stage7" ? value.alternativeValidResult.control : value.controlProofs[0];
+  control.observed = control.expected === "pass" ? "fail" : "pass";
+  value.defects.push({
+    id: "failed-control",
+    type: stageId === "stage7" ? "alternative_valid_result_rejected" : "overly_strict",
+    severity: stageId === "stage7" ? 3 : 2,
+    status: "open",
+    evidenceIds: [control.evidenceId]
+  });
+  value.stages[stageId].findingIds.push("failed-control");
+  if (decision === "quarantined") {
+    value.case.fromState = "active";
+    value.case.preQuarantineEligibleState = "active";
+    value.invalidation = {
+      timestamp: value.decision.timestamp,
+      reason: "Alternative valid result rejected by the bound verdict mechanism",
+      supersedingRecord: null
+    };
+  }
+  return value;
+}
+
 const vectors = [
   { id: "applicable-alternative-valid-result", valid: true, value: clone(base) },
   { id: "proven-singleton-not-applicable", valid: true, value: singletonRecord() },
+  { id: "retain-rejected-control-mismatch", valid: true, value: failedControlRecord("stage4") },
+  { id: "retain-rejected-alternative-false-negative", valid: true, value: failedControlRecord() },
+  { id: "retain-quarantined-alternative-false-negative", valid: true, value: failedControlRecord("stage7", "quarantined") },
+  {
+    id: "reject-activated-control-mismatch",
+    valid: false,
+    expected: "must be equal to constant",
+    semanticExpected: "controlProofs[0] observed verdict must equal expected for activation or a passing stage",
+    value: (() => { const value = clone(base); value.controlProofs[0].observed = "fail"; return value; })()
+  },
+  {
+    id: "reject-activated-alternative-false-negative",
+    valid: false,
+    expected: "must be equal to constant",
+    semanticExpected: "alternativeValidResult.control observed verdict must equal expected for activation or a passing stage",
+    value: (() => { const value = clone(base); value.alternativeValidResult.control.observed = "fail"; return value; })()
+  },
+  {
+    id: "reject-failed-record-promoted-to-activation",
+    valid: false,
+    semanticExpected: "activated decision requires stage7 to pass",
+    value: (() => { const value = failedControlRecord(); value.decision.status = "activated"; value.case.toState = "active"; return value; })()
+  },
+  {
+    id: "reject-passing-stage-with-control-mismatch",
+    valid: false,
+    semanticExpected: "controlProofs[0] observed verdict must equal expected for activation or a passing stage",
+    value: (() => { const value = failedControlRecord("stage4"); value.stages.stage4.status = "passed"; return value; })()
+  },
+  {
+    id: "reject-passing-alternative-stage-with-false-negative",
+    valid: false,
+    semanticExpected: "alternativeValidResult.control observed verdict must equal expected for activation or a passing stage",
+    value: (() => { const value = failedControlRecord(); value.stages.stage7.status = "passed"; return value; })()
+  },
+  {
+    id: "reject-failed-singleton-near-miss-control",
+    valid: false,
+    expected: "must be equal to constant",
+    value: (() => { const value = singletonRecord(); value.stages.stage7.singletonValidityProof.nearMissControls[0].observed = "pass"; return value; })()
+  },
   {
     id: "reject-reviewer-actor-collision",
     valid: false,
@@ -590,7 +659,7 @@ for (const vector of vectors) {
   const schemaValid = validate(vector.value);
   const schemaErrors = structuredClone(validate.errors ?? []);
   const semanticIssues = [];
-  if (schemaValid) {
+  if (schemaValid || vector.semanticExpected) {
     await checkCaseQaRecord(vector.value, semanticIssues, {
       authenticateEvidence: (artifact) => artifact.attestation ? null : "missing attestation",
       resolveEvidencePayload: (artifact) => Buffer.from(artifact.payload.contentBase64, "base64"),
@@ -619,7 +688,8 @@ for (const vector of vectors) {
   }
   const accepted = schemaValid && semanticIssues.length === 0;
   const diagnostics = [ajv.errorsText(schemaErrors), ...semanticIssues].filter(Boolean).join("\n");
-  if (accepted !== vector.valid || (!vector.valid && vector.expected && !diagnostics.includes(vector.expected))) {
+  if (accepted !== vector.valid || (!vector.valid && vector.expected && !diagnostics.includes(vector.expected))
+    || (vector.semanticExpected && !semanticIssues.some((issue) => issue.includes(vector.semanticExpected)))) {
     failures += 1;
     console.error(`${vector.id}: expected ${vector.valid ? "pass" : "fail"}, got ${accepted ? "pass" : "fail"}; ${diagnostics}`);
   }

@@ -1700,7 +1700,8 @@
       "schema": "urn:agent-evals-standard:schema:governance-resolution-ledger:1",
       "valid": true,
       "semanticChecks": [
-        "signature"
+        "signature",
+        "governanceLedger"
       ]
     },
     {

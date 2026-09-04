@@ -4,44 +4,29 @@ An implementation-independent standard for evaluating software-engineering
 agents working with Git-backed code repositories across the SDLC and for using
 evaluation evidence in capability, comparison, and governance decisions.
 
-The scope is deliberately limited to evaluations whose claim-bearing work is
-grounded in a sealed Git repository or repository-bound fixture. General-agent
-capability claims and unrelated office, customer-support, embodied, or arbitrary-
-computer-use work are outside conformance scope. The implementation's breadth is
-irrelevant: a general-purpose system may be evaluated conformingly only for the
-bounded work and claims that pass `SCOPE-003`. Common invariants form an internal
-base; they are not a standalone “general agent” certification. Every non-
-diagnostic claim binds one effective evaluation profile per case and one or more
-authenticated outcome profiles across its eligible cells; each case and cell
-selects exactly one outcome profile.
+Evaluated work and claims must be materially grounded in a sealed Git repository
+or repository-bound fixture under [SCOPE-003](standard/standard.md#applicability-boundary-and-profiles).
+A general-purpose agent may participate, but unrelated general-agent claims are
+outside scope.
 
 This repository contains an **unpublished 0.1.0 publication candidate**. Every
 component is version **0.1.0** and may change incompatibly until the first
 release commit and protected annotated tag are created. The version identifies the
 candidate contract; it does not assert that a release has occurred.
 
-Normative authority is partitioned by question: the requirement registry and
-linked primary prose own requirement meaning; registered JSON Schemas own JSON
-shape; named semantic contracts own canonical and cross-document algorithms;
-and conformance fixtures are executable projections of those registered rules.
-The source-evidence manifest is the normative traceability and evidence-
-readiness record, but the external sources it cites are informative. Validation tooling and
-implementation notes are non-normative and cannot redefine a contract or
-fixture. Verdict-changing contradictions fail closed. The authoritative table
-is in [Conformance](standard/conformance.md#normative-artifact-consistency).
+Start with the [Adoption Guide](standard/adoption-guide.md), then use the
+[authority map](#normative-authority-map) to find each contract. The guide orders
+policy and assurance setup, case QA, pre-registration, execution, and separate
+conformance statements; governance decisions and monitoring follow their
+pre-planned evidence run.
 
-Evidence readiness is `ready`: every cited source and bounded content claim has
-an accountable maintainer review against its primary publisher record, every
-review receipt is bound to the exact reviewed claim projection, every normative
-requirement has a non-gap evidence classification, and the complete repository
-validation corpus passes. This status means that the standard is ready to be
-published; it does not mean that every capability family has been empirically
-validated for every enterprise population. Capability rows preserve those
-transfer limits explicitly. Byte archives remain optional provenance hardening
-unless a claim specifically depends on archived bytes.
+The [source-evidence manifest](standard/source-evidence-manifest.json) records
+`evidenceReadiness: ready`: source reviews are current and no normative
+requirement has an evidence gap. Publication additionally requires the full
+release check below. Neither status establishes empirical validity for an
+adopter's population.
 
-The repository provides no evaluation runner, grader, benchmark cases, or
-provider integration.
+## Scope and implementation coverage
 
 The bundled executable interoperability corpus is narrower than
 the seven-family taxonomy. Its maturity is explicit:
@@ -53,37 +38,15 @@ the seven-family taxonomy. Its maturity is explicit:
 | `CAP.REVIEW_DECIDE` | read-only `repository-review-v1` | not yet established |
 | `CAP.DISCOVER_SPECIFY`, `CAP.PLAN_DESIGN`, `CAP.RELEASE_OPERATE`, `CAP.REMEDIATE_LEARN` | normative taxonomy and contract surface only | not yet established |
 
-An absent executable profile is not evidence that the normative surface is
-implemented. A bundled profile demonstrates interoperability mechanics, not
-empirical validity or production trust readiness.
+The profiles demonstrate interoperability, not production trust readiness.
+Each selected capability needs a material output mapped by the
+[work-artifact registry](standard/work-artifact-registry.json).
 
-Work-product classification is closed and machine-readable in the
-[`repository-sdlc-work-artifact-registry`](standard/work-artifact-registry.json):
-each type maps to one capability family, and every selected family must have a
-material mapped output. Cases select one concrete interaction-mode ID and bind
-repository state through a content-addressed one- or multi-repository workspace
-manifest.
-
-Version 0.1.0 has executable repository-state semantics for Git repositories
-only. A non-Git VCS evaluation is outside executable conformance until a
-versioned repository-state contract supplies equivalent immutable state
-identity, visible-history closure, oracle-isolation evidence, semantic
-verification, and positive and negative conformance fixtures. This limitation
-does not broaden the standard to agents generally.
-
-**Git LFS boundary:** version 0.1.0 does not define LFS payload transport,
-authorization, materialization, or offline replay. Any reachable Git blob that
-is an LFS pointer makes that workspace invalid for executable conformance;
-checking in the pointer while omitting or fetching the payload out of band is
-not a conforming workaround. `.gitattributes` alone, with no reachable LFS
-pointer, does not invalidate a workspace.
-
-The 0.1.0 Git path contract supports spaces and non-normalized Unicode but
-requires every tree-entry name to be well-formed UTF-8 and every serialized
-path to be safe and relative. Repositories containing non-UTF-8 path bytes are
-outside executable conformance in this draft; non-path commit metadata remains
-byte-preserving and is not required to be UTF-8. The normative rules are in the
-[Git Repository-State Boundary Contract](standard/standard.md#git-repository-state-boundary-contract-scope-003).
+The [Git boundary contract](standard/standard.md#git-repository-state-boundary-contract-scope-003)
+supports one or multiple repositories, UTF-8 paths including spaces and
+non-normalized Unicode, and byte-preserved commit metadata. Non-Git VCS,
+non-UTF-8 path names, and reachable Git LFS pointer blobs are outside executable
+conformance in 0.1.0. `.gitattributes` without an LFS pointer is permitted.
 
 ## Candidate components
 
@@ -95,24 +58,8 @@ byte-preserving and is not required to be UTF-8. The normative rules are in the
 - Governance Policy template: **0.1.0**
 - Escalation and Stop Matrix template: **0.1.0**
 
-Start with [the core standard](standard/standard.md), then read the
-[glossary](standard/glossary.md) and
-[conformance contract](standard/conformance.md).
-
-For a staged onboarding with checklists, read the
-[Adoption Guide](standard/adoption-guide.md) — it separates a measurement
-path (case → Case QA → run → scorecard → conformance statement) from a
-governance path (policy instance → decision plan → decision → assurance).
-
-For implementation, follow this dependency order:
-
-1. establish applicability, the sealed Git workspace, and effective profiles;
-2. bind suite scope, cases, work-artifact types, and validation strategies;
-3. seal the evaluator, pre-run manifest, scheduled cells, and decision plan;
-4. execute with isolated accounting and material evidence capture;
-5. construct the scorecard and reproduce gates, outcomes, claims, and statistics;
-6. perform detached semantic validation and target-specific conformance; and
-7. make, enforce, and monitor any governance decision.
+The [glossary](standard/glossary.md) defines shared terms. Candidate revisions
+are identified by exact commit, not by these version strings alone.
 
 ## Normative authority map
 
@@ -164,8 +111,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 The repository validates itself. Machine-verifiable expectations are captured
 as positive and negative [conformance fixtures](conformance/fixtures/) and
-checked by `npm test`, which runs every verifier tool in `tools/` and every
-profile test. `npm run check` verifies repository consistency (schema
+checked by `npm test`, which runs the registered verifier suites and profile
+tests. `npm run check` verifies repository consistency (schema
 well-formedness, `$ref` resolution, cross-document links);
 `npm run check:generated` verifies generated-artifact freshness; and
 `npm run release:check` adds evidence-readiness and cleanliness checks for the

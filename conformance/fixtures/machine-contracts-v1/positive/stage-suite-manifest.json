@@ -14,15 +14,15 @@
       "id": "repo-change-v1",
       "version": "0.1.0",
       "uri": "../../../profiles/repo-change-v1/evaluation-profile.json",
-      "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210"
+      "digest": "sha256:56cb626f8a73bf59d65dc1a13f71d068a5b36b1859cf054ceb497cff33306edc"
     }
   ],
   "cases": [
     {
       "id": "case-fixture-typed-1",
       "version": "0.1.0",
-      "uri": "artifact:sha256:7569fd47faa793da31cf51f14fa475081a730c4d062b278fb1091c74ccac140c",
-      "digest": "sha256:7569fd47faa793da31cf51f14fa475081a730c4d062b278fb1091c74ccac140c",
+      "uri": "artifact:sha256:23d20e5975682d3b2dedcf928de645b2d5c71fee7c8e0bdfbc3c6444a8fa7f7a",
+      "digest": "sha256:23d20e5975682d3b2dedcf928de645b2d5c71fee7c8e0bdfbc3c6444a8fa7f7a",
       "byteLength": 22260,
       "mediaType": "application/json",
       "locator": {
@@ -30,17 +30,17 @@
         "base": "binding_document",
         "path": "stage-case.json"
       },
-      "selfDigest": "sha256:984232f87b84094e91b4cc6202014844e67710090d56db74f73f6b00a4be0280",
+      "selfDigest": "sha256:b775b3c1abbe16c282188e17650373ac2b5c266cdd21794f6a21cdc7775d2808",
       "evaluationProfile": {
         "id": "repo-change-v1",
         "version": "0.1.0",
-        "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210"
+        "digest": "sha256:56cb626f8a73bf59d65dc1a13f71d068a5b36b1859cf054ceb497cff33306edc"
       },
-      "effectiveProfileDigest": "sha256:6ec98f997cbaa51d30eeb1bdc6a3bb91e76cc2ec505fdd155850d115b0146869",
+      "effectiveProfileDigest": "sha256:e67c7b326718295c8e63608ad3d33859eece5107f58aa777ee2898dadca8c03e",
       "outcomeProfile": {
         "id": "workspace-change-v1",
         "version": "0.1.0",
-        "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
+        "digest": "sha256:d47d693fbb2528f140b90fa4096820d43c447e1aaed981c2192103807f2dd1bf"
       },
       "capabilityFamilyIds": [
         "CAP.IMPLEMENT_CHANGE",
@@ -59,8 +59,8 @@
     {
       "id": "case-fixture-typed-2",
       "version": "0.1.0",
-      "uri": "artifact:sha256:3baa017f2bcc41219b4919eaa1f6f34ba8720349103cab97e395402d7000be5d",
-      "digest": "sha256:3baa017f2bcc41219b4919eaa1f6f34ba8720349103cab97e395402d7000be5d",
+      "uri": "artifact:sha256:f79026961b0a737e637536d927d634845bc93a837a63012789a0c297c4d4cba0",
+      "digest": "sha256:f79026961b0a737e637536d927d634845bc93a837a63012789a0c297c4d4cba0",
       "byteLength": 22260,
       "mediaType": "application/json",
       "locator": {
@@ -68,17 +68,17 @@
         "base": "binding_document",
         "path": "stage-case-2.json"
       },
-      "selfDigest": "sha256:82a49afd9af311d8874a48a56f5079b1877784ed4c204d0df9c13cedb0d52415",
+      "selfDigest": "sha256:1427827e7a8d15abceb67b2893e6a0bacfc0b61c3d57c04025d5d0d357ff4d79",
       "evaluationProfile": {
         "id": "repo-change-v1",
         "version": "0.1.0",
-        "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210"
+        "digest": "sha256:56cb626f8a73bf59d65dc1a13f71d068a5b36b1859cf054ceb497cff33306edc"
       },
-      "effectiveProfileDigest": "sha256:6ec98f997cbaa51d30eeb1bdc6a3bb91e76cc2ec505fdd155850d115b0146869",
+      "effectiveProfileDigest": "sha256:e67c7b326718295c8e63608ad3d33859eece5107f58aa777ee2898dadca8c03e",
       "outcomeProfile": {
         "id": "workspace-change-v1",
         "version": "0.1.0",
-        "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
+        "digest": "sha256:d47d693fbb2528f140b90fa4096820d43c447e1aaed981c2192103807f2dd1bf"
       },
       "capabilityFamilyIds": [
         "CAP.IMPLEMENT_CHANGE",
@@ -125,8 +125,8 @@
     "id": "suite-validity-argument-v1",
     "version": "0.1.0",
     "schemaId": "urn:agent-evals-standard:schema:validity-argument:1",
-    "uri": "artifact:sha256:6f9c9f19478812f30e7b09fe7a507ca9e8420d53c0a7f162606a95c1db73073c",
-    "digest": "sha256:6f9c9f19478812f30e7b09fe7a507ca9e8420d53c0a7f162606a95c1db73073c",
+    "uri": "artifact:sha256:c00c9ca3e4f3fe9cbfd7e8c6bddc2013fab1133a09fde6abfa599b9b635d11b9",
+    "digest": "sha256:c00c9ca3e4f3fe9cbfd7e8c6bddc2013fab1133a09fde6abfa599b9b635d11b9",
     "byteLength": 7311,
     "mediaType": "application/json",
     "locator": {
@@ -314,12 +314,12 @@
       }
     }
   },
-  "digest": "sha256:f28be9adbd309cc876dd75cd92e3ae96b7e74eab7c9f92dfe93f5ca0e21e472a",
+  "digest": "sha256:4eb193b8626c3f52a4882b0e4acefcdf12759ab8eca951fd7b04d25993752963",
   "signature": {
     "profileId": "fixture-claimant-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1-claimant",
     "signedAt": "2026-08-01T01:01:00Z",
-    "value": "qFU9-srB7ngpjoAhq9EqdhJ1pBX3F5ZJ5V_mWKq5xIoLFlx_YAx4jD6EROk_V5skMVqpYeSXaaDXILG_yGwZAA"
+    "value": "YvT1kUMEeKKhjbA8dbPT_EzgVuFxRC_yfO5QRJX8VxGsu_VLyNjO_auL91irzVXu273Td5VJrEXNBH4E-UBeCA"
   }
 }

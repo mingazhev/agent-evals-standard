@@ -11,6 +11,10 @@ import {
   sha256Canonical
 } from "./verify-repository-grounding.mjs";
 import { refreshGroundingEvidence } from "./refresh-grounding-evidence.mjs";
+import {
+  governanceLedgerInitialRoot,
+  governanceLedgerEventHash
+} from "./governance-enforcement.mjs";
 
 // RFC 8032 test vector 1 is public conformance material, never an operational key.
 const fixtureSeed = Buffer.from(
@@ -21,6 +25,7 @@ const pkcs8Prefix = Buffer.from("302e020100300506032b657004220420", "hex");
 const fixtureProfileId = "fixture-signature-profile";
 const fixtureKeyId = "rfc8032-test-key-1";
 const evidenceDomain = "agent-evals-evidence-artifact-1";
+const governanceEventDomain = "agent-evals-governance-ledger-event-1";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const positiveRoot = path.join(root, "conformance", "fixtures", "positive");
@@ -57,8 +62,9 @@ function signatureMessage(domain, document, signatureProperty = "signature") {
   ]);
 }
 
-function signFixtureDocument(document) {
-  if (!document.schemaVersion || document.signature?.profileId !== fixtureProfileId
+function signFixtureDocument(document, domain = document.schemaVersion) {
+  if ((!document.schemaVersion && domain !== governanceEventDomain)
+    || document.signature?.profileId !== fixtureProfileId
     || document.signature?.algorithm !== "Ed25519"
     || document.signature?.keyId !== fixtureKeyId) {
     throw new Error(`refusing to sign non-fixture document ${document.id ?? document.envelopeId}`);
@@ -71,7 +77,7 @@ function signFixtureDocument(document) {
   }
   document.signature.value = sign(
     null,
-    signatureMessage(document.schemaVersion, document),
+    signatureMessage(domain, document),
     fixturePrivateKey()
   ).toString("base64url");
 }
@@ -137,6 +143,77 @@ function rebuildDependencyEntries(statement, target) {
   return entries;
 }
 
+async function refreshGovernanceChain(scorecard, decision) {
+  const policy = await readJson(path.join(positiveRoot, "operational-governance-policy.json"));
+  const matrix = await readJson(path.join(positiveRoot, "operational-escalation-matrix.json"));
+  const event = await readJson(path.join(positiveRoot, "open-escalation.json"));
+  const receipt = await readJson(path.join(positiveRoot, "enforcement-receipt.json"));
+  const eventHash = sha256Canonical(event);
+  if (policy.escalationMatrix.digest !== matrix.digest || event.matrixHash !== matrix.digest
+    || receipt.sourceEventDigest !== eventHash) {
+    throw new Error("static governance policy, event, or receipt must be refreshed before scorecard-dependent generation");
+  }
+  const written = [];
+  const resolutionPath = path.join(positiveRoot, "governance-resolution.json");
+  const negativeResolutionPath = path.join(root, "conformance", "fixtures", "negative", "governance-waive-nonwaivable.json");
+  let resolution;
+  for (const absolute of [resolutionPath, negativeResolutionPath]) {
+    const value = await readJson(absolute);
+    if (value.eventId !== "resolution-fixture-1" || value.sourceEventId !== event.id) {
+      throw new Error(`unexpected governance resolution identity at ${absolute}`);
+    }
+    // The negative fixture's forbidden waiver and waivability remain unchanged.
+    value.scorecardHash = scorecard.digest;
+    value.sourceEventHash = eventHash;
+    value.policyInstanceHash = policy.digest;
+    value.matrixInstanceHash = matrix.digest;
+    value.enforcementReceipt.digest = receipt.digest;
+    signFixtureDocument(value);
+    await writeJson(absolute, value);
+    written.push(absolute);
+    if (absolute === resolutionPath) resolution = value;
+  }
+
+  const ledgerPath = path.join(positiveRoot, "governance-resolution-ledger.json");
+  const ledger = await readJson(ledgerPath);
+  if (ledger.ledgerId !== "governance-resolution-ledger-fixture-1" || ledger.events.length !== 3) {
+    throw new Error("unexpected governance fixture ledger identity or event count");
+  }
+  ledger.policyInstanceHash = policy.digest;
+  ledger.matrixInstanceHash = matrix.digest;
+  ledger.initialRoot = governanceLedgerInitialRoot(ledger);
+  const payloads = [event, receipt, resolution];
+  const types = ["escalation", "enforcement_receipt", "resolution"];
+  let previousHash = null;
+  for (const [index, entry] of ledger.events.entries()) {
+    const payload = payloads[index];
+    if (entry.eventType !== types[index] || entry.eventId !== (payload.id ?? payload.eventId)) {
+      throw new Error("unexpected governance fixture event order or identity");
+    }
+    entry.sequence = index + 1;
+    entry.payload = structuredClone(payload);
+    entry.payloadHash = sha256Canonical(payload);
+    entry.previousEventHash = previousHash;
+    entry.eventHash = governanceLedgerEventHash(entry);
+    signFixtureDocument(entry, governanceEventDomain);
+    previousHash = entry.eventHash;
+  }
+  ledger.currentRoot = previousHash ?? ledger.initialRoot;
+  signFixtureDocument(ledger);
+  await writeJson(ledgerPath, ledger);
+  written.push(ledgerPath);
+
+  if (decision.enforcementReceipts.length !== 1 || decision.enforcementReceipts[0].id !== receipt.id
+    || decision.resolutionLedger.id !== ledger.ledgerId) {
+    throw new Error("unexpected governance decision receipt or ledger binding");
+  }
+  decision.policyInstance.digest = policy.digest;
+  decision.matrixInstance.digest = matrix.digest;
+  decision.resolutionLedger.digest = sha256Canonical(ledger);
+  decision.enforcementReceipts[0].digest = receipt.digest;
+  return written;
+}
+
 const statement = await readJson(statementPath);
 if (statement.id !== "conformance-decision-fixture-1" || statement.claim !== "decision") {
   throw new Error("unexpected conformance statement identity or target");
@@ -165,6 +242,7 @@ if (scorecard.schemaVersion !== "agent-eval-scorecard-1" || typeof scorecard.dig
   throw new Error("unexpected scorecard identity or missing self digest");
 }
 if (decision.scorecards.length !== 1) throw new Error("fixture decision must bind exactly one scorecard");
+const governancePaths = await refreshGovernanceChain(scorecard, decision);
 decision.scorecards[0].digest = scorecard.digest;
 signFixtureDocument(decision);
 const decisionBytes = await writeJson(decisionPath, decision);
@@ -291,6 +369,7 @@ signFixtureDocument(decisionEnvelope);
 await writeJson(decisionEnvelopePath, decisionEnvelope);
 
 for (const absolute of [
+  ...governancePaths,
   ...statement.scope.slices.map((slice) => path.join(positiveRoot, `${slice.materialRepositoryGrounding.evidenceId}.json`)),
   decisionPath,
   applicabilityPath,

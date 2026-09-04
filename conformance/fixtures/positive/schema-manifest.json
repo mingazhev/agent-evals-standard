@@ -38,7 +38,7 @@
       "id": "urn:agent-evals-standard:schema:case-qa-record:1",
       "version": "0.1.0",
       "uri": "schemas/case-qa-record.schema.json",
-      "digest": "sha256:b2eb1660899aac18ab5bfe167b6f2149c378d65292161b36a712cf6d4cc0bae9"
+      "digest": "sha256:bc8df5b906577f2c3a36109482003c89d4784ce3ce5b65aa5702121ce52d4d74"
     },
     {
       "id": "urn:agent-evals-standard:schema:case:1",
@@ -68,7 +68,7 @@
       "id": "urn:agent-evals-standard:schema:enforcement-receipt:1",
       "version": "0.1.0",
       "uri": "schemas/enforcement-receipt.schema.json",
-      "digest": "sha256:2e3530eaa6176e48b5a85e17d758990c2f0d1787f92c2dfc23bcf51cf84aa8e9"
+      "digest": "sha256:9aa0be723b93bd081e70d9aa9e8ba7c8a1418698b783ed26ad4dee0d4ca70464"
     },
     {
       "id": "urn:agent-evals-standard:schema:environment-contract:1",
@@ -80,7 +80,7 @@
       "id": "urn:agent-evals-standard:schema:escalation-event-registry:1",
       "version": "0.1.0",
       "uri": "schemas/escalation-event-registry.schema.json",
-      "digest": "sha256:d83cbb07214f791b6f0210f65f76648f5f9002acdd24290208c80e25b4305465"
+      "digest": "sha256:c168b20f82e9144f33aa685fa33d36bca5581c2e5df975c2e3a5a0d9eb9e7636"
     },
     {
       "id": "urn:agent-evals-standard:schema:escalation-event:1",
@@ -146,7 +146,7 @@
       "id": "urn:agent-evals-standard:schema:governance-resolution:1",
       "version": "0.1.0",
       "uri": "schemas/governance-resolution.schema.json",
-      "digest": "sha256:a228ef35de2457ae20b01821b8d4ceafc821dd5535f6599792f45f80b7f589fb"
+      "digest": "sha256:81192c3e344fa1e6be3852a44c4f95e1efe874bd99168e8d54ad098ec862dd8b"
     },
     {
       "id": "urn:agent-evals-standard:schema:grader-validation:1",
@@ -320,7 +320,7 @@
       "id": "urn:agent-evals-standard:schema:scorecard:1",
       "version": "0.1.0",
       "uri": "schemas/scorecard.schema.json",
-      "digest": "sha256:1ec7ca37d5a1c0e8e4a3609e2472e52ecb46034d62fa34a9c5dfb8af48ec261d"
+      "digest": "sha256:faef039a067e22baa5c8d34fd34e319746cc50f42760b5dca471514e865cdf56"
     },
     {
       "id": "urn:agent-evals-standard:schema:sdlc-coverage:1",
@@ -407,5 +407,5 @@
       "digest": "sha256:391e6dc98e4753b01bc8b160891eee65cedb340bc083bc42a856b4c268637cce"
     }
   ],
-  "entriesDigest": "sha256:a96a2ce69f81fb633445037ed08ce537b79b002340d92e63f7c307e26153e416"
+  "entriesDigest": "sha256:d82377199935c529559ad82999f8ba83f20b383fed91ef8454d2990d6fa6c98b"
 }

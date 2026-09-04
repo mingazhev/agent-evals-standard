@@ -135,7 +135,11 @@
         "estimate": { "type": ["number", "null"] }, "interval": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/interval" }] }, "identificationBounds": { "$ref": "#/$defs/bound" },
         "missingness": { "$ref": "#/$defs/artifactPointer" }, "coverage": { "$ref": "#/$defs/artifactPointer" }, "decisionRuleResult": { "enum": ["pass", "fail", "insufficient_evidence", "not_applicable"] }
       },
-      "allOf": [{ "if": { "properties": { "status": { "const": "supported" } }, "required": ["status"] }, "then": { "properties": { "estimate": { "type": "number" }, "interval": { "$ref": "#/$defs/interval" }, "decisionRuleResult": { "const": "pass" } } }, "else": { "properties": { "estimate": { "type": "null" } } } }],
+      "allOf": [
+        { "if": { "properties": { "status": { "const": "supported" } }, "required": ["status"] }, "then": { "properties": { "estimate": { "type": "number" }, "interval": { "$ref": "#/$defs/interval" }, "decisionRuleResult": { "const": "pass" } } } },
+        { "if": { "properties": { "status": { "const": "not_applicable" } }, "required": ["status"] }, "then": { "properties": { "estimate": { "type": "null" }, "interval": { "type": "null" } } } },
+        { "if": { "properties": { "estimate": { "type": "null" } }, "required": ["estimate"] }, "then": { "properties": { "interval": { "type": "null" } } }, "else": { "properties": { "interval": { "$ref": "#/$defs/interval" } } } }
+      ],
       "additionalProperties": false
     },
     "successDefinition": { "type": "object", "required": ["id", "version"], "properties": { "id": { "enum": ["functional-outcome-v1", "accepted-outcome-v1"] }, "version": { "const": "0.1.0" } }, "additionalProperties": false },

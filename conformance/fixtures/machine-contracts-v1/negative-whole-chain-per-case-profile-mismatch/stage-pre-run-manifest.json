@@ -6,8 +6,8 @@
   "suite": {
     "id": "suite-fixture-typed-1",
     "version": "0.1.0",
-    "uri": "artifact:sha256:32e76db7026c0662147b6711ff4968d580d7b88a2293fd55f1e7e8aa4cc1f3ea",
-    "digest": "sha256:32e76db7026c0662147b6711ff4968d580d7b88a2293fd55f1e7e8aa4cc1f3ea",
+    "uri": "artifact:sha256:47c12c2a621ba5bfe1249c78e5feb115a0960302f2b7135795773a673306a2c0",
+    "digest": "sha256:47c12c2a621ba5bfe1249c78e5feb115a0960302f2b7135795773a673306a2c0",
     "byteLength": 12635,
     "mediaType": "application/json",
     "locator": {
@@ -15,13 +15,13 @@
       "base": "binding_document",
       "path": "stage-suite-manifest.json"
     },
-    "selfDigest": "sha256:d3b86dacf0753bce83fca8724518f869a717d08c1eaf8930d0495c3bc2453175"
+    "selfDigest": "sha256:0907b6c9233e775a74547e37e03775d7783fa05de1de6b777b6a13cd1ef7df15"
   },
   "evaluator": {
     "id": "evaluator-manifest-fixture-1",
     "version": "0.1.0",
     "uri": "../../positive/evaluator-manifest.json",
-    "digest": "sha256:74683789496f8e8233a1e1217590e08358933d74ce963f5f4127f3d24d7d55c5"
+    "digest": "sha256:bf190335707b6a8630fa3b1dccc11376c029ba90e897334edb774318477f5a93"
   },
   "assuranceLevel": "A1",
   "runMode": "evaluation",
@@ -40,13 +40,13 @@
       "evaluationProfile": {
         "id": "repo-change-v1",
         "version": "0.1.0",
-        "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210"
+        "digest": "sha256:56cb626f8a73bf59d65dc1a13f71d068a5b36b1859cf054ceb497cff33306edc"
       },
-      "effectiveProfileDigest": "sha256:6ec98f997cbaa51d30eeb1bdc6a3bb91e76cc2ec505fdd155850d115b0146869",
+      "effectiveProfileDigest": "sha256:e67c7b326718295c8e63608ad3d33859eece5107f58aa777ee2898dadca8c03e",
       "outcomeProfile": {
         "id": "workspace-change-v1",
         "version": "0.1.0",
-        "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
+        "digest": "sha256:d47d693fbb2528f140b90fa4096820d43c447e1aaed981c2192103807f2dd1bf"
       }
     },
     {
@@ -55,13 +55,13 @@
       "evaluationProfile": {
         "id": "repo-change-v1",
         "version": "0.1.0",
-        "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210"
+        "digest": "sha256:56cb626f8a73bf59d65dc1a13f71d068a5b36b1859cf054ceb497cff33306edc"
       },
       "effectiveProfileDigest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
       "outcomeProfile": {
         "id": "workspace-change-v1",
         "version": "0.1.0",
-        "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
+        "digest": "sha256:d47d693fbb2528f140b90fa4096820d43c447e1aaed981c2192103807f2dd1bf"
       }
     }
   ],
@@ -69,8 +69,8 @@
     {
       "id": "case-fixture-typed-1",
       "version": "0.1.0",
-      "uri": "artifact:sha256:7569fd47faa793da31cf51f14fa475081a730c4d062b278fb1091c74ccac140c",
-      "digest": "sha256:7569fd47faa793da31cf51f14fa475081a730c4d062b278fb1091c74ccac140c",
+      "uri": "artifact:sha256:23d20e5975682d3b2dedcf928de645b2d5c71fee7c8e0bdfbc3c6444a8fa7f7a",
+      "digest": "sha256:23d20e5975682d3b2dedcf928de645b2d5c71fee7c8e0bdfbc3c6444a8fa7f7a",
       "byteLength": 22260,
       "mediaType": "application/json",
       "locator": {
@@ -78,13 +78,13 @@
         "base": "binding_document",
         "path": "stage-case.json"
       },
-      "selfDigest": "sha256:984232f87b84094e91b4cc6202014844e67710090d56db74f73f6b00a4be0280"
+      "selfDigest": "sha256:b775b3c1abbe16c282188e17650373ac2b5c266cdd21794f6a21cdc7775d2808"
     },
     {
       "id": "case-fixture-typed-2",
       "version": "0.1.0",
-      "uri": "artifact:sha256:3baa017f2bcc41219b4919eaa1f6f34ba8720349103cab97e395402d7000be5d",
-      "digest": "sha256:3baa017f2bcc41219b4919eaa1f6f34ba8720349103cab97e395402d7000be5d",
+      "uri": "artifact:sha256:f79026961b0a737e637536d927d634845bc93a837a63012789a0c297c4d4cba0",
+      "digest": "sha256:f79026961b0a737e637536d927d634845bc93a837a63012789a0c297c4d4cba0",
       "byteLength": 22260,
       "mediaType": "application/json",
       "locator": {
@@ -92,7 +92,7 @@
         "base": "binding_document",
         "path": "stage-case-2.json"
       },
-      "selfDigest": "sha256:82a49afd9af311d8874a48a56f5079b1877784ed4c204d0df9c13cedb0d52415"
+      "selfDigest": "sha256:1427827e7a8d15abceb67b2893e6a0bacfc0b61c3d57c04025d5d0d357ff4d79"
     }
   ],
   "arms": [
@@ -413,7 +413,7 @@
   "governanceRegistry": {
     "id": "base-escalation-event-registry",
     "uri": "escalation-event-registry.json",
-    "digest": "sha256:c71559aa50901c3a938ecd7475da49aef27e6dff8c1f12ac656fe765d043d642"
+    "digest": "sha256:1265947822356d25c638fa1b92e2bb6344b8095e21604d1fdcadcfca8d1bc53e"
   },
   "statisticalPlan": {
     "id": "statistical-plan-fixture-typed-1",
@@ -444,8 +444,8 @@
     "id": "evaluation-control-bindings-v1",
     "version": "0.1.0",
     "schemaId": "urn:agent-evals-standard:schema:evaluation-control-bindings:1",
-    "uri": "artifact:sha256:ba92d188f6bbb826bb8914447c0fdd11a61519f41122b18d13972eb163de1e78",
-    "digest": "sha256:ba92d188f6bbb826bb8914447c0fdd11a61519f41122b18d13972eb163de1e78",
+    "uri": "artifact:sha256:64b96a29044030dbc8b36cddd94bcbe25c246dc7ca758119e88d0c2a91c12767",
+    "digest": "sha256:64b96a29044030dbc8b36cddd94bcbe25c246dc7ca758119e88d0c2a91c12767",
     "byteLength": 14621,
     "mediaType": "application/json",
     "locator": {
@@ -487,12 +487,12 @@
       "policyDigest": "sha256:b29e42e61605ba520a84839a71402698d8656d0f0fc29fb98fca210d4198b9e6"
     }
   },
-  "digest": "sha256:81e14bebdeef6266549118391a7ee96afc7f3eb918aa7973b72a83ee745c4969",
+  "digest": "sha256:41aa36cd0b8cea549bb7fb69e5bcbb2c69f71b7b73e92aead1cffed2bc9dfeab",
   "signature": {
     "profileId": "fixture-claimant-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1-claimant",
     "signedAt": "2026-08-01T01:05:00Z",
-    "value": "-K-G2bYUZjzWFwCwl1MmPoO2FBxFZF0LI9pTr4Wtq649fVfQiRLcr5OpA_W0lKQkxpTioqRSbq3wbP9Ux8fqAQ"
+    "value": "6Bz2Szb9lukcd_6ZRPttpDoRsO1HmBwq8-Ssx9Polt5CRtay90SxjMe_ZLOIrlzIioLfx5YrfeF7TaVRRoJ6Aw"
   }
 }

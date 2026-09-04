@@ -12,6 +12,8 @@ import {
 import { checkProductionDerivedInput } from "./validate-production-derived-input.mjs";
 import { checkSdlcCoverage } from "./verify-sdlc-coverage.mjs";
 import { sourceReviewBindings } from "./source-evidence-review.mjs";
+import { binaryStatisticValue, completeCaseClaimStatisticsIssues } from "./scorecard-statistics.mjs";
+import { enforcementReceiptBindingIssues, governanceLedgerIssues } from "./governance-enforcement.mjs";
 import { checkSuiteProfileBindings } from "./verify-suite-profile-bindings.mjs";
 import { verifyCaseValidityArgument } from "./verify-case-classification.mjs";
 import {
@@ -296,6 +298,7 @@ const knownSemanticChecks = new Set([
   "sourceEvidenceGraph",
   "sourceEvidenceTriangulation",
   "sourceEventBinding",
+  "governanceLedger",
   "suiteProfileBindings",
   "validationEnvelope",
   "workspaceManifestBinding",
@@ -3717,17 +3720,7 @@ function scorecardTrialSuccess(trial, claim, replayDerived = null) {
 }
 
 function scorecardStatisticValue(estimand, validN, validSuccesses, k) {
-  if (!Number.isInteger(validN) || !Number.isInteger(validSuccesses) || !Number.isInteger(k)
-    || validN <= 0 || k <= 0 || k > validN || validSuccesses < 0 || validSuccesses > validN) return null;
-  if (estimand === "reliability_at_k") return (validSuccesses / validN) ** k;
-  if (estimand !== "pass_at_k") return null;
-  let allFailures = 1;
-  for (let index = 0; index < k; index += 1) {
-    const remainingFailures = validN - validSuccesses - index;
-    if (remainingFailures <= 0) return 1;
-    allFailures *= remainingFailures / (validN - index);
-  }
-  return 1 - allFailures;
+  return binaryStatisticValue(estimand, validN, validSuccesses, k);
 }
 
 function collectDirectTrialEvidenceIds(trial) {
@@ -4541,17 +4534,8 @@ async function checkScorecardGraph(document, sourceAbsolute, issues, fixture) {
     if (expectedDecision !== null && result.decisionRuleResult !== expectedDecision) {
       issues.push(`${owner}: claim ${result.claimId} decisionRuleResult must be ${expectedDecision}`);
     }
-    if (claim.direction === "positive" && claim.analysisUnit === "scheduled_cell"
-      && result.identificationBounds?.method === "complete-case" && expectedEligibleCellIds.length > 0) {
-      const unresolved = expectedEligibleCellIds.filter((id) => cellsById.get(id)?.state === "unresolved").length;
-      const successes = expectedEligibleCellIds.filter((id) => cellsById.get(id)?.state !== "unresolved"
-        && assignmentsByCell.get(id)?.success === true).length;
-      const expectedLower = successes / expectedEligibleCellIds.length;
-      const expectedUpper = (successes + unresolved) / expectedEligibleCellIds.length;
-      if (!scorecardNumbersEqual(result.identificationBounds.lower, expectedLower)
-        || !scorecardNumbersEqual(result.identificationBounds.upper, expectedUpper)) {
-        issues.push(`${owner}: claim ${result.claimId} complete-case bounds must be [${expectedLower},${expectedUpper}]`);
-      }
+    for (const issue of completeCaseClaimStatisticsIssues(claim, result, caseResults, armIds)) {
+      issues.push(`${owner}: claim ${result.claimId} ${issue}`);
     }
     if (result.status === "supported" && Number.isFinite(claim.threshold)) {
       if (claim.direction === "harm" && result.identificationBounds?.upper > claim.threshold + scorecardNumericEpsilon) {
@@ -5803,17 +5787,14 @@ async function checkSourceEventBinding(document, sourceAbsolute, issues, fixture
     issues.push(`sourceEventBinding: ${error.message}`);
     return;
   }
-  const eventDigest = sha256Canonical(event);
-  if (document.sourceEventId !== event.id) issues.push("sourceEventBinding: sourceEventId does not match event id");
-  if (document.sourceEventDigest !== eventDigest) issues.push(`sourceEventBinding: sourceEventDigest must be ${eventDigest}`);
-  if (canonicalize(document.affectedScope) !== canonicalize(event.affectedScope)) issues.push("sourceEventBinding: affectedScope differs from source event");
-  if (document.stopAction !== event.stopAction) issues.push("sourceEventBinding: stopAction differs from source event");
-  if (document.scopeAction !== event.scopeAction) issues.push("sourceEventBinding: scopeAction differs from source event");
-  if (document.requestedAt !== event.enforcementRequest?.requestedAt) issues.push("sourceEventBinding: requestedAt differs from source event");
-  const timeline = [event.triggeredAt, document.requestedAt, document.startedAt, document.completedAt].map(Date.parse);
-  if (timeline.some(Number.isNaN) || timeline.some((time, index) => index > 0 && time < timeline[index - 1])) {
-    issues.push("sourceEventBinding: event, request, start, and completion times are not ordered");
+  const signatureProblem = fixtureSignatureProblem(event);
+  if (signatureProblem) {
+    issues.push(`sourceEventBinding: source event authentication failed: ${signatureProblem}`);
+    return;
   }
+  // The corpus binding supplies a stop event. A resume additionally needs an
+  // independently authorized resolution and condition verifiers; absence fails closed.
+  issues.push(...await enforcementReceiptBindingIssues(document, { event }));
 }
 
 let evaluationControlVectorsPromise;
@@ -5950,6 +5931,17 @@ const semanticCheckers = {
   sourceEvidenceGraph: checkSourceEvidenceGraph,
   sourceEvidenceTriangulation: checkSourceEvidenceTriangulation,
   sourceEventBinding: checkSourceEventBinding,
+  governanceLedger: async (document, _sourceAbsolute, issues) => {
+    // The ledger schema validates each event type and its nested payload schema.
+    issues.push(...await governanceLedgerIssues(document, {
+      verifyLedgerSignature: (ledger) => fixtureSignatureProblem(ledger) === null,
+      verifyEventSignature: (event, bytes) => event.signature.profileId === "fixture-signature-profile"
+        && event.signature.algorithm === "Ed25519"
+        && event.signature.keyId === "rfc8032-test-key-1"
+        && verify(null, bytes, fixtureKey, Buffer.from(event.signature.value, "base64url")),
+      verifyPayload: (payload) => fixtureSignatureProblem(payload) === null
+    }));
+  },
   suiteProfileBindings: (document, sourceAbsolute, issues) => checkSuiteProfileBindings(
     document,
     sourceAbsolute,

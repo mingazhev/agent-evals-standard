@@ -5,13 +5,13 @@
     "type": "conformance_statement",
     "id": "conformance-decision-fixture-1",
     "claimTarget": "decision",
-    "digest": "sha256:0bfbc29adb230d8abdf26f096b794db147b2998c488ac551acb4f77fbca22556",
+    "digest": "sha256:4db263192b302e332323d88e1ab21d1a498ba98a3117519d0c6b4dd7839490db",
     "projection": "full_document_without_digest_and_signature",
     "targetSubject": {
       "id": "governance-decision-fixture-1",
       "version": "0.1.0",
       "uri": "governance-decision.json",
-      "digest": "sha256:85ac9e9671513291e5c71b305d3a73610c5a8f257c11cf03719a8ff35af392d6"
+      "digest": "sha256:645c88a02b1e99e5d25a4b7e00c0b30dbe115a7b7e5dfd164c7e19a5a11de659"
     },
     "dependencyManifest": {
       "id": "conformance-decision-target-dependencies",
@@ -22,7 +22,7 @@
           "id": "governance-decision-fixture-1",
           "version": "0.1.0",
           "uri": "governance-decision.json",
-          "digest": "sha256:85ac9e9671513291e5c71b305d3a73610c5a8f257c11cf03719a8ff35af392d6"
+          "digest": "sha256:645c88a02b1e99e5d25a4b7e00c0b30dbe115a7b7e5dfd164c7e19a5a11de659"
         },
         {
           "role": "repository_snapshot",
@@ -38,7 +38,7 @@
           "id": "repo-change-v1",
           "version": "0.1.0",
           "uri": "../../../profiles/repo-change-v1/evaluation-profile.json",
-          "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210"
+          "digest": "sha256:56cb626f8a73bf59d65dc1a13f71d068a5b36b1859cf054ceb497cff33306edc"
         },
         {
           "role": "work_artifact_registry",
@@ -54,7 +54,7 @@
           "id": "workspace-change-v1",
           "version": "0.1.0",
           "uri": "../../../profiles/repo-change-v1/outcome-profile.json",
-          "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
+          "digest": "sha256:d47d693fbb2528f140b90fa4096820d43c447e1aaed981c2192103807f2dd1bf"
         },
         {
           "role": "repository_snapshot",
@@ -70,7 +70,7 @@
           "id": "repo-change-v1",
           "version": "0.1.0",
           "uri": "../../../profiles/repo-change-v1/evaluation-profile.json",
-          "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210"
+          "digest": "sha256:56cb626f8a73bf59d65dc1a13f71d068a5b36b1859cf054ceb497cff33306edc"
         },
         {
           "role": "work_artifact_registry",
@@ -86,17 +86,17 @@
           "id": "workspace-change-v1",
           "version": "0.1.0",
           "uri": "../../../profiles/repo-change-v1/outcome-profile.json",
-          "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
+          "digest": "sha256:d47d693fbb2528f140b90fa4096820d43c447e1aaed981c2192103807f2dd1bf"
         },
         {
           "role": "applicability_contract",
           "id": "decision-applicability-contract",
           "version": "0.1.0",
           "uri": "decision-applicability-contract.json",
-          "digest": "sha256:f829c753b40cf0d7ed7db85e0f10f957a65040dbe5f4cd72d2d57b84244623bc"
+          "digest": "sha256:f2181950c95036b8aacebf429b8259bbb0f4511168b336b251b113b25ef3029f"
         }
       ],
-      "digest": "sha256:aa8b6cd433a74e08d97f7a8aa31d1b455580cc67e91f9d92d304281975b5d9f4"
+      "digest": "sha256:0cf408b1378e1e122d677ff9a70dc33f1727052988270b640b29771fc79d2b71"
     }
   },
   "validationContractVersion": "0.1.0",
@@ -313,7 +313,7 @@
       "id": "repository-grounding-primary",
       "uri": "repository-grounding-primary.json",
       "mediaType": "application/json",
-      "digest": "sha256:96f4b2810694c0b43e22111fb3142d23e56f0b3156cfa1d38a8919870157d32f",
+      "digest": "sha256:602475f29e6e7a9622145630e325aa9aebb0adc3b8805b14d5c54484750acd30",
       "byteLength": 4185,
       "producer": {
         "id": "repository-grounding-verifier",
@@ -357,7 +357,7 @@
         "algorithm": "Ed25519",
         "keyId": "rfc8032-test-key-1",
         "signedAt": "2026-08-01T00:00:21Z",
-        "value": "NCNTVQwkVlYP5Dk2ZWcJnqcSvsYDrFbVElcD3DJ1v3Cy3Vnv1ld7TXc9hxiqtmbEQnUFSIrcjR5_fm7uqEh7AQ"
+        "value": "ST9oV9u4Fc1MwHZ206KJSD8Zne9oV3_BRQsCZMKGBsoYA9WWYT8me0rxhntvBF8aS-8d719zMnZES_VYjy5dAA"
       },
       "payload": {
         "kind": "repository_relative",
@@ -368,7 +368,7 @@
       "id": "repository-grounding-secondary",
       "uri": "repository-grounding-secondary.json",
       "mediaType": "application/json",
-      "digest": "sha256:dc2e577345ccb32206952d9ded0c3753c4c585057737bb89b00533d976a7fb9d",
+      "digest": "sha256:32500c08ef8e055f71ce8ea5558a2d3b5bd94b81fc3814f668551114e51ae91f",
       "byteLength": 4199,
       "producer": {
         "id": "repository-grounding-verifier",
@@ -412,7 +412,7 @@
         "algorithm": "Ed25519",
         "keyId": "rfc8032-test-key-1",
         "signedAt": "2026-08-01T00:00:22Z",
-        "value": "c4ZNnYIgy_6pF7mXiOixw5cBZGEkw0UsY1y1nL_vhnlZb6gvHkztG5ldUvlJQrMyHMdKGgyDEW3uq5F7BikdCQ"
+        "value": "ZjvMZD7fe-WgfwD2G5mhYcXu8o6lIMLNfxbwcPAc5vZN2pRo-Tj3Wk6Ou0M2Zcpixn_Q496KqO87WguxvW0RAw"
       },
       "payload": {
         "kind": "repository_relative",
@@ -431,6 +431,6 @@
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:30Z",
-    "value": "0c8-cVp-Fa5l8hrrAfIEmEpnNo5iJ062ndJ_R2EaKxjdSIa0YCN-6OVMNC6LyklIiGQ7t9YMxNrQVkrF6_XDBA"
+    "value": "O150HUam6KFUKR0WFkhnxDZNfB8Ao2KUBWSvBf-WUec99Uk45dhZbgnY6VQR842HNYs1NMdMHK3-uOcw71PxCw"
   }
 }

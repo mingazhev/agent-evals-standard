@@ -8,7 +8,7 @@
   receipt, resolution, and checkpoint locations.
 
 The canonical closed event registry is
-[`escalation-event-registry.json`](escalation-event-registry.json). Its 20
+[`escalation-event-registry.json`](escalation-event-registry.json). Its 22
 records bind each event ID to exactly one claim effect, governance status, stop
 action, scope action, and waivability value. The table below is the readable
 rendering of that registry; an operational matrix or event with a different
@@ -43,6 +43,8 @@ disposition, and resume conditions.
 | `suspectedContamination` | a pre-registered probe detects anomalous reference-only or exposure evidence without authenticated proof | `insufficient_evidence` for affected clean-slice claims | `security_review_required` | `stop_governance_use` | `quarantine_affected` | `false` | unset | unset | probe contract, controls, repetitions, statistic, threshold, exposure/reuse ledger, affected-scope analysis | not applicable while open | independent disposition on fresh evidence; unresolved suspicion remains quarantined |
 | `confirmedContamination` | authenticated canary, access record, provider evidence, or equivalent provenance proves protected-oracle access | `insufficient_evidence` for affected clean-slice and historical claims | `security_review_required` | `stop_governance_use` | `revoke_affected_scope` | `false` | unset | unset | exposure path, authenticated provenance, state-reset evidence, historical-claim analysis | not applicable while open | containment, case rotation, state reset, and a new conforming held-out run |
 | `privacyIpRetentionBreach` | evidence violates authority, purpose, access, privacy, IP, residency, retention, deletion, or legal-hold policy | `insufficient_evidence` for dependent claims | `security_review_required` | `stop_governance_use` | `quarantine_or_delete_affected` | `false` | unset | unset | incident, affected-artifact manifest, authority and disposition evidence, claim-dependency analysis | not applicable while open | lawful disposition, containment, independent review, and replacement evidence or claim revocation |
+| `dataOwnerReviewRequired` | a sealed data-access, processing, retention, or export rule requires owner disposition | `insufficient_evidence` for affected governance use | `data_owner_review_required` | `block_acceptance` | `reject_or_reduce` | `false` | unset | unset | original data request, authority, purpose, scope, and data-owner disposition | not applicable while open | policy-authorized data-owner resolution for the exact request and scope; no waiver |
+| `riskAcceptanceRequired` | residual risk exceeds the sealed automatic-acceptance boundary | `insufficient_evidence` for affected governance use | `risk_acceptance_required` | `block_acceptance` | `reject_or_reduce` | `false` | unset | unset | residual-risk assessment and independent risk-acceptance authorization | not applicable while open | policy-authorized risk-acceptance resolution for the exact risk and scope; no waiver |
 
 All `unset` owner or SLA values are deliberate blockers, including the expiry,
 review, and assurance rows. Every registry action remains normative; the
@@ -63,6 +65,11 @@ can cite this matrix.
 4. Resume **MUST** produce another receipt proving all row conditions for the
    same scope. Missing, late, or failed enforcement emits
    `assuranceEvidenceMissing` and keeps the original event open.
+
+Informative summary: resume uses a separately typed receipt binding the prior
+authorized resolution and verified sealed conditions. The complete resume
+binding and authorization rules are defined by the
+[Governance Policy](governance-policy.md#escalation-enforcement-and-resolution).
 
 Baseline hard-gate events and every identifier declared non-waivable by the
 Governance Policy **MUST NOT** resolve as `waived`. Case or evaluator defects

@@ -283,6 +283,13 @@ cases **MUST NOT** remain its sole clean held-out evidence.
   component digests, expected and observed verdicts, and execution evidence; a
   label without a recomputable execution is not a control proof.
 
+A rejected or quarantined QA record **MUST** retain a control's actual observed
+verdict even when it differs from the sealed expected verdict. Such a mismatch
+cannot support activation, a passed control stage, or a passing surface result.
+Stage 7 retains the independently known-valid control with `expected: pass`
+and its actual observed verdict when the alternative is rejected; a passed
+Stage 7 and a singleton-validity proof still require successful control proofs.
+
 ### Stage 5 — Trivial-Strategy Battery
 
 For a case that requires a change, each low-effort strategy below **MUST** fail to

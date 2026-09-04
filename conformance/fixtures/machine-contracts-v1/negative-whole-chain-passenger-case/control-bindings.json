@@ -7,8 +7,8 @@
     "artifactVersion": "0.1.0",
     "schemaId": "urn:agent-evals-standard:schema:suite-manifest:1",
     "identityProjection": "full_signed_document",
-    "uri": "artifact:sha256:32e76db7026c0662147b6711ff4968d580d7b88a2293fd55f1e7e8aa4cc1f3ea",
-    "digest": "sha256:32e76db7026c0662147b6711ff4968d580d7b88a2293fd55f1e7e8aa4cc1f3ea",
+    "uri": "artifact:sha256:47c12c2a621ba5bfe1249c78e5feb115a0960302f2b7135795773a673306a2c0",
+    "digest": "sha256:47c12c2a621ba5bfe1249c78e5feb115a0960302f2b7135795773a673306a2c0",
     "byteLength": 12635,
     "mediaType": "application/json",
     "locator": {
@@ -16,15 +16,15 @@
       "base": "binding_document",
       "path": "stage-suite-manifest.json"
     },
-    "selfDigest": "sha256:d3b86dacf0753bce83fca8724518f869a717d08c1eaf8930d0495c3bc2453175"
+    "selfDigest": "sha256:0907b6c9233e775a74547e37e03775d7783fa05de1de6b777b6a13cd1ef7df15"
   },
   "validityArgument": {
     "contractType": "validity_argument",
     "id": "suite-validity-argument-v1",
     "version": "0.1.0",
     "schemaId": "urn:agent-evals-standard:schema:validity-argument:1",
-    "uri": "artifact:sha256:6f9c9f19478812f30e7b09fe7a507ca9e8420d53c0a7f162606a95c1db73073c",
-    "digest": "sha256:6f9c9f19478812f30e7b09fe7a507ca9e8420d53c0a7f162606a95c1db73073c",
+    "uri": "artifact:sha256:c00c9ca3e4f3fe9cbfd7e8c6bddc2013fab1133a09fde6abfa599b9b635d11b9",
+    "digest": "sha256:c00c9ca3e4f3fe9cbfd7e8c6bddc2013fab1133a09fde6abfa599b9b635d11b9",
     "byteLength": 7311,
     "mediaType": "application/json",
     "locator": {
@@ -220,8 +220,8 @@
         "artifactVersion": "0.1.0",
         "schemaId": "urn:agent-evals-standard:schema:suite-manifest:1",
         "identityProjection": "full_signed_document",
-        "uri": "artifact:sha256:32e76db7026c0662147b6711ff4968d580d7b88a2293fd55f1e7e8aa4cc1f3ea",
-        "digest": "sha256:32e76db7026c0662147b6711ff4968d580d7b88a2293fd55f1e7e8aa4cc1f3ea",
+        "uri": "artifact:sha256:47c12c2a621ba5bfe1249c78e5feb115a0960302f2b7135795773a673306a2c0",
+        "digest": "sha256:47c12c2a621ba5bfe1249c78e5feb115a0960302f2b7135795773a673306a2c0",
         "byteLength": 12635,
         "mediaType": "application/json",
         "locator": {
@@ -229,9 +229,9 @@
           "base": "binding_document",
           "path": "stage-suite-manifest.json"
         },
-        "selfDigest": "sha256:d3b86dacf0753bce83fca8724518f869a717d08c1eaf8930d0495c3bc2453175"
+        "selfDigest": "sha256:0907b6c9233e775a74547e37e03775d7783fa05de1de6b777b6a13cd1ef7df15"
       },
-      "scopeDigest": "sha256:a35ad13ba40792fae3d671984e255b50ae4d85a831cbbbc93d70f8a371d29a0c",
+      "scopeDigest": "sha256:17ba4f294bd3a4450c3fbffa6ff6393a44f6e77f6e8876b41b5b841a879be065",
       "minimumLedgerSequence": 1,
       "sealedAt": "2026-08-01T01:01:00Z",
       "unknownEffect": "insufficient_evidence"
@@ -243,8 +243,8 @@
         "artifactVersion": "0.1.0",
         "schemaId": "urn:agent-evals-standard:schema:case:1",
         "identityProjection": "full_signed_document",
-        "uri": "artifact:sha256:7569fd47faa793da31cf51f14fa475081a730c4d062b278fb1091c74ccac140c",
-        "digest": "sha256:7569fd47faa793da31cf51f14fa475081a730c4d062b278fb1091c74ccac140c",
+        "uri": "artifact:sha256:23d20e5975682d3b2dedcf928de645b2d5c71fee7c8e0bdfbc3c6444a8fa7f7a",
+        "digest": "sha256:23d20e5975682d3b2dedcf928de645b2d5c71fee7c8e0bdfbc3c6444a8fa7f7a",
         "byteLength": 22260,
         "mediaType": "application/json",
         "locator": {
@@ -252,9 +252,9 @@
           "base": "binding_document",
           "path": "stage-case.json"
         },
-        "selfDigest": "sha256:984232f87b84094e91b4cc6202014844e67710090d56db74f73f6b00a4be0280"
+        "selfDigest": "sha256:b775b3c1abbe16c282188e17650373ac2b5c266cdd21794f6a21cdc7775d2808"
       },
-      "scopeDigest": "sha256:a35ad13ba40792fae3d671984e255b50ae4d85a831cbbbc93d70f8a371d29a0c",
+      "scopeDigest": "sha256:17ba4f294bd3a4450c3fbffa6ff6393a44f6e77f6e8876b41b5b841a879be065",
       "minimumLedgerSequence": 1,
       "sealedAt": "2026-08-01T01:02:00Z",
       "unknownEffect": "insufficient_evidence"
@@ -266,8 +266,8 @@
         "artifactVersion": "0.1.0",
         "schemaId": "urn:agent-evals-standard:schema:case:1",
         "identityProjection": "full_signed_document",
-        "uri": "artifact:sha256:3baa017f2bcc41219b4919eaa1f6f34ba8720349103cab97e395402d7000be5d",
-        "digest": "sha256:3baa017f2bcc41219b4919eaa1f6f34ba8720349103cab97e395402d7000be5d",
+        "uri": "artifact:sha256:f79026961b0a737e637536d927d634845bc93a837a63012789a0c297c4d4cba0",
+        "digest": "sha256:f79026961b0a737e637536d927d634845bc93a837a63012789a0c297c4d4cba0",
         "byteLength": 22260,
         "mediaType": "application/json",
         "locator": {
@@ -275,9 +275,9 @@
           "base": "binding_document",
           "path": "stage-case-2.json"
         },
-        "selfDigest": "sha256:82a49afd9af311d8874a48a56f5079b1877784ed4c204d0df9c13cedb0d52415"
+        "selfDigest": "sha256:1427827e7a8d15abceb67b2893e6a0bacfc0b61c3d57c04025d5d0d357ff4d79"
       },
-      "scopeDigest": "sha256:a35ad13ba40792fae3d671984e255b50ae4d85a831cbbbc93d70f8a371d29a0c",
+      "scopeDigest": "sha256:17ba4f294bd3a4450c3fbffa6ff6393a44f6e77f6e8876b41b5b841a879be065",
       "minimumLedgerSequence": 1,
       "sealedAt": "2026-08-01T01:02:00Z",
       "unknownEffect": "insufficient_evidence"
@@ -289,9 +289,9 @@
         "artifactVersion": "0.1.0",
         "schemaId": "urn:agent-evals-standard:schema:pre-run-manifest:1",
         "identityProjection": "full_document_without_evaluation_control_bindings_digest_signature",
-        "digest": "sha256:6b200e59ed3544412ca628dce9f2d41c138f5afee7b2e659d90e38d3a580db20"
+        "digest": "sha256:15c96c1963bf5dadbd7f068bf8cc5bface0c66e45025706b39d7de8f4c1ac919"
       },
-      "scopeDigest": "sha256:a35ad13ba40792fae3d671984e255b50ae4d85a831cbbbc93d70f8a371d29a0c",
+      "scopeDigest": "sha256:17ba4f294bd3a4450c3fbffa6ff6393a44f6e77f6e8876b41b5b841a879be065",
       "minimumLedgerSequence": 1,
       "sealedAt": "2026-08-01T01:05:00Z",
       "unknownEffect": "insufficient_evidence"
@@ -319,8 +319,8 @@
       "artifactVersion": "0.1.0",
       "schemaId": "urn:agent-evals-standard:schema:case:1",
       "identityProjection": "full_signed_document",
-      "uri": "artifact:sha256:7569fd47faa793da31cf51f14fa475081a730c4d062b278fb1091c74ccac140c",
-      "digest": "sha256:7569fd47faa793da31cf51f14fa475081a730c4d062b278fb1091c74ccac140c",
+      "uri": "artifact:sha256:23d20e5975682d3b2dedcf928de645b2d5c71fee7c8e0bdfbc3c6444a8fa7f7a",
+      "digest": "sha256:23d20e5975682d3b2dedcf928de645b2d5c71fee7c8e0bdfbc3c6444a8fa7f7a",
       "byteLength": 22260,
       "mediaType": "application/json",
       "locator": {
@@ -328,15 +328,15 @@
         "base": "binding_document",
         "path": "stage-case.json"
       },
-      "selfDigest": "sha256:984232f87b84094e91b4cc6202014844e67710090d56db74f73f6b00a4be0280"
+      "selfDigest": "sha256:b775b3c1abbe16c282188e17650373ac2b5c266cdd21794f6a21cdc7775d2808"
     },
     {
       "id": "case-fixture-typed-2",
       "artifactVersion": "0.1.0",
       "schemaId": "urn:agent-evals-standard:schema:case:1",
       "identityProjection": "full_signed_document",
-      "uri": "artifact:sha256:3baa017f2bcc41219b4919eaa1f6f34ba8720349103cab97e395402d7000be5d",
-      "digest": "sha256:3baa017f2bcc41219b4919eaa1f6f34ba8720349103cab97e395402d7000be5d",
+      "uri": "artifact:sha256:f79026961b0a737e637536d927d634845bc93a837a63012789a0c297c4d4cba0",
+      "digest": "sha256:f79026961b0a737e637536d927d634845bc93a837a63012789a0c297c4d4cba0",
       "byteLength": 22260,
       "mediaType": "application/json",
       "locator": {
@@ -344,7 +344,7 @@
         "base": "binding_document",
         "path": "stage-case-2.json"
       },
-      "selfDigest": "sha256:82a49afd9af311d8874a48a56f5079b1877784ed4c204d0df9c13cedb0d52415"
+      "selfDigest": "sha256:1427827e7a8d15abceb67b2893e6a0bacfc0b61c3d57c04025d5d0d357ff4d79"
     }
   ]
 }

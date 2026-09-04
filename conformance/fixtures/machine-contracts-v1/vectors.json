@@ -1075,8 +1075,8 @@
             "id": "forged-validity-review-evidence-v1",
             "version": "0.1.0",
             "schemaId": "urn:agent-evals-standard:schema:evaluation-control-authority-evidence:1",
-            "uri": "artifact:sha256:c30c3be7e89a15b7a2fe213e106710be47789917e08f1f519eb14026f6ccd751",
-            "digest": "sha256:c30c3be7e89a15b7a2fe213e106710be47789917e08f1f519eb14026f6ccd751",
+            "uri": "artifact:sha256:6a3a47c7877a2da7ca98428ca9d0d11d04101ffed243cb59456b395920cae258",
+            "digest": "sha256:6a3a47c7877a2da7ca98428ca9d0d11d04101ffed243cb59456b395920cae258",
             "byteLength": 1237,
             "mediaType": "application/json",
             "locator": {
@@ -1289,7 +1289,7 @@
         {
           "target": "controls",
           "pointer": "/stageBindings/1/subject/digest",
-          "value": "sha256:4ed2e0487c2995dcd84ebddac23083005529373df095bfb8d088e97e8472afd5"
+          "value": "sha256:a8a5d1a5e8256680d4f32c4678e79ce57fe863c38d57a5a111396636e4e8357a"
         }
       ]
     },

@@ -10,15 +10,15 @@
     "id": "standard-contract-manifest",
     "version": "0.1.0",
     "uri": "contract-manifest.json",
-    "digest": "sha256:a234f49e4124b52607cc2858a8a1345e64cb8770a07e31b51212e6ef8d026b3c",
-    "entriesDigest": "sha256:3da0c435a949f3d1fe7f4f2f8beb61620725adcf09c8ddfa7d8d32c3a21299f2"
+    "digest": "sha256:3dec79bf78c8ca1fb6e6125ca5b5782c6f04db4b5519e392c78a002b38953c17",
+    "entriesDigest": "sha256:0108f29e348a92ae2ed98dcba492342c3e4cbb5e6f31e3e4e4165d94cdae8468"
   },
   "schemas": {
     "id": "standard-schema-manifest",
     "version": "0.1.0",
     "uri": "schema-manifest.json",
-    "digest": "sha256:c998b05b58462d5380016cd7f6cbbfc538aa66425850a152adbff0d25b3b72d9",
-    "entriesDigest": "sha256:a96a2ce69f81fb633445037ed08ce537b79b002340d92e63f7c307e26153e416"
+    "digest": "sha256:d35971ae2ef8f5cbe80fc3c0fba201ef4b5eb74ea87c34979d3a801ec79e5c10",
+    "entriesDigest": "sha256:d82377199935c529559ad82999f8ba83f20b383fed91ef8454d2990d6fa6c98b"
   },
   "validatorCapabilities": {
     "draft": "2020-12",
@@ -43,8 +43,8 @@
           "id": "repo-change-v1",
           "version": "0.1.0",
           "uri": "../../../profiles/repo-change-v1/evaluation-profile.json",
-          "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210",
-          "effectiveProfileDigest": "sha256:6ec98f997cbaa51d30eeb1bdc6a3bb91e76cc2ec505fdd155850d115b0146869"
+          "digest": "sha256:56cb626f8a73bf59d65dc1a13f71d068a5b36b1859cf054ceb497cff33306edc",
+          "effectiveProfileDigest": "sha256:e67c7b326718295c8e63608ad3d33859eece5107f58aa777ee2898dadca8c03e"
         },
         "workArtifactRegistry": {
           "id": "repository-sdlc-work-artifact-registry",
@@ -57,7 +57,7 @@
             "id": "workspace-change-v1",
             "version": "0.1.0",
             "uri": "../../../profiles/repo-change-v1/outcome-profile.json",
-            "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
+            "digest": "sha256:d47d693fbb2528f140b90fa4096820d43c447e1aaed981c2192103807f2dd1bf"
           }
         ],
         "assuranceLevel": "A3",
@@ -100,8 +100,8 @@
           "id": "repo-change-v1",
           "version": "0.1.0",
           "uri": "../../../profiles/repo-change-v1/evaluation-profile.json",
-          "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210",
-          "effectiveProfileDigest": "sha256:6ec98f997cbaa51d30eeb1bdc6a3bb91e76cc2ec505fdd155850d115b0146869"
+          "digest": "sha256:56cb626f8a73bf59d65dc1a13f71d068a5b36b1859cf054ceb497cff33306edc",
+          "effectiveProfileDigest": "sha256:e67c7b326718295c8e63608ad3d33859eece5107f58aa777ee2898dadca8c03e"
         },
         "workArtifactRegistry": {
           "id": "repository-sdlc-work-artifact-registry",
@@ -114,7 +114,7 @@
             "id": "workspace-change-v1",
             "version": "0.1.0",
             "uri": "../../../profiles/repo-change-v1/outcome-profile.json",
-            "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
+            "digest": "sha256:d47d693fbb2528f140b90fa4096820d43c447e1aaed981c2192103807f2dd1bf"
           }
         ],
         "assuranceLevel": "A1",
@@ -159,7 +159,7 @@
         "id": "governance-decision-fixture-1",
         "version": "0.1.0",
         "uri": "governance-decision.json",
-        "digest": "sha256:85ac9e9671513291e5c71b305d3a73610c5a8f257c11cf03719a8ff35af392d6"
+        "digest": "sha256:645c88a02b1e99e5d25a4b7e00c0b30dbe115a7b7e5dfd164c7e19a5a11de659"
       },
       "dependencyManifest": {
         "id": "conformance-decision-target-dependencies",
@@ -170,7 +170,7 @@
             "id": "governance-decision-fixture-1",
             "version": "0.1.0",
             "uri": "governance-decision.json",
-            "digest": "sha256:85ac9e9671513291e5c71b305d3a73610c5a8f257c11cf03719a8ff35af392d6"
+            "digest": "sha256:645c88a02b1e99e5d25a4b7e00c0b30dbe115a7b7e5dfd164c7e19a5a11de659"
           },
           {
             "role": "repository_snapshot",
@@ -186,7 +186,7 @@
             "id": "repo-change-v1",
             "version": "0.1.0",
             "uri": "../../../profiles/repo-change-v1/evaluation-profile.json",
-            "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210"
+            "digest": "sha256:56cb626f8a73bf59d65dc1a13f71d068a5b36b1859cf054ceb497cff33306edc"
           },
           {
             "role": "work_artifact_registry",
@@ -202,7 +202,7 @@
             "id": "workspace-change-v1",
             "version": "0.1.0",
             "uri": "../../../profiles/repo-change-v1/outcome-profile.json",
-            "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
+            "digest": "sha256:d47d693fbb2528f140b90fa4096820d43c447e1aaed981c2192103807f2dd1bf"
           },
           {
             "role": "repository_snapshot",
@@ -218,7 +218,7 @@
             "id": "repo-change-v1",
             "version": "0.1.0",
             "uri": "../../../profiles/repo-change-v1/evaluation-profile.json",
-            "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210"
+            "digest": "sha256:56cb626f8a73bf59d65dc1a13f71d068a5b36b1859cf054ceb497cff33306edc"
           },
           {
             "role": "work_artifact_registry",
@@ -234,17 +234,17 @@
             "id": "workspace-change-v1",
             "version": "0.1.0",
             "uri": "../../../profiles/repo-change-v1/outcome-profile.json",
-            "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
+            "digest": "sha256:d47d693fbb2528f140b90fa4096820d43c447e1aaed981c2192103807f2dd1bf"
           },
           {
             "role": "applicability_contract",
             "id": "decision-applicability-contract",
             "version": "0.1.0",
             "uri": "decision-applicability-contract.json",
-            "digest": "sha256:f829c753b40cf0d7ed7db85e0f10f957a65040dbe5f4cd72d2d57b84244623bc"
+            "digest": "sha256:f2181950c95036b8aacebf429b8259bbb0f4511168b336b251b113b25ef3029f"
           }
         ],
-        "digest": "sha256:aa8b6cd433a74e08d97f7a8aa31d1b455580cc67e91f9d92d304281975b5d9f4"
+        "digest": "sha256:0cf408b1378e1e122d677ff9a70dc33f1727052988270b640b29771fc79d2b71"
       },
       "verdict": "not_claimed",
       "requirementResults": [
@@ -255,7 +255,7 @@
             "id": "decision-applicability-contract",
             "version": "0.1.0",
             "uri": "decision-applicability-contract.json",
-            "digest": "sha256:f829c753b40cf0d7ed7db85e0f10f957a65040dbe5f4cd72d2d57b84244623bc",
+            "digest": "sha256:f2181950c95036b8aacebf429b8259bbb0f4511168b336b251b113b25ef3029f",
             "ruleId": "decision-applicability-arch-001"
           },
           "status": "insufficient_evidence",
@@ -277,7 +277,7 @@
             "id": "decision-applicability-contract",
             "version": "0.1.0",
             "uri": "decision-applicability-contract.json",
-            "digest": "sha256:f829c753b40cf0d7ed7db85e0f10f957a65040dbe5f4cd72d2d57b84244623bc",
+            "digest": "sha256:f2181950c95036b8aacebf429b8259bbb0f4511168b336b251b113b25ef3029f",
             "ruleId": "decision-applicability-trace-001"
           },
           "status": "insufficient_evidence",
@@ -299,7 +299,7 @@
             "id": "decision-applicability-contract",
             "version": "0.1.0",
             "uri": "decision-applicability-contract.json",
-            "digest": "sha256:f829c753b40cf0d7ed7db85e0f10f957a65040dbe5f4cd72d2d57b84244623bc",
+            "digest": "sha256:f2181950c95036b8aacebf429b8259bbb0f4511168b336b251b113b25ef3029f",
             "ruleId": "decision-applicability-i1"
           },
           "status": "insufficient_evidence",
@@ -321,7 +321,7 @@
             "id": "decision-applicability-contract",
             "version": "0.1.0",
             "uri": "decision-applicability-contract.json",
-            "digest": "sha256:f829c753b40cf0d7ed7db85e0f10f957a65040dbe5f4cd72d2d57b84244623bc",
+            "digest": "sha256:f2181950c95036b8aacebf429b8259bbb0f4511168b336b251b113b25ef3029f",
             "ruleId": "decision-applicability-i6"
           },
           "status": "insufficient_evidence",
@@ -343,7 +343,7 @@
             "id": "decision-applicability-contract",
             "version": "0.1.0",
             "uri": "decision-applicability-contract.json",
-            "digest": "sha256:f829c753b40cf0d7ed7db85e0f10f957a65040dbe5f4cd72d2d57b84244623bc",
+            "digest": "sha256:f2181950c95036b8aacebf429b8259bbb0f4511168b336b251b113b25ef3029f",
             "ruleId": "decision-applicability-i10"
           },
           "status": "insufficient_evidence",
@@ -365,7 +365,7 @@
             "id": "decision-applicability-contract",
             "version": "0.1.0",
             "uri": "decision-applicability-contract.json",
-            "digest": "sha256:f829c753b40cf0d7ed7db85e0f10f957a65040dbe5f4cd72d2d57b84244623bc",
+            "digest": "sha256:f2181950c95036b8aacebf429b8259bbb0f4511168b336b251b113b25ef3029f",
             "ruleId": "decision-applicability-data-002"
           },
           "status": "insufficient_evidence",
@@ -387,7 +387,7 @@
             "id": "decision-applicability-contract",
             "version": "0.1.0",
             "uri": "decision-applicability-contract.json",
-            "digest": "sha256:f829c753b40cf0d7ed7db85e0f10f957a65040dbe5f4cd72d2d57b84244623bc",
+            "digest": "sha256:f2181950c95036b8aacebf429b8259bbb0f4511168b336b251b113b25ef3029f",
             "ruleId": "decision-applicability-evid-001"
           },
           "status": "insufficient_evidence",
@@ -409,7 +409,7 @@
             "id": "decision-applicability-contract",
             "version": "0.1.0",
             "uri": "decision-applicability-contract.json",
-            "digest": "sha256:f829c753b40cf0d7ed7db85e0f10f957a65040dbe5f4cd72d2d57b84244623bc",
+            "digest": "sha256:f2181950c95036b8aacebf429b8259bbb0f4511168b336b251b113b25ef3029f",
             "ruleId": "decision-applicability-evid-002"
           },
           "status": "insufficient_evidence",
@@ -431,7 +431,7 @@
             "id": "decision-applicability-contract",
             "version": "0.1.0",
             "uri": "decision-applicability-contract.json",
-            "digest": "sha256:f829c753b40cf0d7ed7db85e0f10f957a65040dbe5f4cd72d2d57b84244623bc",
+            "digest": "sha256:f2181950c95036b8aacebf429b8259bbb0f4511168b336b251b113b25ef3029f",
             "ruleId": "decision-applicability-claim-001"
           },
           "status": "insufficient_evidence",
@@ -453,7 +453,7 @@
             "id": "decision-applicability-contract",
             "version": "0.1.0",
             "uri": "decision-applicability-contract.json",
-            "digest": "sha256:f829c753b40cf0d7ed7db85e0f10f957a65040dbe5f4cd72d2d57b84244623bc",
+            "digest": "sha256:f2181950c95036b8aacebf429b8259bbb0f4511168b336b251b113b25ef3029f",
             "ruleId": "decision-applicability-claim-002"
           },
           "status": "insufficient_evidence",
@@ -475,7 +475,7 @@
             "id": "decision-applicability-contract",
             "version": "0.1.0",
             "uri": "decision-applicability-contract.json",
-            "digest": "sha256:f829c753b40cf0d7ed7db85e0f10f957a65040dbe5f4cd72d2d57b84244623bc",
+            "digest": "sha256:f2181950c95036b8aacebf429b8259bbb0f4511168b336b251b113b25ef3029f",
             "ruleId": "decision-applicability-assure-001"
           },
           "status": "insufficient_evidence",
@@ -497,7 +497,7 @@
             "id": "decision-applicability-contract",
             "version": "0.1.0",
             "uri": "decision-applicability-contract.json",
-            "digest": "sha256:f829c753b40cf0d7ed7db85e0f10f957a65040dbe5f4cd72d2d57b84244623bc",
+            "digest": "sha256:f2181950c95036b8aacebf429b8259bbb0f4511168b336b251b113b25ef3029f",
             "ruleId": "decision-applicability-risk-001"
           },
           "status": "insufficient_evidence",
@@ -519,7 +519,7 @@
             "id": "decision-applicability-contract",
             "version": "0.1.0",
             "uri": "decision-applicability-contract.json",
-            "digest": "sha256:f829c753b40cf0d7ed7db85e0f10f957a65040dbe5f4cd72d2d57b84244623bc",
+            "digest": "sha256:f2181950c95036b8aacebf429b8259bbb0f4511168b336b251b113b25ef3029f",
             "ruleId": "decision-applicability-gov-001"
           },
           "status": "insufficient_evidence",
@@ -541,7 +541,7 @@
             "id": "decision-applicability-contract",
             "version": "0.1.0",
             "uri": "decision-applicability-contract.json",
-            "digest": "sha256:f829c753b40cf0d7ed7db85e0f10f957a65040dbe5f4cd72d2d57b84244623bc",
+            "digest": "sha256:f2181950c95036b8aacebf429b8259bbb0f4511168b336b251b113b25ef3029f",
             "ruleId": "decision-applicability-gov-002"
           },
           "status": "insufficient_evidence",
@@ -563,7 +563,7 @@
             "id": "decision-applicability-contract",
             "version": "0.1.0",
             "uri": "decision-applicability-contract.json",
-            "digest": "sha256:f829c753b40cf0d7ed7db85e0f10f957a65040dbe5f4cd72d2d57b84244623bc",
+            "digest": "sha256:f2181950c95036b8aacebf429b8259bbb0f4511168b336b251b113b25ef3029f",
             "ruleId": "decision-applicability-health-001"
           },
           "status": "insufficient_evidence",
@@ -585,7 +585,7 @@
             "id": "decision-applicability-contract",
             "version": "0.1.0",
             "uri": "decision-applicability-contract.json",
-            "digest": "sha256:f829c753b40cf0d7ed7db85e0f10f957a65040dbe5f4cd72d2d57b84244623bc",
+            "digest": "sha256:f2181950c95036b8aacebf429b8259bbb0f4511168b336b251b113b25ef3029f",
             "ruleId": "decision-applicability-conf-001"
           },
           "status": "insufficient_evidence",
@@ -607,7 +607,7 @@
             "id": "decision-applicability-contract",
             "version": "0.1.0",
             "uri": "decision-applicability-contract.json",
-            "digest": "sha256:f829c753b40cf0d7ed7db85e0f10f957a65040dbe5f4cd72d2d57b84244623bc",
+            "digest": "sha256:f2181950c95036b8aacebf429b8259bbb0f4511168b336b251b113b25ef3029f",
             "ruleId": "decision-applicability-conf-002"
           },
           "status": "insufficient_evidence",
@@ -629,7 +629,7 @@
             "id": "decision-applicability-contract",
             "version": "0.1.0",
             "uri": "decision-applicability-contract.json",
-            "digest": "sha256:f829c753b40cf0d7ed7db85e0f10f957a65040dbe5f4cd72d2d57b84244623bc",
+            "digest": "sha256:f2181950c95036b8aacebf429b8259bbb0f4511168b336b251b113b25ef3029f",
             "ruleId": "decision-applicability-conf-003"
           },
           "status": "insufficient_evidence",
@@ -657,7 +657,7 @@
       "id": "repository-grounding-primary",
       "uri": "repository-grounding-primary.json",
       "mediaType": "application/json",
-      "digest": "sha256:96f4b2810694c0b43e22111fb3142d23e56f0b3156cfa1d38a8919870157d32f",
+      "digest": "sha256:602475f29e6e7a9622145630e325aa9aebb0adc3b8805b14d5c54484750acd30",
       "byteLength": 4185,
       "producer": {
         "id": "repository-grounding-verifier",
@@ -701,7 +701,7 @@
         "algorithm": "Ed25519",
         "keyId": "rfc8032-test-key-1",
         "signedAt": "2026-08-01T00:00:21Z",
-        "value": "NCNTVQwkVlYP5Dk2ZWcJnqcSvsYDrFbVElcD3DJ1v3Cy3Vnv1ld7TXc9hxiqtmbEQnUFSIrcjR5_fm7uqEh7AQ"
+        "value": "ST9oV9u4Fc1MwHZ206KJSD8Zne9oV3_BRQsCZMKGBsoYA9WWYT8me0rxhntvBF8aS-8d719zMnZES_VYjy5dAA"
       },
       "payload": {
         "kind": "repository_relative",
@@ -712,7 +712,7 @@
       "id": "repository-grounding-secondary",
       "uri": "repository-grounding-secondary.json",
       "mediaType": "application/json",
-      "digest": "sha256:dc2e577345ccb32206952d9ded0c3753c4c585057737bb89b00533d976a7fb9d",
+      "digest": "sha256:32500c08ef8e055f71ce8ea5558a2d3b5bd94b81fc3814f668551114e51ae91f",
       "byteLength": 4199,
       "producer": {
         "id": "repository-grounding-verifier",
@@ -756,7 +756,7 @@
         "algorithm": "Ed25519",
         "keyId": "rfc8032-test-key-1",
         "signedAt": "2026-08-01T00:00:22Z",
-        "value": "c4ZNnYIgy_6pF7mXiOixw5cBZGEkw0UsY1y1nL_vhnlZb6gvHkztG5ldUvlJQrMyHMdKGgyDEW3uq5F7BikdCQ"
+        "value": "ZjvMZD7fe-WgfwD2G5mhYcXu8o6lIMLNfxbwcPAc5vZN2pRo-Tj3Wk6Ou0M2Zcpixn_Q496KqO87WguxvW0RAw"
       },
       "payload": {
         "kind": "repository_relative",
@@ -821,6 +821,6 @@
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:27Z",
-    "value": "_I3PFDtvYeZdOy6x7gH5PskYlxCZezetzwaR1pS0qIJMlEWjHuqd5nuAO52E8_6vu-NrjIn4bVpWBJsR8fE-Cw"
+    "value": "uS9z2Bc5BuGi6XeL8oE2zeQ4uuM9tK4qsXY7X2nt5Ix2Of0sL3butxrigBRRopAArGVI1S_Nv6EnPh_PoYmTBQ"
   }
 }
