@@ -74,6 +74,7 @@ explicitly invokes it; it is not a second definition.
 | Primary requirements | [Scorecard Contract](standard/scorecard-contract.md) | Primary definitions of `GATE-001`, `OUT-001`, and `CLAIM-001`; scorecard projections invoked by the core statistical requirements. |
 | Primary requirements | [Evidence and Detached Validation](standard/evidence-and-validation-contract.md) | Primary definitions of `DATA-002`, `EVID-001`, and `EVID-002`. |
 | Primary requirements | [Conformance](standard/conformance.md) | Primary definitions of `CONF-001`, `CONF-002`, and `CONF-003`, including authority and contradiction handling. |
+| Invoked normative contract | [Evaluation-Profile Resolution](standard/profile-resolution-contract.md) | Complete inheritance, authentication, provenance, fixture-execution, and digest algorithm invoked by `PROFILE-001`. |
 | Invoked normative contract | [Case QA Playbook](standard/case-qa-playbook.md) | Complete activation and revalidation procedure invoked by `CASE-004`. |
 | Invoked normative contract | [Validity, threat, and held-out exposure machine contracts](standard/validity-threat-exposure-contracts.md) | Typed, externally authorized machine contracts invoked by `VALID-002`, `VALID-003`, `HOLD-002`, `I4`, `I10`, and `EVID-001`. |
 | Invoked normative contract | [Integrity and Semantic Validation](standard/integrity-and-semantic-validation.md) | Named canonical, cross-document, ledger, and verdict reproduction algorithms invoked by primary requirements. |

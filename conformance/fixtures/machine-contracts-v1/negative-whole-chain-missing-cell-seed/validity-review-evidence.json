@@ -8,7 +8,7 @@
     "id": "suite-validity-argument-v1",
     "version": "0.1.0",
     "projection": "full_document_without_review_evidence",
-    "digest": "sha256:1ebed9d84e2d547fbfbaef21866e1fce303e34f43b46810df95f03674bfdefd7"
+    "digest": "sha256:1af573fef0696951d262ac713e26c92ab1147ed4d1bef8f3a92cd38527c16a61"
   },
   "decision": "approved_for_declared_use",
   "actor": {
@@ -22,12 +22,12 @@
     "version": "0.1.0",
     "digest": "sha256:b29e42e61605ba520a84839a71402698d8656d0f0fc29fb98fca210d4198b9e6"
   },
-  "digest": "sha256:4e2a8ad40d612b780cceed9d232d43c381052586e0e4360455694254f264b41a",
+  "digest": "sha256:541f9552cab127b3c56998af9cf6d27f9e7861ebf9311f28270394d3759529ee",
   "signature": {
     "profileId": "fixture-validity-review-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-3-validity-reviewer",
     "signedAt": "2026-08-01T00:30:00Z",
-    "value": "ERo40b9OK-u-3BkrmJcWl9-30RnwSE8VQD8uGLidz_Li6-ms8rtUG_w-Q7_ZNaIl-dUl1PCmXw3hs-YRQTiVBQ"
+    "value": "oDPqF_iGEUbWCuLGgBpQ6BrqycU8WNjR_vu7brjS2Q_LZAfbC03Kp8Ql7Ixv9SFbMaBqGRp0D_uw0tS3OVesDw"
   }
 }

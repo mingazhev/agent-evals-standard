@@ -232,13 +232,13 @@
     "replacementProofs": "target_pointer_then_key_lexical"
   },
   "conflictStatus": "no_unresolved_conflicts",
-  "effectiveProfileDigest": "sha256:e67c7b326718295c8e63608ad3d33859eece5107f58aa777ee2898dadca8c03e",
-  "digest": "sha256:ce8f7de34191f3e0f44a6d3497f262c4fccdec02e26bb07413e51be94142e492",
+  "effectiveProfileDigest": "sha256:f18de1a8583d2c929811ee4ef68466a5cd4d29f73a562cc8ac2385dfb6129cd5",
+  "digest": "sha256:53e98777c8178091c0459b11ca407aa061355ee19c0b6066bf8aba2364f5dc2c",
   "signature": {
     "profileId": "fixture-signature-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:00Z",
-    "value": "YBXgZRUtr55_llicyfs0qB_Dwnzv9mAz6ur00P9URgNi2NkTMlrXRBHeh_6qVD6cM1nD7afWVXrSEfUxXeNgAQ"
+    "value": "KfQtvzkS3Z1_tVYcCGeuJESYYjKpsroqoWNl0NEAxY0_u4PlOeqeocdNq1OwJ1cNs7UTsfo5jCHRD0EYPG-KDQ"
   }
 }

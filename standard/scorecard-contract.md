@@ -190,11 +190,30 @@ scope, success-predicate, estimand, or decision-rule change is not a new result;
 it is an unregistered analysis and yields `insufficient_evidence` for the
 original claim.
 
+In version `0.1.0`, the case scope of every statistical claim is the complete
+selected suite slice bound by `EXP-001`. Claims may differ in construct, success
+definition, or comparator arms; a subgroup with different case membership needs
+its own sealed experiment. A per-claim `slice` does not authorize post-hoc case
+selection or override the run's shared case scope.
+
 A decision rule is an authenticated typed contract. Version `0.1.0` declares
-an input (`estimate`, `lower_bound`, or `upper_bound`), `gte` or `lte`, whether
-equality passes, and the fail-closed result for a missing input. The semantic
-validator resolves the declared digest and executes that operator. It **MUST
-NOT** infer an operator merely from a human-readable direction or rule ID.
+an input, `gte` or `lte`, whether equality passes, and the fail-closed result
+for a missing input. Inputs select exactly these fields of the matching
+`claimResults[]` record:
+
+| Input | Field |
+| --- | --- |
+| `estimate` | `estimate` |
+| `lower_bound` | `identificationBounds.lower` |
+| `upper_bound` | `identificationBounds.upper` |
+
+The semantic validator resolves the declared digest and executes that operator.
+It **MUST NOT** infer an operator from a direction or rule ID, substitute a
+sampling-interval endpoint, or fall back to another field when input is missing.
+These bounds address unresolved observations, not sampling uncertainty. A
+population-confidence claim still requires the sealed uncertainty procedure
+and decision conditions under `STAT-003`; this bound comparison alone cannot
+establish it.
 
 For A0, `runMode` **MUST** be `diagnostic_run`, `claimEligibility` **MUST** be
 `none`, and `claims[]` and `claimResults[]` **MUST** be empty. For A1–A3,

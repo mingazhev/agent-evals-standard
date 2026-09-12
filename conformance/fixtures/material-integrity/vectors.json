@@ -100,7 +100,7 @@
       "expectedLogHead": {
         "logId": "canonical-fixture-attempt-log",
         "checkpointSequence": 1,
-        "digest": "sha256:a2d67f786c38a713fee99d104598e6ea8bdded5703d94ae3249061ea2854db1a"
+        "digest": "sha256:edb1a72164f19deaae4d4d0357049569bf94b89439f7e7b22fb4105f37872c97"
       },
       "expected": "pass"
     }

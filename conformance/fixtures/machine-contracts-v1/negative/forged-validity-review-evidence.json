@@ -8,7 +8,7 @@
     "id": "suite-validity-argument-v1",
     "version": "0.1.0",
     "projection": "full_document_without_review_evidence",
-    "digest": "sha256:d83065c494f6dc2fad40466e9100439fb4800c505ddefc9a1c482dd7b0b935ef"
+    "digest": "sha256:ebd6ce9b7b316b80e9eeb0ad22f60491ff460fb2a5c686d444e1f9a2dd831101"
   },
   "decision": "approved_for_declared_use",
   "actor": {
@@ -22,12 +22,12 @@
     "version": "0.1.0",
     "digest": "sha256:b29e42e61605ba520a84839a71402698d8656d0f0fc29fb98fca210d4198b9e6"
   },
-  "digest": "sha256:afcad2baef102e69c321ee91e0e9aaf089bbf88e33fb29870b5acc3739f68aa6",
+  "digest": "sha256:ee2a5838b34c9b9be4f4fb08c41b8aefba63a987d884ff9c00b996eb066b5125",
   "signature": {
     "profileId": "fixture-claimant-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1-claimant",
     "signedAt": "2026-08-01T00:30:00Z",
-    "value": "zv5KA02fFTLuAKAg85IISm7aAEAsP1IJ3g9TtXZGheI_nHPf05R3_b1s41zv7uJGQAKo3f8Jqrm0HI5tNPCuBg"
+    "value": "sWFQOu6I20xVM0KoNr7YoVOxLCijPHwwAZWyRq3FOw8yEUGXBR0ilfUXtukrD40Hp2BwPhyBzYLav2WQs3lDAQ"
   }
 }

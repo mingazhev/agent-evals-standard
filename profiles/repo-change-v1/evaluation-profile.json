@@ -63,7 +63,7 @@
       "id": "workspace-change-v1",
       "version": "0.1.0",
       "uri": "outcome-profile.json",
-      "digest": "sha256:d47d693fbb2528f140b90fa4096820d43c447e1aaed981c2192103807f2dd1bf"
+      "digest": "sha256:10572bb29e6a0b09384a9c245af1239a1d8b4dba5b52a305331c47e3dd103203"
     }
   ],
   "caseContract": {
@@ -130,14 +130,14 @@
     {
       "id": "repo-change-positive",
       "manifestUri": "../../conformance/fixtures/manifest.json",
-      "manifestDigest": "sha256:37f816d61768f78bd586725d0c519a3aee3f2551b77da71f6745d01ce7d3c99a",
+      "manifestDigest": "sha256:afc1a5c642e7f9f8770a144322b2b39c1c8389b47747b39385d110f52f28f72f",
       "manifestExpectationId": "requirement-implementation-contract-positive",
       "expectedVerdict": "pass"
     },
     {
       "id": "reject-general-agent-capability",
       "manifestUri": "../../conformance/fixtures/manifest.json",
-      "manifestDigest": "sha256:37f816d61768f78bd586725d0c519a3aee3f2551b77da71f6745d01ce7d3c99a",
+      "manifestDigest": "sha256:afc1a5c642e7f9f8770a144322b2b39c1c8389b47747b39385d110f52f28f72f",
       "manifestExpectationId": "evaluation-profile-reject-general-agent-capability",
       "expectedVerdict": "fail"
     }
@@ -740,22 +740,22 @@
       "id": "repo-change-v1-profile-resolution",
       "version": "0.1.0",
       "uri": "profile-resolution.json",
-      "digest": "sha256:ce8f7de34191f3e0f44a6d3497f262c4fccdec02e26bb07413e51be94142e492"
+      "digest": "sha256:53e98777c8178091c0459b11ca407aa061355ee19c0b6066bf8aba2364f5dc2c"
     }
   },
   "resolutionEvidence": {
     "id": "repo-change-v1-profile-resolution",
     "version": "0.1.0",
     "uri": "profile-resolution.json",
-    "digest": "sha256:ce8f7de34191f3e0f44a6d3497f262c4fccdec02e26bb07413e51be94142e492"
+    "digest": "sha256:53e98777c8178091c0459b11ca407aa061355ee19c0b6066bf8aba2364f5dc2c"
   },
-  "effectiveProfileDigest": "sha256:e67c7b326718295c8e63608ad3d33859eece5107f58aa777ee2898dadca8c03e",
-  "digest": "sha256:56cb626f8a73bf59d65dc1a13f71d068a5b36b1859cf054ceb497cff33306edc",
+  "effectiveProfileDigest": "sha256:f18de1a8583d2c929811ee4ef68466a5cd4d29f73a562cc8ac2385dfb6129cd5",
+  "digest": "sha256:6c3c33a6b195f05f274d53946892824cc5d9ade2c0c5dcb409101453031c68d0",
   "signature": {
     "profileId": "fixture-signature-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:00Z",
-    "value": "RshLXxzlBKhh6LsPtNmhgvkkMJnBIXjxIkcb8-OdVbCEvG2dMtLv2f2NzbvebUqPDonSP8NOEpqIHKE0rqLOAg"
+    "value": "j-IGl7cbjFGE0Mx5WYn7DOySvdZL8lNgINl5eqWMP4W9gAWg3GR-4GA8FW5po28g73mTplt83ma-wOjGU0KuDw"
   }
 }

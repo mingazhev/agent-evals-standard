@@ -4,7 +4,7 @@
   "policyInstanceHash": "sha256:f2fbd75c175344432e7f030a56baf942dc6c1807aa3caf3d30c452afe247c067",
   "matrixInstanceHash": "sha256:c2e6fb87a1f3f8936db5de56124ee776d258c67e383dd9e82487ca712169351d",
   "initialRoot": "sha256:4e00a56453ea7b71c7802f8121b9bfd5ad04cd450ca9d7f6c20f0ad05878f509",
-  "currentRoot": "sha256:b3f38c6e0ba067b0fe1ed0f2c36cc8c1a40d7f37d5133438a28ca19e9c842312",
+  "currentRoot": "sha256:3228f80092b15f2bd89ac95d69029465ca8cd3cdee6be4b18d91c07a1cfb34b6",
   "externalAnchor": "fixture-external-anchor-1",
   "evidenceManifest": [
     {
@@ -183,9 +183,9 @@
       "sequence": 3,
       "eventId": "resolution-fixture-1",
       "eventType": "resolution",
-      "payloadHash": "sha256:7064b55ef0a7b9796f3bc9d9d3b5c3c7062504f2eae0f6cdd0d19aa54dee5072",
+      "payloadHash": "sha256:2f5190fd991f36b61942edd06045aaa9428ecaf2dcf6835cd1c29336a9220248",
       "previousEventHash": "sha256:6f52e6d06571f4ed18baaa77327ff93bfe937faec210cd38c9cf7a95c254e4fd",
-      "eventHash": "sha256:b3f38c6e0ba067b0fe1ed0f2c36cc8c1a40d7f37d5133438a28ca19e9c842312",
+      "eventHash": "sha256:3228f80092b15f2bd89ac95d69029465ca8cd3cdee6be4b18d91c07a1cfb34b6",
       "timestamp": "2026-08-01T00:00:19Z",
       "payload": {
         "schemaVersion": "agent-eval-governance-resolution-1",
@@ -200,7 +200,7 @@
         "riskTier": "high",
         "waivability": "non_waivable",
         "scorecardId": "scorecard-fixture-1",
-        "scorecardHash": "sha256:5c87d8280964352106703322391eb10b9d635e7829392a6e9767bf82bd5bb6da",
+        "scorecardHash": "sha256:28724a069c25b62aac033df7130574322c3be454f2621b4fa704085903a55946",
         "findingId": "finding-fixture-1",
         "policyInstanceHash": "sha256:f2fbd75c175344432e7f030a56baf942dc6c1807aa3caf3d30c452afe247c067",
         "matrixInstanceHash": "sha256:c2e6fb87a1f3f8936db5de56124ee776d258c67e383dd9e82487ca712169351d",
@@ -226,7 +226,7 @@
           "algorithm": "Ed25519",
           "keyId": "rfc8032-test-key-1",
           "signedAt": "2026-08-01T00:00:19Z",
-          "value": "zPDZJdw5QS5kB5UPRVhyYRmtfBSwIhyN6coo7I4WdUo-ZKC8h2O4pj6_Zf_oK6_E0sjRpTk5gC7os0ewzYiMCQ"
+          "value": "K_5rM0sPiHcIqpsjMPwJK0P85X26tiwEKZ5AQGGekMHtl3kCavXCdanwrlYK0R_ExDpsH3gPiBP8pmbU4lMOCw"
         }
       },
       "signature": {
@@ -234,7 +234,7 @@
         "algorithm": "Ed25519",
         "keyId": "rfc8032-test-key-1",
         "signedAt": "2026-08-01T00:00:22Z",
-        "value": "W8nFx6yNL0JTrQ2izXZVzZesVgLHYzZBMLIRTjtAHsFWmjOhfK9zbdLB9ECIeSVBOvtwBIcprXgmbWLspltOBA"
+        "value": "cVf8ORH11AkY1amipAqTGw_p2415lvgD7VsXkgZV6hBysrIcZszhPffMLtl0RhNS2nHOgHqzlJt97W4DtqmQDQ"
       }
     }
   ],
@@ -248,6 +248,6 @@
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:24Z",
-    "value": "2EwZqYpr5z8J_cLJ5mCBJKcZHy94-Jd_Drxggn-I4UOCTVJgjmqokI6__rfeHhTM9Q1kvKyX--N5OhprnBxsAg"
+    "value": "QD5m6hz8FKEt3vR-ouYavvVxlNHSp73OkGX999VEOATbPJG3ckLOovzutO7-p7hd2uICtGcrq9YBbyY8YVHVDw"
   }
 }

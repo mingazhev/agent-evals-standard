@@ -16,13 +16,13 @@
   "outcomeProfile": {
     "id": "workspace-change-v1",
     "version": "0.1.0",
-    "digest": "sha256:d47d693fbb2528f140b90fa4096820d43c447e1aaed981c2192103807f2dd1bf"
+    "digest": "sha256:10572bb29e6a0b09384a9c245af1239a1d8b4dba5b52a305331c47e3dd103203"
   },
-  "caseCommitmentDigest": "sha256:37b5681bd717fcf3a4f30504a8691cea6efa07103728f39d2147483764158c38",
-  "cellCommitmentDigest": "sha256:d1607cc9d4eb32f6dbde4526b7dc6878a42f7b9e62763d8fd0a6219cf59d118d",
+  "caseCommitmentDigest": "sha256:88d4f45ad8042978a742b0e72539f4a59d857bebfcdbed377370158dc5e05aaa",
+  "cellCommitmentDigest": "sha256:7bae604e9464b1b76ec5d4fed05e3358616622f9fcc0ff5b2c6ba863eec64b07",
   "trialProjectionDigest": "sha256:93ab8096c3a675d7cb845f81d6fa84c879c456798ffbaf5fa9c0da6cb1897dd3",
   "materialArtifactsDigest": "sha256:21a9d77ec8624f50651db261a61b9ec83a9463aafe5d7072f179cafe06e20d0b",
-  "consumedEvidenceDigest": "sha256:652c25c84009b2a617f0353dabb003d5a6d83870ce5a98057645061a10883d7c",
+  "consumedEvidenceDigest": "sha256:b6310c856b3a43a0103ae36df3c245171e146fb571bd9176ca2d95a59564990b",
   "facts": {
     "measurementValidity": "valid",
     "requiredOutcomeConditionsVerdict": "pass",

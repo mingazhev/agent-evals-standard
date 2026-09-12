@@ -6,8 +6,8 @@
   "suite": {
     "id": "suite-manifest-fixture-1",
     "version": "0.1.0",
-    "uri": "artifact:sha256:2160a0dd4b0a91d7ec319a6847fa38b94c5410fe89396ce2ac7a119a0cfebc12",
-    "digest": "sha256:2160a0dd4b0a91d7ec319a6847fa38b94c5410fe89396ce2ac7a119a0cfebc12",
+    "uri": "artifact:sha256:495cbc9e66402b7279b3b46dbbc28250be9ec3fe88eb91792c085a72fec9313e",
+    "digest": "sha256:495cbc9e66402b7279b3b46dbbc28250be9ec3fe88eb91792c085a72fec9313e",
     "byteLength": 11506,
     "mediaType": "application/json",
     "locator": {
@@ -15,13 +15,13 @@
       "base": "binding_document",
       "path": "suite-manifest.json"
     },
-    "selfDigest": "sha256:3b35eae914c0942cefbee6dc980e10ccccc7a6211d471b48a4ed3ce99bb880ef"
+    "selfDigest": "sha256:6eedd875b1a1029a14e6d127b974ba38bc05fea13cb6652957cb71941424e569"
   },
   "evaluator": {
     "id": "evaluator-manifest-fixture-1",
     "version": "0.1.0",
     "uri": "evaluator-manifest.json",
-    "digest": "sha256:bf190335707b6a8630fa3b1dccc11376c029ba90e897334edb774318477f5a93"
+    "digest": "sha256:7fdf861f9ba31d223a948148fc0e15e5d41f8bf20e62d059556cbaef872d1c37"
   },
   "assuranceLevel": "A1",
   "runMode": "evaluation",
@@ -40,13 +40,13 @@
       "evaluationProfile": {
         "id": "repo-change-v1",
         "version": "0.1.0",
-        "digest": "sha256:56cb626f8a73bf59d65dc1a13f71d068a5b36b1859cf054ceb497cff33306edc"
+        "digest": "sha256:6c3c33a6b195f05f274d53946892824cc5d9ade2c0c5dcb409101453031c68d0"
       },
-      "effectiveProfileDigest": "sha256:e67c7b326718295c8e63608ad3d33859eece5107f58aa777ee2898dadca8c03e",
+      "effectiveProfileDigest": "sha256:f18de1a8583d2c929811ee4ef68466a5cd4d29f73a562cc8ac2385dfb6129cd5",
       "outcomeProfile": {
         "id": "workspace-change-v1",
         "version": "0.1.0",
-        "digest": "sha256:d47d693fbb2528f140b90fa4096820d43c447e1aaed981c2192103807f2dd1bf"
+        "digest": "sha256:10572bb29e6a0b09384a9c245af1239a1d8b4dba5b52a305331c47e3dd103203"
       }
     }
   ],
@@ -54,8 +54,8 @@
     {
       "id": "repo-change-case-fixture-1",
       "version": "0.1.0",
-      "uri": "artifact:sha256:d1804309539cccb465c753d940836673c90934a57c5faf38ea6dd116a0861729",
-      "digest": "sha256:d1804309539cccb465c753d940836673c90934a57c5faf38ea6dd116a0861729",
+      "uri": "artifact:sha256:86a1078beda8af331ceaf2a11b79a0e60ceffbda6cc5b59de0a965c46cf535d7",
+      "digest": "sha256:86a1078beda8af331ceaf2a11b79a0e60ceffbda6cc5b59de0a965c46cf535d7",
       "byteLength": 22213,
       "mediaType": "application/json",
       "locator": {
@@ -63,7 +63,7 @@
         "base": "binding_document",
         "path": "scorecard-case.json"
       },
-      "selfDigest": "sha256:03fe7ea44d55ab7687397f7e79020615a9a4a2327009e093a216fb1320a85921"
+      "selfDigest": "sha256:ab374648784888acaea41b9f1db73fabd38850c7bf1f304c5d997cdd385f4dbe"
     }
   ],
   "arms": [
@@ -196,13 +196,13 @@
     "digest": "sha256:a1da9a3933951d7e27b03cea8ef0414770bc233c0edc04665daa520fc3d57055"
   },
   "extensions": [],
-  "digest": "sha256:8edcd080b6995eecae50d97b55619d5798d74e4f99d8cbcf5b6c141c46358b22",
+  "digest": "sha256:9b9a35a85f4e854fb6f87b5cf08e6098dcf89d9972290903a04ea8a79ff69489",
   "signature": {
     "profileId": "fixture-signature-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T01:00:07Z",
-    "value": "GAfaxU0-1BvVZBsZKtQH9Z8lD1jtwpuFX8FJy5W_ktYfPDoQkBq1r3zJRorrP26ngpZb1HXmviOvuc4v7rwrBQ"
+    "value": "zS2NpYEW7KMgpRSxi4fGdz-EhDyB1ox7x0NHguCmeCPgMP5BYI49ggGs-fpaS5sc7Qx0i8fMThoNkw2Ll62oAQ"
   },
   "signatureProfile": {
     "id": "fixture-signature-profile",
@@ -222,8 +222,8 @@
     "id": "evaluation-control-bindings-v1",
     "version": "0.1.0",
     "schemaId": "urn:agent-evals-standard:schema:evaluation-control-bindings:1",
-    "uri": "artifact:sha256:c5c8a6c6e7ab863214c2ff77fd282d4425ccd03f6640a7fe238350c6731a3e3b",
-    "digest": "sha256:c5c8a6c6e7ab863214c2ff77fd282d4425ccd03f6640a7fe238350c6731a3e3b",
+    "uri": "artifact:sha256:35ebf812e37c0aa2cb335a843ad1fb72a6735bac44f512078c838be810e3571a",
+    "digest": "sha256:35ebf812e37c0aa2cb335a843ad1fb72a6735bac44f512078c838be810e3571a",
     "byteLength": 14597,
     "mediaType": "application/json",
     "locator": {

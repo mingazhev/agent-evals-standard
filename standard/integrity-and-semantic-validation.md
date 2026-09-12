@@ -8,6 +8,33 @@ correct, references resolve, formulas were recomputed, signatures are valid,
 or verdict fields agree. A scorecard or conformance statement is conforming
 only after both schema validation and this semantic validation succeed.
 
+## Git workspace digest projections
+
+These are the exact `git-repository-state-v1` projections invoked by `SCOPE-003`.
+Each digest below is `sha256:` followed by SHA-256 of UTF-8 RFC 8785 JCS of
+exactly the stated object. Raw Git object IDs remain governed by the declared
+Git object format; they are distinct from these SHA-256 commitments.
+
+Before hashing, `repositories[]` **MUST** be strictly ordered by `id`,
+`gitObjectGraph.objects[]` by `objectId`, and `gitObjectGraph.refs[]` by `name`,
+using ascending ASCII order. File and gitlink ordering follows `SCOPE-003`'s
+UTF-8 path-byte rule. Arrays retain this order in every projection; a verifier
+**MUST NOT** repair an incorrectly ordered input by sorting it.
+
+| Digest | Exact projection |
+| --- | --- |
+| `gitObjectGraph.digest` | `{objectFormat, refs, objects}`, plus `baseRef` only when present in the graph. `objectFormat` is the containing repository's value; each ref retains exactly `{name, target}`. Each object becomes `{objectId, type, byteLength, contentDigest}`, where `contentDigest` is `sha256:` plus SHA-256 of its decoded raw `contentBase64` bytes. |
+| `treeDigest` | `{files}`, plus `gitlinks` only when nonempty. Each file becomes exactly `{path, mode, mediaType, byteLength, digest}`; its digest hashes the decoded raw file bytes. Each gitlink retains exactly `{path, repositoryId, targetCommit}`. |
+| `workspaceRootDigest` | `{repositories}`. Each repository becomes exactly `{id, path, objectFormat, treeDigest, gitObjectGraphDigest, historyProjection}`, plus `baseTree` or `baseRevision` only when present in that repository. `gitObjectGraphDigest` is its recomputed graph digest, `treeDigest` is its recomputed tree digest, and `historyProjection` is the complete schema-valid object. |
+
+The graph and `historyProjection.objectGraphDigest` **MUST** both equal the
+recomputed graph digest before the workspace root is accepted. Omitted optional
+fields remain absent, not null. No other field enters these projections; in
+particular, neither encoded payload bytes nor a digest being computed enters
+its own projection. The verifier **MUST** still authenticate payload bytes,
+lengths, Git object IDs, closure, and repository-state semantics before accepting
+any of these commitments.
+
 ## Canonical evidence and detached validation
 
 Canonical bytes, evidence manifests, subject projections, and validation

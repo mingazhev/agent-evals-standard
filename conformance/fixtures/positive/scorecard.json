@@ -2,14 +2,14 @@
   "schemaVersion": "agent-eval-scorecard-1",
   "experiment": {
     "id": "experiment-fixture-1",
-    "manifestDigest": "sha256:8edcd080b6995eecae50d97b55619d5798d74e4f99d8cbcf5b6c141c46358b22",
+    "manifestDigest": "sha256:9b9a35a85f4e854fb6f87b5cf08e6098dcf89d9972290903a04ea8a79ff69489",
     "suite": {
       "id": "suite-manifest-fixture-1",
       "version": "0.1.0",
       "uri": "suite-manifest.json",
-      "digest": "sha256:3b35eae914c0942cefbee6dc980e10ccccc7a6211d471b48a4ed3ce99bb880ef"
+      "digest": "sha256:6eedd875b1a1029a14e6d127b974ba38bc05fea13cb6652957cb71941424e569"
     },
-    "caseSetDigest": "sha256:beaae9b4749c386773d6cddb28728340afd85159b213cd67a8aa08f95928f3b1",
+    "caseSetDigest": "sha256:127dde4201264c5f54bcd7dcb4033a1da23d71cac06268f1a82c3cd0ff889905",
     "assuranceLevel": "A1",
     "runMode": "evaluation",
     "claimEligibility": "claims_eligible",
@@ -27,13 +27,13 @@
         "evaluationProfile": {
           "id": "repo-change-v1",
           "version": "0.1.0",
-          "digest": "sha256:56cb626f8a73bf59d65dc1a13f71d068a5b36b1859cf054ceb497cff33306edc"
+          "digest": "sha256:6c3c33a6b195f05f274d53946892824cc5d9ade2c0c5dcb409101453031c68d0"
         },
-        "effectiveProfileDigest": "sha256:e67c7b326718295c8e63608ad3d33859eece5107f58aa777ee2898dadca8c03e",
+        "effectiveProfileDigest": "sha256:f18de1a8583d2c929811ee4ef68466a5cd4d29f73a562cc8ac2385dfb6129cd5",
         "outcomeProfile": {
           "id": "workspace-change-v1",
           "version": "0.1.0",
-          "digest": "sha256:d47d693fbb2528f140b90fa4096820d43c447e1aaed981c2192103807f2dd1bf"
+          "digest": "sha256:10572bb29e6a0b09384a9c245af1239a1d8b4dba5b52a305331c47e3dd103203"
         }
       }
     ],
@@ -44,7 +44,7 @@
     "scheduledSetCommitment": {
       "id": "pre-run-manifest-fixture-1",
       "uri": "pre-run-manifest.json",
-      "digest": "sha256:8edcd080b6995eecae50d97b55619d5798d74e4f99d8cbcf5b6c141c46358b22"
+      "digest": "sha256:9b9a35a85f4e854fb6f87b5cf08e6098dcf89d9972290903a04ea8a79ff69489"
     },
     "startedAt": "2026-08-01T01:01:00Z",
     "closedAt": "2026-08-01T01:03:00Z"
@@ -182,13 +182,13 @@
       "evaluationProfile": {
         "id": "repo-change-v1",
         "version": "0.1.0",
-        "digest": "sha256:56cb626f8a73bf59d65dc1a13f71d068a5b36b1859cf054ceb497cff33306edc"
+        "digest": "sha256:6c3c33a6b195f05f274d53946892824cc5d9ade2c0c5dcb409101453031c68d0"
       },
       "outcomeProfiles": [
         {
           "id": "workspace-change-v1",
           "version": "0.1.0",
-          "digest": "sha256:d47d693fbb2528f140b90fa4096820d43c447e1aaed981c2192103807f2dd1bf"
+          "digest": "sha256:10572bb29e6a0b09384a9c245af1239a1d8b4dba5b52a305331c47e3dd103203"
         }
       ],
       "comparatorArmIds": [],
@@ -257,7 +257,7 @@
       "case": {
         "id": "repo-change-case-fixture-1",
         "version": "0.1.0",
-        "digest": "sha256:d1804309539cccb465c753d940836673c90934a57c5faf38ea6dd116a0861729",
+        "digest": "sha256:86a1078beda8af331ceaf2a11b79a0e60ceffbda6cc5b59de0a965c46cf535d7",
         "riskTier": "medium",
         "memberships": [
           "held_out"
@@ -325,11 +325,11 @@
         {
           "cellId": "cell-fixture-1",
           "armId": "arm-fixture-1",
-          "evaluationProfileDigest": "sha256:e67c7b326718295c8e63608ad3d33859eece5107f58aa777ee2898dadca8c03e",
+          "evaluationProfileDigest": "sha256:f18de1a8583d2c929811ee4ef68466a5cd4d29f73a562cc8ac2385dfb6129cd5",
           "outcomeProfile": {
             "id": "workspace-change-v1",
             "version": "0.1.0",
-            "digest": "sha256:d47d693fbb2528f140b90fa4096820d43c447e1aaed981c2192103807f2dd1bf"
+            "digest": "sha256:10572bb29e6a0b09384a9c245af1239a1d8b4dba5b52a305331c47e3dd103203"
           },
           "repetition": 1,
           "state": "resolved",
@@ -609,15 +609,15 @@
     "ledger": {
       "id": "attempt-ledger",
       "uri": "attempt-ledger.json",
-      "digest": "sha256:183208236330499ed8a25bfa6d09200a5025b8a1b0d229fa334ab9ca16560b38"
+      "digest": "sha256:b5858d3458ba2e65f78666f215803016ef54d93bf33143d89aff4285e0579e70"
     },
     "scheduledSetCommitment": {
       "id": "pre-run-manifest-fixture-1",
       "uri": "pre-run-manifest.json",
-      "digest": "sha256:8edcd080b6995eecae50d97b55619d5798d74e4f99d8cbcf5b6c141c46358b22"
+      "digest": "sha256:9b9a35a85f4e854fb6f87b5cf08e6098dcf89d9972290903a04ea8a79ff69489"
     },
-    "initialLedgerRoot": "sha256:f68ca1af833244be1215d3c6cf5c059e9611d447c8fc3c574acc6637c5d6072f",
-    "terminalLedgerRoot": "sha256:3bb50a55503890ef110a59112e56e5bb09271feb8ee09f3435123e66149d8e39",
+    "initialLedgerRoot": "sha256:72d7adcaa30849659ace7478ba123f3cf06b810b7b68669bb9b1b8c3763eabc4",
+    "terminalLedgerRoot": "sha256:44e1b120bd9e25e800a6bd20e31bd39659a4dc0e6776d6764ae8ccb1eaad724b",
     "scheduledCells": 1,
     "resolvedCells": 1,
     "unresolvedCells": 0,
@@ -669,7 +669,7 @@
       "id": "attempt-checkpoint-fixture-1",
       "version": "0.1.0",
       "uri": "attempt-checkpoint.json",
-      "digest": "sha256:a2d67f786c38a713fee99d104598e6ea8bdded5703d94ae3249061ea2854db1a"
+      "digest": "sha256:edb1a72164f19deaae4d4d0357049569bf94b89439f7e7b22fb4105f37872c97"
     }
   },
   "metrics": {
@@ -793,9 +793,9 @@
     },
     {
       "id": "execution-evidence",
-      "uri": "artifact:sha256:0bef7ae1cba0d2e6fe5efadc76951c96570c1c471ec78af293f3204a5f8c0fe6",
+      "uri": "artifact:sha256:6736d83681defb84cbb4b782fabc80288a0972b6cdcaee21209b363df8ceb4ed",
       "mediaType": "application/json",
-      "digest": "sha256:0bef7ae1cba0d2e6fe5efadc76951c96570c1c471ec78af293f3204a5f8c0fe6",
+      "digest": "sha256:6736d83681defb84cbb4b782fabc80288a0972b6cdcaee21209b363df8ceb4ed",
       "byteLength": 1299,
       "producer": {
         "id": "fixture-runner",
@@ -839,11 +839,11 @@
         "algorithm": "Ed25519",
         "keyId": "rfc8032-test-key-3-runner",
         "signedAt": "2026-08-01T01:00:08Z",
-        "value": "8nIcbgRiGATMKXesacAphkyxRw1dt23QkIRUIqpR8Stnitd0CRWUwDihv2pc6i9kCo8eIZelMBbcLUD0iVkWAQ"
+        "value": "IqujKGS4E0_-B4yX2YdGbz75-mLVm8-fqVivdMlcGjj8ctonwDHIYHXt-yRG8spGqfK1QKgz9uNhwx9KrhRlCQ"
       },
       "payload": {
         "kind": "inline_base64",
-        "contentBase64": "ewogICJzY2hlbWFWZXJzaW9uIjogImFnZW50LWV2YWwtcmVwby1jaGFuZ2UtcnVubmVyLWNoZWNrLXJlY29yZC0xIiwKICAiaWQiOiAicmVwby1jaGFuZ2UtcnVubmVyLWNoZWNrLWZpeHR1cmUtMSIsCiAgInZlcnNpb24iOiAiMC4xLjAiLAogICJleHBlcmltZW50SWQiOiAiZXhwZXJpbWVudC1maXh0dXJlLTEiLAogICJjYXNlSWQiOiAicmVwby1jaGFuZ2UtY2FzZS1maXh0dXJlLTEiLAogICJjZWxsSWQiOiAiY2VsbC1maXh0dXJlLTEiLAogICJhdHRlbXB0SWQiOiAiYXR0ZW1wdC1maXh0dXJlLTEiLAogICJhcm1JZCI6ICJhcm0tZml4dHVyZS0xIiwKICAid29ya3NwYWNlTWFuaWZlc3REaWdlc3QiOiAic2hhMjU2OmUxMDBmZWMzY2M0YTZkNGIyZDA2OWZkMmU5ZTVjODFlYjRmM2JjYTU5ZWM3ZGI2OTE1MjE0MWUyYjE0NThjZDUiLAogICJ3b3Jrc3BhY2VSb290RGlnZXN0IjogInNoYTI1Njo2NzUyMDRmNDI3Mzg2MjVkMTA0YzA5NjcxYmFlMTIxZDVlODI3MjJmNzFiYTYyZTdjNmRkNzVhNTY1MzQzMGFjIiwKICAidmFsaWRhdGlvblBsYW5EaWdlc3QiOiAic2hhMjU2OmVlMDQ1MjY2NGQwMjJhNWUzMmM0MzI0MjQ5ZmFjM2Y1MGFjNzY0ZWNjYjllN2U0OWY5NDcxMTliMGJjYzg3YTUiLAogICJzdWJqZWN0S2luZCI6ICJ3b3Jrc3BhY2VfZGlmZiIsCiAgInN1YmplY3REaWdlc3QiOiAic2hhMjU2OjM3NmMyZWRhODgxOGFhOTcxYzNjMjU3ZDBjOTU3M2U1NWM2OWY2OTU3MTdmYjk5ZTYwYmRlNmFiM2IxNDFmMDMiLAogICJjaGVja3MiOiBbCiAgICB7CiAgICAgICJpZCI6ICJoaWRkZW4tZnVuY3Rpb25hbC1jaGVjayIsCiAgICAgICJjb250cmFjdERpZ2VzdCI6ICJzaGEyNTY6MzIzMjMyMzIzMjMyMzIzMjMyMzIzMjMyMzIzMjMyMzIzMjMyMzIzMjMyMzIzMjMyMzIzMjMyMzIzMjMyMzIzMiIsCiAgICAgICJzdGF0dXMiOiAicGFzcyIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJzZWN1cml0eS1jaGVjayIsCiAgICAgICJjb250cmFjdERpZ2VzdCI6ICJzaGEyNTY6MzQzNDM0MzQzNDM0MzQzNDM0MzQzNDM0MzQzNDM0MzQzNDM0MzQzNDM0MzQzNDM0MzQzNDM0MzQzNDM0MzQzNCIsCiAgICAgICJzdGF0dXMiOiAicGFzcyIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJjb250cm9sLXByb29mIiwKICAgICAgImNvbnRyYWN0RGlnZXN0IjogInNoYTI1NjozNjM2MzYzNjM2MzYzNjM2MzYzNjM2MzYzNjM2MzYzNjM2MzYzNjM2MzYzNjM2MzYzNjM2MzYzNjM2MzYzNjM2IiwKICAgICAgInN0YXR1cyI6ICJwYXNzIgogICAgfQogIF0sCiAgIm92ZXJhbGxWZXJkaWN0IjogInBhc3MiCn0K"
+        "contentBase64": "ewogICJzY2hlbWFWZXJzaW9uIjogImFnZW50LWV2YWwtcmVwby1jaGFuZ2UtcnVubmVyLWNoZWNrLXJlY29yZC0xIiwKICAiaWQiOiAicmVwby1jaGFuZ2UtcnVubmVyLWNoZWNrLWZpeHR1cmUtMSIsCiAgInZlcnNpb24iOiAiMC4xLjAiLAogICJleHBlcmltZW50SWQiOiAiZXhwZXJpbWVudC1maXh0dXJlLTEiLAogICJjYXNlSWQiOiAicmVwby1jaGFuZ2UtY2FzZS1maXh0dXJlLTEiLAogICJjZWxsSWQiOiAiY2VsbC1maXh0dXJlLTEiLAogICJhdHRlbXB0SWQiOiAiYXR0ZW1wdC1maXh0dXJlLTEiLAogICJhcm1JZCI6ICJhcm0tZml4dHVyZS0xIiwKICAid29ya3NwYWNlTWFuaWZlc3REaWdlc3QiOiAic2hhMjU2OmUxMDBmZWMzY2M0YTZkNGIyZDA2OWZkMmU5ZTVjODFlYjRmM2JjYTU5ZWM3ZGI2OTE1MjE0MWUyYjE0NThjZDUiLAogICJ3b3Jrc3BhY2VSb290RGlnZXN0IjogInNoYTI1Njo2NzUyMDRmNDI3Mzg2MjVkMTA0YzA5NjcxYmFlMTIxZDVlODI3MjJmNzFiYTYyZTdjNmRkNzVhNTY1MzQzMGFjIiwKICAidmFsaWRhdGlvblBsYW5EaWdlc3QiOiAic2hhMjU2OmVmZWQxMzczNzRjNDhiNjFhNGMwZjE5YmI3ZDUxZjhhMmY3ZGM1NjQ3MTI0MjExZWRlZTliZTJkMDI2MTVmOTAiLAogICJzdWJqZWN0S2luZCI6ICJ3b3Jrc3BhY2VfZGlmZiIsCiAgInN1YmplY3REaWdlc3QiOiAic2hhMjU2OjM3NmMyZWRhODgxOGFhOTcxYzNjMjU3ZDBjOTU3M2U1NWM2OWY2OTU3MTdmYjk5ZTYwYmRlNmFiM2IxNDFmMDMiLAogICJjaGVja3MiOiBbCiAgICB7CiAgICAgICJpZCI6ICJoaWRkZW4tZnVuY3Rpb25hbC1jaGVjayIsCiAgICAgICJjb250cmFjdERpZ2VzdCI6ICJzaGEyNTY6MzIzMjMyMzIzMjMyMzIzMjMyMzIzMjMyMzIzMjMyMzIzMjMyMzIzMjMyMzIzMjMyMzIzMjMyMzIzMjMyMzIzMiIsCiAgICAgICJzdGF0dXMiOiAicGFzcyIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJzZWN1cml0eS1jaGVjayIsCiAgICAgICJjb250cmFjdERpZ2VzdCI6ICJzaGEyNTY6MzQzNDM0MzQzNDM0MzQzNDM0MzQzNDM0MzQzNDM0MzQzNDM0MzQzNDM0MzQzNDM0MzQzNDM0MzQzNDM0MzQzNCIsCiAgICAgICJzdGF0dXMiOiAicGFzcyIKICAgIH0sCiAgICB7CiAgICAgICJpZCI6ICJjb250cm9sLXByb29mIiwKICAgICAgImNvbnRyYWN0RGlnZXN0IjogInNoYTI1NjozNjM2MzYzNjM2MzYzNjM2MzYzNjM2MzYzNjM2MzYzNjM2MzYzNjM2MzYzNjM2MzYzNjM2MzYzNjM2MzYzNjM2IiwKICAgICAgInN0YXR1cyI6ICJwYXNzIgogICAgfQogIF0sCiAgIm92ZXJhbGxWZXJkaWN0IjogInBhc3MiCn0K"
       },
       "artifactType": "repo-change-v1:runner_check_record"
     },
@@ -1221,9 +1221,9 @@
     },
     {
       "id": "outcome-replay-receipt",
-      "uri": "artifact:sha256:b0a53142ff0447c873c0f865e92097d47d869043d5462049669e7243af2f4dae",
+      "uri": "artifact:sha256:5883eb0968aa54c0117b215e5d52267af0da05827ae6b904baa54bf101507a2a",
       "mediaType": "application/json",
-      "digest": "sha256:b0a53142ff0447c873c0f865e92097d47d869043d5462049669e7243af2f4dae",
+      "digest": "sha256:5883eb0968aa54c0117b215e5d52267af0da05827ae6b904baa54bf101507a2a",
       "byteLength": 1878,
       "producer": {
         "id": "fixture-independent-outcome-verifier",
@@ -1267,7 +1267,7 @@
         "algorithm": "Ed25519",
         "keyId": "rfc8032-test-key-2-verifier",
         "signedAt": "2026-08-01T01:00:19Z",
-        "value": "DtCkEsOnWiYmz6-1RUW5gBn9FPIdcdnR6oZO_AyD3SALinkf7yOCxfnBMfOt8EM2kYevqj2m3_9aHad_VTT9Bg"
+        "value": "Ad6xqqiE_zDJ1iESh8QzpynOvCAaMmHpZbr8Curds99OiZvVATyi2SYkXl0oeL-q7BOnWCXdEhyBHo2nm07ICQ"
       },
       "payload": {
         "kind": "repository_relative",
@@ -1292,7 +1292,7 @@
     "preRunManifest": {
       "id": "pre-run-manifest-fixture-1",
       "uri": "pre-run-manifest.json",
-      "digest": "sha256:8edcd080b6995eecae50d97b55619d5798d74e4f99d8cbcf5b6c141c46358b22"
+      "digest": "sha256:9b9a35a85f4e854fb6f87b5cf08e6098dcf89d9972290903a04ea8a79ff69489"
     },
     "statisticalPlan": {
       "id": "statistical-plan-fixture-1",
@@ -1303,9 +1303,9 @@
       "id": "suite-manifest-fixture-1",
       "version": "0.1.0",
       "uri": "suite-manifest.json",
-      "digest": "sha256:3b35eae914c0942cefbee6dc980e10ccccc7a6211d471b48a4ed3ce99bb880ef"
+      "digest": "sha256:6eedd875b1a1029a14e6d127b974ba38bc05fea13cb6652957cb71941424e569"
     },
-    "caseSetDigest": "sha256:beaae9b4749c386773d6cddb28728340afd85159b213cd67a8aa08f95928f3b1",
+    "caseSetDigest": "sha256:127dde4201264c5f54bcd7dcb4033a1da23d71cac06268f1a82c3cd0ff889905",
     "requirementRegistry": {
       "id": "agent-evals-standard-requirements",
       "uri": "artifact:fixture:agent-evals-standard-requirements",
@@ -1318,12 +1318,12 @@
       "version": "0.1.0"
     }
   },
-  "digest": "sha256:5c87d8280964352106703322391eb10b9d635e7829392a6e9767bf82bd5bb6da",
+  "digest": "sha256:28724a069c25b62aac033df7130574322c3be454f2621b4fa704085903a55946",
   "signature": {
     "profileId": "fixture-signature-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T01:03:01Z",
-    "value": "6XsAUYlLrSIfS57XJRHgrHAbP19EaIvWbZY2D9wAjqEV0-nsMG2IshmVFOGfH9-b-QOlBWkdsC0tFOMgddOwBg"
+    "value": "zQBGBOsWrr0MXEy9fxkOJ4VtQhC0eUJuDeBS3lHr4FMYpqbWOmnbaECEvgW2SqY-JvfuSV3ZgR17shjY1zBXDg"
   }
 }

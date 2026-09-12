@@ -11,7 +11,7 @@
   "riskTier": "high",
   "waivability": "waivable",
   "scorecardId": "scorecard-fixture-1",
-  "scorecardHash": "sha256:5c87d8280964352106703322391eb10b9d635e7829392a6e9767bf82bd5bb6da",
+  "scorecardHash": "sha256:28724a069c25b62aac033df7130574322c3be454f2621b4fa704085903a55946",
   "findingId": "finding-fixture-1",
   "policyInstanceHash": "sha256:f2fbd75c175344432e7f030a56baf942dc6c1807aa3caf3d30c452afe247c067",
   "matrixInstanceHash": "sha256:c2e6fb87a1f3f8936db5de56124ee776d258c67e383dd9e82487ca712169351d",
@@ -37,7 +37,7 @@
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:19Z",
-    "value": "P_UnS3ArePte0HE2tOCDfeihxeKApIa6Ot4UeFRLi7qvfO5D11jqBb4HWIvK3Sg72K0Mlz7rfGSAjwVSJpnDCg"
+    "value": "g-vXH4dwvUby5R_xFf0CaJ43_WlG1ICWN5LJClSz70Z0dtST9OmlCHx0GZHA0CIRZziwt4OFmmulkZCxxTFoAA"
   },
   "expiresAt": "2026-08-02T00:00:18Z"
 }

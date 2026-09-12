@@ -9,7 +9,7 @@
   "armId": "arm-fixture-1",
   "workspaceManifestDigest": "sha256:e100fec3cc4a6d4b2d069fd2e9e5c81eb4f3bca59ec7db69152141e2b1458cd5",
   "workspaceRootDigest": "sha256:675204f42738625d104c09671bae121d5e82722f71ba62e7c6dd75a5653430ac",
-  "validationPlanDigest": "sha256:ee0452664d022a5e32c4324249fac3f50ac764eccb9e7e49f947119b0bcc87a5",
+  "validationPlanDigest": "sha256:efed137374c48b61a4c0f19bb7d51f8a2f7dc5647124211edee9be2d02615f90",
   "subjectKind": "workspace_diff",
   "subjectDigest": "sha256:376c2eda8818aa971c3c257d0c9573e55c69f695717fb99e60bde6ab3b141f03",
   "checks": [

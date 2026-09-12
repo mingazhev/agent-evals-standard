@@ -11,7 +11,7 @@
     "id": "repo-change-v1",
     "version": "0.1.0",
     "uri": "../../profiles/repo-change-v1/evaluation-profile.json",
-    "digest": "sha256:56cb626f8a73bf59d65dc1a13f71d068a5b36b1859cf054ceb497cff33306edc"
+    "digest": "sha256:6c3c33a6b195f05f274d53946892824cc5d9ade2c0c5dcb409101453031c68d0"
   },
   "baseCompatibility": {
     "standardVersion": "0.1.0",
@@ -61,7 +61,7 @@
       "id": "workspace-change-v1",
       "version": "0.1.0",
       "uri": "../../profiles/repo-change-v1/outcome-profile.json",
-      "digest": "sha256:d47d693fbb2528f140b90fa4096820d43c447e1aaed981c2192103807f2dd1bf"
+      "digest": "sha256:10572bb29e6a0b09384a9c245af1239a1d8b4dba5b52a305331c47e3dd103203"
     }
   ],
   "caseContract": {
@@ -102,14 +102,14 @@
     {
       "id": "architecture-profile-child-positive",
       "manifestUri": "manifest.json",
-      "manifestDigest": "sha256:37f816d61768f78bd586725d0c519a3aee3f2551b77da71f6745d01ce7d3c99a",
+      "manifestDigest": "sha256:afc1a5c642e7f9f8770a144322b2b39c1c8389b47747b39385d110f52f28f72f",
       "manifestExpectationId": "architecture-profile-resolution-proof-inputs-valid",
       "expectedVerdict": "pass"
     },
     {
       "id": "architecture-profile-child-expansion-negative",
       "manifestUri": "manifest.json",
-      "manifestDigest": "sha256:37f816d61768f78bd586725d0c519a3aee3f2551b77da71f6745d01ce7d3c99a",
+      "manifestDigest": "sha256:afc1a5c642e7f9f8770a144322b2b39c1c8389b47747b39385d110f52f28f72f",
       "manifestExpectationId": "architecture-profile-resolution-proof-inputs-reject-verdict",
       "expectedVerdict": "fail"
     }
@@ -712,22 +712,22 @@
       "id": "architecture-profile-child-resolution",
       "version": "0.1.0",
       "uri": "architecture-profile-child-resolution.json",
-      "digest": "sha256:5fd49803ddbd86d954e229599a14310aff939dea87f995f228b6b15bfe3d5d3f"
+      "digest": "sha256:be37eb807ac14c6822d0fcf7537e8368bbbaefebb85787820f3f82cb794c89a2"
     }
   },
   "resolutionEvidence": {
     "id": "architecture-profile-child-resolution",
     "version": "0.1.0",
     "uri": "architecture-profile-child-resolution.json",
-    "digest": "sha256:5fd49803ddbd86d954e229599a14310aff939dea87f995f228b6b15bfe3d5d3f"
+    "digest": "sha256:be37eb807ac14c6822d0fcf7537e8368bbbaefebb85787820f3f82cb794c89a2"
   },
-  "effectiveProfileDigest": "sha256:026b11e163ee30e383bd169d3d0e391278f13a6e30e9bbdb5ec930f01bcfc7ee",
-  "digest": "sha256:cede8ae9f3b3f4f9770b012010cfc5eb0ec4b0717a81e96fcf03955c0e5198df",
+  "effectiveProfileDigest": "sha256:193b4ad6b4097368f107e390f97bdd448082ab38115e54743a732cdf1767f4ec",
+  "digest": "sha256:33bd18c22a0e6d9948f2718cdb0ce2ed652436cee0371e84405e1764d0322f67",
   "signature": {
     "profileId": "fixture-signature-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:00Z",
-    "value": "8K_bDJU5NzD8YmtxRIeWW_VnRFsbRF2WbmP-rooCV2sVsZHheZf9wOuJJy3Lth5lzUwKw9JEjnSCX4yXIEMTBw"
+    "value": "K5lNgYxxGonG0px7RMXqmST0wYbwoPzEdm2vwE5bRU8LOKzLM7DPwcCa8xAe80XwgRmrclkDL5JfXw9GfObQAw"
   }
 }

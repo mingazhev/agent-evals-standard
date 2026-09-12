@@ -28,11 +28,23 @@
         "id": { "$ref": "#/$defs/id" },
         "claimTarget": { "$comment": "The conformance target whose applicable requirement set this validation envelope evaluates. It is explicit because an artifact type such as scorecard may support more than one conformance target.", "enum": ["suite", "case", "evaluator", "experiment", "decision"] },
         "digest": { "$ref": "#/$defs/digest" },
-        "projection": { "enum": ["full_document_without_digest_and_signature", "sealed_activation_input", "sealed_run", "governance_state"] },
+        "projection": { "enum": ["full_document_without_digest_and_signature", "sealed_activation_input"] },
         "targetSubject": { "$ref": "urn:agent-evals-standard:schema:conformance-statement:1#/$defs/versionedArtifactPointer" },
         "dependencyManifest": { "$ref": "urn:agent-evals-standard:schema:conformance-statement:1#/$defs/dependencyManifest" }
       },
-      "additionalProperties": false
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "type": "object",
+            "properties": { "projection": { "const": "sealed_activation_input" } },
+            "required": ["projection"]
+          },
+          "then": {
+            "properties": { "type": { "const": "case" } }
+          }
+        }
+      ]
     },
     "validationContractVersion": { "const": "0.1.0" },
     "validator": {

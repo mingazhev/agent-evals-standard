@@ -30,13 +30,13 @@
     {
       "id": "scorecard-fixture-1",
       "location": "artifact:fixture:scorecard-fixture-1",
-      "digest": "sha256:5c87d8280964352106703322391eb10b9d635e7829392a6e9767bf82bd5bb6da"
+      "digest": "sha256:28724a069c25b62aac033df7130574322c3be454f2621b4fa704085903a55946"
     }
   ],
   "resolutionLedger": {
     "id": "governance-resolution-ledger-fixture-1",
     "location": "artifact:fixture:governance-resolution-ledger-fixture-1",
-    "digest": "sha256:7033bbc9aee5675e513db63a68d6610685f6b2517126ab72e028225601100b1f"
+    "digest": "sha256:1f21847db9dbe24fb08e63df0ba6ddf9ca07be8749ab45161d727c561f14ac82"
   },
   "enforcementReceipts": [
     {
@@ -132,6 +132,6 @@
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:26Z",
-    "value": "m-lRyIYFKfe-fgN-G8zJhUd__ZJNyBCROy60T2YxxzTPrReMNGzLJZdvfPxLCHufcXoe3mxe3L_3mzmh-bddAA"
+    "value": "-m0usJIgeNleEUmgfN7z9uzAGoU8IiDIGUMeJPgjLZsjjjkoc0MKaDQ57VcQd1NLQXPlJuX7baW879AUmiP6Cg"
   }
 }

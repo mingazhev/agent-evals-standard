@@ -233,13 +233,13 @@
     "replacementProofs": "target_pointer_then_key_lexical"
   },
   "conflictStatus": "no_unresolved_conflicts",
-  "effectiveProfileDigest": "sha256:c6a8ee633253b79a9e1519c367a6b69957e60654ecb0efe7b8f3d27bf7cde4ff",
-  "digest": "sha256:95bdfc0329e4b5c6b384b55365a6d2f6c157d771b5be4008b66aacafa527ce8b",
+  "effectiveProfileDigest": "sha256:35f0a75298969e13d7351696cdf45cbfd83737e71ae71f8c525b069a66a300c2",
+  "digest": "sha256:4e9e41ae92c0d8f13f0f4f910d3caf2aa598d4ec1a021d23e7c8d723ee383e20",
   "signature": {
     "profileId": "fixture-signature-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:00Z",
-    "value": "8zwHnQTa1TBNZaaKcIs-rQ_0-hhnHxXQzAGz_u1zNwdn58DQIFrzf9ZSKJC_0NVkiam9FOMByLUtj_6e3TgVCw"
+    "value": "4eYICncSTGKjdfF2-EQph1lFgxFdvY9DNZy3RHK4YQa8OUZRATWCSPKYO3uYrpsyVkNTHJf6HHxjdQmhEphbAQ"
   }
 }

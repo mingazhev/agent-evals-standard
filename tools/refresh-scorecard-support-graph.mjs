@@ -323,6 +323,18 @@ syncComponents(supportCase, components);
 refreshSigned(supportCase);
 await writeJson(supportCasePath, supportCase);
 
+const activationProjection = structuredClone(supportCase);
+for (const field of ["lifecycle", "digest", "signature"]) delete activationProjection[field];
+await writeJson(path.join(positiveRoot, "case-activation-input.json"), {
+  schemaVersion: "agent-eval-activation-input-1",
+  case: {
+    id: supportCase.id,
+    version: supportCase.caseVersion,
+    projectionDigest: sha256Canonical(activationProjection)
+  },
+  projection: activationProjection
+});
+
 const machineSuite = await readJson(path.join(machineRoot, "stage-suite-manifest.json"));
 const suite = await readJson(suitePath);
 syncComponents(suite, components);

@@ -11,7 +11,7 @@
       "id": "repo-change-v1",
       "version": "0.1.0",
       "uri": "../../profiles/repo-change-v1/evaluation-profile.json",
-      "digest": "sha256:56cb626f8a73bf59d65dc1a13f71d068a5b36b1859cf054ceb497cff33306edc"
+      "digest": "sha256:6c3c33a6b195f05f274d53946892824cc5d9ade2c0c5dcb409101453031c68d0"
     }
   ],
   "fieldProvenance": [
@@ -239,13 +239,13 @@
         "id": "workspace-change-v1",
         "version": "0.1.0",
         "uri": "outcome-profile.json",
-        "digest": "sha256:d47d693fbb2528f140b90fa4096820d43c447e1aaed981c2192103807f2dd1bf"
+        "digest": "sha256:10572bb29e6a0b09384a9c245af1239a1d8b4dba5b52a305331c47e3dd103203"
       },
       "child": {
         "id": "workspace-change-v1",
         "version": "0.1.0",
         "uri": "../../profiles/repo-change-v1/outcome-profile.json",
-        "digest": "sha256:d47d693fbb2528f140b90fa4096820d43c447e1aaed981c2192103807f2dd1bf"
+        "digest": "sha256:10572bb29e6a0b09384a9c245af1239a1d8b4dba5b52a305331c47e3dd103203"
       },
       "relation": "content_equal",
       "evidenceIds": [
@@ -339,7 +339,7 @@
       "id": "architecture-profile-resolution-evidence",
       "uri": "architecture-profile-resolution-evidence-payload.json",
       "mediaType": "application/json",
-      "digest": "sha256:f27093be17b8c5bb36e71fa95988cb019cae9c4ec30523a3f96650b702b2a7fb",
+      "digest": "sha256:a0815a59ff8cb86d14770ae9b6053056e34d28461520f0cde3ed2e8b897a3103",
       "byteLength": 2985,
       "producer": {
         "id": "architecture-profile-resolution-input-builder",
@@ -375,7 +375,7 @@
         "algorithm": "Ed25519",
         "keyId": "rfc8032-test-key-1",
         "signedAt": "2026-08-01T00:00:00Z",
-        "value": "CQgkilN_1MkuEsAyclsBIxvoCR_SbPSU6juApLZTLOno7k_fy5akJ9LY_sAmF9sMh8Dc99nQucbqtbj-bumDAA"
+        "value": "W9kOhOGR0Ijs957pGbcdHnysz0F_w2IyrUC3QSIccp8z3lNm6bQR-E2PZsaKV3FF9NPF9G-MDKPqBJkheu1bCA"
       },
       "payload": {
         "kind": "repository_relative",
@@ -390,13 +390,13 @@
     "replacementProofs": "target_pointer_then_key_lexical"
   },
   "conflictStatus": "no_unresolved_conflicts",
-  "effectiveProfileDigest": "sha256:026b11e163ee30e383bd169d3d0e391278f13a6e30e9bbdb5ec930f01bcfc7ee",
-  "digest": "sha256:5fd49803ddbd86d954e229599a14310aff939dea87f995f228b6b15bfe3d5d3f",
+  "effectiveProfileDigest": "sha256:193b4ad6b4097368f107e390f97bdd448082ab38115e54743a732cdf1767f4ec",
+  "digest": "sha256:be37eb807ac14c6822d0fcf7537e8368bbbaefebb85787820f3f82cb794c89a2",
   "signature": {
     "profileId": "fixture-signature-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:00Z",
-    "value": "qUZOSJrcpnHEVEYbt2jtyW4pyMvlIOh7Ko9_iF_nr4i1t6fcgFxwvZg0gduEOwJMmF2Ee4oGAnQmTi3rvBAVDw"
+    "value": "0ut95wSKPufsQf2InBK1jamJ80JYgxNK0mYqaesbzS4STHwB3Ih7xKvb5r0ZcB-ucTvGUjcqPMI4x_cOuK4tAg"
   }
 }

@@ -16,13 +16,13 @@
   "outcomeProfile": {
     "id": "workspace-change-v1",
     "version": "0.1.0",
-    "digest": "sha256:d47d693fbb2528f140b90fa4096820d43c447e1aaed981c2192103807f2dd1bf"
+    "digest": "sha256:10572bb29e6a0b09384a9c245af1239a1d8b4dba5b52a305331c47e3dd103203"
   },
-  "caseCommitmentDigest": "sha256:a407d78cebfc7ac51d805210290436d56dd999f6e9f0b27fb4451d82f7749979",
-  "cellCommitmentDigest": "sha256:d1607cc9d4eb32f6dbde4526b7dc6878a42f7b9e62763d8fd0a6219cf59d118d",
+  "caseCommitmentDigest": "sha256:05e224b1d05053775057bedf68f6320752e1f945478ea43d4919b5e48debde95",
+  "cellCommitmentDigest": "sha256:7bae604e9464b1b76ec5d4fed05e3358616622f9fcc0ff5b2c6ba863eec64b07",
   "trialProjectionDigest": "sha256:95bae28af035c8df765f195de59c9e9f3813a9a48662ec6e7c7a39c23aaebbb0",
   "materialArtifactsDigest": "sha256:373b2127dbe9ad56c149208367accfac2490d184926747bcdde7c2f88113a113",
-  "consumedEvidenceDigest": "sha256:fbe25b33d6519ae16ac6057e463b2d3080844824ab4c8d1c4fcb9c50d37b8f87",
+  "consumedEvidenceDigest": "sha256:744b79aabbd100e2e387b8a4316f1b024a60a97327153b0310b6706f299c4c67",
   "evaluatedAssuranceReport": {
     "evidenceId": "assurance-report-evidence",
     "digest": "sha256:158825f00f8f61afa11b92ed8b1e16bfa5fe9af6edeff8abdc2ceb88832c2b0b"

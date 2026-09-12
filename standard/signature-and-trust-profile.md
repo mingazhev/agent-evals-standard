@@ -123,7 +123,7 @@ non-normative reference implementation is `tools/governance-enforcement.mjs`.
 For `evaluation-profile-1`, inheritance is resolved before
 `effectiveProfileDigest` is computed. The effective projection is the complete
 flattened leaf profile with `parentProfile` set to `null`, produced only by the
-closed per-field `PROFILE-001` table and algorithm in the core standard. No
+closed per-field [PROFILE-001 resolution contract](profile-resolution-contract.md). No
 generic array merge or concatenation rule applies. The fields `fixtures`,
 `conflictReport`, `resolutionEvidence`, `effectiveProfileDigest`, `digest`, and
 `signature` are omitted. After the effective digest and detached signed

@@ -29,6 +29,12 @@
       "digest": "sha256:455a076d82c24937bab96a3bac0738f6683016628ddb13220b602f41dac12112"
     },
     {
+      "id": "urn:agent-evals-standard:schema:case-activation-input:1",
+      "version": "0.1.0",
+      "uri": "schemas/case-activation-input.schema.json",
+      "digest": "sha256:b86adb3acbf24a5bf2a744f937f77c22019abd7ad1020fc034e31370883088a0"
+    },
+    {
       "id": "urn:agent-evals-standard:schema:case-classification-validity-argument:1",
       "version": "0.1.0",
       "uri": "schemas/case-classification-validity-argument.schema.json",
@@ -380,7 +386,7 @@
       "id": "urn:agent-evals-standard:schema:validation-envelope:1",
       "version": "0.1.0",
       "uri": "schemas/validation-envelope.schema.json",
-      "digest": "sha256:e0d910641e0792dd71c80964fd7fca6dd7f7978471ac5161bae5d0fe68c6d4b3"
+      "digest": "sha256:9c50c2c65617539d9c8603f6f7c5757ddc29533a1702abc4002e75162b3ef3ce"
     },
     {
       "id": "urn:agent-evals-standard:schema:validity-argument:1",
@@ -407,5 +413,5 @@
       "digest": "sha256:391e6dc98e4753b01bc8b160891eee65cedb340bc083bc42a856b4c268637cce"
     }
   ],
-  "entriesDigest": "sha256:d82377199935c529559ad82999f8ba83f20b383fed91ef8454d2990d6fa6c98b"
+  "entriesDigest": "sha256:2d1022e8e94df04fa057be990f9f9edd7c65dea01bd66f67b0640796d395bacb"
 }

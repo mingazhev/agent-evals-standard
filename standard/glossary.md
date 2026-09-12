@@ -55,9 +55,10 @@ namespace but cannot change these meanings.
   machine fields use the qualified term; unqualified `profile` is explanatory
   shorthand only when exactly one kind is possible in context.
 - **Effective profile resolution** — deterministic parent-to-child flattening
-  using the closed merge key for each field. Every effective requirement mapping
-  retains a `sourceProfileId`; a repeated key is accepted only as a proven
-  narrowing or strengthening, and every other conflict fails closed.
+  under the field-specific rules of [PROFILE-001](standard.md#evaluation-profile-resolution).
+  Inherited delta collections require a replacement proof for a changed key;
+  complete leaf declarations, including `requirementMapping`, follow their
+  explicit exceptions. Unresolved conflicts fail closed.
 - **SDLC capability family** — one stable ID in the closed taxonomy:
   `CAP.DISCOVER_SPECIFY`, `CAP.PLAN_DESIGN`, `CAP.IMPLEMENT_CHANGE`,
   `CAP.VERIFY_ASSURE`, `CAP.REVIEW_DECIDE`, `CAP.RELEASE_OPERATE`, or
@@ -234,8 +235,9 @@ namespace but cannot change these meanings.
   computed independently for each claim.
 - **Validity** — whether measurement supports interpretation and attribution,
   distinct from success or acceptance.
-- **Assurance level** — `A0 diagnostic_run`, `A1 capability`, `A2 release`, or
-  `A3 autonomy`, expressing required evidence depth rather than a quality score.
+- **Assurance level** — `A0 diagnostic_run`, `A1 capability`,
+  `A2 controlled_decision`, or `A3 high_assurance`, expressing required evidence
+  depth rather than a quality score.
 - **Assurance overlay** — the base-owned cumulative A1–A3 requirements plus
   structured profile additions. A profile can narrow its supported levels or add
   evidence requirements; it cannot replace or weaken the base level.

@@ -3,8 +3,8 @@
   "id": "evaluation-control-bindings-v1",
   "version": "0.1.0",
   "schemaId": "urn:agent-evals-standard:schema:evaluation-control-bindings:1",
-  "uri": "artifact:sha256:3973b1c4595415adcc409bc1a671b04c599982a966b55d1d2d5470ac5528f8c4",
-  "digest": "sha256:3973b1c4595415adcc409bc1a671b04c599982a966b55d1d2d5470ac5528f8c4",
+  "uri": "artifact:sha256:5f427175702adfb9c1c83c85afb3c477ea80f503c5aa780f7f284c5e5d59f1eb",
+  "digest": "sha256:5f427175702adfb9c1c83c85afb3c477ea80f503c5aa780f7f284c5e5d59f1eb",
   "byteLength": 14621,
   "mediaType": "application/json",
   "locator": {
