@@ -9,7 +9,7 @@
         "id": "workspace-change-v1",
         "version": "0.1.0",
         "uri": "../profiles/repo-change-v1/outcome-profile.json",
-        "digest": "sha256:40fe522e35eed8c50cecfce812d9eb2765ac342d8d81a8651771c9267752c9d1"
+        "digest": "sha256:1493b778c2e9245176281edbd2d5340da8432c3d353bbd03173c100bba53fb3e"
       },
       "semanticContract": {
         "id": "workspace-change-v1-outcome-replay-contract",
@@ -27,7 +27,7 @@
         "id": "agent-evals-standard.case-qa-classification-applicability",
         "version": "0.1.0",
         "uri": "../tools/verify-case-qa-record.mjs",
-        "digest": "sha256:9532390e19619956b54c2fe28bab12e1707707c68acc271689aa5bb7031dec81"
+        "digest": "sha256:dd060a8f3f71a030bf9d969d9360e42734aba9a0d5be3d45ac77de45d9667579"
       }
     }
   ]

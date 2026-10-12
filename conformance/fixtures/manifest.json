@@ -835,6 +835,11 @@
       "expectedError": "/semanticInertnessEvidence"
     },
     {
+      "path": "positive/case-activation-input.json",
+      "schema": "urn:agent-evals-standard:schema:case-activation-input:1",
+      "valid": true
+    },
+    {
       "path": "positive/case-qa-activated.json",
       "group": "peripheral-hardening",
       "schema": "urn:agent-evals-standard:schema:case-qa-record:1",
@@ -1700,7 +1705,8 @@
       "schema": "urn:agent-evals-standard:schema:governance-resolution-ledger:1",
       "valid": true,
       "semanticChecks": [
-        "signature"
+        "signature",
+        "governanceLedger"
       ]
     },
     {

@@ -8,6 +8,33 @@ correct, references resolve, formulas were recomputed, signatures are valid,
 or verdict fields agree. A scorecard or conformance statement is conforming
 only after both schema validation and this semantic validation succeed.
 
+## Git workspace digest projections
+
+These are the exact `git-repository-state-v1` projections invoked by `SCOPE-003`.
+Each digest below is `sha256:` followed by SHA-256 of UTF-8 RFC 8785 JCS of
+exactly the stated object. Raw Git object IDs remain governed by the declared
+Git object format; they are distinct from these SHA-256 commitments.
+
+Before hashing, `repositories[]` **MUST** be strictly ordered by `id`,
+`gitObjectGraph.objects[]` by `objectId`, and `gitObjectGraph.refs[]` by `name`,
+using ascending ASCII order. File and gitlink ordering follows `SCOPE-003`'s
+UTF-8 path-byte rule. Arrays retain this order in every projection; a verifier
+**MUST NOT** repair an incorrectly ordered input by sorting it.
+
+| Digest | Exact projection |
+| --- | --- |
+| `gitObjectGraph.digest` | `{objectFormat, refs, objects}`, plus `baseRef` only when present in the graph. `objectFormat` is the containing repository's value; each ref retains exactly `{name, target}`. Each object becomes `{objectId, type, byteLength, contentDigest}`, where `contentDigest` is `sha256:` plus SHA-256 of its decoded raw `contentBase64` bytes. |
+| `treeDigest` | `{files}`, plus `gitlinks` only when nonempty. Each file becomes exactly `{path, mode, mediaType, byteLength, digest}`; its digest hashes the decoded raw file bytes. Each gitlink retains exactly `{path, repositoryId, targetCommit}`. |
+| `workspaceRootDigest` | `{repositories}`. Each repository becomes exactly `{id, path, objectFormat, treeDigest, gitObjectGraphDigest, historyProjection}`, plus `baseTree` or `baseRevision` only when present in that repository. `gitObjectGraphDigest` is its recomputed graph digest, `treeDigest` is its recomputed tree digest, and `historyProjection` is the complete schema-valid object. |
+
+The graph and `historyProjection.objectGraphDigest` **MUST** both equal the
+recomputed graph digest before the workspace root is accepted. Omitted optional
+fields remain absent, not null. No other field enters these projections; in
+particular, neither encoded payload bytes nor a digest being computed enters
+its own projection. The verifier **MUST** still authenticate payload bytes,
+lengths, Git object IDs, closure, and repository-state semantics before accepting
+any of these commitments.
+
 ## Canonical evidence and detached validation
 
 Canonical bytes, evidence manifests, subject projections, and validation
@@ -32,38 +59,22 @@ attestation fails the affected path closed.
 
 ## Signed append-only ledger
 
-The pre-run scheduled-cell manifest and initial ledger root are signed by the
-runner identity and protected by the pinned anti-rollback policy applicable to
-the evaluation's actual assurance level and effective risk tier. Ledger events
-have a monotonic sequence, previous-event hash, event hash, and runner
-signature under the pinned
-[Signature and Trust Profile](signature-and-trust-profile.md). When that policy
-selects an active mechanism, its independently controlled receipts bind ledger
-sequence and root. A `not_required` mechanism is valid only within its declared
-scope and while its signed risk-acceptance review remains current.
-The terminal scorecard binds the initial root, terminal root, and
-scheduled-set commitment. Validation recomputes the chain, verifies signatures,
-and rejects missing, duplicate, reordered, or orphaned events and retry
-lineages. For each `attemptId`, the reducer starts at `null`, requires
-`null -> scheduled -> started -> terminal`, and requires every event's
-`fromState` to equal the previously reduced `toState`. The terminal attempt
-record **MUST** match that reduction, and every started attempt has exactly one
-terminal record.
+Attempt accounting uses the Scorecard Contract's
+[terminal-record chain](scorecard-contract.md#attempt-integrity-fields) and
+[independent dispatch checkpoint](scorecard-contract.md#independent-attempt-checkpoint).
+These are the version 0.1.0 transport and root algorithms; no separate
+`fromState`/`toState` event stream is required. The verifier **MUST** reproduce
+the record-chain roots, authenticate the dispatch receipts and terminal
+checkpoint, reconcile one terminal record per dispatch, preserve undispatched
+scheduled cells as unresolved, and verify retry lineage and first-valid
+selection under those contracts.
 
-```mermaid
-stateDiagram-v2
-  [*] --> null
-  null --> scheduled
-  scheduled --> started
-  started --> terminal
-```
-
-Rewriting a ledger and recomputing an unauthenticated hash is not append-only
-evidence. A verifier **MUST** validate key authorization, revocation state,
-verifier time, policy applicability, and every continuity, witness, and
-freshness check required by the selected anti-rollback mechanism in addition to
-the event chain. An expired or scope-mismatched `not_required` acceptance stops
-governance use.
+The [Signature and Trust Profile](signature-and-trust-profile.md) supplies key
+authorization, revocation, trusted time, and assurance/risk-specific
+anti-rollback checks. A scope-valid `not_required` anti-rollback mechanism
+does not waive the independent attempt checkpoint. Recomputing evaluator-owned
+hashes or signatures cannot substitute for the externally trusted scheduler
+receipts and log head.
 
 ## Required scorecard checks
 
@@ -78,7 +89,7 @@ missing evidence.
 | 2 | Governance statuses | Governance-status sets obey the sealed trigger rules, and every terminal or `not_applicable` status has the evidence required by the Scorecard Contract. |
 | 3 | Trial acceptance and outcome replay | Trial acceptance and every selected predicate are recomputed exclusively from the Scorecard Contract's `functional-outcome-v1` and `accepted-outcome-v1` definitions, including transcript and interaction evidence; for every claim-bearing cell this recomputation executes the exact distribution-owned outcome-replay executor over the exact selected work-artifact set and a receipt that binds the exact case, cell, trial, material mapping, and consumed evidence records. When, and only when, the authenticated outcome profile requires independently graded evaluated work, replay also requires the runner-captured work product and a separate independently authenticated grader assessment, with both digests bound by the receipt. Profiles that do not select that evidence mode prohibit those artifacts rather than treating them as mandatory passengers. Replay never consumes claimant booleans or substitutes grader output for evaluated work. |
 | 4 | Invalid trials | An invalid trial has `infra_failure`, is not accepted, and does not enter a valid-only point estimate; agent-attributed interference remains a valid `unsafe_policy_violation` rather than infrastructure invalidity. |
-| 5 | Attempt accounting | Scheduled-cell, physical-attempt, retry-lineage, and mutually exclusive state counts equal the ledger; every nonterminal entry is reconciled; every resolved cell has the first eligible valid selected trial, while every claim-specific success assignment is recomputed from that trial and the claim's sealed `successDefinition`; `completed` attempts have `measurementValidity.status` `valid` or `invalid`, while `interrupted` and `missing_capture` attempts are `not_assessable`; only the Scorecard Contract's executable `functional-outcome-v1` and `accepted-outcome-v1` predicates **MAY** resolve a cell; a missing, substituted, claimant-signed, or fixture-only operational replay receipt therefore makes every dependent claim `insufficient_evidence`. |
+| 5 | Attempt accounting | Scheduled-cell, physical-attempt, retry-lineage, and mutually exclusive state counts equal the ledger; every dispatch has one terminal record; every resolved cell selects its first eligible valid trial regardless of success. Claim-specific success assignments use that trial and the sealed `successDefinition` under `OUT-001`. `completed` attempts have `measurementValidity` `valid` or `invalid`, while `interrupted` and `missing_capture` attempts are `not_assessable`. A missing, substituted, claimant-signed, or fixture-only operational replay receipt makes every dependent claim `insufficient_evidence`. |
 | 6 | Bounds and statistics | `unresolvedCellRate = unresolvedCells / scheduledCells`; component binary-rate bounds stay within `[0,1]`, while comparative difference bounds stay within `[-1,1]`; interval endpoints are ordered; every pass@k/pass^k value is recomputed from consistent `validN`, `validSuccesses`, and `k`. |
 | 7 | Aggregation | Per-case contributions, weights, strata, and the run estimate reproduce the declared estimator and complete sealed case set. |
 | 8 | Claim support | `claim.status: supported` implies valid attempt integrity, a complete sealed plan, all required Case QA evidence with passing FP/FN validation whose intervals and threshold verdicts recompute, no coverage or telemetry gap material to the claim, and a recomputed decision rule that passes. |

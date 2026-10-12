@@ -101,21 +101,35 @@ produces `fail`; otherwise any `insufficient_evidence` produces
 `insufficient_evidence`; otherwise `pass` is permitted only when every selected
 check is `pass`. Empty or incomplete selected-check sets never pass.
 
-The four projection identifiers have these meanings:
+The supported projection identifiers have these meanings:
 
 - `full_document_without_digest_and_signature` — RFC 8785 JCS of the complete
   JSON document after removing only the top-level digest and signature fields
   named by its schema;
-- `sealed_activation_input` — the Case QA activation-input manifest before the
-  QA record or validation envelope exists;
-- `sealed_run` — the pre-registered run manifest, scheduled-cell commitment,
-  immutable attempt ledger root, and terminal scorecard projection named by the
-  Scorecard Contract;
-- `governance_state` — the immutable scorecard plus the ordered governance event,
-  enforcement-receipt, and resolution roots at the stated ledger sequence.
+- `sealed_activation_input` — UTF-8 bytes of RFC 8785 JCS for the
+  `agent-eval-activation-input-1` manifest defined by
+  [`case-activation-input.schema.json`](../schemas/case-activation-input.schema.json).
+  The manifest's `projection` is the case document with exactly its
+  `lifecycle`, `digest`, and `signature` members removed. Its `case` object
+  binds the case `id`, `version`, and the SHA-256 of that projection. The
+  activated case's `lifecycle.activationInputDigest` is the SHA-256 of the
+  complete manifest bytes. A validator MUST reconstruct the projection from
+  the case and require exact canonical bytes and both digest relations before
+  accepting activation. The source case MUST separately pass
+  `case.schema.json`, including the lifecycle condition for its current state;
+  this input manifest is a binding of inputs, not QA validity evidence. This
+  exclusion of activation-only fields is the acyclic boundary: the manifest
+  does not contain the activated case digest.
 
-A projection contract **MUST** identify exact included fields and ordering. An
-unknown or ambiguous projection yields `insufficient_evidence`.
+The activation-input projection includes every top-level case member required
+by `case.schema.json` except `lifecycle`, `digest`, and `signature`; the
+optional `interactionProtocol` is included when present. Object member order is
+the RFC 8785 JCS order and array order is the case document's order. An
+unknown or ambiguous projection yields `insufficient_evidence`. `sealed_run`
+and `governance_state` are reserved identifiers with no projection contract in
+this version; an envelope using either identifier is schema-invalid and MUST
+fail closed. A projection contract MUST identify exact included fields and
+ordering.
 
 For `validation-envelope-1`, signing bytes are the ASCII domain separator
 `agent-evals-validation-envelope-1` followed by a zero byte and UTF-8 RFC 8785

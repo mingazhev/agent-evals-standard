@@ -65,6 +65,22 @@
   },
   "allOf": [
     {
+      "if": { "properties": { "sourceEventType": { "const": "dataOwnerReviewRequired" } }, "required": ["sourceEventType"] },
+      "then": { "properties": { "governanceStatusId": { "const": "data_owner_review_required" }, "action": { "const": "resolve" }, "actor": { "type": "object", "properties": { "role": { "const": "data_owner" } } } } }
+    },
+    {
+      "if": { "properties": { "sourceEventType": { "const": "riskAcceptanceRequired" } }, "required": ["sourceEventType"] },
+      "then": { "properties": { "governanceStatusId": { "const": "risk_acceptance_required" }, "action": { "const": "resolve" }, "actor": { "type": "object", "properties": { "role": { "const": "risk_acceptance_authority" } } } } }
+    },
+    {
+      "if": { "properties": { "governanceStatusId": { "const": "data_owner_review_required" } }, "required": ["governanceStatusId"] },
+      "then": { "properties": { "sourceEventType": { "const": "dataOwnerReviewRequired" } } }
+    },
+    {
+      "if": { "properties": { "governanceStatusId": { "const": "risk_acceptance_required" } }, "required": ["governanceStatusId"] },
+      "then": { "properties": { "sourceEventType": { "const": "riskAcceptanceRequired" } } }
+    },
+    {
       "if": { "properties": { "action": { "enum": ["resolve", "waive"] } }, "required": ["action"] },
       "then": { "type": "object", "properties": { "findingId": {} }, "required": ["findingId"] }
     },

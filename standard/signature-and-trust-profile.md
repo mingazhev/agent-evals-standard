@@ -90,14 +90,40 @@ artifact bytes, not the evidence record.
 An `escalation-event-1` has no self-digest field because its containing ledger
 supplies `payloadHash`; an enforcement receipt's `sourceEventDigest` is SHA-256
 of UTF-8 JCS of the complete immutable event, including its completed signature.
-`enforcement-receipt-1.digest` follows the generic self-digest rule. Semantic
-validation also requires exact equality of event ID, affected scope, stop and
-scope actions, request time, and monotonic event/request/start/completion times.
+`enforcement-receipt-1.digest` follows the generic self-digest rule. For a stop
+receipt, semantic validation also requires exact equality of event ID, affected
+scope, stop and scope actions, request time, and monotonic
+event/request/start/completion times. A resume receipt follows the separate
+resolution, authorization, condition, and time bindings in the
+[Governance Policy](governance-policy.md#escalation-enforcement-and-resolution).
+
+For `governance-resolution-ledger-1`, the following closed projections **MUST**
+be used, with every hash computed as `sha256:` plus SHA-256 of UTF-8 RFC 8785 JCS:
+
+- `initialRoot` hashes exactly `{ledgerId, policyInstanceHash, matrixInstanceHash}`.
+- `payloadHash` hashes the complete signed event payload, including its signature.
+- Event sequences start at 1 and are contiguous. `previousEventHash` is `null`
+  for the first event and the preceding `eventHash` thereafter. Event timestamps
+  **MUST** be nondecreasing.
+- `eventHash` hashes the complete ledger event after omitting its `eventHash`
+  field and complete event `signature` object; the signed payload is retained.
+- An event signature uses literal ASCII `agent-evals-governance-ledger-event-1`
+  followed by a zero byte and JCS of the complete event with only
+  `signature.value` omitted. This is the explicit signature-domain exception
+  for ledger events, which have no `schemaVersion` of their own.
+- `currentRoot` equals the final `eventHash`, or `initialRoot` for an empty ledger.
+
+The ledger's top-level signature follows the generic rule above. Verification
+**MUST** reproduce every projection and link and authenticate the ledger, each
+event, and each payload using independently authorized keys. Recomputing hashes
+does not authorize a substituted payload, event, or ledger. These projections
+do not replace external checkpoint and anti-rollback obligations. The
+non-normative reference implementation is `tools/governance-enforcement.mjs`.
 
 For `evaluation-profile-1`, inheritance is resolved before
 `effectiveProfileDigest` is computed. The effective projection is the complete
 flattened leaf profile with `parentProfile` set to `null`, produced only by the
-closed per-field `PROFILE-001` table and algorithm in the core standard. No
+closed per-field [PROFILE-001 resolution contract](profile-resolution-contract.md). No
 generic array merge or concatenation rule applies. The fields `fixtures`,
 `conflictReport`, `resolutionEvidence`, `effectiveProfileDigest`, `digest`, and
 `signature` are omitted. After the effective digest and detached signed

@@ -282,6 +282,7 @@ const workRegistryDigest = sha256(workRegistryBytes);
 const components = { profile, outcome, claimTrust, workRegistry, workRegistryDigest };
 
 const preRun = await readJson(preRunPath);
+const governanceRegistry = await readJson(path.join(positiveRoot, "escalation-event-registry.json"));
 const supportCaseId = preRun.caseProfiles[0].caseId;
 const baseValidity = await readJson(baseValidityPath);
 const previousBaseValidityDigest = baseValidity.digest;
@@ -322,6 +323,18 @@ syncComponents(supportCase, components);
 refreshSigned(supportCase);
 await writeJson(supportCasePath, supportCase);
 
+const activationProjection = structuredClone(supportCase);
+for (const field of ["lifecycle", "digest", "signature"]) delete activationProjection[field];
+await writeJson(path.join(positiveRoot, "case-activation-input.json"), {
+  schemaVersion: "agent-eval-activation-input-1",
+  case: {
+    id: supportCase.id,
+    version: supportCase.caseVersion,
+    projectionDigest: sha256Canonical(activationProjection)
+  },
+  projection: activationProjection
+});
+
 const machineSuite = await readJson(path.join(machineRoot, "stage-suite-manifest.json"));
 const suite = await readJson(suitePath);
 syncComponents(suite, components);
@@ -359,6 +372,7 @@ const machinePreRun = await readJson(path.join(machineRoot, "stage-pre-run-manif
 preRun.suite = await materialPointer(positiveRoot, suitePath);
 preRun.evaluator.digest = evaluator.digest;
 preRun.claimTrustProfile.digest = claimTrust.digest;
+preRun.governanceRegistry.digest = governanceRegistry.digest;
 for (const binding of preRun.caseProfiles) {
   binding.evaluationProfile = { id: profile.id, version: profile.version, digest: profile.digest };
   binding.effectiveProfileDigest = profile.effectiveProfileDigest;
@@ -375,6 +389,7 @@ refreshSigned(preRun);
 await writeJson(preRunPath, preRun);
 
 const scorecard = await readJson(scorecardPath);
+replaceExact(scorecard, scorecard.governanceStatusRegistry.digest, governanceRegistry.digest);
 const ledger = await readJson(ledgerPath);
 ledger.scheduledSetCommitment = { id: preRun.id, uri: "pre-run-manifest.json", digest: preRun.digest };
 refreshLedger(ledger);

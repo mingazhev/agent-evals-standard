@@ -143,7 +143,7 @@ that status, tier, scope, grounds, authority, and expiry.
 
 ## Validity Status
 
-Trial `validity.status` is `valid` or `invalid`. It answers whether measurement
+Trial `validity` is `valid` or `invalid`. It answers whether measurement
 supports interpretation and attribution, not whether the arm succeeded.
 
 An invalid trial **MUST** retain machine-readable reasons and primary outcome
@@ -190,11 +190,30 @@ scope, success-predicate, estimand, or decision-rule change is not a new result;
 it is an unregistered analysis and yields `insufficient_evidence` for the
 original claim.
 
+In version `0.1.0`, the case scope of every statistical claim is the complete
+selected suite slice bound by `EXP-001`. Claims may differ in construct, success
+definition, or comparator arms; a subgroup with different case membership needs
+its own sealed experiment. A per-claim `slice` does not authorize post-hoc case
+selection or override the run's shared case scope.
+
 A decision rule is an authenticated typed contract. Version `0.1.0` declares
-an input (`estimate`, `lower_bound`, or `upper_bound`), `gte` or `lte`, whether
-equality passes, and the fail-closed result for a missing input. The semantic
-validator resolves the declared digest and executes that operator. It **MUST
-NOT** infer an operator merely from a human-readable direction or rule ID.
+an input, `gte` or `lte`, whether equality passes, and the fail-closed result
+for a missing input. Inputs select exactly these fields of the matching
+`claimResults[]` record:
+
+| Input | Field |
+| --- | --- |
+| `estimate` | `estimate` |
+| `lower_bound` | `identificationBounds.lower` |
+| `upper_bound` | `identificationBounds.upper` |
+
+The semantic validator resolves the declared digest and executes that operator.
+It **MUST NOT** infer an operator from a direction or rule ID, substitute a
+sampling-interval endpoint, or fall back to another field when input is missing.
+These bounds address unresolved observations, not sampling uncertainty. A
+population-confidence claim still requires the sealed uncertainty procedure
+and decision conditions under `STAT-003`; this bound comparison alone cannot
+establish it.
 
 For A0, `runMode` **MUST** be `diagnostic_run`, `claimEligibility` **MUST** be
 `none`, and `claims[]` and `claimResults[]` **MUST** be empty. For A1–A3,
@@ -210,6 +229,11 @@ claim-specific success assignments; point estimate; interval; identification
 bounds; missingness; coverage; and decision-rule result. Trial results do not
 carry claim status. One trial can count differently for distinct claims only
 through their sealed success definitions.
+
+Claim support and numerical computability are separate. A computable estimate
+and interval **MUST** remain reported when a threshold fails or another evidence
+restriction yields `insufficient_evidence`. Noncomputable results use null
+estimate and interval with explicit reasons; `not_applicable` also uses null.
 
 Missing plans, unset required thresholds, material coverage gaps, unsupported
 strata, expired evidence, exposure-budget breach, failed required auxiliary
@@ -351,10 +375,11 @@ predicate and may support only a later, independently validated governance
 decision through the signed resolution ledger. This version permits no waiver.
 A declared gap does not change the trial predicate; it restricts named claims.
 
-The only base executable predicate IDs are `functional-outcome-v1` and
-`accepted-outcome-v1`. An evaluation-profile-specific predicate **MUST** use its namespace,
-version, schema, verifier, and compatibility declaration. Free text cannot
-resolve a cell.
+Version 0.1.0 permits only `functional-outcome-v1` and `accepted-outcome-v1`
+as executable `successDefinition` IDs. A new predicate requires a coordinated
+contract, schema, and verifier revision; a profile cannot introduce one through
+free text. Cell resolution depends on measurement validity and retry lineage,
+not on whether the selected trial satisfies a success predicate.
 
 For every resolved cell used by a claim, the scorecard **MUST** carry an
 `outcomeReplay` binding to an executor selected from the verifier's installed,
@@ -458,6 +483,15 @@ Every physical attempt transitions exactly once through:
 scheduled -> started -> completed | interrupted | missing_capture
 ```
 
+`started` is scheduler dispatch of the physical attempt, before workspace
+materialization or bootstrap; it does not imply that the evaluated arm was
+invoked. A captured setup failure closes as `completed` with invalid
+measurement. An interrupted or uncaptured dispatch closes as `interrupted` or
+`missing_capture` with `not_assessable` measurement. A scheduled cell never
+dispatched remains unresolved without an invented physical attempt. These
+distinctions preserve setup failures and unexecuted cells in their respective
+denominators.
+
 The scorecard binds:
 
 ```text
@@ -555,18 +589,45 @@ keys, not merely self-asserted key IDs.
 
 ### Conservative Bounds
 
-For a binary positive claim, let `S` be scheduled eligible cells, `Y` observed
-claim successes among resolved cells, and `U` unresolved cells. Without stronger
-sealed assumptions, identification bounds are:
+Identification bounds describe uncertainty from unresolved observations. They
+are separate from sampling confidence intervals; reporting one does not
+satisfy a requirement to report the other.
+
+Identification bounds **MUST** reproduce the claim's declared statistic and case
+weighting. For each case and arm, let `S_c` be scheduled eligible cells, `Y_c`
+observed claim successes, and `U_c` unresolved cells. Evaluate the sealed
+per-case statistic `f_c` twice, assigning all unresolved cells failure and then
+success. Aggregate those endpoints with the same nonnegative normalized case
+weights `w_c` used by the claim:
 
 ```text
-lower = Y / S
-upper = (Y + U) / S
+lower = sum_c w_c * f_c(S_c, Y_c)
+upper = sum_c w_c * f_c(S_c, Y_c + U_c)
 ```
 
-For difference `A - B`, use
-`[lower(A) - upper(B), upper(A) - lower(B)]`. A harm claim reverses favorable
-direction. Bounds **MUST** use scheduled cells, never physical-attempt counts.
+These endpoint assignments apply to binary success statistics monotone in
+successes, including the declared pass@k and reliability@k estimators. If a case
+lacks the scheduled repetitions required by its statistic, or the statistic or
+weighting cannot be reproduced, the bound is not computable and the affected
+claim is `insufficient_evidence`. A non-monotone statistic requires a sealed
+verifier that evaluates its full admissible unresolved-cell assignments.
+
+Pooled `Y / S` and `(Y + U) / S` are equivalent only for pass@1 with case weights
+proportional to scheduled eligible cells. They **MUST NOT** substitute for
+equal-case or other declared weights, or for a statistic at `k > 1`.
+For difference `A - B`, first compute each arm's bounds with the declared case
+weights, then use `[lower(A) - upper(B), upper(A) - lower(B)]`. A harm claim
+changes the favorable direction, not endpoint ordering. Bounds **MUST** use
+scheduled cells, never physical-attempt counts.
+
+**Informative implementation limit.** The bundled fixture verifier executes
+aggregate `complete-case` version `0.1.0`
+only for single-arm, positive `functional success probability` claims with
+`analysisUnit: scheduled_cell`, per-case pass@1 statistics, and case weights
+proportional to scheduled eligible cells. Other methods and estimands require
+their own pinned statistical verifier. The bundled checker cannot validate a
+`supported` result for them through range checks alone; an honestly
+`insufficient_evidence` diagnostic remains representable.
 
 A different missingness model **MUST** be sealed before results and identify its
 assumptions, covariates, estimand, sensitivity analysis, verifier, and failure

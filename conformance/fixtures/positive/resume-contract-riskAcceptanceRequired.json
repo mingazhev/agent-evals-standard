@@ -1,0 +1,7 @@
+{
+  "id": "resume-contract-riskAcceptanceRequired",
+  "version": "0.1.0",
+  "use": "conformance_fixture_only",
+  "eventId": "riskAcceptanceRequired",
+  "condition": "authorized resolution and current approval for the same scope"
+}

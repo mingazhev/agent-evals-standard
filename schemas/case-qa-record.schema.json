@@ -81,7 +81,7 @@
       ]
     },
     "alternativeValidResult": {
-      "$comment": "This object is required when Stage 7 is passed and must be null only when Stage 7 proves that the valid-result set has one material equivalence class. Semantic validation must use validityEvidenceId to establish validity independently of the verdict mechanism under test, prove material difference, verify production without protected reference access, and require the producer to be independent of every baseline authority on actor, role, trust-domain, and key dimensions.",
+      "$comment": "This object retains the observed control even when Stage 7 fails; it must be null only when Stage 7 proves that the valid-result set has one material equivalence class. A passed Stage 7 requires a passing control. Semantic validation must use validityEvidenceId to establish validity independently of the verdict mechanism under test, prove material difference, verify production without protected reference access, and require the producer to be independent of every baseline authority on actor, role, trust-domain, and key dimensions.",
       "oneOf": [
         {
           "type": "object",
@@ -92,7 +92,7 @@
             "validityEvidenceId": { "$ref": "#/$defs/id" },
             "differenceEvidenceId": { "$ref": "#/$defs/id" },
             "independence": { "$ref": "#/$defs/independenceClaim" },
-            "control": { "$ref": "#/$defs/passingControl" }
+            "control": { "allOf": [{ "$ref": "#/$defs/control" }, { "type": "object", "properties": { "expected": { "const": "pass" } } }] }
           },
           "additionalProperties": false
         },
@@ -170,6 +170,20 @@
           }
         }
       }
+    },
+    {
+      "if": { "type": "object", "properties": { "stages": { "type": "object", "properties": { "stage4": { "type": "object", "properties": { "status": { "const": "passed" } }, "required": ["status"] } }, "required": ["stage4"] } }, "required": ["stages"] },
+      "then": {
+        "type": "object",
+        "properties": {
+          "controlProofs": { "type": "array", "items": { "$ref": "#/$defs/matchingControl" } },
+          "decisionSurfaceValidation": { "type": "array", "items": { "type": "object", "properties": { "knownGoodControl": { "$ref": "#/$defs/matchingControl" }, "knownBadControl": { "$ref": "#/$defs/matchingControl" } } } }
+        }
+      }
+    },
+    {
+      "if": { "type": "object", "properties": { "stages": { "type": "object", "properties": { "stage7": { "type": "object", "properties": { "status": { "const": "passed" } }, "required": ["status"] } }, "required": ["stage7"] } }, "required": ["stages"] },
+      "then": { "type": "object", "properties": { "alternativeValidResult": { "type": "object", "properties": { "control": { "$ref": "#/$defs/passingControl" } } } } }
     },
     {
       "if": { "type": "object", "properties": { "decision": { "type": "object", "properties": { "status": { "const": "quarantined" } } } } },
@@ -656,12 +670,13 @@
       ],
       "additionalProperties": false
     },
-    "control": { "$comment": "checkIds identifies the bound verdict mechanisms. Each ID must resolve to an applicable deterministic check or adjudication verdict rule selected through the bound outcome profile.", "type": "object", "required": ["id", "inputDigest", "checkIds", "componentDigests", "expected", "observed", "evidenceId"], "properties": { "id": { "$ref": "#/$defs/id" }, "inputDigest": { "$ref": "#/$defs/digest" }, "checkIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "componentDigests": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/digest" }, "uniqueItems": true }, "expected": { "enum": ["pass", "fail"] }, "observed": { "enum": ["pass", "fail"] }, "evidenceId": { "$ref": "#/$defs/id" } }, "allOf": [{ "if": { "properties": { "expected": { "const": "pass" } } }, "then": { "properties": { "observed": { "const": "pass" } } }, "else": { "properties": { "observed": { "const": "fail" } } } }], "additionalProperties": false },
+    "control": { "$comment": "checkIds identifies the bound verdict mechanisms. Each ID must resolve to an applicable deterministic check or adjudication verdict rule selected through the bound outcome profile. Expected and observed verdicts may differ in a failed-stage record; activation and passing-stage conditions require matchingControl.", "type": "object", "required": ["id", "inputDigest", "checkIds", "componentDigests", "expected", "observed", "evidenceId"], "properties": { "id": { "$ref": "#/$defs/id" }, "inputDigest": { "$ref": "#/$defs/digest" }, "checkIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "componentDigests": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/digest" }, "uniqueItems": true }, "expected": { "enum": ["pass", "fail"] }, "observed": { "enum": ["pass", "fail"] }, "evidenceId": { "$ref": "#/$defs/id" } }, "additionalProperties": false },
+    "matchingControl": { "allOf": [{ "$ref": "#/$defs/control" }, { "if": { "type": "object", "properties": { "expected": { "const": "pass" } }, "required": ["expected"] }, "then": { "type": "object", "properties": { "observed": { "const": "pass" } } }, "else": { "type": "object", "properties": { "observed": { "const": "fail" } } } }] },
     "passingControl": { "allOf": [{ "$ref": "#/$defs/control" }, { "type": "object", "properties": { "expected": { "const": "pass" }, "observed": { "const": "pass" } } }] },
     "failingControl": { "allOf": [{ "$ref": "#/$defs/control" }, { "type": "object", "properties": { "expected": { "const": "fail" }, "observed": { "const": "fail" } } }] },
     "stabilityProof": { "type": "object", "required": ["checkId", "minimumSampleRuleId", "repetitionCount", "observedFailureRate", "permittedThreshold", "interval", "evidenceId"], "properties": { "checkId": { "$ref": "#/$defs/id" }, "minimumSampleRuleId": { "$ref": "#/$defs/id" }, "repetitionCount": { "type": "integer", "minimum": 2 }, "observedFailureRate": { "type": "number", "minimum": 0, "maximum": 1 }, "permittedThreshold": { "type": "number", "minimum": 0, "exclusiveMaximum": 1 }, "interval": { "$ref": "#/$defs/interval" }, "evidenceId": { "$ref": "#/$defs/id" } }, "additionalProperties": false },
     "interval": { "type": "object", "required": ["method", "confidenceLevel", "lower", "upper"], "properties": { "method": { "type": "string", "minLength": 1 }, "confidenceLevel": { "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1 }, "lower": { "type": "number" }, "upper": { "type": "number" } }, "additionalProperties": false },
-    "surfaceValidation": { "type": "object", "required": ["surfaceId", "coverage", "status", "applicabilityEvidenceId", "knownGoodControl", "knownBadControl"], "properties": { "surfaceId": { "$ref": "#/$defs/id" }, "coverage": { "enum": ["checked", "covered_by_final_state", "not_applicable", "declared_gap", "not_determined"] }, "status": { "enum": ["pass", "breach", "insufficient_evidence", "not_applicable", "not_evaluated"] }, "applicabilityEvidenceId": { "$ref": "#/$defs/id" }, "knownGoodControl": { "$ref": "#/$defs/control" }, "knownBadControl": { "$ref": "#/$defs/control" }, "coverageEvidenceId": { "$ref": "#/$defs/id" }, "claimRestrictionIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true } }, "additionalProperties": false },
+    "surfaceValidation": { "type": "object", "required": ["surfaceId", "coverage", "status", "applicabilityEvidenceId", "knownGoodControl", "knownBadControl"], "properties": { "surfaceId": { "$ref": "#/$defs/id" }, "coverage": { "enum": ["checked", "covered_by_final_state", "not_applicable", "declared_gap", "not_determined"] }, "status": { "enum": ["pass", "breach", "insufficient_evidence", "not_applicable", "not_evaluated"] }, "applicabilityEvidenceId": { "$ref": "#/$defs/id" }, "knownGoodControl": { "$ref": "#/$defs/control" }, "knownBadControl": { "$ref": "#/$defs/control" }, "coverageEvidenceId": { "$ref": "#/$defs/id" }, "claimRestrictionIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true } }, "allOf": [{ "if": { "type": "object", "properties": { "status": { "const": "pass" } }, "required": ["status"] }, "then": { "type": "object", "properties": { "knownGoodControl": { "$ref": "#/$defs/matchingControl" }, "knownBadControl": { "$ref": "#/$defs/matchingControl" } } } }], "additionalProperties": false },
     "optionalValidation": { "oneOf": [{ "type": "object", "required": ["status", "reason"], "properties": { "status": { "const": "not_applicable" }, "reason": { "type": "string", "minLength": 1 } }, "additionalProperties": false }, { "type": "object", "required": ["status", "record"], "properties": { "status": { "const": "validated" }, "record": { "$ref": "#/$defs/artifactPointer" } }, "additionalProperties": false }] }
   }
 }

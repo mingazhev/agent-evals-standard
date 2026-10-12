@@ -33,7 +33,7 @@ permissions, review, retention, or release effect. A future non-stub version
 differences, permitted grounds, original and new tiers, scope, expiry,
 supporting evidence, and an independent approver. The tier **MUST NOT** change
 after results are observed. The following identifiers are non-waivable: every
-`baseline-hard-gates-1` gate; `productionCredentialsProhibited`;
+`core-gates-1` gate; `productionCredentialsProhibited`;
 `heldOutLeakage`; `measurementBoundaryCompromise`;
 `irreversibleCriticalOperation`; `approvedConfigurationChanged`;
 `assuranceEvidenceMissing`. Unknown identifiers are non-waivable until a
@@ -220,6 +220,39 @@ event. Resume **MUST** have its own enforcement receipt proving that every
 pre-registered resume condition holds for the same scope. Narrowing,
 suspension, revocation, and renewal follow the same event–receipt–resolution
 model.
+
+An enforcement receipt has exactly one action form. A stop receipt retains
+`stopAction` and `scopeAction` matching its original event. A resume receipt
+instead carries `resumeAction: resume_approved_scope`, `sourceResolutionId`,
+`sourceResolutionDigest`, and `resumeConditionResults`; it **MUST NOT** carry
+stop or scope actions. Both forms bind the exact original event and affected
+scope. The resume source **MUST** be a prior authenticated `resolve` resolution
+in the same ledger, with the original event ID, hash, type, governance status,
+risk tier, and `scope` equal to the affected `scopeDigest`. Resolution and
+enforcement times **MUST** precede the resume request. Expired resolutions,
+unclosed blockers, revoked or expired approvals, and unauthorized executors
+**MUST NOT** authorize resume. A replacement approval, where the sealed row
+requires one, **MUST** be independently validated before resume.
+
+`resumeConditionResults` **MUST** cover the source event's sealed
+`resumeConditions` exactly once by their exact text, with no omission, duplicate,
+or added condition. Every result has `status: pass` and authenticated evidence
+IDs also present in the receipt's evidence set. The evaluator **MUST** verify
+each result using the sealed condition's verifier and external authorization
+policy; a receipt's claimed pass or signer role alone is insufficient. A
+missing verifier or indeterminate result fails closed. The non-normative
+reference implementation `tools/governance-enforcement.mjs` illustrates these
+rules using independently authenticated source records and trusted
+authorization and condition verifiers; the rules in this section are normative.
+
+The `dataOwnerReviewRequired` and `riskAcceptanceRequired` events preserve
+their respective `data_owner_review_required` and `risk_acceptance_required`
+statuses throughout the ledger. They close only with `action: resolve` by a
+policy-authorized `data_owner` or `risk_acceptance_authority`, respectively,
+with evidence authorizing the exact original request or residual risk and
+scope. Their resolutions **MUST** bind the original stop receipt and pass the
+applicable separation-of-duties checks. A role string is not authorization, a
+manual/security status cannot substitute, and neither event permits a waiver.
 
 A governance decision's `enforcementReceipts` array is the closed set of every
 receipt relevant to that decision. Receipt IDs **MUST** be unique, each pointer

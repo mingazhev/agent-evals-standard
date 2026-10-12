@@ -37,13 +37,13 @@
   "evaluationProfile": {
     "id": "repo-change-v1",
     "version": "0.1.0",
-    "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210",
-    "effectiveProfileDigest": "sha256:6ec98f997cbaa51d30eeb1bdc6a3bb91e76cc2ec505fdd155850d115b0146869"
+    "digest": "sha256:6c3c33a6b195f05f274d53946892824cc5d9ade2c0c5dcb409101453031c68d0",
+    "effectiveProfileDigest": "sha256:f18de1a8583d2c929811ee4ef68466a5cd4d29f73a562cc8ac2385dfb6129cd5"
   },
   "outcomeProfile": {
     "id": "workspace-change-v1",
     "version": "0.1.0",
-    "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
+    "digest": "sha256:10572bb29e6a0b09384a9c245af1239a1d8b4dba5b52a305331c47e3dd103203"
   },
   "workArtifactRegistry": {
     "id": "repository-sdlc-work-artifact-registry",
@@ -116,22 +116,22 @@
     "repositoryStateNecessityEvidence": {
       "id": "repository-state-necessity",
       "uri": "scorecard-case-validity-argument.json",
-      "digest": "sha256:517aa76968286555c0f2d5bd39742f545af633264bb83e7205a9949137bc00f2"
+      "digest": "sha256:b9db6bbf5d531b6ef6a3d1bb5490dcc3792820fc7becd8a0b36b2f7bd1905867"
     },
     "acceptanceInvariantTraceEvidence": {
       "id": "acceptance-invariant-trace",
       "uri": "scorecard-case-validity-argument.json",
-      "digest": "sha256:517aa76968286555c0f2d5bd39742f545af633264bb83e7205a9949137bc00f2"
+      "digest": "sha256:b9db6bbf5d531b6ef6a3d1bb5490dcc3792820fc7becd8a0b36b2f7bd1905867"
     },
     "repositoryGovernedResultEvidence": {
       "id": "repository-governed-result",
       "uri": "scorecard-case-validity-argument.json",
-      "digest": "sha256:517aa76968286555c0f2d5bd39742f545af633264bb83e7205a9949137bc00f2"
+      "digest": "sha256:b9db6bbf5d531b6ef6a3d1bb5490dcc3792820fc7becd8a0b36b2f7bd1905867"
     },
     "removalCounterfactualEvidence": {
       "id": "case-removal-counterfactual",
       "uri": "scorecard-case-validity-argument.json",
-      "digest": "sha256:517aa76968286555c0f2d5bd39742f545af633264bb83e7205a9949137bc00f2"
+      "digest": "sha256:b9db6bbf5d531b6ef6a3d1bb5490dcc3792820fc7becd8a0b36b2f7bd1905867"
     },
     "materialSubjectDependencies": [
       {
@@ -144,7 +144,7 @@
         "repositoryDependencyEvidence": {
           "id": "dependency.outcome.multi-label",
           "uri": "scorecard-case-validity-argument.json",
-          "digest": "sha256:517aa76968286555c0f2d5bd39742f545af633264bb83e7205a9949137bc00f2"
+          "digest": "sha256:b9db6bbf5d531b6ef6a3d1bb5490dcc3792820fc7becd8a0b36b2f7bd1905867"
         },
         "removalCounterfactualEvidence": {
           "id": "counterfactual.outcome.multi-label",
@@ -164,7 +164,7 @@
         "repositoryDependencyEvidence": {
           "id": "dependency.claim.patch",
           "uri": "scorecard-case-validity-argument.json",
-          "digest": "sha256:517aa76968286555c0f2d5bd39742f545af633264bb83e7205a9949137bc00f2"
+          "digest": "sha256:b9db6bbf5d531b6ef6a3d1bb5490dcc3792820fc7becd8a0b36b2f7bd1905867"
         },
         "removalCounterfactualEvidence": {
           "id": "counterfactual.claim.patch",
@@ -184,7 +184,7 @@
         "repositoryDependencyEvidence": {
           "id": "dependency.claim.test-design",
           "uri": "scorecard-case-validity-argument.json",
-          "digest": "sha256:517aa76968286555c0f2d5bd39742f545af633264bb83e7205a9949137bc00f2"
+          "digest": "sha256:b9db6bbf5d531b6ef6a3d1bb5490dcc3792820fc7becd8a0b36b2f7bd1905867"
         },
         "removalCounterfactualEvidence": {
           "id": "counterfactual.claim.test-design",
@@ -202,7 +202,7 @@
     "artifact": {
       "id": "architecture-case-source",
       "uri": "scorecard-case-validity-argument.json",
-      "digest": "sha256:517aa76968286555c0f2d5bd39742f545af633264bb83e7205a9949137bc00f2"
+      "digest": "sha256:b9db6bbf5d531b6ef6a3d1bb5490dcc3792820fc7becd8a0b36b2f7bd1905867"
     },
     "notes": "Synthetic architecture fixture; not a benchmark score source."
   },
@@ -217,13 +217,13 @@
   "task": {
     "id": "architecture-task-multi-label",
     "uri": "scorecard-case-validity-argument.json",
-    "digest": "sha256:517aa76968286555c0f2d5bd39742f545af633264bb83e7205a9949137bc00f2"
+    "digest": "sha256:b9db6bbf5d531b6ef6a3d1bb5490dcc3792820fc7becd8a0b36b2f7bd1905867"
   },
   "agentVisibleProjection": {
     "manifest": {
       "id": "architecture-agent-visible-manifest",
       "uri": "scorecard-case-validity-argument.json",
-      "digest": "sha256:517aa76968286555c0f2d5bd39742f545af633264bb83e7205a9949137bc00f2"
+      "digest": "sha256:b9db6bbf5d531b6ef6a3d1bb5490dcc3792820fc7becd8a0b36b2f7bd1905867"
     },
     "taskArtifactId": "architecture-task-multi-label",
     "allowedArtifactIds": [
@@ -297,7 +297,7 @@
   "environment": {
     "id": "architecture-environment",
     "uri": "scorecard-case-validity-argument.json",
-    "digest": "sha256:517aa76968286555c0f2d5bd39742f545af633264bb83e7205a9949137bc00f2"
+    "digest": "sha256:b9db6bbf5d531b6ef6a3d1bb5490dcc3792820fc7becd8a0b36b2f7bd1905867"
   },
   "budgets": {
     "trials": 1,
@@ -316,7 +316,7 @@
     "sharedGraderValidation": {
       "id": "architecture-grader-validation",
       "uri": "scorecard-case-validity-argument.json",
-      "digest": "sha256:517aa76968286555c0f2d5bd39742f545af633264bb83e7205a9949137bc00f2"
+      "digest": "sha256:b9db6bbf5d531b6ef6a3d1bb5490dcc3792820fc7becd8a0b36b2f7bd1905867"
     },
     "strategy": {
       "publicChecks": {
@@ -332,7 +332,7 @@
           {
             "id": "architecture-case-classification-validity",
             "uri": "scorecard-case-validity-argument.json",
-            "digest": "sha256:517aa76968286555c0f2d5bd39742f545af633264bb83e7205a9949137bc00f2"
+            "digest": "sha256:b9db6bbf5d531b6ef6a3d1bb5490dcc3792820fc7becd8a0b36b2f7bd1905867"
           }
         ],
         "unknownApplicabilityResult": "invalid",
@@ -351,7 +351,7 @@
           {
             "id": "architecture-case-classification-validity",
             "uri": "scorecard-case-validity-argument.json",
-            "digest": "sha256:517aa76968286555c0f2d5bd39742f545af633264bb83e7205a9949137bc00f2"
+            "digest": "sha256:b9db6bbf5d531b6ef6a3d1bb5490dcc3792820fc7becd8a0b36b2f7bd1905867"
           }
         ],
         "unknownApplicabilityResult": "invalid",
@@ -370,7 +370,7 @@
           {
             "id": "architecture-case-classification-validity",
             "uri": "scorecard-case-validity-argument.json",
-            "digest": "sha256:517aa76968286555c0f2d5bd39742f545af633264bb83e7205a9949137bc00f2"
+            "digest": "sha256:b9db6bbf5d531b6ef6a3d1bb5490dcc3792820fc7becd8a0b36b2f7bd1905867"
           }
         ],
         "unknownApplicabilityResult": "invalid",
@@ -389,7 +389,7 @@
           {
             "id": "architecture-case-classification-validity",
             "uri": "scorecard-case-validity-argument.json",
-            "digest": "sha256:517aa76968286555c0f2d5bd39742f545af633264bb83e7205a9949137bc00f2"
+            "digest": "sha256:b9db6bbf5d531b6ef6a3d1bb5490dcc3792820fc7becd8a0b36b2f7bd1905867"
           }
         ],
         "unknownApplicabilityResult": "invalid",
@@ -571,12 +571,12 @@
       "role": "data_owner"
     }
   },
-  "digest": "sha256:f518f78bd3ad47606e7b93b9aff5b6f967ef30cf01c974ee3eb5d89cbde5e637",
+  "digest": "sha256:ab374648784888acaea41b9f1db73fabd38850c7bf1f304c5d997cdd385f4dbe",
   "signature": {
     "profileId": "fixture-signature-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:00Z",
-    "value": "nb3j3Hat_VceOz31ouL0SoICoLQzYLnDKQoxWVHR93u5IN8AkzzXCVnRqtz-Kk1q0cZhN6U6TFhyHaPqDjEVBg"
+    "value": "x2vEmseyvBot34nTyE1yWzXOCACVyNELrtkkF1l9NJFp84Ema50TwbCVBRiRw3PuE12hUUi-ol11vnLOGbfHDw"
   }
 }

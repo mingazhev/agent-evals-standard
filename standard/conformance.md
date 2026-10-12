@@ -59,11 +59,8 @@ boundary **MUST NOT** claim conformance by citing only those invariants. A new
 domain requires a separate sibling base or domain standard; an evaluation
 profile cannot expand this standard into one. Version 0.1.0 defines no
 inheritance, conformance, or compatibility relation from this standard to such a
-sibling. A future shared parent may be extracted only from rules proven across
-at least two materially different domains with independent authorship,
-implementation, and adoption, one branch-free common conformance corpus,
-negative portability tests, and formal composition, versioning, and
-no-weakening migration proofs.
+sibling. Future shared-foundation eligibility is defined by
+[SCOPE-003](standard.md#applicability-boundary-and-profiles).
 
 ## Base and Evaluation-Profile Model
 
@@ -79,8 +76,9 @@ the [Core Standard](standard.md#applicability-boundary-and-profiles). This
 conformance contract only defines the evidence required to verify that
 boundary; it does not redefine `SCOPE-003`.
 
-`PROFILE-001` is defined exclusively by the closed inheritance and resolution
-algorithm in the [Core Standard](standard.md#evaluation-profile-resolution).
+`PROFILE-001` is defined in the
+[Core Standard](standard.md#evaluation-profile-resolution), which invokes the
+complete [resolution algorithm](profile-resolution-contract.md).
 This contract does not restate or alter that algorithm. For a `CONF-001` claim,
 the claimant **MUST** provide every source profile, authenticated contract,
 resolution record, replacement proof, effective projection, and fixture needed
@@ -430,7 +428,7 @@ authority exists only because that primary definition names it.
 | --- | --- | --- |
 | requirement identity, primary location, targets, ownership, applicability, and evidence basis | primary index | `requirement-registry.json` together with the linked primary requirement prose |
 | accepted JSON structure | normative shape | JSON validation keywords in the registered JSON Schema; annotations such as `$comment`, `title`, `description`, and `examples` are informative |
-| evaluation-profile inheritance, effective projection, provenance and replacement-proof algorithm | primary requirement plus normative shape | the closed `PROFILE-001` algorithm in the core standard together with `profile-resolution-record.schema.json` |
+| evaluation-profile inheritance, effective projection, provenance and replacement-proof algorithm | primary requirement plus normative shape | the [resolution algorithm](profile-resolution-contract.md) invoked by `PROFILE-001`, together with `profile-resolution-record.schema.json` |
 | canonicalization, hashing, signatures, cross-field and cross-document verdict algorithms | invoked normative contract | the exact named semantic contract, but only for the scope stated by its invoking primary requirement |
 | executable interoperability verdicts | derived projection | conformance fixtures derived from registered primary requirements and invoked semantic contracts |
 | requirement-to-source traceability and publication readiness | primary traceability record | `source-evidence-manifest.json`; the cited external sources remain informative |

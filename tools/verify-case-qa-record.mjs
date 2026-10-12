@@ -142,6 +142,33 @@ function separationIssues(left, right, owner, issues) {
  */
 export async function checkCaseQaRecord(document, issues, options = {}) {
   const authenticateEvidence = options.authenticateEvidence;
+  const activated = document.decision?.status === "activated";
+  if (activated) {
+    for (let index = 0; index <= 8; index += 1) {
+      const stageId = `stage${index}`;
+      const status = document.stages?.[stageId]?.status;
+      if (status !== "passed" && !(index === 7 && status === "not_applicable")) {
+        issues.push(`caseQaRecord: activated decision requires ${stageId} to pass`);
+      }
+    }
+  }
+  function requireMatchingControl(control, owner, passingStage) {
+    if ((activated || passingStage) && control?.expected !== control?.observed) {
+      issues.push(`caseQaRecord: ${owner} observed verdict must equal expected for activation or a passing stage`);
+    }
+  }
+  const passedControlStage = document.stages?.stage4?.status === "passed";
+  for (const [index, control] of (document.controlProofs ?? []).entries()) {
+    requireMatchingControl(control, `controlProofs[${index}]`, passedControlStage);
+  }
+  for (const [index, surface] of (document.decisionSurfaceValidation ?? []).entries()) {
+    for (const field of ["knownGoodControl", "knownBadControl"]) {
+      requireMatchingControl(surface[field], `decisionSurfaceValidation[${index}].${field}`,
+        passedControlStage || surface.status === "pass");
+    }
+  }
+  requireMatchingControl(document.alternativeValidResult?.control, "alternativeValidResult.control",
+    document.stages?.stage7?.status === "passed");
   const validFrom = Date.parse(document.validFrom);
   const expiresAt = Date.parse(document.expiresAt);
   if (!Number.isFinite(validFrom) || !Number.isFinite(expiresAt) || validFrom >= expiresAt) {

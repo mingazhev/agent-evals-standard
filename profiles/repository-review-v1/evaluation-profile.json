@@ -55,7 +55,7 @@
       "id": "repository-review-outcome-v1",
       "version": "0.1.0",
       "uri": "outcome-profile.json",
-      "digest": "sha256:1786a67605589092c123cb39e83fb17dbc4009c2feeca89b387f2390d7fac2b6"
+      "digest": "sha256:ccaea911bdbec122e4ffd08d73cba38f4b399be2d594ebc85f854595000d68ad"
     }
   ],
   "caseContract": {
@@ -737,22 +737,22 @@
       "id": "repository-review-v1-profile-resolution",
       "version": "0.1.0",
       "uri": "profile-resolution.json",
-      "digest": "sha256:04ad6444491aa93a9a2336b41666b27d064cf176ab1584ccf2ea6d327cd57a78"
+      "digest": "sha256:4e9e41ae92c0d8f13f0f4f910d3caf2aa598d4ec1a021d23e7c8d723ee383e20"
     }
   },
   "resolutionEvidence": {
     "id": "repository-review-v1-profile-resolution",
     "version": "0.1.0",
     "uri": "profile-resolution.json",
-    "digest": "sha256:04ad6444491aa93a9a2336b41666b27d064cf176ab1584ccf2ea6d327cd57a78"
+    "digest": "sha256:4e9e41ae92c0d8f13f0f4f910d3caf2aa598d4ec1a021d23e7c8d723ee383e20"
   },
-  "effectiveProfileDigest": "sha256:ddc6815bb88bba4b95be824de81c84c1973dbd2729f4da56800a5f16f005796c",
-  "digest": "sha256:69c477ce5c211843e3ab666d91570ee68f5638fcf4d610e0c7e4b88399d32790",
+  "effectiveProfileDigest": "sha256:35f0a75298969e13d7351696cdf45cbfd83737e71ae71f8c525b069a66a300c2",
+  "digest": "sha256:e742323bb757ffa977870bab907d7bd308e37b2fe9bf840cd0d9d910f5133486",
   "signature": {
     "profileId": "fixture-signature-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:00Z",
-    "value": "YMXQNV2UpVXcvgtW6p7R-JsyDfzkmSBa_DDOdPridHHmo10HBb6TsScKu_S1NYIfRS0kFUFwVIlgGXJed6K8CQ"
+    "value": "KJntm1JzId00ue-e1V872YztwR7p3LCSTye-wU3XJvmyI8EfET78a_VUmsbLALmh27xw1HU9_b6Q2ggewceqDQ"
   }
 }

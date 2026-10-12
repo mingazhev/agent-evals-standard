@@ -1,0 +1,7 @@
+{
+  "id": "resume-contract-dataOwnerReviewRequired",
+  "version": "0.1.0",
+  "use": "conformance_fixture_only",
+  "eventId": "dataOwnerReviewRequired",
+  "condition": "authorized resolution and current approval for the same scope"
+}

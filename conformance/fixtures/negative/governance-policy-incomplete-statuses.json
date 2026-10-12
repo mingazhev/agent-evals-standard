@@ -344,19 +344,19 @@
   "escalationMatrix": {
     "id": "operational-escalation-matrix-fixture-1",
     "uri": "artifact:fixture:operational-escalation-matrix-fixture-1",
-    "digest": "sha256:35746a0015230a7dd56f9fe75a77f00e7ad0166a0403f0dce85df95d481f10f1"
+    "digest": "sha256:c2e6fb87a1f3f8936db5de56124ee776d258c67e383dd9e82487ca712169351d"
   },
   "measurementMaintenance": {
     "id": "measurement-maintenance-fixture-1",
     "uri": "artifact:fixture:measurement-maintenance-fixture-1",
     "digest": "sha256:3bb29701255d875175095ea6f60b620fc41d4315574a0d99114283b55e855195"
   },
-  "digest": "sha256:1ca774541a2b7e5da8e04a03c39d84aed8de1941f91c5d5ec7b0eca595190ac9",
+  "digest": "sha256:146f03332992bd6a32e354ac2db4924859977c2983adc3d535a01027b48090b6",
   "signature": {
     "profileId": "fixture-signature-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:11Z",
-    "value": "Hj_nwAtYMOMVGHdIIQyrNPmmBPPK7ZG6dHcgZ7sf7ZG4UObnjXCT8JOEl4OxAl6bSrMdFutCBXB8dFLBR5dHAg"
+    "value": "rozcxPUFyAXc_7R0Oy6TgL9txXluUgUBCP0EbYPAERaCxc0bhGbGm4LmJsvzIug55x3FZZ4SsGuStXFYrkrhAQ"
   }
 }

@@ -9,8 +9,8 @@
       "evaluationProfile": {
         "id": "repo-change-v1",
         "version": "0.1.0",
-        "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210",
-        "effectiveProfileDigest": "sha256:6ec98f997cbaa51d30eeb1bdc6a3bb91e76cc2ec505fdd155850d115b0146869"
+        "digest": "sha256:6c3c33a6b195f05f274d53946892824cc5d9ade2c0c5dcb409101453031c68d0",
+        "effectiveProfileDigest": "sha256:f18de1a8583d2c929811ee4ef68466a5cd4d29f73a562cc8ac2385dfb6129cd5"
       }
     },
     {
@@ -18,8 +18,8 @@
       "evaluationProfile": {
         "id": "repo-change-v1",
         "version": "0.1.0",
-        "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210",
-        "effectiveProfileDigest": "sha256:6ec98f997cbaa51d30eeb1bdc6a3bb91e76cc2ec505fdd155850d115b0146869"
+        "digest": "sha256:6c3c33a6b195f05f274d53946892824cc5d9ade2c0c5dcb409101453031c68d0",
+        "effectiveProfileDigest": "sha256:f18de1a8583d2c929811ee4ef68466a5cd4d29f73a562cc8ac2385dfb6129cd5"
       }
     }
   ],
@@ -246,12 +246,12 @@
     "indeterminatePredicate": "insufficient_evidence",
     "missingEvidence": "insufficient_evidence"
   },
-  "digest": "sha256:f829c753b40cf0d7ed7db85e0f10f957a65040dbe5f4cd72d2d57b84244623bc",
+  "digest": "sha256:4d845d40c0b4a70ecf7c4f81b850ce44ce7b01a7d9336d7ba0ee667af970760b",
   "signature": {
     "profileId": "fixture-signature-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:20Z",
-    "value": "WD3-Yc8BO5WOrdhyK8vzjkL8_yerDsq3LFV1Nl3TNtQ3Vhhz21som8gdqTxr-P5H3aug14We1-TrNCtAgZRlAQ"
+    "value": "-b4NHmh-S7oxS8pDqBZXIQG7-fyd2f8jKiKLaWGS1dUrmbkK2POOyWzK79ZOIfrEGJDgIj0j_T6vIyTQ4sbOBw"
   }
 }

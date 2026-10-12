@@ -26,7 +26,7 @@
       "id": "repo-change-v1",
       "version": "0.1.0",
       "uri": "profiles/repo-change-v1/evaluation-profile.json",
-      "digest": "sha256:3ce26cd98f61262753d85ee91e0a0b8d67986f847e1662d86bb1e98a7a2da28b"
+      "digest": "sha256:aadb8f66aa4e19b269c526d93a229bbd48eacd5557247e72d49f18f36ed9874f"
     },
     {
       "id": "repo-change-v1-evid-001-signature-pin",
@@ -122,7 +122,7 @@
       "id": "workspace-change-v1",
       "version": "0.1.0",
       "uri": "profiles/repo-change-v1/outcome-profile.json",
-      "digest": "sha256:40fe522e35eed8c50cecfce812d9eb2765ac342d8d81a8651771c9267752c9d1"
+      "digest": "sha256:1493b778c2e9245176281edbd2d5340da8432c3d353bbd03173c100bba53fb3e"
     },
     {
       "id": "normative-prose:profiles/repo-change-v1/outcome-replay-contract.md",
@@ -134,7 +134,7 @@
       "id": "repo-change-v1-profile-resolution",
       "version": "0.1.0",
       "uri": "profiles/repo-change-v1/profile-resolution.json",
-      "digest": "sha256:3c424a0c356f66ad9c11fe271f02c48fda37151668f0725bb719400f767dd6f0"
+      "digest": "sha256:f895fffc8f925eccbc9c8e42db3a24c6b722c197e9462fad946215797902ad69"
     },
     {
       "id": "fixture-signature-vectors-v1",
@@ -170,7 +170,7 @@
       "id": "repository-review-v1",
       "version": "0.1.0",
       "uri": "profiles/repository-review-v1/evaluation-profile.json",
-      "digest": "sha256:d551e7f43f6090d41873ec13c0caeb65e8757fa6c18f4a5b7f88384381304367"
+      "digest": "sha256:7b3badc5bca242cac8c40e5dc670d3b70ee478f8a42bb0a55c825be6dfcdc12f"
     },
     {
       "id": "repository-review-evidence-access-policy",
@@ -206,13 +206,13 @@
       "id": "repository-review-outcome-v1",
       "version": "0.1.0",
       "uri": "profiles/repository-review-v1/outcome-profile.json",
-      "digest": "sha256:4608f7ea765fb940a07dc25c5bdb89e6b17e2b06dc3775f72ebe04349af6fe31"
+      "digest": "sha256:5d81a1dce5e8169fde601ca1a3d9a486489e6d044d8df69a6be3f0536bd4474c"
     },
     {
       "id": "repository-review-v1-profile-resolution",
       "version": "0.1.0",
       "uri": "profiles/repository-review-v1/profile-resolution.json",
-      "digest": "sha256:02be0fb18c43c1660527995c86550b21796882ddd60fe3ff9eda045e972a6bb2"
+      "digest": "sha256:e60e643c8579fcbd9ac98c869e6e300470d52a728b37695173819a89a1604aa1"
     },
     {
       "id": "repository-review-terminal-evidence-contract",
@@ -224,61 +224,67 @@
       "id": "normative-prose:standard/adoption-guide.md",
       "version": "0.1.0",
       "uri": "standard/adoption-guide.md",
-      "digest": "sha256:55cce305d78b689c68a53fcbe7594fe1e5e8d2c857a2f060668ea18c25ced0ab"
+      "digest": "sha256:d46220f25e65738c8b74793a04018ff1a022e137ecee8ae741408a46da6ed862"
     },
     {
       "id": "normative-prose:standard/case-qa-playbook.md",
       "version": "0.1.0",
       "uri": "standard/case-qa-playbook.md",
-      "digest": "sha256:5689f4bae97d06ba6e544aabf3299b6641f6a2e3ac33a49a247e2ea170b1f587"
+      "digest": "sha256:6762d42ee9030fa16c29c0483bd72cad2f60e980546c7eae6aefb9a75561bf2b"
     },
     {
       "id": "normative-prose:standard/conformance.md",
       "version": "0.1.0",
       "uri": "standard/conformance.md",
-      "digest": "sha256:6e32c61f552db038b70a654cf4bb5c2289eccab1cac8454ded53802ce5b39b84"
+      "digest": "sha256:37960e6d2ab09bcbe35d5b573ba504732417ee025b5a048e348635f8f30b1713"
     },
     {
       "id": "base-escalation-event-registry",
       "version": "0.1.0",
       "uri": "standard/escalation-event-registry.json",
-      "digest": "sha256:e27160a35a25c40c9021cabb99618ac0ba4a4c7048480b0672a170a82e8f0814"
+      "digest": "sha256:41d4f4758b9fa13d3c18fa07ca34c9c2c0470c5b2b4cd0d3f5950dfb865a3f03"
     },
     {
       "id": "normative-prose:standard/escalation-stop-matrix.md",
       "version": "0.1.0",
       "uri": "standard/escalation-stop-matrix.md",
-      "digest": "sha256:0bdbb9d4e6136e9187ba11ea2107c930c46525bf1e2bcef20741ce0ff0b12743"
+      "digest": "sha256:e561fb2f6a21848f9abaf95ce6d3f81d9e2c8538c25cf7478d51ace7af2a304d"
     },
     {
       "id": "normative-prose:standard/evidence-and-validation-contract.md",
       "version": "0.1.0",
       "uri": "standard/evidence-and-validation-contract.md",
-      "digest": "sha256:3038299e51e73bac7ff24be61359f132a4919704007d5d3de354487bdfbfc00e"
+      "digest": "sha256:51519aafbd5fb4dfa22a9bdc26b5fde2a9884fedf4018b15a32df30347540810"
     },
     {
       "id": "normative-prose:standard/glossary.md",
       "version": "0.1.0",
       "uri": "standard/glossary.md",
-      "digest": "sha256:74a74864ea53a71adfb8757cfdef5b56f27a109fd3497f91baa659acb9abf596"
+      "digest": "sha256:12211dad2fd021d02fb1f6be3088139e5ac6d25b8333317139d635f193c8a149"
     },
     {
       "id": "normative-prose:standard/governance-policy.md",
       "version": "0.1.0",
       "uri": "standard/governance-policy.md",
-      "digest": "sha256:972c13830ad161f58f640b88a19d9331260f778441254b331a52f62bd0bcbe1f"
+      "digest": "sha256:4a850bd4b1b0ba789476dd550e5c5ecb832501639e8b348a060d2f524120b18d"
     },
     {
       "id": "normative-prose:standard/integrity-and-semantic-validation.md",
       "version": "0.1.0",
       "uri": "standard/integrity-and-semantic-validation.md",
-      "digest": "sha256:faa54287531cdcfdb44d4cb75c04e3f38ffe0269bf921739340c060f1da24014"
+      "digest": "sha256:35e4d1b8718e746904cef5027de2d34802b80132d99173c3bba56c275e9a3bcc"
     },
     {
       "id": "agent-evals-standard-outcome-replay-executors",
       "version": "0.1.0",
       "uri": "standard/outcome-replay-executor-registry.json",
-      "digest": "sha256:1021f5728ae701f1823544182d2991571ef35fcf22d9f7ebeff59d8d70f3fb7c"
+      "digest": "sha256:01bc877b5b0ac7655ada985671000adb7ce317b8dcfadd1732a4b8a81291b5e9"
+    },
+    {
+      "id": "normative-prose:standard/profile-resolution-contract.md",
+      "version": "0.1.0",
+      "uri": "standard/profile-resolution-contract.md",
+      "digest": "sha256:9dc6092584d987c0ef7b635adf19231b1e5d304421e2de38f6ef10a22d28432b"
     },
     {
       "id": "normative-prose:standard/references.md",
@@ -308,7 +314,7 @@
       "id": "normative-prose:standard/scorecard-contract.md",
       "version": "0.1.0",
       "uri": "standard/scorecard-contract.md",
-      "digest": "sha256:5b9c069ee17aa78d8e8c33d179202fb8ade81e75d6fe837978f2ad6bc39bd401"
+      "digest": "sha256:7fcbe53c55700f2b9c0b71f373c35ef8231ff6bfeee0fe5d0df314f5decb6b7b"
     },
     {
       "id": "normative-prose:standard/security-case-backlog.md",
@@ -326,7 +332,7 @@
       "id": "normative-prose:standard/signature-and-trust-profile.md",
       "version": "0.1.0",
       "uri": "standard/signature-and-trust-profile.md",
-      "digest": "sha256:61eae4a3e83c6fd6960fc33e2ee3ff48379933718069b1559e1966799c8c0ea2"
+      "digest": "sha256:28414bb96ec16e4428b051f34d6c60ee5bcbbf283046bcfd79c770cc9b41f5c4"
     },
     {
       "id": "agent-eval-source-evidence-manifest-1",
@@ -338,7 +344,7 @@
       "id": "normative-prose:standard/standard.md",
       "version": "0.1.0",
       "uri": "standard/standard.md",
-      "digest": "sha256:bf9543a35a32048d15ea9e17ccb8c66f60b135e60b89fe6f996710559dc72b34"
+      "digest": "sha256:bf89db7b34183ce878aef832cefc82e70b43f8dca6d17983734229ffd41a25ab"
     },
     {
       "id": "normative-prose:standard/validity-threat-exposure-contracts.md",
@@ -353,5 +359,5 @@
       "digest": "sha256:151684e0e5c35023ec07d6f4554ebedb9ecd4e52ef7738bd77c1eb31c95053c7"
     }
   ],
-  "entriesDigest": "sha256:3da0c435a949f3d1fe7f4f2f8beb61620725adcf09c8ddfa7d8d32c3a21299f2"
+  "entriesDigest": "sha256:ce071b04f070958d5010948ee1d4ae25c23e395256b5082f9f15ea3f04c99814"
 }

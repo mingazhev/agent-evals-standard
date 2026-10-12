@@ -168,7 +168,23 @@
       "stopAction": "stop_governance_use",
       "scopeAction": "quarantine_or_delete_affected",
       "waivable": false
+    },
+    {
+      "eventId": "dataOwnerReviewRequired",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "data_owner_review_required",
+      "stopAction": "block_acceptance",
+      "scopeAction": "reject_or_reduce",
+      "waivable": false
+    },
+    {
+      "eventId": "riskAcceptanceRequired",
+      "claimEffect": "insufficient_evidence",
+      "governanceStatus": "risk_acceptance_required",
+      "stopAction": "block_acceptance",
+      "scopeAction": "reject_or_reduce",
+      "waivable": false
     }
   ],
-  "digest": "sha256:c71559aa50901c3a938ecd7475da49aef27e6dff8c1f12ac656fe765d043d642"
+  "digest": "sha256:1265947822356d25c638fa1b92e2bb6344b8095e21604d1fdcadcfca8d1bc53e"
 }

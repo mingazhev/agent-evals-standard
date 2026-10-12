@@ -37,13 +37,13 @@
   "evaluationProfile": {
     "id": "repo-change-v1",
     "version": "0.1.0",
-    "digest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210",
-    "effectiveProfileDigest": "sha256:6ec98f997cbaa51d30eeb1bdc6a3bb91e76cc2ec505fdd155850d115b0146869"
+    "digest": "sha256:6c3c33a6b195f05f274d53946892824cc5d9ade2c0c5dcb409101453031c68d0",
+    "effectiveProfileDigest": "sha256:f18de1a8583d2c929811ee4ef68466a5cd4d29f73a562cc8ac2385dfb6129cd5"
   },
   "outcomeProfile": {
     "id": "workspace-change-v1",
     "version": "0.1.0",
-    "digest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635"
+    "digest": "sha256:10572bb29e6a0b09384a9c245af1239a1d8b4dba5b52a305331c47e3dd103203"
   },
   "workArtifactRegistry": {
     "id": "repository-sdlc-work-artifact-registry",
@@ -116,22 +116,22 @@
     "repositoryStateNecessityEvidence": {
       "id": "repository-state-necessity",
       "uri": "architecture-case-validity-argument.json",
-      "digest": "sha256:63fd6f0e81861c13a0eacff8f470ad066c91421c1e72516806dd9762a59a02bc"
+      "digest": "sha256:4355a70b98257fa80c6d6a58784afca5ac0be5750efc90a304eacc36f19417f3"
     },
     "acceptanceInvariantTraceEvidence": {
       "id": "acceptance-invariant-trace",
       "uri": "architecture-case-validity-argument.json",
-      "digest": "sha256:63fd6f0e81861c13a0eacff8f470ad066c91421c1e72516806dd9762a59a02bc"
+      "digest": "sha256:4355a70b98257fa80c6d6a58784afca5ac0be5750efc90a304eacc36f19417f3"
     },
     "repositoryGovernedResultEvidence": {
       "id": "repository-governed-result",
       "uri": "architecture-case-validity-argument.json",
-      "digest": "sha256:63fd6f0e81861c13a0eacff8f470ad066c91421c1e72516806dd9762a59a02bc"
+      "digest": "sha256:4355a70b98257fa80c6d6a58784afca5ac0be5750efc90a304eacc36f19417f3"
     },
     "removalCounterfactualEvidence": {
       "id": "case-removal-counterfactual",
       "uri": "architecture-case-validity-argument.json",
-      "digest": "sha256:63fd6f0e81861c13a0eacff8f470ad066c91421c1e72516806dd9762a59a02bc"
+      "digest": "sha256:4355a70b98257fa80c6d6a58784afca5ac0be5750efc90a304eacc36f19417f3"
     },
     "materialSubjectDependencies": [
       {
@@ -144,7 +144,7 @@
         "repositoryDependencyEvidence": {
           "id": "dependency.outcome.multi-label",
           "uri": "architecture-case-validity-argument.json",
-          "digest": "sha256:63fd6f0e81861c13a0eacff8f470ad066c91421c1e72516806dd9762a59a02bc"
+          "digest": "sha256:4355a70b98257fa80c6d6a58784afca5ac0be5750efc90a304eacc36f19417f3"
         },
         "removalCounterfactualEvidence": {
           "id": "counterfactual.outcome.multi-label",
@@ -164,7 +164,7 @@
         "repositoryDependencyEvidence": {
           "id": "dependency.claim.patch",
           "uri": "architecture-case-validity-argument.json",
-          "digest": "sha256:63fd6f0e81861c13a0eacff8f470ad066c91421c1e72516806dd9762a59a02bc"
+          "digest": "sha256:4355a70b98257fa80c6d6a58784afca5ac0be5750efc90a304eacc36f19417f3"
         },
         "removalCounterfactualEvidence": {
           "id": "counterfactual.claim.patch",
@@ -184,7 +184,7 @@
         "repositoryDependencyEvidence": {
           "id": "dependency.claim.test-design",
           "uri": "architecture-case-validity-argument.json",
-          "digest": "sha256:63fd6f0e81861c13a0eacff8f470ad066c91421c1e72516806dd9762a59a02bc"
+          "digest": "sha256:4355a70b98257fa80c6d6a58784afca5ac0be5750efc90a304eacc36f19417f3"
         },
         "removalCounterfactualEvidence": {
           "id": "counterfactual.claim.test-design",
@@ -202,7 +202,7 @@
     "artifact": {
       "id": "architecture-case-source",
       "uri": "architecture-case-validity-argument.json",
-      "digest": "sha256:63fd6f0e81861c13a0eacff8f470ad066c91421c1e72516806dd9762a59a02bc"
+      "digest": "sha256:4355a70b98257fa80c6d6a58784afca5ac0be5750efc90a304eacc36f19417f3"
     },
     "notes": "Synthetic architecture fixture; not a benchmark score source."
   },
@@ -217,13 +217,13 @@
   "task": {
     "id": "architecture-task-multi-label",
     "uri": "architecture-case-validity-argument.json",
-    "digest": "sha256:63fd6f0e81861c13a0eacff8f470ad066c91421c1e72516806dd9762a59a02bc"
+    "digest": "sha256:4355a70b98257fa80c6d6a58784afca5ac0be5750efc90a304eacc36f19417f3"
   },
   "agentVisibleProjection": {
     "manifest": {
       "id": "architecture-agent-visible-manifest",
       "uri": "architecture-case-validity-argument.json",
-      "digest": "sha256:63fd6f0e81861c13a0eacff8f470ad066c91421c1e72516806dd9762a59a02bc"
+      "digest": "sha256:4355a70b98257fa80c6d6a58784afca5ac0be5750efc90a304eacc36f19417f3"
     },
     "taskArtifactId": "architecture-task-multi-label",
     "allowedArtifactIds": [
@@ -297,7 +297,7 @@
   "environment": {
     "id": "architecture-environment",
     "uri": "architecture-case-validity-argument.json",
-    "digest": "sha256:63fd6f0e81861c13a0eacff8f470ad066c91421c1e72516806dd9762a59a02bc"
+    "digest": "sha256:4355a70b98257fa80c6d6a58784afca5ac0be5750efc90a304eacc36f19417f3"
   },
   "budgets": {
     "trials": 1,
@@ -316,7 +316,7 @@
     "sharedGraderValidation": {
       "id": "architecture-grader-validation",
       "uri": "architecture-case-validity-argument.json",
-      "digest": "sha256:63fd6f0e81861c13a0eacff8f470ad066c91421c1e72516806dd9762a59a02bc"
+      "digest": "sha256:4355a70b98257fa80c6d6a58784afca5ac0be5750efc90a304eacc36f19417f3"
     },
     "strategy": {
       "publicChecks": {
@@ -332,7 +332,7 @@
           {
             "id": "architecture-case-classification-validity",
             "uri": "architecture-case-validity-argument.json",
-            "digest": "sha256:63fd6f0e81861c13a0eacff8f470ad066c91421c1e72516806dd9762a59a02bc"
+            "digest": "sha256:4355a70b98257fa80c6d6a58784afca5ac0be5750efc90a304eacc36f19417f3"
           }
         ],
         "unknownApplicabilityResult": "invalid",
@@ -351,7 +351,7 @@
           {
             "id": "architecture-case-classification-validity",
             "uri": "architecture-case-validity-argument.json",
-            "digest": "sha256:63fd6f0e81861c13a0eacff8f470ad066c91421c1e72516806dd9762a59a02bc"
+            "digest": "sha256:4355a70b98257fa80c6d6a58784afca5ac0be5750efc90a304eacc36f19417f3"
           }
         ],
         "unknownApplicabilityResult": "invalid",
@@ -370,7 +370,7 @@
           {
             "id": "architecture-case-classification-validity",
             "uri": "architecture-case-validity-argument.json",
-            "digest": "sha256:63fd6f0e81861c13a0eacff8f470ad066c91421c1e72516806dd9762a59a02bc"
+            "digest": "sha256:4355a70b98257fa80c6d6a58784afca5ac0be5750efc90a304eacc36f19417f3"
           }
         ],
         "unknownApplicabilityResult": "invalid",
@@ -389,7 +389,7 @@
           {
             "id": "architecture-case-classification-validity",
             "uri": "architecture-case-validity-argument.json",
-            "digest": "sha256:63fd6f0e81861c13a0eacff8f470ad066c91421c1e72516806dd9762a59a02bc"
+            "digest": "sha256:4355a70b98257fa80c6d6a58784afca5ac0be5750efc90a304eacc36f19417f3"
           }
         ],
         "unknownApplicabilityResult": "invalid",
@@ -571,12 +571,12 @@
       "role": "data_owner"
     }
   },
-  "digest": "sha256:984232f87b84094e91b4cc6202014844e67710090d56db74f73f6b00a4be0280",
+  "digest": "sha256:0f2e75cce5457ccf7501b0bc244bb8447ece7cd45d29c25298fd1eb267da070e",
   "signature": {
     "profileId": "fixture-claimant-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1-claimant",
     "signedAt": "2026-08-01T01:02:00Z",
-    "value": "MsnvbT4jEBZou_Xlsqjnw1CT6H1IS7eKV1OeB4c84FGibaWfm99jS4dKzbloC_ld5PtBT8i85zyEjrwDAVMaDQ"
+    "value": "r_JQyGDiSIXxoeGtlejnxwu9ObltoJosDWGKE9WhAbge9dBECQ5-dZ__f7kMthYiV2qoc1DwHGikKQOK5MS9BQ"
   }
 }

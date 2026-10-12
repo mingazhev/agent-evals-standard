@@ -2,38 +2,33 @@
 
 - Status: unpublished 0.1.0 publication candidate
 - Version: 0.1.0
-- Purpose: the shortest route from “nothing” to a draft-conforming case, run,
-  scorecard, and conformance claim. It does not weaken any normative
-  requirement; it only orders and stages them.
+- Purpose: an informative reading and dependency guide for a draft-conforming
+  case, experiment, scorecard, and conformance statement. The linked primary
+  contracts determine the requirements.
 
-The standard is large on purpose: it covers everything from a single case to
-governance-grade autonomy decisions, and its requirements are partitioned
-across a [requirements registry](requirements.md) and the primary documents
-listed in the [README](../README.md#normative-authority-map). You do not need
-to consume it linearly. There are two adoption paths, and they build on each
-other:
+Use the [requirement registry](requirements.md) to find each rule's authoritative
+location. Measurement and governance share a preparation path; governance
+planning branches **before** the run it will judge:
 
 ```mermaid
 flowchart LR
-  subgraph core[Core path - measurement]
-    A[1. Pin the draft commit] --> B[2. Author a case]
-    B --> C[3. Activate via Case QA]
-    C --> D[4. Run and emit a scorecard]
-    D --> E[5. Publish a conformance statement]
-  end
-  subgraph gov[Governance path - decisions]
-    G[6. Write policy and matrix instances] --> H[7. Seal a decision plan]
-    H --> I[8. Make a governance decision]
-    I --> J[9. Monitor via assurance observations]
-  end
-  E --> G
+  A[Pin commit and select intended use] --> P[Prepare policy, risk and assurance]
+  P --> B[Author case and activate via Case QA]
+  B --> C{Intended decision}
+  C -->|Capability| R[Seal and execute experiment]
+  C -->|Governance| G[Seal decision plan and held-out controls]
+  G --> R
+  R --> S[Scorecard and detached validation]
+  S --> E[One conformance statement per target]
+  S --> D[Governance decision if pre-planned]
+  D --> M[Assurance monitoring after approval]
 ```
 
 Conformance is claimed per target, not globally. You can be case-conformant
-today and decision-conformant never. That is not “partial conformance”: every
-claim names exactly the targets it covers, and unsupported requirements are
-either omitted from the claim or listed as deviations with claim restrictions
-([Conformance](conformance.md)).
+today without claiming decision conformance. Each statement names exactly one
+target and covers every requirement registered for that target. A deviation
+records the unsupported rule and affected claim restrictions; it does not
+permit omitting a required coverage row ([Conformance](conformance.md)).
 
 ## Local development
 
@@ -60,7 +55,23 @@ the version `0.1.0`; after publication you must additionally pin the protected
 annotated tag `v0.1.0`. Every artifact you produce later references these pins.
 Saying “based on” the standard is not a conformance claim.
 
-### 2. Author a case
+### 2. Prepare policy, risk, and assurance
+
+Select the intended decision class and risk/assurance path
+under [ASSURE-001 and RISK-001](standard.md#assurance-levels). The authenticated
+operational policy determines the assurance minimum even for capability
+claims.
+
+The bundled [Governance Policy](governance-policy.md) and
+[Escalation and Stop Matrix](escalation-stop-matrix.md) fix base assurance floors
+and event semantics but leave adopter thresholds, owners, and SLAs unset.
+Prepare authenticated adopter-owned instances before the Case QA and run stages
+that bind them. Their schemas are
+[`operational-governance-policy.schema.json`](../schemas/operational-governance-policy.schema.json)
+and [`operational-escalation-matrix.schema.json`](../schemas/operational-escalation-matrix.schema.json).
+An unset required value blocks the affected path.
+
+### 3. Author a case
 
 Read the [Case Lifecycle Requirements](standard.md#case-lifecycle-requirements)
 and the [Authoring requirements](standard.md#authoring) in the core standard,
@@ -68,7 +79,7 @@ then produce a `case.json` that satisfies
 [`schemas/case.schema.json`](../schemas/case.schema.json).
 
 A case binds exactly one effective [evaluation profile](../profiles/), one
-outcome profile per eligible cell, one or more capability families with mapped
+outcome profile shared by all its cells, one or more capability families with mapped
 work-artifact types, an applicability contract, a Git workspace manifest, a
 claim registry, and a sealed risk assessment. The bundled executable profiles
 are `repo-change-v1` and read-only `repository-review-v1`; they demonstrate
@@ -86,29 +97,35 @@ Checklist:
       `not_applicable`, or an explicit declared gap with claim restrictions
 - [ ] every claim in the claim registry resolves
 
-### 3. Activate via Case QA
+### 4. Activate via Case QA
 
 Before a case may enter `active`, run the [Case QA Playbook](case-qa-playbook.md)
 stages and record the result in a `case-qa-record.json`
 ([`schemas/case-qa-record.schema.json`](../schemas/case-qa-record.schema.json)).
 
-The minimum evidence for activation is: the reference solution passes a
-runner-owned control run; a known-bad control fails; policy gates have
-positive controls; no trivial strategy succeeds; at least one independently
-produced non-reference solution passes the applicable checks (Stage 7, with a
-typed `not_applicable` alternative-solution record only under the
-authenticated singleton-validity path); grader FP/FN validation passes when a
-model grader is enabled (a typed `not_applicable` reason otherwise); and no
-blocking defect is open. The semantic validator checks the record before the
-case loader permits `active`; the record cannot be deferred.
+Use the outcome-specific known-good, known-bad, trivial-strategy, and
+alternative-result controls in Stages 3–7, followed by stability validation.
+A reference result is one possible known-good control. For `already_satisfied`,
+the declared empty-diff control is expected to pass. Stage 7 allows
+`not_applicable` only through the authenticated singleton-validity proof.
+The playbook defines the complete activation evidence; its semantic validation
+precedes `active` and no blocking defect may remain open.
 
-### 4. Run and emit a scorecard
-
-One run = one sealed experiment with one or more arms + one scorecard
-([`schemas/scorecard.schema.json`](../schemas/scorecard.schema.json)).
+### 5. Seal the experiment and any decision plan
 
 Before the first trial, seal the pre-run manifest, the statistical plan, the
-risk assessment, and the scheduled-cell commitment. After the run, the
+risk assessment, and the scheduled-cell commitment. For governance use, also
+seal the held-out exposure controls and an immutable decision plan with the
+evidence level, thresholds, zero-tolerance gates, expected governance statuses,
+and approve/reject/insufficient-evidence conditions.
+
+A diagnostic or development run supports iteration; it cannot acquire a missing
+governance plan or held-out controls retroactively.
+
+### 6. Run and emit a scorecard
+
+One run = one sealed experiment with one or more arms + one scorecard
+([`schemas/scorecard.schema.json`](../schemas/scorecard.schema.json)). After the run, the
 scorecard must show, in order: experiment identity, arms, and cells; validity,
 hard-gate and governance statuses; one trial result for each resolved cell;
 claims and claim results; metrics, cost, and provenance. Schema validation is
@@ -117,17 +134,13 @@ necessary but not sufficient: the
 recomputes hashes, formulas, ledger continuity, verdict implications, and
 outcome replay for claim-bearing cells.
 
-A diagnostic or development run supports capability iteration but not release
-or autonomy decisions; those require the sealed `held-out` exposure budget and
-a decision plan.
-
-### 5. Publish a conformance statement
+### 7. Publish a conformance statement
 
 Publish a signed statement
 ([`schemas/conformance-statement.schema.json`](../schemas/conformance-statement.schema.json))
-that names the version and commit pins, the targets it covers, typed evidence
+that names the version and commit pins, its single target, typed evidence
 locations and hashes, deviations with claim restrictions, and the issuer
-identity. Every target record must also contain the closed
+identity. The target record also contains the closed
 requirement-coverage matrix required by `CONF-002`: exactly the requirements
 whose authenticated [requirement-registry](requirement-registry.json) entry
 includes the claimed target, each with a signed
@@ -140,32 +153,15 @@ unsigned statement or a missing envelope is an unauthenticated assertion, not
 conformance.
 
 You can claim `suite`, `case`, `evaluator`, `experiment`, or `decision`
-conformance independently. `evaluator` additionally requires the implementation
-to enforce the invariant, gate, evidence, and trust-boundary requirements
+conformance in separate statements. `evaluator` additionally requires enforcement
+of the invariant, gate, evidence, and trust-boundary requirements
 registered for the evaluator target; `experiment` additionally requires a
 conforming suite and cases, a conforming evaluator, and an immutable scorecard
 with authenticated ledgers.
 
 ## Governance path (decisions)
 
-### 6. Write policy and matrix instances
-
-The bundled [Governance Policy](governance-policy.md) and
-[Escalation and Stop Matrix](escalation-stop-matrix.md) are deliberately
-non-operational templates: no thresholds, no owners, no SLAs. Before any
-held-out, release, or autonomy decision, publish an adopter-owned instance
-(`operational-governance-policy.schema.json`,
-`operational-escalation-matrix.schema.json`) that fills the risk-tier table,
-the decision rules, the approval envelope, the non-waivable registry, and every
-matrix column. Unset cells are deliberate blockers: a governance decision
-cannot cite the template as operational.
-
-### 7. Seal a decision plan
-
-Before the held-out or release run, record an immutable decision plan (ID,
-hash, timestamp) with the exact evidence level, pass^k/pass@k requirements,
-thresholds, zero-tolerance gates, expected governance statuses, and explicit
-approve/reject/insufficient-evidence conditions.
+These steps consume the validated evidence from the pre-planned governance run.
 
 ### 8. Make a governance decision
 

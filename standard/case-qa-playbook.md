@@ -283,6 +283,13 @@ cases **MUST NOT** remain its sole clean held-out evidence.
   component digests, expected and observed verdicts, and execution evidence; a
   label without a recomputable execution is not a control proof.
 
+A rejected or quarantined QA record **MUST** retain a control's actual observed
+verdict even when it differs from the sealed expected verdict. Such a mismatch
+cannot support activation, a passed control stage, or a passing surface result.
+Stage 7 retains the independently known-valid control with `expected: pass`
+and its actual observed verdict when the alternative is rejected; a passed
+Stage 7 and a singleton-validity proof still require successful control proofs.
+
 ### Stage 5 — Trivial-Strategy Battery
 
 For a case that requires a change, each low-effort strategy below **MUST** fail to
@@ -578,10 +585,20 @@ alone does not prove coverage. The record includes:
   The detached validation envelope is delivered and verified separately; the
   Case QA record **MUST NOT** embed or hash that envelope or its digest.
 
-The Case QA record's `case.activationInputDigest` is the digest of the sealed
-activation-input manifest: case contract, environment, profile, graders, and
-checks before the activation record is added. Subject and evidence digests
-follow the [Evidence and Detached Validation Contract](evidence-and-validation-contract.md).
+The Case QA record's `case.activationInputDigest` is the SHA-256 of the UTF-8
+RFC 8785 JCS bytes of the versioned `agent-eval-activation-input-1` manifest
+defined in [`schemas/case-activation-input.schema.json`](../schemas/case-activation-input.schema.json).
+Its `projection` contains every required top-level case member except
+`lifecycle`, `digest`, and `signature`, including the case contract,
+environment, profile, graders, and checks; its `case` object carries the case
+ID, version, and projection digest. The validator reconstructs that projection
+from the candidate case, after separately validating that case against
+`case.schema.json` and its lifecycle condition, compares the exact canonical
+bytes, verifies both digest relations, and only then permits the activated case
+to bind the manifest digest. This is deliberately pre-QA input and cannot hash
+its own QA record or detached validation envelope; it binds inputs and does
+not prove QA validity. Subject and evidence digests follow
+the [Evidence and Detached Validation Contract](evidence-and-validation-contract.md).
 The schema-conformance fixture demonstrates record shape, content addressing,
 and authentication mechanics only; it is not empirical case-validation
 evidence and cannot support an activation claim.

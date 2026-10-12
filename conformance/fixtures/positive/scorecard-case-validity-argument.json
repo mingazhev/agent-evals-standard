@@ -10,9 +10,9 @@
     "id": "repo-change-v1",
     "version": "0.1.0",
     "uri": "../../profiles/repo-change-v1/evaluation-profile.json",
-    "rawDigest": "sha256:3ce26cd98f61262753d85ee91e0a0b8d67986f847e1662d86bb1e98a7a2da28b",
-    "subjectDigest": "sha256:07bd7d02f8ca9249a531f379ef4fdfc73173c205fe9352fa9809f5b3f4e3a210",
-    "effectiveProfileDigest": "sha256:6ec98f997cbaa51d30eeb1bdc6a3bb91e76cc2ec505fdd155850d115b0146869",
+    "rawDigest": "sha256:aadb8f66aa4e19b269c526d93a229bbd48eacd5557247e72d49f18f36ed9874f",
+    "subjectDigest": "sha256:6c3c33a6b195f05f274d53946892824cc5d9ade2c0c5dcb409101453031c68d0",
+    "effectiveProfileDigest": "sha256:f18de1a8583d2c929811ee4ef68466a5cd4d29f73a562cc8ac2385dfb6129cd5",
     "interactionModes": [
       "noninteractive_repository_task",
       "interactive_repository_session",
@@ -34,8 +34,8 @@
     "id": "workspace-change-v1",
     "version": "0.1.0",
     "uri": "../../profiles/repo-change-v1/outcome-profile.json",
-    "rawDigest": "sha256:40fe522e35eed8c50cecfce812d9eb2765ac342d8d81a8651771c9267752c9d1",
-    "subjectDigest": "sha256:389934c0c1e2d54bed6e750e95323f5b730ce26de3bb58b0b6ad5c48a73bb635",
+    "rawDigest": "sha256:1493b778c2e9245176281edbd2d5340da8432c3d353bbd03173c100bba53fb3e",
+    "subjectDigest": "sha256:10572bb29e6a0b09384a9c245af1239a1d8b4dba5b52a305331c47e3dd103203",
     "workArtifactRegistry": {
       "id": "repository-sdlc-work-artifact-registry",
       "version": "0.1.0",
@@ -259,12 +259,12 @@
     "id": "standard-maintainers",
     "role": "case_validity_authority"
   },
-  "digest": "sha256:517aa76968286555c0f2d5bd39742f545af633264bb83e7205a9949137bc00f2",
+  "digest": "sha256:b9db6bbf5d531b6ef6a3d1bb5490dcc3792820fc7becd8a0b36b2f7bd1905867",
   "signature": {
     "profileId": "fixture-signature-profile",
     "algorithm": "Ed25519",
     "keyId": "rfc8032-test-key-1",
     "signedAt": "2026-08-01T00:00:00Z",
-    "value": "MiLE9Bvgg9oQ2122jpLfm__fJVzqFSjCH6U3GZq9hd6-M0fiXooTc8mEgHKVpG8rn_IpK6FZzwfHic9y6GE1Dg"
+    "value": "cWeGbQ15Faq0pYJsH4km4Rh0rQs-v40Q2c7JFd9WsXxCvovmxXXDiNgK6dPoRMKO3vRVlp2NLRujKISlR_UADw"
   }
 }
