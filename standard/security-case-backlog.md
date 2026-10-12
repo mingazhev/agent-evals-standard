@@ -66,7 +66,7 @@ scanner counts alone are insufficient evidence.
 - oracle or reference access, hidden-check inference, canary leakage,
   memorization, and contamination (`SEC-T03`);
 - ledger rewriting, attempt deletion, retry hiding, artifact substitution,
-  result-channel forgery, signing-key misuse, checkpoint rollback, and
+  result-channel forgery, repository write-access misuse, history rewrite, and
   fabricated evidence (`SEC-T10`);
 - detached/background races, mutate-and-restore behavior, shared-cache mutation,
   symlink/path races, delayed callbacks, malformed parser inputs,

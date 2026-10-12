@@ -59,7 +59,7 @@ addresses requirements by the stable IDs below.
 | `RUN-003` | trusted measurement boundary | run validator | [Standard](standard.md#i13-trusted-measurement-boundary) | adversarial measurement-system design |
 | `INT-001` | interactive actor protocol | Case QA and run validators | [Standard](standard.md#interactive-actors-and-simulators) | interactive simulator architecture in [Informative References](references.md) |
 | `EVID-001` | canonical evidence artifacts | evidence validator | [Evidence and Detached Validation](evidence-and-validation-contract.md#canonical-evidence-artifact) | authenticated provenance |
-| `EVID-002` | detached validation envelope | conformance validator | [Evidence and Detached Validation](evidence-and-validation-contract.md#detached-validation-envelope) | non-circular signed validation |
+| `EVID-002` | detached validation envelope | conformance validator | [Evidence and Detached Validation](evidence-and-validation-contract.md#detached-validation-envelope) | non-circular detached validation |
 | `JUDGE-001` | evidence hierarchy | Case QA validator | [Standard](standard.md#evidence-hierarchy) | grader roles and human calibration in [Informative References](references.md) |
 | `JUDGE-002` | deterministic verification | Case QA validator | [Standard](standard.md#evidence-hierarchy) | reproducible correctness evidence |
 | `JUDGE-003` | expert adjudication | Case QA validator | [Standard](standard.md#evidence-hierarchy) | fail-closed multi-rater measurement design invariant; judge-bias evidence provides bounded rationale only |
@@ -170,14 +170,14 @@ record **MUST** identify the accountable reviewer with a resolvable identity
 URI, cite an auditable version-control or review-system record, and bind the
 exact source, observation, capability, and requirement-claim projection by
 SHA-256. Any projection change invalidates the review until a reviewer issues a
-new receipt. The review record provides accountable process evidence, not a
-cryptographic signature. This review establishes catalog accountability and
+new receipt. The review record provides accountable process evidence. This
+review establishes catalog accountability and
 traceability
 only. It **MUST NOT** be represented as independent replication, byte
 preservation, or target-population validation.
 
 An ordinary informative reference does not require a repository-controlled
-copy or independently signed archive assessment. A claim that explicitly
+copy or independent archive assessment. A claim that explicitly
 depends on immutable source bytes, including `triangulated_empirical`, **MUST**
 instead use `archive.status: verified`, bind a repository-relative artifact
 path, byte length, and SHA-256, and make every cited result and funding statement
@@ -213,14 +213,14 @@ seven capability families or transfer to an adopter's population.
 receipts for every cited source and no normative requirement mapped as
 `evidence_gap`.
 Design invariants remain eligible when their threat rationale, failure mode,
-validation obligation, and claim restriction are explicit. `npm run
-release:check` **MUST** first prove generated-artifact freshness, run the
-complete `npm test` corpus, and run the publication checks on a clean checkout
-of the exact candidate commit. On a release tag it **MUST** additionally bind
-the exact `v0.1.0` annotated tag to that commit. Neither the manifest
-alone nor a partial fixture run is a whole-standard release gate. Release
-metadata **MUST NOT** embed a digest of a corpus that recursively embeds that
-same release metadata.
+validation obligation, and claim restriction are explicit. The release gate
+**MUST** run the repository check (`npm test`) on a clean checkout of the exact
+candidate commit and confirm that every maintainer review receipt is current.
+On a release tag it **MUST** additionally bind the exact `v0.1.0` annotated tag
+to that commit. The repository check proves schema, example, and link
+consistency only; it is not a conformance validator. Release metadata **MUST
+NOT** embed a digest of content that recursively embeds that same release
+metadata.
 
 ## Canonical artifact contracts
 

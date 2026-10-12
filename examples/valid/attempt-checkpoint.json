@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "agent-eval-attempt-checkpoint-1",
+  "id": "material-attempt-checkpoint",
+  "version": "0.1.0",
+  "experimentId": "material-integrity-experiment",
+  "scheduledSetCommitment": {
+    "id": "pre-run-material-integrity-1",
+    "uri": "pre-run-material-integrity.json",
+    "digest": "sha256:7171717171717171717171717171717171717171717171717171717171717171"
+  },
+  "ledger": {
+    "id": "material-attempt-ledger",
+    "uri": "attempt-ledger.json",
+    "digest": "sha256:967703d84b4a608718324225c4adab34143d85ee6a3858518aa5a335e363c083"
+  },
+  "issuer": {
+    "id": "fixture-independent-scheduler",
+    "role": "independent_scheduler",
+    "trustDomain": "fixture-scheduler-boundary"
+  },
+  "logBinding": {
+    "logId": "fixture-attempt-log",
+    "checkpointSequence": 7,
+    "previousCheckpointDigest": "sha256:1919191919191919191919191919191919191919191919191919191919191919",
+    "publicationUri": "https://scheduler.example.invalid/logs/fixture-attempt-log/checkpoints/7"
+  },
+  "checkpointKind": "terminal",
+  "receiptChainAlgorithm": "sha256-jcs-receipts-v1",
+  "ledgerRootAlgorithm": "sha256-jcs-chain-v1",
+  "receipts": [
+    {
+      "sequence": 1,
+      "experimentId": "material-integrity-experiment",
+      "scheduledSetCommitmentDigest": "sha256:7171717171717171717171717171717171717171717171717171717171717171",
+      "attemptId": "attempt-failed-1",
+      "cellId": "cell-1",
+      "parentAttemptId": null,
+      "startedAt": "2026-08-01T02:00:00Z",
+      "previousReceiptDigest": null,
+      "receiptDigest": "sha256:1572d9e71c41cc7328ac71a9650a809cd845c4f224de632814bad331dea8f77f"
+    },
+    {
+      "sequence": 2,
+      "experimentId": "material-integrity-experiment",
+      "scheduledSetCommitmentDigest": "sha256:7171717171717171717171717171717171717171717171717171717171717171",
+      "attemptId": "attempt-success-2",
+      "cellId": "cell-1",
+      "parentAttemptId": "attempt-failed-1",
+      "startedAt": "2026-08-01T02:02:00Z",
+      "previousReceiptDigest": "sha256:1572d9e71c41cc7328ac71a9650a809cd845c4f224de632814bad331dea8f77f",
+      "receiptDigest": "sha256:a40c537c02e06730bac5b388f325f14729d8fdc9dd33029895eb08d5475ed899"
+    }
+  ],
+  "terminalBinding": {
+    "receiptCount": 2,
+    "terminalReceiptDigest": "sha256:a40c537c02e06730bac5b388f325f14729d8fdc9dd33029895eb08d5475ed899",
+    "orderedAttemptIdsDigest": "sha256:45b87c34532ac458d885d9caf2e3493e73b7a33efd676edffb70c1437b4ec8ec",
+    "attemptRecordsDigest": "sha256:438b9617a8aa78b6ebf17e1293083118fca05b2892a59d4836171ab407fd64f7",
+    "initialLedgerRoot": "sha256:13a1c9d5a3c21694deffc64a4aec54a696f2a417f3a58e33097c86764f4d6652",
+    "terminalLedgerRoot": "sha256:ee830187e612ed3c708384c322a25d4702a85508f6d964d544cec7706a6df40a",
+    "closedAt": "2026-08-01T02:04:00Z"
+  },
+  "issuedAt": "2026-08-01T02:04:01Z",
+  "digest": "sha256:83cf6c18fc732884990f0aa8f6289f811996fa920c0f9671b5372d208fc1f133"
+}

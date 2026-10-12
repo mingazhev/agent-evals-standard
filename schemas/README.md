@@ -10,6 +10,7 @@ enumerate that set rather than relying on this summary.
 
 | Contract | File |
 | --- | --- |
+| Core level (`A1-lite`) | `core-case.schema.json`, `core-case-qa.schema.json`, `core-run-manifest.schema.json`, `core-attempt-ledger.schema.json`, `core-scorecard.schema.json`, `core-conformance-statement.schema.json` |
 | Case and activation QA | `case.schema.json`, `case-qa-record.schema.json` |
 | Suite, evaluator, and measurement profiles | `suite-manifest.schema.json`, `evaluator-manifest.schema.json`, `evaluation-profile.schema.json`, `profile-resolution-record.schema.json`, `profile-resolution-proof-inputs.schema.json`, `outcome-profile.schema.json` |
 | Repository-change profile contracts and registries | `repo-change-case-contract.schema.json`, `repo-change-gate-registry.schema.json`, `repo-change-failure-taxonomy.schema.json` |
@@ -19,9 +20,9 @@ enumerate that set rather than relying on this summary.
 | Statistics and grader validity | `statistical-plan.schema.json`, `grader-validation.schema.json` |
 | Validity, reference baselines, threats, and held-out exposure | `validity-argument.schema.json`, `evaluation-threat-model.schema.json`, `held-out-exposure-budget.schema.json`, `held-out-exposure-ledger.schema.json` |
 | Scorecard | `scorecard.schema.json` |
-| Canonical evidence and detached validation | `evidence-artifact.schema.json`, `source-evidence-manifest.schema.json`, `source-evidence-triangulation-fixture.schema.json`, `validation-envelope.schema.json` |
+| Canonical evidence and detached validation | `evidence-artifact.schema.json`, `source-evidence-manifest.schema.json`, `validation-envelope.schema.json` |
 | Repository snapshot and material grounding | `workspace-manifest.schema.json`, `repository-grounding-evidence.schema.json` |
-| Requirements and trust | `requirement-registry.schema.json`, `requirement-implementation-contract.schema.json`, `signature-profile.schema.json`, `anti-rollback-policy.schema.json` |
+| Requirements | `requirement-registry.schema.json`, `requirement-implementation-contract.schema.json` |
 | Operational policy and escalation | `escalation-event-registry.schema.json`, `operational-governance-policy.schema.json` (closed ASSURE-001 risk/decision minima), `operational-escalation-matrix.schema.json`, `escalation-event.schema.json`, `enforcement-receipt.schema.json` |
 | Governance state | `assurance-observation.schema.json`, `governance-resolution.schema.json`, `governance-resolution-ledger.schema.json`, `governance-decision.schema.json` |
 | Conformance | `conformance-applicability-contract.schema.json`, `conformance-statement.schema.json` (including the material proof-set, verifier-registry, and verification-record fragments) |
@@ -46,7 +47,7 @@ that the boundary grants no filesystem write access. A validator or runner
 field, or treat the empty array as a missing declaration; omission of the
 required field remains invalid.
 
-Validation results are detached. A signed `validation-envelope-1` binds the
+Validation results are detached. A `validation-envelope-1` binds the
 subject type, ID, canonical digest, projection, validation contract, findings,
 and output digest; the validated subject never embeds that result.
 

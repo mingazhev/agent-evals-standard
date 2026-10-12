@@ -3,7 +3,7 @@
   "$id": "urn:agent-evals-standard:schema:operational-governance-policy:1",
   "title": "Operational governance policy",
   "type": "object",
-  "required": ["schemaVersion", "id", "version", "owner", "riskTaxonomy", "rules", "roleIncompatibilities", "nonWaivableIds", "escalationMatrix", "measurementMaintenance", "digest", "signature"],
+  "required": ["schemaVersion", "id", "version", "owner", "riskTaxonomy", "rules", "roleIncompatibilities", "nonWaivableIds", "escalationMatrix", "measurementMaintenance", "digest"],
   "properties": {
     "schemaVersion": { "const": "agent-eval-operational-governance-policy-1" },
     "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "owner": { "$ref": "#/$defs/actor" },
@@ -12,7 +12,7 @@
     "roleIncompatibilities": { "type": "array", "minItems": 1, "items": { "type": "array", "minItems": 2, "items": { "type": "string", "minLength": 1 }, "uniqueItems": true } },
     "nonWaivableIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
     "escalationMatrix": { "$ref": "#/$defs/artifactPointer" }, "measurementMaintenance": { "$ref": "#/$defs/artifactPointer" },
-    "digest": { "$ref": "#/$defs/digest" }, "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+    "digest": { "$ref": "#/$defs/digest" }
   },
   "allOf": [
     { "type": "object", "properties": { "rules": { "type": "array", "contains": { "type": "object", "properties": { "riskTier": { "const": "low" } }, "required": ["riskTier"] }, "minContains": 1, "maxContains": 1 } } },

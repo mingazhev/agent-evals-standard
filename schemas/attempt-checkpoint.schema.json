@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:agent-evals-standard:schema:attempt-checkpoint:1",
   "title": "Independent append-only attempt checkpoint",
-  "$comment": "The checkpoint is terminal scheduler evidence, not a scorecard self-assertion. Receipt digests and signatures use the projections defined by the Scorecard Contract. The checkpoint digest excludes top-level digest and signature; its signature projection omits only signature.value.",
+  "$comment": "The checkpoint is terminal scheduler evidence, not a scorecard self-assertion. Receipt digests use the projections defined by the Scorecard Contract. The checkpoint digest excludes top-level digest and signature; its signature projection omits only signature.value.",
   "type": "object",
   "required": [
     "schemaVersion",
@@ -19,8 +19,7 @@
     "receipts",
     "terminalBinding",
     "issuedAt",
-    "digest",
-    "signature"
+    "digest"
   ],
   "properties": {
     "schemaVersion": { "const": "agent-eval-attempt-checkpoint-1" },
@@ -87,8 +86,7 @@
       "additionalProperties": false
     },
     "issuedAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
-    "digest": { "$ref": "#/$defs/digest" },
-    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+    "digest": { "$ref": "#/$defs/digest" }
   },
   "additionalProperties": false,
   "$defs": {
@@ -105,7 +103,7 @@
       "additionalProperties": false
     },
     "attemptReceipt": {
-      "$comment": "receiptDigest is SHA-256 over RFC 8785 JCS of this receipt with receiptDigest and signature removed. Signing bytes are ASCII agent-evals-attempt-receipt-1, a zero byte, and JCS of this receipt with only signature.value omitted.",
+      "$comment": "receiptDigest is SHA-256 over RFC 8785 JCS of this receipt with receiptDigest removed. Signing bytes are ASCII agent-evals-attempt-receipt-1, a zero byte, and JCS of this receipt with only signature.value omitted.",
       "type": "object",
       "required": [
         "sequence",
@@ -116,8 +114,7 @@
         "parentAttemptId",
         "startedAt",
         "previousReceiptDigest",
-        "receiptDigest",
-        "signature"
+        "receiptDigest"
       ],
       "properties": {
         "sequence": { "type": "integer", "minimum": 1 },
@@ -138,8 +135,7 @@
             { "$ref": "#/$defs/digest" }
           ]
         },
-        "receiptDigest": { "$ref": "#/$defs/digest" },
-        "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+        "receiptDigest": { "$ref": "#/$defs/digest" }
       },
       "additionalProperties": false
     }

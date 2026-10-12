@@ -209,7 +209,7 @@
             "reviewRecordLocator": {
               "type": "string",
               "format": "uri",
-              "$comment": "Resolvable version-control or review-system record through which the reviewer identity and review change can be audited. This is accountability evidence, not a cryptographic signature or independent attestation."
+              "$comment": "Resolvable version-control or review-system record through which the reviewer identity and review change can be audited. This is accountability evidence, not independent attestation."
             },
             "reviewedAt": { "type": "string", "format": "date" },
             "reviewedLocator": { "type": ["string", "null"] },

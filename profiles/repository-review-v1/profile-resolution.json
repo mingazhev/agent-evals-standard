@@ -33,18 +33,6 @@
       "operation": "leaf_identity"
     },
     {
-      "pointer": "/claimTrustProfile",
-      "sourceProfileId": "repository-review-v1",
-      "sourceProfileVersion": "0.1.0",
-      "operation": "leaf_identity"
-    },
-    {
-      "pointer": "/claimTrustUse",
-      "sourceProfileId": "repository-review-v1",
-      "sourceProfileVersion": "0.1.0",
-      "operation": "leaf_identity"
-    },
-    {
       "pointer": "/effectiveRiskRange",
       "sourceProfileId": "repository-review-v1",
       "sourceProfileVersion": "0.1.0",
@@ -94,12 +82,6 @@
     },
     {
       "pointer": "/schemaVersion",
-      "sourceProfileId": "repository-review-v1",
-      "sourceProfileVersion": "0.1.0",
-      "operation": "leaf_identity"
-    },
-    {
-      "pointer": "/signatureProfile",
       "sourceProfileId": "repository-review-v1",
       "sourceProfileVersion": "0.1.0",
       "operation": "leaf_identity"
@@ -233,13 +215,6 @@
     "replacementProofs": "target_pointer_then_key_lexical"
   },
   "conflictStatus": "no_unresolved_conflicts",
-  "effectiveProfileDigest": "sha256:35f0a75298969e13d7351696cdf45cbfd83737e71ae71f8c525b069a66a300c2",
-  "digest": "sha256:4e9e41ae92c0d8f13f0f4f910d3caf2aa598d4ec1a021d23e7c8d723ee383e20",
-  "signature": {
-    "profileId": "fixture-signature-profile",
-    "algorithm": "Ed25519",
-    "keyId": "rfc8032-test-key-1",
-    "signedAt": "2026-08-01T00:00:00Z",
-    "value": "4eYICncSTGKjdfF2-EQph1lFgxFdvY9DNZy3RHK4YQa8OUZRATWCSPKYO3uYrpsyVkNTHJf6HHxjdQmhEphbAQ"
-  }
+  "effectiveProfileDigest": "sha256:6732d9da6e3339a199bd56c20f12ebd9df3ffdc21c4a867be8fd2448b3109fac",
+  "digest": "sha256:d156c574ec861067981fe7f1b2512c0c3abdcb96d760a1b347aa5450f65c161a"
 }

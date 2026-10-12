@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:agent-evals-standard:schema:outcome-replay-executor-registry:1",
-  "title": "Distribution-owned outcome replay executor registry",
+  "title": "Evaluator-pinned outcome replay executor registry",
   "type": "object",
   "required": ["schemaVersion", "id", "version", "executors"],
   "properties": {

@@ -26,7 +26,7 @@ scorecard represents one sealed experiment and contains:
 5. metrics, costs, diagnostics, provenance, and canonical evidence references.
 
 The immutable scorecard is the semantic-validation subject. It **MUST NOT**
-embed its semantic-validation result. A separate signed
+embed its semantic-validation result. A separate
 `validation-envelope-1` binds the scorecard's canonical digest as defined by
 `EVID-002`.
 
@@ -41,9 +41,9 @@ manifest digest, suite and case-set identity, assurance level, intended use,
 effective-risk range, `runMode`, `claimEligibility`, scheduled-cell commitment,
 and start and close times.
 Semantic validation **MUST** resolve
-`experiment.scheduledSetCommitment` itself to an authenticated signed
+`experiment.scheduledSetCommitment` itself to an authenticated sealed
 `pre-run-manifest-1` and derive the sealed schedule, evaluator, profiles,
-policies, and plans from that artifact. A fixture path, database lookup, or
+policies, and plans from that artifact. An example path, database lookup, or
 other out-of-band related-record hint **MUST NOT** serve as the trust root. The
 experiment, attempt-ledger, attempt-integrity, and provenance commitments
 **MUST** identify that same pre-run subject.
@@ -93,11 +93,11 @@ registries.
 
 | Gate ID | Required evidence | Failure effect |
 | --- | --- | --- |
-| `evidenceAuthenticity` | canonical evidence references, producer authorization, digests, attestations, and result-channel proof | invalid measurement when indeterminate; unsafe violation when attributed |
+| `evidenceAuthenticity` | canonical evidence references, producer authorization, digests, and result-channel proof | invalid measurement when indeterminate; unsafe violation when attributed |
 | `oracleIsolation` | projection manifest, access controls, network/session audit, and teardown evidence | invalid measurement or attributed unsafe violation |
 | `isolatedExecution` | filesystem, process, identity, resource, egress, cache, and external-service enforcement | invalid measurement |
 | `trustedMeasurementBoundary` | immutable snapshot, runner-owned graders/adjudication packaging, bounded parsers, and positive attack controls | invalid measurement or attributed unsafe violation |
-| `attemptAccounting` | scheduled-cell commitment, complete signed ledger, lineage, and count reconciliation | invalid attempt integrity and affected claims insufficient |
+| `attemptAccounting` | scheduled-cell commitment, complete hash-chained ledger, lineage, and count reconciliation | invalid attempt integrity and affected claims insufficient |
 | `permissionPolicy` | declared tool/data permissions, approvals, accesses, and prohibited-action audit | attributed violation is unsafe; missing audit is invalid |
 | `dataAndRetentionPolicy` | access class, processor authorization, export, retention, and deletion controls | unsafe or invalid according to attribution |
 
@@ -179,7 +179,7 @@ claim.{id,type,intendedDecision,construct,estimand,direction,
 Supported types include `capability`, `reliability`, `comparative`, `quality`,
 `safety`, `cost`, and `governance_evidence`. Evaluation profiles can add namespaced types.
 
-For every claims-eligible run, the signed pre-run statistical plan **MUST**
+For every claims-eligible run, the sealed pre-run statistical plan **MUST**
 contain exactly one `claimContracts[]` entry per primary or exploratory claim.
 That entry seals, before observation, at least the claim ID and classification,
 type, estimand, direction, success definition, analysis unit, threshold,
@@ -264,7 +264,8 @@ For an accepted `solved`, `correct_refusal`, or `already_satisfied` result, the
 trial's `artifactIds` **MUST** resolve the selected outcome profile's exact
 `terminalEvidenceRequirements` in `evidenceManifest`. Each required artifact
 **MUST** carry the declared `artifactType`, satisfy its cardinality and URI-binding
-rule, resolve to material bytes under `EVID-001`, and have a valid attestation.
+rule, resolve to material bytes under `EVID-001`, and come from a producer
+authorized for that artifact type.
 A content digest without the required artifact type or without resolvable bytes
 does not satisfy terminal evidence. Evidence-kind-specific structure,
 applicability, and alternative-terminal rules belong only to the selected
@@ -339,7 +340,7 @@ compatibility is claim-specific: an incompatible outcome is non-success for that
 claim; it does not rewrite the trial's normalized or profile-native outcome.
 
 Evidence-kind names are not claimant-defined labels. For every kind-bound
-artifact, the distribution-owned replay executor **MUST** execute the semantic
+artifact, the evaluator-pinned replay executor **MUST** execute the semantic
 contract authenticated for the selected outcome-profile ID. A kind from one
 profile has no authority in another unless that profile independently registers
 it. Unknown kinds, unresolved contracts, and wrong schema, subject, cell,
@@ -372,7 +373,7 @@ In version 0.1.0, `accepted-outcome-v1(t)` is true exactly when
 `functional-outcome-v1(t)` is true and every expected governance status is
 `not_applicable`. A `resolved` status remains false for this immutable trial
 predicate and may support only a later, independently validated governance
-decision through the signed resolution ledger. This version permits no waiver.
+decision through the resolution ledger. This version permits no waiver.
 A declared gap does not change the trial predicate; it restricts named claims.
 
 Version 0.1.0 permits only `functional-outcome-v1` and `accepted-outcome-v1`
@@ -382,9 +383,10 @@ free text. Cell resolution depends on measurement validity and retry lineage,
 not on whether the selected trial satisfies a success predicate.
 
 For every resolved cell used by a claim, the scorecard **MUST** carry an
-`outcomeReplay` binding to an executor selected from the verifier's installed,
-distribution-owned registry. The verifier **MUST** authenticate the executor
-bytes and independently execute the profile's outcome rule, evidence-mode
+`outcomeReplay` binding to an executor selected from a registry pinned by the
+verifier's own configuration or by the sealed evaluator manifest. The verifier
+**MUST** hash the executor bytes and independently execute the profile's
+outcome rule, evidence-mode
 rules, `functional-outcome-v1`, and `accepted-outcome-v1`. Reported
 `primaryOutcome`, `terminalState`, `functional`, `accepted`, success
 assignments, statistics, outcome counts, and success-conditioned cost metrics
@@ -399,9 +401,9 @@ separately authenticated replay receipt binds both exact digests and supplies
 those grader facts to the pinned executor. Grader and receipt authority **MUST**
 come from a non-claimant trust root configured outside the scorecard and receipt;
 runner-capture authority is configured independently for the evaluated artifact.
-A receipt-discovered key, executor, role string, or trust policy is not trust.
-The conformance corpus's test receipt is explicitly `conformance_fixture_only`
-and **MUST NOT** authorize an operational claim.
+A receipt-discovered executor, role string, or authority policy is not
+authority. An example receipt in this repository is illustrative and **MUST
+NOT** authorize an operational claim.
 When no registered executor or independently authenticated grader-assessment
 and receipt chain can reproduce the predicates, the cell and every dependent
 result are diagnostic or `insufficient_evidence`; an implementation **MUST NOT**
@@ -502,7 +504,7 @@ attemptIntegrity.{status,scheduledCells,resolvedCells,unresolvedCells,
   externalAttemptCheckpoint}
 ```
 
-The signed ledger **MUST** reconcile every transition, terminal attempt record,
+The ledger **MUST** reconcile every transition, terminal attempt record,
 parent lineage, artifact manifest, telemetry record, count, and root. The first
 eligible valid lineage member resolves a cell; a later attempt **MUST NOT**
 replace it or select a more favorable result.
@@ -518,7 +520,7 @@ terminalLedgerRoot = root[attemptRecords.length]
 ```
 
 The scorecard's attempt records and both roots **MUST** equal the authenticated
-ledger. Its scheduled-set commitment **MUST** bind the signed pre-run manifest.
+ledger. Its scheduled-set commitment **MUST** bind the sealed pre-run manifest.
 The pre-run retry policy fixes the maximum attempts per cell, retryable
 measurement-validity states, a linear parent chain, first-valid selection, and
 whether retry after a valid attempt is allowed. An unresolved pointer or an
@@ -528,19 +530,19 @@ unknown contract version fails closed; a validator cannot substitute an opaque
 #### Independent attempt checkpoint
 
 An internally consistent ledger is not sufficient: an evaluator able to delete
-a failed attempt can recompute both roots, the ledger digest, and the scorecard
-signature. Every dispatched physical attempt therefore **MUST** have an
-`agent-eval-attempt-checkpoint-1` scheduler receipt issued by a trust boundary
-authorized independently of the scorecard signer. A receipt binds its sequence,
-experiment, scheduled-set digest, attempt and cell IDs, parent attempt, start
-time, and predecessor receipt digest.
+a failed attempt can recompute both roots and the ledger digest. Every
+dispatched physical attempt therefore **MUST** have an
+`agent-eval-attempt-checkpoint-1` scheduler receipt appended to a log that the
+scorecard producer cannot rewrite — for example, a protected branch or
+append-only store owned by a scheduler whose trust domain differs from the
+scorecard producer's. A receipt binds its sequence, experiment, scheduled-set
+digest, attempt and cell IDs, parent attempt, start time, and predecessor
+receipt digest.
 
 For `sha256-jcs-receipts-v1`:
 
 ```text
-receiptDigest = SHA-256(JCS(receipt without receiptDigest and signature))
-receiptSigningBytes = ASCII("agent-evals-attempt-receipt-1") || 0x00 ||
-  UTF8(JCS(receipt with only signature.value omitted))
+receiptDigest = SHA-256(JCS(receipt without receiptDigest))
 ```
 
 Sequences **MUST** start at one, be contiguous, and use the preceding receipt's
@@ -550,42 +552,33 @@ terminal checkpoint for the scheduled-set commitment. The checkpoint binds:
 
 - the external log ID, terminal sequence, predecessor checkpoint, and immutable
   publication URI;
-- the complete signed receipt chain and its head;
+- the complete receipt chain and its head;
 - the exact ledger ID and digest;
 - receipt count, ordered-attempt-ID digest, full attempt-record-array digest,
   initial ledger root, terminal ledger root, and close time.
 
 The ordered-attempt-ID digest is `SHA-256(JCS(receipts.map(attemptId)))`; the
 attempt-record digest is `SHA-256(JCS(ledger.attemptRecords))`. The checkpoint
-digest and signature use:
+digest uses:
 
 ```text
-checkpointDigest = SHA-256(JCS(checkpoint without digest and signature))
-checkpointSigningBytes = ASCII("agent-eval-attempt-checkpoint-1") || 0x00 ||
-  UTF8(JCS(checkpoint with only signature.value omitted))
+checkpointDigest = SHA-256(JCS(checkpoint without digest))
 ```
 
 `attemptIntegrity.externalAttemptCheckpoint` **MUST** resolve this checkpoint.
-Verification **MUST** obtain the authorized scheduler key and current terminal
-`{logId, checkpointSequence, digest}` from externally configured trust and
-append-only-log state, never from the scorecard alone. It **MUST** verify every
-receipt and checkpoint signature, scheduler role and trust domain, scorecard
-signer separation, contiguous receipt chain, ledger digest and roots, ordered
-attempt identities, full records, counts, lineage fields, and time ordering.
-Missing external trust or log-head state fails closed.
+Verification **MUST** obtain the configured scheduler identity and the current
+terminal `{logId, checkpointSequence, digest}` from the scheduler's log, never
+from the scorecard alone. It **MUST** verify scheduler role and trust domain,
+separation of the scheduler's and the scorecard producer's trust domains, the
+contiguous receipt chain, ledger digest and roots, ordered attempt identities,
+full records, counts, lineage fields, and time ordering. Missing scheduler
+identity or log-head state fails closed.
 
-Deleting a failed attempt and recomputing or re-signing any evaluator-controlled
-artifact **MUST** be rejected because it cannot change the independently signed
-receipt chain and terminal checkpoint. The machine-readable checkpoint is
+Deleting a failed attempt and recomputing any evaluator-controlled artifact
+**MUST** be rejected because it cannot change the receipt chain and terminal
+checkpoint already appended to the scheduler's log. The machine-readable
+checkpoint is
 [`attempt-checkpoint.schema.json`](../schemas/attempt-checkpoint.schema.json).
-The exported reference function `verifyAttemptLedgerCheckpoint` is in
-[`verify-material-integrity.mjs`](../tools/verify-material-integrity.mjs); an
-integration passes the resolved checkpoint, material ledger, scorecard
-`attemptIntegrity`, scorecard signature, externally trusted scheduler keys, and
-the externally resolved scorecard signer key and trust domain, plus the
-externally observed log head. It treats every returned issue as invalid attempt
-integrity. Signer separation compares authorization domains and resolved public
-keys, not merely self-asserted key IDs.
 
 ### Conservative Bounds
 
@@ -620,14 +613,9 @@ weights, then use `[lower(A) - upper(B), upper(A) - lower(B)]`. A harm claim
 changes the favorable direction, not endpoint ordering. Bounds **MUST** use
 scheduled cells, never physical-attempt counts.
 
-**Informative implementation limit.** The bundled fixture verifier executes
-aggregate `complete-case` version `0.1.0`
-only for single-arm, positive `functional success probability` claims with
-`analysisUnit: scheduled_cell`, per-case pass@1 statistics, and case weights
-proportional to scheduled eligible cells. Other methods and estimands require
-their own pinned statistical verifier. The bundled checker cannot validate a
-`supported` result for them through range checks alone; an honestly
-`insufficient_evidence` diagnostic remains representable.
+Every method and estimand requires a pinned statistical verifier that can
+reproduce it. Range checks alone cannot validate a `supported` result; an
+honestly `insufficient_evidence` diagnostic remains representable.
 
 A different missingness model **MUST** be sealed before results and identify its
 assumptions, covariates, estimand, sensitivity analysis, verifier, and failure

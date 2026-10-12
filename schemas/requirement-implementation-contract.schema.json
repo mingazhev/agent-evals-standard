@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:agent-evals-standard:schema:requirement-implementation-contract:1",
   "title": "Closed requirement implementation routing contract",
-  "$comment": "This contract routes every requirement to its requirement-owned verification contract. It contains no claimant-declared conformance, preservation, strengthening, applicability, or verdict field. Semantic validation authenticates the canonical registry and the distribution-owned resolver, then recomputes every entry.",
+  "$comment": "This contract routes every requirement to its requirement-owned verification contract. It contains no claimant-declared conformance, preservation, strengthening, applicability, or verdict field. Semantic validation authenticates the canonical registry and the evaluator-pinned resolver, then recomputes every entry.",
   "type": "object",
   "required": ["schemaVersion", "id", "version", "profile", "sourceProfile", "requirementRegistry", "resolver", "implementations"],
   "properties": {

@@ -7,7 +7,7 @@
     "schemaVersion", "caseVersion", "contracts", "id", "evaluationProfile", "outcomeProfile", "capabilityFamilyIds", "capabilityClassification", "applicability", "source", "repository", "task",
     "agentVisibleProjection", "setupExecutors", "contamination", "leakageControls", "inherentRiskAssessment", "inherentRiskTier", "tags",
     "memberships", "sliceIds", "lifecycle", "environment", "budgets", "validation", "decisionSurfaces",
-    "claimRegistry", "interactionModeId", "workArtifactRegistry", "workArtifactTypes", "scoring", "artifactPolicy", "policy", "ownership", "digest", "signature"
+    "claimRegistry", "interactionModeId", "workArtifactRegistry", "workArtifactTypes", "scoring", "artifactPolicy", "policy", "ownership", "digest"
   ],
   "properties": {
     "schemaVersion": { "const": "agent-eval-case-1" },
@@ -174,8 +174,7 @@
       },
       "additionalProperties": false
     },
-    "digest": { "$ref": "#/$defs/digest" },
-    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+    "digest": { "$ref": "#/$defs/digest" }
   },
   "allOf": [
     {

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:agent-evals-standard:schema:conformance-statement:1",
-  "title": "Git-backed Repository SDLC Agent Evals Standard signed conformance statement",
+  "title": "Git-backed Repository SDLC Agent Evals Standard conformance statement",
   "type": "object",
   "required": [
     "schemaVersion",
@@ -19,11 +19,7 @@
     "claimRestrictions",
     "issuer",
     "issuedAt",
-    "reviewAt",
-    "signatureProfile",
-    "claimTrustProfile",
-    "claimTrustUse",
-    "signature"
+    "reviewAt"
   ],
   "properties": {
     "schemaVersion": { "const": "agent-eval-conformance-statement-1" },
@@ -104,11 +100,10 @@
           "minItems": 1,
           "items": {
             "type": "object",
-            "required": ["id", "role", "attestation"],
+            "required": ["id", "role"],
             "properties": {
               "id": { "type": "string", "minLength": 1 },
-              "role": { "type": "string", "minLength": 1 },
-              "attestation": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+              "role": { "type": "string", "minLength": 1 }
             },
             "additionalProperties": false
           }
@@ -173,20 +168,15 @@
     },
     "issuer": {
       "type": "object",
-      "required": ["id", "name", "verificationMethod"],
+      "required": ["id", "name"],
       "properties": {
         "id": { "type": "string", "minLength": 1 },
-        "name": { "type": "string", "minLength": 1 },
-        "verificationMethod": { "type": "string", "minLength": 1 }
+        "name": { "type": "string", "minLength": 1 }
       },
       "additionalProperties": false
     },
     "issuedAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
-    "reviewAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
-    "signatureProfile": { "$comment": "The exact versioned verification profile that makes this statement independently verifiable.", "$ref": "#/$defs/signatureProfilePointer" },
-    "claimTrustProfile": { "$comment": "The separately governed operational trust profile for accepting conformance claims. It must match every effective evaluation profile in scope and must not be inferred from fixture signature verification.", "$ref": "#/$defs/signatureProfilePointer" },
-    "claimTrustUse": { "$comment": "A repository fixture signature is never deployment trust. deployment_bound requires externally provisioned, owner-verified trust and cannot use repository reference keys.", "enum": ["conformance_fixture_requires_external_rekey", "deployment_bound"] },
-    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+    "reviewAt": { "type": "string", "format": "date-time", "pattern": "Z$" }
   },
   "allOf": [
     {
@@ -234,10 +224,6 @@
     {
       "if": { "type": "object", "properties": { "deviations": { "type": "array", "minItems": 1 } }, "required": ["deviations"] },
       "then": { "type": "object", "properties": { "claimRestrictions": { "type": "array", "minItems": 1 } } }
-    },
-    {
-      "if": { "type": "object", "properties": { "claimTrustUse": { "const": "conformance_fixture_requires_external_rekey" } }, "required": ["claimTrustUse"] },
-      "then": { "type": "object", "properties": { "claimRestrictions": { "type": "array", "contains": { "type": "object", "properties": { "claim": { "const": "deployment_trust" } }, "required": ["claim"] } } } }
     }
   ],
   "additionalProperties": false,
@@ -310,7 +296,6 @@
       ],
       "additionalProperties": false
     },
-    "signatureProfilePointer": { "type": "object", "required": ["id", "version", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/artifactRef" }, "version": { "type": "string", "minLength": 1 }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
     "manifestPointer": { "$comment": "Semantic validation resolves the exact distribution-manifest bytes, verifies digest and entriesDigest, rejects duplicate identities or URIs, and requires the entries to equal the closed schema or contract set of the pinned standard distribution. Numeric entry counts are intentionally not accepted as evidence of completeness.", "type": "object", "required": ["id", "version", "uri", "digest", "entriesDigest"], "properties": { "id": { "$ref": "#/$defs/artifactRef" }, "version": { "const": "0.1.0" }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" }, "entriesDigest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
     "contractManifest": { "$ref": "#/$defs/manifestPointer" },
     "schemaManifest": { "$ref": "#/$defs/manifestPointer" },
@@ -376,7 +361,7 @@
       "additionalProperties": false
     },
     "conformanceDependencyEntry": {
-      "$comment": "A compound cryptographic edge. Semantic validation resolves and validates all three artifacts, verifies both signatures and trust, reproduces the envelope subject digest, and requires an exact conforming target match.",
+      "$comment": "A compound content-addressed edge. Semantic validation resolves and validates all three artifacts, verifies their digests and producer authority, reproduces the envelope subject digest, and requires an exact conforming target match.",
       "type": "object",
       "required": ["role", "targetType", "subjectSchema", "targetSubject", "statement", "validationEnvelope"],
       "properties": {
@@ -415,7 +400,7 @@
       "additionalProperties": false
     },
     "conformanceProofPayload": {
-      "$comment": "The signed evidence wrapper authenticates only this binding graph. It cannot establish a requirement result. Semantic validation must authenticate the independently governed verifier registry, resolve every material verification-record and input byte string, authorize its signer, and replay the registered adapter or validate every independently signed review criterion before deriving a status.",
+      "$comment": "The evidence wrapper authenticates only this binding graph. It cannot establish a requirement result. Semantic validation must authenticate the independently governed verifier registry, resolve every material verification-record and input byte string, authorize its signer, and replay the registered adapter or validate every independently signed review criterion before deriving a status.",
       "type": "object",
       "required": ["schemaVersion", "id", "version", "statementId", "target", "targetId", "targetSubject", "dependencyManifest", "scopeSlices", "applicabilityContract", "verifierRegistry", "proofAssertions"],
       "properties": {
@@ -522,10 +507,9 @@
     },
     "authorizedProofActor": {
       "type": "object",
-      "required": ["actorId", "keyId", "trustDomain"],
+      "required": ["actorId", "trustDomain"],
       "properties": {
         "actorId": { "$ref": "#/$defs/artifactRef" },
-        "keyId": { "$ref": "#/$defs/artifactRef" },
         "trustDomain": { "$ref": "#/$defs/artifactRef" }
       },
       "additionalProperties": false
@@ -598,9 +582,9 @@
       "additionalProperties": false
     },
     "conformanceVerifierRegistry": {
-      "$comment": "The registry signature must resolve through a trust anchor provisioned outside the conformance statement and proof-set. A claimant-created or proof-embedded trust anchor is not authority.",
+      "$comment": "The registry digest must be pinned outside the conformance statement and proof-set. A claimant-created or proof-embedded registry is not authority.",
       "type": "object",
-      "required": ["schemaVersion", "id", "version", "validFrom", "expiresAt", "entries", "issuer", "digest", "signature"],
+      "required": ["schemaVersion", "id", "version", "validFrom", "expiresAt", "entries", "issuer", "digest"],
       "properties": {
         "schemaVersion": { "const": "agent-eval-conformance-verifier-registry-1" },
         "id": { "$ref": "#/$defs/artifactRef" },
@@ -622,8 +606,7 @@
           },
           "additionalProperties": false
         },
-        "digest": { "$ref": "#/$defs/digest" },
-        "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+        "digest": { "$ref": "#/$defs/digest" }
       },
       "additionalProperties": false
     },
@@ -661,9 +644,9 @@
       "additionalProperties": false
     },
     "conformanceVerificationRecord": {
-      "$comment": "This material record is not trusted for its result field. Automated results are replayed from authenticated input bytes with the pinned adapter. Review results require an authorized independently signed record and exact, explicit registered criteria.",
+      "$comment": "This material record is not trusted for its result field. Automated results are replayed from authenticated input bytes with the pinned adapter. Review results require an authorized independent reviewer's record and exact, explicit registered criteria.",
       "type": "object",
-      "required": ["schemaVersion", "id", "version", "proofAssertionId", "scopeSliceId", "target", "targetId", "targetSubjectDigest", "dependencyManifestDigest", "requirementId", "method", "registry", "entryId", "inputBindings", "result", "findingIds", "actor", "executedAt", "digest", "signature"],
+      "required": ["schemaVersion", "id", "version", "proofAssertionId", "scopeSliceId", "target", "targetId", "targetSubjectDigest", "dependencyManifestDigest", "requirementId", "method", "registry", "entryId", "inputBindings", "result", "findingIds", "actor", "executedAt", "digest"],
       "properties": {
         "schemaVersion": { "const": "agent-eval-conformance-verification-record-1" },
         "id": { "$ref": "#/$defs/artifactRef" },
@@ -693,8 +676,7 @@
         "criteria": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/reviewCriterionResult" } },
         "actor": { "$ref": "#/$defs/proofActor" },
         "executedAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
-        "digest": { "$ref": "#/$defs/digest" },
-        "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+        "digest": { "$ref": "#/$defs/digest" }
       },
       "allOf": [
         {

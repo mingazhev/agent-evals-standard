@@ -23,8 +23,7 @@
     "roles",
     "separationOfDutiesEvidence",
     "conditionTrace",
-    "approvalEnvelope",
-    "signature"
+    "approvalEnvelope"
   ],
   "properties": {
     "schemaVersion": { "const": "agent-eval-governance-decision-1" },
@@ -93,8 +92,7 @@
         "autonomy": { "type": "string", "minLength": 1 }
       },
       "additionalProperties": false
-    },
-    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+    }
   },
   "allOf": [
     {

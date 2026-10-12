@@ -1192,12 +1192,7 @@
         "kind": "source_evidence",
         "sourceIds": [
           "SRC-RFC8785-2020",
-          "SRC-RFC8032-2017",
-          "SRC-FIPS1865-2023",
           "SRC-INTOTO-2019",
-          "SRC-RFC7518-2015",
-          "SRC-RFC9864-2025",
-          "SRC-RFC8017-2016",
           "SRC-RFC9162-2021"
         ]
       },
@@ -1809,5 +1804,5 @@
       }
     }
   ],
-  "digest": "sha256:be32eaebcbee3200baa3c0f3edc49183ccafb550feba1801e8292ef85cfce771"
+  "digest": "sha256:bda83a4a324f5999196633285efb39adb8ca3ee32ff7f7749b15d1f94d714db6"
 }

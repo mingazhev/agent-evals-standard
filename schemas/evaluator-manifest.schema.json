@@ -18,8 +18,7 @@
     "externalDependencies",
     "positiveControlRecords",
     "negativeControlRecords",
-    "digest",
-    "signature"
+    "digest"
   ],
   "properties": {
     "schemaVersion": { "const": "agent-eval-evaluator-manifest-1" },
@@ -117,21 +116,20 @@
       "items": { "$ref": "#/$defs/externalDependency" }
     },
     "positiveControlRecords": {
-      "$comment": "Every pointer must resolve exactly once to a signed material evaluator-control record. The pointer digest authenticates the record bytes; payloadDigest authenticates the record's evidence payload. A positive control must contain a known violation with expectedDetection=true and observedDetection=true for the exact bound evaluator implementation and detector components.",
+      "$comment": "Every pointer must resolve exactly once to a material evaluator-control record. The pointer digest authenticates the record bytes; payloadDigest authenticates the record's evidence payload. A positive control must contain a known violation with expectedDetection=true and observedDetection=true for the exact bound evaluator implementation and detector components.",
       "type": "array",
       "minItems": 1,
       "items": { "$ref": "#/$defs/controlRecordPointer" },
       "uniqueItems": true
     },
     "negativeControlRecords": {
-      "$comment": "Every pointer must resolve exactly once to a signed material evaluator-control record. A negative control must contain a known benign stimulus with expectedDetection=false and observedDetection=false for the exact bound evaluator implementation and detector components.",
+      "$comment": "Every pointer must resolve exactly once to a material evaluator-control record. A negative control must contain a known benign stimulus with expectedDetection=false and observedDetection=false for the exact bound evaluator implementation and detector components.",
       "type": "array",
       "minItems": 1,
       "items": { "$ref": "#/$defs/controlRecordPointer" },
       "uniqueItems": true
     },
-    "digest": { "$ref": "#/$defs/digest" },
-    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+    "digest": { "$ref": "#/$defs/digest" }
   },
   "additionalProperties": false,
   "$defs": {
@@ -165,8 +163,8 @@
         "id": { "$ref": "#/$defs/id" },
         "version": { "const": "0.1.0" },
         "uri": { "type": "string", "minLength": 1 },
-        "digest": { "$comment": "SHA-256 of the exact signed control-record file bytes.", "$ref": "#/$defs/digest" },
-        "payloadDigest": { "$comment": "SHA-256 of the material control-result payload bytes authenticated by the record attestation.", "$ref": "#/$defs/digest" }
+        "digest": { "$comment": "SHA-256 of the exact control-record file bytes.", "$ref": "#/$defs/digest" },
+        "payloadDigest": { "$comment": "SHA-256 of the material control-result payload bytes bound by the record digest.", "$ref": "#/$defs/digest" }
       },
       "additionalProperties": false
     },
@@ -192,7 +190,6 @@
             "adjudication_packager",
             "artifact_capture",
             "semantic_validator",
-            "signature_verifier",
             "statistics_engine",
             "scorecard_builder",
             "governance_status_resolver",

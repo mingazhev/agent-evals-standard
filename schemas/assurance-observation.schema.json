@@ -26,8 +26,7 @@
     "producer",
     "reviewer",
     "evidence",
-    "observedAt",
-    "signature"
+    "observedAt"
   ],
   "properties": {
     "schemaVersion": { "const": "agent-eval-assurance-observation-1" },
@@ -88,8 +87,7 @@
     "producer": { "$ref": "#/$defs/actor" },
     "reviewer": { "$ref": "#/$defs/actor" },
     "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/artifactRef" }, "uniqueItems": true },
-    "observedAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
-    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+    "observedAt": { "type": "string", "format": "date-time", "pattern": "Z$" }
   },
   "additionalProperties": false,
   "$defs": {

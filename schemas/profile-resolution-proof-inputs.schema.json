@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:agent-evals-standard:schema:profile-resolution-proof-inputs:1",
   "title": "Authenticated inputs for evaluation-profile replacement proofs",
-  "$comment": "This artifact supplies only the parent and child declarations consumed by the distribution-owned PROFILE-001 resolver. It cannot declare a verifier, relation, verdict, preservation result, or strengthening result.",
+  "$comment": "This artifact supplies only the parent and child declarations consumed by the evaluator-pinned PROFILE-001 resolver. It cannot declare a verifier, relation, verdict, preservation result, or strengthening result.",
   "type": "object",
   "required": ["schemaVersion", "id", "version", "profile", "proofInputs"],
   "properties": {

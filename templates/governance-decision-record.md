@@ -4,7 +4,7 @@
 - Template version: 0.1.0
 
 This authoring view represents one decision over immutable scorecards and claim
-results. The signed decision is a validation subject and **MUST NOT** embed its
+results. The decision is a validation subject and **MUST NOT** embed its
 semantic-validation result. A detached `validation-envelope-1` binds the final
 decision digest.
 
@@ -171,8 +171,9 @@ An override or waiver **MUST NOT** be inferred from free text or silence.
 The record applies only thresholds and actions sealed in the policy and
 decision plan; it does not invent them after observing results.
 
-## Signature and Detached Validation
+## Integrity and Detached Validation
 
-- Decision signer ID/key/suite/signature:
+- Decision issuer ID and role:
+- Commit that seals the decision record:
 - Canonical decision digest:
 - Detached validation-envelope ID/location/digest:

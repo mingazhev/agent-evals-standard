@@ -26,20 +26,14 @@ profile.
 
 ## Substantive acceptance
 
-Read-only execution and valid digests are necessary but not sufficient. The
-focused positive fixture compares the decision with a sealed material oracle.
+Read-only execution and valid digests are necessary but not sufficient. A
+conforming implementation compares the decision with a sealed material oracle.
 The outcome profile also permits blinded hybrid adjudication. A missing
 material finding, an unsupported finding, or a wrong disposition fails closed.
 
 The profile-resolution record, terminal evidence, environment, profile, and
-outcome profile are content-bound. Fixture signatures use the public RFC 8032
-test key and prove interoperability mechanics only; deployment or governance
-use requires externally provisioned trust.
-
-Run the focused proof with:
-
-    node profiles/repository-review-v1/verify-profile.mjs
-
-The verifier exercises one positive and twenty-two negative vectors. This is a
-small end-to-end profile proof, not a complete evaluation suite, empirical
-benchmark result, or conformance claim for an agent implementation.
+outcome profile are content-bound. The bundled profile demonstrates how the
+contracts fit together; it is not a complete evaluation suite, empirical
+benchmark result, or conformance claim for an agent implementation. Its
+positive and negative examples are listed in
+[`examples/manifest.json`](../../examples/manifest.json).

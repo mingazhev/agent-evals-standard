@@ -1,0 +1,318 @@
+{
+  "schemaVersion": "agent-eval-suite-manifest-1",
+  "id": "suite-fixture-typed-1",
+  "version": "0.1.0",
+  "intendedUse": "Held-out evaluation of enterprise repository changes under controlled execution.",
+  "sdlcCoverage": {
+    "id": "suite-sdlc-coverage",
+    "version": "0.1.0",
+    "uri": "suite-sdlc-coverage.json",
+    "digest": "sha256:4321a0f957d09fe3c1ae6e5135b75a106b9e979454534789392ab7b00a1cf42d"
+  },
+  "evaluationProfiles": [
+    {
+      "id": "repo-change-v1",
+      "version": "0.1.0",
+      "uri": "../../../profiles/repo-change-v1/evaluation-profile.json",
+      "digest": "sha256:ed59c2e83b8096aa53e388304716f22e99c720700bb6b404e903537aef99c76d"
+    }
+  ],
+  "cases": [
+    {
+      "id": "case-fixture-typed-1",
+      "version": "0.1.0",
+      "uri": "artifact:sha256:4186c25f5a999f316678b3a64e2282f8236a3c65511b9dd70dd3c9b86dcc8eba",
+      "digest": "sha256:4186c25f5a999f316678b3a64e2282f8236a3c65511b9dd70dd3c9b86dcc8eba",
+      "byteLength": 22260,
+      "mediaType": "application/json",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "stage-case.json"
+      },
+      "selfDigest": "sha256:52d46f5570e494a35fe0b29b6e05a7869fb7aadd54834f7c8cf82a6cc20b4881",
+      "evaluationProfile": {
+        "id": "repo-change-v1",
+        "version": "0.1.0",
+        "digest": "sha256:ed59c2e83b8096aa53e388304716f22e99c720700bb6b404e903537aef99c76d"
+      },
+      "effectiveProfileDigest": "sha256:cae0789af93296f590f8b2e9576a9e0e73aff4c6e53debe4fbb1c4e64487436b",
+      "outcomeProfile": {
+        "id": "workspace-change-v1",
+        "version": "0.1.0",
+        "digest": "sha256:f8898ca1711f8e725f4babb3c884669d1a4917ed75839950c6425d0ebc729cf7"
+      },
+      "capabilityFamilyIds": [
+        "CAP.IMPLEMENT_CHANGE",
+        "CAP.VERIFY_ASSURE"
+      ],
+      "workArtifactTypes": [
+        "code_change",
+        "test_change",
+        "assurance_report"
+      ],
+      "memberships": [
+        "development"
+      ],
+      "lifecycle": "candidate"
+    },
+    {
+      "id": "case-fixture-typed-2",
+      "version": "0.1.0",
+      "uri": "artifact:sha256:8d55de2f93aae65dcc7f2a9682b5968c270b45c221773cdec0e5d1f654bfff60",
+      "digest": "sha256:8d55de2f93aae65dcc7f2a9682b5968c270b45c221773cdec0e5d1f654bfff60",
+      "byteLength": 22260,
+      "mediaType": "application/json",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "stage-case-2.json"
+      },
+      "selfDigest": "sha256:09b5ba298e3ec001a19728bc2299e8ee91596f6a2c2772d3de186d03f13cd0a9",
+      "evaluationProfile": {
+        "id": "repo-change-v1",
+        "version": "0.1.0",
+        "digest": "sha256:ed59c2e83b8096aa53e388304716f22e99c720700bb6b404e903537aef99c76d"
+      },
+      "effectiveProfileDigest": "sha256:cae0789af93296f590f8b2e9576a9e0e73aff4c6e53debe4fbb1c4e64487436b",
+      "outcomeProfile": {
+        "id": "workspace-change-v1",
+        "version": "0.1.0",
+        "digest": "sha256:f8898ca1711f8e725f4babb3c884669d1a4917ed75839950c6425d0ebc729cf7"
+      },
+      "capabilityFamilyIds": [
+        "CAP.IMPLEMENT_CHANGE",
+        "CAP.VERIFY_ASSURE"
+      ],
+      "workArtifactTypes": [
+        "code_change",
+        "test_change",
+        "assurance_report"
+      ],
+      "memberships": [
+        "development"
+      ],
+      "lifecycle": "candidate"
+    }
+  ],
+  "slices": [
+    {
+      "id": "held-out-medium-risk",
+      "kind": "governance",
+      "caseIds": [
+        "case-fixture-typed-1",
+        "case-fixture-typed-2"
+      ],
+      "frozen": true,
+      "targetPopulation": "enterprise SDLC repository changes",
+      "representedStrata": [
+        "medium-risk-change"
+      ]
+    }
+  ],
+  "composition": {
+    "id": "suite-composition",
+    "uri": "artifact:fixture:suite-composition",
+    "digest": "sha256:8bf3aff2e65ab637a5e5e4c204d32b3ee1cabab00954a63cd8a4ffd287e77fb0"
+  },
+  "maintenancePolicy": {
+    "id": "suite-maintenance-policy",
+    "uri": "artifact:fixture:suite-maintenance-policy",
+    "digest": "sha256:5334cce9fd0dd44b60e42d93fec9075104c3643ce75a4f58652c23cb53acd813"
+  },
+  "validityArgument": {
+    "contractType": "validity_argument",
+    "id": "suite-validity-argument-v1",
+    "version": "0.1.0",
+    "schemaId": "urn:agent-evals-standard:schema:validity-argument:1",
+    "uri": "artifact:sha256:c3bb766b68401f4f9f9d6685a90f0018415a2b96e29bb2e59733b485a20cdd16",
+    "digest": "sha256:c3bb766b68401f4f9f9d6685a90f0018415a2b96e29bb2e59733b485a20cdd16",
+    "byteLength": 7311,
+    "mediaType": "application/json",
+    "locator": {
+      "kind": "repository_relative",
+      "base": "binding_document",
+      "path": "validity-argument.json"
+    },
+    "verifier": {
+      "id": "machine-contract-focused-verifier",
+      "version": "0.1.0",
+      "uri": "artifact:sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+      "digest": "sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+      "byteLength": 77743,
+      "mediaType": "text/javascript",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "implementation/verify-machine-contract-bindings.mjs"
+      },
+      "entrypoint": "verify-machine-contract-bindings-v1"
+    },
+    "resolutionContract": {
+      "id": "machine-contract-resolution-v1",
+      "version": "0.1.0",
+      "uri": "artifact:sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+      "digest": "sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+      "byteLength": 389,
+      "mediaType": "application/json",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "resolution-contract.json"
+      },
+      "schemaId": "agent-eval-machine-contract-resolution-1"
+    },
+    "componentAuthority": {
+      "policyId": "fixture-evaluation-control-authority-policy",
+      "policyVersion": "0.1.0",
+      "policyDigest": "sha256:11920a11bbc9938fbaa69df1598fad48cd759d21a879477cb36a7f13e3c97069"
+    }
+  },
+  "evaluationThreatModel": {
+    "contractType": "evaluation_threat_model",
+    "id": "evaluation-threat-model-v1",
+    "version": "0.1.0",
+    "schemaId": "urn:agent-evals-standard:schema:evaluation-threat-model:1",
+    "uri": "artifact:sha256:7988cc6c63e53d3aa5dcd95aecb4a78350691917044ccef36c9bc850e50f125b",
+    "digest": "sha256:7988cc6c63e53d3aa5dcd95aecb4a78350691917044ccef36c9bc850e50f125b",
+    "byteLength": 3412,
+    "mediaType": "application/json",
+    "locator": {
+      "kind": "repository_relative",
+      "base": "binding_document",
+      "path": "evaluation-threat-model.json"
+    },
+    "verifier": {
+      "id": "machine-contract-focused-verifier",
+      "version": "0.1.0",
+      "uri": "artifact:sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+      "digest": "sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+      "byteLength": 77743,
+      "mediaType": "text/javascript",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "implementation/verify-machine-contract-bindings.mjs"
+      },
+      "entrypoint": "verify-machine-contract-bindings-v1"
+    },
+    "resolutionContract": {
+      "id": "machine-contract-resolution-v1",
+      "version": "0.1.0",
+      "uri": "artifact:sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+      "digest": "sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+      "byteLength": 389,
+      "mediaType": "application/json",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "resolution-contract.json"
+      },
+      "schemaId": "agent-eval-machine-contract-resolution-1"
+    },
+    "componentAuthority": {
+      "policyId": "fixture-evaluation-control-authority-policy",
+      "policyVersion": "0.1.0",
+      "policyDigest": "sha256:11920a11bbc9938fbaa69df1598fad48cd759d21a879477cb36a7f13e3c97069"
+    }
+  },
+  "heldOutExposure": {
+    "budget": {
+      "contractType": "held_out_exposure_budget",
+      "id": "held-out-exposure-budget-v1",
+      "version": "0.1.0",
+      "schemaId": "urn:agent-evals-standard:schema:held-out-exposure-budget:1",
+      "uri": "artifact:sha256:2dc8f5b664f2f7f1dd1623aa52ee1d7e29fb18a7d48a3a9783c2052c9fe623ed",
+      "digest": "sha256:2dc8f5b664f2f7f1dd1623aa52ee1d7e29fb18a7d48a3a9783c2052c9fe623ed",
+      "byteLength": 3312,
+      "mediaType": "application/json",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "held-out-exposure-budget.json"
+      },
+      "verifier": {
+        "id": "machine-contract-focused-verifier",
+        "version": "0.1.0",
+        "uri": "artifact:sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+        "digest": "sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+        "byteLength": 77743,
+        "mediaType": "text/javascript",
+        "locator": {
+          "kind": "repository_relative",
+          "base": "binding_document",
+          "path": "implementation/verify-machine-contract-bindings.mjs"
+        },
+        "entrypoint": "verify-machine-contract-bindings-v1"
+      },
+      "resolutionContract": {
+        "id": "machine-contract-resolution-v1",
+        "version": "0.1.0",
+        "uri": "artifact:sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+        "digest": "sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+        "byteLength": 389,
+        "mediaType": "application/json",
+        "locator": {
+          "kind": "repository_relative",
+          "base": "binding_document",
+          "path": "resolution-contract.json"
+        },
+        "schemaId": "agent-eval-machine-contract-resolution-1"
+      },
+      "componentAuthority": {
+        "policyId": "fixture-evaluation-control-authority-policy",
+        "policyVersion": "0.1.0",
+        "policyDigest": "sha256:11920a11bbc9938fbaa69df1598fad48cd759d21a879477cb36a7f13e3c97069"
+      }
+    },
+    "ledger": {
+      "contractType": "held_out_exposure_ledger",
+      "id": "held-out-exposure-ledger-v1",
+      "version": "0.1.0",
+      "schemaId": "urn:agent-evals-standard:schema:held-out-exposure-ledger:1",
+      "uri": "artifact:sha256:d008ee4f29bd58066fe5323d289657b2107f7198cf9b5aa34fdbb4a71312517f",
+      "digest": "sha256:d008ee4f29bd58066fe5323d289657b2107f7198cf9b5aa34fdbb4a71312517f",
+      "byteLength": 7305,
+      "mediaType": "application/json",
+      "locator": {
+        "kind": "repository_relative",
+        "base": "binding_document",
+        "path": "held-out-exposure-ledger.json"
+      },
+      "verifier": {
+        "id": "machine-contract-focused-verifier",
+        "version": "0.1.0",
+        "uri": "artifact:sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+        "digest": "sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
+        "byteLength": 77743,
+        "mediaType": "text/javascript",
+        "locator": {
+          "kind": "repository_relative",
+          "base": "binding_document",
+          "path": "implementation/verify-machine-contract-bindings.mjs"
+        },
+        "entrypoint": "verify-machine-contract-bindings-v1"
+      },
+      "resolutionContract": {
+        "id": "machine-contract-resolution-v1",
+        "version": "0.1.0",
+        "uri": "artifact:sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+        "digest": "sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
+        "byteLength": 389,
+        "mediaType": "application/json",
+        "locator": {
+          "kind": "repository_relative",
+          "base": "binding_document",
+          "path": "resolution-contract.json"
+        },
+        "schemaId": "agent-eval-machine-contract-resolution-1"
+      },
+      "componentAuthority": {
+        "policyId": "fixture-evaluation-control-authority-policy",
+        "policyVersion": "0.1.0",
+        "policyDigest": "sha256:11920a11bbc9938fbaa69df1598fad48cd759d21a879477cb36a7f13e3c97069"
+      }
+    }
+  },
+  "digest": "sha256:8975e9255fc1ebf47bddaed1fa497dbb52f7e22ae7f4129e3fa0f1e56810dc1d"
+}

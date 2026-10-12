@@ -41,27 +41,17 @@ The profile's accepted terminal alternatives are outcome-specific. Every
 `solved` result requires exactly one authenticated content-addressed
 `workspace_diff`; the case contract adds the conditional material-work-product
 obligation above when verification is selected. `correct_refusal` requires
-signed refusal and applicability records; `already_satisfied` requires a signed
-base-state record. The latter two do not fabricate a diff. The authenticated
+authenticated refusal and applicability records; `already_satisfied` requires an
+authenticated base-state record. The latter two do not fabricate a diff. The authenticated
 [case contract](case-contract.json) fixes the profile-specific case shape and
 cross-artifact bindings.
 
 The profile is an interoperability example, not a privileged policy or a
 universal release threshold. A deployment-specific child may inherit its
-measurement rules, but `PROFILE-001` never inherits operational claim trust:
-the child must explicitly bind an externally provisioned, owner-verified
-`claimTrustProfile` with `claimTrustUse: deployment_bound`. Artifact-signature
-trust is also leaf-only: the child must bind a non-fixture `signatureProfile`,
-sign itself with a key authorized for the child artifact and scope, and use that
-binding for its evaluation artifacts. For `deployment_bound`, that active,
-non-reassignable key must be authorized for the evaluation-profile schema, the
-child owner's role, and every declared assurance-by-risk tuple through a typed,
-authenticated external authorization, revocation, trusted-time, and anti-
-rollback graph. It must also replace fixture ownership,
-keys, thresholds, environment bindings, and governance policy before operational
-use. The bundled profile's signatures and claim-trust reference establish only
-that the repository's conformance mechanics agree; they never authorize a
-deployment claim.
+measurement rules under `PROFILE-001`, but it must replace the example
+ownership, thresholds, environment bindings, and governance policy before
+operational use. The bundled profile establishes only that the contracts fit
+together; it never authorizes a deployment claim.
 
 Repository identity is a content-addressed workspace manifest. Each repository
 root in that manifest selects one repository-state mode and binds its own object
@@ -69,29 +59,28 @@ format, tree digest, exact object graph, mode-specific base tree or revision,
 history boundary when applicable, and repository-state verifier; the same per-
 root shape is used for one- and multi-repository workspaces.
 
-The distribution-owned replay executor parses strict UTF-8 Git unified diffs.
+A conforming replay executor parses strict UTF-8 Git unified diffs.
 It accepts canonical C-quoted Unicode paths and material hunks, creation,
 deletion, mode-only, rename, copy, and binary records; it rejects unsafe paths
 and metadata-only headers. It derives the native substatus from the complete
 changed-path classification: `documentation_only` for documentation-only
 `code_change`, `code_only`, `tests_only`, or `configuration_only` for the
 corresponding singleton class, `code_and_tests` for exactly those two classes,
-and `mixed_repository_change` otherwise. Its exact bytes and digest are sealed
-through the outcome-replay executor registry. Projects with different path
+and `mixed_repository_change` otherwise. An implementation seals the
+executor's exact bytes and digest through an outcome-replay executor registry
+pinned by its evaluator manifest. Projects with different path
 conventions need a differently identified and sealed profile/executor.
 The normative profile-owned details are in the authenticated
 [outcome replay contract](outcome-replay-contract.md); this README is only an
 orientation guide.
 
-Production-derived controlled fixtures use the deterministic
-[`verify-production-derived.mjs`](verify-production-derived.mjs) implementation.
-An evaluator authenticates those exact bytes through its own verifier registry;
-neither a case nor an evidence bundle may register a verifier. The sealed
-authority contract maps the five proof kinds to authenticated producers and
-keys and keeps data-owner, privacy, and isolation trust boundaries independent.
-The bundled keys and records are public conformance material only.
+Production-derived controlled inputs are verified by an implementation that an
+evaluator registers in its own verifier registry; neither a case nor an
+evidence bundle may register a verifier. The sealed authority contract maps the
+five proof kinds to authorized producers and keeps data-owner, privacy, and
+isolation trust boundaries independent.
 
 The machine-readable entry points are [evaluation-profile.json](evaluation-profile.json)
 and [outcome-profile.json](outcome-profile.json). Supporting contracts are
 content-addressed by the profile. Positive and negative examples are listed in
-[`conformance/fixtures/manifest.json`](../../conformance/fixtures/manifest.json).
+[`examples/manifest.json`](../../examples/manifest.json).

@@ -18,8 +18,7 @@
     "accessClass",
     "accessPolicyBinding",
     "privacyAndIp",
-    "retention",
-    "attestation"
+    "retention"
   ],
   "properties": {
     "id": { "$ref": "#/$defs/artifactId" },
@@ -74,8 +73,7 @@
         "legalHold": { "type": "boolean" }
       },
       "additionalProperties": false
-    },
-    "attestation": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+    }
   },
   "allOf": [
     {

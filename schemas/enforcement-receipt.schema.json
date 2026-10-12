@@ -3,7 +3,7 @@
   "$id": "urn:agent-evals-standard:schema:enforcement-receipt:1",
   "title": "Detached enforcement receipt",
   "type": "object",
-  "required": ["schemaVersion", "id", "sourceEventId", "sourceEventDigest", "affectedScope", "requestedAt", "startedAt", "completedAt", "outcome", "executor", "evidence", "verifier", "digest", "signature"],
+  "required": ["schemaVersion", "id", "sourceEventId", "sourceEventDigest", "affectedScope", "requestedAt", "startedAt", "completedAt", "outcome", "executor", "evidence", "verifier", "digest"],
   "properties": {
     "schemaVersion": { "const": "agent-eval-enforcement-receipt-1" },
     "id": { "$ref": "#/$defs/id" },
@@ -34,8 +34,7 @@
     "executor": { "type": "object", "required": ["id", "role", "authorizationEvidenceId"], "properties": { "id": { "$ref": "#/$defs/id" }, "role": { "type": "string", "minLength": 1 }, "authorizationEvidenceId": { "$ref": "#/$defs/id" } }, "additionalProperties": false },
     "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
     "verifier": { "type": "object", "required": ["id", "version", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
-    "digest": { "$ref": "#/$defs/digest" },
-    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+    "digest": { "$ref": "#/$defs/digest" }
   },
   "oneOf": [
     {

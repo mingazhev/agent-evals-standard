@@ -36,12 +36,12 @@ verifier, an unknown schema, or any mismatch **MUST** produce
 
 The authority policy **MUST** validate against
 `agent-eval-evaluation-control-authority-policy-1`. Its exact stored-byte
-digest and signing root **MUST** be supplied by evaluator-controlled trust
-configuration pinned before evaluated input is accepted. The policy
-**MUST NOT** obtain authority from a pointer, public key, verifier, resolution
-contract, or signature introduced only by the evaluated system or claimant.
-The verifier **MUST** authenticate the policy signature, validity interval,
-self-digest, issuer role and trust domain against that external configuration.
+digest **MUST** be supplied by evaluator-controlled configuration pinned before
+evaluated input is accepted. The policy **MUST NOT** obtain authority from a
+pointer, verifier, resolution contract, or identity introduced only by the
+evaluated system or claimant. The verifier **MUST** check the policy digest,
+validity interval, self-digest, issuer role and trust domain against that
+external configuration.
 It **MUST** then require an exact, unique policy authorization for verifier and
 resolution-contract identity, version, digest, media type, and entrypoint or
 schema. Content addressing without this independent authorization proves byte
@@ -75,14 +75,15 @@ contain a `base_state_no_action` entry, and a different entry **MUST** be a
 non-agent control. Unknown status, duplicate IDs, an unresolved incumbent, or a
 single entry reused for both required roles yields `insufficient_evidence`.
 
-The review decision **MUST** contain a material binding to a signed
+The review decision **MUST** contain a material binding to an
 `agent-eval-evaluation-control-authority-evidence-1` record. That record
 **MUST** bind the canonical validity-argument projection that excludes only the
 evidence pointer, and its actor, verdict, and time **MUST** match the review.
-The authority policy **MUST** authorize the reviewer's exact actor ID, role,
-trust domain, signature profile, and key for `validity_review`. Reviewer ID,
-role, trust domain, or key equality with the owner or any claimant identity
-**MUST** invalidate the independence claim.
+The authority policy **MUST** authorize the reviewer's exact actor ID, role, and
+trust domain for `validity_review`, and the reviewer **MUST** be
+[independent](glossary.md#independence) of the owner and every claimant.
+Reviewer ID, role, or trust-domain equality with the owner or any claimant
+identity **MUST** invalidate the independence claim.
 
 Every claim's construct identifiers **MUST** resolve exactly once. An
 unsupported construct, population, claim type, or evidence kind **MUST NOT** be
@@ -110,18 +111,18 @@ review before new claims are accepted.
 A held-out exposure budget **MUST** validate against
 `agent-eval-held-out-exposure-budget-1`. It **MUST** bind the suite and
 held-out case scope, identity dimensions, validity interval, permitted
-purposes, material signed authorization, and independent maxima for:
+purposes, material authorization evidence, and independent maxima for:
 
 - agent-visible case exposures;
 - unblinded outcome looks; and
 - oracle access, whose permitted maximum is zero.
 
-Budget authorization **MUST** bind a signed authority-evidence record to the
+Budget authorization **MUST** bind an authority-evidence record to the
 canonical budget projection that excludes only its evidence pointer. The
-record's actor ID, authorized role, trust domain, decision, time, profile, and
-key **MUST** resolve exactly once through the externally rooted policy for
-`held_out_budget_authorization`. A claimant-authored identifier or signature
-does not authorize a budget.
+record's actor ID, authorized role, trust domain, decision, and time **MUST**
+resolve exactly once through the externally pinned policy for
+`held_out_budget_authorization`. A claimant-authored identifier does not
+authorize a budget.
 
 An exposure ledger snapshot **MUST** validate against
 `agent-eval-held-out-exposure-ledger-1`. It **MUST** bind the exact budget,
@@ -130,15 +131,15 @@ totals, remaining budget, saturation state, and seal time. Events **MUST**
 identify the case, complete arm identity digest, purpose, authorization, units,
 and evidence digest.
 
-Every accepted ledger snapshot **MUST** contain a signed checkpoint evidence
-binding from the policy-authorized independent scheduler or ledger custodian.
+Every accepted ledger snapshot **MUST** contain a checkpoint evidence binding
+from the policy-authorized independent scheduler or ledger custodian.
 The checkpoint **MUST** bind the canonical ledger projection that excludes only
 the evidence pointer, the ledger and previous-snapshot sequences and digests,
 the prior checkpoint digest, and a monotonic log position. Verification
 **MUST** compare it with an evaluator-observed log head obtained outside the
-claimant-controlled artifact graph. A parent pre-run signature, an embedded
-key, or a locally increasing number is not evidence against rollback, fork, or
-checkpoint omission.
+claimant-controlled artifact graph, such as the custodian's protected branch. A
+parent pre-run digest or a locally increasing number is not evidence against
+rollback, fork, or checkpoint omission.
 
 Semantic validation **MUST** recompute totals from the append-only event
 sequence, require `remaining = limits - totals`, reject negative remaining
@@ -168,19 +169,19 @@ completed suite and every selected case are sealed.
 The validity argument identifies its suite by
 `suite_precontrol_projection_v1`: SHA-256 of RFC 8785 JCS of the suite after
 removing only top-level `validityArgument`, `evaluationThreatModel`,
-`heldOutExposure`, `digest`, and `signature`. This projection lets the controls
+`heldOutExposure`, and `digest`. This projection lets the controls
 bind suite purpose, composition, exact material cases, and scope without a
 validity-argument-to-suite digest cycle.
 
 The aggregate binding's suite and case subjects **MUST** contain resolvable
 stored-byte URI, SHA-256 digest, byte length, media type, repository-relative
 locator, and the artifact's independently recomputed self-digest. These bind
-the completed signed suite and ordered case documents. Every stage
+the completed sealed suite and ordered case documents. Every stage
 `scopeDigest` **MUST** commit the suite slice, suite material identity, and
 every ordered case material identity; an ID-only or unordered set commitment
 is insufficient. Its pre-run subject instead
 uses SHA-256 of RFC 8785 JCS after removing only top-level
-`evaluationControlBindings`, `digest`, and `signature`; including a raw or
+`evaluationControlBindings` and `digest`; including a raw or
 full-document pre-run digest would reintroduce a cycle.
 
 The required build order is: seal every selected case; place those exact case
@@ -196,10 +197,10 @@ appearance in scheduled cells, risk assessment, threat model, held-out budget,
 and every statistical claim. Missing, extra, duplicate, reordered,
 substituted, passenger, or per-case-divergent bindings fail closed.
 
-- The suite stage **MUST** bind the completed signed suite that directly seals
+- The suite stage **MUST** bind the completed sealed suite that directly seals
   the validity argument, threat model, exposure budget, and current ledger
   before accepting cases into a claim-bearing slice.
-- Each case stage **MUST** bind the corresponding completed signed case that
+- Each case stage **MUST** bind the corresponding completed sealed case that
   the selected suite slice lists by exact material digest, locator, profile,
   scope, and lifecycle. A case outside the budget, suite, or validity scope is
   ineligible.

@@ -50,8 +50,8 @@ namespace but cannot change these meanings.
   deterministic `effectiveProfileDigest`. Bundled and adopter-defined profiles
   receive the same schema, semantic, inheritance, and base-compatibility
   validation; a profile is not itself one of the five conformance targets.
-- **Profile terminology** — `evaluation profile`, `outcome profile`, `signature
-  profile`, and `claim-trust profile` are distinct contracts. Normative text and
+- **Profile terminology** — `evaluation profile` and `outcome profile` are
+  distinct contracts. Normative text and
   machine fields use the qualified term; unqualified `profile` is explanatory
   shorthand only when exactly one kind is possible in context.
 - **Effective profile resolution** — deterministic parent-to-child flattening
@@ -198,9 +198,26 @@ namespace but cannot change these meanings.
 
 - **Evidence artifact** — one `evidence-artifact-1` record binding immutable
   bytes to media type, digest, producer, role, trust domain, phase, access,
-  retention, schema, timestamp, and attestation.
-- **Validation envelope** — a detached signed `validation-envelope-1` that binds
-  a validator verdict to a subject digest. The subject does not embed its own
+  retention, schema, and timestamp.
+- **Authenticated** — resolved by exact ID, version, and a recomputed SHA-256
+  content digest from a version-controlled source that the verifier, not the
+  claimant, selects; for evidence, additionally produced by a producer that an
+  evaluator-controlled authority registry authorizes for that artifact kind and
+  creation phase. The term implies no cryptographic signature; see the
+  [integrity model](evidence-and-validation-contract.md#integrity-model).
+- **Core level** — the entry conformance level defined in
+  [Conformance](conformance.md#core-level): thirteen obligations, the `core-*`
+  schemas, and assurance `A1-lite`.
+- **`A1-lite`** — the assurance level of Core claims: bounded capability claims
+  at low or medium effective risk that never support a governance decision.
+- **`stat-defaults-v1`** — the
+  [base statistical defaults](standard.md#base-statistical-defaults) that apply
+  to every parameter a sealed plan does not override.
+- **Sealed** — fixed by content digest and committed to version control before
+  the step that depends on it. The commit that first contains the artifact is
+  its seal point.
+- **Validation envelope** — a detached `validation-envelope-1` that binds a
+  validator verdict to a subject digest. The subject does not embed its own
   envelope.
 - **Measurement trust domain** — runner-owned graders, adjudication packaging,
   commands, manifests, result channels, and capture mechanisms that evaluated
@@ -219,6 +236,52 @@ namespace but cannot change these meanings.
   makes an outcome unacceptable regardless of quality or composite metrics.
 - **Control proof** — recomputable evidence that a verifier or adjudication
   protocol distinguishes expected positive and negative controls.
+
+## Independence
+
+This definition governs people and evidence producers. Statistical
+independence of analysis units is governed by `STAT-001`.
+
+A reviewer, rater, approver, or evidence producer is **independent** of a
+subject when all three conditions hold:
+
+1. **Different person.** They are a different natural person from the subject's
+   author, from whoever configured the evaluated arm, and from the claimant
+   whose claim depends on the judgment. An automated producer is independent
+   only when a different person operates it.
+2. **No prior access to results.** Before their judgment was recorded, they had
+   no access to trial outcomes, scores, claim results, other raters' judgments,
+   or — where blinding applies — arm identities for the subject. A judgment is
+   recorded when it is committed to version control; that commit **MUST** be an
+   ancestor of the first commit containing those results, or an access log of an
+   access-controlled store **MUST** show no read of them before the judgment
+   time.
+3. **No declared conflict.** They declare no conflict of interest under the
+   sealed conflict-of-interest rule. Membership in the same team or reporting
+   line is not, by itself, a conflict.
+
+The record of an independent judgment **MUST** name the person or operated
+service, role, the commit or time at which the judgment was recorded, and the
+commit or time at which the results first became available to anyone in that
+role.
+
+**Small-team model.** Independence is about people and information flow, not
+organizational distance. Two people satisfy every independence requirement of
+the [Core level](conformance.md#core-level) and of `A1-lite`: one authors the
+cases and configures the arm; the other reviews, rates, or approves before
+seeing results. Two raters required by `JUDGE-003` additionally **MUST NOT** see
+each other's judgments before recording their own, so a two-rater requirement
+needs two people besides the author. The same person **MAY** author one case and
+independently review another. When a team has fewer people than the
+independent roles a requirement needs, the requirement is unmet and the
+affected claim yields `insufficient_evidence`; it is never satisfied by a
+waiver or by one person acting in two roles.
+
+**Stronger separation.** Where a requirement also demands distinct trust
+domains — `A3` security approval and production-derived input authorities —
+the producers **MUST** belong to different organizational units or external
+parties in addition to meeting this definition. Profiles and policies **MAY**
+strengthen independence and **MUST NOT** weaken it.
 
 ## Outcomes, Claims, and Statistics
 
