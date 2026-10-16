@@ -13,7 +13,7 @@
       "id": "agent-evals-standard-requirements",
       "version": "0.1.0",
       "uri": "../../standard/requirement-registry.json",
-      "digest": "sha256:e22bde88fda59c08ed186c90721db88c80e849d3624b558958e74ccfcc62dcbe"
+      "digest": "sha256:4b35d0f0e2a28ca8812020ed27e69610277425fce285d4788323a3467fddce40"
     },
     "verdict": "compatible_no_weakening"
   },
@@ -128,5 +128,5 @@
       "expectedVerdict": "fail"
     }
   ],
-  "digest": "sha256:63ba96470cfd8438697bf2af7dd0eb42475db56805b99861ab2d398437f7e313"
+  "digest": "sha256:ec2efb7df14991d4ca44a49c884a52c630be7c93f84186883c30dc57b5e6b9f6"
 }
