@@ -33,7 +33,7 @@ permissions, review, retention, or release effect. A future non-stub version
 differences, permitted grounds, original and new tiers, scope, expiry,
 supporting evidence, and an independent approver. The tier **MUST NOT** change
 after results are observed. The following identifiers are non-waivable: every
-`core-gates-1` gate; `productionCredentialsProhibited`;
+`GATE-001` base gate; `productionCredentialsProhibited`;
 `heldOutLeakage`; `measurementBoundaryCompromise`;
 `irreversibleCriticalOperation`; `approvedConfigurationChanged`;
 `assuranceEvidenceMissing`. Unknown identifiers are non-waivable until a
@@ -68,7 +68,7 @@ For each risk tier, the policy version used for a decision **MUST** define:
 
 - an immutable pre-run decision-plan ID, hash, and timestamp;
 - pinned versions of the base standard, Scorecard Contract, governance
-  policy, and suite;
+  policy, and run manifest;
 - the closed `minimumAssuranceByDecision` values for `capability_claim`,
   `release`, `autonomy`, and `risk_acceptance`, each no lower than the
   `ASSURE-001` base floor;
@@ -76,7 +76,7 @@ For each risk tier, the policy version used for a decision **MUST** define:
   governance-eligible) and, for longitudinal claims, the frozen-slice IDs;
 - required pass^k/reliability@k and/or pass@k;
 - the confidence-interval method and minimum sample size;
-- the pre-registered statistical-plan digest, target population, sampling frame
+- the run manifest statistics digest, target population, sampling frame
   and unit, primary and exploratory claims, power or minimum-sample rule,
   multiplicity control, sequential-look schedule and stopping rule, and held-out
   exposure and reuse budget;

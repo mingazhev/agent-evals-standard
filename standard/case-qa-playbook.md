@@ -39,41 +39,23 @@ flowchart TD
 ```
 
 Any change to the task description, agent-visible projection, checks, graders,
-environment, profile, statistical plan, or case contract invalidates every
+environment, profile, run manifest statistics, or case contract invalidates every
 earlier stage whose evidence depends on that input and all downstream stages.
-Each stage artifact **MUST** bind the final sealed activation-input hash; stale
-stage evidence **MUST NOT** support activation.
+Each stage record **MUST** bind the case by its `{path, commit, digest}` reference;
+stale stage evidence **MUST NOT** support activation.
 
-Each stage requires a review capability, not a particular implementation
-technology. The activation record **MUST** bind the exact
-`reviewerCapabilityId`, accountable reviewer authority, and
-`implementationKind`. A `qualified_human`, `deterministic_system`, or
-`agent_system` **MAY** supply a capability when it meets the same qualification,
-input-isolation, evidence, and failure requirements. Choosing an implementation
-kind never waives a check. A stage that invokes a deterministic recomputation or
-an independent human label still requires that evidence regardless of which
-implementation coordinates the stage.
+Each stage is performed by a named person recorded as `stages.stageN.reviewer`
+and is not tied to a particular implementation technology: a deterministic
+system or agent system **MAY** assist, but a person is accountable, and choosing
+a tool never waives a check. A stage that invokes a deterministic recomputation
+or an independent human label still requires that evidence.
 
-The capability IDs are closed and stage-specific: `independent_case_execution`,
-`verdict_control_verification`, `trivial_strategy_testing`,
-`adversarial_measurement_review`, `alternative_valid_result_validation`, and
-`pilot_stability_validation` for Stages 3 through 8 respectively. A record with
-the wrong capability at a stage is invalid even if its free-form evidence looks
-plausible.
-
-Before QA starts, the record **MUST** seal an `independenceBaseline` containing
-every case author, reference or primary-result producer, verdict-mechanism
-owner, and any applicable evaluated-system developer or prior-QA-result owner.
-Each authority binds an actor ID, role, and trust domain. Stage 3, Stage 6, and
-Stage 7 **MUST** name every baseline actor in a machine-readable independence
-claim, differ from each one on all three dimensions, and be
-[independent](glossary.md#independence) of each one. Those three reviewers
-**MUST** also differ from one another on all three dimensions; Stage 7's
-reviewer and alternative-result producer have the same separation requirement.
-Renaming an actor, role, or trust domain without changing the underlying person
-does not establish independence.
-Missing, duplicate, unresolved, or unauthenticated independence evidence fails
-closed.
+The Stage 3, Stage 6, and Stage 7 reviewers **MUST** be
+[independent](glossary.md#independence) of the case author, the reference or
+primary-result producer, and the verdict-mechanism owner, and **MUST** differ
+from one another. Renaming a role without changing the underlying person does
+not establish independence. Missing or unauthenticated independence evidence
+fails closed.
 
 ### Before activation (informative)
 
@@ -118,8 +100,8 @@ review, assurance, incident-analysis, release, or other in-scope SDLC result.
 The QA custodian **MUST** sequester the reference, hidden artifacts, validation
 set, and QA findings from model, prompt, policy, harness, and grader developers.
 QA evidence **MUST NOT** be used to tune the system being evaluated or its
-grader. Fixing a case or measurement component creates a new activation-input
-hash and repeats every affected stage. A model, prompt, policy, harness, or
+grader. Fixing a case or measurement component changes the case digest and repeats
+every affected stage. A model, prompt, policy, harness, or
 grader exposed to held-out QA outcomes **MUST** record that exposure and those
 cases **MUST NOT** remain its sole clean held-out evidence.
 
@@ -285,16 +267,16 @@ because that configuration was used as a probe:
 - for interactive cases, verify actor attribution, shared-state hashes,
   terminal rules, and zero unattributed mutations across repeated trials.
 
-Before pilot or validation outcomes are observed, Stage 8 **MUST** bind an
-`agent-eval-statistical-plan-1` covering every quantitative QA claim. The plan
+Before pilot or validation outcomes are observed, Stage 8 **MUST** seal the
+run manifest statistics covering every quantitative QA claim. They
 **MUST** declare the estimand, target population, sampling frame and unit,
 primary and exploratory endpoints, power or minimum-sample rule, estimator,
 interval method, dependence, missingness and retry handling, multiplicity
 control, sequential-look schedule and stopping rule, and held-out exposure and
-reuse budget. Its bound sampling-frame contract **MUST** define the
+reuse budget. The sealed statistics **MUST** define the
 probe-configuration selection rule. Every inspection of an unblinded held-out result counts as a look
 and an exposure. An exploratory finding **MUST NOT** create or change a hard
-gate without confirmation under a new sealed plan on unexposed evidence.
+gate without confirmation under newly sealed statistics on unexposed evidence.
 
 ## Defect Taxonomy
 
@@ -355,7 +337,7 @@ Severity levels:
   High-stakes governance **MUST** quarantine suspected cases until independent
   review resolves or excludes the signal; confirmed cases **MUST NOT** enter a
   clean reporting slice and trigger historical-claim review.
-- **Contamination metadata.** The `contamination` object is required and records
+- **Contamination metadata.** At A2 and above the case's `contamination` object is required and records
   risk level, source visibility, public dates, previous evaluation exposure, and
   whether an agent has previously solved the task in the same workspace. It
   also records every probe exposure, status, evidence, resolver, affected
@@ -366,7 +348,7 @@ Severity levels:
 Every QA artifact **MUST** use the canonical evidence record and detached
 validation envelope defined by the
 [Evidence and Detached Validation Contract](evidence-and-validation-contract.md).
-The activation record **MUST NOT** embed or hash its own validation envelope.
+The Case QA record **MUST NOT** embed or hash its own validation envelope.
 Reference results, hidden checks, canaries, personal data, customer content,
 licensed code, and exploitable security details **MUST** remain access
 controlled; reports **MUST** use a digest, redacted extract, or authorized
@@ -376,90 +358,54 @@ legal-hold handling, and the effect of evidence expiry on active claims.
 
 ## Activation Record
 
-Activation is recorded in a machine-readable Case QA record with
-`schemaVersion: case-qa-record-1`, stored beside the case. Requirements with a
-dedicated schema field are recorded there directly. The remaining material is
-resolved through the closed `activationEvidence` category index to exact,
-content-addressed evidence artifacts authenticated under the Evidence and
-Detached Validation Contract. One typed aggregate artifact **MAY** serve more
-than one category only when its payload proves each category; a repeated pointer
-alone does not prove coverage. The record includes:
-
-- case ID, version, hash, lifecycle transition, and bounded `validFrom` /
-  `expiresAt` validation window;
-- the complete sealed agent-visible projection manifest and requirement-to-
-  projection trace;
-- the base standard, case, environment, scorecard-contract, risk-policy,
-  profile, and grader versions under which the evidence was
-  collected;
-- for each Stage 3–8: status, exact capability ID, implementation kind,
-  reviewer actor ID, role, trust domain, timestamp,
-  evidence-artifact path and hash, and findings; plus the exact sealed
-  independence baseline and claim for Stages 3, 6, and 7;
-- discovered defects, severity levels, and fixes;
-- at least one stability proof covering the execution/grader boundary, plus a
-  separate proof for every additional check with identified flakiness risk;
-- the validation-protocol version, validation and expiry timestamps, coverage,
-  and false-positive and false-negative sample sizes, estimates, intervals,
-  thresholds, threshold rules, raw adjudication evidence, versioned calculation
-  contract, verdicts, and semantic-validation result evidence;
-- the pre-registered statistical plan, primary/exploratory classification,
-  multiplicity and sequential-look accounting, and held-out reuse ledger;
-- control-proof and alternative-valid-result evidence, including the selected
-  outcome-profile evidence mode, or the `not_applicable` rationale when Stage 7
-  could not obtain an alternative valid result;
-- one validation result for every decision surface, including alternate-path
-  or final-state coverage evidence as applicable;
-- the shared grader-validation record, sampling-frame applicability, complete
-  judge-bias suite, and human calibration evidence, or a typed
-  `not_applicable` reason;
-- interaction actor bindings, evaluated-agent responsibility evidence, and the
-  no-op-agent control, or a typed `not_applicable` reason;
-- for every simulator actor, its component, goal-persistence, disclosure,
-  termination, refusal, anti-collusion, stability, and variance evidence, or a typed
-  `not_applicable` reason;
-- unresolved defects, final activation decision, approver, and decision
-  timestamp;
-- contamination status and evidence, sequestering/exposure record, evidence
-  access and retention policy, invalidation state and reason, and superseding
-  record where applicable;
-- `digest` over the Case QA subject projection.
-  The detached validation envelope is delivered and verified separately; the
-  Case QA record **MUST NOT** embed or hash that envelope or its digest.
-
-The Case QA record's `case.activationInputDigest` is the SHA-256 of the UTF-8
-RFC 8785 JCS bytes of the versioned `agent-eval-activation-input-1` manifest
-defined in [`schemas/case-qa.schema.json`](../schemas/case-qa.schema.json).
-Its `projection` contains every required top-level case member except
-`lifecycle` and `digest`, including the case contract,
-environment, profile, graders, and checks; its `case` object carries the case
-ID, version, and projection digest. The validator reconstructs that projection
-from the candidate case, after separately validating that case against
-`case.schema.json` and its lifecycle condition, compares the exact canonical
-bytes, verifies both digest relations, and only then permits the activated case
-to bind the manifest digest. This is deliberately pre-QA input and cannot hash
-its own QA record or detached validation envelope; it binds inputs and does
-not prove QA validity. Subject and evidence digests follow
-the [Evidence and Detached Validation Contract](evidence-and-validation-contract.md).
-The bundled example demonstrates record shape and content addressing only; it
-is not empirical case-validation evidence and cannot support an activation
-claim.
-
-For an `active` case, the case loader validates the schema, digests, detached
-validation envelope, successful
-completion of required stages, absence of blocking defects, and compatibility
-with current contract versions. Merely checking that the file exists is
-insufficient.
-
-The normative machine-readable form is
+Activation is recorded in a Case QA record (`case-qa-1`,
+`schemaVersion: agent-eval-case-qa-1`), stored beside the case. The record
+binds the case by its `case` reference `{path, commit, digest}`; there is no
+separate activation manifest. The normative machine-readable form is
 [`schemas/case-qa.schema.json`](../schemas/case-qa.schema.json).
+
+The A1 record carries exactly these fields, in addition to `id`, `version`,
+`case`, `author`, and `reviewer`:
+
+- `knownGood` — a known-good result that passes, with evidence;
+- `knownBad` — at least two known-bad results that fail, including a `no-op`
+  result, each with evidence;
+- `stability` — at least three runs per control, all stable;
+- `inferabilityReview` — the verdict (`all_required_behavior_inferable` or
+  `defects_found`), findings, and the commit at which it was recorded;
+- `scopeReview` — the verdict (`all_four_tests_hold` or `out_of_scope`) and
+  the commit at which it was recorded;
+- `decision` — `active` or `rejected`.
+
+At A2 and above the record **MUST** additionally carry:
+
+- `stages` — `stage3` through `stage8`, each with `status` (`passed`,
+  `failed`, or `not_applicable`), `reviewer`, `recordedAtCommit`, `evidence`,
+  and `findings`; Stage 7 `not_applicable` requires `notApplicableRationale`;
+- `defects` — each with `id`, `type` from the [Defect Taxonomy](#defect-taxonomy),
+  `severity` 0–3, `status` (`open`, `fixed`, or `accepted_minor`), and
+  `evidence`;
+- `graderValidation` — a reference to the shared `grader-validation-1` record
+  when a model grader is enabled;
+- `decisionSurfaceValidation` — one row per decision surface with `surfaceId`,
+  `coverage`, `status`, `knownGoodControl`, and `knownBadControl`.
+
+All evidence is a content-addressed `{path, commit, digest}` reference
+authenticated under the
+[Evidence and Detached Validation Contract](evidence-and-validation-contract.md).
+The bundled example demonstrates record shape only; it is not empirical
+case-validation evidence and cannot support an activation claim.
+
+For an `active` case, the case loader validates the schema, digests, completion
+of the required stages, absence of blocking defects, and compatibility with
+current contract versions. Merely checking that the file exists is insufficient.
 
 ## Re-QA Triggers
 
 Invalidate the QA record and repeat the applicable stages when:
 
-- the task description, agent-visible projection, hidden checks, environment
-  contract, statistical plan, or grader version
+- the task description, agent-visible projection, hidden checks, run manifest
+  environment, run manifest statistics, or grader version
   changes;
 - a decision-surface inventory or applicability rule, interactive actor
   protocol, simulator component, or simulator policy changes;

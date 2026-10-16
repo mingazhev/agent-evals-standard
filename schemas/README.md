@@ -4,23 +4,22 @@ These JSON Schemas define the machine-readable contracts for the unpublished
 Git-backed Repository SDLC Agent Evals Standard draft `0.1.0`. This draft has no legacy discriminator or
 migration surface: every schema uses URN suffix `:1`.
 
-The table below is a non-exhaustive navigation summary. The complete normative
-schema set is every `*.schema.json` file in this directory; repository checks
-enumerate that set rather than relying on this summary.
+One schema family covers all four assurance levels. The six run-family schemas
+carry the A1 fields as required properties; their A2/A3 additions are optional
+properties that the prose makes REQUIRED at A2 and above, and only
+`run-manifest.schema.json` enforces level conditionals because it declares
+`assuranceLevel`. The complete normative schema set is every `*.schema.json`
+file in this directory (22); repository checks enumerate that set rather than
+relying on this table.
 
-| Contract | File |
+| Group | Schemas |
 | --- | --- |
-| Case, run, scorecard, and conformance (A1 core; A2/A3 attachments optional) | `case.schema.json`, `case-qa.schema.json`, `run-manifest.schema.json`, `attempt-ledger.schema.json`, `scorecard.schema.json`, `conformance-statement.schema.json` |
-| Measurement profiles | `evaluation-profile.schema.json`, `outcome-profile.schema.json` |
-| Closed SDLC work products | `work-artifact-registry.schema.json` |
-| Risk derivation and sealed tier identity | `risk-assessment.schema.json` |
-| Grader validity | `grader-validation.schema.json` |
-| Validity, reference baselines, threats, and held-out exposure | `validity-argument.schema.json`, `evaluation-threat-model.schema.json`, `held-out-exposure-budget.schema.json`, `held-out-exposure-ledger.schema.json` |
-| Canonical evidence and detached validation | `evidence-artifact.schema.json`, `validation-envelope.schema.json` |
-| Repository snapshot | `workspace-manifest.schema.json` |
-| Requirements | `requirement-registry.schema.json` |
-| Operational policy and escalation | `escalation-event-registry.schema.json`, `operational-governance-policy.schema.json` (closed ASSURE-001 risk/decision minima) |
-| Governance decision | `governance-decision.schema.json` |
+| Run family (6) | `case`, `case-qa`, `run-manifest`, `attempt-ledger`, `scorecard`, `conformance-statement` |
+| Registries and profiles | `requirement-registry`, `work-artifact-registry`, `escalation-event-registry`, `evaluation-profile`, `outcome-profile` |
+| Evidence | `evidence-artifact`, `validation-envelope`, `workspace-manifest` |
+| A2/A3 attachments | `validity-argument`, `evaluation-threat-model`, `held-out-exposure-budget`, `held-out-exposure-ledger`, `grader-validation`, `risk-assessment`, `operational-governance-policy`, `governance-decision` |
+
+Each schema is the file `<name>.schema.json`.
 
 Validators load every schema in this directory into a registry keyed by its
 absolute `$id` before resolving cross-schema references. Semantic validation is
