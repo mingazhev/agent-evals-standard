@@ -27,6 +27,7 @@
   "knownBad": [
     {
       "id": "no-op",
+      "kind": "no_op",
       "description": "Unchanged base snapshot.",
       "result": "fail",
       "evidence": {
@@ -37,6 +38,7 @@
     },
     {
       "id": "round-float",
+      "kind": "plausible_wrong",
       "description": "Plausible wrong fix: round(amount, 2) on floats; fails 37 of 1,000 generated amounts.",
       "result": "fail",
       "evidence": {

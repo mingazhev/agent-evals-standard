@@ -441,7 +441,7 @@ non-monotonic policy value yields `insufficient_evidence`.
 | Level | Intended use | Minimum evidence depth |
 | --- | --- | --- |
 | `A0 diagnostic_run` | harness development and debugging | schema-valid inputs, universal safety controls, complete attempt accounting, and no claims |
-| `A1 capability` | bounded capability claim at low or medium effective risk; never governance use | the thirteen baseline obligations in [Conformance](conformance.md#baseline-a1): committed run manifest before the first attempt; validated cases (`case-1`, `case-qa-1`) with known-good, no-op, and plausible-wrong controls and an independent inferability review; complete hash-chained attempt ledger; deterministic gates; gates, outcomes, claims, and verdict in separate fields; non-agent baselines; identification bounds; `stat-defaults-v1` or declared overrides; least privilege |
+| `A1 capability` | bounded capability claim at low or medium effective risk; never governance use | the A1 requirement set in [Conformance](conformance.md#baseline-a1): committed run manifest before the first attempt; validated cases (`case-1`, `case-qa-1`) with known-good, no-op, plausible-wrong, and trivial-strategy controls and an independent inferability review; complete hash-chained attempt ledger; deterministic gates; gates, outcomes, claims, and verdict in separate fields; non-agent baselines; identification bounds; `stat-defaults-v1` or declared overrides; least privilege |
 | `A2 controlled_decision` | release or production-pilot evidence at low or medium effective risk | every A1 obligation plus a held-out budget and ledger; an independently reviewed validity argument with a baseline inventory under `VALID-003`, including its authenticated `no_incumbent_exists` path when applicable; a risk-assessment record; an operational policy; Case QA stages 3–8; the decision-surface inventory; evaluation- and outcome-profile bindings; and a detached validation envelope on the conformance statement |
 | `A3 high_assurance` | autonomy, risk acceptance, or any high/critical effective risk | every A2 obligation plus an evaluation threat model; a separate authorized security approval; a bound post-decision assurance plan; and passing adversarial positive controls |
 
@@ -685,9 +685,12 @@ case without an inventory supports only claims about the terminal artifact.
 ### Activation and Maintenance
 
 `CASE-004` — Activation evidence is a `case-qa-1` record. At A1 it **MUST**
-establish, for each case, a known-good result that passes, a no-op result and at
-least one plausible wrong result that fail, stability over repeated runs, and an
-inferability and scope review by a person independent of the case author.
+establish, for each case, a known-good result that passes; a no-op result, at
+least one plausible wrong result and, where the case has tests or hidden checks,
+a result with those tests disabled or weakened and a result that hard-codes the
+expected outputs that all fail, with a case where a trivial strategy is not
+applicable recording why; stability over repeated runs; and an inferability and
+scope review by a person independent of the case author.
 
 The record binds the case at its candidate commit, meaning the case document
 without `lifecycle`. The active case is that document plus `lifecycle`, and no
