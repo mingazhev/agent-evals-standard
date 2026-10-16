@@ -16,7 +16,7 @@ candidate contract; it does not assert that a release has occurred.
 
 ## Start with the Core level
 
-The [Core level](standard/conformance.md#core-level) is the entry point. It
+The [Core level](standard/conformance.md#baseline-a1) is the entry point. It
 needs thirteen obligations — pre-registration, oracle isolation,
 non-compensable gates, deterministic evidence, validated cases, complete attempt
 accounting, separate gates/outcomes/claims, case-level statistics with

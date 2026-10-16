@@ -392,7 +392,7 @@ unreviewed, or self-declared incumbent disposition yields
 or otherwise non-comparable baseline **MUST NOT** support an incremental-value
 claim.
 
-At the [Core level](conformance.md#core-level), the run **MUST** include both a
+At the [Core level](conformance.md#baseline-a1), the run **MUST** include both a
 no-action baseline and a distinct non-agent control and **MUST** record any
 incumbent; an unmeasured incumbent is a recorded gap that forbids any claim of
 improvement over it rather than an `insufficient_evidence` result for the whole
@@ -541,7 +541,7 @@ The level **MUST** be at least the minimum selected by the authenticated
 operational policy for the exact decision class and the authenticated effective
 risk tier. Assurance order is `A0 < A1-lite < A1 < A2 < A3`.
 
-`A1-lite` is the assurance level of the [Core level](conformance.md#core-level).
+`A1-lite` is the assurance level of the [Core level](conformance.md#baseline-a1).
 It exists only for Core artifacts, supports only a capability claim at `low` or
 `medium` effective risk, needs no operational policy because it never supports
 a governance decision, and is below every floor in the table below. Full-level
@@ -587,7 +587,7 @@ non-monotonic policy value yields `insufficient_evidence`.
 | Level | Intended use | Minimum evidence depth |
 | --- | --- | --- |
 | `A0 diagnostic_run` | harness development and debugging | schema-valid inputs, universal safety controls, complete attempt accounting, `claimEligibility: none`, and no claims or claim results |
-| `A1-lite core_capability` | bounded capability claim at low or medium effective risk; never governance use | the thirteen [Core obligations](conformance.md#core-level): committed run manifest before the first attempt, validated cases with positive and negative controls, complete hash-chained attempt ledger, deterministic gates, non-agent baselines, identification bounds, and the base statistical defaults or sealed overrides |
+| `A1-lite core_capability` | bounded capability claim at low or medium effective risk; never governance use | the thirteen [Core obligations](conformance.md#baseline-a1): committed run manifest before the first attempt, validated cases with positive and negative controls, complete hash-chained attempt ledger, deterministic gates, non-agent baselines, identification bounds, and the base statistical defaults or sealed overrides |
 | `A1 capability` | bounded capability claim at low or medium effective risk | current authenticated Case QA and validity argument; sealed sampling frame, unit, estimand, minimum-sample rule, and decision rule; complete scheduled-attempt accounting; the minimum-sample rule passes over independent analysis units; uncertainty interval and identification bounds are reported |
 | `A2 controlled_decision` | release or production-pilot evidence at low or medium effective risk | every A1 obligation plus held-out membership; pre-run pinned baselines under `VALID-003`, including its authenticated `no_incumbent_exists` path when applicable, and a machine-verifiable currentness rule for any current-workflow baseline; authenticated independent-review identities satisfying the declared role-separation contract; operational policy and rollback contract |
 | `A3 high_assurance` | autonomy, risk acceptance, or any high/critical effective risk | every A2 obligation plus a pinned adversarial-validation contract and passing positive attack controls; separate authorized security approval; a passing reliability contract; a bound post-decision assurance plan; and a pre-registered suspension action and enforcement path |
@@ -837,7 +837,7 @@ specialize applicable controls and evidence but **MUST NOT** omit a stage or
 weaken its fail-closed result. Stage 7 `not_applicable` is a recorded gap with
 a rationale that restricts dependent claims; it is not an omitted stage.
 
-The [Core level](conformance.md#core-level) is the one exception: a
+The [Core level](conformance.md#baseline-a1) is the one exception: a
 `case-qa` record with known-good, no-op, and plausible wrong controls, a
 stability check, and an independent inferability and scope review activates a
 case for `A1-lite` claims only. Such a case is not activated for `A1`–`A3` use

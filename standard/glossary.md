@@ -106,7 +106,7 @@ but cannot change these meanings.
   [integrity model](evidence-and-validation-contract.md#integrity-model).
 - **Sealed** — fixed by content digest and committed before the step that
   depends on it; the first containing commit is the seal point.
-- **Core level** — the entry level in [Conformance](conformance.md#core-level):
+- **Core level** — the entry level in [Conformance](conformance.md#baseline-a1):
   thirteen obligations, the `core-*` schemas, assurance `A1-lite`.
   **`A1-lite`** — bounded capability claims at low or medium risk that never
   support a governance decision. **`stat-defaults-v1`** — the
@@ -155,7 +155,7 @@ role.
 
 **Small-team model.** Independence is about people and information flow, not
 organizational distance. Two people satisfy every independence requirement of
-the [Core level](conformance.md#core-level) and of `A1-lite`: one authors the
+the [Core level](conformance.md#baseline-a1) and of `A1-lite`: one authors the
 cases and configures the arm; the other reviews, rates, or approves before
 seeing results. Two raters required by `JUDGE-003` additionally **MUST NOT** see
 each other's judgments before recording their own, so a two-rater requirement

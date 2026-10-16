@@ -72,7 +72,7 @@ schema, semantic, and base-compatibility validation when they
 satisfy this contract and publish schemas, evidence, examples, versions, and
 digests. A profile is not a separate conformance target.
 
-## Core Level
+## Baseline (A1)
 
 The Core level is the entry level of this standard. It lets a small team make a
 bounded, trustworthy capability claim about a repository-SDLC agent without the

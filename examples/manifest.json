@@ -3,15 +3,9 @@
   "version": "0.1.0",
   "examples": [
     {
-      "id": "conformance-statement.valid",
-      "path": "valid/conformance-statement.json",
-      "schema": "schemas/conformance-statement.schema.json",
-      "valid": true
-    },
-    {
-      "id": "core-attempt-ledger.valid",
+      "id": "attempt-ledger.valid",
       "path": "core/attempt-ledger.json",
-      "schema": "schemas/core-attempt-ledger.schema.json",
+      "schema": "schemas/attempt-ledger.schema.json",
       "valid": true
     },
     {
@@ -27,27 +21,21 @@
       "valid": true
     },
     {
-      "id": "core-conformance-statement.valid",
+      "id": "conformance-statement.valid",
       "path": "core/conformance-statement.json",
-      "schema": "schemas/core-conformance-statement.schema.json",
+      "schema": "schemas/conformance-statement.schema.json",
       "valid": true
     },
     {
-      "id": "core-run-manifest.valid",
+      "id": "run-manifest.valid",
       "path": "core/run-manifest.json",
-      "schema": "schemas/core-run-manifest.schema.json",
+      "schema": "schemas/run-manifest.schema.json",
       "valid": true
     },
     {
-      "id": "core-scorecard.valid",
+      "id": "scorecard.valid",
       "path": "core/scorecard.json",
-      "schema": "schemas/core-scorecard.schema.json",
-      "valid": true
-    },
-    {
-      "id": "environment-contract.valid",
-      "path": "valid/environment-contract.json",
-      "schema": "schemas/environment-contract.schema.json",
+      "schema": "schemas/scorecard.schema.json",
       "valid": true
     },
     {
@@ -66,12 +54,6 @@
       "id": "evaluation-threat-model.valid",
       "path": "valid/evaluation-threat-model.json",
       "schema": "schemas/evaluation-threat-model.schema.json",
-      "valid": true
-    },
-    {
-      "id": "evaluator-manifest.valid",
-      "path": "valid/evaluator-manifest.json",
-      "schema": "schemas/evaluator-manifest.schema.json",
       "valid": true
     },
     {
@@ -117,12 +99,6 @@
       "valid": true
     },
     {
-      "id": "pre-run-manifest.valid",
-      "path": "valid/pre-run-manifest.json",
-      "schema": "schemas/pre-run-manifest.schema.json",
-      "valid": true
-    },
-    {
       "id": "requirement-registry.valid",
       "path": "../standard/requirement-registry.json",
       "schema": "schemas/requirement-registry.schema.json",
@@ -132,30 +108,6 @@
       "id": "risk-assessment.valid",
       "path": "valid/risk-assessment.json",
       "schema": "schemas/risk-assessment.schema.json",
-      "valid": true
-    },
-    {
-      "id": "scorecard.valid",
-      "path": "valid/scorecard.json",
-      "schema": "schemas/scorecard.schema.json",
-      "valid": true
-    },
-    {
-      "id": "sdlc-coverage.valid",
-      "path": "valid/sdlc-coverage.json",
-      "schema": "schemas/sdlc-coverage.schema.json",
-      "valid": true
-    },
-    {
-      "id": "statistical-plan.valid",
-      "path": "valid/statistical-plan.json",
-      "schema": "schemas/statistical-plan.schema.json",
-      "valid": true
-    },
-    {
-      "id": "suite-manifest.valid",
-      "path": "valid/suite-manifest.json",
-      "schema": "schemas/suite-manifest.schema.json",
       "valid": true
     },
     {
@@ -183,12 +135,12 @@
       "valid": true
     },
     {
-      "id": "core-conformance-statement.conforming-with-failed-obligation",
-      "path": "invalid/core-conformance-statement.conforming-with-failed-obligation.json",
-      "schema": "schemas/core-conformance-statement.schema.json",
+      "id": "conformance-statement.conforming-with-failed-requirement",
+      "path": "invalid/conformance-statement.conforming-with-failed-requirement.json",
+      "schema": "schemas/conformance-statement.schema.json",
       "valid": false,
       "expectedError": "/verdict",
-      "illustrates": "Core level: a failed obligation forces verdict nonconforming; core_conforming requires thirteen pass rows"
+      "illustrates": "A1: a failed requirement row forces verdict nonconforming; conforming requires every row pass"
     },
     {
       "id": "evaluation-profile.general-agent-capability",
@@ -205,14 +157,6 @@
       "valid": false,
       "expectedError": "byteLength",
       "illustrates": "EVID-001: digest-only metadata is not material evidence"
-    },
-    {
-      "id": "scorecard.supported-claim-failed-rule",
-      "path": "invalid/scorecard.supported-claim-failed-rule.json",
-      "schema": "schemas/scorecard.schema.json",
-      "valid": false,
-      "expectedError": "/claimResults/0/decisionRuleResult",
-      "illustrates": "CLAIM-001: a supported claim cannot carry a failed decision rule"
     }
   ]
 }

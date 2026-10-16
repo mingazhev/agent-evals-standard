@@ -1,13 +1,13 @@
 {
-  "schemaVersion": "agent-eval-core-conformance-statement-1",
+  "schemaVersion": "agent-eval-conformance-statement-1",
   "id": "ledger-service-bugfix-core-run-1-statement",
   "version": "1.0.0",
   "standard": {
     "version": "0.1.0",
     "commit": "d30cc5ade9e9518cd8e7eb71c81f29f2daa793f9"
   },
-  "level": "core",
-  "assuranceLevel": "A1-lite",
+  "assuranceLevel": "A1",
+  "claim": "experiment",
   "issuer": {
     "id": "person-a",
     "role": "case author and evaluation owner"
@@ -29,22 +29,16 @@
       "digest": "sha256:7f197e329a4765d4a3d10185196d6eec371b95ba72f50d68a3625c40f8274e25"
     }
   },
-  "obligations": [
+  "requirementResults": [
     {
-      "id": "C1",
-      "requirementIds": [
-        "SCOPE-001"
-      ],
+      "requirementId": "SCOPE-001",
       "status": "pass",
       "evidence": [
         "examples/core/run-manifest.json@8229bd5ef1c3#/arms"
       ]
     },
     {
-      "id": "C2",
-      "requirementIds": [
-        "SCOPE-003"
-      ],
+      "requirementId": "SCOPE-003",
       "status": "pass",
       "evidence": [
         "examples/core/case.json@9807bf4aec58#/scopeTests",
@@ -52,10 +46,7 @@
       ]
     },
     {
-      "id": "C3",
-      "requirementIds": [
-        "I3"
-      ],
+      "requirementId": "I3",
       "status": "pass",
       "evidence": [
         "examples/core/run-manifest.json@8229bd5ef1c3",
@@ -63,10 +54,7 @@
       ]
     },
     {
-      "id": "C4",
-      "requirementIds": [
-        "HOLD-001"
-      ],
+      "requirementId": "HOLD-001",
       "status": "pass",
       "evidence": [
         "examples/core/case.json@9807bf4aec58#/oracleIsolation",
@@ -74,11 +62,7 @@
       ]
     },
     {
-      "id": "C5",
-      "requirementIds": [
-        "I1",
-        "GATE-001"
-      ],
+      "requirementId": "I1",
       "status": "pass",
       "evidence": [
         "examples/core/case.json@9807bf4aec58#/acceptance",
@@ -86,12 +70,15 @@
       ]
     },
     {
-      "id": "C6",
-      "requirementIds": [
-        "I9",
-        "JUDGE-002",
-        "JUDGE-003"
-      ],
+      "requirementId": "GATE-001",
+      "status": "pass",
+      "evidence": [
+        "examples/core/case.json@9807bf4aec58#/acceptance",
+        "examples/core/scorecard.json@2367e7660fe4#/hardGateFailures"
+      ]
+    },
+    {
+      "requirementId": "I9",
       "status": "pass",
       "evidence": [
         "examples/core/case.json@9807bf4aec58#/acceptance/checks",
@@ -99,11 +86,23 @@
       ]
     },
     {
-      "id": "C7",
-      "requirementIds": [
-        "I12",
-        "CASE-004"
-      ],
+      "requirementId": "JUDGE-002",
+      "status": "pass",
+      "evidence": [
+        "examples/core/case.json@9807bf4aec58#/acceptance/checks",
+        "every check in the run is deterministic; no judgment-bound check"
+      ]
+    },
+    {
+      "requirementId": "JUDGE-003",
+      "status": "pass",
+      "evidence": [
+        "examples/core/case.json@9807bf4aec58#/acceptance/checks",
+        "every check in the run is deterministic; no judgment-bound check"
+      ]
+    },
+    {
+      "requirementId": "I12",
       "status": "pass",
       "evidence": [
         "examples/core/case-qa.json@9807bf4aec58",
@@ -111,10 +110,15 @@
       ]
     },
     {
-      "id": "C8",
-      "requirementIds": [
-        "RUN-002"
-      ],
+      "requirementId": "CASE-004",
+      "status": "pass",
+      "evidence": [
+        "examples/core/case-qa.json@9807bf4aec58",
+        "examples/core/scorecard.json@2367e7660fe4#/caseQaRecords"
+      ]
+    },
+    {
+      "requirementId": "RUN-002",
       "status": "pass",
       "evidence": [
         "examples/core/attempt-ledger.json@eda67514a96a",
@@ -122,13 +126,7 @@
       ]
     },
     {
-      "id": "C9",
-      "requirementIds": [
-        "OUT-001",
-        "CLAIM-001",
-        "CLAIM-002",
-        "I6"
-      ],
+      "requirementId": "OUT-001",
       "status": "pass",
       "evidence": [
         "examples/core/scorecard.json@2367e7660fe4#/claims",
@@ -136,11 +134,31 @@
       ]
     },
     {
-      "id": "C10",
-      "requirementIds": [
-        "STAT-001",
-        "STAT-003"
-      ],
+      "requirementId": "CLAIM-001",
+      "status": "pass",
+      "evidence": [
+        "examples/core/scorecard.json@2367e7660fe4#/claims",
+        "examples/core/scorecard.json@2367e7660fe4#/decisionVerdict"
+      ]
+    },
+    {
+      "requirementId": "CLAIM-002",
+      "status": "pass",
+      "evidence": [
+        "examples/core/scorecard.json@2367e7660fe4#/claims",
+        "examples/core/scorecard.json@2367e7660fe4#/decisionVerdict"
+      ]
+    },
+    {
+      "requirementId": "I6",
+      "status": "pass",
+      "evidence": [
+        "examples/core/scorecard.json@2367e7660fe4#/claims",
+        "examples/core/scorecard.json@2367e7660fe4#/decisionVerdict"
+      ]
+    },
+    {
+      "requirementId": "STAT-001",
       "status": "pass",
       "evidence": [
         "examples/core/run-manifest.json@8229bd5ef1c3#/statistics",
@@ -148,22 +166,23 @@
       ]
     },
     {
-      "id": "C11",
-      "requirementIds": [
-        "STAT-002"
-      ],
+      "requirementId": "STAT-003",
+      "status": "pass",
+      "evidence": [
+        "examples/core/run-manifest.json@8229bd5ef1c3#/statistics",
+        "examples/core/scorecard.json@2367e7660fe4#/metrics"
+      ]
+    },
+    {
+      "requirementId": "STAT-002",
       "status": "fail",
       "evidence": [
         "examples/core/scorecard.json@2367e7660fe4#/accounting",
         "examples/core/scorecard.json@2367e7660fe4#/metrics/0/identificationBounds"
-      ],
-      "note": "The scorecard reported a valid-only pass@1 without identification bounds."
+      ]
     },
     {
-      "id": "C12",
-      "requirementIds": [
-        "VALID-003"
-      ],
+      "requirementId": "VALID-003",
       "status": "pass",
       "evidence": [
         "examples/core/run-manifest.json@8229bd5ef1c3#/arms",
@@ -171,13 +190,50 @@
       ]
     },
     {
-      "id": "C13",
-      "requirementIds": [
-        "I7"
-      ],
+      "requirementId": "I7",
       "status": "pass",
       "evidence": [
         "examples/core/run-manifest.json@8229bd5ef1c3#/environment"
+      ]
+    },
+    {
+      "requirementId": "ARCH-001",
+      "status": "pass",
+      "evidence": [
+        "examples/core/run-manifest.json@8229bd5ef1c3",
+        "examples/core/scorecard.json@2367e7660fe4"
+      ]
+    },
+    {
+      "requirementId": "TRACE-001",
+      "status": "pass",
+      "evidence": [
+        "examples/core/conformance-statement.json#/requirementResults",
+        "every row cites a file@commit location"
+      ]
+    },
+    {
+      "requirementId": "CONF-001",
+      "status": "pass",
+      "evidence": [
+        "examples/core/conformance-statement.json#/subject",
+        "examples/core/conformance-statement.json#/assuranceLevel"
+      ]
+    },
+    {
+      "requirementId": "CONF-002",
+      "status": "pass",
+      "evidence": [
+        "examples/core/conformance-statement.json#/requirementResults",
+        "one row per A1 registry requirement targeting experiment"
+      ]
+    },
+    {
+      "requirementId": "CONF-003",
+      "status": "pass",
+      "evidence": [
+        "examples/core/conformance-statement.json#/independentReview",
+        "examples/core/conformance-statement.json#/restrictions"
       ]
     }
   ],
@@ -194,5 +250,5 @@
     "verdict": "confirmed",
     "recordedAtCommit": "8771bf636f4c4d2f928e95d63d756df7466f492f"
   },
-  "verdict": "core_conforming"
+  "verdict": "conforming"
 }

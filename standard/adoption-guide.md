@@ -9,7 +9,7 @@
 ## Start here: the Core path
 
 If you have not yet made a claim under this standard, start at the
-[Core level](conformance.md#core-level). It needs two people, Git, and the six
+[Core level](conformance.md#baseline-a1). It needs two people, Git, and the six
 `core-*` schemas:
 
 1. **Author cases** (`case`): task, repository commit, the four scope

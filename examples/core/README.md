@@ -1,7 +1,7 @@
 # Core Level Worked Example
 
 - Status: informative example for the unpublished 0.1.0 candidate
-- Level: [Core](../../standard/conformance.md#core-level), assurance `A1-lite`
+- Level: [Core](../../standard/conformance.md#baseline-a1), assurance `A1-lite`
 
 This is a complete Core experiment: one case, its Case QA record, the sealed run
 manifest, the attempt ledger, the scorecard, and the conformance statement. It
@@ -184,7 +184,7 @@ written as `path@commit#pointer`. `person-b` reviewed it at the
 `independent-review` commit and confirmed it, so the derived verdict is
 `core_conforming`.
 
-[`../invalid/core-conformance-statement.conforming-with-failed-obligation.json`](../invalid/core-conformance-statement.conforming-with-failed-obligation.json)
+[`../invalid/conformance-statement.conforming-with-failed-requirement.json`](../invalid/conformance-statement.conforming-with-failed-requirement.json)
 shows the schema rejecting a statement that keeps `core_conforming` after C11
 fails.
 

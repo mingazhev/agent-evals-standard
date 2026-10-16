@@ -1,13 +1,12 @@
 {
-  "schemaVersion": "agent-eval-core-run-manifest-1",
+  "schemaVersion": "agent-eval-run-manifest-1",
   "id": "ledger-service-bugfix-core-run-1",
   "version": "1.0.0",
   "standard": {
     "version": "0.1.0",
     "commit": "d30cc5ade9e9518cd8e7eb71c81f29f2daa793f9"
   },
-  "level": "core",
-  "assuranceLevel": "A1-lite",
+  "assuranceLevel": "A1",
   "owner": {
     "id": "person-a",
     "role": "case author and evaluation owner"
@@ -15,16 +14,6 @@
   "effectiveRisk": {
     "tier": "low",
     "rationale": "Every case runs in a sandboxed controlled fixture with no network, production data, credentials, or deployment path."
-  },
-  "environment": {
-    "evaluationMode": "controlled_fixture",
-    "productionActionAllowed": false,
-    "productionCredentials": false,
-    "network": "none",
-    "agentWritableRoots": [
-      "/workspace"
-    ],
-    "enforcement": "Rootless container per attempt, read-only image, network namespace without interfaces, /workspace as the only writable mount; /oracle is mounted only after the agent process tree exits."
   },
   "arms": [
     {
@@ -555,5 +544,21 @@
         "threshold": null
       }
     }
-  ]
+  ],
+  "environment": {
+    "evaluationMode": "controlled_fixture",
+    "productionActionAllowed": false,
+    "productionCredentials": false,
+    "network": "none",
+    "agentWritableRoots": [
+      "/workspace"
+    ],
+    "enforcement": "Rootless container per attempt, read-only image, network namespace without interfaces, /workspace as the only writable mount; /oracle is mounted only after the agent process tree exits."
+  },
+  "coverage": {
+    "capabilityFamilyIds": [
+      "CAP.IMPLEMENT_CHANGE"
+    ],
+    "gaps": []
+  }
 }

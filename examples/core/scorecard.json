@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "agent-eval-core-scorecard-1",
+  "schemaVersion": "agent-eval-scorecard-1",
   "id": "ledger-service-bugfix-core-run-1-scorecard",
   "version": "1.0.0",
   "runManifest": {
@@ -1570,13 +1570,13 @@
       "comparatorArmId": null,
       "cases": 50,
       "identificationBounds": {
-        "failureEndpoint": 0.0,
-        "successEndpoint": 0.0
+        "failureEndpoint": 0,
+        "successEndpoint": 0
       },
       "interval": {
         "method": "wilson",
         "level": 0.95,
-        "lower": 0.0,
+        "lower": 0,
         "upper": 0.0713
       }
     }
