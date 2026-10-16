@@ -368,22 +368,14 @@ authority exists only because that primary definition names it.
 
 By `ARCH-001`, a semantic document that no registered primary anchor invokes has
 no verdict-changing authority. The invocation identifies the contract
-unambiguously, the dependency manifest binds its exact distributed bytes, and
+unambiguously, the pinned standard commit binds its exact distributed bytes, and
 the named contract cannot expand the invoking requirement's targets,
 applicability, or consequences.
 
-Every conformance statement **MUST** bind two exact raw-byte distribution
-manifests. The schema manifest enumerates every distributed JSON Schema. The
-contract manifest enumerates every standard-owned JSON contract, every
-profile-owned JSON contract, and every Markdown file under `standard/` that can
-supply primary or invoked normative prose. Each entry binds stable ID, version,
-repository-relative URI, and SHA-256 of the exact file bytes; the manifest also
-binds the canonical digest of the complete ordered entry array. The validator
-**MUST** independently enumerate the distribution and require set and byte-digest
-equality. A missing, extra, duplicate, renamed, or changed file fails closed.
-A release tag or commit string does not substitute for these manifests; when an
-implementation additionally cites one, it **MUST** resolve that identifier to
-the same authenticated distribution bytes.
+The conformance statement pins the exact standard commit in
+`standardRelease.commit`. The validator **MUST** resolve that commit and use
+the schema and contract files it contains; a file set differing from that
+commit fails closed.
 
 Examples **MUST NOT** create an obligation without a registered requirement and
 primary normative location. Tools **MUST NOT** redefine a contract or example.

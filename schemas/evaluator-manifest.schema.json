@@ -38,13 +38,12 @@
     },
     "supportedStandard": {
       "type": "object",
-      "required": ["version", "releaseStatus", "commit", "requirementRegistry", "schemaManifest"],
+      "required": ["version", "releaseStatus", "commit", "requirementRegistry"],
       "properties": {
         "version": { "const": "0.1.0" },
         "releaseStatus": { "const": "unpublished_draft" },
         "commit": { "type": "string", "pattern": "^[a-f0-9]{40,64}$" },
-        "requirementRegistry": { "$ref": "#/$defs/versionedArtifactPointer" },
-        "schemaManifest": { "$ref": "#/$defs/artifactPointer" }
+        "requirementRegistry": { "$ref": "#/$defs/versionedArtifactPointer" }
       },
       "additionalProperties": false
     },

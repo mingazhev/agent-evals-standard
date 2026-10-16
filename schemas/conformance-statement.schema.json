@@ -7,8 +7,6 @@
     "schemaVersion",
     "id",
     "standardRelease",
-    "contracts",
-    "schemas",
     "validatorCapabilities",
     "claim",
     "scope",
@@ -48,12 +46,6 @@
         }
       },
       "additionalProperties": false
-    },
-    "contracts": {
-      "$ref": "#/$defs/contractManifest"
-    },
-    "schemas": {
-      "$ref": "#/$defs/schemaManifest"
     },
     "validatorCapabilities": {
       "type": "object",
@@ -845,42 +837,6 @@
         }
       },
       "additionalProperties": false
-    },
-    "manifestPointer": {
-      "$comment": "Semantic validation resolves the exact distribution-manifest bytes, verifies digest and entriesDigest, rejects duplicate identities or URIs, and requires the entries to equal the closed schema or contract set of the pinned standard distribution. Numeric entry counts are intentionally not accepted as evidence of completeness.",
-      "type": "object",
-      "required": [
-        "id",
-        "version",
-        "uri",
-        "digest",
-        "entriesDigest"
-      ],
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/artifactRef"
-        },
-        "version": {
-          "const": "0.1.0"
-        },
-        "uri": {
-          "type": "string",
-          "minLength": 1
-        },
-        "digest": {
-          "$ref": "#/$defs/digest"
-        },
-        "entriesDigest": {
-          "$ref": "#/$defs/digest"
-        }
-      },
-      "additionalProperties": false
-    },
-    "contractManifest": {
-      "$ref": "#/$defs/manifestPointer"
-    },
-    "schemaManifest": {
-      "$ref": "#/$defs/manifestPointer"
     },
     "targetResult": {
       "type": "object",
