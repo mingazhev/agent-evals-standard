@@ -201,7 +201,8 @@
           "uniqueItems": true
         },
         "evidence": {
-          "$ref": "urn:agent-evals-standard:schema:verified-machine-contract:1#/$defs/evaluationControlAuthorityEvidenceBinding"
+          "$comment": "The committed review record (an evidence-artifact-1 reference). Reviewer authority and independence are established by the integrity model, not by this pointer.",
+          "$ref": "#/$defs/artifactBinding"
         }
       },
       "additionalProperties": false
@@ -209,6 +210,7 @@
   },
   "additionalProperties": false,
   "$defs": {
+    "artifactBinding": { "$comment": "A content-addressed reference under the integrity model: id, version, uri resolving to the exact bytes, and SHA-256 of those bytes.", "type": "object", "required": ["id", "version", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
     "id": {
       "type": "string",
       "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"

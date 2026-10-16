@@ -9,16 +9,9 @@
     "id": { "$ref": "#/$defs/id" },
     "version": { "type": "string", "minLength": 1 },
     "intendedUse": { "type": "string", "minLength": 1 },
-    "validityArgument": {
-      "$comment": "Generic URI pointers are forbidden for the suite validity argument. Semantic validation resolves and verifies the material typed contract.",
-      "$ref": "urn:agent-evals-standard:schema:verified-machine-contract:1#/$defs/validityArgumentBinding"
-    },
-    "evaluationThreatModel": {
-      "$ref": "urn:agent-evals-standard:schema:verified-machine-contract:1#/$defs/evaluationThreatModelBinding"
-    },
-    "heldOutExposure": {
-      "$ref": "urn:agent-evals-standard:schema:verified-machine-contract:1#/$defs/heldOutExposureControl"
-    },
+    "validityArgument": { "$comment": "Resolves to an agent-eval-validity-argument-1 document; semantic validation verifies the bytes and digest.", "$ref": "#/$defs/artifactBinding" },
+    "evaluationThreatModel": { "$comment": "Resolves to an agent-eval-evaluation-threat-model-1 document.", "$ref": "#/$defs/artifactBinding" },
+    "heldOutExposure": { "$ref": "#/$defs/heldOutExposureControl" },
     "sdlcCoverage": { "$ref": "#/$defs/versionedArtifactPointer" },
     "evaluationProfiles": { "$comment": "Every suite profile is a versioned authenticated subject; an ID and digest without the declared profile version is insufficient.", "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/versionedArtifactPointer" } },
     "cases": {
@@ -35,7 +28,7 @@
           "capabilityFamilyIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/capabilityId" }, "uniqueItems": true },
           "workArtifactTypes": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
           "memberships": { "type": "array", "minItems": 1, "items": { "enum": ["development", "held_out", "smoke", "regression"] }, "uniqueItems": true },
-          "lifecycle": { "enum": ["candidate", "active", "saturated", "regression", "quarantined", "retired"] }
+          "lifecycle": { "enum": ["candidate", "active", "quarantined", "retired"] }
         },
         "additionalProperties": false
       }
@@ -60,6 +53,8 @@
   },
   "additionalProperties": false,
   "$defs": {
+    "artifactBinding": { "$comment": "A content-addressed reference under the integrity model: id, version, uri resolving to the exact bytes, and SHA-256 of those bytes.", "type": "object", "required": ["id", "version", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
+    "heldOutExposureControl": { "type": "object", "required": ["budget", "ledger"], "properties": { "budget": { "$ref": "#/$defs/artifactBinding" }, "ledger": { "$ref": "#/$defs/artifactBinding" } }, "additionalProperties": false },
     "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
     "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
     "artifactUri": { "type": "string", "pattern": "^artifact:sha256:[a-f0-9]{64}$" },

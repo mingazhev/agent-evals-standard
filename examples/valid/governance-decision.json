@@ -16,11 +16,6 @@
     "location": "artifact:fixture:operational-governance-policy-fixture-1",
     "digest": "sha256:f2fbd75c175344432e7f030a56baf942dc6c1807aa3caf3d30c452afe247c067"
   },
-  "matrixInstance": {
-    "id": "operational-escalation-matrix-fixture-1",
-    "location": "artifact:fixture:operational-escalation-matrix-fixture-1",
-    "digest": "sha256:c2e6fb87a1f3f8936db5de56124ee776d258c67e383dd9e82487ca712169351d"
-  },
   "preRunDecisionPlan": {
     "id": "pre-run-decision-plan-fixture-1",
     "location": "artifact:fixture:pre-run-decision-plan-fixture-1",
@@ -31,18 +26,6 @@
       "id": "scorecard-fixture-1",
       "location": "artifact:fixture:scorecard-fixture-1",
       "digest": "sha256:623b507d79b4aad84a0d9f26b6f9e554b0e39cab306eea07913f7a485b674bb1"
-    }
-  ],
-  "resolutionLedger": {
-    "id": "governance-resolution-ledger-fixture-1",
-    "location": "artifact:fixture:governance-resolution-ledger-fixture-1",
-    "digest": "sha256:1f21847db9dbe24fb08e63df0ba6ddf9ca07be8749ab45161d727c561f14ac82"
-  },
-  "enforcementReceipts": [
-    {
-      "id": "enforcement-receipt-fixture-1",
-      "location": "artifact:fixture:enforcement-receipt-fixture-1",
-      "digest": "sha256:933be16499a65e0eab7f4765d28b42b813c8cb241da84217dbe118dc92d23454"
     }
   ],
   "effectiveAt": "2026-08-01T00:00:25Z",

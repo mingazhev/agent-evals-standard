@@ -61,7 +61,7 @@
       "id": "operational_change_record",
       "capabilityFamilyId": "CAP.RELEASE_OPERATE",
       "definition": "A claim-bearing record of a controlled simulated deployment, rollout, observability, rollback, or incident action and its resulting simulated state.",
-      "boundary": "A plan or recommendation without the evaluated simulated state transition is not an operational change record. Real production actions are outside evaluation cases; sealed production-derived telemetry may be used only for post-decision assurance."
+      "boundary": "A plan or recommendation without the evaluated simulated state transition is not an operational change record. Real production actions are outside evaluation cases; production telemetry may be used only for validity or post-decision assurance."
     },
     {
       "id": "incident_analysis",

@@ -44,52 +44,10 @@
       "trustDomain": "evaluation_governance"
     },
     "evidence": {
-      "contractType": "evaluation_control_authority_evidence",
       "id": "held-out-budget-authorization-v1",
       "version": "0.1.0",
-      "schemaId": "urn:agent-evals-standard:schema:evaluation-control-authority-evidence:1",
       "uri": "artifact:sha256:be781982c4d42ca0e750452515a04794ac5c50d0868dcc1b68ae84f87f35c215",
-      "digest": "sha256:be781982c4d42ca0e750452515a04794ac5c50d0868dcc1b68ae84f87f35c215",
-      "byteLength": 1297,
-      "mediaType": "application/json",
-      "locator": {
-        "kind": "repository_relative",
-        "base": "binding_document",
-        "path": "held-out-budget-authorization-evidence.json"
-      },
-      "verifier": {
-        "id": "machine-contract-focused-verifier",
-        "version": "0.1.0",
-        "uri": "artifact:sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
-        "digest": "sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
-        "byteLength": 77743,
-        "mediaType": "text/javascript",
-        "locator": {
-          "kind": "repository_relative",
-          "base": "binding_document",
-          "path": "implementation/verify-machine-contract-bindings.mjs"
-        },
-        "entrypoint": "verify-machine-contract-bindings-v1"
-      },
-      "resolutionContract": {
-        "id": "machine-contract-resolution-v1",
-        "version": "0.1.0",
-        "uri": "artifact:sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
-        "digest": "sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
-        "byteLength": 389,
-        "mediaType": "application/json",
-        "locator": {
-          "kind": "repository_relative",
-          "base": "binding_document",
-          "path": "resolution-contract.json"
-        },
-        "schemaId": "agent-eval-machine-contract-resolution-1"
-      },
-      "componentAuthority": {
-        "policyId": "fixture-evaluation-control-authority-policy",
-        "policyVersion": "0.1.0",
-        "policyDigest": "sha256:11920a11bbc9938fbaa69df1598fad48cd759d21a879477cb36a7f13e3c97069"
-      }
+      "digest": "sha256:be781982c4d42ca0e750452515a04794ac5c50d0868dcc1b68ae84f87f35c215"
     }
   }
 }

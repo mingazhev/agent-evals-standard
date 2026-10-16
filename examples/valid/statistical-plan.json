@@ -177,100 +177,16 @@
   },
   "heldOutExposureAndReuse": {
     "budget": {
-      "contractType": "held_out_exposure_budget",
       "id": "held-out-exposure-budget-v1",
       "version": "0.1.0",
-      "schemaId": "urn:agent-evals-standard:schema:held-out-exposure-budget:1",
       "uri": "artifact:sha256:2dc8f5b664f2f7f1dd1623aa52ee1d7e29fb18a7d48a3a9783c2052c9fe623ed",
-      "digest": "sha256:2dc8f5b664f2f7f1dd1623aa52ee1d7e29fb18a7d48a3a9783c2052c9fe623ed",
-      "byteLength": 3312,
-      "mediaType": "application/json",
-      "locator": {
-        "kind": "repository_relative",
-        "base": "binding_document",
-        "path": "held-out-exposure-budget.json"
-      },
-      "verifier": {
-        "id": "machine-contract-focused-verifier",
-        "version": "0.1.0",
-        "uri": "artifact:sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
-        "digest": "sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
-        "byteLength": 77743,
-        "mediaType": "text/javascript",
-        "locator": {
-          "kind": "repository_relative",
-          "base": "binding_document",
-          "path": "implementation/verify-machine-contract-bindings.mjs"
-        },
-        "entrypoint": "verify-machine-contract-bindings-v1"
-      },
-      "resolutionContract": {
-        "id": "machine-contract-resolution-v1",
-        "version": "0.1.0",
-        "uri": "artifact:sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
-        "digest": "sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
-        "byteLength": 389,
-        "mediaType": "application/json",
-        "locator": {
-          "kind": "repository_relative",
-          "base": "binding_document",
-          "path": "resolution-contract.json"
-        },
-        "schemaId": "agent-eval-machine-contract-resolution-1"
-      },
-      "componentAuthority": {
-        "policyId": "fixture-evaluation-control-authority-policy",
-        "policyVersion": "0.1.0",
-        "policyDigest": "sha256:11920a11bbc9938fbaa69df1598fad48cd759d21a879477cb36a7f13e3c97069"
-      }
+      "digest": "sha256:2dc8f5b664f2f7f1dd1623aa52ee1d7e29fb18a7d48a3a9783c2052c9fe623ed"
     },
     "ledger": {
-      "contractType": "held_out_exposure_ledger",
       "id": "held-out-exposure-ledger-v1",
       "version": "0.1.0",
-      "schemaId": "urn:agent-evals-standard:schema:held-out-exposure-ledger:1",
       "uri": "artifact:sha256:d008ee4f29bd58066fe5323d289657b2107f7198cf9b5aa34fdbb4a71312517f",
-      "digest": "sha256:d008ee4f29bd58066fe5323d289657b2107f7198cf9b5aa34fdbb4a71312517f",
-      "byteLength": 7305,
-      "mediaType": "application/json",
-      "locator": {
-        "kind": "repository_relative",
-        "base": "binding_document",
-        "path": "held-out-exposure-ledger.json"
-      },
-      "verifier": {
-        "id": "machine-contract-focused-verifier",
-        "version": "0.1.0",
-        "uri": "artifact:sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
-        "digest": "sha256:8356873bcfca4f419eaf32254eeefa54fd56182f3cdcdf7c18ac3c4191ed6515",
-        "byteLength": 77743,
-        "mediaType": "text/javascript",
-        "locator": {
-          "kind": "repository_relative",
-          "base": "binding_document",
-          "path": "implementation/verify-machine-contract-bindings.mjs"
-        },
-        "entrypoint": "verify-machine-contract-bindings-v1"
-      },
-      "resolutionContract": {
-        "id": "machine-contract-resolution-v1",
-        "version": "0.1.0",
-        "uri": "artifact:sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
-        "digest": "sha256:b0036946616f1a73099147f3f9b6830050ddea53718f13a7a0f1a53728523461",
-        "byteLength": 389,
-        "mediaType": "application/json",
-        "locator": {
-          "kind": "repository_relative",
-          "base": "binding_document",
-          "path": "resolution-contract.json"
-        },
-        "schemaId": "agent-eval-machine-contract-resolution-1"
-      },
-      "componentAuthority": {
-        "policyId": "fixture-evaluation-control-authority-policy",
-        "policyVersion": "0.1.0",
-        "policyDigest": "sha256:11920a11bbc9938fbaa69df1598fad48cd759d21a879477cb36a7f13e3c97069"
-      }
+      "digest": "sha256:d008ee4f29bd58066fe5323d289657b2107f7198cf9b5aa34fdbb4a71312517f"
     }
   },
   "estimators": [

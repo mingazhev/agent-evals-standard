@@ -33,23 +33,22 @@ the [authority map](#normative-authority-map) to find each contract.
 
 The [source-evidence manifest](standard/source-evidence-manifest.json) records
 `evidenceReadiness: blocked`: removing the signature profile changed the
-`EVID-001` claims of three sources, whose maintainer review receipts must be
+`EVID-001` claim bound to RFC 8785, whose maintainer review receipt must be
 re-issued before readiness returns to `ready`. Neither status establishes
 empirical validity for an adopter's population.
 
 ## Scope and implementation coverage
 
-The bundled profiles are narrower than the seven-family taxonomy. Their maturity
+The bundled profile is narrower than the seven-family taxonomy. Its maturity
 is explicit:
 
 | Capability surface | Bundled profile in 0.1.0 | Target-population evidence status |
 | --- | --- | --- |
 | `CAP.IMPLEMENT_CHANGE` | `repo-change-v1` | not yet established |
 | `CAP.VERIFY_ASSURE` | change-bound assurance inside `repo-change-v1`; no pure read-only assurance profile | not yet established |
-| `CAP.REVIEW_DECIDE` | read-only `repository-review-v1` | not yet established |
-| `CAP.DISCOVER_SPECIFY`, `CAP.PLAN_DESIGN`, `CAP.RELEASE_OPERATE`, `CAP.REMEDIATE_LEARN` | normative taxonomy and contract surface only | not yet established |
+| `CAP.DISCOVER_SPECIFY`, `CAP.PLAN_DESIGN`, `CAP.REVIEW_DECIDE`, `CAP.RELEASE_OPERATE`, `CAP.REMEDIATE_LEARN` | normative taxonomy and contract surface only | not yet established |
 
-The profiles demonstrate interoperability, not production trust readiness.
+The profile demonstrates interoperability, not production trust readiness.
 Each selected capability needs a material output mapped by the
 [work-artifact registry](standard/work-artifact-registry.json).
 
@@ -87,13 +86,13 @@ explicitly invokes it; it is not a second definition.
 | Primary requirements | [Conformance](standard/conformance.md) | Primary definitions of `CONF-001`, `CONF-002`, and `CONF-003`, including the Core level, authority, and contradiction handling. |
 | Invoked normative contract | [Evaluation-Profile Resolution](standard/profile-resolution-contract.md) | Complete inheritance, authentication, provenance, fixture-execution, and digest algorithm invoked by `PROFILE-001`. |
 | Invoked normative contract | [Case QA Playbook](standard/case-qa-playbook.md) | Complete activation and revalidation procedure invoked by `CASE-004`. |
-| Invoked normative contract | [Validity, threat, and held-out exposure machine contracts](standard/validity-threat-exposure-contracts.md) | Typed, externally authorized machine contracts invoked by `VALID-002`, `VALID-003`, `HOLD-002`, `I4`, `I10`, and `EVID-001`. |
+| Invoked normative contract | [Validity, threat, and held-out exposure contracts](standard/validity-threat-exposure-contracts.md) | Validity-argument, baseline, threat-model, and held-out budget and ledger contracts invoked by `VALID-002`, `VALID-003`, and `HOLD-002`. |
 | Invoked normative contract | [Integrity and Semantic Validation](standard/integrity-and-semantic-validation.md) | Named canonical, cross-document, ledger, and verdict reproduction algorithms invoked by primary requirements. |
 
 | Invoked normative contract | [Security Threat Model](standard/security-threat-model.md) | Threat-coverage rules invoked by `RISK-001`, `RUN-003`, `DATA-001`, and `DATA-002`. |
 | Invoked normative templates | [Governance Policy](standard/governance-policy.md) and [Escalation and Stop Matrix](standard/escalation-stop-matrix.md) | Required adopter-owned policy and response shapes invoked by governance requirements; the bundled instances remain non-operational. |
 | Normative shape | [Schemas](schemas/) and authenticated JSON registries | Closed JSON structure and registered machine identities; schema annotations are informative. |
-| Informative instances | [`examples/`](examples/README.md) | One valid example per schema, a few schema-level invalid examples, and the Core worked example; examples cannot create obligations. |
+| Informative instances | [`examples/`](examples/README.md) | One valid example per schema, a few schema-level invalid examples, and the Core worked example; examples cannot create obligations. Digests inside examples are illustrative. |
 | Normative traceability; informative sources | [Source-evidence manifest](standard/source-evidence-manifest.json) and [Informative References](standard/references.md) | Evidence-readiness and traceability records are normative; cited external sources and narrative summaries are informative. |
 
 The governance decision template is in

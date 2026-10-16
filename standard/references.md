@@ -22,10 +22,9 @@ stated in [TRACE-001](requirements.md#traceability-rules). Whole-standard
 publication is gated separately by the release gate in `TRACE-001` on a clean
 exact commit.
 
-Review receipts for `SRC-RFC8785-2020`, `SRC-RFC9162-2021`, and
-`SRC-INTOTO-2019` are `pending`: removing the signature profile changed the
-`EVID-001` claims they were bound to, so the maintainer must re-review them
-before evidence readiness can return to `ready`.
+The review receipt for `SRC-RFC8785-2020` is `pending`: removing the
+signature profile changed the `EVID-001` claims it was bound to, so the
+maintainer must re-review it before evidence readiness can return to `ready`.
 
 ## Evaluation and Case QA
 
@@ -72,8 +71,6 @@ before evidence readiness can return to `ready`.
 | Source ID | Bibliographic record and type | Persistent locator | Snapshot/hash | Requirement mapping | Limitations |
 | --- | --- | --- | --- | --- | --- |
 | `SRC-RFC8785-2020` | Rundgren, Jordan and Erdtman, *JSON Canonicalization Scheme (JCS)*, RFC 8785, 2020; Informational RFC (not Standards Track) | [RFC 8785](https://www.rfc-editor.org/rfc/rfc8785), DOI `10.17487/RFC8785` | pending local archive; no verified hash | `EVID-001`; deterministic JSON bytes | Canonicalization does not provide authenticity, authorization, freshness, or append-only storage |
-| `SRC-RFC9162-2021` | Laurie et al., *Certificate Transparency Version 2.0*, RFC 9162, 2021; Experimental RFC | [RFC 9162](https://www.rfc-editor.org/rfc/rfc9162), DOI `10.17487/RFC9162` | pending local archive; no verified hash | `RUN-003` (rationale only), `EVID-001`; Merkle inclusion and append-only consistency proofs and the split-view threat | Certificate Transparency is not a generic ledger protocol; this standard uses hash-chained ledgers and version-control order, specifies no witness, quorum, or gossip protocol, and claims no RFC 9162 compatibility |
-| `SRC-INTOTO-2019` | Torres-Arias et al., “in-toto: Providing farm-to-table guarantees for bits and bytes”, 2019; peer-reviewed supply-chain research | [USENIX Security 2019 paper](https://www.usenix.org/conference/usenixsecurity19/presentation/torres-arias) | pending archive; no verified hash | `RUN-003` (rationale only), `EVID-001`; authorized producers per supply-chain step | This standard borrows only the authorized-producer idea; it uses no signed layouts or attestations and claims no in-toto compatibility |
 
 ## Catalog maintenance
 

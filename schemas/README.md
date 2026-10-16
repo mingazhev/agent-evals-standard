@@ -15,17 +15,17 @@ enumerate that set rather than relying on this summary.
 | Suite, evaluator, and measurement profiles | `suite-manifest.schema.json`, `evaluator-manifest.schema.json`, `evaluation-profile.schema.json`, `profile-resolution-record.schema.json`, `profile-resolution-proof-inputs.schema.json`, `outcome-profile.schema.json` |
 | Repository-change profile contracts and registries | `repo-change-case-contract.schema.json`, `repo-change-gate-registry.schema.json`, `repo-change-failure-taxonomy.schema.json` |
 | Closed SDLC work products | `work-artifact-registry.schema.json` |
-| Environment and sealed execution | `environment-contract.schema.json`, `production-derived-authority-contract.schema.json`, `pre-run-manifest.schema.json` |
+| Environment and sealed execution | `environment-contract.schema.json`, `pre-run-manifest.schema.json` |
 | Risk derivation and sealed tier identity | `risk-assessment.schema.json` |
 | Statistics and grader validity | `statistical-plan.schema.json`, `grader-validation.schema.json` |
 | Validity, reference baselines, threats, and held-out exposure | `validity-argument.schema.json`, `evaluation-threat-model.schema.json`, `held-out-exposure-budget.schema.json`, `held-out-exposure-ledger.schema.json` |
 | Scorecard | `scorecard.schema.json` |
 | Canonical evidence and detached validation | `evidence-artifact.schema.json`, `source-evidence-manifest.schema.json`, `validation-envelope.schema.json` |
-| Repository snapshot and material grounding | `workspace-manifest.schema.json`, `repository-grounding-evidence.schema.json` |
-| Requirements | `requirement-registry.schema.json`, `requirement-implementation-contract.schema.json` |
-| Operational policy and escalation | `escalation-event-registry.schema.json`, `operational-governance-policy.schema.json` (closed ASSURE-001 risk/decision minima), `operational-escalation-matrix.schema.json`, `escalation-event.schema.json`, `enforcement-receipt.schema.json` |
-| Governance state | `assurance-observation.schema.json`, `governance-resolution.schema.json`, `governance-resolution-ledger.schema.json`, `governance-decision.schema.json` |
-| Conformance | `conformance-applicability-contract.schema.json`, `conformance-statement.schema.json` (including the material proof-set, verifier-registry, and verification-record fragments) |
+| Repository snapshot | `workspace-manifest.schema.json` |
+| Requirements | `requirement-registry.schema.json` |
+| Operational policy and escalation | `escalation-event-registry.schema.json`, `operational-governance-policy.schema.json` (closed ASSURE-001 risk/decision minima) |
+| Governance decision | `governance-decision.schema.json` |
+| Conformance | `conformance-statement.schema.json` |
 
 Validators load every schema in this directory into a registry keyed by its
 absolute `$id` before resolving cross-schema references. Semantic validation is

@@ -32,10 +32,7 @@
     },
     "multiplicity": { "$ref": "#/$defs/verifiedContract" },
     "sequentialLooksAndStopping": { "$ref": "#/$defs/verifiedContract" },
-    "heldOutExposureAndReuse": {
-      "$comment": "The statistical plan binds both the material held-out budget and the current append-only ledger; a generic verifiedContract is insufficient.",
-      "$ref": "urn:agent-evals-standard:schema:verified-machine-contract:1#/$defs/heldOutExposureControl"
-    },
+    "heldOutExposureAndReuse": { "$comment": "Binds the held-out budget and the current append-only ledger snapshot by content address.", "type": "object", "required": ["budget", "ledger"], "properties": { "budget": { "$ref": "#/$defs/artifactBinding" }, "ledger": { "$ref": "#/$defs/artifactBinding" } }, "additionalProperties": false },
     "estimators": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/verifiedContract" } },
     "intervalProcedure": { "$ref": "#/$defs/verifiedContract" },
     "digest": { "$ref": "#/$defs/digest" }
@@ -45,6 +42,7 @@
   ],
   "additionalProperties": false,
   "$defs": {
+    "artifactBinding": { "$comment": "A content-addressed reference under the integrity model: id, version, uri resolving to the exact bytes, and SHA-256 of those bytes.", "type": "object", "required": ["id", "version", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
     "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
     "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
     "component": {

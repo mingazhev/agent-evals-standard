@@ -66,14 +66,10 @@ identity with immutability evidence.
 the case ID; effective evaluation-profile ID, digest, and
 `effectiveProfileDigest`; and one outcome-profile ID, version, and digest. For
 A1–A3 the outcome profile **MUST** be compatible with the effective evaluation
-profile and the binding use is `claims_eligible`. For A0 the binding use is
-`diagnostic_only`; it selects explicit measurement semantics without asserting
-profile compatibility. Every cell references exactly one case ID and one arm ID and resolves
-its measurement semantics through that case's binding. A case-profile binding
-is measurement identity, not an arm component or treatment factor. An A0
-binding makes diagnostic grading reproducible but is not evidence of case,
-experiment, or suite conformance, and does not assert evaluation- or
-outcome-profile compatibility.
+profile; an A0 binding only selects explicit measurement semantics. Every cell
+references exactly one case ID and one arm ID and resolves its measurement
+semantics through that case's binding. A case-profile binding is measurement
+identity, not an arm component or treatment factor.
 
 For a multi-arm experiment, `comparativeDesign` **MUST** contain comparator arm
 IDs, declared treatment bundle and digest, paired case or block IDs,
@@ -500,8 +496,7 @@ The scorecard binds:
 attemptIntegrity.{status,scheduledCells,resolvedCells,unresolvedCells,
   physicalAttemptCount,validAttempts,invalidAttempts,interruptedAttempts,
   missingCaptureAttempts,replacementAttempts,unresolvedCellRate,
-  ratesByArmAndCase,scheduledSetCommitment,initialLedgerRoot,terminalLedgerRoot,
-  externalAttemptCheckpoint}
+  ratesByArmAndCase,scheduledSetCommitment,initialLedgerRoot,terminalLedgerRoot}
 ```
 
 The ledger **MUST** reconcile every transition, terminal attempt record,
@@ -527,58 +522,10 @@ whether retry after a valid attempt is allowed. An unresolved pointer or an
 unknown contract version fails closed; a validator cannot substitute an opaque
 `artifact:` label for contract execution.
 
-#### Independent attempt checkpoint
-
-An internally consistent ledger is not sufficient: an evaluator able to delete
-a failed attempt can recompute both roots and the ledger digest. Every
-dispatched physical attempt therefore **MUST** have an
-`agent-eval-attempt-checkpoint-1` scheduler receipt appended to a log that the
-scorecard producer cannot rewrite — for example, a protected branch or
-append-only store owned by a scheduler whose trust domain differs from the
-scorecard producer's. A receipt binds its sequence, experiment, scheduled-set
-digest, attempt and cell IDs, parent attempt, start time, and predecessor
-receipt digest.
-
-For `sha256-jcs-receipts-v1`:
-
-```text
-receiptDigest = SHA-256(JCS(receipt without receiptDigest))
-```
-
-Sequences **MUST** start at one, be contiguous, and use the preceding receipt's
-digest. The scheduler **MUST NOT** dispatch work before it durably appends the
-corresponding receipt. After experiment close it **MUST** issue exactly one
-terminal checkpoint for the scheduled-set commitment. The checkpoint binds:
-
-- the external log ID, terminal sequence, predecessor checkpoint, and immutable
-  publication URI;
-- the complete receipt chain and its head;
-- the exact ledger ID and digest;
-- receipt count, ordered-attempt-ID digest, full attempt-record-array digest,
-  initial ledger root, terminal ledger root, and close time.
-
-The ordered-attempt-ID digest is `SHA-256(JCS(receipts.map(attemptId)))`; the
-attempt-record digest is `SHA-256(JCS(ledger.attemptRecords))`. The checkpoint
-digest uses:
-
-```text
-checkpointDigest = SHA-256(JCS(checkpoint without digest))
-```
-
-`attemptIntegrity.externalAttemptCheckpoint` **MUST** resolve this checkpoint.
-Verification **MUST** obtain the configured scheduler identity and the current
-terminal `{logId, checkpointSequence, digest}` from the scheduler's log, never
-from the scorecard alone. It **MUST** verify scheduler role and trust domain,
-separation of the scheduler's and the scorecard producer's trust domains, the
-contiguous receipt chain, ledger digest and roots, ordered attempt identities,
-full records, counts, lineage fields, and time ordering. Missing scheduler
-identity or log-head state fails closed.
-
-Deleting a failed attempt and recomputing any evaluator-controlled artifact
-**MUST** be rejected because it cannot change the receipt chain and terminal
-checkpoint already appended to the scheduler's log. The machine-readable
-checkpoint is
-[`attempt-checkpoint.schema.json`](../schemas/attempt-checkpoint.schema.json).
+The ledger is committed to version control and protected from history
+rewrites under the [integrity model](evidence-and-validation-contract.md#integrity-model);
+deleting a failed attempt is a visible history rewrite, not a silent
+recomputation.
 
 ### Conservative Bounds
 

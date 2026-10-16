@@ -80,10 +80,6 @@ unauthorized producer, wrong creation phase, expired evidence, or access
 outside the approved purpose. It **MUST NOT** repair,
 relabel, or infer missing evidence.
 
-For machine-authoritative validity, threat, exposure, and control bindings,
-`EVID-001` invokes the resolvable binding and external-authority rules in the
-[Validity, threat, and held-out exposure machine contracts](validity-threat-exposure-contracts.md#resolvable-verified-machine-contract).
-
 ### Material-byte resolution
 
 An evidence record without accessible subject bytes is metadata, not evidence.
@@ -192,53 +188,9 @@ prior data-owner authorization and a provider contract consistent with its
 access and retention class. Oracle material **MUST NOT** be sent to the evaluated
 provider.
 
-For production-derived fixture input, every proof named by the environment
-contract is an evidence reference under `EVID-001`; an inline `result: pass` is
-not evidence by itself. The environment **MUST** content-address a
-`production-derived-authority-contract-1`, and its consuming authenticated
-pre-run manifest **MUST** bind that exact environment ID, version, and digest.
-The authority contract is the only source of proof-to-producer, role, trust-
-domain, creation-phase, evidence-schema, and verifier authorization. A
-proof, payload, or evidence bundle **MUST NOT** introduce or override any of
-those values. The production-derived validator **MUST** receive the pre-run
-schema-validation and authentication results from evaluator-controlled
-verifiers; a related file path, self-digest, unknown document shape, or
-authority asserted only by evaluated input is not a seal.
-
-Every named verifier **MUST** resolve exactly once through an evaluator-owned
-registry established outside the evaluated input. The registry entry **MUST**
-bind verifier ID and version to the SHA-256 digest of exact implementation
-bytes. Merely repeating a verifier digest in a proof, evidence record, or
-authority contract is not authentication. The evidence record's
-`schemaMetadata.validatorDigest` and
-`mediaInterpretation.semanticContract` **MUST** equal that registered verifier,
-and its producer **MUST** equal the producer the authority contract assigns to
-that proof kind.
-
-Semantic re-evaluation **MUST** compare the closed payload for each proof kind
-with sealed values:
-
-- provenance binds snapshot digest, source cutoff, source systems, dataset ID,
-  record count, and the sealed export-ledger digest and transformation ID,
-  version, and digest;
-- data-owner authorization binds owner, snapshot scope, purpose, decision, and
-  authorization time;
-- redaction binds policy ID, version, and digest and reports zero direct-
-  identifier, secret, and unresolved findings;
-- re-identification binds method ID, version, and digest, decision, and a
-  residual-risk value no greater than the sealed maximum;
-- production isolation binds the named boundary projection and digest and
-  reports every production read, write, live-connectivity, and credential flag
-  as false.
-
-Data-owner, privacy, and isolation evidence **MUST** have pairwise-distinct
-producer IDs and trust domains. Redaction and re-
-identification use the same accountable privacy authority. A missing registry,
-unresolved implementation bytes, unsealed authority contract, reused required
-authority boundary, unknown field, or semantic mismatch yields
-`insufficient_evidence`. The exact projections and time-order checks are defined
-once in the [applicability boundary](standard.md#applicability-boundary-and-profiles)
-and the machine-readable environment and authority schemas.
+Version 0.1.0 defines no production-derived fixture input; an adopter adding
+one as a `CONF-003` extension owns its provenance, authorization, redaction,
+and isolation evidence under this same `EVID-001` contract.
 
 ## Verification order
 
@@ -256,6 +208,5 @@ and propagate any material-payload issue as `insufficient_evidence` before
 terminal-outcome selection.
 
 The machine-readable records are
-[`evidence-artifact.schema.json`](../schemas/evidence-artifact.schema.json),
-[`production-derived-authority-contract.schema.json`](../schemas/production-derived-authority-contract.schema.json),
+[`evidence-artifact.schema.json`](../schemas/evidence-artifact.schema.json)
 and [`validation-envelope.schema.json`](../schemas/validation-envelope.schema.json).

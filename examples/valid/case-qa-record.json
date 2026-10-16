@@ -34,11 +34,6 @@
       "version": "0.1.0",
       "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     },
-    "escalationMatrix": {
-      "id": "fixture-escalation-matrix",
-      "version": "0.1.0",
-      "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
-    },
     "profile": {
       "id": "repo-change-v1",
       "version": "0.1.0",

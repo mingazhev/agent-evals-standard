@@ -12,7 +12,7 @@
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["id", "subject", "normativeReference", "targets", "verificationKind", "verificationOwner", "accountableReviewer", "verificationContract", "evidenceBasis", "applicability"],
+        "required": ["id", "subject", "normativeReference", "targets", "verificationKind", "verificationOwner", "accountableReviewer", "evidenceBasis", "applicability"],
         "properties": {
           "id": { "$ref": "#/$defs/id" },
           "subject": { "type": "string", "minLength": 1 },
@@ -25,7 +25,6 @@
           },
           "verificationKind": { "enum": ["schema", "semantic", "manual_governance"] },
           "verificationOwner": { "$ref": "#/$defs/id" }, "accountableReviewer": { "$ref": "#/$defs/id" },
-          "verificationContract": { "$ref": "#/$defs/verificationContract" },
           "evidenceBasis": {
             "oneOf": [
               {
@@ -50,20 +49,6 @@
           },
           "applicability": { "type": "object", "required": ["rule", "unknownEffect"], "properties": { "rule": { "type": "string", "minLength": 1 }, "unknownEffect": { "enum": ["fail", "insufficient_evidence", "manual_review_required"] } }, "additionalProperties": false }
         },
-        "allOf": [
-          {
-            "if": { "type": "object", "properties": { "verificationKind": { "const": "schema" } }, "required": ["verificationKind"] },
-            "then": { "type": "object", "properties": { "verificationContract": { "type": "object", "properties": { "permittedMethods": { "const": ["automated_replay"] } } } } }
-          },
-          {
-            "if": { "type": "object", "properties": { "verificationKind": { "const": "semantic" } }, "required": ["verificationKind"] },
-            "then": { "type": "object", "properties": { "verificationContract": { "type": "object", "properties": { "permittedMethods": { "const": ["automated_replay"] } } } } }
-          },
-          {
-            "if": { "type": "object", "properties": { "verificationKind": { "const": "manual_governance" } }, "required": ["verificationKind"] },
-            "then": { "type": "object", "properties": { "verificationContract": { "type": "object", "properties": { "permittedMethods": { "const": ["accountable_review"] } } } } }
-          }
-        ],
         "additionalProperties": false
       }
     },
@@ -72,23 +57,6 @@
   "additionalProperties": false,
   "$defs": {
     "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
-    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
-    "verificationContract": {
-      "type": "object",
-      "required": ["criterionId", "strength", "normativeReference", "question", "permittedMethods"],
-      "properties": {
-        "criterionId": { "$ref": "#/$defs/id" },
-        "strength": { "const": "complete_primary_definition" },
-        "normativeReference": { "type": "string", "minLength": 1 },
-        "question": { "type": "string", "minLength": 1 },
-        "permittedMethods": {
-          "type": "array",
-          "minItems": 1,
-          "items": { "enum": ["automated_replay", "accountable_review"] },
-          "uniqueItems": true
-        }
-      },
-      "additionalProperties": false
-    }
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
   }
 }

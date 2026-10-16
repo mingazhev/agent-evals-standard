@@ -87,10 +87,10 @@ order: recognized test paths are `test_change`; recognized build, dependency,
 workflow, infrastructure, policy-as-code, and repository configuration paths
 are `repository_configuration`; every other safe repository-content path is
 `code_change`. The last class deliberately supports source languages and
-implementation assets without an extension allowlist. The independently
-authenticated case capability-classification record remains the semantic
-authority for the evaluated construct; this path policy is a structural replay
-check, not permission to relabel a test or configuration artifact as code.
+implementation assets without an extension allowlist. The case's declared
+`workArtifactTypes`, reviewed in Case QA, remain the semantic authority for the
+evaluated construct; this path policy is a structural replay check, not
+permission to relabel a test or configuration artifact as code.
 
 The authenticated executor source is the exact machine definition. Its bundled
 policy recognizes common test, spec, end-to-end, integration, acceptance,

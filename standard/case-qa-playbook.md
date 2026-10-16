@@ -168,9 +168,7 @@ A deterministic linter verifies at least the following:
   `bounded_ancestry` or `full_ancestry` projection has a `baseRevision` equal to
   its own `cutoffRevision`, exact permitted refs and object closure, and, for
   bounded ancestry, the declared parent-depth boundary. The snapshot is
-  reproducible. The environment contract has an explicit closed input origin,
-  and any production-derived input passes the environment contract's subject-
-  binding and pre-run-seal checks;
+  reproducible. The environment contract has an explicit closed input origin;
 - oracle and hidden artifacts are absent from the agent-visible tree, checkout,
   Git objects and refs, caches, indexes, build layers, environment variables,
   tool responses, logs, retrieval stores, network mounts, provider state, and
@@ -289,7 +287,7 @@ verdict even when it differs from the sealed expected verdict. Such a mismatch
 cannot support activation, a passed control stage, or a passing surface result.
 Stage 7 retains the independently known-valid control with `expected: pass`
 and its actual observed verdict when the alternative is rejected; a passed
-Stage 7 and a singleton-validity proof still require successful control proofs.
+Stage 7 recorded as `not_applicable` still requires successful control proofs.
 
 ### Stage 5 — Trivial-Strategy Battery
 
@@ -388,33 +386,14 @@ false-negative defect. The rejecting check or adjudication contract **MUST** be
 corrected until it enforces only requirements traceable to the sealed
 agent-visible projection and bound outcome profile.
 
-Stage 7 **MAY** instead record `not_applicable` only when an authenticated,
-pre-sealed applicability rule proves that the valid-result set contains exactly
-one material equivalence class under the task's permitted outcome invariants.
-Byte identity, a single reference implementation, author intent, or failure to
-find an alternative is not a singleton proof. An unknown, incomplete, or
-disputed result leaves the stage failed and the case `candidate`.
-
-The `not_applicable` record **MUST** set `alternativeValidResult` to `null` and
-bind all of the following in `singletonValidityProof`:
-
-- the versioned applicability rule and valid-result-set definition sealed before
-  inspecting the proof outcome;
-- authenticated applicability, equivalence, and exhaustiveness evidence proving
-  that every valid realization preserves the same material result and that no
-  second material equivalence class is omitted;
-- authenticated counterexample-search evidence produced under the Stage 7
-  independence controls and designed to falsify the singleton claim;
-- a runner-owned passing control for the canonical singleton result; and
-- at least two distinct runner-owned failing near-miss controls on different
-  input digests. Each near miss **MUST** exercise the exact check IDs and
-  component digests used for the canonical control.
-
-The canonical control protects against rejecting the only valid result; the
-equivalence, exhaustiveness, counterexample, and near-miss evidence protect
-against declaring a set singleton merely because the search or verdict
-mechanism is weak. Missing, stale, unauthenticated, differently bound, or
-post-hoc evidence makes `not_applicable` invalid.
+Stage 7 **MAY** instead record `not_applicable` with a rationale when no
+independently produced alternative valid result could be obtained — for
+example because the task admits one byte-identical answer. That record sets
+`alternativeValidResult` to `null`. It is a recorded gap, not a proof that only
+one valid result exists: a claim that depends on the case **MUST** carry the
+restriction that false-negative rejection of alternative valid results was not
+tested for it, and a later alternative valid result that the verdict mechanism
+rejects is still an `alternative_valid_result_rejected` severity-3 defect.
 
 One alternative valid result is an activation control, not an estimate of the
 false-negative rate. False-positive and false-negative rates used for
@@ -548,7 +527,7 @@ alone does not prove coverage. The record includes:
 - the complete sealed agent-visible projection manifest and requirement-to-
   projection trace;
 - the base standard, case, environment, scorecard-contract, risk-policy,
-  escalation-matrix, profile, and grader versions under which the evidence was
+  profile, and grader versions under which the evidence was
   collected;
 - for each Stage 0–8: status, exact capability ID, implementation kind,
   reviewer actor ID, role, trust domain, timestamp,
@@ -564,8 +543,8 @@ alone does not prove coverage. The record includes:
 - the pre-registered statistical plan, primary/exploratory classification,
   multiplicity and sequential-look accounting, and held-out reuse ledger;
 - control-proof and alternative-valid-result evidence, including the selected
-  outcome-profile evidence mode, or the complete fail-closed singleton-validity
-  proof when Stage 7 is `not_applicable`;
+  outcome-profile evidence mode, or the `not_applicable` rationale when Stage 7
+  could not obtain an alternative valid result;
 - one validation result for every decision surface, including alternate-path
   or final-state coverage evidence as applicable;
 - the shared grader-validation record, sampling-frame applicability, complete
@@ -626,17 +605,17 @@ Invalidate the QA record and repeat the applicable stages when:
 - production provides a false-positive or false-negative signal;
 - contamination is suspected or confirmed, a canary is detected, or a held-out
   exposure or reuse budget is exceeded;
-- a saturation review moves the case into the regression suite.
+- a suite-health review flags saturation or moves the case into the
+  regression membership.
 
-Record the invalidation and move the case from its eligible lifecycle state to
-`quarantined` in one atomic state transition, preserving that predecessor in
-`case.lifecycle.preQuarantineEligibleState` and binding the transition record in
+Record the invalidation and move the case from `active` to `quarantined` in one
+atomic state transition, binding the transition record in
 `case.lifecycle.quarantineRecord`. That record has `decision.status: quarantined`.
-A case with a failed re-QA returns to `candidate`. A case with a new
-valid QA record returns to its recorded predecessor (`active`, `saturated`, or
-`regression`); a suite-health report does not replace this enforcement.
+A case with a failed re-QA returns to `candidate`. A case with a new valid QA
+record returns to `active`; a suite-health report does not replace this
+enforcement.
 
-An activated case follows the complete branching state graph in the
+An activated case follows the state graph in the
 [base standard](standard.md#case-lifecycle-requirements); no linear sequence is
 implied. Invalidation and re-QA use the transitions above. This playbook applies
 on entry to `active` and whenever re-QA is triggered.

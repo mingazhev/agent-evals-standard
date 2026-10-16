@@ -5,52 +5,28 @@
   "kind": "schemas",
   "entries": [
     {
-      "id": "urn:agent-evals-standard:schema:assurance-observation:1",
-      "version": "0.1.0",
-      "uri": "schemas/assurance-observation.schema.json",
-      "digest": "sha256:0a252e13763247c03aa48ad8e64b7ef17550b0af454a0b536b65b75c78dcbf0a"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:attempt-checkpoint:1",
-      "version": "0.1.0",
-      "uri": "schemas/attempt-checkpoint.schema.json",
-      "digest": "sha256:4250c8f6f6e66d54f0df1e1b3632e0a7365f3670d121b5de404924d2a423a067"
-    },
-    {
       "id": "urn:agent-evals-standard:schema:case-activation-input:1",
       "version": "0.1.0",
       "uri": "schemas/case-activation-input.schema.json",
-      "digest": "sha256:9c952d5b7eca2ca72436cfb54141d33ca15035f7034f4142cfd88909f63b7f7d"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:case-classification-validity-argument:1",
-      "version": "0.1.0",
-      "uri": "schemas/case-classification-validity-argument.schema.json",
-      "digest": "sha256:069f1cb42bd573a5232e8ddd96d191ddba629ce09cd74240b3f8b8b404183670"
+      "digest": "sha256:dc5dd5c011ea03ab77886a70b377f40241e12e49c3dcb626c8e79c3036d7a8f5"
     },
     {
       "id": "urn:agent-evals-standard:schema:case-qa-record:1",
       "version": "0.1.0",
       "uri": "schemas/case-qa-record.schema.json",
-      "digest": "sha256:94067ba30fa44aed9d0b5abc79dab544df98894eedcb51638e1de9b9bbb89129"
+      "digest": "sha256:494825d18b1d3a7828b7ca487d45ba1d53b373c10b044a6ce2837fae23a8d968"
     },
     {
       "id": "urn:agent-evals-standard:schema:case:1",
       "version": "0.1.0",
       "uri": "schemas/case.schema.json",
-      "digest": "sha256:9b9abde7848e44bc11b575f2bb35ddc14c766b031a4a0a0a597b84b74d1fbf52"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:conformance-applicability-contract:1",
-      "version": "0.1.0",
-      "uri": "schemas/conformance-applicability-contract.schema.json",
-      "digest": "sha256:981a31d753adfe7b5ac760b05d1aefff02e229dea08c252b4c269375b1604388"
+      "digest": "sha256:5ffe4fdc56f394c61bd9292ff32bcd0c2340f87f6041f5dc9e5c2e2b95e6a487"
     },
     {
       "id": "urn:agent-evals-standard:schema:conformance-statement:1",
       "version": "0.1.0",
       "uri": "schemas/conformance-statement.schema.json",
-      "digest": "sha256:8a121975f88680d3fc49350b7e4ff73658d074447f2515c62f19335635ac8c77"
+      "digest": "sha256:c11a733a85d7c5805368d97f849f38502b66324186a7ce02d9de6fc24c449672"
     },
     {
       "id": "urn:agent-evals-standard:schema:core-attempt-ledger:1",
@@ -95,16 +71,10 @@
       "digest": "sha256:e965cab582d42a23f4ed4c09606616f8427a32c0d6fa2f688e7e2156246a6c83"
     },
     {
-      "id": "urn:agent-evals-standard:schema:enforcement-receipt:1",
-      "version": "0.1.0",
-      "uri": "schemas/enforcement-receipt.schema.json",
-      "digest": "sha256:5367e9f5afd4a609ef48c4c532f7e7275ed9bfd7d4d2d6cdc86193b90e8aaf58"
-    },
-    {
       "id": "urn:agent-evals-standard:schema:environment-contract:1",
       "version": "0.1.0",
       "uri": "schemas/environment-contract.schema.json",
-      "digest": "sha256:047d24d07bf8acf5d6c7e9c31e6ab72a46b821fa3124cd059a4e4aee0bc5d072"
+      "digest": "sha256:74477f20a84726978fcc6b3125174a57007a6f62f4cad29a92b89b4f1c1ab3fe"
     },
     {
       "id": "urn:agent-evals-standard:schema:escalation-event-registry:1",
@@ -113,34 +83,10 @@
       "digest": "sha256:c168b20f82e9144f33aa685fa33d36bca5581c2e5df975c2e3a5a0d9eb9e7636"
     },
     {
-      "id": "urn:agent-evals-standard:schema:escalation-event:1",
-      "version": "0.1.0",
-      "uri": "schemas/escalation-event.schema.json",
-      "digest": "sha256:99e049afd8dc107faa1f801e2e9ff65b4834646b7fdbff9f3dc1d50eab09abc2"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:evaluation-control-authority-evidence:1",
-      "version": "0.1.0",
-      "uri": "schemas/evaluation-control-authority-evidence.schema.json",
-      "digest": "sha256:f5abff43c9de71da4daf93c412ac58c6c2cf9e0a3bbdac26920bae747d954f66"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:evaluation-control-authority-policy:1",
-      "version": "0.1.0",
-      "uri": "schemas/evaluation-control-authority-policy.schema.json",
-      "digest": "sha256:cf81c3cdd83a38c1cb632e5e105bd5a9068a3a2a8a4a0c09bf9abbb47b6d3669"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:evaluation-control-bindings:1",
-      "version": "0.1.0",
-      "uri": "schemas/evaluation-control-bindings.schema.json",
-      "digest": "sha256:9ca15708bca2c4ac3ee58c3df8026b43958c29b92d9b8d4aa900987b6db458bc"
-    },
-    {
       "id": "urn:agent-evals-standard:schema:evaluation-profile:1",
       "version": "0.1.0",
       "uri": "schemas/evaluation-profile.schema.json",
-      "digest": "sha256:3269d7f635c62ddfd1e950547379c30b5278ce7e22a6ccf50e7401b2b4c3ddc6"
+      "digest": "sha256:339488b354773abe421c3260daaef18a636e427a0f48f5d3fa21178eb8017d57"
     },
     {
       "id": "urn:agent-evals-standard:schema:evaluation-threat-model:1",
@@ -164,19 +110,7 @@
       "id": "urn:agent-evals-standard:schema:governance-decision:1",
       "version": "0.1.0",
       "uri": "schemas/governance-decision.schema.json",
-      "digest": "sha256:36d27d824e7cb4ebdcb68ac23a3662152830b2c143ebc306bdbad7aa859afcce"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:governance-resolution-ledger:1",
-      "version": "0.1.0",
-      "uri": "schemas/governance-resolution-ledger.schema.json",
-      "digest": "sha256:0d76eeec7e693726a9f81c36c788e837d103b824b521dc062caa69a955c727ad"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:governance-resolution:1",
-      "version": "0.1.0",
-      "uri": "schemas/governance-resolution.schema.json",
-      "digest": "sha256:ceaa06ba0cc5acb97576a51c9c19eb5ccd19b8b758f41abcf6a9cd840fe685ec"
+      "digest": "sha256:bea274330d76007fefc04b80e05e53f4d9e583c4ec801a52dcd5ddfe81edfb72"
     },
     {
       "id": "urn:agent-evals-standard:schema:grader-validation:1",
@@ -188,25 +122,19 @@
       "id": "urn:agent-evals-standard:schema:held-out-exposure-budget:1",
       "version": "0.1.0",
       "uri": "schemas/held-out-exposure-budget.schema.json",
-      "digest": "sha256:30422e7a40527721c6abc703a14856a85d1cc1b6c324b9b706f7b62416c318af"
+      "digest": "sha256:cc4601dc2e5cf74e4496b5d8e89d2a8dd3702270e61930b3390098abae534946"
     },
     {
       "id": "urn:agent-evals-standard:schema:held-out-exposure-ledger:1",
       "version": "0.1.0",
       "uri": "schemas/held-out-exposure-ledger.schema.json",
-      "digest": "sha256:c69026065adb6c774d11cfe103514a2fb2df4626eee36825cfac5533eb123f80"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:operational-escalation-matrix:1",
-      "version": "0.1.0",
-      "uri": "schemas/operational-escalation-matrix.schema.json",
-      "digest": "sha256:bee9de2c751984ae6480b645cfb097c931382d18522eddf9fa6b78f085e47797"
+      "digest": "sha256:3360202ac92c4a7dcddfc653cd90190a6ebcffe55237624ebe264cdcf74bd6c1"
     },
     {
       "id": "urn:agent-evals-standard:schema:operational-governance-policy:1",
       "version": "0.1.0",
       "uri": "schemas/operational-governance-policy.schema.json",
-      "digest": "sha256:f7e7c3cd2e08616c37f467571da421322ae107c505f296b1a087ea3a8a4e5e93"
+      "digest": "sha256:ece739433a492dd8af41b24fe30e17298dc1222d421f9496b4dab310389eceeb"
     },
     {
       "id": "urn:agent-evals-standard:schema:outcome-profile:1",
@@ -230,13 +158,7 @@
       "id": "urn:agent-evals-standard:schema:pre-run-manifest:1",
       "version": "0.1.0",
       "uri": "schemas/pre-run-manifest.schema.json",
-      "digest": "sha256:98603a4b7690dd3874508599e1e8854e2b57a2b02e2d895ac14a2fcbd87d457a"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:production-derived-authority-contract:1",
-      "version": "0.1.0",
-      "uri": "schemas/production-derived-authority-contract.schema.json",
-      "digest": "sha256:5a1e523b223d8b1945dec4e644f62a34727f9fff24c42778b2d533285176d1de"
+      "digest": "sha256:73868e3597e429e6e542a413097ec5d53871eeb8b044f114740c10985f7c3913"
     },
     {
       "id": "urn:agent-evals-standard:schema:profile-resolution-proof-inputs:1",
@@ -248,7 +170,7 @@
       "id": "urn:agent-evals-standard:schema:profile-resolution-record:1",
       "version": "0.1.0",
       "uri": "schemas/profile-resolution-record.schema.json",
-      "digest": "sha256:0e135747bda78149cc2ff83e12a50bf913cfb9861e6094ccb37945295a9ae227"
+      "digest": "sha256:146114197b502e1b9d7ed65fd95ffd5af255413d7787d7ebcddd417431cf2e8b"
     },
     {
       "id": "urn:agent-evals-standard:schema:repo-change-adjudication-record:1",
@@ -305,28 +227,10 @@
       "digest": "sha256:20769ecad221b990153be262bff6e8fa01eaa3d1e826a1e782e77383101ab6bb"
     },
     {
-      "id": "urn:agent-evals-standard:schema:repository-grounding-evidence:1",
-      "version": "0.1.0",
-      "uri": "schemas/repository-grounding-evidence.schema.json",
-      "digest": "sha256:4e724c1262deb3db8079f44d45039b455a2cce00f8d60f523b246a093f878fc6"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:repository-grounding-executor-registry:1",
-      "version": "0.1.0",
-      "uri": "schemas/repository-grounding-executor-registry.schema.json",
-      "digest": "sha256:777311958161a6aa7a4eae93ab02d67dd34556a8a119ed43c211c2fc4ae3bf9e"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:requirement-implementation-contract:1",
-      "version": "0.1.0",
-      "uri": "schemas/requirement-implementation-contract.schema.json",
-      "digest": "sha256:eb9b601ff4719c5bc4eb42b20352f0c3548fdccafc38e94b52604012bf494c13"
-    },
-    {
       "id": "urn:agent-evals-standard:schema:requirement-registry:1",
       "version": "0.1.0",
       "uri": "schemas/requirement-registry.schema.json",
-      "digest": "sha256:1a84c548b287ca756322e7ff39fa963119d31a6e79542d699f93a7d2b0f8d66b"
+      "digest": "sha256:746bde5e8d48b969a02dff9006773bd59033d698587a6bbd730442529727faf4"
     },
     {
       "id": "urn:agent-evals-standard:schema:risk-assessment:1",
@@ -338,7 +242,7 @@
       "id": "urn:agent-evals-standard:schema:scorecard:1",
       "version": "0.1.0",
       "uri": "schemas/scorecard.schema.json",
-      "digest": "sha256:c1e439785c68004cb5aa844908112e3f8642be0d04ad6354aad621b12f2e1a59"
+      "digest": "sha256:e8f5d0095f08fe708ea441beb0196235b9b250ee202ac6878ad7d2fca05fcfd6"
     },
     {
       "id": "urn:agent-evals-standard:schema:sdlc-coverage:1",
@@ -350,19 +254,19 @@
       "id": "urn:agent-evals-standard:schema:source-evidence-manifest:1",
       "version": "0.1.0",
       "uri": "schemas/source-evidence-manifest.schema.json",
-      "digest": "sha256:b4562dfa90217ccc0528a19f00c89e1848ba7b0ec3b20158ba09f211482f6257"
+      "digest": "sha256:09a242cb0e0f2a30b8654bb1752309dd27f0a578327a680b1c91b8cf1f548b53"
     },
     {
       "id": "urn:agent-evals-standard:schema:statistical-plan:1",
       "version": "0.1.0",
       "uri": "schemas/statistical-plan.schema.json",
-      "digest": "sha256:fc4bf3c83f1fe5ad592fc40a37b59b76bbafb42d8af17ced042c31707a89b6fd"
+      "digest": "sha256:0d011cf68717bfd68e2960338b31d07f171c0136aee79a7198b935d660ee0d41"
     },
     {
       "id": "urn:agent-evals-standard:schema:suite-manifest:1",
       "version": "0.1.0",
       "uri": "schemas/suite-manifest.schema.json",
-      "digest": "sha256:b7ddb94d02ebc93d88cc5a4083f4a275bd676ad3816ed16417acc2b38fa2d970"
+      "digest": "sha256:479339674a9be37c866dddf2041304297f9483f34675f0c073005eae9157fcab"
     },
     {
       "id": "urn:agent-evals-standard:schema:validation-envelope:1",
@@ -374,13 +278,7 @@
       "id": "urn:agent-evals-standard:schema:validity-argument:1",
       "version": "0.1.0",
       "uri": "schemas/validity-argument.schema.json",
-      "digest": "sha256:0892f70b0e622bbe994922f04e39082a5d60541c5b3100235481c9c67cf38083"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:verified-machine-contract:1",
-      "version": "0.1.0",
-      "uri": "schemas/verified-machine-contract.schema.json",
-      "digest": "sha256:a191aba4ac05412a39b05f14bc06b234fabb2130fb7898125cd82b11bc0deed9"
+      "digest": "sha256:d6a29931275dd03460a67313db8aae54d9ab09076af34a399cd3ad42a801cf65"
     },
     {
       "id": "urn:agent-evals-standard:schema:work-artifact-registry:1",
@@ -395,5 +293,5 @@
       "digest": "sha256:391e6dc98e4753b01bc8b160891eee65cedb340bc083bc42a856b4c268637cce"
     }
   ],
-  "entriesDigest": "sha256:5f47b188ccd8c436544256409ad2efdce399f01db7185f2c102f42dd5971cf9f"
+  "entriesDigest": "sha256:7e2e08226e57d66c7c8097130aec437c7f3de10009b9e2348c7de4d4907f469b"
 }

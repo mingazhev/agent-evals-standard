@@ -23,7 +23,6 @@
     "caseProfiles": [
       {
         "caseId": "repo-change-case-fixture-1",
-        "bindingUse": "claims_eligible",
         "evaluationProfile": {
           "id": "repo-change-v1",
           "version": "0.1.0",
@@ -664,13 +663,7 @@
           "costUsd": 1
         }
       }
-    ],
-    "externalAttemptCheckpoint": {
-      "id": "attempt-checkpoint-fixture-1",
-      "version": "0.1.0",
-      "uri": "attempt-checkpoint.json",
-      "digest": "sha256:4116c1d5ba80ff5418cf10fe2fc3613a4e281cde3ffc16ee8b141ac88e386854"
-    }
+    ]
   },
   "metrics": {
     "outcomes": [

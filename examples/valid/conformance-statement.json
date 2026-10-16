@@ -61,7 +61,6 @@
           }
         ],
         "assuranceLevel": "A3",
-        "bindingUse": "claims_eligible",
         "riskTiers": [
           "high"
         ],
@@ -77,16 +76,7 @@
           "test_change",
           "repository_configuration",
           "assurance_report"
-        ],
-        "materialRepositoryGrounding": {
-          "evidenceId": "repository-grounding-primary",
-          "assertionIds": {
-            "repositoryNecessity": "primary-repository-necessity",
-            "claimInvariantTraceability": "primary-claim-invariant-traceability",
-            "repositoryGovernedOutcome": "primary-repository-governed-outcome",
-            "removalCounterfactual": "primary-removal-counterfactual"
-          }
-        }
+        ]
       },
       {
         "id": "repository-change-secondary",
@@ -118,7 +108,6 @@
           }
         ],
         "assuranceLevel": "A1",
-        "bindingUse": "claims_eligible",
         "riskTiers": [
           "medium"
         ],
@@ -132,16 +121,7 @@
         "workArtifactTypes": [
           "code_change",
           "assurance_report"
-        ],
-        "materialRepositoryGrounding": {
-          "evidenceId": "repository-grounding-secondary",
-          "assertionIds": {
-            "repositoryNecessity": "secondary-repository-necessity",
-            "claimInvariantTraceability": "secondary-claim-invariant-traceability",
-            "repositoryGovernedOutcome": "secondary-repository-governed-outcome",
-            "removalCounterfactual": "secondary-removal-counterfactual"
-          }
-        }
+        ]
       }
     ]
   },
@@ -235,13 +215,6 @@
             "version": "0.1.0",
             "uri": "../../../profiles/repo-change-v1/outcome-profile.json",
             "digest": "sha256:f8898ca1711f8e725f4babb3c884669d1a4917ed75839950c6425d0ebc729cf7"
-          },
-          {
-            "role": "applicability_contract",
-            "id": "decision-applicability-contract",
-            "version": "0.1.0",
-            "uri": "decision-applicability-contract.json",
-            "digest": "sha256:5970b2725e58478c2af1a6ef83a4467654ca62d2cff674c92b0be324232a743b"
           }
         ],
         "digest": "sha256:7cf909d7c3ce22ff2afddb834f0c231404a9d34cbf9343d8f2a3dce27e9ee127"
@@ -251,21 +224,14 @@
         {
           "requirementId": "ARCH-001",
           "target": "decision",
-          "applicabilityContract": {
-            "id": "decision-applicability-contract",
-            "version": "0.1.0",
-            "uri": "decision-applicability-contract.json",
-            "digest": "sha256:5970b2725e58478c2af1a6ef83a4467654ca62d2cff674c92b0be324232a743b",
-            "ruleId": "decision-applicability-arch-001"
-          },
           "status": "insufficient_evidence",
           "verifierOrReviewer": {
             "id": "conformance-validator",
             "role": "verifier"
           },
           "evidenceIds": [
-            "repository-grounding-primary",
-            "repository-grounding-secondary"
+            "decision-evidence-primary",
+            "decision-evidence-secondary"
           ],
           "evaluationProfileRuleIds": [],
           "claimEffect": "insufficient_evidence"
@@ -273,21 +239,14 @@
         {
           "requirementId": "TRACE-001",
           "target": "decision",
-          "applicabilityContract": {
-            "id": "decision-applicability-contract",
-            "version": "0.1.0",
-            "uri": "decision-applicability-contract.json",
-            "digest": "sha256:5970b2725e58478c2af1a6ef83a4467654ca62d2cff674c92b0be324232a743b",
-            "ruleId": "decision-applicability-trace-001"
-          },
           "status": "insufficient_evidence",
           "verifierOrReviewer": {
             "id": "conformance-validator",
             "role": "verifier"
           },
           "evidenceIds": [
-            "repository-grounding-primary",
-            "repository-grounding-secondary"
+            "decision-evidence-primary",
+            "decision-evidence-secondary"
           ],
           "evaluationProfileRuleIds": [],
           "claimEffect": "insufficient_evidence"
@@ -295,21 +254,14 @@
         {
           "requirementId": "I1",
           "target": "decision",
-          "applicabilityContract": {
-            "id": "decision-applicability-contract",
-            "version": "0.1.0",
-            "uri": "decision-applicability-contract.json",
-            "digest": "sha256:5970b2725e58478c2af1a6ef83a4467654ca62d2cff674c92b0be324232a743b",
-            "ruleId": "decision-applicability-i1"
-          },
           "status": "insufficient_evidence",
           "verifierOrReviewer": {
             "id": "scorecard-validator",
             "role": "verifier"
           },
           "evidenceIds": [
-            "repository-grounding-primary",
-            "repository-grounding-secondary"
+            "decision-evidence-primary",
+            "decision-evidence-secondary"
           ],
           "evaluationProfileRuleIds": [],
           "claimEffect": "insufficient_evidence"
@@ -317,21 +269,14 @@
         {
           "requirementId": "I6",
           "target": "decision",
-          "applicabilityContract": {
-            "id": "decision-applicability-contract",
-            "version": "0.1.0",
-            "uri": "decision-applicability-contract.json",
-            "digest": "sha256:5970b2725e58478c2af1a6ef83a4467654ca62d2cff674c92b0be324232a743b",
-            "ruleId": "decision-applicability-i6"
-          },
           "status": "insufficient_evidence",
           "verifierOrReviewer": {
             "id": "claim-validator",
             "role": "verifier"
           },
           "evidenceIds": [
-            "repository-grounding-primary",
-            "repository-grounding-secondary"
+            "decision-evidence-primary",
+            "decision-evidence-secondary"
           ],
           "evaluationProfileRuleIds": [],
           "claimEffect": "insufficient_evidence"
@@ -339,21 +284,14 @@
         {
           "requirementId": "I10",
           "target": "decision",
-          "applicabilityContract": {
-            "id": "decision-applicability-contract",
-            "version": "0.1.0",
-            "uri": "decision-applicability-contract.json",
-            "digest": "sha256:5970b2725e58478c2af1a6ef83a4467654ca62d2cff674c92b0be324232a743b",
-            "ruleId": "decision-applicability-i10"
-          },
           "status": "insufficient_evidence",
           "verifierOrReviewer": {
             "id": "semantic-validator",
             "role": "verifier"
           },
           "evidenceIds": [
-            "repository-grounding-primary",
-            "repository-grounding-secondary"
+            "decision-evidence-primary",
+            "decision-evidence-secondary"
           ],
           "evaluationProfileRuleIds": [],
           "claimEffect": "insufficient_evidence"
@@ -361,21 +299,14 @@
         {
           "requirementId": "DATA-002",
           "target": "decision",
-          "applicabilityContract": {
-            "id": "decision-applicability-contract",
-            "version": "0.1.0",
-            "uri": "decision-applicability-contract.json",
-            "digest": "sha256:5970b2725e58478c2af1a6ef83a4467654ca62d2cff674c92b0be324232a743b",
-            "ruleId": "decision-applicability-data-002"
-          },
           "status": "insufficient_evidence",
           "verifierOrReviewer": {
             "id": "independent-governance-reviewer",
             "role": "accountable_reviewer"
           },
           "evidenceIds": [
-            "repository-grounding-primary",
-            "repository-grounding-secondary"
+            "decision-evidence-primary",
+            "decision-evidence-secondary"
           ],
           "evaluationProfileRuleIds": [],
           "claimEffect": "insufficient_evidence"
@@ -383,21 +314,14 @@
         {
           "requirementId": "EVID-001",
           "target": "decision",
-          "applicabilityContract": {
-            "id": "decision-applicability-contract",
-            "version": "0.1.0",
-            "uri": "decision-applicability-contract.json",
-            "digest": "sha256:5970b2725e58478c2af1a6ef83a4467654ca62d2cff674c92b0be324232a743b",
-            "ruleId": "decision-applicability-evid-001"
-          },
           "status": "insufficient_evidence",
           "verifierOrReviewer": {
             "id": "evidence-validator",
             "role": "verifier"
           },
           "evidenceIds": [
-            "repository-grounding-primary",
-            "repository-grounding-secondary"
+            "decision-evidence-primary",
+            "decision-evidence-secondary"
           ],
           "evaluationProfileRuleIds": [],
           "claimEffect": "insufficient_evidence"
@@ -405,21 +329,14 @@
         {
           "requirementId": "EVID-002",
           "target": "decision",
-          "applicabilityContract": {
-            "id": "decision-applicability-contract",
-            "version": "0.1.0",
-            "uri": "decision-applicability-contract.json",
-            "digest": "sha256:5970b2725e58478c2af1a6ef83a4467654ca62d2cff674c92b0be324232a743b",
-            "ruleId": "decision-applicability-evid-002"
-          },
           "status": "insufficient_evidence",
           "verifierOrReviewer": {
             "id": "conformance-validator",
             "role": "verifier"
           },
           "evidenceIds": [
-            "repository-grounding-primary",
-            "repository-grounding-secondary"
+            "decision-evidence-primary",
+            "decision-evidence-secondary"
           ],
           "evaluationProfileRuleIds": [],
           "claimEffect": "insufficient_evidence"
@@ -427,21 +344,14 @@
         {
           "requirementId": "CLAIM-001",
           "target": "decision",
-          "applicabilityContract": {
-            "id": "decision-applicability-contract",
-            "version": "0.1.0",
-            "uri": "decision-applicability-contract.json",
-            "digest": "sha256:5970b2725e58478c2af1a6ef83a4467654ca62d2cff674c92b0be324232a743b",
-            "ruleId": "decision-applicability-claim-001"
-          },
           "status": "insufficient_evidence",
           "verifierOrReviewer": {
             "id": "scorecard-validator",
             "role": "verifier"
           },
           "evidenceIds": [
-            "repository-grounding-primary",
-            "repository-grounding-secondary"
+            "decision-evidence-primary",
+            "decision-evidence-secondary"
           ],
           "evaluationProfileRuleIds": [],
           "claimEffect": "insufficient_evidence"
@@ -449,21 +359,14 @@
         {
           "requirementId": "CLAIM-002",
           "target": "decision",
-          "applicabilityContract": {
-            "id": "decision-applicability-contract",
-            "version": "0.1.0",
-            "uri": "decision-applicability-contract.json",
-            "digest": "sha256:5970b2725e58478c2af1a6ef83a4467654ca62d2cff674c92b0be324232a743b",
-            "ruleId": "decision-applicability-claim-002"
-          },
           "status": "insufficient_evidence",
           "verifierOrReviewer": {
             "id": "statistical-validator",
             "role": "verifier"
           },
           "evidenceIds": [
-            "repository-grounding-primary",
-            "repository-grounding-secondary"
+            "decision-evidence-primary",
+            "decision-evidence-secondary"
           ],
           "evaluationProfileRuleIds": [],
           "claimEffect": "insufficient_evidence"
@@ -471,21 +374,14 @@
         {
           "requirementId": "ASSURE-001",
           "target": "decision",
-          "applicabilityContract": {
-            "id": "decision-applicability-contract",
-            "version": "0.1.0",
-            "uri": "decision-applicability-contract.json",
-            "digest": "sha256:5970b2725e58478c2af1a6ef83a4467654ca62d2cff674c92b0be324232a743b",
-            "ruleId": "decision-applicability-assure-001"
-          },
           "status": "insufficient_evidence",
           "verifierOrReviewer": {
             "id": "conformance-validator",
             "role": "verifier"
           },
           "evidenceIds": [
-            "repository-grounding-primary",
-            "repository-grounding-secondary"
+            "decision-evidence-primary",
+            "decision-evidence-secondary"
           ],
           "evaluationProfileRuleIds": [],
           "claimEffect": "insufficient_evidence"
@@ -493,21 +389,14 @@
         {
           "requirementId": "RISK-001",
           "target": "decision",
-          "applicabilityContract": {
-            "id": "decision-applicability-contract",
-            "version": "0.1.0",
-            "uri": "decision-applicability-contract.json",
-            "digest": "sha256:5970b2725e58478c2af1a6ef83a4467654ca62d2cff674c92b0be324232a743b",
-            "ruleId": "decision-applicability-risk-001"
-          },
           "status": "insufficient_evidence",
           "verifierOrReviewer": {
             "id": "independent-governance-reviewer",
             "role": "accountable_reviewer"
           },
           "evidenceIds": [
-            "repository-grounding-primary",
-            "repository-grounding-secondary"
+            "decision-evidence-primary",
+            "decision-evidence-secondary"
           ],
           "evaluationProfileRuleIds": [],
           "claimEffect": "insufficient_evidence"
@@ -515,21 +404,14 @@
         {
           "requirementId": "GOV-001",
           "target": "decision",
-          "applicabilityContract": {
-            "id": "decision-applicability-contract",
-            "version": "0.1.0",
-            "uri": "decision-applicability-contract.json",
-            "digest": "sha256:5970b2725e58478c2af1a6ef83a4467654ca62d2cff674c92b0be324232a743b",
-            "ruleId": "decision-applicability-gov-001"
-          },
           "status": "insufficient_evidence",
           "verifierOrReviewer": {
             "id": "independent-governance-reviewer",
             "role": "accountable_reviewer"
           },
           "evidenceIds": [
-            "repository-grounding-primary",
-            "repository-grounding-secondary"
+            "decision-evidence-primary",
+            "decision-evidence-secondary"
           ],
           "evaluationProfileRuleIds": [],
           "claimEffect": "insufficient_evidence"
@@ -537,21 +419,14 @@
         {
           "requirementId": "GOV-002",
           "target": "decision",
-          "applicabilityContract": {
-            "id": "decision-applicability-contract",
-            "version": "0.1.0",
-            "uri": "decision-applicability-contract.json",
-            "digest": "sha256:5970b2725e58478c2af1a6ef83a4467654ca62d2cff674c92b0be324232a743b",
-            "ruleId": "decision-applicability-gov-002"
-          },
           "status": "insufficient_evidence",
           "verifierOrReviewer": {
             "id": "independent-governance-reviewer",
             "role": "accountable_reviewer"
           },
           "evidenceIds": [
-            "repository-grounding-primary",
-            "repository-grounding-secondary"
+            "decision-evidence-primary",
+            "decision-evidence-secondary"
           ],
           "evaluationProfileRuleIds": [],
           "claimEffect": "insufficient_evidence"
@@ -559,21 +434,14 @@
         {
           "requirementId": "HEALTH-001",
           "target": "decision",
-          "applicabilityContract": {
-            "id": "decision-applicability-contract",
-            "version": "0.1.0",
-            "uri": "decision-applicability-contract.json",
-            "digest": "sha256:5970b2725e58478c2af1a6ef83a4467654ca62d2cff674c92b0be324232a743b",
-            "ruleId": "decision-applicability-health-001"
-          },
           "status": "insufficient_evidence",
           "verifierOrReviewer": {
             "id": "independent-governance-reviewer",
             "role": "accountable_reviewer"
           },
           "evidenceIds": [
-            "repository-grounding-primary",
-            "repository-grounding-secondary"
+            "decision-evidence-primary",
+            "decision-evidence-secondary"
           ],
           "evaluationProfileRuleIds": [],
           "claimEffect": "insufficient_evidence"
@@ -581,21 +449,14 @@
         {
           "requirementId": "CONF-001",
           "target": "decision",
-          "applicabilityContract": {
-            "id": "decision-applicability-contract",
-            "version": "0.1.0",
-            "uri": "decision-applicability-contract.json",
-            "digest": "sha256:5970b2725e58478c2af1a6ef83a4467654ca62d2cff674c92b0be324232a743b",
-            "ruleId": "decision-applicability-conf-001"
-          },
           "status": "insufficient_evidence",
           "verifierOrReviewer": {
             "id": "conformance-validator",
             "role": "verifier"
           },
           "evidenceIds": [
-            "repository-grounding-primary",
-            "repository-grounding-secondary"
+            "decision-evidence-primary",
+            "decision-evidence-secondary"
           ],
           "evaluationProfileRuleIds": [],
           "claimEffect": "insufficient_evidence"
@@ -603,21 +464,14 @@
         {
           "requirementId": "CONF-002",
           "target": "decision",
-          "applicabilityContract": {
-            "id": "decision-applicability-contract",
-            "version": "0.1.0",
-            "uri": "decision-applicability-contract.json",
-            "digest": "sha256:5970b2725e58478c2af1a6ef83a4467654ca62d2cff674c92b0be324232a743b",
-            "ruleId": "decision-applicability-conf-002"
-          },
           "status": "insufficient_evidence",
           "verifierOrReviewer": {
             "id": "conformance-validator",
             "role": "verifier"
           },
           "evidenceIds": [
-            "repository-grounding-primary",
-            "repository-grounding-secondary"
+            "decision-evidence-primary",
+            "decision-evidence-secondary"
           ],
           "evaluationProfileRuleIds": [],
           "claimEffect": "insufficient_evidence"
@@ -625,49 +479,42 @@
         {
           "requirementId": "CONF-003",
           "target": "decision",
-          "applicabilityContract": {
-            "id": "decision-applicability-contract",
-            "version": "0.1.0",
-            "uri": "decision-applicability-contract.json",
-            "digest": "sha256:5970b2725e58478c2af1a6ef83a4467654ca62d2cff674c92b0be324232a743b",
-            "ruleId": "decision-applicability-conf-003"
-          },
           "status": "insufficient_evidence",
           "verifierOrReviewer": {
             "id": "conformance-validator",
             "role": "verifier"
           },
           "evidenceIds": [
-            "repository-grounding-primary",
-            "repository-grounding-secondary"
+            "decision-evidence-primary",
+            "decision-evidence-secondary"
           ],
           "evaluationProfileRuleIds": [],
           "claimEffect": "insufficient_evidence"
         }
       ],
       "evidenceIds": [
-        "repository-grounding-primary",
-        "repository-grounding-secondary"
+        "decision-evidence-primary",
+        "decision-evidence-secondary"
       ],
       "subjectSchema": "urn:agent-evals-standard:schema:governance-decision:1"
     }
   },
   "evidenceManifest": [
     {
-      "id": "repository-grounding-primary",
-      "uri": "repository-grounding-primary.json",
+      "id": "decision-evidence-primary",
+      "uri": "decision-evidence-primary.json",
       "mediaType": "application/json",
       "digest": "sha256:69883078d7578e0426af3c79bf6e7c46117c547fbd568bb0924e4d279abc4524",
       "byteLength": 4185,
       "producer": {
-        "id": "repository-grounding-verifier",
+        "id": "conformance-validator",
         "role": "verifier",
         "trustDomain": "external"
       },
       "creationPhase": "aggregation",
       "createdAt": "2026-08-01T00:00:21Z",
       "schemaMetadata": {
-        "schemaId": "agent-eval-repository-grounding-evidence-1",
+        "schemaId": "agent-eval-scorecard-1",
         "schemaVersion": "0.1.0",
         "validatorDigest": "sha256:33d0e4202b783677b260696ba701bb7bcc67180cfc36381eebced7adfcdb1dcf"
       },
@@ -675,7 +522,7 @@
         "profileId": "json-rfc8785",
         "profileVersion": "0.1.0",
         "semanticContract": {
-          "id": "repository-grounding-evidence-contract",
+          "id": "scorecard-semantic-contract",
           "version": "0.1.0",
           "digest": "sha256:be12d9f32249a10779608fec2e59b32dccacbc7397b020df370dc4378fed55ec"
         }
@@ -698,24 +545,24 @@
       },
       "payload": {
         "kind": "repository_relative",
-        "path": "repository-grounding-primary.json"
+        "path": "decision-evidence-primary.json"
       }
     },
     {
-      "id": "repository-grounding-secondary",
-      "uri": "repository-grounding-secondary.json",
+      "id": "decision-evidence-secondary",
+      "uri": "decision-evidence-secondary.json",
       "mediaType": "application/json",
       "digest": "sha256:10a66808da1c6193038aea5957eab12b48884bfc3fc8716ba34482e66b66b4cd",
       "byteLength": 4199,
       "producer": {
-        "id": "repository-grounding-verifier",
+        "id": "conformance-validator",
         "role": "verifier",
         "trustDomain": "external"
       },
       "creationPhase": "aggregation",
       "createdAt": "2026-08-01T00:00:22Z",
       "schemaMetadata": {
-        "schemaId": "agent-eval-repository-grounding-evidence-1",
+        "schemaId": "agent-eval-scorecard-1",
         "schemaVersion": "0.1.0",
         "validatorDigest": "sha256:33d0e4202b783677b260696ba701bb7bcc67180cfc36381eebced7adfcdb1dcf"
       },
@@ -723,7 +570,7 @@
         "profileId": "json-rfc8785",
         "profileVersion": "0.1.0",
         "semanticContract": {
-          "id": "repository-grounding-evidence-contract",
+          "id": "scorecard-semantic-contract",
           "version": "0.1.0",
           "digest": "sha256:be12d9f32249a10779608fec2e59b32dccacbc7397b020df370dc4378fed55ec"
         }
@@ -746,7 +593,7 @@
       },
       "payload": {
         "kind": "repository_relative",
-        "path": "repository-grounding-secondary.json"
+        "path": "decision-evidence-secondary.json"
       }
     }
   ],
@@ -755,7 +602,6 @@
     "decisionVerdict": "reject",
     "approvalEnvelope": "approval-envelope-fixture-1",
     "policyInstance": "operational-governance-policy-fixture-1",
-    "matrixInstance": "operational-escalation-matrix-fixture-1",
     "effectiveAt": "2026-08-01T00:00:25Z",
     "reviewAt": "2026-08-02T00:00:25Z",
     "expiresAt": "2026-08-03T00:00:25Z",

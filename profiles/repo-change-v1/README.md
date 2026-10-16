@@ -74,12 +74,6 @@ The normative profile-owned details are in the authenticated
 [outcome replay contract](outcome-replay-contract.md); this README is only an
 orientation guide.
 
-Production-derived controlled inputs are verified by an implementation that an
-evaluator registers in its own verifier registry; neither a case nor an
-evidence bundle may register a verifier. The sealed authority contract maps the
-five proof kinds to authorized producers and keeps data-owner, privacy, and
-isolation trust boundaries independent.
-
 The machine-readable entry points are [evaluation-profile.json](evaluation-profile.json)
 and [outcome-profile.json](outcome-profile.json). Supporting contracts are
 content-addressed by the profile. Positive and negative examples are listed in

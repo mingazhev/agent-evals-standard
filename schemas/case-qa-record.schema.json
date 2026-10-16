@@ -16,18 +16,17 @@
         "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 },
         "digest": { "$ref": "#/$defs/digest" },
         "activationInputDigest": { "$ref": "#/$defs/digest" },
-        "fromState": { "enum": ["candidate", "active", "quarantined", "saturated", "regression"] },
-        "toState": { "enum": ["active", "candidate", "quarantined", "saturated", "regression"] },
-        "preQuarantineEligibleState": { "enum": ["active", "saturated", "regression"] }
+        "fromState": { "enum": ["candidate", "active", "quarantined"] },
+        "toState": { "enum": ["active", "candidate", "quarantined"] }
       },
       "additionalProperties": false
     },
     "contracts": {
-      "type": "object", "required": ["baseStandard", "caseContract", "scorecardContract", "environmentContract", "riskPolicy", "escalationMatrix", "profile", "graderSet", "requirementRegistry"],
+      "type": "object", "required": ["baseStandard", "caseContract", "scorecardContract", "environmentContract", "riskPolicy", "profile", "graderSet", "requirementRegistry"],
       "properties": {
         "baseStandard": { "$ref": "#/$defs/component" }, "caseContract": { "$ref": "#/$defs/component" },
         "scorecardContract": { "$ref": "#/$defs/component" }, "environmentContract": { "$ref": "#/$defs/component" },
-        "riskPolicy": { "$ref": "#/$defs/component" }, "escalationMatrix": { "$ref": "#/$defs/component" },
+        "riskPolicy": { "$ref": "#/$defs/component" },
         "profile": { "$ref": "#/$defs/component" }, "graderSet": { "$ref": "#/$defs/component" }, "requirementRegistry": { "$ref": "#/$defs/component" }
       },
       "additionalProperties": false
@@ -81,7 +80,7 @@
       ]
     },
     "alternativeValidResult": {
-      "$comment": "This object retains the observed control even when Stage 7 fails; it must be null only when Stage 7 proves that the valid-result set has one material equivalence class. A passed Stage 7 requires a passing control. Semantic validation must use validityEvidenceId to establish validity independently of the verdict mechanism under test, prove material difference, verify production without protected reference access, and require the producer to be independent of every baseline authority on actor, role, trust-domain, and key dimensions.",
+      "$comment": "This object retains the observed control even when Stage 7 fails; it must be null only when Stage 7 is recorded as not_applicable with a rationale. A passed Stage 7 requires a passing control. Semantic validation must use validityEvidenceId to establish validity independently of the verdict mechanism under test, prove material difference, verify production without protected reference access, and require the producer to be independent of every baseline authority on actor, role, trust-domain, and key dimensions.",
       "oneOf": [
         {
           "type": "object",
@@ -186,7 +185,7 @@
     },
     {
       "if": { "type": "object", "properties": { "decision": { "type": "object", "properties": { "status": { "const": "quarantined" } } } } },
-      "then": { "type": "object", "required": ["invalidation"], "properties": { "invalidation": {}, "case": { "type": "object", "properties": { "toState": { "const": "quarantined" }, "preQuarantineEligibleState": {} }, "required": ["preQuarantineEligibleState"] } } }
+      "then": { "type": "object", "required": ["invalidation"], "properties": { "invalidation": {}, "case": { "type": "object", "properties": { "toState": { "const": "quarantined" } } } } }
     },
     {
       "if": { "type": "object", "properties": { "decision": { "type": "object", "properties": { "status": { "const": "rejected" } } } } },
@@ -287,7 +286,7 @@
         "findingIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
         "independence": { "$ref": "#/$defs/independenceClaim" },
         "classificationPolicyApplicability": { "$ref": "#/$defs/classificationPolicyApplicability" },
-        "singletonValidityProof": { "$ref": "#/$defs/singletonValidityProof" }
+        "notApplicableRationale": { "type": "string", "minLength": 1 }
       },
       "additionalProperties": false
     },
@@ -329,23 +328,11 @@
     "stage5": { "allOf": [{ "$ref": "#/$defs/requiredStage" }, { "type": "object", "properties": { "reviewerCapabilityId": { "const": "trivial_strategy_testing" } } }] },
     "stage6": { "allOf": [{ "$ref": "#/$defs/independentRequiredStage" }, { "type": "object", "properties": { "reviewerCapabilityId": { "const": "adversarial_measurement_review" } } }] },
     "stage7": {
+      "$comment": "not_applicable is a recorded gap, not a proof: it requires a rationale and restricts dependent claims under CASE-004.",
       "allOf": [
         { "$ref": "#/$defs/independentStageBase" },
         { "type": "object", "properties": { "reviewerCapabilityId": { "const": "alternative_valid_result_validation" } } },
-        {
-          "oneOf": [
-            {
-              "type": "object",
-              "properties": { "status": { "enum": ["passed", "failed"] } },
-              "not": { "properties": { "singletonValidityProof": {} }, "required": ["singletonValidityProof"] }
-            },
-            {
-              "type": "object",
-              "required": ["singletonValidityProof"],
-              "properties": { "status": { "const": "not_applicable" }, "singletonValidityProof": {} }
-            }
-          ]
-        }
+        { "if": { "type": "object", "properties": { "status": { "const": "not_applicable" } }, "required": ["status"] }, "then": { "type": "object", "required": ["notApplicableRationale"], "properties": { "notApplicableRationale": {} } } }
       ]
     },
     "stage8": { "allOf": [{ "$ref": "#/$defs/requiredStage" }, { "type": "object", "properties": { "reviewerCapabilityId": { "const": "pilot_stability_validation" } } }] },
@@ -627,28 +614,6 @@
           }
         }
       ],
-      "additionalProperties": false
-    },
-    "singletonValidityProof": {
-      "$comment": "Fail-closed Stage 7 exception. The applicability rule and valid-result-set definition are sealed before inspection. Equivalence proves that all valid realizations are materially equivalent; exhaustiveness and independent counterexample search address omitted alternatives. The passing singleton control and at least two failing near-miss controls bind the same verdict mechanisms.",
-      "type": "object",
-      "required": [
-        "applicabilityRule", "validResultSetDefinition", "singletonResultDigest",
-        "applicabilityEvidenceId", "equivalenceEvidenceId", "exhaustivenessEvidenceId", "counterexampleSearchEvidenceId",
-        "canonicalResultControl", "nearMissControls", "verdict"
-      ],
-      "properties": {
-        "applicabilityRule": { "$ref": "#/$defs/component" },
-        "validResultSetDefinition": { "$ref": "#/$defs/component" },
-        "singletonResultDigest": { "$ref": "#/$defs/digest" },
-        "applicabilityEvidenceId": { "$ref": "#/$defs/id" },
-        "equivalenceEvidenceId": { "$ref": "#/$defs/id" },
-        "exhaustivenessEvidenceId": { "$ref": "#/$defs/id" },
-        "counterexampleSearchEvidenceId": { "$ref": "#/$defs/id" },
-        "canonicalResultControl": { "$ref": "#/$defs/passingControl" },
-        "nearMissControls": { "type": "array", "minItems": 2, "uniqueItems": true, "items": { "$ref": "#/$defs/failingControl" } },
-        "verdict": { "const": "pass" }
-      },
       "additionalProperties": false
     },
     "defect": {

@@ -4,7 +4,6 @@
   "version": "0.1.0",
   "evaluationMode": "controlled_fixture",
   "inputOrigin": "synthetic",
-  "productionDerivedInput": null,
   "productionActionAllowed": false,
   "productionTelemetryPolicy": {
     "allowedPurposes": [

@@ -14,8 +14,7 @@
     "totals",
     "remaining",
     "saturated",
-    "sealedAt",
-    "checkpoint"
+    "sealedAt"
   ],
   "properties": {
     "schemaVersion": {
@@ -28,7 +27,7 @@
       "const": "0.1.0"
     },
     "budget": {
-      "$ref": "urn:agent-evals-standard:schema:verified-machine-contract:1#/$defs/heldOutExposureBudgetBinding"
+      "$ref": "#/$defs/artifactBinding"
     },
     "previousLedger": {
       "oneOf": [
@@ -36,7 +35,7 @@
           "type": "null"
         },
         {
-          "$ref": "urn:agent-evals-standard:schema:verified-machine-contract:1#/$defs/heldOutExposureLedgerBinding"
+          "$ref": "#/$defs/artifactBinding"
         }
       ]
     },
@@ -62,21 +61,11 @@
     },
     "sealedAt": {
       "$ref": "#/$defs/dateTime"
-    },
-    "checkpoint": {
-      "type": "object",
-      "required": ["custodian", "evidence"],
-      "properties": {
-        "custodian": { "$ref": "#/$defs/actor" },
-        "evidence": {
-          "$ref": "urn:agent-evals-standard:schema:verified-machine-contract:1#/$defs/evaluationControlAuthorityEvidenceBinding"
-        }
-      },
-      "additionalProperties": false
     }
   },
   "additionalProperties": false,
   "$defs": {
+    "artifactBinding": { "$comment": "A content-addressed reference under the integrity model: id, version, uri resolving to the exact bytes, and SHA-256 of those bytes.", "type": "object", "required": ["id", "version", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
     "id": {
       "type": "string",
       "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
