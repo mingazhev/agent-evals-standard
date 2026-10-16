@@ -76,7 +76,8 @@
           "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
           "digest": "sha256:1d1444f304d444a21b68e0d07f873bb024d5545820b6df946923956bd86b0826"
         }
-      ]
+      ],
+      "findings": []
     },
     "stage4": {
       "status": "passed",
@@ -91,7 +92,8 @@
           "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
           "digest": "sha256:f0a2f992de07a18a5e405328f42a5aa40c15470874bca6708f4d92190aaa9556"
         }
-      ]
+      ],
+      "findings": []
     },
     "stage5": {
       "status": "passed",
@@ -106,7 +108,8 @@
           "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
           "digest": "sha256:65c8f9120c5164b07c7500563cde3e0984d838bf7308df576a7519989b51d433"
         }
-      ]
+      ],
+      "findings": []
     },
     "stage6": {
       "status": "passed",
@@ -121,16 +124,24 @@
           "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
           "digest": "sha256:e70045a5cc2d5c62af70e8edc9b03ab2d7abf14fd1ce3b734a98b099059c1758"
         }
-      ]
+      ],
+      "findings": []
     },
     "stage7": {
-      "status": "not_applicable",
+      "status": "passed",
       "reviewer": {
         "id": "person-b",
         "role": "independent reviewer"
       },
       "recordedAtCommit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
-      "notApplicableRationale": "The case has no interaction protocol, so there is no protocol-conformance stage to review."
+      "evidence": [
+        {
+          "path": "qa/ls-a2-001/alternative-result.json",
+          "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+          "digest": "sha256:d06657a95c48489cc35aacd8eca54dc4582fa8a48633f481ee5b843c86b7cf00"
+        }
+      ],
+      "findings": []
     },
     "stage8": {
       "status": "passed",
@@ -145,7 +156,8 @@
           "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
           "digest": "sha256:46f54b817b5cd6355db55d1ac21afbf1efabee4741ec35c4ace1281e47c6ab9f"
         }
-      ]
+      ],
+      "findings": []
     }
   },
   "defects": [

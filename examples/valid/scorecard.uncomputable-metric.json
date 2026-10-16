@@ -28,10 +28,10 @@
       "armId": "agent-x",
       "scheduledCells": 1,
       "physicalAttempts": 1,
-      "validTrials": 1,
-      "invalidAttempts": 0,
+      "validTrials": 0,
+      "invalidAttempts": 1,
       "replacementAttempts": 0,
-      "unresolvedCells": 0
+      "unresolvedCells": 1
     },
     {
       "armId": "control-codemods",
@@ -55,7 +55,7 @@
   "outcomes": [
     {
       "armId": "agent-x",
-      "solved": 1,
+      "solved": 0,
       "correct_refusal": 0,
       "already_satisfied": 0,
       "partial": 0,
@@ -92,8 +92,8 @@
         {
           "armId": "agent-x",
           "scheduled": 1,
-          "resolved": 1,
-          "successes": 1
+          "resolved": 0,
+          "successes": 0
         },
         {
           "armId": "control-codemods",
@@ -112,10 +112,9 @@
   ],
   "metrics": [
     {
-      "id": "m-agent-pass-hat-3",
+      "id": "m-agent-pass-at-1",
       "status": "uncomputable",
-      "estimand": "pass_hat_k",
-      "k": 3,
+      "estimand": "pass_at_1",
       "armId": "agent-x",
       "comparatorArmId": null,
       "cases": 1,
@@ -126,7 +125,7 @@
       },
       "interval": null,
       "reasons": [
-        "The arm has one scheduled trial per case, so pass^3 cannot be estimated; only the no-assumption bounds are reported."
+        "no valid trial in any scheduled cell"
       ]
     }
   ],
@@ -134,7 +133,7 @@
     {
       "id": "claim-1",
       "status": "insufficient_evidence",
-      "metricId": "m-agent-pass-hat-3",
+      "metricId": "m-agent-pass-at-1",
       "population": "Population: the single fixture case ls-a2-001 of ledger-service; illustrative only.",
       "restrictions": [
         "One case supports no claim about any wider population.",

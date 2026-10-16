@@ -121,9 +121,9 @@ publication record), not by a field in the subject. A conformance statement
 never references its envelope. At A1 the statement is validated by independent
 review and no envelope is used.
 
-The envelope's `subject.type` is one of `run_manifest`, `attempt_ledger`,
-`scorecard`, `case`, `case_qa`, `conformance_statement`, or
-`governance_decision`, and its `claimTarget` is `experiment` or `decision`.
+The envelope's `subject.type` is one of the closed values in
+`validation-envelope.schema.json`; the schema enum is authoritative. Its
+`claimTarget` is `experiment` or `decision`.
 
 The envelope **MUST** bind:
 

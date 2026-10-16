@@ -164,7 +164,7 @@
       "path": "valid/case-qa.a2.json",
       "schema": "schemas/case-qa.schema.json",
       "valid": true,
-      "illustrates": "an A2 Case QA record passes stages 3-8 (stage 7 not applicable with a rationale), fixes a defect, and binds a grader validation and a decision-surface validation"
+      "illustrates": "an A2 Case QA record passes stages 3-8 (stage 7 with an alternative-valid-result probe), fixes a defect, and binds a grader validation and a decision-surface validation"
     },
     {
       "id": "scorecard.a2.valid",
@@ -178,7 +178,7 @@
       "path": "valid/scorecard.uncomputable-metric.json",
       "schema": "schemas/scorecard.schema.json",
       "valid": true,
-      "illustrates": "an uncomputable metric has a null estimate and reasons yet still reports identification bounds [0, 1]"
+      "illustrates": "an arm with no valid trial in any scheduled cell makes its pass_at_1 metric uncomputable: null estimate and interval, reasons, and identification bounds [0, 1]"
     },
     {
       "id": "conformance-statement.conforming-with-failed-requirement",
