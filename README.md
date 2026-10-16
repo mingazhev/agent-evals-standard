@@ -32,6 +32,22 @@ on the same invariants, artifacts, and schemas, adding attachments and stronger
 forms. Read the [Adoption Guide](standard/adoption-guide.md), then use
 the [authority map](#normative-authority-map) to find each contract.
 
+## Maturity
+
+Version 0.1.0 is normative for assurance levels A0 and A1. A2 and A3 are
+published as a **draft annex**: stable in intent, unvalidated by any run, and
+may change incompatibly in a later 0.1.x without a major version bump. A
+conformance claim at A2 or A3 is permitted but is a claim against the draft
+annex and MUST say so in its restrictions.
+
+Normative at A1: the six run-family schemas, the registries, and the A1
+requirement set. Draft annex: the A2/A3 attachments (validity argument, threat
+model, held-out budget and ledger, grader validation, risk assessment,
+governance decision, operational policy, escalation-event registry, evaluation
+and outcome profiles, evidence artifact, validation envelope), the Governance
+Policy, the Security Threat Model, and the A2/A3 parts of the Case QA playbook
+and evidence contract.
+
 ## Scope and implementation coverage
 
 The bundled profile is narrower than the seven-family taxonomy. Its maturity

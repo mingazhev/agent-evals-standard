@@ -31,7 +31,7 @@ The [worked example](../examples/core/README.md) shows every step with numbers.
 Everything below describes A2 and A3, which keep the same artifacts and add
 attachments and stronger forms.
 
-## A2 and A3
+## A2 and A3 (draft annex)
 
 A2 and A3 use the same six artifacts as A1. They add attachments and stronger
 forms; nothing from the A1 path is replaced. Use the

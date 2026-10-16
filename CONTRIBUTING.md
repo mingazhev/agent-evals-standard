@@ -41,8 +41,9 @@ re-verified.
 ## Pre-publication discipline
 
 The standard has not been published. Until publication, every component remains
-version `0.1.0`, and incompatible changes replace the working draft in place.
-Do not add migration aliases or legacy contracts unless publication has created
+version `0.1.0`, and incompatible changes replace the working draft in place;
+incompatible changes to the A2/A3 draft annex do not require a major bump
+before publication. Do not add migration aliases or legacy contracts unless publication has created
 compatibility obligations.
 
 The publication process MUST freeze an exact commit. The candidate commit MUST
