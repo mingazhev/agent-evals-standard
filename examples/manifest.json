@@ -63,12 +63,6 @@
       "valid": true
     },
     {
-      "id": "distribution-manifest.valid",
-      "path": "valid/distribution-manifest.json",
-      "schema": "schemas/distribution-manifest.schema.json",
-      "valid": true
-    },
-    {
       "id": "environment-contract.valid",
       "path": "valid/environment-contract.json",
       "schema": "schemas/environment-contract.schema.json",

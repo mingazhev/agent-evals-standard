@@ -6,20 +6,6 @@
     "releaseStatus": "unpublished_draft",
     "commit": "0123456789abcdef0123456789abcdef01234567"
   },
-  "contracts": {
-    "id": "standard-contract-manifest",
-    "version": "0.1.0",
-    "uri": "contract-manifest.json",
-    "digest": "sha256:344d602c2519a50e9e8c902b0cbcaa2701a7d776d1d73ad399715928a527b7b1",
-    "entriesDigest": "sha256:ce071b04f070958d5010948ee1d4ae25c23e395256b5082f9f15ea3f04c99814"
-  },
-  "schemas": {
-    "id": "standard-schema-manifest",
-    "version": "0.1.0",
-    "uri": "schema-manifest.json",
-    "digest": "sha256:2b74522b691ad88b337eaa08f04606c83b50449b22a6072ae381e810b8da0624",
-    "entriesDigest": "sha256:2d1022e8e94df04fa057be990f9f9edd7c65dea01bd66f67b0640796d395bacb"
-  },
   "validatorCapabilities": {
     "draft": "2020-12",
     "formatAssertion": true,

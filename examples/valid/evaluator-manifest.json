@@ -22,11 +22,6 @@
       "version": "0.1.0",
       "uri": "../../../standard/requirement-registry.json",
       "digest": "sha256:e58c6762efe45ca689c746559b7a40ceee1dd593b613017179d35dce6ed55b1f"
-    },
-    "schemaManifest": {
-      "id": "standard-schema-manifest",
-      "uri": "schema-manifest.json",
-      "digest": "sha256:2b74522b691ad88b337eaa08f04606c83b50449b22a6072ae381e810b8da0624"
     }
   },
   "supportedAssuranceLevels": [
