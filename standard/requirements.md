@@ -37,7 +37,7 @@ addresses requirements by the stable IDs below.
 | `SCOPE-001` | system-under-evaluation identity | run validator | [Standard](standard.md#system-under-evaluation) | agent-evaluation architecture in [Informative References](references.md) |
 | `SCOPE-002` | SDLC capability coverage | suite validator | [Standard](standard.md#sdlc-capability-taxonomy) | closed-taxonomy and explicit-gap design invariant; heterogeneous task and process surfaces in [Informative References](references.md) provide rationale only |
 | `SCOPE-003` | repository-grounded applicability and profile selection | conformance validator | [Standard](standard.md#applicability-boundary-and-profiles) | bounded standard architecture |
-| `PROFILE-001` | evaluation-profile hierarchy and effective measurement identity | suite and case validators | [Standard](standard.md#evaluation-profile-resolution) | deterministic specialization without weakening |
+| `PROFILE-001` | evaluation-profile binding and narrowing | suite and case validators | [Standard](standard.md#evaluation-profile-resolution) | narrowing without weakening |
 | `OUTPROF-001` | outcome-profile selection and compatibility | case validator | [Standard](standard.md#outcome-profiles) | artifact-appropriate evaluation without scope expansion |
 | `VALID-001` | intended use and construct definition | suite validator | [Standard](standard.md#intended-use-and-validity-argument) | evaluation best practices in [Informative References](references.md) |
 | `VALID-002` | validity argument and threats | suite validator | [Standard](standard.md#intended-use-and-validity-argument) | measurement validity and production concordance |

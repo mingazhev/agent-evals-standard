@@ -373,7 +373,7 @@
     },
     {
       "id": "PROFILE-001",
-      "subject": "evaluation-profile hierarchy and effective measurement identity",
+      "subject": "evaluation-profile binding and narrowing",
       "normativeReference": "standard.md#evaluation-profile-resolution",
       "targets": [
         "suite",

@@ -103,7 +103,7 @@ and the [Authoring requirements](standard.md#authoring) in the core standard,
 then produce a `case.json` that satisfies
 [`schemas/case.schema.json`](../schemas/case.schema.json).
 
-A case binds exactly one effective [evaluation profile](../profiles/), one
+A case binds exactly one [evaluation profile](../profiles/), one
 outcome profile shared by all its cells, one or more capability families with mapped
 work-artifact types, the four `SCOPE-003` applicability tests with
 rationales, a Git workspace manifest, a claim registry, and a sealed risk

@@ -89,7 +89,7 @@
       ]
     },
     "scope": {
-      "$comment": "Semantic validation must reject duplicate slice IDs; resolve and reproduce every content-addressed workspace manifest from its embedded bytes; authenticate every slice's effective profile and outcome bindings independently; and never form ambiguous cross-profile unions. Repository grounding is established per case under SCOPE-003, not by a slice-level payload.",
+      "$comment": "Semantic validation must reject duplicate slice IDs; resolve and reproduce every content-addressed workspace manifest from its embedded bytes; authenticate every slice's evaluation profile and outcome bindings independently; and never form ambiguous cross-profile unions. Repository grounding is established per case under SCOPE-003, not by a slice-level payload.",
       "type": "object",
       "required": [
         "intendedUse",
@@ -733,8 +733,7 @@
         "id",
         "version",
         "uri",
-        "digest",
-        "effectiveProfileDigest"
+        "digest"
       ],
       "properties": {
         "id": {
@@ -749,9 +748,6 @@
           "minLength": 1
         },
         "digest": {
-          "$ref": "#/$defs/digest"
-        },
-        "effectiveProfileDigest": {
           "$ref": "#/$defs/digest"
         }
       },
@@ -783,7 +779,7 @@
           "$ref": "#/$defs/evaluationProfileBinding"
         },
         "workArtifactRegistry": {
-          "$comment": "The authenticated closed registry used to interpret this slice's workArtifactTypes and capabilityFamilyIds. Semantic validation requires exact identity with the effective evaluation profile and every selected outcome profile.",
+          "$comment": "The authenticated closed registry used to interpret this slice's workArtifactTypes and capabilityFamilyIds. Semantic validation requires exact identity with the evaluation profile and every selected outcome profile.",
           "$ref": "#/$defs/versionedArtifactPointer"
         },
         "outcomeProfiles": {
@@ -927,7 +923,7 @@
           ]
         },
         "requirementResults": {
-          "$comment": "Semantic validation must require exactly one row for every requirement whose authenticated registry entry includes targetType, reject unknown or duplicate requirementId values, require each row target to equal targetType, resolve evidenceIds, and resolve evaluationProfileRuleIds against the exact effective profile binding.",
+          "$comment": "Semantic validation must require exactly one row for every requirement whose authenticated registry entry includes targetType, reject unknown or duplicate requirementId values, require each row target to equal targetType, resolve evidenceIds, and resolve evaluationProfileRuleIds against the exact evaluation profile binding.",
           "type": "array",
           "minItems": 1,
           "items": {

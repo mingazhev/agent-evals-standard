@@ -21,9 +21,7 @@ but cannot change these meanings.
   with a rationale confirmed in Case QA. A link, ticket, or copied fragment
   alone does not establish this.
 - **Base standard** — the requirements common to every repository-grounded SDLC
-  evaluation. **Evaluation profile** — a versioned narrowing of the base for
-  specific capability families, environments, or work products; it has zero or
-  one parent and one deterministic `effectiveProfileDigest`
+  evaluation. **Evaluation profile** — a versioned, standalone narrowing of the base
   ([PROFILE-001](standard.md#evaluation-profile-resolution)). **Outcome
   profile** — the result-shape contract a case binds through its evaluation
   profile ([CASE-002](standard.md#outcome-profiles)). Unqualified `profile` is
@@ -53,7 +51,7 @@ but cannot change these meanings.
 - **Evaluation suite** — a case collection under one suite manifest and
   validity argument.
 - **Case** — one repository-grounded task binding a workspace manifest, sealed
-  agent-visible projection, one effective evaluation profile, one outcome
+  agent-visible projection, one evaluation profile, one outcome
   profile, one interaction mode, capability families with material work
   artifacts, the four applicability tests, environment, risk, QA evidence,
   owner, and lifecycle ([CASE-001](standard.md#authoring)).
@@ -81,7 +79,7 @@ but cannot change these meanings.
   ([EXP-001](standard.md#sealed-experiment-contract)).
 - **Arm** — one fully identified system-under-evaluation configuration; it
   excludes the measurement profile ([EXP-002](standard.md#sealed-experiment-contract)).
-- **Measurement profile** — the effective evaluation-profile digest plus the
+- **Measurement profile** — the evaluation-profile digest plus the
   outcome-profile identity bound to a case; comparator arms share it.
 - **Comparative design** — the sealed comparator, treatment-bundle, pairing,
   and analysis definition ([EXP-003](standard.md#sealed-experiment-contract)).

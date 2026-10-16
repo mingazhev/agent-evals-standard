@@ -187,7 +187,7 @@ A deterministic linter verifies at least the following:
   decoy; the linter verifies that control values and reversible encodings do not
   enter a visible projection, prompt, manifest, log, or report;
 - every required case-contract field is present and schema-valid; the case,
-  effective evaluation profile, and outcome profile bind one registry; every
+  evaluation profile, and outcome profile bind one registry; every
   material work-artifact type maps to its declared family; and every selected
   family has at least one material mapped type;
 - every validation class has one authenticated applicability determination; the

@@ -41,7 +41,6 @@
         "version": "0.1.0",
         "digest": "sha256:ed59c2e83b8096aa53e388304716f22e99c720700bb6b404e903537aef99c76d"
       },
-      "effectiveProfileDigest": "sha256:cae0789af93296f590f8b2e9576a9e0e73aff4c6e53debe4fbb1c4e64487436b",
       "outcomeProfile": {
         "id": "workspace-change-v1",
         "version": "0.1.0",
@@ -55,7 +54,6 @@
         "version": "0.1.0",
         "digest": "sha256:ed59c2e83b8096aa53e388304716f22e99c720700bb6b404e903537aef99c76d"
       },
-      "effectiveProfileDigest": "sha256:cae0789af93296f590f8b2e9576a9e0e73aff4c6e53debe4fbb1c4e64487436b",
       "outcomeProfile": {
         "id": "workspace-change-v1",
         "version": "0.1.0",

@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:agent-evals-standard:schema:sdlc-coverage:1",
   "title": "Closed SDLC capability coverage map",
-  "$comment": "Semantic validation must require exactly one entry for each of the seven closed capability families. covered entries must be reproduced from suite cases, their effective evaluation profiles, selected outcome profiles, and the standard work-artifact registry. gap entries must have no case projection and must prohibit capability claims until their closure criteria are met.",
+  "$comment": "Semantic validation must require exactly one entry for each of the seven closed capability families. covered entries must be reproduced from suite cases, their evaluation profiles, selected outcome profiles, and the standard work-artifact registry. gap entries must have no case projection and must prohibit capability claims until their closure criteria are met.",
   "type": "object",
   "required": ["schemaVersion", "id", "version", "suite", "workArtifactRegistry", "capabilities", "digest"],
   "properties": {

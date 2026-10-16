@@ -161,18 +161,6 @@
       "digest": "sha256:73868e3597e429e6e542a413097ec5d53871eeb8b044f114740c10985f7c3913"
     },
     {
-      "id": "urn:agent-evals-standard:schema:profile-resolution-proof-inputs:1",
-      "version": "0.1.0",
-      "uri": "schemas/profile-resolution-proof-inputs.schema.json",
-      "digest": "sha256:922be0bfdc03985240dbfc8b7c7b6fdc59e143b75566e0e59fa925f855f25c16"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:profile-resolution-record:1",
-      "version": "0.1.0",
-      "uri": "schemas/profile-resolution-record.schema.json",
-      "digest": "sha256:146114197b502e1b9d7ed65fd95ffd5af255413d7787d7ebcddd417431cf2e8b"
-    },
-    {
       "id": "urn:agent-evals-standard:schema:repo-change-adjudication-record:1",
       "version": "0.1.0",
       "uri": "schemas/repo-change-adjudication-record.schema.json",
