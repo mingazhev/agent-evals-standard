@@ -117,14 +117,14 @@
     {
       "id": "repo-change-positive",
       "manifestUri": "../../examples/manifest.json",
-      "manifestDigest": "sha256:ef6148fb1aaaa1cdb79b35c986754745f41f6179a163ae1f4539423b4d278cc5",
+      "manifestDigest": "sha256:120bc8b970ef7a707b622136d4c48157dfa68cb68598fd1e1c21c581870796ee",
       "manifestExpectationId": "evaluation-profile.valid",
       "expectedVerdict": "pass"
     },
     {
       "id": "reject-general-agent-capability",
       "manifestUri": "../../examples/manifest.json",
-      "manifestDigest": "sha256:ef6148fb1aaaa1cdb79b35c986754745f41f6179a163ae1f4539423b4d278cc5",
+      "manifestDigest": "sha256:120bc8b970ef7a707b622136d4c48157dfa68cb68598fd1e1c21c581870796ee",
       "manifestExpectationId": "evaluation-profile.general-agent-capability",
       "expectedVerdict": "fail"
     }

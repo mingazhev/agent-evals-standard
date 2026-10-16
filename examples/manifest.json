@@ -249,12 +249,6 @@
       "valid": true
     },
     {
-      "id": "source-evidence-manifest.valid",
-      "path": "../standard/source-evidence-manifest.json",
-      "schema": "schemas/source-evidence-manifest.schema.json",
-      "valid": true
-    },
-    {
       "id": "statistical-plan.valid",
       "path": "valid/statistical-plan.json",
       "schema": "schemas/statistical-plan.schema.json",

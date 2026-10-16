@@ -251,12 +251,6 @@
       "digest": "sha256:fe5fd8cf8d66439dc8b73a0306cf7c845125f1e8886363f1591817f166d088c7"
     },
     {
-      "id": "urn:agent-evals-standard:schema:source-evidence-manifest:1",
-      "version": "0.1.0",
-      "uri": "schemas/source-evidence-manifest.schema.json",
-      "digest": "sha256:09a242cb0e0f2a30b8654bb1752309dd27f0a578327a680b1c91b8cf1f548b53"
-    },
-    {
       "id": "urn:agent-evals-standard:schema:statistical-plan:1",
       "version": "0.1.0",
       "uri": "schemas/statistical-plan.schema.json",

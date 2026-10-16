@@ -363,7 +363,7 @@ authority exists only because that primary definition names it.
 | evaluation-profile inheritance, effective projection, provenance and replacement-proof algorithm | primary requirement plus normative shape | the [resolution algorithm](profile-resolution-contract.md) invoked by `PROFILE-001`, together with `profile-resolution-record.schema.json` |
 | canonicalization, hashing, cross-field and cross-document verdict algorithms | invoked normative contract | the exact named semantic contract, but only for the scope stated by its invoking primary requirement |
 | illustrative instances | informative | `examples/`; an example demonstrates shape and cannot create, waive, or decide an obligation |
-| requirement-to-source traceability and publication readiness | primary traceability record | `source-evidence-manifest.json`; the cited external sources remain informative |
+| requirement-to-source references | informative | `references.md`; cited external sources never create obligations |
 | implementation technique | non-normative | the repository check, validator implementations, and implementation notes |
 
 By `ARCH-001`, a semantic document that no registered primary anchor invokes has
