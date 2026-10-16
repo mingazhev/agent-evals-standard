@@ -6,7 +6,7 @@
 
 This is a named cross-document coverage contract invoked explicitly by each
 listed requirement's primary anchor. It supplies their threat-coverage rules; it
-does not create an unregistered requirement or change their conformance targets.
+does not create an unregistered requirement or change their conformance claims.
 
 An adopter **MUST** instantiate this threat model for each evaluation profile.
 The instance **MUST** identify assets, actors, trust boundaries, credible threat
