@@ -4,7 +4,7 @@
   "title": "Authenticated case capability-classification validity argument",
   "$comment": "The semantic verifier must authenticate and reproduce the evaluation-profile, outcome-profile, work-artifact-registry, case identity, verifier bytes, and every construct-to-artifact-to-capability mapping. The signed document is not an authority to redefine the standard-owned work-artifact registry.",
   "type": "object",
-  "required": ["schemaVersion", "id", "version", "caseIdentity", "effectiveEvaluationProfile", "selectedOutcomeProfile", "constructRegistry", "fullCaseExpectation", "boundaryVectors", "verifier", "issuer", "digest", "signature"],
+  "required": ["schemaVersion", "id", "version", "caseIdentity", "effectiveEvaluationProfile", "selectedOutcomeProfile", "constructRegistry", "fullCaseExpectation", "boundaryVectors", "verifier", "issuer", "digest"],
   "properties": {
     "schemaVersion": { "const": "agent-eval-case-classification-validity-argument-1" },
     "id": { "$ref": "#/$defs/id" },
@@ -23,7 +23,7 @@
         "version": { "type": "string", "minLength": 1 },
         "uri": { "type": "string", "minLength": 1 },
         "rawDigest": { "$comment": "SHA-256 of the exact resolved JSON bytes.", "$ref": "#/$defs/digest" },
-        "subjectDigest": { "$comment": "Authenticated self-digest declared by the resolved signed profile.", "$ref": "#/$defs/digest" },
+        "subjectDigest": { "$comment": "Authenticated self-digest declared by the resolved profile.", "$ref": "#/$defs/digest" },
         "effectiveProfileDigest": { "$ref": "#/$defs/digest" },
         "interactionModes": { "$ref": "#/$defs/idSet" },
         "workArtifactRegistry": { "$ref": "#/$defs/artifactPointer" },
@@ -39,7 +39,7 @@
         "version": { "type": "string", "minLength": 1 },
         "uri": { "type": "string", "minLength": 1 },
         "rawDigest": { "$comment": "SHA-256 of the exact resolved JSON bytes.", "$ref": "#/$defs/digest" },
-        "subjectDigest": { "$comment": "Authenticated self-digest declared by the resolved signed outcome profile.", "$ref": "#/$defs/digest" },
+        "subjectDigest": { "$comment": "Authenticated self-digest declared by the resolved outcome profile.", "$ref": "#/$defs/digest" },
         "workArtifactRegistry": { "$ref": "#/$defs/artifactPointer" },
         "workArtifactTypes": { "$ref": "#/$defs/idSet" }
       },
@@ -110,8 +110,7 @@
       "properties": { "id": { "$ref": "#/$defs/id" }, "role": { "const": "case_validity_authority" } },
       "additionalProperties": false
     },
-    "digest": { "$ref": "#/$defs/digest" },
-    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+    "digest": { "$ref": "#/$defs/digest" }
   },
   "additionalProperties": false,
   "$defs": {

@@ -14,8 +14,7 @@
     "derivation",
     "effectiveRiskTier",
     "approval",
-    "digest",
-    "signature"
+    "digest"
   ],
   "properties": {
     "schemaVersion": { "const": "risk-assessment-1" },
@@ -148,8 +147,7 @@
       },
       "additionalProperties": false
     },
-    "digest": { "$ref": "#/$defs/digest" },
-    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+    "digest": { "$ref": "#/$defs/digest" }
   },
   "allOf": [
     {

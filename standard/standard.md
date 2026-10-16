@@ -81,7 +81,7 @@ Version 0.1.0 defines executable repository-state semantics for Git repositories
 only. A non-Git VCS evaluation is outside executable conformance until a
 versioned repository-state contract supplies equivalent immutable state
 identity, visible-history closure, oracle-isolation evidence, semantic
-verification, and positive and negative conformance fixtures. A format label or
+verification, and positive and negative examples. A format label or
 content digest alone is insufficient. Adding such a contract would extend the
 repository-state layer, not the standard's agent-domain scope.
 
@@ -155,9 +155,9 @@ pointer is not by itself invalid. A later contract may add LFS only with
 content-addressed payload identity, authenticated retrieval, byte-level
 materialization verification, and offline replay semantics.
 
-Schema validation alone does not establish this boundary. The named semantic
-verifier `agent-evals-standard.git-repository-state-verifier` version `0.1.0`,
-algorithm `git-repository-state-v1`, **MUST** execute all rules above. Any
+Schema validation alone does not establish this boundary. A repository-state
+verifier that implements algorithm `git-repository-state-v1` and is pinned in
+the sealed evaluator manifest **MUST** execute all rules above. Any
 unresolved base identity, reference, object, gitlink, LFS, projection, or digest
 condition yields `insufficient_evidence` for case activation and for every
 dependent positive claim or conformance target; it **MUST NOT** be downgraded to
@@ -169,12 +169,17 @@ A repository URL, ticket link, copied code fragment, or output location alone is
 insufficient. The case contract **MUST** record four typed evidence-artifact
 pointers, one for each test. It **MUST** also bind a closed set of executable
 material-subject contracts. A contract identifies an actual selected outcome or
-claim, a predicate, a distribution-pinned executor, and a verifier-selected
+claim, a predicate, an evaluator-pinned executor, and a verifier-selected
 counterfactual intervention. A claim is in scope only when that exact predicate
 executes successfully on the authenticated repository and changes from `pass`
 to `fail` under the intervention. Making bytes unavailable, citing an arbitrary
 repository blob, or adding a repository-dependent side condition **MUST NOT**
 bootstrap an otherwise general-agent claim into scope.
+
+At the [Core level](conformance.md#core-level), each case instead records the
+four tests as holding with rationales reviewed in Case QA, and no executable
+material-subject contract is required. That Core form satisfies `SCOPE-003`
+only for `A1-lite` claims.
 
 #### Repository Grounding Ablation Contract (`SCOPE-003`)
 
@@ -182,10 +187,10 @@ bootstrap an otherwise general-agent claim into scope.
 for version 0.1.0. The verifier **MUST** first authenticate the conformance
 statement, scope slice, immutable target subject, dependency manifest, workspace
 manifest, selected outcome profiles, its own executable bytes, and the
-distribution-owned grounding-executor registry. It **MUST** resolve the
-executor URI within that distribution, hash the exact bytes before installing
-the implementation, require exactly one registry entry for `(id, version)`, and
-reject duplicates, code drift, or evidence-selected code.
+grounding-executor registry pinned by the sealed evaluator manifest. It
+**MUST** hash the exact executor bytes before running them, require exactly one
+registry entry for `(id, version)`, and reject duplicates, code drift, or
+evidence-selected code.
 
 The material-subject contract is verifier input, never evidence output.
 When one is supplied, its outcome subjects **MUST** equal the scope slice's exact
@@ -226,8 +231,8 @@ JCS of the stated projection after omitting only that object's digest field.
 `verifierExecution.inputs` **MUST** equal the authenticated workspace, target,
 dependency manifest, causal contract, exact outcome and claim subjects, and the
 unique pinned executors. Any input, coverage, code, execution, projection, or
-digest mismatch yields `insufficient_evidence`; a signature or self-reported
-`established` value cannot cure it.
+digest mismatch yields `insufficient_evidence`; a self-reported `established`
+value cannot cure it.
 
 In scope are repository changes; repository research, debugging, review,
 security, and test design; repository-bound requirements, plans, architecture,
@@ -268,16 +273,17 @@ is SHA-256 of those bytes. Both the isolation proof `subjectDigest` and the
 authority contract's named boundary digest **MUST** equal the recomputed value.
 
 The authority contract **MUST** map every closed proof kind to exactly one
-producer identity, role, trust domain, attestation key, creation phase, evidence
-schema, and verifier implementation. The authenticated consuming pre-run
-manifest **MUST**
+producer identity, role, trust domain, creation phase, evidence schema, and
+verifier implementation. The authenticated consuming pre-run manifest **MUST**
 seal the environment contract that content-addresses those authority-contract
 bytes. Data-owner authorization, privacy verification, and production-path
-isolation **MUST** use pairwise-distinct producer IDs, trust domains, and key
-IDs. Redaction and re-identification **MUST** share one accountable privacy
-authority. The proof or evidence bundle **MUST NOT** add or replace an authority,
-key, or verifier. A verifier is trusted only when its exact implementation bytes
-match an evaluator-controlled registry established outside evaluated input.
+isolation **MUST** use pairwise-distinct producer IDs and trust domains, and
+their producers **MUST** be independent of each other under the
+[glossary definition](glossary.md#independence). Redaction and
+re-identification **MUST** share one accountable privacy authority. The proof
+or evidence bundle **MUST NOT** add or replace an authority or verifier. A
+verifier is trusted only when its exact implementation bytes match an
+evaluator-controlled registry established outside evaluated input.
 
 The source cutoff **MUST** be no later than snapshot creation and strictly
 earlier than the consuming pre-run manifest's `sealedAt`. Snapshot-bound proofs
@@ -305,7 +311,7 @@ relation between that sibling and this standard; copied or similarly named
 rules do not create one.
 
 The repository **MUST** bundle one conforming repository-change evaluation
-profile, outcome profile, and positive and negative fixtures as an
+profile, outcome profile, and positive and negative examples as an
 interoperability example. It has no privileged normative status. An
 adopter-defined evaluation profile receives the same schema, semantic,
 inheritance, and base-compatibility validation.
@@ -443,7 +449,7 @@ passenger.
 The classification verifier **MUST** authenticate and reproduce the exact case,
 effective evaluation profile, selected outcome profile, work-artifact registry,
 suite validity argument, verifier implementation bytes, and every
-construct-to-artifact-to-capability mapping. The signed classification record is
+construct-to-artifact-to-capability mapping. The classification record is
 evidence of that replay, not authority to redefine a construct, artifact type,
 or registry mapping. An unresolved input, mismatched identity, unknown
 construct, or non-reproducible mapping invalidates the classification.
@@ -527,6 +533,12 @@ unreviewed, or self-declared incumbent disposition yields
 `insufficient_evidence`. An unfairly resource-constrained, differently scored,
 or otherwise non-comparable baseline **MUST NOT** support an incremental-value
 claim.
+
+At the [Core level](conformance.md#core-level), the run **MUST** include both a
+no-action baseline and a distinct non-agent control and **MUST** record any
+incumbent; an unmeasured incumbent is a recorded gap that forbids any claim of
+improvement over it rather than an `insufficient_evidence` result for the whole
+study. That Core form satisfies `VALID-003` only for `A1-lite` claims.
 
 The structured baseline binding and fail-closed semantic checks invoked by this
 requirement are defined in the
@@ -681,7 +693,14 @@ of the [Security Threat Model and Coverage Contract](security-threat-model.md).
 `ASSURE-001` — Every experiment and claim **MUST** declare one assurance level.
 The level **MUST** be at least the minimum selected by the authenticated
 operational policy for the exact decision class and the authenticated effective
-risk tier. Assurance order is `A0 < A1 < A2 < A3`.
+risk tier. Assurance order is `A0 < A1-lite < A1 < A2 < A3`.
+
+`A1-lite` is the assurance level of the [Core level](conformance.md#core-level).
+It exists only for Core artifacts, supports only a capability claim at `low` or
+`medium` effective risk, needs no operational policy because it never supports
+a governance decision, and is below every floor in the table below. Full-level
+artifacts and operational policies use `A0`–`A3`; a Core claim **MUST NOT** be
+relabeled `A1` or higher without a new run under the full requirements.
 
 The closed decision classes are:
 
@@ -722,6 +741,7 @@ non-monotonic policy value yields `insufficient_evidence`.
 | Level | Intended use | Minimum evidence depth |
 | --- | --- | --- |
 | `A0 diagnostic_run` | harness development and debugging | schema-valid inputs, universal safety controls, complete attempt accounting, `claimEligibility: none`, and no claims or claim results |
+| `A1-lite core_capability` | bounded capability claim at low or medium effective risk; never governance use | the thirteen [Core obligations](conformance.md#core-level): committed run manifest before the first attempt, validated cases with positive and negative controls, complete hash-chained attempt ledger, deterministic gates, non-agent baselines, identification bounds, and the base statistical defaults or sealed overrides |
 | `A1 capability` | bounded capability claim at low or medium effective risk | current authenticated Case QA and validity argument; sealed sampling frame, unit, estimand, minimum-sample rule, and decision rule; complete scheduled-attempt accounting; the minimum-sample rule passes over independent analysis units; uncertainty interval and identification bounds are reported |
 | `A2 controlled_decision` | release or production-pilot evidence at low or medium effective risk | every A1 obligation plus held-out membership; pre-run pinned baselines under `VALID-003`, including its authenticated `no_incumbent_exists` path when applicable, and a machine-verifiable currentness rule for any current-workflow baseline; authenticated independent-review identities satisfying the declared role-separation contract; operational policy and rollback contract |
 | `A3 high_assurance` | autonomy, risk acceptance, or any high/critical effective risk | every A2 obligation plus a pinned adversarial-validation contract and passing positive attack controls; separate authorized security approval; a passing reliability contract; a bound post-decision assurance plan; and a pre-registered suspension action and enforcement path |
@@ -827,7 +847,8 @@ Every transition **MUST** record source state, target state, reason, actor,
 timestamp, case hash, and evidence. Retirement **MUST** state the affected
 claims, replacement or coverage gap, and historical-comparison treatment.
 `CASE-003` conformance therefore requires accountable review of the complete,
-signed, append-only transition history; a current case snapshot or one Case QA
+append-only transition history committed to version control; a current case
+snapshot or one Case QA
 record is insufficient. A profile may automate this review only after it
 registers an executable lifecycle-ledger contract covering every allowed edge,
 predecessor link, quarantine restoration, and retirement field.
@@ -879,11 +900,11 @@ contracts, materiality rules, and native-substatus derivation belong to the
 selected outcome profile and its authenticated replay contract. They are not
 base semantics and **MUST NOT** affect another outcome-profile ID. The bundled
 `workspace-change-v1` example is bound to its separate
-[repository-change replay contract](../profiles/repo-change-v1/outcome-replay-contract.md)
-and executable through the distribution
-[outcome-replay registry](outcome-replay-executor-registry.json). Changing that
-contract or executable changes their registered digest; it does not silently
-change this base requirement.
+[repository-change replay contract](../profiles/repo-change-v1/outcome-replay-contract.md).
+An implementation executes that contract through an outcome-replay executor
+registered in an `outcome-replay-executor-registry-1` document that the sealed
+evaluator manifest pins. Changing the contract or the executable changes their
+registered digest; it does not silently change this base requirement.
 
 `OUTPROF-001` — Each non-A0 case **MUST** pin exactly one outcome-profile ID,
 version, and digest allowed by its effective evaluation profile. An outcome
@@ -985,6 +1006,12 @@ weaken its fail-closed result. Stage 7 `not_applicable` is a completed stage onl
 under the playbook's authenticated singleton-validity proof and replacement
 controls; it is not an omitted stage.
 
+The [Core level](conformance.md#core-level) is the one exception: a
+`core-case-qa` record with known-good, no-op, and plausible wrong controls, a
+stability check, and an independent inferability and scope review activates a
+case for `A1-lite` claims only. Such a case is not activated for `A1`–`A3` use
+until it passes the complete playbook.
+
 A material change to task input, projection, environment, outcome profile,
 check, rubric, adjudicator qualification, simulator, gate, or applicability rule
 **MUST** invalidate dependent QA evidence. Production escapes, false decisions,
@@ -1037,10 +1064,10 @@ the design has only one of each. Cell IDs and `(case, arm, repetition)` tuples
 the cell.
 
 Before execution, the sealed manifest **MUST** authenticate and pin one exact
-suite, every scheduled case, and one exact signed `evaluator-manifest-1`.
+suite, every scheduled case, and one exact `evaluator-manifest-1`.
 Case-set membership and each case's evaluation-profile, effective-profile, and
 outcome-profile bindings **MUST** equal the authenticated suite. The validator
-**MUST** resolve each signed evaluation profile, reproduce its flattened
+**MUST** resolve each evaluation profile by digest, reproduce its flattened
 `effectiveProfileDigest`, and authenticate the selected outcome profile; a
 copied digest string, matching ID, or fixture-side related-record hint is not a
 binding.
@@ -1052,22 +1079,11 @@ scheduled cells, risk and threat scopes, applicable exposure budget, and every
 statistical claim. Missing, extra, duplicate, reordered, substituted, or
 passenger cases are `insufficient_evidence`.
 
-The sealed manifest **MUST** pin the same versioned `signatureProfile` artifact
-as every effective evaluation profile used by the run. Every run artifact
-signature **MUST** resolve through that exact profile before cryptographic
-verification; an unknown or different profile is `insufficient_evidence`.
-
-The manifest **MUST** separately pin the same versioned `claimTrustProfile` and
-`claimTrustUse` as every effective evaluation profile used by the run. Before a
-claim or governance decision is accepted, the validator **MUST** authenticate
-that operational profile and its key-authorization, revocation, trusted-time,
-and anti-rollback contracts and prove coverage of the run's assurance level and
-every applicable effective-risk tier. `signatureProfile` verification alone is
-never that proof. `conformance_fixture_requires_external_rekey` means the
-bundled keys and signatures test mechanics only and **MUST NOT** support a
-deployment claim. `deployment_bound` **MUST** use externally provisioned,
-owner-verified trust and **MUST NOT** resolve to a repository reference profile
-whose `operationalReference.deploymentUse` prohibits deployment.
+Run-artifact integrity rests on content addressing and version-control order,
+not on cryptographic signatures. The sealed manifest and every artifact it pins
+**MUST** satisfy the
+[integrity model](evidence-and-validation-contract.md#integrity-model): a
+changed byte is a different artifact and cannot be patched into a sealed run.
 
 `EXP-002` — Each `arms[]` entry **MUST** bind an arm ID and full identity for the
 model, agent configuration, prompts, policies, harness, adapter, tool schemas and
@@ -1114,7 +1130,7 @@ ledger, and conformance statement. Evidence references **MUST** use the canonica
 `evidence-artifact-1` contract in
 [Evidence and Detached Validation](evidence-and-validation-contract.md).
 Semantic validation **MUST** be detached: the subject never embeds its validation
-result; a signed external `validation-envelope-1` binds the subject digest.
+result; an external `validation-envelope-1` binds the subject digest.
 
 ### Run Protocol
 
@@ -1129,7 +1145,7 @@ result; a signed external `validation-envelope-1` binds the subject digest.
 7. capture an immutable grading or adjudication snapshot;
 8. apply universal, evaluation-profile, case, security, and policy gates;
 9. capture canonical evidence artifacts through an authenticated result channel;
-10. append the terminal attempt state and signed ledger root.
+10. append the terminal attempt state and the recomputed ledger root.
 
 Write access is profile-specific. A repository-analysis, assurance, or review
 case **MAY** expose no agent-writable filesystem root and **MUST NOT** require
@@ -1203,6 +1219,34 @@ hierarchical treatment for multiple claims and slices. The plan **MUST** declare
 effect size, interval method, minimum information or power rule, weighting,
 stopping, exclusions, and handling of ambiguous, quarantined, and saturated
 cases. Unsupported assumptions yield `insufficient_evidence`.
+
+### Base statistical defaults
+
+When a sealed statistical plan does not declare a parameter, `STAT-003` applies
+the defaults `stat-defaults-v1` below. A plan **MAY** override any default only
+before the first attempt, and the scorecard **MUST** list every override.
+Results from different adopters are comparable only when both use
+`stat-defaults-v1` without override or with identical declared overrides, on
+populations each claim describes.
+
+| Parameter | Default |
+| --- | --- |
+| Analysis unit | an independently sampled case; repeated trials of one case are not independent units |
+| Minimum cases per claimed population or stratum | 30 for a single-arm claim; 50 paired cases for a comparative claim |
+| Trials per case | 1 for pass@1 claims; 3 for every case of an arm whose repeatability (pass^k) is claimed |
+| pass@1 estimator | mean over cases of each case's fraction of successful trials |
+| pass^k estimator | fraction of cases whose `k` scheduled trials all succeed, with `k = 3` |
+| Confidence level | 95% two-sided; with `m` primary claims in one plan, `1 - 0.05/m` for each (Bonferroni) |
+| Interval, one trial per case | Wilson score interval |
+| Interval, repeated trials | `mean ± t(1 - α/2, n - 1) · s / √n` over per-case values, clipped to `[0, 1]`; when `s = 0`, the Wilson interval on the case count |
+| Interval, paired contrast | the same `t` interval over per-case differences, clipped to `[-1, 1]` |
+| Missingness | identification bounds that assign every unresolved cell failure, then success; the reported interval runs from the lower limit at the failure endpoint to the upper limit at the success endpoint |
+| Decision rule | an at-least claim is `supported` only when the reported interval's lower limit exceeds the sealed threshold; an at-most (harm) claim only when its upper limit falls below it |
+| Replacement attempts | at most one per cell, only after a measurement-invalid attempt |
+
+The case minimums are eligibility floors, not power guarantees: with 30 cases
+and an observed rate near 0.5, the 95% Wilson interval is about ±0.17 wide.
+A plan **SHOULD** state the interval width its decision needs.
 
 `STAT-001`, `STAT-002`, and `STAT-003` invoke the scorecard projections and
 reproduction algorithms in the [Scorecard Contract](scorecard-contract.md).

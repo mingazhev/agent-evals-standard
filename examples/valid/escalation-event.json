@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "agent-eval-escalation-event-1",
+  "id": "escalation-fixture-1",
+  "eventId": "measurementBoundaryCompromise",
+  "matrixVersion": "0.1.0",
+  "matrixHash": "sha256:c2e6fb87a1f3f8936db5de56124ee776d258c67e383dd9e82487ca712169351d",
+  "matrixRowHash": "sha256:07376e634331df6614fccf03cb7053a9f49737d5da767f66af73ff38548f89c4",
+  "triggeredAt": "2026-08-01T00:00:12Z",
+  "state": "open",
+  "affectedScope": {
+    "scopeDigest": "sha256:b59491fd25d11e97fbad312086031faf0bc48aecb17ba897800aaf344d27d602",
+    "riskTier": "high",
+    "decisionId": "decision-fixture-1",
+    "scorecardId": "scorecard-fixture-1",
+    "claimIds": [
+      "claim-fixture-1"
+    ]
+  },
+  "claimEffect": "insufficient_evidence",
+  "governanceStatus": "security_review_required",
+  "stopAction": "stop_governance_use",
+  "scopeAction": "revoke_affected_scope",
+  "waivable": false,
+  "owner": "security-owner",
+  "sla": "PT1H",
+  "triageArtifact": "triage-fixture-1",
+  "findingRef": "finding-fixture-1",
+  "evidence": [
+    "fixture-evidence-1"
+  ],
+  "enforcementRequest": {
+    "action": "stop_governance_use",
+    "requestedAt": "2026-08-01T00:00:13Z"
+  },
+  "resumeConditions": [
+    "measurement boundary re-established and independently verified"
+  ]
+}

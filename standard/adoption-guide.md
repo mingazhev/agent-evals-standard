@@ -6,6 +6,33 @@
   case, experiment, scorecard, and conformance statement. The linked primary
   contracts determine the requirements.
 
+## Start here: the Core path
+
+If you have not yet made a claim under this standard, start at the
+[Core level](conformance.md#core-level). It needs two people, Git, and the six
+`core-*` schemas:
+
+1. **Author cases** (`core-case`): task, repository commit, the four scope
+   tests, deterministic checks, hard gates, and oracle isolation.
+2. **Validate cases** (`core-case-qa`): a known-good result passes, a no-op and a
+   plausible wrong result fail, stably; a second person confirms inferability
+   and scope before any result exists.
+3. **Seal the run** (`core-run-manifest`): arms including a no-action baseline
+   and a non-agent control, trials per case, replacement policy, claims with
+   decision rules, and `stat-defaults-v1`. Commit it before the first attempt.
+4. **Run** (`core-attempt-ledger`): append every attempt, valid or not, to a
+   hash-chained ledger in Git.
+5. **Score** (`core-scorecard`): counts, outcomes, gate failures, per-case
+   results, identification bounds, and intervals; gates, outcomes, claims, and
+   verdict stay in separate fields.
+6. **State conformance** (`core-conformance-statement`): one status per
+   obligation C1–C13, reviewed by the second person.
+
+The [worked example](../examples/core/README.md) shows every step with numbers.
+Everything below describes the full levels (`A1`–`A3`).
+
+## Full levels
+
 Use the [requirement registry](requirements.md) to find each rule's authoritative
 location. Measurement and governance share a preparation path; governance
 planning branches **before** the run it will judge:
@@ -32,21 +59,20 @@ permit omitting a required coverage row ([Conformance](conformance.md)).
 
 ## Local development
 
-The repository validates itself with Node tooling:
+The repository contains contracts only: prose, JSON Schemas, profiles, and
+[examples](../examples/). One lightweight check validates them:
 
 ```bash
 npm ci
-npm run check          # repository consistency: schemas, $ref resolution, links
-npm test               # full corpus: fixtures, vectors, and verifier tools
-npm run release:check  # pre-publication gate (check:generated + tests + evidence readiness)
+npm test   # schemas compile, examples match expectations, bundled contracts and links resolve
 ```
 
-Machine-verifiable expectations are captured as positive and negative
-[conformance fixtures](../conformance/fixtures/) and verified by `npm test`.
-If you change a schema or a normative requirement, add or update fixtures and
-run `npm test` in the same pull request.
+The check is not a conformance validator. Semantic validation — digest
+reproduction, outcome replay, ledger continuity, independence — belongs to an
+implementation of this standard. If you change a schema, update its valid
+example and any affected invalid example in the same pull request.
 
-## Core path (measurement)
+## Full-level measurement path
 
 ### 1. Pin the draft
 
@@ -136,21 +162,21 @@ outcome replay for claim-bearing cells.
 
 ### 7. Publish a conformance statement
 
-Publish a signed statement
+Publish a statement
 ([`schemas/conformance-statement.schema.json`](../schemas/conformance-statement.schema.json))
 that names the version and commit pins, its single target, typed evidence
 locations and hashes, deviations with claim restrictions, and the issuer
 identity. The target record also contains the closed
 requirement-coverage matrix required by `CONF-002`: exactly the requirements
 whose authenticated [requirement-registry](requirement-registry.json) entry
-includes the claimed target, each with a signed
+includes the claimed target, each with an authenticated
 `conformance-applicability-contract-1` whose rule predicate binds the digest of
 that registry entry.
 
-A conforming claim is the signed statement plus a separate signed
-`validation-envelope-1` whose subject digest equals the statement digest; an
-unsigned statement or a missing envelope is an unauthenticated assertion, not
-conformance.
+A conforming claim is the committed statement plus a separate
+`validation-envelope-1`, produced by an independent validator, whose subject
+digest equals the statement digest; a statement without a passing envelope is
+an unauthenticated assertion, not conformance.
 
 You can claim `suite`, `case`, `evaluator`, `experiment`, or `decision`
 conformance in separate statements. `evaluator` additionally requires enforcement
@@ -168,7 +194,7 @@ These steps consume the validated evidence from the pre-planned governance run.
 Decisions use [`schemas/governance-decision.schema.json`](../schemas/governance-decision.schema.json)
 and the [decision-record template](../templates/governance-decision-record.md).
 An approval additionally binds a post-decision assurance plan. Resolutions,
-waivers, renewals, and rollbacks are appended to the signed
+waivers, renewals, and rollbacks are appended to the hash-chained
 governance-resolution ledger; the scorecard itself is immutable.
 
 ### 9. Monitor via assurance observations

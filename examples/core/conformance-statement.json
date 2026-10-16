@@ -1,0 +1,197 @@
+{
+  "schemaVersion": "agent-eval-core-conformance-statement-1",
+  "id": "ledger-service-bugfix-core-run-1-statement",
+  "version": "1.0.0",
+  "standard": {
+    "version": "0.1.0",
+    "commit": "d30cc5ade9e9518cd8e7eb71c81f29f2daa793f9"
+  },
+  "level": "core",
+  "assuranceLevel": "A1-lite",
+  "issuer": {
+    "id": "person-a",
+    "role": "case author and evaluation owner"
+  },
+  "subject": {
+    "runManifest": {
+      "path": "examples/core/run-manifest.json",
+      "commit": "8229bd5ef1c3d9c850a2dd2415ece95706b9fc9e",
+      "digest": "sha256:6fcabfeb6164a14485d6a686109d62df2bda50415b63e85241fb02707fcaf95d"
+    },
+    "attemptLedger": {
+      "path": "examples/core/attempt-ledger.json",
+      "commit": "eda67514a96aa1bd7a7621b9d0891fbbf4df5459",
+      "digest": "sha256:28c13f119eb715fa99e767a09d4a47aed4c2261678ebca948525107b0f73f011"
+    },
+    "scorecard": {
+      "path": "examples/core/scorecard.json",
+      "commit": "2367e7660fe4a5584129b1e89f7b7d76568e94c8",
+      "digest": "sha256:7f197e329a4765d4a3d10185196d6eec371b95ba72f50d68a3625c40f8274e25"
+    }
+  },
+  "obligations": [
+    {
+      "id": "C1",
+      "requirementIds": [
+        "SCOPE-001"
+      ],
+      "status": "pass",
+      "evidence": [
+        "examples/core/run-manifest.json@8229bd5ef1c3#/arms"
+      ]
+    },
+    {
+      "id": "C2",
+      "requirementIds": [
+        "SCOPE-003"
+      ],
+      "status": "pass",
+      "evidence": [
+        "examples/core/case.json@9807bf4aec58#/scopeTests",
+        "examples/core/case-qa.json@9807bf4aec58#/scopeReview"
+      ]
+    },
+    {
+      "id": "C3",
+      "requirementIds": [
+        "I3"
+      ],
+      "status": "pass",
+      "evidence": [
+        "examples/core/run-manifest.json@8229bd5ef1c3",
+        "seal commit 8229bd5ef1c3 is an ancestor of first-attempt commit becdb6988b8d"
+      ]
+    },
+    {
+      "id": "C4",
+      "requirementIds": [
+        "HOLD-001"
+      ],
+      "status": "pass",
+      "evidence": [
+        "examples/core/case.json@9807bf4aec58#/oracleIsolation",
+        "examples/core/run-manifest.json@8229bd5ef1c3#/environment/enforcement"
+      ]
+    },
+    {
+      "id": "C5",
+      "requirementIds": [
+        "I1",
+        "GATE-001"
+      ],
+      "status": "pass",
+      "evidence": [
+        "examples/core/case.json@9807bf4aec58#/acceptance",
+        "examples/core/scorecard.json@2367e7660fe4#/hardGateFailures"
+      ]
+    },
+    {
+      "id": "C6",
+      "requirementIds": [
+        "I9",
+        "JUDGE-002",
+        "JUDGE-003"
+      ],
+      "status": "pass",
+      "evidence": [
+        "examples/core/case.json@9807bf4aec58#/acceptance/checks",
+        "every check in the run is deterministic; no judgment-bound check"
+      ]
+    },
+    {
+      "id": "C7",
+      "requirementIds": [
+        "I12",
+        "CASE-004"
+      ],
+      "status": "pass",
+      "evidence": [
+        "examples/core/case-qa.json@9807bf4aec58",
+        "examples/core/scorecard.json@2367e7660fe4#/caseQaRecords"
+      ]
+    },
+    {
+      "id": "C8",
+      "requirementIds": [
+        "RUN-002"
+      ],
+      "status": "pass",
+      "evidence": [
+        "examples/core/attempt-ledger.json@eda67514a96a",
+        "253 entries; chain recomputed to terminalDigest"
+      ]
+    },
+    {
+      "id": "C9",
+      "requirementIds": [
+        "OUT-001",
+        "CLAIM-001",
+        "CLAIM-002",
+        "I6"
+      ],
+      "status": "pass",
+      "evidence": [
+        "examples/core/scorecard.json@2367e7660fe4#/claims",
+        "examples/core/scorecard.json@2367e7660fe4#/decisionVerdict"
+      ]
+    },
+    {
+      "id": "C10",
+      "requirementIds": [
+        "STAT-001",
+        "STAT-003"
+      ],
+      "status": "pass",
+      "evidence": [
+        "examples/core/run-manifest.json@8229bd5ef1c3#/statistics",
+        "examples/core/scorecard.json@2367e7660fe4#/metrics"
+      ]
+    },
+    {
+      "id": "C11",
+      "requirementIds": [
+        "STAT-002"
+      ],
+      "status": "pass",
+      "evidence": [
+        "examples/core/scorecard.json@2367e7660fe4#/accounting",
+        "examples/core/scorecard.json@2367e7660fe4#/metrics/0/identificationBounds"
+      ]
+    },
+    {
+      "id": "C12",
+      "requirementIds": [
+        "VALID-003"
+      ],
+      "status": "pass",
+      "evidence": [
+        "examples/core/run-manifest.json@8229bd5ef1c3#/arms",
+        "examples/core/run-manifest.json@8229bd5ef1c3#/incumbent"
+      ]
+    },
+    {
+      "id": "C13",
+      "requirementIds": [
+        "I7"
+      ],
+      "status": "pass",
+      "evidence": [
+        "examples/core/run-manifest.json@8229bd5ef1c3#/environment"
+      ]
+    }
+  ],
+  "restrictions": {
+    "governanceUse": "prohibited",
+    "population": "Population: 50 bug-fix issues sampled at random from 212 eligible closed issues of ledger-service (Python 3.12, pytest), closed between 2025-01 and 2026-06.",
+    "incumbentComparison": "not_claimed"
+  },
+  "independentReview": {
+    "reviewer": {
+      "id": "person-b",
+      "role": "independent reviewer"
+    },
+    "verdict": "confirmed",
+    "recordedAtCommit": "8771bf636f4c4d2f928e95d63d756df7466f492f"
+  },
+  "verdict": "core_conforming"
+}

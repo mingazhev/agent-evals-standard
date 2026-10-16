@@ -139,7 +139,7 @@ independent blinded raters, one qualification rule, qualification and conflict
 evidence commitments, reasons, applicable presentation-order control, agreement
 with uncertainty, and a passing verdict from every decision-bearing rater.
 
-`runner-attestation` binds a failed or invalid exact runner-check set to the
+`runner-failure-record` binds a failed or invalid exact runner-check set to the
 sealed workspace. `measurement-validity-record` binds that runner record, the
 same workspace and fact projection, and a verifier independent from claimant
 and runner. Evidence-kind labels are closed; a wrong schema, subject, authority,

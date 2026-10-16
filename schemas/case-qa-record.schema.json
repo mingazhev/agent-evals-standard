@@ -6,7 +6,7 @@
   "required": [
     "schemaVersion", "case", "contracts", "validFrom", "expiresAt", "activationEvidence", "independenceBaseline", "stages", "defects", "controlProofs", "alternativeValidResult",
     "stability", "sharedGraderValidation", "decisionSurfaceValidation", "modelGraderValidation",
-    "interactionValidation", "simulatorValidation", "evidenceManifest", "decision", "digest", "signature"
+    "interactionValidation", "simulatorValidation", "evidenceManifest", "decision", "digest"
   ],
   "properties": {
     "schemaVersion": { "const": "case-qa-record-1" },
@@ -134,8 +134,7 @@
       "properties": { "timestamp": { "type": "string", "format": "date-time", "pattern": "Z$" }, "reason": { "type": "string", "minLength": 1 }, "supersedingRecord": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/artifactPointer" }] } },
       "additionalProperties": false
     },
-    "digest": { "$ref": "#/$defs/digest" },
-    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+    "digest": { "$ref": "#/$defs/digest" }
   },
   "allOf": [
     {
@@ -227,15 +226,13 @@
       "additionalProperties": false
     },
     "reviewerAuthority": {
-      "$comment": "The accountable authority for a QA stage or independently produced control result. publicKeyDigest identifies the actual verification key so aliases with different key IDs cannot satisfy separation.",
+      "$comment": "The accountable authority for a QA stage or independently produced control result. Independence is judged on the underlying person under the glossary definition, so renamed aliases cannot satisfy separation.",
       "type": "object",
-      "required": ["id", "role", "trustDomain", "keyId", "publicKeyDigest"],
+      "required": ["id", "role", "trustDomain"],
       "properties": {
         "id": { "$ref": "#/$defs/id" },
         "role": { "$ref": "#/$defs/id" },
-        "trustDomain": { "$ref": "#/$defs/id" },
-        "keyId": { "$ref": "#/$defs/id" },
-        "publicKeyDigest": { "$ref": "#/$defs/digest" }
+        "trustDomain": { "$ref": "#/$defs/id" }
       },
       "additionalProperties": false
     },
@@ -543,7 +540,7 @@
       "additionalProperties": false
     },
     "classificationPolicyApplicabilityEvidence": {
-      "$comment": "Authenticated Stage 0 evidence payload. Semantic validation resolves every distribution-owned pointer, resolves the exact activation-time frame from the sealed activation input, validates raw paths and selector definitions, executes both the registered classifier and every repository selector, and compares the complete derived result. Self-consistent claimant relabeling is invalid.",
+      "$comment": "Authenticated Stage 0 evidence payload. Semantic validation resolves every evaluator-pinned pointer, resolves the exact activation-time frame from the sealed activation input, validates raw paths and selector definitions, executes both the registered classifier and every repository selector, and compares the complete derived result. Self-consistent claimant relabeling is invalid.",
       "type": "object",
       "required": [
         "schemaVersion", "case", "outcomeReplayRegistry", "outcomeProfile", "classificationPolicyContract", "executor", "applicabilityRule",

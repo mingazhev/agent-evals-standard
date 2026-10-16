@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:agent-evals-standard:schema:evaluation-control-authority-evidence:1",
-  "title": "Signed authority evidence for validity, held-out budgets, and ledger checkpoints",
+  "title": "Authority evidence for validity, held-out budgets, and ledger checkpoints",
   "type": "object",
   "required": [
     "schemaVersion",
@@ -13,8 +13,7 @@
     "decision",
     "issuedAt",
     "authorityPolicy",
-    "digest",
-    "signature"
+    "digest"
   ],
   "properties": {
     "schemaVersion": { "const": "agent-eval-evaluation-control-authority-evidence-1" },
@@ -27,8 +26,7 @@
     "issuedAt": { "$ref": "#/$defs/dateTime" },
     "authorityPolicy": { "$ref": "#/$defs/policyIdentity" },
     "checkpoint": { "$ref": "#/$defs/checkpoint" },
-    "digest": { "$ref": "#/$defs/digest" },
-    "signature": { "$ref": "#/$defs/signature" }
+    "digest": { "$ref": "#/$defs/digest" }
   },
   "allOf": [
     {
@@ -116,18 +114,6 @@
           },
           "additionalProperties": false
         }
-      },
-      "additionalProperties": false
-    },
-    "signature": {
-      "type": "object",
-      "required": ["profileId", "algorithm", "keyId", "signedAt", "value"],
-      "properties": {
-        "profileId": { "$ref": "#/$defs/id" },
-        "algorithm": { "const": "Ed25519" },
-        "keyId": { "$ref": "#/$defs/id" },
-        "signedAt": { "$ref": "#/$defs/dateTime" },
-        "value": { "type": "string", "minLength": 86, "maxLength": 86, "pattern": "^[A-Za-z0-9_-]+$" }
       },
       "additionalProperties": false
     }

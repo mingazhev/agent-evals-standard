@@ -3,7 +3,7 @@
   "$id": "urn:agent-evals-standard:schema:statistical-plan:1",
   "title": "Pre-registered statistical plan",
   "type": "object",
-  "required": ["schemaVersion", "id", "version", "sealedAt", "assuranceLevel", "runMode", "claimEligibility", "targetPopulation", "samplingFrame", "primaryClaims", "exploratoryClaims", "claimContracts", "samplingUnit", "minimumSampleRule", "powerOrPrecision", "randomization", "dependence", "invalidAndRetryHandling", "unresolvedCellPolicy", "multiplicity", "sequentialLooksAndStopping", "heldOutExposureAndReuse", "estimators", "intervalProcedure", "digest", "signature"],
+  "required": ["schemaVersion", "id", "version", "sealedAt", "assuranceLevel", "runMode", "claimEligibility", "targetPopulation", "samplingFrame", "primaryClaims", "exploratoryClaims", "claimContracts", "samplingUnit", "minimumSampleRule", "powerOrPrecision", "randomization", "dependence", "invalidAndRetryHandling", "unresolvedCellPolicy", "multiplicity", "sequentialLooksAndStopping", "heldOutExposureAndReuse", "estimators", "intervalProcedure", "digest"],
   "properties": {
     "schemaVersion": { "const": "agent-eval-statistical-plan-1" },
     "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "sealedAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
@@ -38,8 +38,7 @@
     },
     "estimators": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/verifiedContract" } },
     "intervalProcedure": { "$ref": "#/$defs/verifiedContract" },
-    "digest": { "$ref": "#/$defs/digest" },
-    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+    "digest": { "$ref": "#/$defs/digest" }
   },
   "allOf": [
     { "if": { "type": "object", "properties": { "assuranceLevel": { "const": "A0" } }, "required": ["assuranceLevel"] }, "then": { "type": "object", "properties": { "runMode": { "const": "diagnostic_run" }, "claimEligibility": { "const": "none" }, "primaryClaims": { "type": "array", "maxItems": 0 }, "exploratoryClaims": { "type": "array", "maxItems": 0 }, "claimContracts": { "type": "array", "maxItems": 0 } } }, "else": { "type": "object", "properties": { "runMode": { "const": "evaluation" }, "claimEligibility": { "const": "claims_eligible" }, "primaryClaims": { "type": "array", "minItems": 1 }, "claimContracts": { "type": "array", "minItems": 1 } } } }

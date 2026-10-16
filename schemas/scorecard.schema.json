@@ -3,7 +3,7 @@
   "$id": "urn:agent-evals-standard:schema:scorecard:1",
   "title": "Sealed-run evaluation scorecard",
   "type": "object",
-  "required": ["schemaVersion", "experiment", "arms", "comparativeDesign", "gateRegistry", "governanceStatusRegistry", "claims", "claimResults", "caseResults", "attemptIntegrity", "metrics", "evidenceManifest", "provenance", "digest", "signature"],
+  "required": ["schemaVersion", "experiment", "arms", "comparativeDesign", "gateRegistry", "governanceStatusRegistry", "claims", "claimResults", "caseResults", "attemptIntegrity", "metrics", "evidenceManifest", "provenance", "digest"],
   "properties": {
     "schemaVersion": { "const": "agent-eval-scorecard-1" },
     "experiment": {
@@ -43,8 +43,7 @@
       "items": { "$ref": "urn:agent-evals-standard:schema:evidence-artifact:1" }
     },
     "provenance": { "$ref": "#/$defs/provenance" },
-    "digest": { "$ref": "#/$defs/digest" },
-    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+    "digest": { "$ref": "#/$defs/digest" }
   },
   "allOf": [
     {
@@ -199,7 +198,7 @@
         "decisionSurfaces": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/decisionSurfaceResult" } },
         "transcriptEvidence": { "$ref": "#/$defs/evidenceCompleteness" }, "interactionEvidence": { "$ref": "#/$defs/evidenceCompleteness" },
         "metrics": { "type": "object", "minProperties": 1 }, "artifactIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
-        "outcomeReplay": { "$comment": "Required semantically for every resolved trial used by a claim. The validator resolves executor identity only from the distribution registry and receipt trust only from verifier configuration; neither is discovered from this claimant-controlled object.", "$ref": "#/$defs/outcomeReplay" }
+        "outcomeReplay": { "$comment": "Required semantically for every resolved trial used by a claim. The validator resolves executor identity only from the evaluator-pinned registry and receipt authority only from verifier configuration; neither is discovered from this claimant-controlled object.", "$ref": "#/$defs/outcomeReplay" }
       },
       "allOf": [
         { "if": { "type": "object", "properties": { "validity": { "const": "invalid" } } }, "then": { "type": "object", "properties": { "functional": { "const": false }, "accepted": { "const": false }, "primaryOutcome": { "const": "infra_failure" }, "terminalState": { "const": "measurement_unavailable" } } } },
@@ -231,7 +230,7 @@
     "primaryOutcome": { "enum": ["solved", "correct_refusal", "already_satisfied", "partial", "failed", "no_relevant_result", "unsafe_policy_violation", "infra_failure"] },
     "profileOutcome": { "type": "object", "required": ["id", "substatus"], "properties": { "id": { "$ref": "#/$defs/id" }, "substatus": { "type": ["string", "null"], "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" } }, "additionalProperties": false },
     "outcomeTerminalState": { "enum": ["task_satisfied", "safe_refusal", "base_state_already_satisfied", "assessable_partial", "assessable_failure", "no_relevant_result", "unsafe_behavior", "measurement_unavailable"] },
-    "evidenceModeVerdict": { "$comment": "evidenceKindBindings is exact: its kind IDs equal the selected profile mode's requiredEvidenceKinds, its flattened evidence IDs equal evidenceIds without passengers, and the distribution-owned replay executor validates each artifact against the registered kind semantics.", "type": "object", "required": ["modeId", "status", "evidenceIds", "evidenceKindBindings"], "properties": { "modeId": { "$ref": "#/$defs/id" }, "status": { "enum": ["pass", "fail", "invalid", "not_applicable"] }, "evidenceIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "evidenceKindBindings": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidenceKindBinding" } } }, "allOf": [{ "if": { "type": "object", "properties": { "status": { "enum": ["pass", "fail", "invalid"] } }, "required": ["status"] }, "then": { "type": "object", "properties": { "evidenceIds": { "type": "array", "minItems": 1 } } } }], "additionalProperties": false },
+    "evidenceModeVerdict": { "$comment": "evidenceKindBindings is exact: its kind IDs equal the selected profile mode's requiredEvidenceKinds, its flattened evidence IDs equal evidenceIds without passengers, and the evaluator-pinned replay executor validates each artifact against the registered kind semantics.", "type": "object", "required": ["modeId", "status", "evidenceIds", "evidenceKindBindings"], "properties": { "modeId": { "$ref": "#/$defs/id" }, "status": { "enum": ["pass", "fail", "invalid", "not_applicable"] }, "evidenceIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "evidenceKindBindings": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidenceKindBinding" } } }, "allOf": [{ "if": { "type": "object", "properties": { "status": { "enum": ["pass", "fail", "invalid"] } }, "required": ["status"] }, "then": { "type": "object", "properties": { "evidenceIds": { "type": "array", "minItems": 1 } } } }], "additionalProperties": false },
     "evidenceKindBinding": { "type": "object", "required": ["kindId", "evidenceIds"], "properties": { "kindId": { "$ref": "#/$defs/id" }, "evidenceIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true } }, "additionalProperties": false },
     "failureCause": { "$comment": "id is a cause ID from the bound outcome profile's failure taxonomy. Semantic validation must reject unknown IDs and reconcile failed gates through failureCauseId.", "type": "object", "required": ["id", "taxonomy", "evidenceIds"], "properties": { "id": { "$ref": "#/$defs/id" }, "taxonomy": { "$ref": "#/$defs/component" }, "evidenceIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true } }, "additionalProperties": false },
     "hardGate": { "$comment": "failureCauseId identifies taxonomy detail and is never a primary outcome. Semantic validation must require every non-null ID to occur in trialResult.failureCauses.", "type": "object", "required": ["id", "status", "backingEvidenceIds", "assignmentEvidenceId", "triggerEvidenceId", "failureCauseId"], "properties": { "id": { "$ref": "#/$defs/id" }, "status": { "enum": ["pass", "fail", "invalid"] }, "backingEvidenceIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "assignmentEvidenceId": { "$ref": "#/$defs/id" }, "triggerEvidenceId": { "$ref": "#/$defs/id" }, "failureCauseId": { "type": ["string", "null"], "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" } }, "allOf": [{ "if": { "type": "object", "properties": { "status": { "const": "pass" } }, "required": ["status"] }, "then": { "type": "object", "properties": { "failureCauseId": { "type": "null" } } }, "else": { "type": "object", "properties": { "failureCauseId": { "type": "string", "minLength": 1 } } } }], "additionalProperties": false },
@@ -398,13 +397,13 @@
       "additionalProperties": false
     },
     "provenance": {
-      "type": "object", "required": ["standardRelease", "contracts", "preRunManifest", "statisticalPlan", "suite", "caseSetDigest", "requirementRegistry", "signatureProfile"],
+      "type": "object", "required": ["standardRelease", "contracts", "preRunManifest", "statisticalPlan", "suite", "caseSetDigest", "requirementRegistry"],
       "properties": {
         "standardRelease": { "$ref": "#/$defs/component" },
         "contracts": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/component" } },
         "preRunManifest": { "$ref": "#/$defs/artifactPointer" }, "decisionPlan": { "$ref": "#/$defs/artifactPointer" },
         "statisticalPlan": { "$ref": "#/$defs/artifactPointer" }, "suite": { "$ref": "#/$defs/versionedArtifactPointer" },
-        "caseSetDigest": { "$ref": "#/$defs/digest" }, "requirementRegistry": { "$ref": "#/$defs/artifactPointer" }, "signatureProfile": { "$comment": "The exact versioned signature-verification profile pinned by the sealed pre-run manifest.", "$ref": "#/$defs/versionedArtifactPointer" }
+        "caseSetDigest": { "$ref": "#/$defs/digest" }, "requirementRegistry": { "$ref": "#/$defs/artifactPointer" }
       },
       "additionalProperties": false
     }

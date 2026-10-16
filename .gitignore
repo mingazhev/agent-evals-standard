@@ -2,4 +2,3 @@
 *.swp
 *.tmp
 node_modules/
-.agent-evals-production-derived-authority-*/

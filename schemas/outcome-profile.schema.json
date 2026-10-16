@@ -22,8 +22,7 @@
     "claimCompatibility",
     "functionalSuccess",
     "acceptedOutcome",
-    "digest",
-    "signature"
+    "digest"
   ],
   "properties": {
     "schemaVersion": { "const": "agent-eval-outcome-profile-1" },
@@ -141,8 +140,7 @@
     },
     "functionalSuccess": { "allOf": [{ "$ref": "#/$defs/predicate" }, { "type": "object", "properties": { "id": { "const": "functional-outcome-v1" } } }] },
     "acceptedOutcome": { "allOf": [{ "$ref": "#/$defs/predicate" }, { "type": "object", "properties": { "id": { "const": "accepted-outcome-v1" } } }] },
-    "digest": { "$ref": "#/$defs/digest" },
-    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+    "digest": { "$ref": "#/$defs/digest" }
   },
   "additionalProperties": false,
   "$defs": {
@@ -163,7 +161,7 @@
     },
     "terminalEvidenceArtifactRequirement": {
       "type": "object",
-      "required": ["artifactType", "cardinality", "uriBinding", "attestation"],
+      "required": ["artifactType", "cardinality", "uriBinding"],
       "properties": {
         "artifactType": {
           "oneOf": [
@@ -172,8 +170,7 @@
           ]
         },
         "cardinality": { "enum": ["exactly_one", "one_or_more"] },
-        "uriBinding": { "enum": ["artifact_sha256_matches_digest", "authenticated_immutable_uri"] },
-        "attestation": { "const": "required" }
+        "uriBinding": { "enum": ["artifact_sha256_matches_digest", "authenticated_immutable_uri"] }
       },
       "additionalProperties": false
     },
@@ -226,7 +223,7 @@
       "type": "object",
       "required": ["id", "version", "requiredEvidenceKinds", "verdictRule"],
       "properties": {
-        "id": { "enum": ["deterministic", "expert_adjudication", "hybrid", "measurement_failure_attestation"] },
+        "id": { "enum": ["deterministic", "expert_adjudication", "hybrid", "measurement_failure_record"] },
         "version": { "type": "string", "minLength": 1 },
         "requiredEvidenceKinds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
         "verdictRule": { "$ref": "#/$defs/conditionContract" }

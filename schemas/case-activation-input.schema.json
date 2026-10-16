@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:agent-evals-standard:schema:case-activation-input:1",
   "title": "Sealed Case QA activation input manifest",
-  "$comment": "The manifest is hashed after canonicalization. Its projection is the case document with lifecycle, digest, and signature removed. The source case must first pass case.schema.json validation, including its lifecycle condition. The case pointer intentionally has no case digest: including the activated case digest would create a cycle because lifecycle.activationInputDigest is part of that document. Semantic validation must reconstruct the projection from the case and compare it byte-for-byte before accepting activation. This manifest binds inputs; it is not QA validity evidence.",
+  "$comment": "The manifest is hashed after canonicalization. Its projection is the case document with lifecycle and digest removed. The source case must first pass case.schema.json validation, including its lifecycle condition. The case pointer intentionally has no case digest: including the activated case digest would create a cycle because lifecycle.activationInputDigest is part of that document. Semantic validation must reconstruct the projection from the case and compare it byte-for-byte before accepting activation. This manifest binds inputs; it is not QA validity evidence.",
   "type": "object",
   "required": ["schemaVersion", "case", "projection"],
   "properties": {

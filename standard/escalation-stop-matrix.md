@@ -78,9 +78,8 @@ run remains immutable and a new sealed run is REQUIRED.
 
 Events are recorded using the normative
 [`schemas/escalation-event.schema.json`](../schemas/escalation-event.schema.json)
-payload shape inside the signed event envelope of the governance-resolution
-ledger. Resolutions and enforcement receipts use separate typed payloads and
-bind the earlier escalation payload hash in the same chain. Evidence follows
-the [Evidence and Detached Validation Contract](evidence-and-validation-contract.md);
-ledger signatures and checkpoints follow the
-[Signature and Trust Profile](signature-and-trust-profile.md).
+payload shape inside the hash-chained event envelope of the
+governance-resolution ledger. Resolutions and enforcement receipts use separate
+typed payloads and bind the earlier escalation payload hash in the same chain.
+Evidence and ledger ordering follow the
+[Evidence and Detached Validation Contract](evidence-and-validation-contract.md#integrity-model).

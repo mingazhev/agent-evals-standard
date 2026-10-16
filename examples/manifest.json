@@ -1,0 +1,476 @@
+{
+  "schemaVersion": "agent-eval-example-manifest-1",
+  "version": "0.1.0",
+  "examples": [
+    {
+      "id": "assurance-observation.valid",
+      "path": "valid/assurance-observation.json",
+      "schema": "schemas/assurance-observation.schema.json",
+      "valid": true
+    },
+    {
+      "id": "attempt-checkpoint.valid",
+      "path": "valid/attempt-checkpoint.json",
+      "schema": "schemas/attempt-checkpoint.schema.json",
+      "valid": true
+    },
+    {
+      "id": "case-activation-input.valid",
+      "path": "valid/case-activation-input.json",
+      "schema": "schemas/case-activation-input.schema.json",
+      "valid": true
+    },
+    {
+      "id": "case-classification-validity-argument.valid",
+      "path": "valid/case-classification-validity-argument.json",
+      "schema": "schemas/case-classification-validity-argument.schema.json",
+      "valid": true
+    },
+    {
+      "id": "case-qa-record.valid",
+      "path": "valid/case-qa-record.json",
+      "schema": "schemas/case-qa-record.schema.json",
+      "valid": true
+    },
+    {
+      "id": "case.valid",
+      "path": "valid/case.json",
+      "schema": "schemas/case.schema.json",
+      "valid": true
+    },
+    {
+      "id": "conformance-applicability-contract.valid",
+      "path": "valid/conformance-applicability-contract.json",
+      "schema": "schemas/conformance-applicability-contract.schema.json",
+      "valid": true
+    },
+    {
+      "id": "conformance-statement.valid",
+      "path": "valid/conformance-statement.json",
+      "schema": "schemas/conformance-statement.schema.json",
+      "valid": true
+    },
+    {
+      "id": "core-attempt-ledger.valid",
+      "path": "core/attempt-ledger.json",
+      "schema": "schemas/core-attempt-ledger.schema.json",
+      "valid": true
+    },
+    {
+      "id": "core-case-qa.valid",
+      "path": "core/case-qa.json",
+      "schema": "schemas/core-case-qa.schema.json",
+      "valid": true
+    },
+    {
+      "id": "core-case.valid",
+      "path": "core/case.json",
+      "schema": "schemas/core-case.schema.json",
+      "valid": true
+    },
+    {
+      "id": "core-conformance-statement.valid",
+      "path": "core/conformance-statement.json",
+      "schema": "schemas/core-conformance-statement.schema.json",
+      "valid": true
+    },
+    {
+      "id": "core-run-manifest.valid",
+      "path": "core/run-manifest.json",
+      "schema": "schemas/core-run-manifest.schema.json",
+      "valid": true
+    },
+    {
+      "id": "core-scorecard.valid",
+      "path": "core/scorecard.json",
+      "schema": "schemas/core-scorecard.schema.json",
+      "valid": true
+    },
+    {
+      "id": "distribution-manifest.valid",
+      "path": "valid/distribution-manifest.json",
+      "schema": "schemas/distribution-manifest.schema.json",
+      "valid": true
+    },
+    {
+      "id": "enforcement-receipt.valid",
+      "path": "valid/enforcement-receipt.json",
+      "schema": "schemas/enforcement-receipt.schema.json",
+      "valid": true
+    },
+    {
+      "id": "environment-contract.valid",
+      "path": "valid/environment-contract.json",
+      "schema": "schemas/environment-contract.schema.json",
+      "valid": true
+    },
+    {
+      "id": "escalation-event-registry.valid",
+      "path": "valid/escalation-event-registry.json",
+      "schema": "schemas/escalation-event-registry.schema.json",
+      "valid": true
+    },
+    {
+      "id": "escalation-event.valid",
+      "path": "valid/escalation-event.json",
+      "schema": "schemas/escalation-event.schema.json",
+      "valid": true
+    },
+    {
+      "id": "evaluation-control-authority-evidence.valid",
+      "path": "valid/evaluation-control-authority-evidence.json",
+      "schema": "schemas/evaluation-control-authority-evidence.schema.json",
+      "valid": true
+    },
+    {
+      "id": "evaluation-control-authority-policy.valid",
+      "path": "valid/evaluation-control-authority-policy.json",
+      "schema": "schemas/evaluation-control-authority-policy.schema.json",
+      "valid": true
+    },
+    {
+      "id": "evaluation-control-bindings.valid",
+      "path": "valid/evaluation-control-bindings.json",
+      "schema": "schemas/evaluation-control-bindings.schema.json",
+      "valid": true
+    },
+    {
+      "id": "evaluation-profile.valid",
+      "path": "../profiles/repo-change-v1/evaluation-profile.json",
+      "schema": "schemas/evaluation-profile.schema.json",
+      "valid": true
+    },
+    {
+      "id": "evaluation-threat-model.valid",
+      "path": "valid/evaluation-threat-model.json",
+      "schema": "schemas/evaluation-threat-model.schema.json",
+      "valid": true
+    },
+    {
+      "id": "evaluator-manifest.valid",
+      "path": "valid/evaluator-manifest.json",
+      "schema": "schemas/evaluator-manifest.schema.json",
+      "valid": true
+    },
+    {
+      "id": "evidence-artifact.valid",
+      "path": "valid/evidence-artifact.json",
+      "schema": "schemas/evidence-artifact.schema.json",
+      "valid": true
+    },
+    {
+      "id": "governance-decision.valid",
+      "path": "valid/governance-decision.json",
+      "schema": "schemas/governance-decision.schema.json",
+      "valid": true
+    },
+    {
+      "id": "governance-resolution-ledger.valid",
+      "path": "valid/governance-resolution-ledger.json",
+      "schema": "schemas/governance-resolution-ledger.schema.json",
+      "valid": true
+    },
+    {
+      "id": "governance-resolution.valid",
+      "path": "valid/governance-resolution.json",
+      "schema": "schemas/governance-resolution.schema.json",
+      "valid": true
+    },
+    {
+      "id": "grader-validation.valid",
+      "path": "valid/grader-validation.json",
+      "schema": "schemas/grader-validation.schema.json",
+      "valid": true
+    },
+    {
+      "id": "held-out-exposure-budget.valid",
+      "path": "valid/held-out-exposure-budget.json",
+      "schema": "schemas/held-out-exposure-budget.schema.json",
+      "valid": true
+    },
+    {
+      "id": "held-out-exposure-ledger.valid",
+      "path": "valid/held-out-exposure-ledger.json",
+      "schema": "schemas/held-out-exposure-ledger.schema.json",
+      "valid": true
+    },
+    {
+      "id": "operational-escalation-matrix.valid",
+      "path": "valid/operational-escalation-matrix.json",
+      "schema": "schemas/operational-escalation-matrix.schema.json",
+      "valid": true
+    },
+    {
+      "id": "operational-governance-policy.valid",
+      "path": "valid/operational-governance-policy.json",
+      "schema": "schemas/operational-governance-policy.schema.json",
+      "valid": true
+    },
+    {
+      "id": "outcome-profile.valid",
+      "path": "../profiles/repo-change-v1/outcome-profile.json",
+      "schema": "schemas/outcome-profile.schema.json",
+      "valid": true
+    },
+    {
+      "id": "outcome-replay-executor-registry.valid",
+      "path": "valid/outcome-replay-executor-registry.json",
+      "schema": "schemas/outcome-replay-executor-registry.schema.json",
+      "valid": true
+    },
+    {
+      "id": "outcome-replay-receipt.valid",
+      "path": "valid/outcome-replay-receipt.json",
+      "schema": "schemas/outcome-replay-receipt.schema.json",
+      "valid": true
+    },
+    {
+      "id": "pre-run-manifest.valid",
+      "path": "valid/pre-run-manifest.json",
+      "schema": "schemas/pre-run-manifest.schema.json",
+      "valid": true
+    },
+    {
+      "id": "production-derived-authority-contract.valid",
+      "path": "valid/production-derived-authority-contract.json",
+      "schema": "schemas/production-derived-authority-contract.schema.json",
+      "valid": true
+    },
+    {
+      "id": "profile-resolution-proof-inputs.valid",
+      "path": "valid/profile-resolution-proof-inputs.json",
+      "schema": "schemas/profile-resolution-proof-inputs.schema.json",
+      "valid": true
+    },
+    {
+      "id": "profile-resolution-record.valid",
+      "path": "../profiles/repo-change-v1/profile-resolution.json",
+      "schema": "schemas/profile-resolution-record.schema.json",
+      "valid": true
+    },
+    {
+      "id": "repo-change-adjudication-record.valid",
+      "path": "valid/repo-change-adjudication-record.json",
+      "schema": "schemas/repo-change-adjudication-record.schema.json",
+      "valid": true
+    },
+    {
+      "id": "repo-change-alternative-terminal-record.valid",
+      "path": "valid/repo-change-alternative-terminal-record.json",
+      "schema": "schemas/repo-change-alternative-terminal-record.schema.json",
+      "valid": true
+    },
+    {
+      "id": "repo-change-assurance-report.valid",
+      "path": "valid/repo-change-assurance-report.json",
+      "schema": "schemas/repo-change-assurance-report.schema.json",
+      "valid": true
+    },
+    {
+      "id": "repo-change-case-contract.valid",
+      "path": "../profiles/repo-change-v1/case-contract.json",
+      "schema": "schemas/repo-change-case-contract.schema.json",
+      "valid": true
+    },
+    {
+      "id": "repo-change-failure-taxonomy.valid",
+      "path": "../profiles/repo-change-v1/failure-taxonomy.json",
+      "schema": "schemas/repo-change-failure-taxonomy.schema.json",
+      "valid": true
+    },
+    {
+      "id": "repo-change-gate-registry.valid",
+      "path": "../profiles/repo-change-v1/gate-registry.json",
+      "schema": "schemas/repo-change-gate-registry.schema.json",
+      "valid": true
+    },
+    {
+      "id": "repo-change-grader-assessment.valid",
+      "path": "valid/repo-change-grader-assessment.json",
+      "schema": "schemas/repo-change-grader-assessment.schema.json",
+      "valid": true
+    },
+    {
+      "id": "repo-change-measurement-validity-record.valid",
+      "path": "valid/repo-change-measurement-validity-record.json",
+      "schema": "schemas/repo-change-measurement-validity-record.schema.json",
+      "valid": true
+    },
+    {
+      "id": "repo-change-runner-check-record.valid",
+      "path": "valid/repo-change-runner-check-record.json",
+      "schema": "schemas/repo-change-runner-check-record.schema.json",
+      "valid": true
+    },
+    {
+      "id": "repository-grounding-evidence.valid",
+      "path": "valid/repository-grounding-evidence.json",
+      "schema": "schemas/repository-grounding-evidence.schema.json",
+      "valid": true
+    },
+    {
+      "id": "repository-grounding-executor-registry.valid",
+      "path": "valid/repository-grounding-executor-registry.json",
+      "schema": "schemas/repository-grounding-executor-registry.schema.json",
+      "valid": true
+    },
+    {
+      "id": "requirement-implementation-contract.valid",
+      "path": "../profiles/repo-change-v1/implementation-contract.json",
+      "schema": "schemas/requirement-implementation-contract.schema.json",
+      "valid": true
+    },
+    {
+      "id": "requirement-registry.valid",
+      "path": "../standard/requirement-registry.json",
+      "schema": "schemas/requirement-registry.schema.json",
+      "valid": true
+    },
+    {
+      "id": "risk-assessment.valid",
+      "path": "valid/risk-assessment.json",
+      "schema": "schemas/risk-assessment.schema.json",
+      "valid": true
+    },
+    {
+      "id": "scorecard.valid",
+      "path": "valid/scorecard.json",
+      "schema": "schemas/scorecard.schema.json",
+      "valid": true
+    },
+    {
+      "id": "sdlc-coverage.valid",
+      "path": "valid/sdlc-coverage.json",
+      "schema": "schemas/sdlc-coverage.schema.json",
+      "valid": true
+    },
+    {
+      "id": "source-evidence-manifest.valid",
+      "path": "../standard/source-evidence-manifest.json",
+      "schema": "schemas/source-evidence-manifest.schema.json",
+      "valid": true
+    },
+    {
+      "id": "statistical-plan.valid",
+      "path": "valid/statistical-plan.json",
+      "schema": "schemas/statistical-plan.schema.json",
+      "valid": true
+    },
+    {
+      "id": "suite-manifest.valid",
+      "path": "valid/suite-manifest.json",
+      "schema": "schemas/suite-manifest.schema.json",
+      "valid": true
+    },
+    {
+      "id": "validation-envelope.valid",
+      "path": "valid/validation-envelope.json",
+      "schema": "schemas/validation-envelope.schema.json",
+      "valid": true
+    },
+    {
+      "id": "validity-argument.valid",
+      "path": "valid/validity-argument.json",
+      "schema": "schemas/validity-argument.schema.json",
+      "valid": true
+    },
+    {
+      "id": "verified-machine-contract.valid",
+      "path": "valid/verified-machine-contract.json",
+      "schema": "schemas/verified-machine-contract.schema.json",
+      "valid": true
+    },
+    {
+      "id": "work-artifact-registry.valid",
+      "path": "../standard/work-artifact-registry.json",
+      "schema": "schemas/work-artifact-registry.schema.json",
+      "valid": true
+    },
+    {
+      "id": "workspace-manifest.valid",
+      "path": "valid/workspace-manifest.json",
+      "schema": "schemas/workspace-manifest.schema.json",
+      "valid": true
+    },
+    {
+      "id": "case.high-risk-held-out-without-probe",
+      "path": "invalid/case.high-risk-held-out-without-probe.json",
+      "schema": "schemas/case.schema.json",
+      "valid": false,
+      "expectedError": "memorizationProbe",
+      "illustrates": "HOLD-002: a high-risk held-out case needs a memorization probe"
+    },
+    {
+      "id": "case.interaction-alias",
+      "path": "invalid/case.interaction-alias.json",
+      "schema": "schemas/case.schema.json",
+      "valid": false,
+      "expectedError": "/interactionModeId",
+      "illustrates": "SCOPE-002: interaction modes are a closed set; non_interactive is not a valid ID"
+    },
+    {
+      "id": "conformance-statement.a0-non-evaluator",
+      "path": "invalid/conformance-statement.a0-non-evaluator.json",
+      "schema": "schemas/conformance-statement.schema.json",
+      "valid": false,
+      "expectedError": "/claim",
+      "illustrates": "ASSURE-001: A0 diagnostics support only evaluator conformance"
+    },
+    {
+      "id": "core-conformance-statement.conforming-with-failed-obligation",
+      "path": "invalid/core-conformance-statement.conforming-with-failed-obligation.json",
+      "schema": "schemas/core-conformance-statement.schema.json",
+      "valid": false,
+      "expectedError": "/verdict",
+      "illustrates": "Core level: a failed obligation forces verdict nonconforming; core_conforming requires thirteen pass rows"
+    },
+    {
+      "id": "evaluation-profile.general-agent-capability",
+      "path": "invalid/evaluation-profile.general-agent-capability.json",
+      "schema": "schemas/evaluation-profile.schema.json",
+      "valid": false,
+      "expectedError": "/capabilityFamilies/0",
+      "illustrates": "SCOPE-002/SCOPE-003: a profile cannot add a capability outside the closed SDLC taxonomy"
+    },
+    {
+      "id": "evaluation-profile.repository-review-general-agent-capability",
+      "path": "invalid/evaluation-profile.repository-review-general-agent-capability.json",
+      "schema": "schemas/evaluation-profile.schema.json",
+      "valid": false,
+      "expectedError": "/capabilityFamilies/0",
+      "illustrates": "SCOPE-002/SCOPE-003: the review profile cannot claim a non-SDLC capability"
+    },
+    {
+      "id": "evidence-artifact.missing-byte-length",
+      "path": "invalid/evidence-artifact.missing-byte-length.json",
+      "schema": "schemas/evidence-artifact.schema.json",
+      "valid": false,
+      "expectedError": "byteLength",
+      "illustrates": "EVID-001: digest-only metadata is not material evidence"
+    },
+    {
+      "id": "governance-resolution.nonwaivable-waiver",
+      "path": "invalid/governance-resolution.nonwaivable-waiver.json",
+      "schema": "schemas/governance-resolution.schema.json",
+      "valid": false,
+      "expectedError": "/action",
+      "illustrates": "GOV-001: a non-waivable governance status cannot be waived"
+    },
+    {
+      "id": "repo-change-adjudication-record.single-rater",
+      "path": "invalid/repo-change-adjudication-record.single-rater.json",
+      "schema": "schemas/repo-change-adjudication-record.schema.json",
+      "valid": false,
+      "expectedError": "must NOT have fewer than 2 items",
+      "illustrates": "JUDGE-003: decision-bearing expert adjudication needs at least two independent raters"
+    },
+    {
+      "id": "scorecard.supported-claim-failed-rule",
+      "path": "invalid/scorecard.supported-claim-failed-rule.json",
+      "schema": "schemas/scorecard.schema.json",
+      "valid": false,
+      "expectedError": "/claimResults/0/decisionRuleResult",
+      "illustrates": "CLAIM-001: a supported claim cannot carry a failed decision rule"
+    }
+  ]
+}

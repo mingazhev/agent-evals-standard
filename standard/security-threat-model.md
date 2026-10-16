@@ -19,8 +19,9 @@ date, and scope. An empty cell or unjustified exclusion yields
 At minimum, the inventory **MUST** cover source and generated code; held-out
 tasks, checks, reference solutions, canaries, credentials, personal data and IP;
 agent prompts, memory and retrieval; tool and delegated identities; inter-agent
-messages and shared state; runners, graders, evidence stores, ledgers, signing
-keys, checkpoints, registries, CI/CD, and production integration.
+messages and shared state; runners, graders, evidence stores, ledgers,
+repository write permissions and branch protection, checkpoints, registries,
+CI/CD, and production integration.
 
 Actors **MUST** include the evaluated agent, case author, operator, grader,
 interactive simulator or requester, helper agents, human reviewer, governance
@@ -41,7 +42,7 @@ workspace/evidence store, organization/provider, and evaluation/production.
 | `SEC-T06` | manipulation of human trust, fabricated evidence, misleading explanations, or unsafe approval pressure | reviewer-blinded social-engineering cases and provenance verification | unsafe human acceptance, detection rate, reviewer disagreement |
 | `SEC-T07` | secret disclosure, excessive permission, production credential use, or data exfiltration | least-privilege and deny tests across files, tools, logs, network, and providers | disclosure/action rate, scope reached, containment evidence |
 | `SEC-T08` | destructive, irreversible, privileged, or high-blast-radius operation | authorization, preview, confirmation, rollback, stop, and blast-radius controls | unauthorized/irreversible action rate, rollback success |
-| `SEC-T09` | dependency confusion, malicious package/tool/plugin, compromised registry, executor, or supply chain | pinned provenance, signature and sandbox controls, adversarial dependency cases | compromise rate, provenance failures, benign build success |
+| `SEC-T09` | dependency confusion, malicious package/tool/plugin, compromised registry, executor, or supply chain | pinned provenance and content digests, sandbox controls, adversarial dependency cases | compromise rate, provenance failures, benign build success |
 | `SEC-T10` | measurement tampering: test disablement, ledger rewrite, artifact substitution, retry hiding, race, callback, or parser attack | positive controls at every measurement boundary and external checkpoint verification | bypass rate, detection rate, evidence completeness |
 | `SEC-T11` | grader injection, reference anchoring, reward hacking, judge-family bias, or weak-assertion exploitation | adversarial outputs and the complete judge-bias suite from Case QA | false-positive/false-negative rates by class and risk stratum |
 | `SEC-T12` | privacy, IP, retention, deletion, residency, or purpose-limitation breach | lawful-source record, minimization/redaction controls, access and deletion tests | unauthorized access, retained prohibited bytes, deletion success |

@@ -161,7 +161,7 @@ rises, `release` below `capability_claim`, or `autonomy`/`risk_acceptance` below
 - Any blocking governance status makes the immutable 0.1.0 trial predicate
   `accepted-outcome-v1` false. An authorized resolution and its required
   enforcement receipt may make a later governance decision eligible through
-  the signed resolution ledger; they do not rewrite the closed scorecard.
+  the hash-chained resolution ledger; they do not rewrite the closed scorecard.
 - A `waived` trial status never counts as closed in version 0.1.0. Without
   structured resolution evidence, a purported resolution remains `open` for
   every governance decision.
@@ -191,7 +191,7 @@ rises, `release` below `capability_claim`, or `autonomy`/`risk_acceptance` below
   they will judge.
 - The run scorecard is immutable at run close. Later status resolutions,
   waivers, expiry, narrowing, renewal, rollback, and supersession are appended
-  to a signed governance-resolution ledger. Decision records reference the
+  to a hash-chained governance-resolution ledger. Decision records reference the
   immutable scorecard and ledger roots rather than mutating or circularly
   linking either artifact.
 
@@ -239,11 +239,8 @@ requires one, **MUST** be independently validated before resume.
 or added condition. Every result has `status: pass` and authenticated evidence
 IDs also present in the receipt's evidence set. The evaluator **MUST** verify
 each result using the sealed condition's verifier and external authorization
-policy; a receipt's claimed pass or signer role alone is insufficient. A
-missing verifier or indeterminate result fails closed. The non-normative
-reference implementation `tools/governance-enforcement.mjs` illustrates these
-rules using independently authenticated source records and trusted
-authorization and condition verifiers; the rules in this section are normative.
+policy; a receipt's claimed pass or producer role alone is insufficient. A
+missing verifier or indeterminate result fails closed.
 
 The `dataOwnerReviewRequired` and `riskAcceptanceRequired` events preserve
 their respective `data_owner_review_required` and `risk_acceptance_required`
@@ -297,5 +294,4 @@ inside the authenticated
 [`governance-resolution-ledger.schema.json`](../schemas/governance-resolution-ledger.schema.json).
 All evidence and validation references follow the
 [Evidence and Detached Validation Contract](evidence-and-validation-contract.md),
-and signatures, trust state, and external checkpoints follow the
-[Signature and Trust Profile](signature-and-trust-profile.md).
+including its [integrity model](evidence-and-validation-contract.md#integrity-model).

@@ -3,7 +3,7 @@
   "$id": "urn:agent-evals-standard:schema:grader-validation:1",
   "title": "Shared non-vacuous grader validation record",
   "type": "object",
-  "required": ["schemaVersion", "id", "grader", "graderComponents", "protocol", "sealedAt", "validationWindow", "samplingFrame", "minimumSampleRule", "classBalance", "humanLabelUncertainty", "humanLabelStrata", "blindedAdjudication", "judgeBiasSuite", "falsePositive", "falseNegative", "controls", "verdict", "digest", "signature"],
+  "required": ["schemaVersion", "id", "grader", "graderComponents", "protocol", "sealedAt", "validationWindow", "samplingFrame", "minimumSampleRule", "classBalance", "humanLabelUncertainty", "humanLabelStrata", "blindedAdjudication", "judgeBiasSuite", "falsePositive", "falseNegative", "controls", "verdict", "digest"],
   "properties": {
     "schemaVersion": { "const": "agent-eval-grader-validation-1" },
     "id": { "$ref": "#/$defs/id" }, "grader": { "$ref": "#/$defs/component" }, "protocol": { "$ref": "#/$defs/verifiedContract" },
@@ -18,8 +18,7 @@
     "judgeBiasSuite": { "$comment": "Semantic validation must require each of identity, position, verbosity, style, reference_anchoring, prompt_injection, and judge_family exactly once by projected biasClass.", "type": "array", "minItems": 7, "items": { "type": "object", "required": ["biasClass", "protocol", "evidenceId", "verdict"], "properties": { "biasClass": { "enum": ["identity", "position", "verbosity", "style", "reference_anchoring", "prompt_injection", "judge_family", "other"] }, "protocol": { "$ref": "#/$defs/verifiedContract" }, "evidenceId": { "$ref": "#/$defs/id" }, "verdict": { "const": "pass" } }, "additionalProperties": false } },
     "falsePositive": { "$ref": "#/$defs/rate" }, "falseNegative": { "$ref": "#/$defs/rate" },
     "controls": { "$comment": "Semantic validation must reject duplicate control IDs.", "type": "array", "minItems": 2, "contains": { "type": "object", "properties": { "expected": { "const": "pass" } }, "required": ["expected"] }, "minContains": 1, "items": { "$ref": "#/$defs/control" } },
-    "verdict": { "const": "pass" }, "digest": { "$ref": "#/$defs/digest" },
-    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+    "verdict": { "const": "pass" }, "digest": { "$ref": "#/$defs/digest" }
   },
   "allOf": [{ "type": "object", "properties": { "controls": { "type": "array", "contains": { "type": "object", "properties": { "expected": { "const": "fail" } }, "required": ["expected"] }, "minContains": 1 } } }],
   "additionalProperties": false,

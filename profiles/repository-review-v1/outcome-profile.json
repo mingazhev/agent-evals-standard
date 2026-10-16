@@ -22,8 +22,7 @@
         {
           "artifactType": "repository-review:review-decision",
           "cardinality": "exactly_one",
-          "uriBinding": "artifact_sha256_matches_digest",
-          "attestation": "required"
+          "uriBinding": "artifact_sha256_matches_digest"
         }
       ]
     },
@@ -32,8 +31,7 @@
         {
           "artifactType": "repository-review:refusal-record",
           "cardinality": "exactly_one",
-          "uriBinding": "artifact_sha256_matches_digest",
-          "attestation": "required"
+          "uriBinding": "artifact_sha256_matches_digest"
         }
       ]
     },
@@ -42,8 +40,7 @@
         {
           "artifactType": "repository-review:base-review-state",
           "cardinality": "exactly_one",
-          "uriBinding": "artifact_sha256_matches_digest",
-          "attestation": "required"
+          "uriBinding": "artifact_sha256_matches_digest"
         }
       ]
     }
@@ -340,7 +337,7 @@
         }
       },
       "evidenceModeIds": [
-        "measurement_failure_attestation"
+        "measurement_failure_record"
       ],
       "validAlternativeIds": []
     }
@@ -477,10 +474,10 @@
       }
     },
     {
-      "id": "measurement_failure_attestation",
+      "id": "measurement_failure_record",
       "version": "0.1.0",
       "requiredEvidenceKinds": [
-        "runner-attestation",
+        "runner-failure-record",
         "measurement-validity-record"
       ],
       "verdictRule": {
@@ -533,19 +530,12 @@
   "functionalSuccess": {
     "id": "functional-outcome-v1",
     "version": "0.1.0",
-    "contractDigest": "sha256:7fcbe53c55700f2b9c0b71f373c35ef8231ff6bfeee0fe5d0df314f5decb6b7b"
+    "contractDigest": "sha256:2913e485b666d5b54b144f5d8b731dc1bf2e1beee89518f9987b170c329c235b"
   },
   "acceptedOutcome": {
     "id": "accepted-outcome-v1",
     "version": "0.1.0",
-    "contractDigest": "sha256:7fcbe53c55700f2b9c0b71f373c35ef8231ff6bfeee0fe5d0df314f5decb6b7b"
+    "contractDigest": "sha256:2913e485b666d5b54b144f5d8b731dc1bf2e1beee89518f9987b170c329c235b"
   },
-  "digest": "sha256:ccaea911bdbec122e4ffd08d73cba38f4b399be2d594ebc85f854595000d68ad",
-  "signature": {
-    "profileId": "fixture-signature-profile",
-    "algorithm": "Ed25519",
-    "keyId": "rfc8032-test-key-1",
-    "signedAt": "2026-08-01T00:00:00Z",
-    "value": "AJmixZUQiW8YUoiRVIROet_fYAohmzTMjvEOmFQvqhMh74dyQnMkxE-89AoT37GGBOlz3t0sCaxuYat863X7DQ"
-  }
+  "digest": "sha256:9d4714bc048ae2c29eea6008245a4967171f810148c208bdab3147295df8dbcb"
 }

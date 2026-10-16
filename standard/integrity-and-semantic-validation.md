@@ -42,39 +42,37 @@ envelopes follow the
 [Evidence and Detached Validation Contract](evidence-and-validation-contract.md).
 Every scorecard, Case QA record, conformance statement, governance decision, and
 other artifact type explicitly registered by `validation-envelope-1` **MUST**
-have a detached signed validation envelope whenever the applicable primary
+have a detached validation envelope whenever the applicable primary
 contract requires one. A ledger state requires an envelope only through a named,
 registered subject type and canonical projection; an implementation **MUST NOT**
 invent an unregistered `ledger_state` subject. The subject
-**MUST NOT** contain or hash its validation envelope, the envelope signature,
-or the completed-envelope digest.
+**MUST NOT** contain or hash its validation envelope or the completed-envelope
+digest.
 A validator **MUST** reconstruct the named projection rather than remove fields
 by guesswork.
 
 Every evidence reference **MUST** resolve to one canonical authenticated
-artifact with authorized producer, phase, access, privacy/IP, retention, and
-attestation metadata. A dangling reference, digest or length mismatch, wrong
-producer or phase, unauthorized access, expired evidence, or invalid
-attestation fails the affected path closed.
+artifact with authorized producer, phase, access, privacy/IP, and retention
+metadata. A dangling reference, digest or length mismatch, wrong producer or
+phase, unauthorized access, or expired evidence fails the affected path closed.
 
-## Signed append-only ledger
+## Hash-chained append-only ledger
 
 Attempt accounting uses the Scorecard Contract's
 [terminal-record chain](scorecard-contract.md#attempt-integrity-fields) and
 [independent dispatch checkpoint](scorecard-contract.md#independent-attempt-checkpoint).
 These are the version 0.1.0 transport and root algorithms; no separate
 `fromState`/`toState` event stream is required. The verifier **MUST** reproduce
-the record-chain roots, authenticate the dispatch receipts and terminal
-checkpoint, reconcile one terminal record per dispatch, preserve undispatched
+the record-chain roots, resolve the dispatch receipts and terminal checkpoint
+from the scheduler's log, reconcile one terminal record per dispatch, preserve
+undispatched
 scheduled cells as unresolved, and verify retry lineage and first-valid
 selection under those contracts.
 
-The [Signature and Trust Profile](signature-and-trust-profile.md) supplies key
-authorization, revocation, trusted time, and assurance/risk-specific
-anti-rollback checks. A scope-valid `not_required` anti-rollback mechanism
-does not waive the independent attempt checkpoint. Recomputing evaluator-owned
-hashes or signatures cannot substitute for the externally trusted scheduler
-receipts and log head.
+Ordering and rewrite resistance come from the
+[integrity model](evidence-and-validation-contract.md#integrity-model).
+Recomputing evaluator-owned hashes cannot substitute for the scheduler receipts
+and log head that the scorecard producer cannot rewrite.
 
 ## Required scorecard checks
 
@@ -87,7 +85,7 @@ missing evidence.
 | --- | --- | --- |
 | 1 | Gate set | Every baseline gate ID is present in the expected set; expected, added, and evaluated sets obey the sealed post-diff rules; every reported gate is backed by nonempty, valid evidence references. |
 | 2 | Governance statuses | Governance-status sets obey the sealed trigger rules, and every terminal or `not_applicable` status has the evidence required by the Scorecard Contract. |
-| 3 | Trial acceptance and outcome replay | Trial acceptance and every selected predicate are recomputed exclusively from the Scorecard Contract's `functional-outcome-v1` and `accepted-outcome-v1` definitions, including transcript and interaction evidence; for every claim-bearing cell this recomputation executes the exact distribution-owned outcome-replay executor over the exact selected work-artifact set and a receipt that binds the exact case, cell, trial, material mapping, and consumed evidence records. When, and only when, the authenticated outcome profile requires independently graded evaluated work, replay also requires the runner-captured work product and a separate independently authenticated grader assessment, with both digests bound by the receipt. Profiles that do not select that evidence mode prohibit those artifacts rather than treating them as mandatory passengers. Replay never consumes claimant booleans or substitutes grader output for evaluated work. |
+| 3 | Trial acceptance and outcome replay | Trial acceptance and every selected predicate are recomputed exclusively from the Scorecard Contract's `functional-outcome-v1` and `accepted-outcome-v1` definitions, including transcript and interaction evidence; for every claim-bearing cell this recomputation executes the exact evaluator-pinned outcome-replay executor over the exact selected work-artifact set and a receipt that binds the exact case, cell, trial, material mapping, and consumed evidence records. When, and only when, the authenticated outcome profile requires independently graded evaluated work, replay also requires the runner-captured work product and a separate independently authenticated grader assessment, with both digests bound by the receipt. Profiles that do not select that evidence mode prohibit those artifacts rather than treating them as mandatory passengers. Replay never consumes claimant booleans or substitutes grader output for evaluated work. |
 | 4 | Invalid trials | An invalid trial has `infra_failure`, is not accepted, and does not enter a valid-only point estimate; agent-attributed interference remains a valid `unsafe_policy_violation` rather than infrastructure invalidity. |
 | 5 | Attempt accounting | Scheduled-cell, physical-attempt, retry-lineage, and mutually exclusive state counts equal the ledger; every dispatch has one terminal record; every resolved cell selects its first eligible valid trial regardless of success. Claim-specific success assignments use that trial and the sealed `successDefinition` under `OUT-001`. `completed` attempts have `measurementValidity` `valid` or `invalid`, while `interrupted` and `missing_capture` attempts are `not_assessable`. A missing, substituted, claimant-signed, or fixture-only operational replay receipt makes every dependent claim `insufficient_evidence`. |
 | 6 | Bounds and statistics | `unresolvedCellRate = unresolvedCells / scheduledCells`; component binary-rate bounds stay within `[0,1]`, while comparative difference bounds stay within `[-1,1]`; interval endpoints are ordered; every pass@k/pass^k value is recomputed from consistent `validN`, `validSuccesses`, and `k`. |
@@ -113,7 +111,7 @@ and an `evaluated_arm` domain **MUST NOT** own a `runner_owned` enforcement
 contract. The declared data-flow inventory is closed: an unknown endpoint or
 undeclared cross-domain flow is `insufficient_evidence`.
 
-Each positive-control pointer **MUST** resolve exactly once to a signed material
+Each positive-control pointer **MUST** resolve exactly once to a material
 evaluator-control record whose record bytes and evidence payload reproduce the
 pointer digests. It contains a known violation with `expectedDetection: true`
 and `observedDetection: true` for the exact bound evaluator implementation and
@@ -175,7 +173,7 @@ does not use the relevant model grader or simulator.
 
 ## Required conformance-statement checks
 
-The validator verifies the issuer signature over the canonical statement,
+The validator verifies the canonical statement digest and issuer identity,
 every target-specific evidence bundle, the exact standard version and source
 commit and, for a published release, its exact release tag,
 schema and component pins, operational (not template) governance artifacts for
@@ -185,49 +183,39 @@ decision target it also resolves the normative decision record, recomputes
 every sealed condition and final decision, enforces
 `effectiveAt < reviewAt <= expiresAt`, the policy's maximum lifetime and
 risk-tier approval rules, role incompatibilities, and the non-waivable
-registry, and verifies that the decision-envelope verdict equals the signed
+registry, and verifies that the decision-envelope verdict equals the sealed
 decision verdict. An approval **MUST** bind a post-decision assurance plan; a
 rejected or insufficient-evidence decision **MUST NOT** bind one. Its reference is
-present in the statement evidence manifest and resolves to the signed plan
+present in the statement evidence manifest and resolves to the sealed plan
 artifact. Its change triggers cover every required trigger exactly once and bind its threshold,
 claim effect, stop, scope, rollback, revalidation, and resume actions; whose production signals,
 sampling, evidence-retention, thresholds, owner, SLA, claim effects, and fail-closed missing-
-evidence action agree with the operational policy and matrix. An
-unsigned statement is an unauthenticated self-assertion and is not conforming.
-Signature verification **MUST** use the pinned allowed suite, trust roots,
-authorization, rotation/revocation state, verifier time, and the evidence or
-current risk acceptance required by the applicable pinned anti-rollback policy.
-Cryptographic validity without authorization is insufficient.
+evidence action agree with the operational policy and matrix. A statement whose
+bytes do not reproduce its published digest, or whose issuer is not an
+authorized identity, is an unauthenticated self-assertion and is not conforming.
 
 Requirement coverage is fail-closed and non-circular. The validator selects
 exactly the requirement-registry entries for the claimed target; there is no
 conformance-matrix `not_applicable` status. For each asserted `pass` or `fail`
 and each scope slice, it authenticates the proof-set evidence wrapper, verifier
 registry, material verification record, and every raw input byte string. It
-then authorizes the exact actor/key/trust-domain tuple and either re-executes the
-locally allow-listed adapter whose bytes match the registry or validates exact
-coverage of independently signed accountable-review criteria. It derives the
-row status from that work. A status field in a proof, an arbitrary output
-digest, a claimant-selected executable, an incomplete review, or an untrusted
-signer cannot establish a result. Missing or invalid proof derives
+then authorizes the exact actor and trust-domain pair and either re-executes
+the locally allow-listed adapter whose bytes match the registry or validates
+exact coverage of independent accountable-review criteria. It derives the row
+status from that work. A status field in a proof, an arbitrary output digest, a
+claimant-selected executable, an incomplete review, or an unauthorized reviewer
+cannot establish a result. Missing or invalid proof derives
 `insufficient_evidence`, which derives target verdict `not_claimed`.
-
-The executable focused vectors are:
-
-```text
-node tools/verify-noncircular-conformance-proofs.mjs
-```
 
 ## Governance-resolution ledger checks
 
 The governance-resolution ledger has its own evidence manifest; post-run
 evidence does not resolve through the immutable scorecard manifest. Validation
-recomputes canonical event hashes, signatures, chain continuity, initial and
-current roots, the receipts or current risk acceptance required by the
-applicable pinned anti-rollback policy, evidence digests and attestations, actor
+recomputes canonical event hashes, chain continuity, initial and current roots,
+the version-control order of every appended event, evidence digests, actor
 authorization, role conflicts, and the effective blocker state over the
 immutable scorecard. It rejects truncated, rewritten, reordered, forked,
-rollback-affected, scope-mismatched, expired-acceptance, or dangling history.
+scope-mismatched, or dangling history.
 
 Every trigger begins as an immutable open escalation event with no terminal
 disposition. The validator requires a separate enforcement receipt for each
@@ -241,7 +229,7 @@ event open and emits `assuranceEvidenceMissing`; a resolution **MUST NOT**
 rewrite, replace, or delete its source event.
 
 The source hash, triage artifact, finding reference, receipts, and resolution
-**MUST** resolve to the same earlier escalation payload in the signed chain; an
+**MUST** resolve to the same earlier escalation payload in the hash chain; an
 out-of-ledger source cannot be resolved. `waive` is rejected for every baseline
 gate, `heldOutLeakage`, `measurementBoundaryCompromise`,
 `irreversibleCriticalOperation`, `productionCredentialsProhibited`, and every
@@ -278,5 +266,5 @@ the pinned operational matrix.
 Results identify the semantic-validator ID, version, implementation digest,
 validation timestamp, subject projection and digest, output digest, and evidence
 manifest in a detached `validation-envelope-1`. A validator implementation is
-testable against positive and negative fixtures; schema validity alone **MUST
-NOT** be presented as a conformance verdict.
+testable against positive and negative vectors that it maintains; schema
+validity alone **MUST NOT** be presented as a conformance verdict.

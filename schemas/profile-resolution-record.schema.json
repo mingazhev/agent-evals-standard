@@ -17,8 +17,7 @@
     "canonicalOrdering",
     "conflictStatus",
     "effectiveProfileDigest",
-    "digest",
-    "signature"
+    "digest"
   ],
   "properties": {
     "schemaVersion": { "const": "agent-eval-profile-resolution-record-1" },
@@ -77,8 +76,7 @@
     },
     "conflictStatus": { "const": "no_unresolved_conflicts" },
     "effectiveProfileDigest": { "$ref": "#/$defs/digest" },
-    "digest": { "$ref": "#/$defs/digest" },
-    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+    "digest": { "$ref": "#/$defs/digest" }
   },
   "additionalProperties": false,
   "allOf": [

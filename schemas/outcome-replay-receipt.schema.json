@@ -1,15 +1,15 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:agent-evals-standard:schema:outcome-replay-receipt:1",
-  "title": "Independent binding receipt for distribution-owned outcome replay",
+  "title": "Independent binding receipt for evaluator-pinned outcome replay",
   "$comment": "This payload is not authoritative by itself. A verifier must obtain its trust root outside the scorecard and receipt, resolve the registered executor, and replay all derived predicates. The receipt binds the exact authenticated suite case, scheduled cell, independently graded trial projection, material mapping, and canonical evidence records for every consumed non-receipt artifact; binding IDs alone is prohibited. When the authenticated case selects assurance_report, the receipt must bind both the separate runner-captured evaluated assurance report and its independent grader assessment; otherwise both bindings are prohibited. Neither grading artifact may substitute for the evaluated work product.",
   "type": "object",
-  "required": ["schemaVersion", "receiptId", "version", "trustUse", "executor", "experimentId", "caseId", "cellId", "attemptId", "armId", "outcomeProfile", "caseCommitmentDigest", "cellCommitmentDigest", "trialProjectionDigest", "materialArtifactsDigest", "consumedEvidenceDigest", "facts"],
+  "required": ["schemaVersion", "receiptId", "version", "receiptUse", "executor", "experimentId", "caseId", "cellId", "attemptId", "armId", "outcomeProfile", "caseCommitmentDigest", "cellCommitmentDigest", "trialProjectionDigest", "materialArtifactsDigest", "consumedEvidenceDigest", "facts"],
   "properties": {
     "schemaVersion": { "const": "agent-eval-outcome-replay-receipt-1" },
     "receiptId": { "$ref": "#/$defs/id" },
     "version": { "const": "0.1.0" },
-    "trustUse": { "enum": ["operational_external_trust", "conformance_fixture_only"] },
+    "receiptUse": { "enum": ["operational", "example_only"] },
     "executor": { "$ref": "#/$defs/component" },
     "experimentId": { "$ref": "#/$defs/id" },
     "caseId": { "$ref": "#/$defs/id" },
@@ -60,7 +60,7 @@
         "adjudicationProtocolVerdict": { "enum": ["pass", "fail", "insufficient_evidence"] },
         "adjudicatorIndependenceVerdict": { "enum": ["pass", "fail", "insufficient_evidence"] },
         "adjudicationVerdict": { "enum": ["pass", "fail", "insufficient_evidence"] },
-        "runnerAttestationAuthenticityVerdict": { "enum": ["pass", "fail", "insufficient_evidence"] }
+        "runnerRecordAuthorizationVerdict": { "enum": ["pass", "fail", "insufficient_evidence"] }
       },
       "additionalProperties": false
     },

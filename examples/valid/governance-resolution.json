@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "agent-eval-governance-resolution-1",
+  "eventId": "resolution-fixture-1",
+  "action": "resolve",
+  "sourceEventId": "escalation-fixture-1",
+  "sourceEventType": "measurementBoundaryCompromise",
+  "sourceEventHash": "sha256:278ce9050dab964cf130a91fb917ab36e86c15b0dfc0c98f773c5e6b8632e6a1",
+  "sourceTriageArtifact": "triage-fixture-1",
+  "sourceFindingRef": "finding-fixture-1",
+  "governanceStatusId": "security_review_required",
+  "riskTier": "high",
+  "waivability": "non_waivable",
+  "scorecardId": "scorecard-fixture-1",
+  "scorecardHash": "sha256:623b507d79b4aad84a0d9f26b6f9e554b0e39cab306eea07913f7a485b674bb1",
+  "findingId": "finding-fixture-1",
+  "policyInstanceHash": "sha256:f2fbd75c175344432e7f030a56baf942dc6c1807aa3caf3d30c452afe247c067",
+  "matrixInstanceHash": "sha256:c2e6fb87a1f3f8936db5de56124ee776d258c67e383dd9e82487ca712169351d",
+  "enforcementReceipt": {
+    "id": "enforcement-receipt-fixture-1",
+    "uri": "artifact:fixture:enforcement-receipt-fixture-1",
+    "digest": "sha256:933be16499a65e0eab7f4765d28b42b813c8cb241da84217dbe118dc92d23454"
+  },
+  "actor": {
+    "id": "fixture-status-resolver",
+    "role": "status_resolver"
+  },
+  "policyClause": "measurement-boundary-compromise-resolution",
+  "scope": "affected-scope-fixture-1",
+  "evidence": [
+    "fixture-evidence-1",
+    "enforcement-log-fixture-1"
+  ],
+  "separationOfDutiesEvidence": "fixture-separation-of-duties-1",
+  "timestamp": "2026-08-01T00:00:18Z"
+}

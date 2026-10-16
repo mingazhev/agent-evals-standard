@@ -4,7 +4,7 @@
   "title": "Closed SDLC capability coverage map",
   "$comment": "Semantic validation must require exactly one entry for each of the seven closed capability families. covered entries must be reproduced from suite cases, their effective evaluation profiles, selected outcome profiles, and the standard work-artifact registry. gap entries must have no case projection and must prohibit capability claims until their closure criteria are met.",
   "type": "object",
-  "required": ["schemaVersion", "id", "version", "suite", "workArtifactRegistry", "capabilities", "digest", "signature"],
+  "required": ["schemaVersion", "id", "version", "suite", "workArtifactRegistry", "capabilities", "digest"],
   "properties": {
     "schemaVersion": { "const": "agent-eval-sdlc-coverage-1" },
     "id": { "$ref": "#/$defs/id" },
@@ -17,8 +17,7 @@
       "maxItems": 7,
       "items": { "$ref": "#/$defs/capabilityCoverage" }
     },
-    "digest": { "$ref": "#/$defs/digest" },
-    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+    "digest": { "$ref": "#/$defs/digest" }
   },
   "additionalProperties": false,
   "$defs": {

@@ -3,7 +3,7 @@
   "$id": "urn:agent-evals-standard:schema:suite-manifest:1",
   "title": "Versioned evaluation suite manifest",
   "type": "object",
-  "required": ["schemaVersion", "id", "version", "intendedUse", "validityArgument", "evaluationThreatModel", "heldOutExposure", "sdlcCoverage", "evaluationProfiles", "cases", "slices", "composition", "maintenancePolicy", "digest", "signature"],
+  "required": ["schemaVersion", "id", "version", "intendedUse", "validityArgument", "evaluationThreatModel", "heldOutExposure", "sdlcCoverage", "evaluationProfiles", "cases", "slices", "composition", "maintenancePolicy", "digest"],
   "properties": {
     "schemaVersion": { "const": "agent-eval-suite-manifest-1" },
     "id": { "$ref": "#/$defs/id" },
@@ -56,8 +56,7 @@
     },
     "composition": { "$ref": "#/$defs/artifactPointer" },
     "maintenancePolicy": { "$ref": "#/$defs/artifactPointer" },
-    "digest": { "$ref": "#/$defs/digest" },
-    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+    "digest": { "$ref": "#/$defs/digest" }
   },
   "additionalProperties": false,
   "$defs": {

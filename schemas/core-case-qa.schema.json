@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:core-case-qa:1",
+  "title": "Core-level Case QA record",
+  "$comment": "Core obligation C7. Semantic checks outside JSON Schema: reviewer.id differs from author.id and the reviewer is independent under the glossary definition; every evidence ref resolves to bytes matching its digest at the named commit.",
+  "type": "object",
+  "required": ["schemaVersion", "id", "version", "case", "author", "reviewer", "knownGood", "knownBad", "stability", "inferabilityReview", "scopeReview", "decision"],
+  "properties": {
+    "schemaVersion": { "const": "agent-eval-core-case-qa-1" },
+    "id": { "$ref": "#/$defs/id" },
+    "version": { "type": "string", "minLength": 1 },
+    "case": { "$ref": "#/$defs/ref" },
+    "author": { "$ref": "#/$defs/person" },
+    "reviewer": { "$ref": "#/$defs/person" },
+    "knownGood": {
+      "type": "object",
+      "required": ["description", "result", "evidence"],
+      "properties": {
+        "description": { "type": "string", "minLength": 1 },
+        "result": { "const": "pass" },
+        "evidence": { "$ref": "#/$defs/ref" }
+      },
+      "additionalProperties": false
+    },
+    "knownBad": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["id", "description", "result", "evidence"],
+        "properties": {
+          "id": { "$ref": "#/$defs/id" },
+          "description": { "type": "string", "minLength": 1 },
+          "result": { "const": "fail" },
+          "evidence": { "$ref": "#/$defs/ref" }
+        },
+        "additionalProperties": false
+      },
+      "contains": { "type": "object", "properties": { "id": { "const": "no-op" } }, "required": ["id"] }
+    },
+    "stability": {
+      "type": "object",
+      "required": ["runsPerControl", "allControlsStable"],
+      "properties": {
+        "runsPerControl": { "type": "integer", "minimum": 3 },
+        "allControlsStable": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "inferabilityReview": {
+      "type": "object",
+      "required": ["verdict", "findings", "recordedAtCommit"],
+      "properties": {
+        "verdict": { "enum": ["all_required_behavior_inferable", "defects_found"] },
+        "findings": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "recordedAtCommit": { "$ref": "#/$defs/commit" }
+      },
+      "additionalProperties": false
+    },
+    "scopeReview": {
+      "type": "object",
+      "required": ["verdict", "recordedAtCommit"],
+      "properties": {
+        "verdict": { "enum": ["all_four_tests_hold", "out_of_scope"] },
+        "recordedAtCommit": { "$ref": "#/$defs/commit" }
+      },
+      "additionalProperties": false
+    },
+    "decision": { "enum": ["active", "rejected"] }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "decision": { "const": "active" } }, "required": ["decision"] },
+      "then": {
+        "properties": {
+          "inferabilityReview": { "type": "object", "properties": { "verdict": { "const": "all_required_behavior_inferable" } } },
+          "scopeReview": { "type": "object", "properties": { "verdict": { "const": "all_four_tests_hold" } } }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
+    "commit": { "type": "string", "pattern": "^[a-f0-9]{40}([a-f0-9]{24})?$" },
+    "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "ref": {
+      "type": "object",
+      "required": ["path", "commit", "digest"],
+      "properties": { "path": { "type": "string", "minLength": 1 }, "commit": { "$ref": "#/$defs/commit" }, "digest": { "$ref": "#/$defs/digest" } },
+      "additionalProperties": false
+    },
+    "person": {
+      "type": "object",
+      "required": ["id", "role"],
+      "properties": { "id": { "$ref": "#/$defs/id" }, "role": { "type": "string", "minLength": 1 } },
+      "additionalProperties": false
+    }
+  }
+}

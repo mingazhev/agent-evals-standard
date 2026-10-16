@@ -149,7 +149,7 @@
       "additionalProperties": false
     },
     "verifiedEvidence": {
-      "$comment": "The evidence pointer must resolve to exactly one authenticated evidence-artifact-1 record. Semantic validation must verify its bytes, attestation, producer authorization, creation phase, and subject binding rather than trusting result alone.",
+      "$comment": "The evidence pointer must resolve to exactly one authenticated evidence-artifact-1 record. Semantic validation must verify its bytes, producer authorization, creation phase, and subject binding rather than trusting result alone.",
       "type": "object",
       "required": ["subjectDigest", "evidence", "verifier", "verifiedAt", "result"],
       "properties": {

@@ -1,0 +1,1620 @@
+{
+  "schemaVersion": "agent-eval-core-scorecard-1",
+  "id": "ledger-service-bugfix-core-run-1-scorecard",
+  "version": "1.0.0",
+  "runManifest": {
+    "path": "examples/core/run-manifest.json",
+    "commit": "8229bd5ef1c3d9c850a2dd2415ece95706b9fc9e",
+    "digest": "sha256:6fcabfeb6164a14485d6a686109d62df2bda50415b63e85241fb02707fcaf95d"
+  },
+  "attemptLedger": {
+    "path": "examples/core/attempt-ledger.json",
+    "commit": "eda67514a96aa1bd7a7621b9d0891fbbf4df5459",
+    "digest": "sha256:28c13f119eb715fa99e767a09d4a47aed4c2261678ebca948525107b0f73f011"
+  },
+  "caseQaRecords": [
+    {
+      "path": "qa/ls-001.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:b89b245207f7c5061a94b683c4d00dd2cde68d9736826a3082bbca20d5fddb9f"
+    },
+    {
+      "path": "qa/ls-002.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:8466151485ddd3d6df235671a1b9c642b4924390b414af0cc8de7dfa94f44a30"
+    },
+    {
+      "path": "qa/ls-003.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:31f12792ed0a2d97d1df9920c15382a4ee7d013f002452aae2e7a1cdd1a28b92"
+    },
+    {
+      "path": "qa/ls-004.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:1af53e4556917357f3ec11086f367f1d5911eef3acb6afcc154401feb32224da"
+    },
+    {
+      "path": "qa/ls-005.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:f8bc5ebdc262461bc14f9be7c44c1c8cea81a9edc5ea685ab9fb3b5953224eca"
+    },
+    {
+      "path": "qa/ls-006.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:6fac519b9afe719ddddb7bab2ae4f6ed78844368470d9a52a371f916c39af8e4"
+    },
+    {
+      "path": "qa/ls-007.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:17db522086c4b4269c78ac95946dc09e66c61dfb9a081ec896cdb0467d5355c9"
+    },
+    {
+      "path": "qa/ls-008.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:7c1a2d6da4832f82455d9acc78e89451d28cf26c7b5bff3de9972003b7617c46"
+    },
+    {
+      "path": "qa/ls-009.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:ce610596319e20340ecd0078c2f6b7dc8462d6e94b94554b8ca6bd0fb0224d8b"
+    },
+    {
+      "path": "qa/ls-010.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:57714b4f732c78c3c44bc6ba5b1a2e19a69dce8d3d177126d5e1a96db1d8acd3"
+    },
+    {
+      "path": "qa/ls-011.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:c26a4c9c1fcb8edb920aff911b30a90edc1739aa7df61f59b520991f085e7fb4"
+    },
+    {
+      "path": "qa/ls-012.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:2b2a355163a95c0a1374a4a914b9fdde821eef0eaf9825db3a120016081bb9da"
+    },
+    {
+      "path": "qa/ls-013.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:ff996a9db74dcf8d02900237e5ace3b00d367700e36cd5e18a35f852f4619423"
+    },
+    {
+      "path": "qa/ls-014.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:8bfbbce7b6c016b0bb65a05d0c47940b23127be793edce20daf76b99af671dc6"
+    },
+    {
+      "path": "qa/ls-015.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:73c124d30caba64c3a2191ba4fbae3808d115ed2ed806cabbeee75ae34a3a308"
+    },
+    {
+      "path": "qa/ls-016.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:913f437fcf0962d37c168876b6f397ed1c83730a646bb2777936e48f1bd29405"
+    },
+    {
+      "path": "examples/core/case-qa.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:668881ad5f1911ba7d04795f2aec48c33c6ab0b08d754a3e4b169cb0aa609177"
+    },
+    {
+      "path": "qa/ls-018.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:74215d4d4ff933d576136c75314721b3f18926e866da35a377fb11b20a0ecbbe"
+    },
+    {
+      "path": "qa/ls-019.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:9a337a2b8c2b8d9ce276b85cb6209f8739d4d28c6b622a19ebd2ae7720acb241"
+    },
+    {
+      "path": "qa/ls-020.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:9b72b0de1dc2b0a5b44641eace2b4169ad9a62db173c889df244af255b454f86"
+    },
+    {
+      "path": "qa/ls-021.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:e4c828332c53b9786545b7caf25ceff87b4f887ebe3b2475407783fe6b2d0721"
+    },
+    {
+      "path": "qa/ls-022.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:c05a4ef35c63c9ebb1c5ecb9a4dbe5ada8bde5f98182632d46bb6047a84619ce"
+    },
+    {
+      "path": "qa/ls-023.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:c2970ad9c7702b6c841ef89a3e3bff8c08d5fb95aaa0cd6182df1e9eb1de92ff"
+    },
+    {
+      "path": "qa/ls-024.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:78fa5b7a569c84bec06831a9479632071fe86fe28f19d128a2a061f5f83170da"
+    },
+    {
+      "path": "qa/ls-025.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:2192dde73ba883d0b5fa5a8ba79c8c6e73b9a323dae6627ea9d72f59944cb223"
+    },
+    {
+      "path": "qa/ls-026.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:56b612c803fb22489dfc6c3e54d52c96aa2da35727ff0bccedbbf3d16fda2ea8"
+    },
+    {
+      "path": "qa/ls-027.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:8b3ba98a1a29f92cbc2a9a521d3546632efbd52b5ce7523f748bec0721962c14"
+    },
+    {
+      "path": "qa/ls-028.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:81d175922097bcb56748003e18c3e7f8f135034b94979e8fafd0bab0da1372fd"
+    },
+    {
+      "path": "qa/ls-029.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:b018008fc18a41bc99f2772583f35c3c31044ed27a70104a5ca1ba72a60ea7ce"
+    },
+    {
+      "path": "qa/ls-030.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:540bff0a8d8108b6640b6a8601286e62be0359af3b77d61ce01808d3bc0c534e"
+    },
+    {
+      "path": "qa/ls-031.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:92cf513f06b8822e618bf4e53c93ccb1f6b3945dda0df8694d1257848912a86d"
+    },
+    {
+      "path": "qa/ls-032.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:87922ea225231de2a11fa877db0c7489b8693f47995990182fe74d5d2d75665e"
+    },
+    {
+      "path": "qa/ls-033.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:8fa012b3ba9bc5c0c46166d18f6c10f273fdabec1c5627c84dad28080f716c3b"
+    },
+    {
+      "path": "qa/ls-034.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:9b1141b8b875f810acf2ffdc115570f3980ccb19fd6f9420b71d28ef14f63849"
+    },
+    {
+      "path": "qa/ls-035.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:ce9d16f5e538810267ec76872dfd0b0760fcf5191de08da316481bfcc230296f"
+    },
+    {
+      "path": "qa/ls-036.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:ac4d169c8057bd0ba0e32202e677a083c1700abf532c5fee0e5aa210c28e3cf0"
+    },
+    {
+      "path": "qa/ls-037.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:aa5464e63d3dc90c0a62655b69db044720019630c837ad8b67c1c8566ed87de8"
+    },
+    {
+      "path": "qa/ls-038.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:67350a606d98be871311f47be7355b349a56f1fcf550033193c347601c92cfc9"
+    },
+    {
+      "path": "qa/ls-039.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:6e654f3251cbe18edc46299f1e544d0a6f68f05e4945c7c8353191af0b0a6f8e"
+    },
+    {
+      "path": "qa/ls-040.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:b98d66f2a945eca6fb3f618882807bd6d0f49e648ea31415851cb306fe90bea5"
+    },
+    {
+      "path": "qa/ls-041.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:aceb9039d2eedbf49da06c9938f145f0677a04808b308c6db07f003799a42003"
+    },
+    {
+      "path": "qa/ls-042.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:5a8328f90109c0baf20f0d8dbd99ee33874494280d46cb332398a8f290be54c0"
+    },
+    {
+      "path": "qa/ls-043.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:16a69ff636e30c9487959e84b5a7fa6b3339c0fd23d60f6717e15ac812a72e29"
+    },
+    {
+      "path": "qa/ls-044.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:a22ae08efe30b149a96c01aa2e107a38cc7b2e80caba7c97e2bc4e2555e11a02"
+    },
+    {
+      "path": "qa/ls-045.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:d06b500757fd5d554d25b62eaa8b3cb6b9a8123e400aa0a49ef3429c44f38845"
+    },
+    {
+      "path": "qa/ls-046.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:902dd2d11cc58f71e961cff4d264087082588001e05ccf02291f1723049f5243"
+    },
+    {
+      "path": "qa/ls-047.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:81aa7a9823f4561a4671e253aa2f14731a21ad6b6901095c4dc82964a85112ce"
+    },
+    {
+      "path": "qa/ls-048.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:3ac19898287d53193ebc68e6017bbdfd07764852d37c3850a5e3c4d6c56a9945"
+    },
+    {
+      "path": "qa/ls-049.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:437671f4a4310371d888cb09585aaaa1a16a8ef99b29ea66b5ec3619de788b95"
+    },
+    {
+      "path": "qa/ls-050.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:c144120e3a4a8f02be3f413c14b3f52ec8ded03ffa1dd9b96764be94ed5a3cc6"
+    }
+  ],
+  "statistics": {
+    "defaults": "stat-defaults-v1",
+    "overrides": []
+  },
+  "accounting": [
+    {
+      "armId": "agent-x",
+      "scheduledCells": 150,
+      "physicalAttempts": 153,
+      "validTrials": 149,
+      "invalidAttempts": 4,
+      "replacementAttempts": 3,
+      "unresolvedCells": 1
+    },
+    {
+      "armId": "control-codemods",
+      "scheduledCells": 50,
+      "physicalAttempts": 50,
+      "validTrials": 50,
+      "invalidAttempts": 0,
+      "replacementAttempts": 0,
+      "unresolvedCells": 0
+    },
+    {
+      "armId": "no-action",
+      "scheduledCells": 50,
+      "physicalAttempts": 50,
+      "validTrials": 50,
+      "invalidAttempts": 0,
+      "replacementAttempts": 0,
+      "unresolvedCells": 0
+    }
+  ],
+  "outcomes": [
+    {
+      "armId": "agent-x",
+      "solved": 99,
+      "correct_refusal": 0,
+      "already_satisfied": 0,
+      "partial": 11,
+      "failed": 28,
+      "no_relevant_result": 8,
+      "unsafe_policy_violation": 3
+    },
+    {
+      "armId": "control-codemods",
+      "solved": 4,
+      "correct_refusal": 0,
+      "already_satisfied": 0,
+      "partial": 0,
+      "failed": 21,
+      "no_relevant_result": 25,
+      "unsafe_policy_violation": 0
+    },
+    {
+      "armId": "no-action",
+      "solved": 0,
+      "correct_refusal": 0,
+      "already_satisfied": 0,
+      "partial": 0,
+      "failed": 0,
+      "no_relevant_result": 50,
+      "unsafe_policy_violation": 0
+    }
+  ],
+  "hardGateFailures": [
+    {
+      "armId": "agent-x",
+      "gateId": "protected-paths-unchanged",
+      "count": 1
+    },
+    {
+      "armId": "agent-x",
+      "gateId": "tests-not-weakened",
+      "count": 2
+    }
+  ],
+  "perCase": [
+    {
+      "caseId": "ls-001",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 1
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-002",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 1
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-003",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 1
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-004",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 1
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-005",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 2
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-006",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 1
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-007",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 2
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-008",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 1
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-009",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 2
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-010",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-011",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-012",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 0
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-013",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-014",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-015",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-016",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 1
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-017",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 1
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-018",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 0
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-019",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 0
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-020",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 0
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-021",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 2
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-022",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-023",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-024",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 0
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-025",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 1
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-026",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 2
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-027",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 0
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-028",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-029",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 2,
+          "successes": 2
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-030",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-031",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-032",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-033",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 1
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-034",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 0
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-035",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 0
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-036",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-037",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 2
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-038",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-039",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-040",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 2
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-041",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-042",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 2
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-043",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 0
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-044",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 2
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-045",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-046",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-047",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-048",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-049",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 1
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    },
+    {
+      "caseId": "ls-050",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 3,
+          "resolved": 3,
+          "successes": 3
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "id": "m-agent-pass-at-1",
+      "estimand": "pass_at_1",
+      "armId": "agent-x",
+      "comparatorArmId": null,
+      "cases": 50,
+      "identificationBounds": {
+        "failureEndpoint": 0.66,
+        "successEndpoint": 0.6667
+      },
+      "interval": {
+        "method": "t_over_cases",
+        "level": 0.975,
+        "lower": 0.5326,
+        "upper": 0.7951
+      }
+    },
+    {
+      "id": "m-agent-minus-control",
+      "estimand": "paired_difference_pass_at_1",
+      "armId": "agent-x",
+      "comparatorArmId": "control-codemods",
+      "cases": 50,
+      "identificationBounds": {
+        "failureEndpoint": 0.58,
+        "successEndpoint": 0.5867
+      },
+      "interval": {
+        "method": "t_over_paired_differences",
+        "level": 0.975,
+        "lower": 0.4446,
+        "upper": 0.7234
+      }
+    },
+    {
+      "id": "m-agent-pass-hat-3",
+      "estimand": "pass_hat_k",
+      "k": 3,
+      "armId": "agent-x",
+      "comparatorArmId": null,
+      "cases": 50,
+      "identificationBounds": {
+        "failureEndpoint": 0.48,
+        "successEndpoint": 0.5
+      },
+      "interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.348,
+        "upper": 0.6336
+      }
+    },
+    {
+      "id": "m-control-pass-at-1",
+      "estimand": "pass_at_1",
+      "armId": "control-codemods",
+      "comparatorArmId": null,
+      "cases": 50,
+      "identificationBounds": {
+        "failureEndpoint": 0.08,
+        "successEndpoint": 0.08
+      },
+      "interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.0315,
+        "upper": 0.1884
+      }
+    },
+    {
+      "id": "m-no-action-pass-at-1",
+      "estimand": "pass_at_1",
+      "armId": "no-action",
+      "comparatorArmId": null,
+      "cases": 50,
+      "identificationBounds": {
+        "failureEndpoint": 0.0,
+        "successEndpoint": 0.0
+      },
+      "interval": {
+        "method": "wilson",
+        "level": 0.95,
+        "lower": 0.0,
+        "upper": 0.0713
+      }
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim-1",
+      "status": "supported",
+      "metricId": "m-agent-pass-at-1",
+      "population": "Population: 50 bug-fix issues sampled at random from 212 eligible closed issues of ledger-service (Python 3.12, pytest), closed between 2025-01 and 2026-06.",
+      "restrictions": [
+        "No claim about other repositories, languages, task types, or interaction modes.",
+        "No claim of improvement over the current human workflow, which was not measured.",
+        "A1-lite: not eligible for release, autonomy, or risk-acceptance decisions."
+      ]
+    },
+    {
+      "id": "claim-2",
+      "status": "supported",
+      "metricId": "m-agent-minus-control",
+      "population": "Population: 50 bug-fix issues sampled at random from 212 eligible closed issues of ledger-service (Python 3.12, pytest), closed between 2025-01 and 2026-06.",
+      "restrictions": [
+        "No claim about other repositories, languages, task types, or interaction modes.",
+        "No claim of improvement over the current human workflow, which was not measured.",
+        "A1-lite: not eligible for release, autonomy, or risk-acceptance decisions."
+      ]
+    },
+    {
+      "id": "claim-3",
+      "status": "reported_only",
+      "metricId": "m-agent-pass-hat-3",
+      "population": "Population: 50 bug-fix issues sampled at random from 212 eligible closed issues of ledger-service (Python 3.12, pytest), closed between 2025-01 and 2026-06.",
+      "restrictions": [
+        "No claim about other repositories, languages, task types, or interaction modes.",
+        "No claim of improvement over the current human workflow, which was not measured.",
+        "A1-lite: not eligible for release, autonomy, or risk-acceptance decisions."
+      ]
+    }
+  ],
+  "decisionVerdict": "not_applicable"
+}

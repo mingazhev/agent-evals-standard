@@ -19,8 +19,13 @@ that no repository-controlled byte snapshot and SHA-256 are recorded; ordinary
 informative references do not require one. Claims that depend on immutable
 source bytes, including `triangulated_empirical`, do. The separation rules are
 stated in [TRACE-001](requirements.md#traceability-rules). Whole-standard
-publication is gated separately by `npm run release:check` on a clean exact
-commit.
+publication is gated separately by the release gate in `TRACE-001` on a clean
+exact commit.
+
+Review receipts for `SRC-RFC8785-2020`, `SRC-RFC9162-2021`, and
+`SRC-INTOTO-2019` are `pending`: removing the signature profile changed the
+`EVID-001` claims they were bound to, so the maintainer must re-review them
+before evidence readiness can return to `ready`.
 
 ## Evaluation and Case QA
 
@@ -62,18 +67,13 @@ commit.
 | `SRC-OWASP-AGENTIC-2026` | OWASP GenAI Security Project, *Top 10 for Agentic Applications for 2026*, published 2025-12-09; official community taxonomy | [official edition](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/) | pending archive; no verified hash | `RUN-003` (rationale only), `RISK-001`; agent-specific threat coverage | Consensus taxonomy, not empirical assurance or proof of completeness |
 | `SRC-MITRE-ATLAS` | MITRE, *Adversarial Threat Landscape for Artificial-Intelligence Systems (ATLAS)*; official living knowledge base, ATLAS name introduced with version 2.0 in spring 2021 | [official knowledge base](https://atlas.mitre.org/) | pending versioned snapshot and archive; no verified hash | `RUN-003` (rationale only), `RISK-001`; adversary techniques and threat-model coverage | Lineage began as the Adversarial ML Threat Matrix in fall 2020; mutable evidence ranges from real-world observations to realistic demonstrations, coverage is not exhaustive, and absence is not evidence of safety |
 
-## Evidence Integrity and Cryptography
+## Evidence Integrity
 
 | Source ID | Bibliographic record and type | Persistent locator | Snapshot/hash | Requirement mapping | Limitations |
 | --- | --- | --- | --- | --- | --- |
 | `SRC-RFC8785-2020` | Rundgren, Jordan and Erdtman, *JSON Canonicalization Scheme (JCS)*, RFC 8785, 2020; Informational RFC (not Standards Track) | [RFC 8785](https://www.rfc-editor.org/rfc/rfc8785), DOI `10.17487/RFC8785` | pending local archive; no verified hash | `EVID-001`; deterministic JSON bytes | Canonicalization does not provide authenticity, authorization, freshness, or append-only storage |
-| `SRC-RFC8032-2017` | Josefsson and Liusvaara, *Edwards-Curve Digital Signature Algorithm (EdDSA)*, RFC 8032, 2017; Informational RFC (not Standards Track) | [RFC 8032](https://www.rfc-editor.org/rfc/rfc8032), DOI `10.17487/RFC8032` | pending local archive; no verified hash | `EVID-001`; Ed25519 suite | Algorithm specification alone does not define trust roots, authorization, revocation, or checkpoints |
-| `SRC-RFC7518-2015` | Jones, *JSON Web Algorithms (JWA)*, RFC 7518, 2015; Standards Track RFC, updated by RFC 9864 (2025) | [RFC 7518](https://www.rfc-editor.org/rfc/rfc7518), DOI `10.17487/RFC7518`; [RFC 9864 update](https://www.rfc-editor.org/rfc/rfc9864) | pending local archive of the RFC and update lineage; no verified hash | `EVID-001`; ES256 raw signature encoding and PS256 parameter suite | JWA does not supply this profile's ES256 low-S rule, authorization model, revocation or anti-rollback policy; RFC 9864 changes algorithm-registration requirements but does not invalidate this bounded suite |
-| `SRC-RFC9864-2025` | Jones and Steele, *Fully-Specified Algorithms for JSON Object Signing and Encryption (JOSE) and CBOR Object Signing and Encryption (COSE)*, RFC 9864, 2025; Standards Track RFC | [RFC 9864](https://www.rfc-editor.org/rfc/rfc9864), DOI `10.17487/RFC9864` | pending local archive; no verified hash | `EVID-001`; fully specified `Ed25519` identifier and RFC 7518 registry update | The identifier does not supply authorization, revocation, freshness, or anti-rollback; its polymorphic-EdDSA changes do not alter this profile's bounded ES256/PS256 suites |
-| `SRC-RFC8017-2016` | Moriarty et al., *PKCS #1: RSA Cryptography Specifications Version 2.2*, RFC 8017, 2016; Informational RFC | [RFC 8017](https://www.rfc-editor.org/rfc/rfc8017), DOI `10.17487/RFC8017` | pending local archive; no verified hash | `EVID-001`; RSASSA-PSS encoding and verification primitives | The generic primitive permits parameter choices; the operational profile must pin the PS256 hash, MGF hash, salt length and minimum key size |
-| `SRC-RFC9162-2021` | Laurie et al., *Certificate Transparency Version 2.0*, RFC 9162, 2021; Experimental RFC | [RFC 9162](https://www.rfc-editor.org/rfc/rfc9162), DOI `10.17487/RFC9162` | pending local archive; no verified hash | `RUN-003` (rationale only), `EVID-001`; Merkle inclusion and append-only consistency proofs and the split-view threat | Certificate Transparency is not a generic ledger protocol; RFC 9162 says multiple clients can compare signed tree heads, calls that technique “gossip”, and explicitly leaves it undefined as active research; witness, quorum and authenticated-gossip protocols are this standard's design choices, not mechanisms specified by RFC 9162, and compatibility requires an explicit protocol profile |
-| `SRC-FIPS1865-2023` | NIST, *Digital Signature Standard (DSS)*, FIPS 186-5, 2023; official cryptographic standard | [DOI 10.6028/NIST.FIPS.186-5](https://doi.org/10.6028/NIST.FIPS.186-5) | pending archive and errata capture; no verified hash | `EVID-001`; approved signature generation and verification | NIST's 2025-05-12 planning note identifies issues and links an errata spreadsheet pending a future update/revision; key management, role authorization, time and anti-rollback remain separate requirements |
-| `SRC-INTOTO-2019` | Torres-Arias et al., “in-toto: Providing farm-to-table guarantees for bits and bytes”, 2019; peer-reviewed supply-chain research | [USENIX Security 2019 paper](https://www.usenix.org/conference/usenixsecurity19/presentation/torres-arias) | pending archive; no verified hash | `RUN-003` (rationale only), `EVID-001`; authorized functionaries, signed layouts and supply-chain attestations | The standard defines a narrower evaluation-specific envelope and trust policy; implementations cannot assume in-toto compatibility without a declared profile |
+| `SRC-RFC9162-2021` | Laurie et al., *Certificate Transparency Version 2.0*, RFC 9162, 2021; Experimental RFC | [RFC 9162](https://www.rfc-editor.org/rfc/rfc9162), DOI `10.17487/RFC9162` | pending local archive; no verified hash | `RUN-003` (rationale only), `EVID-001`; Merkle inclusion and append-only consistency proofs and the split-view threat | Certificate Transparency is not a generic ledger protocol; this standard uses hash-chained ledgers and version-control order, specifies no witness, quorum, or gossip protocol, and claims no RFC 9162 compatibility |
+| `SRC-INTOTO-2019` | Torres-Arias et al., “in-toto: Providing farm-to-table guarantees for bits and bytes”, 2019; peer-reviewed supply-chain research | [USENIX Security 2019 paper](https://www.usenix.org/conference/usenixsecurity19/presentation/torres-arias) | pending archive; no verified hash | `RUN-003` (rationale only), `EVID-001`; authorized producers per supply-chain step | This standard borrows only the authorized-producer idea; it uses no signed layouts or attestations and claims no in-toto compatibility |
 
 ## Catalog maintenance
 

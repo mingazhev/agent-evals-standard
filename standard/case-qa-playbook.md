@@ -70,13 +70,14 @@ plausible.
 Before QA starts, the record **MUST** seal an `independenceBaseline` containing
 every case author, reference or primary-result producer, verdict-mechanism
 owner, and any applicable evaluated-system developer or prior-QA-result owner.
-Each authority binds an actor ID, role, trust domain, key ID, and public-key
-digest. Stage 3, Stage 6, and Stage 7 **MUST** name every baseline actor in a
-machine-readable independence claim and differ from each one on all five
-dimensions. Those three reviewers **MUST** also differ from one another on all
-five dimensions; Stage 7's reviewer and alternative-result producer have the
-same separation requirement. Renaming an actor, role, trust domain, or key
-without changing the underlying authority does not establish independence.
+Each authority binds an actor ID, role, and trust domain. Stage 3, Stage 6, and
+Stage 7 **MUST** name every baseline actor in a machine-readable independence
+claim, differ from each one on all three dimensions, and be
+[independent](glossary.md#independence) of each one. Those three reviewers
+**MUST** also differ from one another on all three dimensions; Stage 7's
+reviewer and alternative-result producer have the same separation requirement.
+Renaming an actor, role, or trust domain without changing the underlying person
+does not establish independence.
 Missing, duplicate, unresolved, or unauthenticated independence evidence fails
 closed.
 
@@ -122,7 +123,7 @@ classification; a claimant assertion is insufficient.
 
 For an applicable replay policy, the validator **MUST** resolve the outcome
 profile, semantic contract, executor, and applicability-rule pointers from the
-fixed distribution-owned outcome-replay registry and compare every ID, version,
+outcome-replay registry pinned by the evaluator manifest and compare every ID, version,
 URI, and digest exactly. The applicability and coverage evidence **MUST** use
 the typed `case-qa-classification-applicability-evidence-1` payload. That payload
 binds the case and activation-input digest, the exact registry graph, the
@@ -136,7 +137,7 @@ sealed activation input, compares it exactly, recomputes the selector, manifest,
 and path-set digests, executes every selector, executes the exact classifier
 whose source digest is registered for the outcome profile, and requires the
 claimed matched conventions and class to equal that derived result. A generic
-signed blob, self-declared count, self-consistent selector/class relabeling,
+blob, self-declared count, self-consistent selector/class relabeling,
 matching ID with a substituted digest, or evidence for a different case is
 insufficient.
 
@@ -144,8 +145,8 @@ The trusted frame resolver **MUST NOT** obtain selectors or paths from the Stage
 0 evidence it is validating. It resolves paths from the sealed activation-input
 closure and authenticates selector definitions under the repository owner or a
 pre-authorized measurement-governance authority. Authorization is fixed outside
-the case author's and Case QA evidence producer's control; an otherwise valid
-signature from either actor does not make substituted selectors trusted.
+the case author's and Case QA evidence producer's control; an assertion by
+either actor does not make substituted selectors trusted.
 
 Stage 0 occurs before evaluation trials exist. Therefore this frame is the
 complete set of material paths available for activation-time applicability
@@ -550,7 +551,7 @@ alone does not prove coverage. The record includes:
   escalation-matrix, profile, and grader versions under which the evidence was
   collected;
 - for each Stage 0–8: status, exact capability ID, implementation kind,
-  reviewer actor ID, role, trust domain, key ID, public-key digest, timestamp,
+  reviewer actor ID, role, trust domain, timestamp,
   evidence-artifact path and hash, and findings; plus the exact sealed
   independence baseline and claim for Stages 3, 6, and 7;
 - discovered defects, severity levels, and fixes;
@@ -580,8 +581,7 @@ alone does not prove coverage. The record includes:
 - contamination status and evidence, sequestering/exposure record, evidence
   access and retention policy, invalidation state and reason, and superseding
   record where applicable;
-- `digest` over the Case QA subject projection and a subject signature, using
-  the order and projections in the Signature and Trust Profile.
+- `digest` over the Case QA subject projection.
   The detached validation envelope is delivered and verified separately; the
   Case QA record **MUST NOT** embed or hash that envelope or its digest.
 
@@ -589,7 +589,7 @@ The Case QA record's `case.activationInputDigest` is the SHA-256 of the UTF-8
 RFC 8785 JCS bytes of the versioned `agent-eval-activation-input-1` manifest
 defined in [`schemas/case-activation-input.schema.json`](../schemas/case-activation-input.schema.json).
 Its `projection` contains every required top-level case member except
-`lifecycle`, `digest`, and `signature`, including the case contract,
+`lifecycle` and `digest`, including the case contract,
 environment, profile, graders, and checks; its `case` object carries the case
 ID, version, and projection digest. The validator reconstructs that projection
 from the candidate case, after separately validating that case against
@@ -599,9 +599,9 @@ to bind the manifest digest. This is deliberately pre-QA input and cannot hash
 its own QA record or detached validation envelope; it binds inputs and does
 not prove QA validity. Subject and evidence digests follow
 the [Evidence and Detached Validation Contract](evidence-and-validation-contract.md).
-The schema-conformance fixture demonstrates record shape, content addressing,
-and authentication mechanics only; it is not empirical case-validation
-evidence and cannot support an activation claim.
+The bundled example demonstrates record shape and content addressing only; it
+is not empirical case-validation evidence and cannot support an activation
+claim.
 
 For an `active` case, the case loader validates the schema, digests, detached
 validation envelope, successful

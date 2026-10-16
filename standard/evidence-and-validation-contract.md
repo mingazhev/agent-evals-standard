@@ -8,6 +8,44 @@ The normative keywords **MUST**, **MUST NOT**, **REQUIRED**, **SHOULD**,
 **SHOULD NOT**, and **MAY** have the meanings defined in RFC 2119 and RFC 8174.
 Only uppercase keywords are normative.
 
+## Integrity model
+
+This standard uses no cryptographic signatures, key management, trusted-time
+service, or anti-rollback protocol. Integrity, provenance, and ordering rest on
+three mechanisms that every conforming implementation **MUST** apply:
+
+1. **Content addressing.** Every claim-bearing artifact is identified by `id`,
+   `version`, and a `sha256:` digest over its stored bytes or over the RFC 8785
+   JCS projection its schema names. A reference is a binding only when the
+   verifier resolves the bytes and recomputes that digest. A changed byte is a
+   different artifact; it cannot be patched into a sealed experiment, scorecard,
+   or decision.
+2. **Version-control order.** Every sealed artifact — suite manifest, pre-run
+   manifest, statistical plan, evaluator manifest, decision plan, and policy
+   instance — and every append-only ledger **MUST** be committed to a
+   version-controlled repository before any step that depends on it. The commit
+   that first contains a sealed artifact is its seal point. "Before execution"
+   means that commit is an ancestor of the commit that first contains any trial
+   result for the run. Ledgers are hash chains: each entry binds the digest of
+   its predecessor and the verifier recomputes the root. Hosted repositories
+   **SHOULD** use a protected branch that rejects history rewrites, and the
+   claimant **MUST** disclose the hosting, branch-protection, and write-access
+   settings on which the ordering relies.
+3. **Producer identity and authority.** Every evidence artifact names its
+   producer `id`, `role`, and `trustDomain`. Whether that producer may create
+   that kind of evidence is decided only by an evaluator-controlled authority
+   registry or contract established outside evaluated input, never by the
+   evidence itself. Where a requirement demands independence, the producers
+   **MUST** satisfy the [independence definition](glossary.md#independence).
+
+Residual limit: without signatures, a party with write access to every
+repository involved could rewrite an artifact and every reference to it. The
+model therefore relies on separated write access — the evaluated arm has none,
+and the claimant cannot rewrite a protected branch — and on reviewers being able
+to inspect history. An adopter that needs non-repudiation against a hostile
+repository administrator **MAY** add a signature scheme as a namespaced
+extension under `CONF-003`; that extension cannot weaken any requirement here.
+
 ## Canonical evidence artifact
 
 `EVID-001` — Every evidence reference used by Case QA, a scorecard, semantic
@@ -20,9 +58,11 @@ validation, or governance **MUST** resolve to exactly one
 - producer ID, role, trust domain, creation phase, and UTC creation time;
 - access class, retention class, retention deadline or disposition rule, and
   applicable privacy or IP restrictions;
-- the schema and semantic-contract versions needed to interpret the bytes;
-- an attestation valid under the pinned
-  [Signature and Trust Profile](signature-and-trust-profile.md).
+- the schema and semantic-contract versions needed to interpret the bytes.
+
+The producer's authority for the artifact's schema and creation phase is
+established by the [integrity model](#integrity-model), not by a field in the
+record.
 
 An immutable URI **MUST** be content-addressed or refer to storage that prevents
 replacement under the same identifier. Text, archive, and media bytes **MUST
@@ -36,8 +76,8 @@ ID, and **MUST** sort records by artifact ID before its own canonical digest is
 computed.
 
 The verifier **MUST** reject a dangling reference, digest or length mismatch,
-unauthorized producer, wrong creation phase, invalid attestation, expired
-evidence, or access outside the approved purpose. It **MUST NOT** repair,
+unauthorized producer, wrong creation phase, expired evidence, or access
+outside the approved purpose. It **MUST NOT** repair,
 relabel, or infer missing evidence.
 
 For machine-authoritative validity, threat, exposure, and control bindings,
@@ -74,10 +114,8 @@ no resolvable payload **MUST NOT** satisfy a terminal-evidence requirement.
 ## Detached validation envelope
 
 `EVID-002` — Semantic validation **MUST** produce a detached
-`validation-envelope-1`. The subject artifact **MUST NOT** contain the envelope,
-the envelope signature, or the completed-envelope digest. This separation
-prevents a self-hash cycle; it does not prohibit a separately defined subject
-attestation whose field is excluded by the named subject projection.
+`validation-envelope-1`. The subject artifact **MUST NOT** contain the envelope
+or the completed-envelope digest. This separation prevents a self-hash cycle.
 
 The envelope **MUST** bind:
 
@@ -87,8 +125,7 @@ The envelope **MUST** bind:
 - one result for every evaluated requirement ID and the evidence IDs used;
 - the aggregate `pass`, `fail`, or `insufficient_evidence` result;
 - the complete evidence manifest and either `output: null` or a content-addressed
-  output artifact when validation produces a separate deterministic result;
-- a signature valid under the pinned trust profile.
+  output artifact when validation produces a separate deterministic result.
 
 The authenticated requirement registry selects the exact closed check set for
 the envelope's `subject.claimTarget`. The envelope **MUST** contain each selected
@@ -103,14 +140,13 @@ check is `pass`. Empty or incomplete selected-check sets never pass.
 
 The supported projection identifiers have these meanings:
 
-- `full_document_without_digest_and_signature` — RFC 8785 JCS of the complete
-  JSON document after removing only the top-level digest and signature fields
-  named by its schema;
+- `full_document_without_digest` — RFC 8785 JCS of the complete JSON document
+  after removing only the top-level digest field named by its schema;
 - `sealed_activation_input` — UTF-8 bytes of RFC 8785 JCS for the
   `agent-eval-activation-input-1` manifest defined by
   [`case-activation-input.schema.json`](../schemas/case-activation-input.schema.json).
   The manifest's `projection` is the case document with exactly its
-  `lifecycle`, `digest`, and `signature` members removed. Its `case` object
+  `lifecycle` and `digest` members removed. Its `case` object
   binds the case `id`, `version`, and the SHA-256 of that projection. The
   activated case's `lifecycle.activationInputDigest` is the SHA-256 of the
   complete manifest bytes. A validator MUST reconstruct the projection from
@@ -122,7 +158,7 @@ The supported projection identifiers have these meanings:
   does not contain the activated case digest.
 
 The activation-input projection includes every top-level case member required
-by `case.schema.json` except `lifecycle`, `digest`, and `signature`; the
+by `case.schema.json` except `lifecycle` and `digest`; the
 optional `interactionProtocol` is included when present. Object member order is
 the RFC 8785 JCS order and array order is the case document's order. An
 unknown or ambiguous projection yields `insufficient_evidence`. `sealed_run`
@@ -131,14 +167,8 @@ this version; an envelope using either identifier is schema-invalid and MUST
 fail closed. A projection contract MUST identify exact included fields and
 ordering.
 
-For `validation-envelope-1`, signing bytes are the ASCII domain separator
-`agent-evals-validation-envelope-1` followed by a zero byte and UTF-8 RFC 8785
-JCS of the whole envelope with only `signature.value` omitted. The projection
-retains and binds `profileId`, `algorithm`, `keyId`, and `signedAt`; excluding
-the whole signature object is invalid. The signature is detached from the
-subject but binds the validation result. A later artifact **MAY** refer
-independently to the subject digest and the digest of the completed signed
-envelope.
+A later artifact **MAY** refer independently to the subject digest and the
+digest of the completed envelope.
 
 ## Evidence minimization and retention
 
@@ -168,12 +198,12 @@ not evidence by itself. The environment **MUST** content-address a
 `production-derived-authority-contract-1`, and its consuming authenticated
 pre-run manifest **MUST** bind that exact environment ID, version, and digest.
 The authority contract is the only source of proof-to-producer, role, trust-
-domain, key, creation-phase, evidence-schema, and verifier authorization. A
+domain, creation-phase, evidence-schema, and verifier authorization. A
 proof, payload, or evidence bundle **MUST NOT** introduce or override any of
 those values. The production-derived validator **MUST** receive the pre-run
 schema-validation and authentication results from evaluator-controlled
 verifiers; a related file path, self-digest, unknown document shape, or
-signature asserted only by evaluated input is not a seal.
+authority asserted only by evaluated input is not a seal.
 
 Every named verifier **MUST** resolve exactly once through an evaluator-owned
 registry established outside the evaluated input. The registry entry **MUST**
@@ -182,7 +212,8 @@ bytes. Merely repeating a verifier digest in a proof, evidence record, or
 authority contract is not authentication. The evidence record's
 `schemaMetadata.validatorDigest` and
 `mediaInterpretation.semanticContract` **MUST** equal that registered verifier,
-and its signature **MUST** verify under the authority contract's public key.
+and its producer **MUST** equal the producer the authority contract assigns to
+that proof kind.
 
 Semantic re-evaluation **MUST** compare the closed payload for each proof kind
 with sealed values:
@@ -201,7 +232,7 @@ with sealed values:
   as false.
 
 Data-owner, privacy, and isolation evidence **MUST** have pairwise-distinct
-producer IDs, trust domains, and attestation key IDs. Redaction and re-
+producer IDs and trust domains. Redaction and re-
 identification use the same accountable privacy authority. A missing registry,
 unresolved implementation bytes, unsealed authority contract, reused required
 authority boundary, unknown field, or semantic mismatch yields
@@ -213,33 +244,18 @@ and the machine-readable environment and authority schemas.
 
 A verifier **MUST** perform, in order: schema validation; subject-projection
 reconstruction; material-payload resolution and byte/length/digest/media checks;
-artifact authorization checks; signature, key-state, and applicable pinned
-anti-rollback-policy checks; requirement-result recomputation; and
-aggregate-result recomputation. The anti-rollback step
-verifies active-mechanism continuity, witness, and freshness evidence or, only
-where applicable, a current signed `not_required` risk acceptance. Failure at
-any step yields `insufficient_evidence` for every
+producer-authorization checks; version-control order checks for sealed
+artifacts and ledgers; requirement-result recomputation; and aggregate-result
+recomputation. Failure at any step yields `insufficient_evidence` for every
 dependent positive, comparative, or governance claim.
+
+An implementation **MUST** pass an explicit evidence root for
+`repository_relative` payloads or an authorized resolver for
+`immutable_external` payloads, resolve every referenced evidence record's bytes,
+and propagate any material-payload issue as `insufficient_evidence` before
+terminal-outcome selection.
 
 The machine-readable records are
 [`evidence-artifact.schema.json`](../schemas/evidence-artifact.schema.json),
 [`production-derived-authority-contract.schema.json`](../schemas/production-derived-authority-contract.schema.json),
 and [`validation-envelope.schema.json`](../schemas/validation-envelope.schema.json).
-The exported reference function `verifyEvidencePayload` is in
-[`verify-material-integrity.mjs`](../tools/verify-material-integrity.mjs).
-
-Integration **MUST** pass an explicit evidence root for `repository_relative`
-payloads or an authorized resolver for `immutable_external` payloads, call
-`verifyEvidencePayload` for every referenced evidence record, and propagate any
-returned issue as `insufficient_evidence` before terminal-outcome selection. The
-standalone material-integrity vectors run with:
-
-```text
-node tools/verify-material-integrity.mjs conformance/fixtures/material-integrity/vectors.json
-```
-
-The independent-authority and production-proof semantic vectors run with:
-
-```text
-node tools/run-production-derived-authority-vectors.mjs
-```

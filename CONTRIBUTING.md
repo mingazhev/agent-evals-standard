@@ -10,8 +10,12 @@ reproducible, or implementable without weakening existing protections.
 2. Submit a pull request with the smallest enforceable change.
 3. Update every affected schema, example, cross-reference, and conformance
    rule in the same pull request.
-4. Add or update positive and negative conformance fixtures for every
-   machine-verifiable requirement that changes.
+4. Keep exactly one valid example per schema in `examples/` and add an invalid
+   example only when it illustrates a rule the schema itself enforces.
+
+The repository holds contracts, not implementations. Validators, runners,
+graders, and their test-vector corpora live in implementation repositories with
+their own versioning; do not add executable verifiers here.
 
 Normative pull requests should include:
 
@@ -23,19 +27,16 @@ Normative pull requests should include:
 
 ## Validation
 
-Run the local checks before opening a pull request:
+Run the local check before opening a pull request:
 
 - `npm ci` — install the pinned toolchain;
-- `npm run check` — repository consistency: schema well-formedness, `$ref`
-  resolution, and cross-document links;
-- `npm run check:generated` — generated-artifact freshness and idempotence;
-- `npm test` — the full corpus of conformance fixtures, vectors, and verifier
-  tools, including schema validation of every fixture.
+- `npm test` — schemas compile in strict mode, every example matches its
+  declared expectation, bundled contracts validate, profile fixture
+  descriptors resolve, and local Markdown links and anchors resolve.
 
-The same checks run in CI on every pull request. When you change a schema or a
-normative requirement, update the affected fixtures and run `npm test` in the
-same pull request; the `tools/` verifiers encode the expected behavior and
-fail on drift.
+The same check runs in CI on every pull request. It is deliberately not a
+conformance validator: digests inside examples are illustrative and are not
+re-verified.
 
 ## Pre-publication discipline
 
@@ -44,10 +45,9 @@ version `0.1.0`, and incompatible changes replace the working draft in place.
 Do not add migration aliases or legacy contracts unless publication has created
 compatibility obligations.
 
-The publication process MUST freeze an exact commit and its conformance
-corpus. The candidate commit MUST pass `npm run release:check` from a clean
-checkout; that command first proves generated-artifact freshness, runs the full
-test corpus, and then checks evidence readiness. The first release MUST use the
+The publication process MUST freeze an exact commit. The candidate commit MUST
+pass `npm test` from a clean checkout, and `standard/source-evidence-manifest.json`
+MUST report `evidenceReadiness: ready`. The first release MUST use the
 annotated tag `v0.1.0`; its CI run MUST resolve that tag to the exact checked-out
 commit. Repository administrators MUST protect the tag with a GitHub ruleset,
 and a published tag must never be rewritten.

@@ -1,0 +1,85 @@
+{
+  "schemaVersion": "agent-eval-core-case-1",
+  "id": "ls-017",
+  "version": "1.0.0",
+  "author": {
+    "id": "person-a",
+    "role": "case author and evaluation owner"
+  },
+  "repository": {
+    "uri": "https://git.example.org/acme/ledger-service",
+    "baseCommit": "4490296d159684a14e566f256d4d930b28d81ff1",
+    "visibleHistory": "none"
+  },
+  "task": {
+    "statement": "Refunds of partially captured payments are sometimes one cent short (issue LS-417). Make refund amounts exact for every currency with two minor units without changing the public API of ledger.refunds.",
+    "agentVisibleInputs": [
+      "repository snapshot at baseCommit",
+      "issue LS-417 text",
+      "CONTRIBUTING.md",
+      "tests/unit/"
+    ]
+  },
+  "capabilityFamilyId": "CAP.IMPLEMENT_CHANGE",
+  "workArtifactType": "code_change",
+  "interactionModeId": "noninteractive_repository_task",
+  "scopeTests": {
+    "repositoryStateNecessary": {
+      "holds": true,
+      "rationale": "The defect lives in ledger/refunds.py and its interaction with ledger/money.py; the task cannot be solved without that code."
+    },
+    "invariantsTraceToRepository": {
+      "holds": true,
+      "rationale": "Acceptance is the repository's own test suite plus a hidden regression test written against ledger.refunds.compute_refund."
+    },
+    "changesRepositoryArtifactOrDecision": {
+      "holds": true,
+      "rationale": "The result is a code change to the repository."
+    },
+    "removalChangesVerdict": {
+      "holds": true,
+      "rationale": "Without the repository there is no function to fix and no test to run, so the verdict cannot be produced."
+    }
+  },
+  "acceptance": {
+    "successRule": "all_checks_and_hard_gates_pass",
+    "checks": [
+      {
+        "id": "unit-suite",
+        "kind": "deterministic",
+        "visibility": "agent_visible",
+        "description": "Existing unit tests still pass.",
+        "command": "pytest -q tests/unit"
+      },
+      {
+        "id": "hidden-regression",
+        "kind": "deterministic",
+        "visibility": "hidden",
+        "description": "Hidden regression test over 1,000 generated partial-capture amounts, including the LS-417 reproducer.",
+        "command": "pytest -q /oracle/ls-017/test_refund_rounding.py"
+      }
+    ],
+    "hardGates": [
+      {
+        "id": "tests-not-weakened",
+        "description": "No existing test is deleted, skipped, or loses an assertion.",
+        "command": "python /runner/gates/tests_not_weakened.py --base $BASE --head $HEAD"
+      },
+      {
+        "id": "protected-paths-unchanged",
+        "description": "CI configuration, lockfiles, and tests/fixtures are unchanged.",
+        "command": "python /runner/gates/protected_paths.py --base $BASE --head $HEAD"
+      }
+    ]
+  },
+  "oracleIsolation": {
+    "hiddenMaterialLocation": "runner-only volume /oracle, mounted after the agent process tree has exited",
+    "excludedFromAgentPaths": true,
+    "excludedFromVisibleHistory": true,
+    "method": "The workspace is exported as a tree snapshot with no history; the original fix commit and the hidden test live only in the runner's oracle store."
+  },
+  "effectiveRisk": {
+    "tier": "low",
+    "rationale": "Sandboxed controlled fixture with no network, no production data, and no deployment path."
+  }
+}

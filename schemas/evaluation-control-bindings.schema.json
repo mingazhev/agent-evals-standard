@@ -195,7 +195,7 @@
         "id": { "$ref": "#/$defs/id" },
         "artifactVersion": { "const": "0.1.0" },
         "schemaId": { "const": "urn:agent-evals-standard:schema:pre-run-manifest:1" },
-        "identityProjection": { "const": "full_document_without_evaluation_control_bindings_digest_signature" },
+        "identityProjection": { "const": "full_document_without_evaluation_control_bindings_digest" },
         "digest": { "$ref": "#/$defs/digest" }
       },
       "additionalProperties": false

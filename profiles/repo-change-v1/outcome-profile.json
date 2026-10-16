@@ -25,8 +25,7 @@
         {
           "artifactType": "workspace_diff",
           "cardinality": "exactly_one",
-          "uriBinding": "artifact_sha256_matches_digest",
-          "attestation": "required"
+          "uriBinding": "artifact_sha256_matches_digest"
         }
       ]
     },
@@ -35,14 +34,12 @@
         {
           "artifactType": "repo-change-v1:safe_refusal_record",
           "cardinality": "exactly_one",
-          "uriBinding": "authenticated_immutable_uri",
-          "attestation": "required"
+          "uriBinding": "authenticated_immutable_uri"
         },
         {
           "artifactType": "repo-change-v1:refusal_applicability_record",
           "cardinality": "exactly_one",
-          "uriBinding": "authenticated_immutable_uri",
-          "attestation": "required"
+          "uriBinding": "authenticated_immutable_uri"
         }
       ]
     },
@@ -51,8 +48,7 @@
         {
           "artifactType": "repo-change-v1:base_state_record",
           "cardinality": "exactly_one",
-          "uriBinding": "authenticated_immutable_uri",
-          "attestation": "required"
+          "uriBinding": "authenticated_immutable_uri"
         }
       ]
     }
@@ -369,7 +365,7 @@
         }
       },
       "evidenceModeIds": [
-        "measurement_failure_attestation"
+        "measurement_failure_record"
       ],
       "validAlternativeIds": []
     }
@@ -518,19 +514,19 @@
       }
     },
     {
-      "id": "measurement_failure_attestation",
+      "id": "measurement_failure_record",
       "version": "0.1.0",
       "requiredEvidenceKinds": [
-        "runner-attestation",
+        "runner-failure-record",
         "measurement-validity-record"
       ],
       "verdictRule": {
-        "id": "measurement-failure-attestation-verdict",
+        "id": "measurement-failure-record-verdict",
         "version": "0.1.0",
         "expression": {
           "all": [
             {
-              "fact": "runnerAttestationAuthenticityVerdict",
+              "fact": "runnerRecordAuthorizationVerdict",
               "operator": "equals",
               "expected": "pass"
             },
@@ -591,19 +587,12 @@
   "functionalSuccess": {
     "id": "functional-outcome-v1",
     "version": "0.1.0",
-    "contractDigest": "sha256:7fcbe53c55700f2b9c0b71f373c35ef8231ff6bfeee0fe5d0df314f5decb6b7b"
+    "contractDigest": "sha256:2913e485b666d5b54b144f5d8b731dc1bf2e1beee89518f9987b170c329c235b"
   },
   "acceptedOutcome": {
     "id": "accepted-outcome-v1",
     "version": "0.1.0",
-    "contractDigest": "sha256:7fcbe53c55700f2b9c0b71f373c35ef8231ff6bfeee0fe5d0df314f5decb6b7b"
+    "contractDigest": "sha256:2913e485b666d5b54b144f5d8b731dc1bf2e1beee89518f9987b170c329c235b"
   },
-  "digest": "sha256:10572bb29e6a0b09384a9c245af1239a1d8b4dba5b52a305331c47e3dd103203",
-  "signature": {
-    "profileId": "fixture-signature-profile",
-    "algorithm": "Ed25519",
-    "keyId": "rfc8032-test-key-1",
-    "signedAt": "2026-08-01T00:00:00Z",
-    "value": "cuCwfyPf-wjJQjlFzLr-kseTwwQ9hlt0cnsSu8fmYOUIDcAoZ7Ac4Kd9bJ5fn7C_2TQAQtleiRZ7bVLhXK9mDA"
-  }
+  "digest": "sha256:f8898ca1711f8e725f4babb3c884669d1a4917ed75839950c6425d0ebc729cf7"
 }

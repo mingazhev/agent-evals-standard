@@ -3,7 +3,7 @@
   "$id": "urn:agent-evals-standard:schema:pre-run-manifest:1",
   "title": "Sealed pre-run manifest",
   "type": "object",
-  "required": ["schemaVersion", "id", "version", "sealedAt", "suite", "evaluationControlBindings", "evaluator", "signatureProfile", "claimTrustProfile", "claimTrustUse", "assuranceLevel", "runMode", "claimEligibility", "riskAssessment", "effectiveRiskTier", "caseProfiles", "caseSet", "arms", "comparativeDesign", "scheduledCells", "budgets", "retryPolicy", "stopPolicy", "gateRegistry", "governanceRegistry", "statisticalPlan", "decisionPlan", "extensions", "digest", "signature"],
+  "required": ["schemaVersion", "id", "version", "sealedAt", "suite", "evaluationControlBindings", "evaluator", "assuranceLevel", "runMode", "claimEligibility", "riskAssessment", "effectiveRiskTier", "caseProfiles", "caseSet", "arms", "comparativeDesign", "scheduledCells", "budgets", "retryPolicy", "stopPolicy", "gateRegistry", "governanceRegistry", "statisticalPlan", "decisionPlan", "extensions", "digest"],
   "properties": {
     "schemaVersion": { "const": "agent-eval-pre-run-manifest-1" },
     "id": { "$ref": "#/$defs/id" },
@@ -14,10 +14,7 @@
       "$comment": "The content-addressed stage-binding artifact sealed before execution. Semantic validation requires its pre_run subject to equal this manifest, its suite to equal suite, its ledger seal to be no later than sealedAt, and the projected run to fit the remaining held-out budget.",
       "$ref": "urn:agent-evals-standard:schema:verified-machine-contract:1#/$defs/evaluationControlBindingsBinding"
     },
-    "evaluator": { "$comment": "The exact signed evaluator manifest fixed before execution. Semantic validation must authenticate this pointer and require the experiment conformance dependency to identify the same evaluator subject.", "$ref": "#/$defs/versionedArtifactPointer" },
-    "signatureProfile": { "$comment": "The digest-bound artifact-verification profile explicitly selected by every effective leaf evaluation profile in this sealed run. It must equal every bound effective profile's leaf signatureProfile. For conformance fixtures this validates mechanics only; deployment_bound rejects fixture/reference trust and requires externally rooted typed authorization, revocation, trusted-time, and anti-rollback bindings.", "$ref": "#/$defs/versionedArtifactPointer" },
-    "claimTrustProfile": { "$comment": "The separately pinned operational trust profile for claim and governance acceptance. It must equal claimTrustProfile in every bound effective evaluation profile and must be validated independently from signatureProfile.", "$ref": "#/$defs/versionedArtifactPointer" },
-    "claimTrustUse": { "$comment": "A conformance fixture cannot become deployment trust merely because its artifact signatures verify. deployment_bound requires externally provisioned, owner-verified trust rather than the repository reference keys.", "enum": ["conformance_fixture_requires_external_rekey", "deployment_bound"] },
+    "evaluator": { "$comment": "The exact evaluator manifest fixed before execution. Semantic validation must authenticate this pointer and require the experiment conformance dependency to identify the same evaluator subject.", "$ref": "#/$defs/versionedArtifactPointer" },
     "assuranceLevel": { "enum": ["A0", "A1", "A2", "A3"] },
     "runMode": { "enum": ["diagnostic_run", "evaluation"] },
     "claimEligibility": { "enum": ["none", "claims_eligible"] },
@@ -41,8 +38,7 @@
     "statisticalPlan": { "$ref": "#/$defs/artifactPointer" },
     "decisionPlan": { "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/artifactPointer" }] },
     "extensions": { "type": "array", "items": { "$ref": "#/$defs/artifactPointer" } },
-    "digest": { "$ref": "#/$defs/digest" },
-    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+    "digest": { "$ref": "#/$defs/digest" }
   },
   "allOf": [
     { "if": { "type": "object", "properties": { "assuranceLevel": { "const": "A0" } }, "required": ["assuranceLevel"] }, "then": { "type": "object", "properties": { "runMode": { "const": "diagnostic_run" }, "claimEligibility": { "const": "none" }, "caseProfiles": { "type": "array", "minItems": 1, "items": { "type": "object", "properties": { "bindingUse": { "const": "diagnostic_only" } } } }, "decisionPlan": { "type": "null" } } }, "else": { "type": "object", "properties": { "runMode": { "const": "evaluation" }, "claimEligibility": { "const": "claims_eligible" }, "caseProfiles": { "type": "array", "minItems": 1, "items": { "type": "object", "properties": { "bindingUse": { "const": "claims_eligible" } } } } } } },

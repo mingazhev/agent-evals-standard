@@ -14,8 +14,7 @@
     "evidenceManifest",
     "events",
     "issuer",
-    "issuedAt",
-    "signature"
+    "issuedAt"
   ],
   "properties": {
     "schemaVersion": { "const": "agent-eval-governance-resolution-ledger-1" },
@@ -44,8 +43,7 @@
       },
       "additionalProperties": false
     },
-    "issuedAt": { "type": "string", "format": "date-time", "pattern": "Z$" },
-    "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+    "issuedAt": { "type": "string", "format": "date-time", "pattern": "Z$" }
   },
   "additionalProperties": false,
   "$defs": {
@@ -53,7 +51,7 @@
     "artifactRef": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" },
     "ledgerEvent": {
       "type": "object",
-      "required": ["sequence", "eventId", "eventType", "payloadHash", "previousEventHash", "eventHash", "timestamp", "payload", "signature"],
+      "required": ["sequence", "eventId", "eventType", "payloadHash", "previousEventHash", "eventHash", "timestamp", "payload"],
       "properties": {
         "sequence": { "type": "integer", "minimum": 1 },
         "eventId": { "type": "string", "minLength": 1 },
@@ -74,8 +72,7 @@
             { "$ref": "urn:agent-evals-standard:schema:assurance-observation:1" },
             { "$ref": "urn:agent-evals-standard:schema:governance-resolution:1" }
           ]
-        },
-        "signature": { "$ref": "urn:agent-evals-standard:schema:signature-profile:1#/$defs/signature" }
+        }
       },
       "allOf": [
         {

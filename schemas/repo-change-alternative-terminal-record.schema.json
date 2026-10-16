@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:agent-evals-standard:schema:repo-change-alternative-terminal-record:1",
   "title": "Authenticated terminal record for a registered repository-change alternative",
-  "$comment": "The distribution-owned outcome executor additionally verifies exact case/cell/attempt identity, the profile-owned applicability-contract digest, primitive-fact equality, evidence authentication, and the outcome-specific terminal artifact set. For base-state records, baseStateDigest must equal the workspaceRootDigest of the exact raw-digest-bound case workspace manifest.",
+  "$comment": "The evaluator-pinned outcome executor additionally verifies exact case/cell/attempt identity, the profile-owned applicability-contract digest, primitive-fact equality, evidence authentication, and the outcome-specific terminal artifact set. For base-state records, baseStateDigest must equal the workspaceRootDigest of the exact raw-digest-bound case workspace manifest.",
   "type": "object",
   "required": ["schemaVersion", "id", "version", "experimentId", "caseId", "cellId", "attemptId", "armId", "alternativeId", "applicabilityContractDigest"],
   "properties": {
