@@ -335,7 +335,7 @@ constructs or material work products span multiple families. A delivered
 debugging, security, performance, or reliability conclusions materialize as an
 `assurance_report` under `CAP.VERIFY_ASSURE`; a case evaluating both is
 multi-label. That report is the evaluated work product; a grader assessment or
-replay receipt evaluating it is measurement evidence and **MUST NOT** satisfy the
+replay record evaluating it is measurement evidence and **MUST NOT** satisfy the
 selected `assurance_report` type. Repairing an escaped defect is
 `CAP.IMPLEMENT_CHANGE` and becomes
 `CAP.REMEDIATE_LEARN` only when incident analysis, prevention, or learning is a
@@ -742,8 +742,8 @@ base semantics and **MUST NOT** affect another outcome-profile ID. The bundled
 `workspace-change-v1` example is bound to its separate
 [repository-change replay contract](../profiles/repo-change-v1/outcome-replay-contract.md).
 An implementation executes that contract through an outcome-replay executor
-registered in an `outcome-replay-executor-registry-1` document that the sealed
-evaluator manifest pins. Changing the contract or the executable changes their
+registered in an executor registry, in the implementation's own format, that the
+sealed evaluator manifest pins. Changing the contract or the executable changes their
 registered digest; it does not silently change this base requirement.
 
 `OUTPROF-001` — Each non-A0 case **MUST** pin exactly one outcome-profile ID,

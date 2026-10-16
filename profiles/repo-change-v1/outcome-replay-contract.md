@@ -132,6 +132,10 @@ claimed freely:
 
 ## Evidence modes
 
+The implementation records each kind below in its own format; every record
+**MUST** carry the case, cell, and attempt identity, the consumed evidence
+digests, and the verdict.
+
 `runner-check` binds the exact validation plan and evaluated diff or registered-
 alternative terminal projection. `adjudication-record` additionally binds the
 arm's sealed `graderSet` and implements `JUDGE-003`: at least two pairwise-
@@ -142,5 +146,5 @@ with uncertainty, and a passing verdict from every decision-bearing rater.
 `runner-failure-record` binds a failed or invalid exact runner-check set to the
 sealed workspace. `measurement-validity-record` binds that runner record, the
 same workspace and fact projection, and a verifier independent from claimant
-and runner. Evidence-kind labels are closed; a wrong schema, subject, authority,
+and runner. Evidence-kind labels are closed; a wrong record kind, subject, authority,
 protocol, workspace, or evidence set fails replay.

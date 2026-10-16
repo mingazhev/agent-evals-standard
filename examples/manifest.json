@@ -135,18 +135,6 @@
       "valid": true
     },
     {
-      "id": "outcome-replay-executor-registry.valid",
-      "path": "valid/outcome-replay-executor-registry.json",
-      "schema": "schemas/outcome-replay-executor-registry.schema.json",
-      "valid": true
-    },
-    {
-      "id": "outcome-replay-receipt.valid",
-      "path": "valid/outcome-replay-receipt.json",
-      "schema": "schemas/outcome-replay-receipt.schema.json",
-      "valid": true
-    },
-    {
       "id": "pre-run-manifest.valid",
       "path": "valid/pre-run-manifest.json",
       "schema": "schemas/pre-run-manifest.schema.json",
@@ -162,60 +150,6 @@
       "id": "profile-resolution-record.valid",
       "path": "../profiles/repo-change-v1/profile-resolution.json",
       "schema": "schemas/profile-resolution-record.schema.json",
-      "valid": true
-    },
-    {
-      "id": "repo-change-adjudication-record.valid",
-      "path": "valid/repo-change-adjudication-record.json",
-      "schema": "schemas/repo-change-adjudication-record.schema.json",
-      "valid": true
-    },
-    {
-      "id": "repo-change-alternative-terminal-record.valid",
-      "path": "valid/repo-change-alternative-terminal-record.json",
-      "schema": "schemas/repo-change-alternative-terminal-record.schema.json",
-      "valid": true
-    },
-    {
-      "id": "repo-change-assurance-report.valid",
-      "path": "valid/repo-change-assurance-report.json",
-      "schema": "schemas/repo-change-assurance-report.schema.json",
-      "valid": true
-    },
-    {
-      "id": "repo-change-case-contract.valid",
-      "path": "../profiles/repo-change-v1/case-contract.json",
-      "schema": "schemas/repo-change-case-contract.schema.json",
-      "valid": true
-    },
-    {
-      "id": "repo-change-failure-taxonomy.valid",
-      "path": "../profiles/repo-change-v1/failure-taxonomy.json",
-      "schema": "schemas/repo-change-failure-taxonomy.schema.json",
-      "valid": true
-    },
-    {
-      "id": "repo-change-gate-registry.valid",
-      "path": "../profiles/repo-change-v1/gate-registry.json",
-      "schema": "schemas/repo-change-gate-registry.schema.json",
-      "valid": true
-    },
-    {
-      "id": "repo-change-grader-assessment.valid",
-      "path": "valid/repo-change-grader-assessment.json",
-      "schema": "schemas/repo-change-grader-assessment.schema.json",
-      "valid": true
-    },
-    {
-      "id": "repo-change-measurement-validity-record.valid",
-      "path": "valid/repo-change-measurement-validity-record.json",
-      "schema": "schemas/repo-change-measurement-validity-record.schema.json",
-      "valid": true
-    },
-    {
-      "id": "repo-change-runner-check-record.valid",
-      "path": "valid/repo-change-runner-check-record.json",
-      "schema": "schemas/repo-change-runner-check-record.schema.json",
       "valid": true
     },
     {
@@ -317,14 +251,6 @@
       "valid": false,
       "expectedError": "byteLength",
       "illustrates": "EVID-001: digest-only metadata is not material evidence"
-    },
-    {
-      "id": "repo-change-adjudication-record.single-rater",
-      "path": "invalid/repo-change-adjudication-record.single-rater.json",
-      "schema": "schemas/repo-change-adjudication-record.schema.json",
-      "valid": false,
-      "expectedError": "must NOT have fewer than 2 items",
-      "illustrates": "JUDGE-003: decision-bearing expert adjudication needs at least two independent raters"
     },
     {
       "id": "scorecard.supported-claim-failed-rule",
