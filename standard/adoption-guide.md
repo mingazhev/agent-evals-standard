@@ -89,7 +89,7 @@ operational policy determines the assurance minimum even for capability
 claims.
 
 The bundled [Governance Policy](governance-policy.md) and
-[Escalation and Stop Matrix](escalation-stop-matrix.md) fix base assurance floors
+[Escalation and Stop Matrix](governance-policy.md#escalation-and-stop-matrix) fix base assurance floors
 and event semantics but leave adopter thresholds, owners, and SLAs unset.
 Prepare an authenticated adopter-owned policy instance
 ([`operational-governance-policy.schema.json`](../schemas/operational-governance-policy.schema.json))
@@ -156,7 +156,7 @@ scorecard must show, in order: experiment identity, arms, and cells; validity,
 hard-gate and governance statuses; one trial result for each resolved cell;
 claims and claim results; metrics, cost, and provenance. Schema validation is
 necessary but not sufficient: the
-[Integrity and Semantic Validation Contract](integrity-and-semantic-validation.md)
+[Integrity and Semantic Validation Contract](evidence-and-validation-contract.md#integrity-and-semantic-validation-contract)
 recomputes hashes, formulas, ledger continuity, verdict implications, and
 outcome replay for claim-bearing cells.
 

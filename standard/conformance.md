@@ -30,7 +30,7 @@ cross-repository union from fields belonging to different slices. An A0
 diagnostic run is not a conformance subject and has no slice.
 
 `CONF-001` invokes the versioned
-[Integrity and Semantic Validation Contract](integrity-and-semantic-validation.md)
+[Integrity and Semantic Validation Contract](evidence-and-validation-contract.md#integrity-and-semantic-validation-contract)
 as its cross-document verdict algorithm and
 [Normative Artifact Consistency](#normative-artifact-consistency) as its exact
 distribution-identity contract. A target cannot satisfy `CONF-001` by validating

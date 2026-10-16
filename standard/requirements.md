@@ -55,7 +55,7 @@ A primary requirement may explicitly invoke a named normative contract for its
 closed algorithm, required inputs, or control procedure. That invoked contract
 is authoritative only for the invocation's stated scope and **MUST NOT** add a
 new requirement, target, or verdict consequence. The
-[Validity, threat, and held-out exposure contracts](validity-threat-exposure-contracts.md),
+[Validity, threat, and held-out exposure contracts](standard.md#validity-threat-and-held-out-exposure-contracts),
 for example, are invoked by their registered primary anchors; they are not a
 second primary location for `VALID-002` or any other requirement.
 
