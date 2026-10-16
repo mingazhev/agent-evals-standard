@@ -792,12 +792,10 @@ requires a nonempty corresponding check set and `not_applicable` requires an
 empty set. A case author **MUST NOT** remove a required check by changing the
 projected coverage value.
 
-An authenticated rule reference in a case is an identity tuple, not a
-claimant-chosen locator. The verifier **MUST** resolve the exact `(id, version,
-digest, schemaId, verifierDigest)` tuple exactly once through an
-evaluator-controlled registry configured outside the case. That registry binds
-the rule bytes, schema, executable verifier, locator, and authorized authority;
-missing, duplicate, substituted, or claimant-only resolution is invalid.
+A rule or check reference is `{id, version, digest}`. The verifier resolves it
+to exact bytes under the [integrity
+model](evidence-and-validation-contract.md#integrity-model) and recomputes the
+digest; an unresolved or mismatched reference is invalid.
 
 Repository state **MUST** be identified first by a content-addressed
 `workspaceManifest`. That manifest **MUST** enumerate every repository root with

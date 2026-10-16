@@ -90,10 +90,9 @@
       "additionalProperties": false
     },
     "verifiedContract": {
-      "type": "object", "required": ["id", "version", "digest", "schemaId", "verifierDigest"],
+      "type": "object", "required": ["id", "version", "digest"],
       "properties": {
-        "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" },
-        "schemaId": { "$ref": "#/$defs/id" }, "verifierDigest": { "$ref": "#/$defs/digest" }
+        "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" }
       },
       "additionalProperties": false
     }

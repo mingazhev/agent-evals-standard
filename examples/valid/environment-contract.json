@@ -23,13 +23,7 @@
   "dependencyResolution": {
     "id": "dependency-resolution-contract",
     "version": "0.1.0",
-    "digest": "sha256:bba9abdc3befe7e9d962b4a0b759ba07affee254792353d96b718913f3553f5d",
-    "schemaId": "dependency-resolution-contract-schema",
-    "verifier": {
-      "id": "fixture-contract-verifier",
-      "version": "0.1.0",
-      "digest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
-    }
+    "digest": "sha256:bba9abdc3befe7e9d962b4a0b759ba07affee254792353d96b718913f3553f5d"
   },
   "network": {
     "default": "deny",
@@ -48,13 +42,7 @@
     "contract": {
       "id": "filesystem-isolation-contract",
       "version": "0.1.0",
-      "digest": "sha256:dabeda144d538e3e5140ca5620b443ec2f1b7025f1ecdeb3b3718a64bf74481b",
-      "schemaId": "filesystem-isolation-contract-schema",
-      "verifier": {
-        "id": "fixture-contract-verifier",
-        "version": "0.1.0",
-        "digest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
-      }
+      "digest": "sha256:dabeda144d538e3e5140ca5620b443ec2f1b7025f1ecdeb3b3718a64bf74481b"
     }
   },
   "process": {
@@ -67,13 +55,7 @@
     "contract": {
       "id": "process-isolation-contract",
       "version": "0.1.0",
-      "digest": "sha256:ce77396cc754b8176208b11024fb247e6af7634e7879fff2a6c2b2933300ccd7",
-      "schemaId": "process-isolation-contract-schema",
-      "verifier": {
-        "id": "fixture-contract-verifier",
-        "version": "0.1.0",
-        "digest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
-      }
+      "digest": "sha256:ce77396cc754b8176208b11024fb247e6af7634e7879fff2a6c2b2933300ccd7"
     }
   },
   "resources": {
@@ -89,24 +71,12 @@
   "logging": {
     "id": "logging-contract",
     "version": "0.1.0",
-    "digest": "sha256:1e63a369c6db2a9d8a7ccd1bc8243df7eb57d19ec4140c3190e09fd1890efd13",
-    "schemaId": "logging-contract-schema",
-    "verifier": {
-      "id": "fixture-contract-verifier",
-      "version": "0.1.0",
-      "digest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
-    }
+    "digest": "sha256:1e63a369c6db2a9d8a7ccd1bc8243df7eb57d19ec4140c3190e09fd1890efd13"
   },
   "teardown": {
     "id": "teardown-contract",
     "version": "0.1.0",
-    "digest": "sha256:44d18bbd2bd2ecde67ba3bd8ac1151e37afa1ab7d2b90467b450d1cac6b3785d",
-    "schemaId": "teardown-contract-schema",
-    "verifier": {
-      "id": "fixture-contract-verifier",
-      "version": "0.1.0",
-      "digest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
-    }
+    "digest": "sha256:44d18bbd2bd2ecde67ba3bd8ac1151e37afa1ab7d2b90467b450d1cac6b3785d"
   },
   "digest": "sha256:4a4becf74792a578e4fcc16621ca8748f86ccdaa2c4a81e2b94717e0e6de4fdc"
 }

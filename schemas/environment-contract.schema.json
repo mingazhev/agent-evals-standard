@@ -98,10 +98,9 @@
     },
     "verifiedContract": {
       "type": "object",
-      "required": ["id", "version", "digest", "schemaId", "verifier"],
+      "required": ["id", "version", "digest"],
       "properties": {
-        "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" },
-        "schemaId": { "$ref": "#/$defs/id" }, "verifier": { "$ref": "#/$defs/component" }
+        "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" }
       },
       "additionalProperties": false
     },
