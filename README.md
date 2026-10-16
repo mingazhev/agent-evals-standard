@@ -14,21 +14,22 @@ component is version **0.1.0** and may change incompatibly until the first
 release commit and protected annotated tag are created. The version identifies the
 candidate contract; it does not assert that a release has occurred.
 
-## Start with the Core level
+## Start at A1
 
-The [Core level](standard/conformance.md#baseline-a1) is the entry point. It
+[A1](standard/conformance.md#baseline-a1) is the entry point. It
 needs thirteen obligations — pre-registration, oracle isolation,
 non-compensable gates, deterministic evidence, validated cases, complete attempt
 accounting, separate gates/outcomes/claims, case-level statistics with
 identification bounds, and non-agent baselines — and two people. Integrity rests
 on content digests and Git commit order; there are no signatures, keys, or trust
-services anywhere in this standard. Core claims carry assurance `A1-lite`: they
-are bounded capability claims and never support release, autonomy, or
-risk-acceptance decisions. A complete Core experiment with every number worked
+services anywhere in this standard. A1 claims are bounded capability claims
+and never support release, autonomy, or risk-acceptance decisions. All levels
+use one schema family of 22 schemas. A complete A1 experiment with every number worked
 out is in [`examples/core/`](examples/core/README.md).
 
-The full levels (`A1`–`A3`, five conformance targets, governance) build on the
-same invariants. Read the [Adoption Guide](standard/adoption-guide.md), then use
+A2 and A3 (release, autonomy, and risk-acceptance evidence, governance) build
+on the same invariants, artifacts, and schemas, adding attachments and stronger
+forms. Read the [Adoption Guide](standard/adoption-guide.md), then use
 the [authority map](#normative-authority-map) to find each contract.
 
 ## Scope and implementation coverage
@@ -54,9 +55,8 @@ conformance in 0.1.0. `.gitattributes` without an LFS pointer is permitted.
 
 ## Candidate components
 
-- Core standard, including the Core level and `stat-defaults-v1`: **0.1.0**
-- Case Contract: **0.1.0**
-- Case QA Contract: **0.1.0**
+- Core standard, including assurance level A1 and `stat-defaults-v1`: **0.1.0**
+- Case QA Playbook: **0.1.0**
 - Scorecard Contract: **0.1.0**
 - Semantic Validation Contract: **0.1.0**
 - Governance Policy template: **0.1.0**
@@ -77,7 +77,7 @@ explicitly invokes it; it is not a second definition.
 | Primary requirements | [Core standard](standard/standard.md) | Every registered primary requirement except `ARCH-001`, `TRACE-001`, `GATE-001`, `OUT-001`, `CLAIM-001`, `DATA-002`, `EVID-001`, `EVID-002`, and `CONF-001`–`CONF-003`. |
 | Primary requirements | [Scorecard Contract](standard/scorecard-contract.md) | Primary definitions of `GATE-001`, `OUT-001`, and `CLAIM-001`; scorecard projections invoked by the core statistical requirements. |
 | Primary requirements | [Evidence and Detached Validation](standard/evidence-and-validation-contract.md) | Primary definitions of `DATA-002`, `EVID-001`, and `EVID-002`. |
-| Primary requirements | [Conformance](standard/conformance.md) | Primary definitions of `CONF-001`, `CONF-002`, and `CONF-003`, including the Core level, authority, and contradiction handling. |
+| Primary requirements | [Conformance](standard/conformance.md) | Primary definitions of `CONF-001`, `CONF-002`, and `CONF-003`: two claims (experiment and decision), the A1 baseline, authority, and contradiction handling. |
 | Invoked normative contract | [Case QA Playbook](standard/case-qa-playbook.md) | Complete activation and revalidation procedure invoked by `CASE-004`. |
 | Invoked normative contract | [Validity, threat, and held-out exposure contracts](standard/standard.md#validity-threat-and-held-out-exposure-contracts) | Validity-argument, baseline, threat-model, and held-out budget and ledger contracts invoked by `VALID-002`, `VALID-003`, and `HOLD-002`. |
 | Invoked normative contract | [Integrity and Semantic Validation](standard/evidence-and-validation-contract.md#integrity-and-semantic-validation-contract) | Named canonical, cross-document, ledger, and verdict reproduction algorithms invoked by primary requirements. |
@@ -85,7 +85,7 @@ explicitly invokes it; it is not a second definition.
 | Invoked normative contract | [Security Threat Model](standard/security-threat-model.md) | Threat-coverage rules invoked by `RISK-001`, `RUN-003`, `DATA-001`, and `DATA-002`. |
 | Invoked normative templates | [Governance Policy](standard/governance-policy.md) and [Escalation and Stop Matrix](standard/governance-policy.md#escalation-and-stop-matrix) | Required adopter-owned policy and response shapes invoked by governance requirements; the bundled instances remain non-operational. |
 | Normative shape | [Schemas](schemas/) and authenticated JSON registries | Closed JSON structure and registered machine identities; schema annotations are informative. |
-| Informative instances | [`examples/`](examples/README.md) | One valid example per schema, a few schema-level invalid examples, and the Core worked example; examples cannot create obligations. Digests inside examples are illustrative. |
+| Informative instances | [`examples/`](examples/README.md) | One valid example per schema, a few schema-level invalid examples, and the A1 worked example; examples cannot create obligations. Digests inside examples are illustrative. |
 | Informative references | [references.md](standard/references.md) | Cited sources and the requirement IDs they inform; informative only. |
 
 The governance decision template is in

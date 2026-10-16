@@ -31,7 +31,7 @@ but cannot change these meanings.
   registry** — the closed mapping from work-artifact type to exactly one family.
 - **Interaction-mode ID** — one of the four closed IDs in `SCOPE-002`;
   `interactive` and `non_interactive` are not aliases.
-- **Normalized primary outcome** — one of the eight base aggregation classes in
+- **Normalized primary outcome** — one of the seven base aggregation classes in
   the [Scorecard Contract](scorecard-contract.md#primary-outcome-categories);
   every trial also keeps its profile-native outcome and substatus.
 - **Universal gate** — a `GATE-001` gate applying to every conforming
@@ -48,8 +48,8 @@ but cannot change these meanings.
 
 ## Suites and Cases
 
-- **Evaluation suite** — a case collection under one suite manifest and
-  validity argument.
+- **Evaluation suite** — the case collection a run draws from; the run
+  manifest pins the selected cases.
 - **Case** — one repository-grounded task binding a workspace manifest, sealed
   agent-visible projection, one evaluation profile, one outcome
   profile, one interaction mode, capability families with material work
@@ -65,7 +65,9 @@ but cannot change these meanings.
   an **exposure budget** ([HOLD-002](standard.md#held-out-exposure-and-reuse)).
 - **Lifecycle state** — `candidate`, `active`, `quarantined`, or `retired`
   ([CASE-003](standard.md#lifecycle-states)).
-- **Case QA record** — evidence that a case satisfies activation requirements
+- **Case QA record (`case-qa-1`)** — evidence that a case satisfies activation
+  requirements: controls, stability, and an independent review at A1, plus
+  stages 3–8 at A2 and above
   ([CASE-004](standard.md#activation-and-maintenance)).
 - **Decision surface** — a pre-registered consequential decision not proven by
   the terminal artifact ([CASE-005](standard.md#decision-surface-coverage)).
@@ -74,11 +76,14 @@ but cannot change these meanings.
 
 ## Experiment and Execution
 
-- **Run / sealed experiment** — one pre-registered experiment with arms, a
-  fixed scheduled-cell manifest, shared measurement identity, and claims
+- **Run / sealed experiment** — one pre-registered experiment, sealed in one
+  `run-manifest-1` that declares arms, cases, repetitions, replacement policy,
+  claims with decision rules, statistics, and at A2 and above the attached
+  references; the manifest is the one pre-registration artifact
   ([EXP-001](standard.md#sealed-experiment-contract)).
-- **Arm** — one fully identified system-under-evaluation configuration; it
-  excludes the measurement profile ([EXP-002](standard.md#sealed-experiment-contract)).
+- **Arm** — one fully identified system-under-evaluation configuration, its
+  identity recorded in the run manifest; it excludes the measurement profile
+  ([EXP-002](standard.md#sealed-experiment-contract)).
 - **Measurement profile** — the evaluation-profile digest plus the
   outcome-profile identity bound to a case; comparator arms share it.
 - **Comparative design** — the sealed comparator, treatment-bundle, pairing,
@@ -106,10 +111,9 @@ but cannot change these meanings.
   [integrity model](evidence-and-validation-contract.md#integrity-model).
 - **Sealed** — fixed by content digest and committed before the step that
   depends on it; the first containing commit is the seal point.
-- **Core level** — the entry level in [Conformance](conformance.md#baseline-a1):
-  thirteen obligations, the `core-*` schemas, assurance `A1-lite`.
-  **`A1-lite`** — bounded capability claims at low or medium risk that never
-  support a governance decision. **`stat-defaults-v1`** — the
+- **A1** — the entry assurance level in [Conformance](conformance.md#baseline-a1):
+  bounded capability claims at low or medium risk that never support a
+  governance decision. **`stat-defaults-v1`** — the
   [base statistical defaults](standard.md#base-statistical-defaults).
 - **Validation envelope** — a detached `validation-envelope-1` binding a
   verdict to a subject digest ([EVID-002](evidence-and-validation-contract.md#detached-validation-envelope)).
@@ -155,7 +159,7 @@ role.
 
 **Small-team model.** Independence is about people and information flow, not
 organizational distance. Two people satisfy every independence requirement of
-the [Core level](conformance.md#baseline-a1) and of `A1-lite`: one authors the
+[A1](conformance.md#baseline-a1): one authors the
 cases and configures the arm; the other reviews, rates, or approves before
 seeing results. Two raters required by `JUDGE-003` additionally **MUST NOT** see
 each other's judgments before recording their own, so a two-rater requirement
@@ -183,8 +187,8 @@ NOT** weaken it.
   `supported`, `insufficient_evidence`, or `not_applicable`, computed per claim.
 - **Validity** — whether measurement supports interpretation and attribution,
   distinct from success or acceptance.
-- **Assurance level** — `A0 diagnostic_run`, `A1-lite core_capability`,
-  `A1 capability`, `A2 controlled_decision`, or `A3 high_assurance`
+- **Assurance level** — `A0 diagnostic_run`, `A1 capability`,
+  `A2 controlled_decision`, or `A3 high_assurance`
   ([ASSURE-001](standard.md#assurance-levels)); evidence depth, not a score.
   **Assurance overlay** — the base-owned cumulative A1–A3 requirements plus
   additive profile deltas. **A0 / `diagnostic_run`** — a run with no claims

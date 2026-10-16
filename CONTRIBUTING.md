@@ -10,7 +10,7 @@ reproducible, or implementable without weakening existing protections.
 2. Submit a pull request with the smallest enforceable change.
 3. Update every affected schema, example, cross-reference, and conformance
    rule in the same pull request.
-4. Keep exactly one valid example per schema in `examples/` and add an invalid
+4. Keep at least one valid example per schema in `examples/` and add an invalid
    example only when it illustrates a rule the schema itself enforces.
 
 The repository holds contracts, not implementations. Validators, runners,

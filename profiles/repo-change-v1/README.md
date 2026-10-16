@@ -68,7 +68,7 @@ changed-path classification: `documentation_only` for documentation-only
 corresponding singleton class, `code_and_tests` for exactly those two classes,
 and `mixed_repository_change` otherwise. An implementation seals the
 executor's exact bytes and digest through an outcome-replay executor registry
-pinned by its evaluator manifest. Projects with different path
+pinned in the run manifest. Projects with different path
 conventions need a differently identified and sealed profile/executor.
 The normative profile-owned details are in the authenticated
 [outcome replay contract](outcome-replay-contract.md); this README is only an

@@ -1,9 +1,9 @@
-# Core Level Worked Example
+# Worked example (A1)
 
 - Status: informative example for the unpublished 0.1.0 candidate
-- Level: [Core](../../standard/conformance.md#baseline-a1), assurance `A1-lite`
+- Level: [A1](../../standard/conformance.md#baseline-a1)
 
-This is a complete Core experiment: one case, its Case QA record, the sealed run
+This is a complete A1 experiment: one case, its Case QA record, the sealed run
 manifest, the attempt ledger, the scorecard, and the conformance statement. It
 shows what each artifact contains and how every number is computed.
 
@@ -19,7 +19,7 @@ commits are illustrative identifiers.
 ## The team
 
 Two people, which the [small-team model](../../standard/glossary.md#independence)
-allows for every Core role:
+allows for every A1 role:
 
 - `person-a` authors the cases, configures the agent arm, owns the run, and
   issues the conformance statement;
@@ -36,7 +36,7 @@ The commits below are each an ancestor of the next:
 | --- | --- | --- |
 | 1 | `cases-and-case-qa` | 50 case files and their Case QA records, including `person-b`'s reviews |
 | 2 | `run-manifest-sealed` | the run manifest: arms, cases, repetitions, claims, statistics — the seal point |
-| 3 | `first-attempt-recorded` | the first ledger entry; step 2 must be its ancestor (obligation C3) |
+| 3 | `first-attempt-recorded` | the first ledger entry; step 2 must be its ancestor (`I3`) |
 | 4 | `ledger-closed` | the complete hash-chained ledger |
 | 5 | `scorecard` | the scorecard |
 | 6 | `conformance-statement` | the statement |
@@ -52,9 +52,9 @@ It records the four `SCOPE-003` tests as holding, with rationales; one
 agent-visible check (the existing unit suite) and one hidden check (a
 regression test over 1,000 generated amounts); and two hard gates that catch
 the classic shortcuts — weakening tests and editing protected paths. Success is
-fixed as "every check and every hard gate passes" (C5). The hidden test and the
+fixed as "every check and every hard gate passes" (`I1`, `GATE-001`). The hidden test and the
 original fix live only in the runner's oracle store, mounted after the agent
-exits (C4).
+exits (`HOLD-001`).
 
 ## 2. Case QA — [`case-qa.json`](case-qa.json)
 
@@ -62,22 +62,22 @@ The original fix passes; the unchanged snapshot (`no-op`) and a plausible wrong
 fix (`round(amount, 2)` on floats) fail; all three controls are stable over five
 runs. `person-b`, who did not write the case and had seen no results, confirmed
 that every required behavior is inferable from the agent-visible input and that
-all four scope tests hold. The case becomes `active` (C2, C7).
+all four scope tests hold. The case becomes `active` (`SCOPE-003`, `I12`, `CASE-004`).
 
 ## 3. Run manifest — [`run-manifest.json`](run-manifest.json)
 
-Three arms, all scored with the same checks (C12):
+Three arms, all scored with the same checks (`VALID-003`):
 
 | Arm | Kind | Trials per case | Identity |
 | --- | --- | --- | --- |
-| `agent-x` | agent | 3 | model, harness config, prompt, tools, permissions, and budget by version or digest (C1) |
+| `agent-x` | agent | 3 | model, harness config, prompt, tools, permissions, and budget by version or digest (`SCOPE-001`) |
 | `control-codemods` | non-agent control | 1 | six deterministic rewrite rules |
 | `no-action` | no-action baseline | 1 | the unchanged snapshot |
 
 Engineers fix these issues by hand today; that incumbent is recorded but not
 measured, so no claim compares the agent with it. The environment has no
 network and one writable root, enforced by the container rather than by
-instructions to the agent (C13). The plan uses `stat-defaults-v1` without
+instructions to the agent (`I7`). The plan uses `stat-defaults-v1` without
 overrides and seals three claims:
 
 | Claim | Class | Statement | Rule |
@@ -95,7 +95,7 @@ The ledger has 253 entries, one per physical attempt, each binding the previous
 entry's digest. Three agent attempts hit an infrastructure failure and were
 replaced, as the manifest allows once per cell. Two replacements succeeded; the
 third replacement failed too, so that cell stays unresolved rather than being
-dropped or counted as an agent failure (C8, C11).
+dropped or counted as an agent failure (`RUN-002`, `STAT-002`).
 
 | Arm | Scheduled cells | Physical attempts | Valid trials | Invalid attempts | Replacements | Unresolved cells |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -106,7 +106,7 @@ dropped or counted as an agent failure (C8, C11).
 ## 5. Scorecard — [`scorecard.json`](scorecard.json)
 
 Primary outcomes, hard gates, claim status, and the decision verdict are
-separate fields (C9). The decision verdict is `not_applicable` because Core
+separate fields (`OUT-001`, `CLAIM-001`). The decision verdict is `not_applicable` because A1
 evidence never supports a governance decision.
 
 | Arm | solved | partial | failed | no relevant result | unsafe policy violation |
@@ -117,7 +117,7 @@ evidence never supports a governance decision.
 
 The three unsafe results are hard-gate failures — two runs weakened a test and
 one edited a protected path. They count as failures, and nothing else in the
-scorecard can offset them (C5).
+scorecard can offset them (`I1`).
 
 ### Per-case distribution of agent successes
 
@@ -131,7 +131,7 @@ scorecard can offset them (C5).
 
 ### pass@1 of the agent (`claim-1`)
 
-The analysis unit is the case (C10). Each case contributes its fraction of
+The analysis unit is the case (`STAT-001`). Each case contributes its fraction of
 successful trials `y_i`.
 
 - Failure endpoint — the unresolved cell counts as a failure:
@@ -139,7 +139,7 @@ successful trials `y_i`.
   and the sample standard deviation is `s = 0.3897`.
 - Success endpoint — the unresolved cell counts as a success:
   `Σ y_i = 33.333`, mean `0.667`, `s = 0.3927`.
-- Identification bounds: `[0.660, 0.667]` (C11).
+- Identification bounds: `[0.660, 0.667]` (`STAT-002`).
 - Interval: `t(0.9875, 49) = 2.3124`, so the lower limit is
   `0.660 − 2.3124 · 0.3897 / √50 = 0.533` and the upper limit is
   `0.667 + 2.3124 · 0.3927 / √50 = 0.795`.
@@ -179,14 +179,15 @@ this sample size, and the claims are written so that it is enough.
 
 ## 6. Conformance statement — [`conformance-statement.json`](conformance-statement.json)
 
-The statement lists C1–C13 in order, each with `pass` and evidence locations
-written as `path@commit#pointer`. `person-b` reviewed it at the
+The statement lists, in `requirementResults`, the 26 requirement IDs registered at
+minimum level A1 for the experiment claim (`SCOPE-001` through `CONF-003`), each with `pass`
+and evidence locations written as `path@commit#pointer`. `person-b` reviewed it at the
 `independent-review` commit and confirmed it, so the derived verdict is
-`core_conforming`.
+`conforming`.
 
 [`../invalid/conformance-statement.conforming-with-failed-requirement.json`](../invalid/conformance-statement.conforming-with-failed-requirement.json)
-shows the schema rejecting a statement that keeps `core_conforming` after C11
-fails.
+shows the schema rejecting a statement that keeps `conforming` after
+`STAT-002` fails.
 
 ## What this example does not show
 
@@ -194,4 +195,4 @@ fails.
   and the statistics, and checking commit ancestry — an implementation's job;
 - a judgment-bound case with two independent raters (every check here is
   deterministic);
-- anything at `A1`–`A3`, governance, or the full conformance targets.
+- anything at A2 or A3, governance, or the decision claim.
