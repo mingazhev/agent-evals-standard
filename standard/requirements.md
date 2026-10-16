@@ -17,67 +17,7 @@ addresses requirements by the stable IDs below.
 
 ## Requirement registry
 
-| ID | Subject | Verification owner | Primary normative artifact | Evidence basis |
-| --- | --- | --- | --- | --- |
-| `ARCH-001` | normative artifact and extension architecture | conformance validator | [Requirements Registry](requirements.md#traceability-rules) | interoperability and fail-closed design |
-| `TRACE-001` | requirement-to-source evidence mapping | conformance validator | [Requirements Registry](requirements.md#traceability-rules) | evidence auditability |
-| `I1` | non-compensable acceptance | scorecard validator | [Standard](standard.md#i1-acceptance-is-non-compensable) | safety and validity guardrails |
-| `I2` | lifecycle-wide oracle isolation | run validator | [Standard](standard.md#i2-lifecycle-wide-oracle-isolation) | contamination findings in [Informative References](references.md) |
-| `I3` | no post-hoc adaptation or selection | run validator | [Standard](standard.md#i3-no-post-hoc-adaptation-or-selection) | pre-registration |
-| `I4` | reconstructible conditions and provenance | run validator | [Standard](standard.md#i4-reconstructible-conditions-and-provenance) | reproducibility |
-| `I5` | attribution and complete attempt accounting | ledger validator | [Standard](standard.md#i5-attribution-and-complete-attempt-accounting) | retry and missingness control |
-| `I6` | claims bounded by evidence | claim validator | [Standard](standard.md#i6-claims-are-bounded-by-evidence) | target-population inference |
-| `I7` | enforced least privilege | run validator | [Standard](standard.md#i7-enforced-least-privilege) | enterprise security controls |
-| `I8` | declared optimization objectives | metric validator | [Standard](standard.md#i8-optimization-objectives-are-declared) | denominator and selection integrity |
-| `I9` | construct-fitting evidence | Case QA validator | [Standard](standard.md#i9-evidence-fits-the-construct) | deterministic and expert evidence hierarchy |
-| `I10` | fail-closed required paths | semantic validator | [Standard](standard.md#i10-required-decision-paths-fail-closed) | fail-closed design |
-| `I11` | causal comparability | statistical validator | [Standard](standard.md#i11-causal-comparability) | comparative experimental design |
-| `I12` | validated measurement only | Case QA validator | [Standard](standard.md#i12-only-validated-measurement-enters-claims) | task and grader validation |
-| `I13` | trusted measurement boundary | run validator | [Standard](standard.md#i13-trusted-measurement-boundary) | adversarial measurement-system design |
-| `SCOPE-001` | system-under-evaluation identity | run validator | [Standard](standard.md#system-under-evaluation) | agent-evaluation architecture in [Informative References](references.md) |
-| `SCOPE-002` | SDLC capability coverage | suite validator | [Standard](standard.md#sdlc-capability-taxonomy) | closed-taxonomy and explicit-gap design invariant; heterogeneous task and process surfaces in [Informative References](references.md) provide rationale only |
-| `SCOPE-003` | repository-grounded applicability and profile selection | conformance validator | [Standard](standard.md#applicability-boundary-and-profiles) | bounded standard architecture |
-| `PROFILE-001` | evaluation-profile hierarchy and effective measurement identity | suite and case validators | [Standard](standard.md#evaluation-profile-resolution) | deterministic specialization without weakening |
-| `OUTPROF-001` | outcome-profile selection and compatibility | case validator | [Standard](standard.md#outcome-profiles) | artifact-appropriate evaluation without scope expansion |
-| `VALID-001` | intended use and construct definition | suite validator | [Standard](standard.md#intended-use-and-validity-argument) | evaluation best practices in [Informative References](references.md) |
-| `VALID-002` | validity argument and threats | suite validator | [Standard](standard.md#intended-use-and-validity-argument) | measurement validity and production concordance |
-| `VALID-003` | reference baselines | statistical validator | [Standard](standard.md#intended-use-and-validity-argument) | current-workflow and human/tool comparison |
-| `DATA-001` | lawful source, data, IP, and privacy controls | case validator | [Standard](standard.md#data-ip-privacy-and-retention) | enterprise data governance |
-| `DATA-002` | artifact access and retention | evidence validator | [Evidence and Detached Validation](evidence-and-validation-contract.md#evidence-minimization-and-retention) | least privilege and purpose limitation |
-| `CASE-001` | case contract and agent-visible projection | case validator | [Standard](standard.md#authoring) | reproducible task packaging in [Informative References](references.md) |
-| `CASE-002` | outcome profile and alternative valid outcomes | Case QA validator | [Standard](standard.md#outcome-profiles) | task audit and false-negative evidence in [Informative References](references.md) |
-| `CASE-003` | case lifecycle and retirement | suite validator | [Standard](standard.md#lifecycle-states) | living-set maintenance |
-| `CASE-004` | Case QA activation and revalidation | Case QA validator | [Standard](standard.md#activation-and-maintenance) | professional task audit in [Informative References](references.md) |
-| `CASE-005` | decision-surface coverage | Case QA validator | [Standard](standard.md#decision-surface-coverage) | trajectory-aware evaluation |
-| `HOLD-001` | oracle isolation | run validator | [Standard](standard.md#i2-lifecycle-wide-oracle-isolation) | contamination findings in [Informative References](references.md) |
-| `HOLD-002` | held-out exposure and reuse budget | suite validator | [Standard](standard.md#held-out-exposure-and-reuse), [exposure contracts](validity-threat-exposure-contracts.md#held-out-budget-and-ledger) | contamination and saturation control |
-| `EXP-001` | sealed experiment and scheduled cells | run validator | [Standard](standard.md#sealed-experiment-contract) | reproducibility and pre-registration |
-| `EXP-002` | complete arm identity | run validator | [Standard](standard.md#sealed-experiment-contract) | causal comparability |
-| `EXP-003` | comparative design | statistical validator | [Standard](standard.md#sealed-experiment-contract) | paired experimental design |
-| `RUN-001` | isolation, execution, capture, and teardown | run validator | [Standard](standard.md#run-protocol) | reproducible harness practice in [Informative References](references.md) |
-| `RUN-002` | complete attempt accounting | ledger validator | [Standard](standard.md#i5-attribution-and-complete-attempt-accounting) | missingness and retry-bias control |
-| `RUN-003` | trusted measurement boundary | run validator | [Standard](standard.md#i13-trusted-measurement-boundary) | adversarial measurement-system design |
-| `INT-001` | interactive actor protocol | Case QA and run validators | [Standard](standard.md#interactive-actors-and-simulators) | interactive simulator architecture in [Informative References](references.md) |
-| `EVID-001` | canonical evidence artifacts | evidence validator | [Evidence and Detached Validation](evidence-and-validation-contract.md#canonical-evidence-artifact) | authenticated provenance |
-| `EVID-002` | detached validation envelope | conformance validator | [Evidence and Detached Validation](evidence-and-validation-contract.md#detached-validation-envelope) | non-circular detached validation |
-| `JUDGE-001` | evidence hierarchy | Case QA validator | [Standard](standard.md#evidence-hierarchy) | grader roles and human calibration in [Informative References](references.md) |
-| `JUDGE-002` | deterministic verification | Case QA validator | [Standard](standard.md#evidence-hierarchy) | reproducible correctness evidence |
-| `JUDGE-003` | expert adjudication | Case QA validator | [Standard](standard.md#evidence-hierarchy) | fail-closed multi-rater measurement design invariant; judge-bias evidence provides bounded rationale only |
-| `GATE-001` | universal and profile gate registries | scorecard validator | [Scorecard Contract](scorecard-contract.md#gate-registry) | non-compensable safety and validity |
-| `OUT-001` | outcome taxonomy and predicates | scorecard validator | [Scorecard Contract](scorecard-contract.md#successful-functional-and-accepted-outcomes) | explicit outcome contracts |
-| `CLAIM-001` | closed claims registry and `claims[]` | scorecard validator | [Scorecard Contract](scorecard-contract.md#claims) | claim-bounded reporting |
-| `CLAIM-002` | population and coverage limits | statistical validator | [Standard](standard.md#statistics-and-missingness) | target-population inference |
-| `STAT-001` | repeated trials and units | statistical validator | [Standard](standard.md#statistics-and-missingness) | stochastic reliability estimation |
-| `STAT-002` | missingness and identification bounds | statistical validator | [Standard](standard.md#statistics-and-missingness) | conservative partial identification |
-| `STAT-003` | comparison and uncertainty | statistical validator | [Standard](standard.md#statistics-and-missingness) | paired case-level inference |
-| `ASSURE-001` | proportional assurance level | conformance validator | [Standard](standard.md#assurance-levels) | risk-proportionate enterprise adoption |
-| `RISK-001` | task hazard and exposure-derived risk | governance validator | [Standard](standard.md#risk-model) | deployment-context risk analysis |
-| `GOV-001` | pre-registered governance decision | governance validator | [Standard](standard.md#governance-decisions-and-post-decision-assurance) | auditable decision governance |
-| `GOV-002` | post-decision assurance and expiry | governance validator | [Standard](standard.md#governance-decisions-and-post-decision-assurance) | production concordance and reversibility |
-| `HEALTH-001` | suite and measurement health | suite validator | [Standard](standard.md#suite-health) | living-set maintenance and drift control |
-| `CONF-001` | target-specific conformance | conformance validator | [Conformance](conformance.md#applicability-boundary) | independently reviewable claims |
-| `CONF-002` | requirement coverage matrix | conformance validator | [Conformance](conformance.md#requirement-coverage) | requirement-level traceability |
-| `CONF-003` | extension and deviation handling | conformance validator | [Conformance](conformance.md#extensions-and-deviations) | compatible extension design |
+The registry JSON, [`requirement-registry.json`](requirement-registry.json), is the sole normative list of requirement IDs, subjects, primary locations, targets, verification kinds, and owners. This document does not repeat that list; it holds only the traceability rules (`ARCH-001`, `TRACE-001`) and the canonical artifact contracts note.
 
 ## Traceability rules
 
