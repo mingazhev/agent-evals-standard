@@ -1590,7 +1590,7 @@
       "restrictions": [
         "No claim about other repositories, languages, task types, or interaction modes.",
         "No claim of improvement over the current human workflow, which was not measured.",
-        "A1-lite: not eligible for release, autonomy, or risk-acceptance decisions."
+        "A1: not eligible for release, autonomy, or risk-acceptance decisions."
       ]
     },
     {
@@ -1601,7 +1601,7 @@
       "restrictions": [
         "No claim about other repositories, languages, task types, or interaction modes.",
         "No claim of improvement over the current human workflow, which was not measured.",
-        "A1-lite: not eligible for release, autonomy, or risk-acceptance decisions."
+        "A1: not eligible for release, autonomy, or risk-acceptance decisions."
       ]
     },
     {
@@ -1612,7 +1612,7 @@
       "restrictions": [
         "No claim about other repositories, languages, task types, or interaction modes.",
         "No claim of improvement over the current human workflow, which was not measured.",
-        "A1-lite: not eligible for release, autonomy, or risk-acceptance decisions."
+        "A1: not eligible for release, autonomy, or risk-acceptance decisions."
       ]
     }
   ],

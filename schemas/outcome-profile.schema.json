@@ -63,8 +63,8 @@
     "primaryOutcomeTaxonomy": {
       "$comment": "The base taxonomy is closed and normalized for aggregation. It never replaces nativeOutcomes or a trial's profileOutcome.",
       "type": "array",
-      "minItems": 8,
-      "maxItems": 8,
+      "minItems": 7,
+      "maxItems": 7,
       "prefixItems": [
         { "const": "solved" },
         { "const": "correct_refusal" },
@@ -72,21 +72,20 @@
         { "const": "partial" },
         { "const": "failed" },
         { "const": "no_relevant_result" },
-        { "const": "unsafe_policy_violation" },
-        { "const": "infra_failure" }
+        { "const": "unsafe_policy_violation" }
       ],
       "items": false
     },
     "nativeOutcomes": {
       "$comment": "The closed profile-owned outcome vocabulary. Semantic validation must reject duplicate IDs, require every normalized primary outcome to have at least one native mapping, and require every recorded profileOutcome ID and optional substatus to resolve exactly once here with baseOutcome equal to the trial primaryOutcome.",
       "type": "array",
-      "minItems": 8,
+      "minItems": 7,
       "items": { "$ref": "#/$defs/nativeOutcome" }
     },
     "outcomeRules": {
       "$comment": "Semantic validation must resolve every evidenceModeId and validAlternativeId within this profile.",
       "type": "object",
-      "required": ["solved", "correct_refusal", "already_satisfied", "partial", "failed", "no_relevant_result", "unsafe_policy_violation", "infra_failure"],
+      "required": ["solved", "correct_refusal", "already_satisfied", "partial", "failed", "no_relevant_result", "unsafe_policy_violation"],
       "properties": {
         "solved": { "allOf": [{ "$ref": "#/$defs/outcomeRule" }, { "type": "object", "properties": { "terminalState": { "const": "task_satisfied" }, "priority": { "const": 8 } } }] },
         "correct_refusal": { "allOf": [{ "$ref": "#/$defs/outcomeRule" }, { "type": "object", "properties": { "terminalState": { "const": "safe_refusal" }, "priority": { "const": 7 } } }] },
@@ -94,8 +93,7 @@
         "partial": { "allOf": [{ "$ref": "#/$defs/outcomeRule" }, { "type": "object", "properties": { "terminalState": { "const": "assessable_partial" }, "priority": { "const": 4 } } }] },
         "failed": { "allOf": [{ "$ref": "#/$defs/outcomeRule" }, { "type": "object", "properties": { "terminalState": { "const": "assessable_failure" }, "priority": { "const": 3 } } }] },
         "no_relevant_result": { "allOf": [{ "$ref": "#/$defs/outcomeRule" }, { "type": "object", "properties": { "terminalState": { "const": "no_relevant_result" }, "priority": { "const": 5 } } }] },
-        "unsafe_policy_violation": { "allOf": [{ "$ref": "#/$defs/outcomeRule" }, { "type": "object", "properties": { "terminalState": { "const": "unsafe_behavior" }, "priority": { "const": 1 } } }] },
-        "infra_failure": { "allOf": [{ "$ref": "#/$defs/outcomeRule" }, { "type": "object", "properties": { "terminalState": { "const": "measurement_unavailable" }, "priority": { "const": 2 } } }] }
+        "unsafe_policy_violation": { "allOf": [{ "$ref": "#/$defs/outcomeRule" }, { "type": "object", "properties": { "terminalState": { "const": "unsafe_behavior" }, "priority": { "const": 1 } } }] }
       },
       "additionalProperties": false
     },
@@ -189,7 +187,7 @@
       "type": "object",
       "required": ["terminalState", "priority", "condition", "evidenceModeIds", "validAlternativeIds"],
       "properties": {
-        "terminalState": { "enum": ["task_satisfied", "safe_refusal", "base_state_already_satisfied", "assessable_partial", "assessable_failure", "no_relevant_result", "unsafe_behavior", "measurement_unavailable"] },
+        "terminalState": { "enum": ["task_satisfied", "safe_refusal", "base_state_already_satisfied", "assessable_partial", "assessable_failure", "no_relevant_result", "unsafe_behavior"] },
         "priority": { "type": "integer", "minimum": 1, "maximum": 8 },
         "condition": { "$ref": "#/$defs/conditionContract" },
         "evidenceModeIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
@@ -293,7 +291,7 @@
       "prefixItems": [{ "const": "solved" }, { "const": "correct_refusal" }, { "const": "already_satisfied" }],
       "items": false
     },
-    "primaryOutcome": { "enum": ["solved", "correct_refusal", "already_satisfied", "partial", "failed", "no_relevant_result", "unsafe_policy_violation", "infra_failure"] },
+    "primaryOutcome": { "enum": ["solved", "correct_refusal", "already_satisfied", "partial", "failed", "no_relevant_result", "unsafe_policy_violation"] },
     "predicate": {
       "type": "object",
       "required": ["id", "version", "contractDigest"],

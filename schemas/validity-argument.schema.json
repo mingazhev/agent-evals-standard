@@ -7,7 +7,7 @@
     "schemaVersion",
     "id",
     "version",
-    "suite",
+    "run",
     "intendedUse",
     "targetPopulation",
     "constructs",
@@ -28,7 +28,7 @@
     "version": {
       "const": "0.1.0"
     },
-    "suite": {
+    "run": {
       "$ref": "#/$defs/subject"
     },
     "intendedUse": {
@@ -241,7 +241,7 @@
           "const": "0.1.0"
         },
         "schemaId": {
-          "const": "urn:agent-evals-standard:schema:suite-manifest:1"
+          "const": "urn:agent-evals-standard:schema:run-manifest:1"
         },
         "projection": {
           "const": "suite_precontrol_projection_v1"

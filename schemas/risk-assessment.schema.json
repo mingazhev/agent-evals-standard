@@ -22,7 +22,7 @@
     "version": { "const": "0.1.0" },
     "assessmentKind": { "enum": ["case_inherent_hazard", "experiment_envelope", "experiment_decision_envelope"] },
     "scope": {
-      "$comment": "For experiment_decision_envelope, semantic validation requires exact caseIds and armIds equality with the consuming sealed pre-run manifest and decisionEnvelopeId equality with its decision plan.",
+      "$comment": "For experiment_decision_envelope, semantic validation requires exact caseIds and armIds equality with the consuming sealed run manifest and decisionEnvelopeId equality with its decision plan.",
       "type": "object",
       "required": ["caseIds", "armIds", "decisionEnvelopeId"],
       "properties": {

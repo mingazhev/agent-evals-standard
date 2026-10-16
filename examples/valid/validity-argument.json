@@ -2,10 +2,10 @@
   "schemaVersion": "agent-eval-validity-argument-1",
   "id": "suite-validity-argument-v1",
   "version": "0.1.0",
-  "suite": {
+  "run": {
     "id": "suite-fixture-typed-1",
     "artifactVersion": "0.1.0",
-    "schemaId": "urn:agent-evals-standard:schema:suite-manifest:1",
+    "schemaId": "urn:agent-evals-standard:schema:run-manifest:1",
     "projection": "suite_precontrol_projection_v1",
     "digest": "sha256:b41c583ffdc310823eb222e2e238ae61e024f6c81fc14c81f5610edbe181b38a"
   },
