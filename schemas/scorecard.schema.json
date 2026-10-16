@@ -223,10 +223,12 @@
         "type": "object",
         "required": [
           "id",
+          "status",
           "estimand",
           "armId",
           "comparatorArmId",
           "cases",
+          "estimate",
           "identificationBounds",
           "interval"
         ],
@@ -263,58 +265,138 @@
             "minimum": 1
           },
           "identificationBounds": {
-            "type": "object",
-            "required": [
-              "failureEndpoint",
-              "successEndpoint"
-            ],
-            "properties": {
-              "failureEndpoint": {
-                "type": "number"
+            "oneOf": [
+              {
+                "type": "object",
+                "required": [
+                  "failureEndpoint",
+                  "successEndpoint"
+                ],
+                "properties": {
+                  "failureEndpoint": {
+                    "type": "number"
+                  },
+                  "successEndpoint": {
+                    "type": "number"
+                  }
+                },
+                "additionalProperties": false
               },
-              "successEndpoint": {
-                "type": "number"
+              {
+                "type": "null"
               }
-            },
-            "additionalProperties": false
+            ]
           },
           "interval": {
-            "type": "object",
-            "required": [
-              "method",
-              "level",
-              "lower",
-              "upper"
-            ],
-            "properties": {
-              "method": {
-                "enum": [
-                  "wilson",
-                  "t_over_cases",
-                  "t_over_paired_differences"
-                ]
+            "oneOf": [
+              {
+                "type": "object",
+                "required": [
+                  "method",
+                  "level",
+                  "lower",
+                  "upper"
+                ],
+                "properties": {
+                  "method": {
+                    "enum": [
+                      "wilson",
+                      "t_over_cases",
+                      "t_over_paired_differences"
+                    ]
+                  },
+                  "level": {
+                    "type": "number",
+                    "exclusiveMinimum": 0,
+                    "exclusiveMaximum": 1
+                  },
+                  "lower": {
+                    "type": "number"
+                  },
+                  "upper": {
+                    "type": "number"
+                  }
+                },
+                "additionalProperties": false
               },
-              "level": {
-                "type": "number",
-                "exclusiveMinimum": 0,
-                "exclusiveMaximum": 1
-              },
-              "lower": {
-                "type": "number"
-              },
-              "upper": {
-                "type": "number"
+              {
+                "type": "null"
               }
-            },
-            "additionalProperties": false
+            ]
+          },
+          "status": {
+            "enum": [
+              "computed",
+              "uncomputable"
+            ]
+          },
+          "estimate": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "computed"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            },
+            "then": {
+              "properties": {
+                "estimate": {
+                  "type": "number"
+                },
+                "identificationBounds": {
+                  "type": "object"
+                },
+                "interval": {
+                  "type": "object"
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "estimate": {
+                  "type": "null"
+                },
+                "identificationBounds": {
+                  "type": "null"
+                },
+                "interval": {
+                  "type": "null"
+                },
+                "reasons": {
+                  "type": "array",
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "reasons"
+              ]
+            }
+          }
+        ]
       }
     },
     "claims": {
       "type": "array",
-      "minItems": 1,
+      "minItems": 0,
       "items": {
         "type": "object",
         "required": [

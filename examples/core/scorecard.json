@@ -1496,10 +1496,12 @@
   "metrics": [
     {
       "id": "m-agent-pass-at-1",
+      "status": "computed",
       "estimand": "pass_at_1",
       "armId": "agent-x",
       "comparatorArmId": null,
       "cases": 50,
+      "estimate": 0.6639,
       "identificationBounds": {
         "failureEndpoint": 0.66,
         "successEndpoint": 0.6667
@@ -1513,10 +1515,12 @@
     },
     {
       "id": "m-agent-minus-control",
+      "status": "computed",
       "estimand": "paired_difference_pass_at_1",
       "armId": "agent-x",
       "comparatorArmId": "control-codemods",
       "cases": 50,
+      "estimate": 0.584,
       "identificationBounds": {
         "failureEndpoint": 0.58,
         "successEndpoint": 0.5867
@@ -1530,11 +1534,13 @@
     },
     {
       "id": "m-agent-pass-hat-3",
+      "status": "computed",
       "estimand": "pass_hat_k",
       "k": 3,
       "armId": "agent-x",
       "comparatorArmId": null,
       "cases": 50,
+      "estimate": 0.49,
       "identificationBounds": {
         "failureEndpoint": 0.48,
         "successEndpoint": 0.5
@@ -1548,10 +1554,12 @@
     },
     {
       "id": "m-control-pass-at-1",
+      "status": "computed",
       "estimand": "pass_at_1",
       "armId": "control-codemods",
       "comparatorArmId": null,
       "cases": 50,
+      "estimate": 0.08,
       "identificationBounds": {
         "failureEndpoint": 0.08,
         "successEndpoint": 0.08
@@ -1565,10 +1573,12 @@
     },
     {
       "id": "m-no-action-pass-at-1",
+      "status": "computed",
       "estimand": "pass_at_1",
       "armId": "no-action",
       "comparatorArmId": null,
       "cases": 50,
+      "estimate": 0,
       "identificationBounds": {
         "failureEndpoint": 0,
         "successEndpoint": 0

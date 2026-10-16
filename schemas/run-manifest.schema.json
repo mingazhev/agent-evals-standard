@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:agent-evals-standard:schema:run-manifest:1",
   "title": "Sealed run manifest",
-  "$comment": "Obligations C1, C3, C10, C12, C13 at A1 plus A2/A3 attachments. The commit that first contains this file is the seal point; it must be an ancestor of the commit that first contains any attempt. Semantic checks: every case ref resolves to an active case; every arm has exactly one repetitions entry; claim arm IDs resolve; an incumbent comparison appears only when the incumbent is an arm; coverage.capabilityFamilyIds are in the closed SDLC taxonomy.",
+  "$comment": "Obligations C1, C3, C10, C12, C13 at A1 plus A2/A3 attachments. The commit that first contains this file is the seal point; it must be an ancestor of the commit that first contains any attempt. Semantic checks: every case ref resolves to an active case; every arm has exactly one repetitions entry; claim arm IDs resolve; an incumbent comparison appears only when the incumbent is an arm; coverage.capabilityFamilyIds are in the closed SDLC taxonomy. Risk: at A1 and A2 effectiveRisk.tier is low or medium; high and critical require A3. At A2+ riskAssessment.effectiveRiskTier must equal effectiveRisk.tier.",
   "type": "object",
   "required": [
     "schemaVersion",
@@ -70,7 +70,9 @@
         "tier": {
           "enum": [
             "low",
-            "medium"
+            "medium",
+            "high",
+            "critical"
           ]
         },
         "rationale": {
@@ -831,6 +833,37 @@
           "threatModel": {},
           "securityApproval": {},
           "assurancePlan": {}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "assuranceLevel": {
+            "enum": [
+              "A0",
+              "A1",
+              "A2"
+            ]
+          }
+        },
+        "required": [
+          "assuranceLevel"
+        ]
+      },
+      "then": {
+        "properties": {
+          "effectiveRisk": {
+            "type": "object",
+            "properties": {
+              "tier": {
+                "enum": [
+                  "low",
+                  "medium"
+                ]
+              }
+            }
+          }
         }
       }
     }

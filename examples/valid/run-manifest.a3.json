@@ -1,0 +1,613 @@
+{
+  "schemaVersion": "agent-eval-run-manifest-1",
+  "id": "ledger-service-bugfix-a3-run-1",
+  "version": "1.0.0",
+  "standard": {
+    "version": "0.1.0",
+    "commit": "d30cc5ade9e9518cd8e7eb71c81f29f2daa793f9"
+  },
+  "assuranceLevel": "A3",
+  "owner": {
+    "id": "person-a",
+    "role": "case author and evaluation owner"
+  },
+  "effectiveRisk": {
+    "tier": "high",
+    "rationale": "The agent proposes changes to a payment-ledger service whose defects can misstate customer balances; every case still runs in a sandboxed controlled fixture with no network, production data, credentials, or deployment path."
+  },
+  "arms": [
+    {
+      "id": "agent-x",
+      "kind": "agent",
+      "description": "Example coding agent evaluated as a whole system.",
+      "components": [
+        {
+          "role": "model",
+          "identity": "example-model-2026-05 via example provider API",
+          "digest": "sha256:c1f542aae1c7439b571e512f48cf5f7d53b58e5d301986889d1ff2fc438b2e8e"
+        },
+        {
+          "role": "agent_configuration",
+          "identity": "example-agent-harness 2.3.0, config agent.yaml",
+          "digest": "sha256:953abd9897211bd605d5abd747787d95b727a5ec006e22f9c926e9a43297aa66"
+        },
+        {
+          "role": "prompt",
+          "identity": "system prompt v14",
+          "digest": "sha256:e77874dcf60080194e1a58937ae040557c1aa3d60a671a302fe6724ecc16120b"
+        },
+        {
+          "role": "tool",
+          "identity": "sandboxed shell, file editor, pytest runner"
+        },
+        {
+          "role": "permission_policy",
+          "identity": "write /workspace only; no network"
+        },
+        {
+          "role": "budget",
+          "identity": "40 tool calls, 20 minutes wall clock, 200k tokens per attempt"
+        },
+        {
+          "role": "environment_image",
+          "identity": "python:3.12 runner image",
+          "digest": "sha256:652b3ecdc36851ca85a5b04280e51382f1f4d143c0a63b733bfa4e4b06edca53"
+        }
+      ]
+    },
+    {
+      "id": "control-codemods",
+      "kind": "non_agent_control",
+      "description": "Deterministic rewrite rules for rounding, off-by-one, and missing-None patterns.",
+      "components": [
+        {
+          "role": "rule_set",
+          "identity": "example-codemods 1.4 (6 rules)",
+          "digest": "sha256:e0abab4649a6b49c7c388761793f040e4f1666dcd3f2155dffda0de9b186719b"
+        }
+      ]
+    },
+    {
+      "id": "no-action",
+      "kind": "no_action_baseline",
+      "description": "The unchanged base snapshot scored with the same checks.",
+      "components": []
+    }
+  ],
+  "incumbent": {
+    "exists": true,
+    "description": "Engineers fix these issues by hand during normal sprint work; not measured in this run.",
+    "measuredAsArmId": null
+  },
+  "cases": [
+    {
+      "id": "ls-001",
+      "ref": {
+        "path": "cases/ls-001.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:c85d22f192b229c5fe7d6dc085f1707368d0fc71a6ba3120ffaf42a399586f06"
+      }
+    },
+    {
+      "id": "ls-002",
+      "ref": {
+        "path": "cases/ls-002.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:4cdfa316565a020b30ab9ace20ef8c1581b784407ed2c6bc65c034134d2a1737"
+      }
+    },
+    {
+      "id": "ls-003",
+      "ref": {
+        "path": "cases/ls-003.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:e7b990fe75232b6ec614cf8cfebcd534096d6f2b1ff52ea33eb76a2c22d75b68"
+      }
+    },
+    {
+      "id": "ls-004",
+      "ref": {
+        "path": "cases/ls-004.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:1dfda3618b3b669d5b1098f8afdb4a9708c8a6c412154c1301c9fd2449f08f92"
+      }
+    },
+    {
+      "id": "ls-005",
+      "ref": {
+        "path": "cases/ls-005.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:323a6c8b547162c74d0ba334e4aaf90ce8a94a2cfa4e14224c5505c835e00a7a"
+      }
+    },
+    {
+      "id": "ls-006",
+      "ref": {
+        "path": "cases/ls-006.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:0a9d6cae7c95dc550018992357ec9d6db01ecee133c09a37099677fe65e2e1d1"
+      }
+    },
+    {
+      "id": "ls-007",
+      "ref": {
+        "path": "cases/ls-007.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:544db0728c5c15c770154a02a50c4eeb43226ce4d2839e43cbab8e52adcfad39"
+      }
+    },
+    {
+      "id": "ls-008",
+      "ref": {
+        "path": "cases/ls-008.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:5dd77131b9f9ca16ee838365e34449ff6a0d0afd480d5fa726bbeedcda546003"
+      }
+    },
+    {
+      "id": "ls-009",
+      "ref": {
+        "path": "cases/ls-009.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:338871dce0954e84f03472bd1541622e6f797a681f1e091988eef36c1e289efa"
+      }
+    },
+    {
+      "id": "ls-010",
+      "ref": {
+        "path": "cases/ls-010.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:eb4bee4aa473e9c4ffde278410936073cded01f2cf37a9b5bab7f7e5fd4a8b27"
+      }
+    },
+    {
+      "id": "ls-011",
+      "ref": {
+        "path": "cases/ls-011.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:6262593565a53a35c31dc190b600a7b748c03bc7eba7d413dc65bb4ae7f0f8d0"
+      }
+    },
+    {
+      "id": "ls-012",
+      "ref": {
+        "path": "cases/ls-012.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:4d33b1e75652152303166cb57aca15f27bcfb976b86c32e0356dbe3f4530b4d2"
+      }
+    },
+    {
+      "id": "ls-013",
+      "ref": {
+        "path": "cases/ls-013.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:e50a0bbd8bad86c4fc8b4be3d78bfaa7a73b770bf5c3660167be27572ea83a0b"
+      }
+    },
+    {
+      "id": "ls-014",
+      "ref": {
+        "path": "cases/ls-014.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:21dfa1ec638fb7ef55677238f423f5746bf7475ab7d5644fb0e854e637c942ea"
+      }
+    },
+    {
+      "id": "ls-015",
+      "ref": {
+        "path": "cases/ls-015.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:23ce695d69022946e1adae1b5059de4b903c8d120b60a0be1c7a6d4c9fbd519a"
+      }
+    },
+    {
+      "id": "ls-016",
+      "ref": {
+        "path": "cases/ls-016.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:9a1296253baf3dfa482b22e80aa02e80c6aea45bdaf55d93a284c20c89243090"
+      }
+    },
+    {
+      "id": "ls-017",
+      "ref": {
+        "path": "examples/core/case.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:ba0d4933067a39b992ec691ac0ff4a7504c78fc7a7c0cd8222dd81c9cc98424b"
+      }
+    },
+    {
+      "id": "ls-018",
+      "ref": {
+        "path": "cases/ls-018.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:6846872fe645a27a2cb62e77f4019a9aea3caa374fa30046c93fc0b4a9a7ef68"
+      }
+    },
+    {
+      "id": "ls-019",
+      "ref": {
+        "path": "cases/ls-019.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:839eb70652884abdd5baa3ca2563456066a45fd4fdb11516323656439a34a85a"
+      }
+    },
+    {
+      "id": "ls-020",
+      "ref": {
+        "path": "cases/ls-020.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:c59398426d46b37c9227045f9d4cdbc7b02439c58fd651ffd0de1e87f0bad16c"
+      }
+    },
+    {
+      "id": "ls-021",
+      "ref": {
+        "path": "cases/ls-021.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:e865274d4b22ff4a6d5a477568583322ef18c381507e39c8a6e1891e16dde11a"
+      }
+    },
+    {
+      "id": "ls-022",
+      "ref": {
+        "path": "cases/ls-022.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:bdad0646d94a1dd62848ed231507cbb2a38881f69b1c3903d70d59a93462a213"
+      }
+    },
+    {
+      "id": "ls-023",
+      "ref": {
+        "path": "cases/ls-023.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:51b581c9e1d270a7bb8c0fde28cdaa76b14620ce9bbee1a6461337802a44c52a"
+      }
+    },
+    {
+      "id": "ls-024",
+      "ref": {
+        "path": "cases/ls-024.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:94bdf7e55b41e65b8070da4df9fb839f3cd461d41d575d8eefbc904c92f5d7be"
+      }
+    },
+    {
+      "id": "ls-025",
+      "ref": {
+        "path": "cases/ls-025.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:0e4623cb4d3e4200de66c4498dd56d68f9f21ec37f04f7353d1b3ea52bba0fbd"
+      }
+    },
+    {
+      "id": "ls-026",
+      "ref": {
+        "path": "cases/ls-026.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:f4fa44480a666c8b601a0fab1d70976df5b8655c6c385f3b4403e2572b6af418"
+      }
+    },
+    {
+      "id": "ls-027",
+      "ref": {
+        "path": "cases/ls-027.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:9e8ca0742267f0066c28c0b5fc0da51f468fc11182f68ccc23d3b4b1ae9d279c"
+      }
+    },
+    {
+      "id": "ls-028",
+      "ref": {
+        "path": "cases/ls-028.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:e198b32154da76169291b1a136253e6ed5bcbd0cc626459b8993d665c1d5dd6e"
+      }
+    },
+    {
+      "id": "ls-029",
+      "ref": {
+        "path": "cases/ls-029.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:4cb463f716300c77a24dd687477c88b601c80c767b61a25a7f97b371f13d6032"
+      }
+    },
+    {
+      "id": "ls-030",
+      "ref": {
+        "path": "cases/ls-030.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:7d9aada02afcd4fcd572ffeeb02e73afb38c271221e2643ad91b0a32d96a5de2"
+      }
+    },
+    {
+      "id": "ls-031",
+      "ref": {
+        "path": "cases/ls-031.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:49c6147e896d8810e086e5112f7ec4c84555ba5a1bd09db4643ce4829b4a5a77"
+      }
+    },
+    {
+      "id": "ls-032",
+      "ref": {
+        "path": "cases/ls-032.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:56ca56d98349893daf55ea5058ab83ca94e0571a3c5b45ae1105b44c6bbda8c6"
+      }
+    },
+    {
+      "id": "ls-033",
+      "ref": {
+        "path": "cases/ls-033.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:d118c955d4ce456c73971418c80734e027e8032bd14ac1d7ec4431e684141bdc"
+      }
+    },
+    {
+      "id": "ls-034",
+      "ref": {
+        "path": "cases/ls-034.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:551bfd1df2501fe5a46857f94d80b027ce68726adc2d262421d27321b2f5fa52"
+      }
+    },
+    {
+      "id": "ls-035",
+      "ref": {
+        "path": "cases/ls-035.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:074b07a59306ea7ac4d3c4c7b561e15cd4d8b2603665921e2040de4c551dcc8f"
+      }
+    },
+    {
+      "id": "ls-036",
+      "ref": {
+        "path": "cases/ls-036.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:f6373ad5afd8080a7b9332498112ea27852fdfe15c36133c2dcb7a5b86830d5a"
+      }
+    },
+    {
+      "id": "ls-037",
+      "ref": {
+        "path": "cases/ls-037.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:952e051965f6c9574d56187d81cc708be64497cdc2b391622bb027d3a4780fcb"
+      }
+    },
+    {
+      "id": "ls-038",
+      "ref": {
+        "path": "cases/ls-038.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:24067987ff3f2d7bf5930d44a7898cadc7517b9a0f6b21e3d9b026d694446fdf"
+      }
+    },
+    {
+      "id": "ls-039",
+      "ref": {
+        "path": "cases/ls-039.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:b31c4b7ab9f8cbfadbe25723d89e8933ebd56a47a008c6311f6f9e69081412ee"
+      }
+    },
+    {
+      "id": "ls-040",
+      "ref": {
+        "path": "cases/ls-040.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:2e39ba49cea54b5be49e60d2e7ed47924c1565c58bc3015017d940ced1e6390c"
+      }
+    },
+    {
+      "id": "ls-041",
+      "ref": {
+        "path": "cases/ls-041.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:d731dccfc11f1995bb1768485a5081210d3beb8837c8f883ebc421f925ede099"
+      }
+    },
+    {
+      "id": "ls-042",
+      "ref": {
+        "path": "cases/ls-042.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:923d37adb4fe981f7c365f29441b582879cb3fddf5d7440793704c7a25fa2a88"
+      }
+    },
+    {
+      "id": "ls-043",
+      "ref": {
+        "path": "cases/ls-043.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:d92e39e6959a0aaf5928e10888b0cc700ae077e6941869ce110a2039ad49715a"
+      }
+    },
+    {
+      "id": "ls-044",
+      "ref": {
+        "path": "cases/ls-044.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:86072ed98a9fb1664b28b712bf8075af6fda5af040be235502764194828e3b94"
+      }
+    },
+    {
+      "id": "ls-045",
+      "ref": {
+        "path": "cases/ls-045.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:dd7db696b2f27ba2fb327cefb72d01c528c4cb06623c420d443fc865e121757e"
+      }
+    },
+    {
+      "id": "ls-046",
+      "ref": {
+        "path": "cases/ls-046.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:d1208aa2306deea4f96223f687ad5293b889f48b10c82ec46975e4cd0c0bc5e3"
+      }
+    },
+    {
+      "id": "ls-047",
+      "ref": {
+        "path": "cases/ls-047.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:30952621a6fe489aef2a0dcb6ce9b59d8419c0de29f28875ccdae2d4e628a782"
+      }
+    },
+    {
+      "id": "ls-048",
+      "ref": {
+        "path": "cases/ls-048.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:66238a8c87691ed3cf2916b5c38f15ae50281a0a6f3ca8b9ad914f73faab1f91"
+      }
+    },
+    {
+      "id": "ls-049",
+      "ref": {
+        "path": "cases/ls-049.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:4ca3fdbb5f32ecd97c7f0aa5c9a8a7b5be72dad40e8048227fd7edbef8a062cb"
+      }
+    },
+    {
+      "id": "ls-050",
+      "ref": {
+        "path": "cases/ls-050.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:92415a2ed3cdb1996b3b20411259450859d310b977ae8ce8686920f24e7f3b98"
+      }
+    }
+  ],
+  "repetitions": [
+    {
+      "armId": "agent-x",
+      "trialsPerCase": 3
+    },
+    {
+      "armId": "control-codemods",
+      "trialsPerCase": 1
+    },
+    {
+      "armId": "no-action",
+      "trialsPerCase": 1
+    }
+  ],
+  "replacementPolicy": {
+    "maxReplacementsPerCell": 1,
+    "replaceableValidity": [
+      "invalid_infrastructure",
+      "invalid_capture"
+    ]
+  },
+  "statistics": {
+    "defaults": "stat-defaults-v1",
+    "overrides": []
+  },
+  "claims": [
+    {
+      "id": "claim-1",
+      "classification": "primary",
+      "statement": "The agent's pass@1 on this population exceeds 0.50.",
+      "estimand": "pass_at_1",
+      "armId": "agent-x",
+      "comparatorArmId": null,
+      "decisionRule": {
+        "kind": "lower_limit_above",
+        "threshold": 0.5
+      }
+    },
+    {
+      "id": "claim-2",
+      "classification": "primary",
+      "statement": "The agent's pass@1 exceeds the non-agent control's by more than 0.30.",
+      "estimand": "paired_difference_pass_at_1",
+      "armId": "agent-x",
+      "comparatorArmId": "control-codemods",
+      "decisionRule": {
+        "kind": "lower_limit_above",
+        "threshold": 0.3
+      }
+    },
+    {
+      "id": "claim-3",
+      "classification": "exploratory",
+      "statement": "Report the agent's pass^3.",
+      "estimand": "pass_hat_k",
+      "k": 3,
+      "armId": "agent-x",
+      "comparatorArmId": null,
+      "decisionRule": {
+        "kind": "report_only",
+        "threshold": null
+      }
+    }
+  ],
+  "environment": {
+    "evaluationMode": "controlled_fixture",
+    "productionActionAllowed": false,
+    "productionCredentials": false,
+    "network": "none",
+    "agentWritableRoots": [
+      "/workspace"
+    ],
+    "enforcement": "Rootless container per attempt, read-only image, network namespace without interfaces, /workspace as the only writable mount; /oracle is mounted only after the agent process tree exits."
+  },
+  "coverage": {
+    "capabilityFamilyIds": [
+      "CAP.IMPLEMENT_CHANGE"
+    ],
+    "gaps": []
+  },
+  "evaluationProfile": {
+    "path": "profiles/repo-change-v1/evaluation-profile.json",
+    "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+    "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "validityArgument": {
+    "path": "evidence/validity-argument.json",
+    "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+    "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222"
+  },
+  "riskAssessment": {
+    "path": "evidence/risk-assessment.json",
+    "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+    "digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+  },
+  "policy": {
+    "path": "governance/operational-governance-policy.json",
+    "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+    "digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+  },
+  "heldOut": {
+    "budget": {
+      "path": "evidence/held-out-exposure-budget.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+    },
+    "ledger": {
+      "path": "evidence/held-out-exposure-ledger.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:6666666666666666666666666666666666666666666666666666666666666666"
+    }
+  },
+  "threatModel": {
+    "path": "evidence/evaluation-threat-model.json",
+    "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+    "digest": "sha256:7777777777777777777777777777777777777777777777777777777777777777"
+  },
+  "securityApproval": {
+    "approver": {
+      "id": "person-c",
+      "role": "security approver"
+    },
+    "recordedAtCommit": "8771bf636f4c4d2f928e95d63d756df7466f492f"
+  },
+  "assurancePlan": {
+    "path": "evidence/assurance-plan.json",
+    "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+    "digest": "sha256:8888888888888888888888888888888888888888888888888888888888888888"
+  }
+}

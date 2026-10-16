@@ -135,6 +135,24 @@
       "valid": true
     },
     {
+      "id": "run-manifest.a3.valid",
+      "path": "valid/run-manifest.a3.json",
+      "schema": "schemas/run-manifest.schema.json",
+      "valid": true
+    },
+    {
+      "id": "conformance-statement.decision.valid",
+      "path": "valid/conformance-statement.decision.json",
+      "schema": "schemas/conformance-statement.schema.json",
+      "valid": true
+    },
+    {
+      "id": "case-qa.quarantined.valid",
+      "path": "valid/case-qa.quarantined.json",
+      "schema": "schemas/case-qa.schema.json",
+      "valid": true
+    },
+    {
       "id": "conformance-statement.conforming-with-failed-requirement",
       "path": "invalid/conformance-statement.conforming-with-failed-requirement.json",
       "schema": "schemas/conformance-statement.schema.json",
@@ -157,6 +175,38 @@
       "valid": false,
       "expectedError": "byteLength",
       "illustrates": "EVID-001: digest-only metadata is not material evidence"
+    },
+    {
+      "id": "run-manifest.a1-high-risk",
+      "path": "invalid/run-manifest.a1-high-risk.json",
+      "schema": "schemas/run-manifest.schema.json",
+      "valid": false,
+      "expectedError": "/effectiveRisk/tier",
+      "illustrates": "A1 and A2 allow only low or medium effective risk; high and critical require A3"
+    },
+    {
+      "id": "run-manifest.a2-missing-held-out",
+      "path": "invalid/run-manifest.a2-missing-held-out.json",
+      "schema": "schemas/run-manifest.schema.json",
+      "valid": false,
+      "expectedError": "heldOut",
+      "illustrates": "A2 and above require the held-out budget and ledger refs"
+    },
+    {
+      "id": "conformance-statement.a1-governance-eligible",
+      "path": "invalid/conformance-statement.a1-governance-eligible.json",
+      "schema": "schemas/conformance-statement.schema.json",
+      "valid": false,
+      "expectedError": "/restrictions/governanceUse",
+      "illustrates": "A1 statements keep governanceUse prohibited; eligible needs A2 or above"
+    },
+    {
+      "id": "scorecard.uncomputable-without-reasons",
+      "path": "invalid/scorecard.uncomputable-without-reasons.json",
+      "schema": "schemas/scorecard.schema.json",
+      "valid": false,
+      "expectedError": "reasons",
+      "illustrates": "an uncomputable metric carries null estimate, bounds and interval and must state why in reasons"
     }
   ]
 }

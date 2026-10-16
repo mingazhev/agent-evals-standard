@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:agent-evals-standard:schema:conformance-statement:1",
   "title": "Conformance statement",
-  "$comment": "One requirementResults row per registry requirement whose minimumLevel is at most the declared assuranceLevel and whose targets contain the claim; the registry, not this schema, pins the list. The verdict is derived: any fail yields nonconforming; otherwise any insufficient_evidence yields not_claimed; otherwise conforming, which also requires a confirming review by a person independent of the issuer. validationEnvelope is required at A2 and above. Semantic checks: every evidence ref resolves at its commit; the reviewer is independent of the issuer under the glossary definition.",
+  "$comment": "One requirementResults row per registry requirement whose minimumLevel is at most the declared assuranceLevel and whose targets contain the claim; the registry, not this schema, pins the list. The verdict is derived: any fail yields nonconforming; otherwise any insufficient_evidence yields not_claimed; otherwise conforming, which also requires a confirming review by a person independent of the issuer. The validation envelope is published alongside the statement and binds its digest; the statement never references it. Semantic checks: every evidence ref resolves at its commit; the reviewer is independent of the issuer under the glossary definition.",
   "type": "object",
   "required": [
     "schemaVersion",
@@ -87,14 +87,18 @@
           "type": "object",
           "required": [
             "governanceDecision",
-            "scorecard"
+            "scorecards"
           ],
           "properties": {
             "governanceDecision": {
               "$ref": "#/$defs/ref"
             },
-            "scorecard": {
-              "$ref": "#/$defs/ref"
+            "scorecards": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/ref"
+              }
             }
           },
           "additionalProperties": false
@@ -108,9 +112,6 @@
         "$ref": "#/$defs/requirementResult"
       }
     },
-    "validationEnvelope": {
-      "$ref": "#/$defs/ref"
-    },
     "restrictions": {
       "type": "object",
       "required": [
@@ -120,7 +121,10 @@
       ],
       "properties": {
         "governanceUse": {
-          "const": "prohibited"
+          "enum": [
+            "prohibited",
+            "eligible"
+          ]
         },
         "population": {
           "type": "string",
@@ -286,6 +290,30 @@
         "properties": {
           "verdict": {
             "const": "nonconforming"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "assuranceLevel": {
+            "const": "A1"
+          }
+        },
+        "required": [
+          "assuranceLevel"
+        ]
+      },
+      "then": {
+        "properties": {
+          "restrictions": {
+            "type": "object",
+            "properties": {
+              "governanceUse": {
+                "const": "prohibited"
+              }
+            }
           }
         }
       }
