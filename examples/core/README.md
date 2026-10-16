@@ -184,7 +184,7 @@ written as `path@commit#pointer`. `person-b` reviewed it at the
 `independent-review` commit and confirmed it, so the derived verdict is
 `core_conforming`.
 
-[`../invalid/core-conformance-statement.conforming-with-failed-obligation.json`](../invalid/core-conformance-statement.conforming-with-failed-obligation.json)
+[`../invalid/conformance-statement.conforming-with-failed-requirement.json`](../invalid/conformance-statement.conforming-with-failed-requirement.json)
 shows the schema rejecting a statement that keeps `core_conforming` after C11
 fails.
 
