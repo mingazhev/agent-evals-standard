@@ -47,7 +47,7 @@ The profile demonstrates interoperability, not production trust readiness.
 Each selected capability needs a material output mapped by the
 [work-artifact registry](standard/work-artifact-registry.json).
 
-The [Git boundary contract](standard/standard.md#git-repository-state-boundary-contract-scope-003)
+The [Git boundary contract](standard/git-repository-state-contract.md)
 supports one or multiple repositories, UTF-8 paths including spaces and
 non-normalized Unicode, and byte-preserved commit metadata. Non-Git VCS,
 non-UTF-8 path names, and reachable Git LFS pointer blobs are outside executable
@@ -81,6 +81,7 @@ explicitly invokes it; it is not a second definition.
 | Invoked normative contract | [Case QA Playbook](standard/case-qa-playbook.md) | Complete activation and revalidation procedure invoked by `CASE-004`. |
 | Invoked normative contract | [Validity, threat, and held-out exposure contracts](standard/standard.md#validity-threat-and-held-out-exposure-contracts) | Validity-argument, baseline, threat-model, and held-out budget and ledger contracts invoked by `VALID-002`, `VALID-003`, and `HOLD-002`. |
 | Invoked normative contract | [Integrity and Semantic Validation](standard/evidence-and-validation-contract.md#integrity-and-semantic-validation-contract) | Named canonical, cross-document, ledger, and verdict reproduction algorithms invoked by primary requirements. |
+| Invoked normative contract | [Git repository-state contract](standard/git-repository-state-contract.md) | Repository-state modes, closure, path and gitlink rules invoked by `SCOPE-003`. |
 
 | Invoked normative contract | [Security Threat Model](standard/security-threat-model.md) | Threat-coverage rules invoked by `RISK-001`, `RUN-003`, `DATA-001`, and `DATA-002`. |
 | Invoked normative templates | [Governance Policy](standard/governance-policy.md) and [Escalation and Stop Matrix](standard/governance-policy.md#escalation-and-stop-matrix) | Required adopter-owned policy and response shapes invoked by governance requirements; the bundled instances remain non-operational. |

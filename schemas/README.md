@@ -51,5 +51,5 @@ is defined by the [Conformance Contract](../standard/conformance.md).
 `workspace-manifest-1` has three and only three Git repository-state modes:
 `tree_snapshot`, `bounded_ancestry`, and `full_ancestry`. Their object-closure,
 gitlink, LFS-exclusion, and fail-closed verdict semantics are owned by the
-[Git Repository-State Boundary Contract](../standard/standard.md#git-repository-state-boundary-contract-scope-003),
+[Git Repository-State Boundary Contract](../standard/git-repository-state-contract.md),
 not by schema annotations. Schema `$comment` fields are informative navigation.

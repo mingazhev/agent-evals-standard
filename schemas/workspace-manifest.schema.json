@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:agent-evals-standard:schema:workspace-manifest:1",
   "title": "Sealed Git repository workspace manifest",
-  "$comment": "Informative navigation: executable mode, closure, gitlink, LFS, and verdict semantics are defined by standard.md#git-repository-state-boundary-contract-scope-003 and enforced by git-repository-state-v1.",
+  "$comment": "Informative navigation: executable mode, closure, gitlink, LFS, and verdict semantics are defined by git-repository-state-contract.md and enforced by git-repository-state-v1.",
   "type": "object",
   "required": ["schemaVersion", "id", "version", "repositories", "workspaceRootDigest"],
   "properties": {
