@@ -12,9 +12,9 @@ If you have not yet made a claim under this standard, start at the
 [Core level](conformance.md#core-level). It needs two people, Git, and the six
 `core-*` schemas:
 
-1. **Author cases** (`core-case`): task, repository commit, the four scope
+1. **Author cases** (`case`): task, repository commit, the four scope
    tests, deterministic checks, hard gates, and oracle isolation.
-2. **Validate cases** (`core-case-qa`): a known-good result passes, a no-op and a
+2. **Validate cases** (`case-qa`): a known-good result passes, a no-op and a
    plausible wrong result fail, stably; a second person confirms inferability
    and scope before any result exists.
 3. **Seal the run** (`core-run-manifest`): arms including a no-action baseline
@@ -126,8 +126,8 @@ Checklist:
 ### 4. Activate via Case QA
 
 Before a case may enter `active`, run the [Case QA Playbook](case-qa-playbook.md)
-stages and record the result in a `case-qa-record.json`
-([`schemas/case-qa-record.schema.json`](../schemas/case-qa-record.schema.json)).
+stages and record the result in a `case-qa.json`
+([`schemas/case-qa.schema.json`](../schemas/case-qa.schema.json)).
 
 Use the outcome-specific known-good, known-bad, trivial-strategy, and
 alternative-result controls in Stages 3–7, followed by stability validation.

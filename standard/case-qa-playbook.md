@@ -429,7 +429,7 @@ alone does not prove coverage. The record includes:
 
 The Case QA record's `case.activationInputDigest` is the SHA-256 of the UTF-8
 RFC 8785 JCS bytes of the versioned `agent-eval-activation-input-1` manifest
-defined in [`schemas/case-activation-input.schema.json`](../schemas/case-activation-input.schema.json).
+defined in [`schemas/case-qa.schema.json`](../schemas/case-qa.schema.json).
 Its `projection` contains every required top-level case member except
 `lifecycle` and `digest`, including the case contract,
 environment, profile, graders, and checks; its `case` object carries the case
@@ -452,7 +452,7 @@ with current contract versions. Merely checking that the file exists is
 insufficient.
 
 The normative machine-readable form is
-[`schemas/case-qa-record.schema.json`](../schemas/case-qa-record.schema.json).
+[`schemas/case-qa.schema.json`](../schemas/case-qa.schema.json).
 
 ## Re-QA Triggers
 

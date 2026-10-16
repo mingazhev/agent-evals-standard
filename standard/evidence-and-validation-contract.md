@@ -140,7 +140,7 @@ The supported projection identifiers have these meanings:
   after removing only the top-level digest field named by its schema;
 - `sealed_activation_input` — UTF-8 bytes of RFC 8785 JCS for the
   `agent-eval-activation-input-1` manifest defined by
-  [`case-activation-input.schema.json`](../schemas/case-activation-input.schema.json).
+  [`case-qa.schema.json`](../schemas/case-qa.schema.json).
   The manifest's `projection` is the case document with exactly its
   `lifecycle` and `digest` members removed. Its `case` object
   binds the case `id`, `version`, and the SHA-256 of that projection. The

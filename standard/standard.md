@@ -838,7 +838,7 @@ weaken its fail-closed result. Stage 7 `not_applicable` is a recorded gap with
 a rationale that restricts dependent claims; it is not an omitted stage.
 
 The [Core level](conformance.md#core-level) is the one exception: a
-`core-case-qa` record with known-good, no-op, and plausible wrong controls, a
+`case-qa` record with known-good, no-op, and plausible wrong controls, a
 stability check, and an independent inferability and scope review activates a
 case for `A1-lite` claims only. Such a case is not activated for `A1`–`A3` use
 until it passes the complete playbook.

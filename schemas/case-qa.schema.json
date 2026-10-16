@@ -1,0 +1,735 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:case-qa:1",
+  "title": "Case QA record",
+  "$comment": "A1 obligation C7. Stage, defect, and grader fields are optional here and required by prose at A2+. Semantic checks outside JSON Schema: reviewer.id differs from author.id and the reviewer is independent under the glossary definition; every evidence ref resolves to bytes matching its digest at the named commit.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "version",
+    "case",
+    "author",
+    "reviewer",
+    "knownGood",
+    "knownBad",
+    "stability",
+    "inferabilityReview",
+    "scopeReview",
+    "decision"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "agent-eval-case-qa-1"
+    },
+    "id": {
+      "$ref": "#/$defs/id"
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "case": {
+      "$ref": "#/$defs/ref"
+    },
+    "author": {
+      "$ref": "#/$defs/person"
+    },
+    "reviewer": {
+      "$ref": "#/$defs/person"
+    },
+    "knownGood": {
+      "type": "object",
+      "required": [
+        "description",
+        "result",
+        "evidence"
+      ],
+      "properties": {
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result": {
+          "const": "pass"
+        },
+        "evidence": {
+          "$ref": "#/$defs/ref"
+        }
+      },
+      "additionalProperties": false
+    },
+    "knownBad": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "description",
+          "result",
+          "evidence"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "result": {
+            "const": "fail"
+          },
+          "evidence": {
+            "$ref": "#/$defs/ref"
+          }
+        },
+        "additionalProperties": false
+      },
+      "contains": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "const": "no-op"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      }
+    },
+    "stability": {
+      "type": "object",
+      "required": [
+        "runsPerControl",
+        "allControlsStable"
+      ],
+      "properties": {
+        "runsPerControl": {
+          "type": "integer",
+          "minimum": 3
+        },
+        "allControlsStable": {
+          "const": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "inferabilityReview": {
+      "type": "object",
+      "required": [
+        "verdict",
+        "findings",
+        "recordedAtCommit"
+      ],
+      "properties": {
+        "verdict": {
+          "enum": [
+            "all_required_behavior_inferable",
+            "defects_found"
+          ]
+        },
+        "findings": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "recordedAtCommit": {
+          "$ref": "#/$defs/commit"
+        }
+      },
+      "additionalProperties": false
+    },
+    "scopeReview": {
+      "type": "object",
+      "required": [
+        "verdict",
+        "recordedAtCommit"
+      ],
+      "properties": {
+        "verdict": {
+          "enum": [
+            "all_four_tests_hold",
+            "out_of_scope"
+          ]
+        },
+        "recordedAtCommit": {
+          "$ref": "#/$defs/commit"
+        }
+      },
+      "additionalProperties": false
+    },
+    "decision": {
+      "enum": [
+        "active",
+        "rejected"
+      ]
+    },
+    "stages": {
+      "type": "object",
+      "properties": {
+        "stage3": {
+          "type": "object",
+          "required": [
+            "status",
+            "reviewer",
+            "recordedAtCommit"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "passed",
+                "failed",
+                "not_applicable"
+              ]
+            },
+            "reviewer": {
+              "$ref": "#/$defs/person"
+            },
+            "recordedAtCommit": {
+              "$ref": "#/$defs/commit"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/ref"
+              }
+            },
+            "findings": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "notApplicableRationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": false
+        },
+        "stage4": {
+          "type": "object",
+          "required": [
+            "status",
+            "reviewer",
+            "recordedAtCommit"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "passed",
+                "failed",
+                "not_applicable"
+              ]
+            },
+            "reviewer": {
+              "$ref": "#/$defs/person"
+            },
+            "recordedAtCommit": {
+              "$ref": "#/$defs/commit"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/ref"
+              }
+            },
+            "findings": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "notApplicableRationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": false
+        },
+        "stage5": {
+          "type": "object",
+          "required": [
+            "status",
+            "reviewer",
+            "recordedAtCommit"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "passed",
+                "failed",
+                "not_applicable"
+              ]
+            },
+            "reviewer": {
+              "$ref": "#/$defs/person"
+            },
+            "recordedAtCommit": {
+              "$ref": "#/$defs/commit"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/ref"
+              }
+            },
+            "findings": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "notApplicableRationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": false
+        },
+        "stage6": {
+          "type": "object",
+          "required": [
+            "status",
+            "reviewer",
+            "recordedAtCommit"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "passed",
+                "failed",
+                "not_applicable"
+              ]
+            },
+            "reviewer": {
+              "$ref": "#/$defs/person"
+            },
+            "recordedAtCommit": {
+              "$ref": "#/$defs/commit"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/ref"
+              }
+            },
+            "findings": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "notApplicableRationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": false
+        },
+        "stage7": {
+          "type": "object",
+          "required": [
+            "status",
+            "reviewer",
+            "recordedAtCommit"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "passed",
+                "failed",
+                "not_applicable"
+              ]
+            },
+            "reviewer": {
+              "$ref": "#/$defs/person"
+            },
+            "recordedAtCommit": {
+              "$ref": "#/$defs/commit"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/ref"
+              }
+            },
+            "findings": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "notApplicableRationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "not_applicable"
+                  }
+                },
+                "required": [
+                  "status"
+                ],
+                "type": "object"
+              },
+              "then": {
+                "properties": {
+                  "notApplicableRationale": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "notApplicableRationale"
+                ],
+                "type": "object"
+              }
+            }
+          ],
+          "additionalProperties": false
+        },
+        "stage8": {
+          "type": "object",
+          "required": [
+            "status",
+            "reviewer",
+            "recordedAtCommit"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "passed",
+                "failed",
+                "not_applicable"
+              ]
+            },
+            "reviewer": {
+              "$ref": "#/$defs/person"
+            },
+            "recordedAtCommit": {
+              "$ref": "#/$defs/commit"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/ref"
+              }
+            },
+            "findings": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "notApplicableRationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "defects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "severity",
+          "status",
+          "evidence"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "type": {
+            "enum": [
+              "underspecified",
+              "overly_strict",
+              "low_coverage",
+              "misleading",
+              "oracle_leak",
+              "env_drift",
+              "flaky_check",
+              "contamination_suspected",
+              "contamination_confirmed",
+              "measurement_boundary_bypass",
+              "trivial_strategy_bypass",
+              "alternative_valid_result_rejected",
+              "privacy_or_security_exposure",
+              "cosmetic"
+            ]
+          },
+          "severity": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3
+          },
+          "status": {
+            "enum": [
+              "open",
+              "fixed",
+              "accepted_minor"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/$defs/ref"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "graderValidation": {
+      "$ref": "#/$defs/ref"
+    },
+    "decisionSurfaceValidation": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/surfaceValidation"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "decision": {
+            "const": "active"
+          }
+        },
+        "required": [
+          "decision"
+        ]
+      },
+      "then": {
+        "properties": {
+          "inferabilityReview": {
+            "type": "object",
+            "properties": {
+              "verdict": {
+                "const": "all_required_behavior_inferable"
+              }
+            }
+          },
+          "scopeReview": {
+            "type": "object",
+            "properties": {
+              "verdict": {
+                "const": "all_four_tests_hold"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "commit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}([a-f0-9]{24})?$"
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "ref": {
+      "type": "object",
+      "required": [
+        "path",
+        "commit",
+        "digest"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "commit": {
+          "$ref": "#/$defs/commit"
+        },
+        "digest": {
+          "$ref": "#/$defs/digest"
+        }
+      },
+      "additionalProperties": false
+    },
+    "person": {
+      "type": "object",
+      "required": [
+        "id",
+        "role"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "control": {
+      "type": "object",
+      "required": [
+        "id",
+        "expected",
+        "observed",
+        "evidence"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "expected": {
+          "enum": [
+            "pass",
+            "fail"
+          ]
+        },
+        "observed": {
+          "enum": [
+            "pass",
+            "fail"
+          ]
+        },
+        "evidence": {
+          "$ref": "#/$defs/ref"
+        }
+      },
+      "additionalProperties": false
+    },
+    "matchingControl": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/control"
+        },
+        {
+          "if": {
+            "properties": {
+              "expected": {
+                "const": "pass"
+              }
+            },
+            "required": [
+              "expected"
+            ],
+            "type": "object"
+          },
+          "then": {
+            "properties": {
+              "observed": {
+                "const": "pass"
+              }
+            },
+            "type": "object"
+          },
+          "else": {
+            "properties": {
+              "observed": {
+                "const": "fail"
+              }
+            },
+            "type": "object"
+          }
+        }
+      ]
+    },
+    "surfaceValidation": {
+      "type": "object",
+      "required": [
+        "surfaceId",
+        "coverage",
+        "status",
+        "knownGoodControl",
+        "knownBadControl"
+      ],
+      "properties": {
+        "surfaceId": {
+          "$ref": "#/$defs/id"
+        },
+        "coverage": {
+          "enum": [
+            "checked",
+            "covered_by_final_state",
+            "not_applicable",
+            "declared_gap",
+            "not_determined"
+          ]
+        },
+        "status": {
+          "enum": [
+            "pass",
+            "breach",
+            "insufficient_evidence",
+            "not_applicable",
+            "not_evaluated"
+          ]
+        },
+        "knownGoodControl": {
+          "$ref": "#/$defs/control"
+        },
+        "knownBadControl": {
+          "$ref": "#/$defs/control"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "pass"
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "type": "object"
+          },
+          "then": {
+            "properties": {
+              "knownGoodControl": {
+                "$ref": "#/$defs/matchingControl"
+              },
+              "knownBadControl": {
+                "$ref": "#/$defs/matchingControl"
+              }
+            },
+            "type": "object"
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

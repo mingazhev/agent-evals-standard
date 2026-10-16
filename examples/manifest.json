@@ -3,24 +3,6 @@
   "version": "0.1.0",
   "examples": [
     {
-      "id": "case-activation-input.valid",
-      "path": "valid/case-activation-input.json",
-      "schema": "schemas/case-activation-input.schema.json",
-      "valid": true
-    },
-    {
-      "id": "case-qa-record.valid",
-      "path": "valid/case-qa-record.json",
-      "schema": "schemas/case-qa-record.schema.json",
-      "valid": true
-    },
-    {
-      "id": "case.valid",
-      "path": "valid/case.json",
-      "schema": "schemas/case.schema.json",
-      "valid": true
-    },
-    {
       "id": "conformance-statement.valid",
       "path": "valid/conformance-statement.json",
       "schema": "schemas/conformance-statement.schema.json",
@@ -35,13 +17,13 @@
     {
       "id": "core-case-qa.valid",
       "path": "core/case-qa.json",
-      "schema": "schemas/core-case-qa.schema.json",
+      "schema": "schemas/case-qa.schema.json",
       "valid": true
     },
     {
       "id": "core-case.valid",
       "path": "core/case.json",
-      "schema": "schemas/core-case.schema.json",
+      "schema": "schemas/case.schema.json",
       "valid": true
     },
     {
@@ -199,22 +181,6 @@
       "path": "valid/workspace-manifest.json",
       "schema": "schemas/workspace-manifest.schema.json",
       "valid": true
-    },
-    {
-      "id": "case.high-risk-held-out-without-probe",
-      "path": "invalid/case.high-risk-held-out-without-probe.json",
-      "schema": "schemas/case.schema.json",
-      "valid": false,
-      "expectedError": "memorizationProbe",
-      "illustrates": "HOLD-002: a high-risk held-out case needs a memorization probe"
-    },
-    {
-      "id": "case.interaction-alias",
-      "path": "invalid/case.interaction-alias.json",
-      "schema": "schemas/case.schema.json",
-      "valid": false,
-      "expectedError": "/interactionModeId",
-      "illustrates": "SCOPE-002: interaction modes are a closed set; non_interactive is not a valid ID"
     },
     {
       "id": "core-conformance-statement.conforming-with-failed-obligation",

@@ -1,319 +1,688 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:agent-evals-standard:schema:case:1",
-  "title": "Conforming repository SDLC agent evaluation case",
+  "title": "Evaluation case",
+  "$comment": "A1 obligations C2, C4, C5, C6. Fields after effectiveRisk are optional here and required by prose at A2+. Semantic checks outside JSON Schema: every hidden check and reference solution is absent from the agent-visible inputs and from the repository history at baseCommit.",
   "type": "object",
   "required": [
-    "schemaVersion", "caseVersion", "contracts", "id", "evaluationProfile", "outcomeProfile", "capabilityFamilyIds", "applicability", "source", "repository", "task",
-    "agentVisibleProjection", "setupExecutors", "contamination", "leakageControls", "inherentRiskAssessment", "inherentRiskTier", "tags",
-    "memberships", "sliceIds", "lifecycle", "environment", "budgets", "validation",
-    "claimRegistry", "interactionModeId", "workArtifactRegistry", "workArtifactTypes", "scoring", "artifactPolicy", "policy", "ownership", "digest"
+    "schemaVersion",
+    "id",
+    "version",
+    "author",
+    "repository",
+    "task",
+    "capabilityFamilyId",
+    "workArtifactType",
+    "interactionModeId",
+    "scopeTests",
+    "acceptance",
+    "oracleIsolation",
+    "effectiveRisk"
   ],
   "properties": {
-    "schemaVersion": { "const": "agent-eval-case-1" },
-    "caseVersion": { "type": "string", "minLength": 1 },
-    "contracts": {
-      "type": "object",
-      "required": ["baseStandard", "caseContract", "scorecardContract", "environmentContract", "semanticValidation", "requirementRegistry"],
-      "properties": {
-        "baseStandard": { "$ref": "#/$defs/component" }, "caseContract": { "$ref": "#/$defs/component" },
-        "scorecardContract": { "$ref": "#/$defs/component" }, "environmentContract": { "$ref": "#/$defs/component" },
-        "semanticValidation": { "$ref": "#/$defs/component" }, "requirementRegistry": { "$ref": "#/$defs/component" }
-      },
-      "additionalProperties": false
+    "schemaVersion": {
+      "const": "agent-eval-case-1"
     },
-    "id": { "$ref": "#/$defs/id" },
-    "evaluationProfile": { "$comment": "Semantic validation must verify that outcomeProfile is listed in the evaluation profile's allowedOutcomeProfiles.", "type": "object", "required": ["id", "version", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
-    "outcomeProfile": { "$ref": "#/$defs/component" },
-    "capabilityFamilyIds": { "$comment": "Semantic validation must require this set to be a subset of the evaluation profile capabilityFamilies, require it to equal the set of families that workArtifactTypes map to through the authenticated work-artifact registry, and require every selected family to own at least one material workArtifactTypes entry. A family with no material work product is a passenger and is invalid.", "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/capabilityFamilyId" }, "uniqueItems": true },
-    "applicability": { "$ref": "#/$defs/applicability" },
-    "source": {
-      "type": "object", "required": ["type", "artifact"],
-      "properties": {
-        "type": { "enum": ["real_company", "synthetic", "public_benchmark", "other"] },
-        "artifact": { "$ref": "#/$defs/artifactPointer" }, "notes": { "type": "string" }
-      },
-      "additionalProperties": false
+    "id": {
+      "$ref": "#/$defs/id"
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "author": {
+      "$ref": "#/$defs/person"
     },
     "repository": {
-      "$comment": "The digest-bound workspace manifest is the primary repository-state identity. Semantic validation resolves the exact bytes, requires the pointer ID and version to equal the document, verifies its byte digest, validates workspace-manifest-1, and executes its workspace-root, file, tree, and per-repository state-mode checks. Every repository entry owns a mode-specific base tree or revision and, for commit modes, its own cutoff; no global base or cutoff exists.",
       "type": "object",
-      "required": ["workspaceManifest"],
-      "properties": {
-        "workspaceManifest": { "$ref": "#/$defs/versionedArtifactPointer" }
-      },
-      "additionalProperties": false
-    },
-    "task": { "$ref": "#/$defs/artifactPointer" },
-    "agentVisibleProjection": {
-      "type": "object", "required": ["manifest", "taskArtifactId", "allowedArtifactIds", "oracleArtifactIds", "verifier"],
-      "properties": {
-        "manifest": { "$ref": "#/$defs/artifactPointer" }, "taskArtifactId": { "$ref": "#/$defs/id" },
-        "allowedArtifactIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
-        "oracleArtifactIds": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
-        "verifier": { "$ref": "#/$defs/verifiedContract" }
-      },
-      "additionalProperties": false
-    },
-    "setupExecutors": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/executor" } },
-    "contamination": {
-      "type": "object", "required": ["sourceVisibility", "publicDates", "previousEvaluationExposure", "trainingOrMemoryRisk", "previouslySolvedInWorkspace"],
-      "properties": {
-        "sourceVisibility": { "enum": ["private", "restricted", "public"] },
-        "publicDates": { "type": "array", "items": { "type": "string", "format": "date" }, "uniqueItems": true },
-        "previousEvaluationExposure": { "type": "string", "minLength": 1 },
-        "trainingOrMemoryRisk": { "enum": ["none_known", "low", "medium", "high", "unknown"] },
-        "previouslySolvedInWorkspace": { "type": "boolean" },
-        "memorizationProbe": { "$ref": "#/$defs/verifiedContract" }
-      },
-      "additionalProperties": false
-    },
-    "leakageControls": { "$comment": "Semantic validation must require coverage of every declared oracle domain. Absence of a canary, telemetry, or decoy detection is detection evidence only and must not establish a clean contamination verdict by itself.", "type": "array", "items": { "$ref": "#/$defs/leakageControl" } },
-    "inherentRiskAssessment": { "$comment": "The authenticated case-authoring risk record. Semantic validation resolves risk-assessment-1, requires assessmentKind=case_inherent_hazard, binds this case ID, and requires inherentRiskTier to equal the record's effectiveRiskTier. This is an inherent-hazard classification, not the experiment's actual effective tier.", "$ref": "#/$defs/versionedArtifactPointer" },
-    "inherentRiskTier": { "enum": ["low", "medium", "high", "critical"] },
-    "tags": {
-      "$comment": "Technology metadata is explicitly applicable or not_applicable. Review, incident, requirements, and other non-code cases never use synthetic language/stack values such as n/a. Semantic validation must reject an applicability determination that is inconsistent with the evaluated construct and material work artifacts.",
-      "type": "object", "required": ["ambiguity", "taskClass", "component", "technologyContext", "runtimeClass", "difficultyBand", "ownerTeam"],
-      "properties": {
-        "ambiguity": { "enum": ["clear_cut", "ambiguous"] }, "taskClass": { "type": "string", "minLength": 1 },
-        "component": { "type": "string", "minLength": 1 },
-        "technologyContext": { "$ref": "#/$defs/technologyContext" },
-        "runtimeClass": { "type": "string", "minLength": 1 },
-        "difficultyBand": { "type": "string", "minLength": 1 }, "ownerTeam": { "type": "string", "minLength": 1 }
-      },
-      "additionalProperties": false
-    },
-    "memberships": { "type": "array", "minItems": 1, "items": { "enum": ["development", "held_out", "smoke", "regression"] }, "uniqueItems": true },
-    "sliceIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
-    "lifecycle": {
-      "type": "object", "required": ["status"],
-      "properties": {
-        "status": { "enum": ["candidate", "active", "quarantined", "retired"] },
-        "qaRecord": { "$ref": "#/$defs/artifactPointer" }, "activationInputDigest": { "$ref": "#/$defs/digest" },
-        "quarantineRecord": { "$ref": "#/$defs/artifactPointer" }
-      },
-      "additionalProperties": false
-    },
-    "environment": { "$ref": "#/$defs/artifactPointer" },
-    "budgets": {
-      "type": "object", "required": ["trials", "wallClockSeconds", "tokenLimit", "costLimitUsd"],
-      "properties": {
-        "trials": { "type": "integer", "minimum": 1 }, "wallClockSeconds": { "type": "number", "exclusiveMinimum": 0 },
-        "tokenLimit": { "type": ["integer", "null"], "minimum": 1 }, "costLimitUsd": { "type": ["number", "null"], "minimum": 0 }
-      },
-      "additionalProperties": false
-    },
-    "validation": {
-      "$comment": "The strategy covers every validation class exactly once. Semantic validation must authenticate and execute each applicabilityRule against its applicabilityEvidence, require its result to equal coverage, and treat an unknown, unresolved, or mismatched result as invalid. A case author cannot weaken validation by relabeling a required class not_applicable.",
-      "type": "object", "required": ["protocol", "sharedGraderValidation", "strategy", "publicChecks", "hiddenChecks", "securityChecks", "controlProofs"],
-      "properties": {
-        "protocol": { "$ref": "#/$defs/verifiedContract" }, "sharedGraderValidation": { "$ref": "#/$defs/artifactPointer" },
-        "strategy": {
-          "type": "object",
-          "required": ["publicChecks", "hiddenChecks", "securityChecks", "controlProofs"],
-          "properties": {
-            "publicChecks": { "$ref": "#/$defs/validationClassDisposition" },
-            "hiddenChecks": { "$ref": "#/$defs/validationClassDisposition" },
-            "securityChecks": { "$ref": "#/$defs/validationClassDisposition" },
-            "controlProofs": { "$ref": "#/$defs/validationClassDisposition" }
-          },
-          "additionalProperties": false
-        },
-        "publicChecks": { "type": "array", "items": { "$ref": "#/$defs/check" } },
-        "hiddenChecks": { "type": "array", "items": { "$ref": "#/$defs/check" } },
-        "securityChecks": { "type": "array", "items": { "$ref": "#/$defs/check" } },
-        "controlProofs": { "type": "array", "items": { "$ref": "#/$defs/check" } }
-      },
-      "allOf": [
-        { "if": { "properties": { "strategy": { "type": "object", "properties": { "publicChecks": { "type": "object", "properties": { "coverage": { "const": "checked" } }, "required": ["coverage"] } }, "required": ["publicChecks"] } }, "required": ["strategy"] }, "then": { "properties": { "publicChecks": { "type": "array", "minItems": 1 } } }, "else": { "properties": { "publicChecks": { "type": "array", "maxItems": 0 } } } },
-        { "if": { "properties": { "strategy": { "type": "object", "properties": { "hiddenChecks": { "type": "object", "properties": { "coverage": { "const": "checked" } }, "required": ["coverage"] } }, "required": ["hiddenChecks"] } }, "required": ["strategy"] }, "then": { "properties": { "hiddenChecks": { "type": "array", "minItems": 1 } } }, "else": { "properties": { "hiddenChecks": { "type": "array", "maxItems": 0 } } } },
-        { "if": { "properties": { "strategy": { "type": "object", "properties": { "securityChecks": { "type": "object", "properties": { "coverage": { "const": "checked" } }, "required": ["coverage"] } }, "required": ["securityChecks"] } }, "required": ["strategy"] }, "then": { "properties": { "securityChecks": { "type": "array", "minItems": 1 } } }, "else": { "properties": { "securityChecks": { "type": "array", "maxItems": 0 } } } },
-        { "if": { "properties": { "strategy": { "type": "object", "properties": { "controlProofs": { "type": "object", "properties": { "coverage": { "const": "checked" } }, "required": ["coverage"] } }, "required": ["controlProofs"] } }, "required": ["strategy"] }, "then": { "properties": { "controlProofs": { "type": "array", "minItems": 1 } } }, "else": { "properties": { "controlProofs": { "type": "array", "maxItems": 0 } } } }
+      "required": [
+        "uri",
+        "baseCommit",
+        "visibleHistory"
       ],
-      "additionalProperties": false
-    },
-    "decisionSurfaces": { "$comment": "Optional at A1 and required by the pre-run manifest for A2 and A3 claims (CASE-005).", "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/decisionSurface" } },
-    "claimRegistry": { "type": "object", "minProperties": 1, "propertyNames": { "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" }, "additionalProperties": { "$ref": "#/$defs/claimDefinition" } },
-    "interactionModeId": {
-      "$comment": "One exact closed interaction-mode ID. Semantic validation must require membership in the evaluation profile's complete interactionModes set; no binary alias or inferred translation is permitted.",
-      "$ref": "#/$defs/interactionModeId"
-    },
-    "interactionProtocol": { "$ref": "#/$defs/verifiedContract" },
-    "workArtifactRegistry": {
-      "$comment": "must equal the authenticated registry binding in both the evaluation profile and selected outcome profile.",
-      "$ref": "#/$defs/versionedArtifactPointer"
-    },
-    "workArtifactTypes": {
-      "$comment": "The complete set of material claim-bearing work products for this case. It must be a subset of the selected outcome profile and map, through workArtifactRegistry, onto exactly capabilityFamilyIds.",
-      "type": "array",
-      "minItems": 1,
-      "items": { "$ref": "urn:agent-evals-standard:schema:work-artifact-registry:1#/$defs/workArtifactTypeId" },
-      "uniqueItems": true
-    },
-    "scoring": {
-      "type": "object", "required": ["claimEligibility", "hardGates", "governanceBlockers"],
       "properties": {
-        "claimEligibility": { "enum": ["none", "capability", "comparative", "governance"] },
-        "hardGates": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/gate" } },
-        "governanceBlockers": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/governanceRule" } }
-      },
-      "additionalProperties": false
-    },
-    "artifactPolicy": { "$ref": "#/$defs/verifiedContract" }, "policy": { "$ref": "#/$defs/verifiedContract" },
-    "ownership": {
-      "type": "object", "required": ["owner", "riskTierApprovedBy", "reviewDate", "dataOwner"],
-      "properties": {
-        "owner": { "$ref": "#/$defs/actor" }, "riskTierApprovedBy": { "$ref": "#/$defs/actor" },
-        "reviewDate": { "type": "string", "format": "date" }, "dataOwner": { "$ref": "#/$defs/actor" }
-      },
-      "additionalProperties": false
-    },
-    "digest": { "$ref": "#/$defs/digest" }
-  },
-  "allOf": [
-    {
-      "if": { "type": "object", "properties": { "lifecycle": { "type": "object", "properties": { "status": { "const": "active" } }, "required": ["status"] } }, "required": ["lifecycle"] },
-      "then": { "type": "object", "properties": { "lifecycle": { "type": "object", "properties": { "qaRecord": {}, "activationInputDigest": {} }, "required": ["qaRecord", "activationInputDigest"] } } }
-    },
-    {
-      "if": { "type": "object", "properties": { "lifecycle": { "type": "object", "properties": { "status": { "const": "quarantined" } }, "required": ["status"] } }, "required": ["lifecycle"] },
-      "then": { "type": "object", "properties": { "lifecycle": { "type": "object", "properties": { "quarantineRecord": {} }, "required": ["quarantineRecord"] } } }
-    },
-    {
-      "if": {
-        "type": "object",
-        "properties": {
-          "inherentRiskTier": { "enum": ["high", "critical"] },
-          "memberships": { "type": "array", "contains": { "const": "held_out" }, "minContains": 1 }
+        "uri": {
+          "type": "string",
+          "minLength": 1
         },
-        "required": ["inherentRiskTier", "memberships"]
-      },
-      "then": { "type": "object", "properties": { "contamination": { "type": "object", "properties": { "memorizationProbe": {} }, "required": ["memorizationProbe"] } } }
-    },
-    {
-      "if": { "type": "object", "properties": { "interactionModeId": { "const": "noninteractive_repository_task" } }, "required": ["interactionModeId"] },
-      "then": { "type": "object", "not": { "type": "object", "properties": { "interactionProtocol": {} }, "required": ["interactionProtocol"] } },
-      "else": { "type": "object", "properties": { "interactionProtocol": {} }, "required": ["interactionProtocol"] }
-    },
-    {
-      "if": { "type": "object", "properties": { "agentVisibleProjection": { "type": "object", "properties": { "oracleArtifactIds": { "type": "array", "minItems": 1 } }, "required": ["oracleArtifactIds"] } }, "required": ["agentVisibleProjection"] },
-      "then": { "type": "object", "properties": { "leakageControls": { "type": "array", "minItems": 1 } } },
-      "else": { "type": "object", "properties": { "leakageControls": { "type": "array", "maxItems": 0 } } }
-    }
-  ],
-  "additionalProperties": false,
-  "$defs": {
-    "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" }, "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
-    "capabilityFamilyId": { "enum": ["CAP.DISCOVER_SPECIFY", "CAP.PLAN_DESIGN", "CAP.IMPLEMENT_CHANGE", "CAP.VERIFY_ASSURE", "CAP.REVIEW_DECIDE", "CAP.RELEASE_OPERATE", "CAP.REMEDIATE_LEARN"] },
-    "interactionModeId": { "enum": ["noninteractive_repository_task", "interactive_repository_session", "pull_request_workflow", "ci_or_release_workflow"] },
-    "component": { "type": "object", "required": ["id", "version", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
-    "artifactPointer": { "type": "object", "required": ["id", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
-    "versionedArtifactPointer": { "type": "object", "required": ["id", "version", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
-    "verifiedContract": { "$comment": "A claimant supplies identity only, never the executable locator or trust root. Semantic validation must resolve this exact reference exactly once in an evaluator-controlled registry whose bytes, locators, schemas, executors, and authorities are configured outside the case; missing, duplicate, or digest-mismatched resolution is invalid.", "type": "object", "required": ["id", "version", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
-    "technologyContext": {
-      "type": "object",
-      "required": ["applicability", "rationale"],
-      "properties": {
-        "applicability": { "enum": ["applicable", "not_applicable"] },
-        "language": { "type": "string", "minLength": 1 },
-        "stack": { "type": "string", "minLength": 1 },
-        "rationale": { "type": "string", "minLength": 1 }
-      },
-      "allOf": [
-        { "if": { "properties": { "applicability": { "const": "applicable" } }, "required": ["applicability"] }, "then": { "properties": { "language": {}, "stack": {} }, "required": ["language", "stack"] }, "else": { "not": { "anyOf": [{ "properties": { "language": {} }, "required": ["language"] }, { "properties": { "stack": {} }, "required": ["stack"] }] } } }
-      ],
-      "additionalProperties": false
-    },
-    "validationClassDisposition": {
-      "$comment": "coverage is a projection of the authenticated applicability rule, not an author assertion. Semantic validation resolves every evidence pointer and executes the exact rule/verifier bytes; unknownApplicabilityResult is always invalid.",
-      "type": "object",
-      "required": ["coverage", "applicabilityRule", "applicabilityEvidence", "unknownApplicabilityResult", "rationale"],
-      "properties": {
-        "coverage": { "enum": ["checked", "not_applicable"] },
-        "applicabilityRule": { "$ref": "#/$defs/verifiedContract" },
-        "applicabilityEvidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/artifactPointer" }, "uniqueItems": true },
-        "unknownApplicabilityResult": { "const": "invalid" },
-        "rationale": { "type": "string", "minLength": 1 }
-      },
-      "additionalProperties": false
-    },
-    "actor": { "type": "object", "required": ["id", "role"], "properties": { "id": { "$ref": "#/$defs/id" }, "role": { "type": "string", "minLength": 1 } }, "additionalProperties": false },
-    "applicability": {
-      "$comment": "The four SCOPE-003 tests. A case must hold all four; each rationale is reviewed in Case QA (CASE-004).",
-      "type": "object",
-      "required": ["repositoryStateNecessary", "invariantsTraceToRepository", "changesRepositoryArtifactOrDecision", "removalChangesVerdict"],
-      "properties": {
-        "repositoryStateNecessary": { "$ref": "#/$defs/scopeTest" },
-        "invariantsTraceToRepository": { "$ref": "#/$defs/scopeTest" },
-        "changesRepositoryArtifactOrDecision": { "$ref": "#/$defs/scopeTest" },
-        "removalChangesVerdict": { "$ref": "#/$defs/scopeTest" }
-      },
-      "additionalProperties": false
-    },
-    "scopeTest": { "type": "object", "required": ["holds", "rationale"], "properties": { "holds": { "const": true }, "rationale": { "type": "string", "minLength": 1 } }, "additionalProperties": false },
-    "leakageControl": {
-      "oneOf": [
-        {
-          "type": "object",
-          "required": ["type", "artifactId", "accessClass", "markerDigest", "semanticInertnessEvidence", "interpretation"],
-          "properties": {
-            "type": { "const": "canary" },
-            "artifactId": { "$ref": "#/$defs/id" },
-            "accessClass": { "enum": ["hidden_oracle", "agent_visible_distribution"] },
-            "markerDigest": { "$ref": "#/$defs/digest" },
-            "semanticInertnessEvidence": { "$ref": "#/$defs/verifiedContract" },
-            "interpretation": { "const": "detection_only_not_clean_proof" }
-          },
-          "additionalProperties": false
+        "baseCommit": {
+          "$ref": "#/$defs/commit"
         },
-        {
-          "type": "object",
-          "required": ["type", "oracleDomainId", "telemetryContract", "coverageEvidence", "interpretation"],
-          "properties": {
-            "type": { "const": "authenticated_access_telemetry" },
-            "oracleDomainId": { "$ref": "#/$defs/id" },
-            "telemetryContract": { "$ref": "#/$defs/verifiedContract" },
-            "coverageEvidence": { "$ref": "#/$defs/artifactPointer" },
-            "interpretation": { "const": "detection_only_not_clean_proof" }
-          },
-          "additionalProperties": false
-        },
-        {
-          "type": "object",
-          "required": ["type", "oracleArtifactId", "decoyArtifactId", "matchingEvidence", "detectionContract", "interpretation"],
-          "properties": {
-            "type": { "const": "matched_decoy" },
-            "oracleArtifactId": { "$ref": "#/$defs/id" },
-            "decoyArtifactId": { "$ref": "#/$defs/id" },
-            "matchingEvidence": { "$ref": "#/$defs/verifiedContract" },
-            "detectionContract": { "$ref": "#/$defs/verifiedContract" },
-            "interpretation": { "const": "detection_only_not_clean_proof" }
-          },
-          "additionalProperties": false
+        "visibleHistory": {
+          "enum": [
+            "none",
+            "bounded",
+            "full"
+          ]
         }
+      },
+      "additionalProperties": false
+    },
+    "task": {
+      "type": "object",
+      "required": [
+        "statement",
+        "agentVisibleInputs"
+      ],
+      "properties": {
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "agentVisibleInputs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "capabilityFamilyId": {
+      "enum": [
+        "CAP.DISCOVER_SPECIFY",
+        "CAP.PLAN_DESIGN",
+        "CAP.IMPLEMENT_CHANGE",
+        "CAP.VERIFY_ASSURE",
+        "CAP.REVIEW_DECIDE",
+        "CAP.RELEASE_OPERATE",
+        "CAP.REMEDIATE_LEARN"
       ]
     },
-    "executor": { "type": "object", "required": ["id", "component", "contract"], "properties": { "id": { "$ref": "#/$defs/id" }, "component": { "$ref": "#/$defs/component" }, "contract": { "$ref": "#/$defs/verifiedContract" } }, "additionalProperties": false },
-    "check": { "type": "object", "required": ["id", "executorId", "contract", "deterministic"], "properties": { "id": { "$ref": "#/$defs/id" }, "executorId": { "$ref": "#/$defs/id" }, "contract": { "$ref": "#/$defs/verifiedContract" }, "deterministic": { "const": true } }, "additionalProperties": false },
-    "claimDefinition": { "type": "object", "required": ["type", "targetPopulation", "scope", "requirementIds"], "properties": { "type": { "enum": ["capability", "comparative", "governance"] }, "targetPopulation": { "type": "string", "minLength": 1 }, "scope": { "type": "string", "minLength": 1 }, "requirementIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true } }, "additionalProperties": false },
-    "decisionSurface": {
-      "type": "object", "required": ["id", "kind", "materiality", "applicabilityRule", "unknownApplicabilityResult", "coverage", "rationale"],
+    "workArtifactType": {
+      "enum": [
+        "requirements_or_specification",
+        "repository_analysis",
+        "technical_plan_or_design",
+        "code_change",
+        "test_change",
+        "repository_configuration",
+        "assurance_report",
+        "review_decision",
+        "release_artifact",
+        "operational_change_record",
+        "incident_analysis",
+        "prevention_plan"
+      ]
+    },
+    "interactionModeId": {
+      "enum": [
+        "noninteractive_repository_task",
+        "interactive_repository_session",
+        "pull_request_workflow",
+        "ci_or_release_workflow"
+      ]
+    },
+    "scopeTests": {
+      "$comment": "The four SCOPE-003 tests. A Core case must hold all four; the rationale is reviewed in Case QA.",
+      "type": "object",
+      "required": [
+        "repositoryStateNecessary",
+        "invariantsTraceToRepository",
+        "changesRepositoryArtifactOrDecision",
+        "removalChangesVerdict"
+      ],
       "properties": {
-        "id": { "$ref": "#/$defs/id" }, "kind": { "enum": ["instruction_following", "functional_output", "tool_selection", "tool_arguments", "stop_or_escalation", "handoff", "context_management", "other"] },
-        "materiality": { "enum": ["outcome", "risk", "diagnostic"] }, "applicabilityRule": { "$ref": "#/$defs/verifiedContract" },
-        "unknownApplicabilityResult": { "const": "indeterminate" }, "coverage": { "enum": ["checked", "covered_by_final_state", "not_applicable", "declared_gap"] },
-        "rationale": { "type": "string", "minLength": 1 }, "checkIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
-        "coverageProof": { "$ref": "#/$defs/verifiedContract" }, "claimRestriction": { "$ref": "#/$defs/claimRestriction" }
+        "repositoryStateNecessary": {
+          "$ref": "#/$defs/scopeTest"
+        },
+        "invariantsTraceToRepository": {
+          "$ref": "#/$defs/scopeTest"
+        },
+        "changesRepositoryArtifactOrDecision": {
+          "$ref": "#/$defs/scopeTest"
+        },
+        "removalChangesVerdict": {
+          "$ref": "#/$defs/scopeTest"
+        }
+      },
+      "additionalProperties": false
+    },
+    "acceptance": {
+      "type": "object",
+      "required": [
+        "successRule",
+        "checks",
+        "hardGates"
+      ],
+      "properties": {
+        "successRule": {
+          "const": "all_checks_and_hard_gates_pass"
+        },
+        "checks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/check"
+          }
+        },
+        "hardGates": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/hardGate"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "oracleIsolation": {
+      "type": "object",
+      "required": [
+        "hiddenMaterialLocation",
+        "excludedFromAgentPaths",
+        "excludedFromVisibleHistory",
+        "method"
+      ],
+      "properties": {
+        "hiddenMaterialLocation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "excludedFromAgentPaths": {
+          "const": true
+        },
+        "excludedFromVisibleHistory": {
+          "const": true
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "effectiveRisk": {
+      "$ref": "#/$defs/risk"
+    },
+    "workspaceManifest": {
+      "$comment": "A workspace-manifest-1 document; at A2+ replaces the plain repository.baseCommit identity.",
+      "$ref": "#/$defs/ref"
+    },
+    "evaluationProfile": {
+      "$ref": "#/$defs/versionedDigestRef"
+    },
+    "outcomeProfile": {
+      "$ref": "#/$defs/versionedDigestRef"
+    },
+    "lifecycle": {
+      "type": "object",
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "candidate",
+            "active",
+            "quarantined",
+            "retired"
+          ]
+        },
+        "qaRecord": {
+          "$ref": "#/$defs/ref"
+        },
+        "quarantineRecord": {
+          "$ref": "#/$defs/ref"
+        }
+      },
+      "additionalProperties": false
+    },
+    "contamination": {
+      "type": "object",
+      "required": [
+        "sourceVisibility",
+        "previousEvaluationExposure",
+        "trainingOrMemoryRisk"
+      ],
+      "properties": {
+        "sourceVisibility": {
+          "enum": [
+            "private",
+            "restricted",
+            "public"
+          ]
+        },
+        "previousEvaluationExposure": {
+          "type": "string",
+          "minLength": 1
+        },
+        "trainingOrMemoryRisk": {
+          "enum": [
+            "none_known",
+            "low",
+            "medium",
+            "high",
+            "unknown"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "leakageControls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "artifactId",
+          "description"
+        ],
+        "properties": {
+          "type": {
+            "enum": [
+              "canary",
+              "authenticated_access_telemetry",
+              "matched_decoy"
+            ]
+          },
+          "artifactId": {
+            "$ref": "#/$defs/id"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "decisionSurfaces": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/decisionSurface"
+      }
+    },
+    "exposureBudget": {
+      "$ref": "#/$defs/ref"
+    },
+    "interactionProtocol": {
+      "$ref": "#/$defs/ref"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "commit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}([a-f0-9]{24})?$"
+    },
+    "person": {
+      "type": "object",
+      "required": [
+        "id",
+        "role"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "scopeTest": {
+      "type": "object",
+      "required": [
+        "holds",
+        "rationale"
+      ],
+      "properties": {
+        "holds": {
+          "const": true
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "check": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "visibility",
+        "description"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "enum": [
+            "deterministic",
+            "expert_adjudication"
+          ]
+        },
+        "visibility": {
+          "enum": [
+            "agent_visible",
+            "hidden"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "command": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rubric": {
+          "type": "string",
+          "minLength": 1
+        },
+        "minimumIndependentRaters": {
+          "type": "integer",
+          "minimum": 2
+        }
       },
       "allOf": [
-        { "if": { "type": "object", "properties": { "coverage": { "const": "checked" } } }, "then": { "type": "object", "properties": { "checkIds": {}, "coverageProof": {} }, "required": ["checkIds", "coverageProof"] } },
-        { "if": { "type": "object", "properties": { "coverage": { "const": "covered_by_final_state" } } }, "then": { "type": "object", "properties": { "coverageProof": {} }, "required": ["coverageProof"] } },
-        { "if": { "type": "object", "properties": { "coverage": { "const": "declared_gap" } } }, "then": { "type": "object", "properties": { "claimRestriction": {} }, "required": ["claimRestriction"] } }
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "deterministic"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "command": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "command"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "expert_adjudication"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "rubric": {
+                "type": "string"
+              },
+              "minimumIndependentRaters": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "rubric",
+              "minimumIndependentRaters"
+            ]
+          }
+        }
       ],
       "additionalProperties": false
     },
-    "claimRestriction": { "type": "object", "required": ["effect", "affectedClaimIds", "scope", "rationale"], "properties": { "effect": { "const": "insufficient_evidence" }, "affectedClaimIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "scope": { "type": "string", "minLength": 1 }, "rationale": { "type": "string", "minLength": 1 } }, "additionalProperties": false },
-    "gate": { "$comment": "failureCauseId is a detail from the bound outcome-profile failure taxonomy, never a primary outcome.", "type": "object", "required": ["id", "backingCheckIds", "applicabilityRule", "unknownTriggerResult", "failureCauseId"], "properties": { "id": { "$ref": "#/$defs/id" }, "backingCheckIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "applicabilityRule": { "$ref": "#/$defs/verifiedContract" }, "unknownTriggerResult": { "const": "invalid" }, "failureCauseId": { "$ref": "#/$defs/id" } }, "additionalProperties": false },
-    "governanceRule": { "type": "object", "required": ["id", "status", "backingCheckIds", "applicabilityRule", "unknownTriggerResult"], "properties": { "id": { "$ref": "#/$defs/id" }, "status": { "enum": ["security_review_required", "manual_review_required"] }, "backingCheckIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true }, "applicabilityRule": { "$ref": "#/$defs/verifiedContract" }, "unknownTriggerResult": { "const": "open" } }, "additionalProperties": false }
+    "hardGate": {
+      "type": "object",
+      "required": [
+        "id",
+        "description",
+        "command"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "command": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "risk": {
+      "type": "object",
+      "required": [
+        "tier",
+        "rationale"
+      ],
+      "properties": {
+        "tier": {
+          "enum": [
+            "low",
+            "medium"
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "ref": {
+      "type": "object",
+      "required": [
+        "path",
+        "commit",
+        "digest"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "commit": {
+          "$ref": "#/$defs/commit"
+        },
+        "digest": {
+          "$ref": "#/$defs/digest"
+        }
+      },
+      "additionalProperties": false
+    },
+    "versionedDigestRef": {
+      "type": "object",
+      "required": [
+        "id",
+        "version",
+        "digest"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "digest": {
+          "$ref": "#/$defs/digest"
+        }
+      },
+      "additionalProperties": false
+    },
+    "decisionSurface": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "materiality",
+        "applicabilityRule",
+        "unknownApplicabilityResult",
+        "coverage",
+        "rationale"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "enum": [
+            "instruction_following",
+            "functional_output",
+            "tool_selection",
+            "tool_arguments",
+            "stop_or_escalation",
+            "handoff",
+            "context_management",
+            "other"
+          ]
+        },
+        "materiality": {
+          "enum": [
+            "outcome",
+            "risk",
+            "diagnostic"
+          ]
+        },
+        "applicabilityRule": {
+          "$ref": "#/$defs/versionedDigestRef"
+        },
+        "unknownApplicabilityResult": {
+          "const": "indeterminate"
+        },
+        "coverage": {
+          "enum": [
+            "checked",
+            "covered_by_final_state",
+            "not_applicable",
+            "declared_gap"
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "checkIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "uniqueItems": true
+        },
+        "coverageProof": {
+          "$ref": "#/$defs/versionedDigestRef"
+        },
+        "claimRestriction": {
+          "$ref": "#/$defs/claimRestriction"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "coverage": {
+                "const": "checked"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "checkIds": {},
+              "coverageProof": {}
+            },
+            "required": [
+              "checkIds",
+              "coverageProof"
+            ]
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "coverage": {
+                "const": "covered_by_final_state"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "coverageProof": {}
+            },
+            "required": [
+              "coverageProof"
+            ]
+          }
+        },
+        {
+          "if": {
+            "type": "object",
+            "properties": {
+              "coverage": {
+                "const": "declared_gap"
+              }
+            }
+          },
+          "then": {
+            "type": "object",
+            "properties": {
+              "claimRestriction": {}
+            },
+            "required": [
+              "claimRestriction"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "claimRestriction": {
+      "type": "object",
+      "required": [
+        "effect",
+        "affectedClaimIds",
+        "scope",
+        "rationale"
+      ],
+      "properties": {
+        "effect": {
+          "const": "insufficient_evidence"
+        },
+        "affectedClaimIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "uniqueItems": true
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    }
   }
 }
