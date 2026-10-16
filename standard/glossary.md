@@ -16,7 +16,7 @@ but cannot change these meanings.
 - **Sealed repository snapshot** — an immutable, content-addressed
   `workspace-manifest-1` selecting one of `tree_snapshot`, `bounded_ancestry`,
   or `full_ancestry` for every repository root
-  ([Git boundary contract](standard.md#git-repository-state-boundary-contract-scope-003)).
+  ([Git boundary contract](git-repository-state-contract.md)).
 - **Materially repository-grounded** — all four `SCOPE-003` tests hold, each
   with a rationale confirmed in Case QA. A link, ticket, or copied fragment
   alone does not establish this.

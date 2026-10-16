@@ -15,6 +15,8 @@ conformance, and they cannot create, waive, or decide an obligation.
   path, schema, `valid`, and for invalid examples the expected error location
   and the rule it illustrates. Profile `fixtures` descriptors point here.
 
+A2/A3 fixtures illustrate the draft annex, not normative A1 content.
+
 `npm test` checks that every schema has a valid example, that each example
 matches its expectation, and that bundled contracts validate. It does not
 re-verify digests, cross-document references, or commit identifiers inside the

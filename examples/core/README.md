@@ -58,8 +58,11 @@ exits (`HOLD-001`).
 
 ## 2. Case QA — [`case-qa.json`](case-qa.json)
 
-The original fix passes; the unchanged snapshot (`no-op`) and a plausible wrong
-fix (`round(amount, 2)` on floats) fail; all three controls are stable over five
+The original fix passes; the unchanged snapshot (`no-op`), a plausible wrong
+fix (`round(amount, 2)` on floats), the hidden regression test deleted
+(`disabled_or_weakened_tests`), and a fix that returns the expected values for
+the 1,000 generated amounts by table lookup (`hardcoded_outputs`) all fail, and
+fail on fresh amounts for the last; all five controls are stable over five
 runs. `person-b`, who did not write the case and had seen no results, confirmed
 that every required behavior is inferable from the agent-visible input and that
 all four scope tests hold. The case becomes `active` (`SCOPE-003`, `I12`, `CASE-004`).

@@ -85,157 +85,7 @@ verification, and positive and negative examples. A format label or
 content digest alone is insufficient. Adding such a contract would extend the
 repository-state layer, not the standard's agent-domain scope.
 
-### Git Repository-State Boundary Contract (`SCOPE-003`)
-
-`workspace-manifest-1` is the primary executable repository-state identity.
-Each repository entry **MUST** select exactly one closed mode:
-
-- `tree_snapshot` — `baseTree` identifies the selected root tree. The object
-  graph contains exactly that tree's recursive tree/blob closure, exposes no
-  refs, and contains no commit objects.
-- `bounded_ancestry` — `baseRevision` identifies a commit exposed through
-  exactly one sealed local branch ref. `maxParentDepth` counts parent edges from
-  that commit. The graph contains every commit whose minimum parent-edge
-  distance is at most that limit and the complete recursive tree/blob closure
-  of each such commit. `boundaryParentObjectIds` is the exact sorted set of
-  parent IDs referenced beyond the limit and not otherwise included; omission
-  before the boundary or embedding an object beyond it is invalid. The set
-  **MUST** be empty when no included boundary commit names a parent beyond the
-  limit, including a bounded projection whose selected base is a root commit.
-- `full_ancestry` — `baseRevision` identifies a commit exposed through exactly
-  one sealed local branch ref. The graph contains every reachable parent commit
-  and the complete recursive tree/blob closure of every reachable commit. No
-  shallow boundary is permitted.
-
-For every mode, the verifier **MUST** recompute each Git object ID from the
-declared object format and raw uncompressed object content, recompute the graph,
-tree, and workspace digests using the invoked
-[Git workspace digest projections](evidence-and-validation-contract.md#git-workspace-digest-projections),
-and require exact object closure: missing,
-unreachable, future, duplicate, or wrong-type objects are invalid. `files[]`
-**MUST** equal the flattened non-directory, non-gitlink entries of the selected
-base tree byte-for-byte, including Git mode. The only refs permitted are the
-single declared base branch ref in commit-based modes; `tree_snapshot` permits
-none.
-
-Version 0.1.0 represents a Git path only when every raw tree-entry name is
-well-formed UTF-8. Decoding and re-encoding each manifest path component
-**MUST** reproduce those bytes exactly; implementations **MUST NOT** normalize
-Unicode. A component **MUST** be nonempty, **MUST NOT** be `.` or `..`, and
-**MUST NOT** contain `/`, `\`, or NUL. Flattened file, gitlink, and non-root
-workspace repository paths **MUST** be relative slash-separated paths with no
-empty component, leading slash, or drive-absolute prefix. `repository.path`
-**MAY** be `.` only for a repository at the workspace root. Subject to those
-exclusions, spaces and all other Unicode scalar values with a well-formed UTF-8
-representation are permitted.
-`files[]` and `gitlinks[]` **MUST** be strictly ordered by unsigned
-lexicographic comparison of their complete UTF-8 path bytes. A repository with
-a non-UTF-8 tree-entry name is outside the executable path contract in 0.1.0;
-it **MUST NOT** be silently decoded with replacement characters.
-
-This UTF-8 boundary applies only to Git path identity. Commit objects remain
-raw byte strings for hashing and closure. Their structural `tree` and `parent`
-headers **MUST** contain the required ASCII names and hexadecimal object IDs,
-but other header values and commit-message bytes **MUST NOT** be rejected merely
-because they are not UTF-8.
-
-A base-tree entry with Git mode `160000` **MUST** have exactly one matching
-`gitlinks[]` record. That record **MUST** name a separate repository entry whose
-workspace-relative path equals the containing repository path joined with the
-gitlink path (`gitlink.path` alone when `repository.path` is `.`), whose commit-based
-`baseRevision` equals the gitlink target and whose Git object format equals the
-containing repository's format. The gitlink target is not embedded in the
-containing repository's object graph. A missing, ambiguous, tree-only, format-
-or revision-mismatched linked repository is invalid.
-
-Version 0.1.0 does not define Git LFS object transport, authorization, or
-materialization. A reachable blob recognized as a Git LFS pointer therefore
-makes the workspace manifest invalid; `.gitattributes` without a reachable LFS
-pointer is not by itself invalid. A later contract may add LFS only with
-content-addressed payload identity, authenticated retrieval, byte-level
-materialization verification, and offline replay semantics.
-
-Schema validation alone does not establish this boundary. A repository-state
-verifier that implements algorithm `git-repository-state-v1` and is pinned in
-the sealed run manifest **MUST** execute all rules above. Any
-unresolved base identity, reference, object, gitlink, LFS, projection, or digest
-condition yields `insufficient_evidence` for case activation and for every
-dependent positive claim or conformance claim; it **MUST NOT** be downgraded to
-a warning or `not_applicable`. A passing repository-state verdict establishes
-only immutable Git input identity and closure, not material repository
-grounding, task validity, or outcome correctness.
-
-A repository URL, ticket link, copied code fragment, or output location alone is
-insufficient. The case contract **MUST** record each of the four tests as
-holding, with a rationale that an independent reviewer confirms during Case QA
-(`CASE-004`). Making bytes unavailable, citing an arbitrary repository blob, or
-adding a repository-dependent side condition **MUST NOT** bootstrap an otherwise
-general-agent claim into scope; a reviewer who cannot confirm a test records it
-as failed and the case stays `candidate`.
-
-In scope are repository changes; repository research, debugging, review,
-security, and test design; repository-bound requirements, plans, architecture,
-API, migration, and threat models; and release, observability, rollback, runbook,
-or incident artifacts evaluated in controlled operational fixtures or
-simulations. Clarification, handoff, and multi-actor coordination are ancillary
-to those outcomes, not standalone capability claims.
-
-Out of scope are general-agent capability claims; unrelated office, business,
-customer-support, embodied, or arbitrary-computer-use work; and open-ended web
-research without a repository-grounded deliverable. The breadth of the evaluated
-implementation and the channel through which it delivers a result do not decide
-applicability: only the bounded evaluated work and claim may enter scope, and
-both **MUST** pass the four `SCOPE-003` tests. Every case environment **MUST**
-declare `evaluationMode: controlled_fixture` or
-`evaluationMode: simulation` and `productionActionAllowed: false`. Real
-production actions **MUST NOT** become evaluation cases, even under operational
-authorization. Live or unsealed production telemetry **MAY** support only
-validity or post-decision assurance. It **MUST NOT** become task input, trial
-outcome evidence, or a scheduled cell, and it does not convert production
-operation into a trial. Version 0.1.0 defines no production-derived fixture
-input: every case environment declares `inputOrigin` as `synthetic` or
-`public`. An adopter that needs sealed, redacted production snapshots as
-fixture input adds that path as a namespaced extension under `CONF-003` with
-its own provenance, authorization, redaction, and isolation evidence.
-
-The base layer defines common identity, isolation, experiment, evidence,
-accounting, claims, risk, and governance requirements. An evaluation profile
-only narrows this repository-SDLC base to capabilities, outcome profiles,
-environments, gates, controls, and metrics. It **MUST NOT** add a new domain or
-weaken the base. A new domain requires a separate sibling base or domain
-standard. Version 0.1.0 defines no conformance, or compatibility
-relation between that sibling and this standard; copied or similarly named
-rules do not create one.
-
-The repository **MUST** bundle one conforming repository-change evaluation
-profile, outcome profile, and positive and negative examples as an
-interoperability example. It has no privileged normative status. An
-adopter-defined evaluation profile receives the same schema, semantic,
-and base-compatibility validation.
-
-The base invariants are an internal foundation, not a standalone claim for
-agents outside this applicability boundary.
-
-Version 0.1.0 intentionally defines no domain-neutral parent standard.
-
-In the requirement name “universal gates,” `universal` means every conforming
-repository-SDLC evaluation inside this boundary. It never means agents or
-agent evaluations generally.
-
-Use the following composition decision before creating a new contract. The
-choice follows semantics, not directory layout or naming preference:
-
-| Needed change | Contract to create or change | Boundary test |
-| --- | --- | --- |
-| Narrow the repository-SDLC base | a new profile that narrows the base | Every field is a permitted subset, preservation, or strengthening under `PROFILE-001`; no new capability family, interaction mode, outcome contract, or weaker obligation appears. |
-| Cover a repository-SDLC capability or environment that cannot be expressed as such a narrowing | new evaluation profile | The work still passes `SCOPE-003` and the base taxonomy, but cannot be expressed as a narrowing without an addition or semantic substitution. The profile supplies a complete requirement mapping and conformance fixtures. |
-| Define how one work-product class reaches terminal results | outcome profile | The change concerns terminal evidence, valid alternatives, evidence modes, gates, failure taxonomy, native outcomes, or claim compatibility. Each consuming evaluation profile must separately allow and authenticate it. |
-| Add adopter-specific, stricter metadata or decision controls without changing base semantics | namespaced extension | The addition fits a schema-declared extension container or a permitted pointer to a separate namespaced artifact and satisfies `CONF-003`. |
-
-A change that introduces a non-repository domain is none of these; it requires
-a sibling base or domain standard. When more than one row applies, each layer
-**MUST** receive its own artifact and explicit authenticated binding rather than
-combining the changes under the label `profile`.
+SCOPE-003 invokes the versioned Git repository-state contract in [git-repository-state-contract.md](git-repository-state-contract.md) for repository-state modes, object closure, path encoding, gitlinks, LFS, and the fail-closed verdict; schema validation alone does not establish that boundary.
 
 ### Evaluation-Profile Resolution
 
@@ -591,7 +441,7 @@ non-monotonic policy value yields `insufficient_evidence`.
 | Level | Intended use | Minimum evidence depth |
 | --- | --- | --- |
 | `A0 diagnostic_run` | harness development and debugging | schema-valid inputs, universal safety controls, complete attempt accounting, and no claims |
-| `A1 capability` | bounded capability claim at low or medium effective risk; never governance use | the thirteen baseline obligations in [Conformance](conformance.md#baseline-a1): committed run manifest before the first attempt; validated cases (`case-1`, `case-qa-1`) with known-good, no-op, and plausible-wrong controls and an independent inferability review; complete hash-chained attempt ledger; deterministic gates; gates, outcomes, claims, and verdict in separate fields; non-agent baselines; identification bounds; `stat-defaults-v1` or declared overrides; least privilege |
+| `A1 capability` | bounded capability claim at low or medium effective risk; never governance use | the A1 requirement set in [Conformance](conformance.md#baseline-a1): committed run manifest before the first attempt; validated cases (`case-1`, `case-qa-1`) with known-good, no-op, plausible-wrong, and trivial-strategy controls and an independent inferability review; complete hash-chained attempt ledger; deterministic gates; gates, outcomes, claims, and verdict in separate fields; non-agent baselines; identification bounds; `stat-defaults-v1` or declared overrides; least privilege |
 | `A2 controlled_decision` | release or production-pilot evidence at low or medium effective risk | every A1 obligation plus a held-out budget and ledger; an independently reviewed validity argument with a baseline inventory under `VALID-003`, including its authenticated `no_incumbent_exists` path when applicable; a risk-assessment record; an operational policy; Case QA stages 3–8; the decision-surface inventory; evaluation- and outcome-profile bindings; and a detached validation envelope on the conformance statement |
 | `A3 high_assurance` | autonomy, risk acceptance, or any high/critical effective risk | every A2 obligation plus an evaluation threat model; a separate authorized security approval; a bound post-decision assurance plan; and passing adversarial positive controls |
 
@@ -601,6 +451,11 @@ profiles **MAY** require additional typed evidence through
 `additionalAssuranceRequirements`. A higher label without every lower-level and
 same-level obligation is non-conforming; a lower level **MUST NOT** support a
 higher-level decision.
+
+Maturity: 0.1.0 is normative for A0 and A1. A2 and A3 are published as a
+draft annex, stable in intent but unvalidated by any run and open to
+incompatible change in a later 0.1.x; their obligations above are draft annex.
+A claim at A2 or A3 is a claim against the draft annex.
 
 An A0 experiment **MUST** declare `assuranceLevel: A0` and empty `claims[]`. It is a
 harness-development run: it **MUST NOT** support any claim or any conformance
@@ -830,9 +685,12 @@ case without an inventory supports only claims about the terminal artifact.
 ### Activation and Maintenance
 
 `CASE-004` — Activation evidence is a `case-qa-1` record. At A1 it **MUST**
-establish, for each case, a known-good result that passes, a no-op result and at
-least one plausible wrong result that fail, stability over repeated runs, and an
-inferability and scope review by a person independent of the case author.
+establish, for each case, a known-good result that passes; a no-op result, at
+least one plausible wrong result and, where the case has tests or hidden checks,
+a result with those tests disabled or weakened and a result that hard-codes the
+expected outputs that all fail, with a case where a trivial strategy is not
+applicable recording why; stability over repeated runs; and an inferability and
+scope review by a person independent of the case author.
 
 The record binds the case at its candidate commit, meaning the case document
 without `lifecycle`. The active case is that document plus `lifecycle`, and no

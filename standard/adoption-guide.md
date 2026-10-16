@@ -13,8 +13,9 @@ If you have not yet made a claim under this standard, start at
 
 1. **Author cases** (`case-1`): task, repository commit, the four scope
    tests, deterministic checks, hard gates, and oracle isolation.
-2. **Validate cases** (`case-qa-1`): a known-good result passes, a no-op and a
-   plausible wrong result fail, stably; a second person confirms inferability
+2. **Validate cases** (`case-qa-1`): a known-good result passes; a no-op, a
+   plausible wrong result, and (where the case has tests) disabled-tests and
+   hard-coded-output results fail, stably; a second person confirms inferability
    and scope before any result exists.
 3. **Seal the run** (`run-manifest-1`): arms including a no-action baseline
    and a non-agent control, trials per case, replacement policy, claims with
@@ -31,7 +32,7 @@ The [worked example](../examples/core/README.md) shows every step with numbers.
 Everything below describes A2 and A3, which keep the same artifacts and add
 attachments and stronger forms.
 
-## A2 and A3
+## A2 and A3 (draft annex)
 
 A2 and A3 use the same six artifacts as A1. They add attachments and stronger
 forms; nothing from the A1 path is replaced. Use the

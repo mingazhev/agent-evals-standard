@@ -12,12 +12,14 @@ properties that the prose makes REQUIRED at A2 and above, and only
 file in this directory (22); repository checks enumerate that set rather than
 relying on this table.
 
-| Group | Schemas |
-| --- | --- |
-| Run family (6) | `case`, `case-qa`, `run-manifest`, `attempt-ledger`, `scorecard`, `conformance-statement` |
-| Registries and profiles | `requirement-registry`, `work-artifact-registry`, `escalation-event-registry`, `evaluation-profile`, `outcome-profile` |
-| Evidence | `evidence-artifact`, `validation-envelope`, `workspace-manifest` |
-| A2/A3 attachments | `validity-argument`, `evaluation-threat-model`, `held-out-exposure-budget`, `held-out-exposure-ledger`, `grader-validation`, `risk-assessment`, `operational-governance-policy`, `governance-decision` |
+| Group | Schemas | Maturity |
+| --- | --- | --- |
+| Run family (6) | `case`, `case-qa`, `run-manifest`, `attempt-ledger`, `scorecard`, `conformance-statement` | normative |
+| Registries | `requirement-registry`, `work-artifact-registry` | normative |
+| A2/A3 registries and profiles | `escalation-event-registry`, `evaluation-profile`, `outcome-profile` | draft annex |
+| Evidence | `workspace-manifest` | normative |
+| A2/A3 evidence | `evidence-artifact`, `validation-envelope` | draft annex |
+| A2/A3 attachments | `validity-argument`, `evaluation-threat-model`, `held-out-exposure-budget`, `held-out-exposure-ledger`, `grader-validation`, `risk-assessment`, `operational-governance-policy`, `governance-decision` | draft annex |
 
 Each schema is the file `<name>.schema.json`.
 
@@ -51,5 +53,5 @@ is defined by the [Conformance Contract](../standard/conformance.md).
 `workspace-manifest-1` has three and only three Git repository-state modes:
 `tree_snapshot`, `bounded_ancestry`, and `full_ancestry`. Their object-closure,
 gitlink, LFS-exclusion, and fail-closed verdict semantics are owned by the
-[Git Repository-State Boundary Contract](../standard/standard.md#git-repository-state-boundary-contract-scope-003),
+[Git Repository-State Boundary Contract](../standard/git-repository-state-contract.md),
 not by schema annotations. Schema `$comment` fields are informative navigation.

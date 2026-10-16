@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:agent-evals-standard:schema:case:1",
   "title": "Evaluation case",
-  "$comment": "A1 obligations C2, C4, C5, C6. effectiveRisk is the case's inherent-hazard classification; a case whose tier is high or critical may be scheduled only by an A3 run (checked against the run manifest, not here). Fields after effectiveRisk are optional here and required by prose at A2+. Semantic checks outside JSON Schema: every hidden check and reference solution is absent from the agent-visible inputs and from the repository history at baseCommit.",
+  "$comment": "A1 requirements SCOPE-003, HOLD-001, I1, GATE-001, I9, JUDGE-002, JUDGE-003. effectiveRisk is the case's inherent-hazard classification; a case whose tier is high or critical may be scheduled only by an A3 run (checked against the run manifest, not here). Fields after effectiveRisk are optional here and required by prose at A2+. Semantic checks outside JSON Schema: every hidden check and reference solution is absent from the agent-visible inputs and from the repository history at baseCommit.",
   "type": "object",
   "required": [
     "schemaVersion",

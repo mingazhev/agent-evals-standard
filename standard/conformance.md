@@ -95,28 +95,33 @@ has these fixed limits:
   is a `{path, commit, digest}` reference, and the A1 statement is validated by
   independent review, not by an envelope.
 
-The thirteen obligations below are the A1 requirement set: the registry
-entries they name carry `minimumLevel` `A1`. Each applies the named
-requirements in the A1 form; where that form is narrower than the full
-requirement (notably `CASE-004`, which at A1 needs only the three controls and
-one review rather than the full playbook), the narrowing is deliberate and is
-the reason A1 claims cannot reach governance use.
+The authoritative A1 set is every entry in the
+[requirement registry](requirement-registry.json) with `minimumLevel` `A1`
+(26 IDs). The list below groups them by theme and gives each one's A1 form.
+Where that form is narrower than the full requirement (notably `CASE-004`,
+which at A1 needs only the controls and one review rather than the full
+playbook), the narrowing is deliberate and is the reason A1 claims cannot reach
+governance use.
 
-| ID | Obligation | Requirements | A1 form |
-| --- | --- | --- | --- |
-| C1 | System identity | `SCOPE-001` | Every arm records model, agent configuration, prompts, harness, tools, permissions, and budgets by version or digest. |
-| C2 | Repository grounding | `SCOPE-003` | Each case records all four `SCOPE-003` tests as holding, each with a rationale reviewed in Case QA. |
-| C3 | Pre-registration | `I3` | The run manifest — cases, arms, repetitions, retry policy, claims, decision rules, and statistics — is committed before the commit containing the first attempt, and is never edited afterward. |
-| C4 | Oracle isolation | `HOLD-001` | Hidden checks and reference solutions are outside every agent-readable path, history, and remote; attributed access is a hard-gate failure and unattributed exposure invalidates the run. |
-| C5 | Non-compensable acceptance | `I1`, `GATE-001` | Success is exactly "every acceptance check and every hard gate passes"; no quality, cost, or composite value can override a failed gate. |
-| C6 | Evidence fits the construct | `I9`, `JUDGE-002`, `JUDGE-003` | Executable or mechanically inspectable outcomes use deterministic runner-owned checks. A judgment-bound check uses at least two [independent](glossary.md#independence) raters; a model grader is never sole evidence for a hard gate. |
-| C7 | Validated cases | `I12`, `CASE-004` | Each active case has a known-good result that passes, a no-op result and at least one plausible wrong result that fail, repeated stably, and an inferability review by a person independent of the case author. |
-| C8 | Complete attempt accounting | `RUN-002` | A hash-chained attempt ledger committed to Git records every scheduled and started attempt, including invalid and replacement attempts; a replacement links its original and is not a new observation. |
-| C9 | Separate fields and bounded claims | `OUT-001`, `CLAIM-001`, `CLAIM-002`, `I6` | Hard-gate results, primary outcomes, claim status, and decision verdict are separate fields; each claim states its population, case count, and restrictions and does not extend beyond them. |
-| C10 | Unit of analysis and declared statistics | `STAT-001`, `STAT-003` | Cases are the analysis unit; repeatability claims need repeated trials per case; estimators and intervals follow the [base statistical defaults](standard.md#base-statistical-defaults) or overrides sealed in the run manifest. |
-| C11 | Missingness | `STAT-002` | The scorecard reports scheduled, resolved, valid, invalid, and replacement counts per arm and identification bounds for every success metric; a valid-only estimate alone supports no claim. |
-| C12 | Non-agent baselines | `VALID-003` | The run includes a no-action baseline and a distinct non-agent control, measured with the same checks. An unmeasured incumbent is recorded and restricts claims. |
-| C13 | Least privilege | `I7` | No production credentials; tools, network, and writable paths are limited by the environment, not by instructions to the agent. |
+- **Identity and grounding.**
+  - `SCOPE-001`: every arm records model, agent configuration, prompts, harness, tools, permissions, and budgets by version or digest.
+  - `SCOPE-003`: each case records all four `SCOPE-003` tests as holding, each with a rationale reviewed in Case QA.
+- **Pre-registration and oracle isolation.**
+  - `I3`: the run manifest (cases, arms, repetitions, retry policy, claims, decision rules, statistics) is committed before the commit containing the first attempt and is never edited afterward.
+  - `HOLD-001`: hidden checks and reference solutions are outside every agent-readable path, history, and remote; attributed access is a hard-gate failure and unattributed exposure invalidates the run.
+- **Acceptance and evidence.**
+  - `I1`, `GATE-001`: success is exactly "every acceptance check and every hard gate passes"; no quality, cost, or composite value can override a failed gate.
+  - `I9`, `JUDGE-002`, `JUDGE-003`: executable or mechanically inspectable outcomes use deterministic runner-owned checks; a judgment-bound check uses at least two [independent](glossary.md#independence) raters, and a model grader is never sole evidence for a hard gate.
+- **Validated cases.**
+  - `I12`, `CASE-004`: each active case has a known-good result that passes; a no-op result, at least one plausible wrong result and, where the case has tests or hidden checks, a result with those tests disabled or weakened and a result that hard-codes the expected outputs all fail, repeated stably; a case where a trivial strategy is not applicable records why; and a person independent of the case author reviews inferability.
+- **Accounting and statistics.**
+  - `RUN-002`: a hash-chained attempt ledger committed to Git records every scheduled and started attempt, including invalid and replacement attempts; a replacement links its original and is not a new observation.
+  - `OUT-001`, `CLAIM-001`, `CLAIM-002`, `I6`: hard-gate results, primary outcomes, claim status, and decision verdict are separate fields; each claim states its population, case count, and restrictions and does not extend beyond them.
+  - `STAT-001`, `STAT-003`: cases are the analysis unit; repeatability claims need repeated trials per case; estimators and intervals follow the [base statistical defaults](standard.md#base-statistical-defaults) or overrides sealed in the run manifest.
+  - `STAT-002`: the scorecard reports scheduled, resolved, valid, invalid, and replacement counts per arm and identification bounds for every success metric; a valid-only estimate alone supports no claim.
+- **Baselines and least privilege.**
+  - `VALID-003`: the run includes a no-action baseline and a distinct non-agent control, measured with the same checks; an unmeasured incumbent is recorded and restricts claims.
+  - `I7`: no production credentials; tools, network, and writable paths are limited by the environment, not by instructions to the agent.
 
 An A1 conformance statement records one `requirementResults` row per A1
 requirement under [Requirement Coverage](#requirement-coverage). Under the
@@ -127,6 +132,9 @@ A complete A1 experiment with real numbers is worked through in
 [`examples/core/`](../examples/core/README.md).
 
 ## Conformance Targets
+
+An A2 or A3 statement records in `restrictions` that it is a claim against the
+draft annex of 0.1.0.
 
 Conformance is claimed as exactly two claims, `experiment` and `decision`:
 

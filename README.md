@@ -32,6 +32,22 @@ on the same invariants, artifacts, and schemas, adding attachments and stronger
 forms. Read the [Adoption Guide](standard/adoption-guide.md), then use
 the [authority map](#normative-authority-map) to find each contract.
 
+## Maturity
+
+Version 0.1.0 is normative for assurance levels A0 and A1. A2 and A3 are
+published as a **draft annex**: stable in intent, unvalidated by any run, and
+may change incompatibly in a later 0.1.x without a major version bump. A
+conformance claim at A2 or A3 is permitted but is a claim against the draft
+annex and MUST say so in its restrictions.
+
+Normative at A1: the six run-family schemas, the registries, and the A1
+requirement set. Draft annex: the A2/A3 attachments (validity argument, threat
+model, held-out budget and ledger, grader validation, risk assessment,
+governance decision, operational policy, escalation-event registry, evaluation
+and outcome profiles, evidence artifact, validation envelope), the Governance
+Policy, the Security Threat Model, and the A2/A3 parts of the Case QA playbook
+and evidence contract.
+
 ## Scope and implementation coverage
 
 The bundled profile is narrower than the seven-family taxonomy. Its maturity
@@ -47,7 +63,7 @@ The profile demonstrates interoperability, not production trust readiness.
 Each selected capability needs a material output mapped by the
 [work-artifact registry](standard/work-artifact-registry.json).
 
-The [Git boundary contract](standard/standard.md#git-repository-state-boundary-contract-scope-003)
+The [Git boundary contract](standard/git-repository-state-contract.md)
 supports one or multiple repositories, UTF-8 paths including spaces and
 non-normalized Unicode, and byte-preserved commit metadata. Non-Git VCS,
 non-UTF-8 path names, and reachable Git LFS pointer blobs are outside executable
@@ -81,6 +97,7 @@ explicitly invokes it; it is not a second definition.
 | Invoked normative contract | [Case QA Playbook](standard/case-qa-playbook.md) | Complete activation and revalidation procedure invoked by `CASE-004`. |
 | Invoked normative contract | [Validity, threat, and held-out exposure contracts](standard/standard.md#validity-threat-and-held-out-exposure-contracts) | Validity-argument, baseline, threat-model, and held-out budget and ledger contracts invoked by `VALID-002`, `VALID-003`, and `HOLD-002`. |
 | Invoked normative contract | [Integrity and Semantic Validation](standard/evidence-and-validation-contract.md#integrity-and-semantic-validation-contract) | Named canonical, cross-document, ledger, and verdict reproduction algorithms invoked by primary requirements. |
+| Invoked normative contract | [Git repository-state contract](standard/git-repository-state-contract.md) | Repository-state modes, closure, path and gitlink rules invoked by `SCOPE-003`. |
 
 | Invoked normative contract | [Security Threat Model](standard/security-threat-model.md) | Threat-coverage rules invoked by `RISK-001`, `RUN-003`, `DATA-001`, and `DATA-002`. |
 | Invoked normative templates | [Governance Policy](standard/governance-policy.md) and [Escalation and Stop Matrix](standard/governance-policy.md#escalation-and-stop-matrix) | Required adopter-owned policy and response shapes invoked by governance requirements; the bundled instances remain non-operational. |
