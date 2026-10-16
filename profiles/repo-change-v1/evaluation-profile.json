@@ -7,7 +7,6 @@
     "role": "profile_maintainer"
   },
   "version": "0.1.0",
-  "parentProfile": null,
   "baseCompatibility": {
     "standardVersion": "0.1.0",
     "requirementRegistry": {
@@ -117,33 +116,17 @@
     {
       "id": "repo-change-positive",
       "manifestUri": "../../examples/manifest.json",
-      "manifestDigest": "sha256:b73afeb5af57bd386425833e66420ce6e7680191e024fadd92641633bcd0ce54",
+      "manifestDigest": "sha256:63de09de95d71e4d146a87807ca4767c5584c035075685c353b5b9d9e4edb9aa",
       "manifestExpectationId": "evaluation-profile.valid",
       "expectedVerdict": "pass"
     },
     {
       "id": "reject-general-agent-capability",
       "manifestUri": "../../examples/manifest.json",
-      "manifestDigest": "sha256:b73afeb5af57bd386425833e66420ce6e7680191e024fadd92641633bcd0ce54",
+      "manifestDigest": "sha256:63de09de95d71e4d146a87807ca4767c5584c035075685c353b5b9d9e4edb9aa",
       "manifestExpectationId": "evaluation-profile.general-agent-capability",
       "expectedVerdict": "fail"
     }
   ],
-  "conflictReport": {
-    "status": "no_unresolved_conflicts",
-    "evidence": {
-      "id": "repo-change-v1-profile-resolution",
-      "version": "0.1.0",
-      "uri": "profile-resolution.json",
-      "digest": "sha256:c8a35666ddddaf900c2ebdb3d8f85e5a57f7a45897204ae5d212bbf4648ae738"
-    }
-  },
-  "resolutionEvidence": {
-    "id": "repo-change-v1-profile-resolution",
-    "version": "0.1.0",
-    "uri": "profile-resolution.json",
-    "digest": "sha256:c8a35666ddddaf900c2ebdb3d8f85e5a57f7a45897204ae5d212bbf4648ae738"
-  },
-  "effectiveProfileDigest": "sha256:cae0789af93296f590f8b2e9576a9e0e73aff4c6e53debe4fbb1c4e64487436b",
   "digest": "sha256:63ba96470cfd8438697bf2af7dd0eb42475db56805b99861ab2d398437f7e313"
 }

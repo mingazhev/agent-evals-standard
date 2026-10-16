@@ -47,7 +47,7 @@ authenticated base-state record. The latter two do not fabricate a diff. The aut
 cross-artifact bindings.
 
 The profile is an interoperability example, not a privileged policy or a
-universal release threshold. A deployment-specific child may inherit its
+universal release threshold. A deployment-specific profile may reuse its
 measurement rules under `PROFILE-001`, but it must replace the example
 ownership, thresholds, environment bindings, and governance policy before
 operational use. The bundled profile establishes only that the contracts fit

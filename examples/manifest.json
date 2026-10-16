@@ -141,18 +141,6 @@
       "valid": true
     },
     {
-      "id": "profile-resolution-proof-inputs.valid",
-      "path": "valid/profile-resolution-proof-inputs.json",
-      "schema": "schemas/profile-resolution-proof-inputs.schema.json",
-      "valid": true
-    },
-    {
-      "id": "profile-resolution-record.valid",
-      "path": "../profiles/repo-change-v1/profile-resolution.json",
-      "schema": "schemas/profile-resolution-record.schema.json",
-      "valid": true
-    },
-    {
       "id": "requirement-registry.valid",
       "path": "../standard/requirement-registry.json",
       "schema": "schemas/requirement-registry.schema.json",

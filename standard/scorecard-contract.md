@@ -63,9 +63,8 @@ Every component is an immutable ID/version/digest or an authenticated provider
 identity with immutability evidence.
 
 `caseProfiles[]` **MUST** contain exactly one binding for each scheduled case:
-the case ID; effective evaluation-profile ID, digest, and
-`effectiveProfileDigest`; and one outcome-profile ID, version, and digest. For
-A1–A3 the outcome profile **MUST** be compatible with the effective evaluation
+the case ID; evaluation-profile ID, version, and digest; and one outcome-profile ID, version, and digest. For
+A1–A3 the outcome profile **MUST** be compatible with the evaluation
 profile; an A0 binding only selects explicit measurement semantics. Every cell
 references exactly one case ID and one arm ID and resolves its measurement
 semantics through that case's binding. A case-profile binding is measurement
@@ -630,8 +629,7 @@ The scorecard **MUST** bind:
 
 - standard, requirements registry, scorecard, evaluation profile, policy, matrix, schema,
   and semantic-validation contract versions and digests;
-- suite `evaluationProfiles[]`, effective-profile resolution and conflict
-  reports, experiment `caseProfiles[]`, and outcome-profile versions and
+- suite `evaluationProfiles[]`, experiment `caseProfiles[]`, and outcome-profile versions and
   digests;
 - experiment manifest, intended use, validity argument, suite, case set,
   exposure ledger, assurance level, and the exact authenticated

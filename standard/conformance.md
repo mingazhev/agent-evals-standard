@@ -22,7 +22,7 @@ interaction modes, assurance levels, and effective-risk range in scope.
 The structured scope **MUST** be a nonempty set of uniquely identified slices.
 Each slice independently binds one immutable content-addressed workspace
 manifest whose URI resolves to the exact manifest bytes, exactly one effective
-leaf evaluation profile, one or more authenticated outcome profiles, assurance
+evaluation profile, one or more authenticated outcome profiles, assurance
 (`A1`–`A3`), risk, capability families, interaction modes, and work-artifact
 types. The evaluation profile, outcome profiles, registry, and declared scope
 **MUST** be compatible. A validator **MUST NOT** infer a cross-profile or
@@ -65,25 +65,10 @@ the [Core Standard](standard.md#applicability-boundary-and-profiles). This
 conformance contract only defines the evidence required to verify that
 boundary; it does not redefine `SCOPE-003`.
 
-`PROFILE-001` is defined in the
-[Core Standard](standard.md#evaluation-profile-resolution), which invokes the
-complete [resolution algorithm](profile-resolution-contract.md).
-This contract does not restate or alter that algorithm. For a `CONF-001` claim,
-the claimant **MUST** provide every source profile, authenticated contract,
-resolution record, replacement proof, effective projection, and fixture needed
-to execute that primary algorithm without implementation-specific assumptions.
-The conformance validator **MUST** apply the primary profile-resolution
-algorithm unchanged and **MUST** reject a profile when any required input is
-absent, unauthenticated, or cannot reproduce the declared effective digest. Profile
-shape, work-product classification, interaction-mode membership, outcome
-compatibility, and terminal-evidence semantics are validated through the exact
-registered schemas and primary contracts selected by that effective profile;
-conformance does not create a second definition of them.
-
 The repository **MUST** bundle one repository-change evaluation profile, one
 compatible outcome profile, and positive and negative examples as an
 interoperability example. Bundled and adopter-defined profiles receive identical
-schema, semantic, inheritance, and base-compatibility validation when they
+schema, semantic, and base-compatibility validation when they
 satisfy this contract and publish schemas, evidence, examples, versions, and
 digests. A profile is not a separate conformance target.
 
@@ -271,7 +256,7 @@ A public or internal conformance statement **MUST** contain:
 - assurance levels, effective-risk range, capability families, outcome profiles,
   and applicability boundary;
 - suite, case, evaluator, experiment, scorecard, policy, matrix, evaluation
-  profile, profile-resolution record, schema, and semantic-validation versions
+  profile, schema, and semantic-validation versions
   and digests as applicable;
 - implementation and arm identities for evaluator or experiment targets;
 - canonical evidence manifest;
@@ -285,7 +270,7 @@ The scope is structured, not inferred from `intendedUse` prose. It **MUST**
 contain only `intendedUse`, the
 `repository_grounded_sdlc_agent_evaluation` applicability boundary, and a
 nonempty `slices[]`. Every slice has a unique ID and independently binds one
-resolvable content-addressed `workspace-manifest-1`, exactly one effective leaf
+resolvable content-addressed `workspace-manifest-1`, exactly one
 `evaluationProfile`, one or more authenticated outcome profiles, a nonempty
 subset of the closed SDLC capability-family taxonomy, interaction modes, work-
 artifact types, assurance, and risk tiers, and requires full
@@ -304,7 +289,7 @@ separate statement and **MUST NOT** appear as a second conforming target
 record. The target record's `targetId` **MUST** equal its resolved
 `targetSubject.id`; reusing the same ID with different bytes or a different
 digest is a hard failure. Its dependency manifest **MUST** enumerate the exact
-target subject, scope workspaces, effective evaluation profiles, selected
+target subject, scope workspaces, evaluation profiles, selected
 work-artifact registries, and outcome profiles. The detached validation
 envelope binds this manifest but is excluded from its entries to avoid a digest
 cycle. For an experiment or decision, it **MUST** additionally contain the exact
@@ -360,7 +345,6 @@ authority exists only because that primary definition names it.
 | --- | --- | --- |
 | requirement identity, primary location, targets, ownership, applicability, and evidence basis | primary index | `requirement-registry.json` together with the linked primary requirement prose |
 | accepted JSON structure | normative shape | JSON validation keywords in the registered JSON Schema; annotations such as `$comment`, `title`, `description`, and `examples` are informative |
-| evaluation-profile inheritance, effective projection, provenance and replacement-proof algorithm | primary requirement plus normative shape | the [resolution algorithm](profile-resolution-contract.md) invoked by `PROFILE-001`, together with `profile-resolution-record.schema.json` |
 | canonicalization, hashing, cross-field and cross-document verdict algorithms | invoked normative contract | the exact named semantic contract, but only for the scope stated by its invoking primary requirement |
 | illustrative instances | informative | `examples/`; an example demonstrates shape and cannot create, waive, or decide an obligation |
 | requirement-to-source references | informative | `references.md`; cited external sources never create obligations |

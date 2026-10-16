@@ -20,7 +20,7 @@ Reading map (informative):
 | --- | --- |
 | Does this evaluation fit the standard? | [Applicability](#applicability-boundary-and-profiles), [capabilities](#sdlc-capability-taxonomy), and [validity](#intended-use-and-validity-argument) |
 | What applies across all evaluations? | [Invariants](#invariants), [assurance](#assurance-levels), and [risk](#risk-model) |
-| How do I implement profile resolution and evidence digests? | [Profile resolution contract](profile-resolution-contract.md) and [integrity algorithms](integrity-and-semantic-validation.md) |
+| How do I implement evidence digests? | [Integrity algorithms](integrity-and-semantic-validation.md) |
 | How do I prepare and maintain cases? | [Case lifecycle](#case-lifecycle-requirements) and [Case QA](case-qa-playbook.md) |
 | How do I run, score, and interpret an experiment? | [Execution](#execution-requirements), [judgment](#judgment-requirements), and [statistics](#statistics-and-missingness) |
 | How do I approve and monitor use? | [Governance](#governance-decisions-and-post-decision-assurance) and [suite health](#suite-health) |
@@ -203,7 +203,7 @@ accounting, claims, risk, and governance requirements. An evaluation profile
 only narrows this repository-SDLC base to capabilities, outcome profiles,
 environments, gates, controls, and metrics. It **MUST NOT** add a new domain or
 weaken the base. A new domain requires a separate sibling base or domain
-standard. Version 0.1.0 defines no inheritance, conformance, or compatibility
+standard. Version 0.1.0 defines no conformance, or compatibility
 relation between that sibling and this standard; copied or similarly named
 rules do not create one.
 
@@ -211,7 +211,7 @@ The repository **MUST** bundle one conforming repository-change evaluation
 profile, outcome profile, and positive and negative examples as an
 interoperability example. It has no privileged normative status. An
 adopter-defined evaluation profile receives the same schema, semantic,
-inheritance, and base-compatibility validation.
+and base-compatibility validation.
 
 The base invariants are an internal foundation, not a standalone claim for
 agents outside this applicability boundary.
@@ -227,8 +227,8 @@ choice follows semantics, not directory layout or naming preference:
 
 | Needed change | Contract to create or change | Boundary test |
 | --- | --- | --- |
-| Narrow an existing repository-SDLC evaluation profile | child evaluation profile | Every changed inherited field is a permitted subset, preservation, or strengthening under `PROFILE-001`; no new capability family, interaction mode, outcome contract, or weaker obligation appears. |
-| Cover a repository-SDLC capability or environment that cannot be expressed as such a narrowing | new root evaluation profile | The work still passes `SCOPE-003` and the base taxonomy, but no existing profile can parent it without an addition or semantic substitution. The root supplies a complete requirement mapping and conformance fixtures. |
+| Narrow the repository-SDLC base | a new profile that narrows the base | Every field is a permitted subset, preservation, or strengthening under `PROFILE-001`; no new capability family, interaction mode, outcome contract, or weaker obligation appears. |
+| Cover a repository-SDLC capability or environment that cannot be expressed as such a narrowing | new evaluation profile | The work still passes `SCOPE-003` and the base taxonomy, but cannot be expressed as a narrowing without an addition or semantic substitution. The profile supplies a complete requirement mapping and conformance fixtures. |
 | Define how one work-product class reaches terminal results | outcome profile | The change concerns terminal evidence, valid alternatives, evidence modes, gates, failure taxonomy, native outcomes, or claim compatibility. Each consuming evaluation profile must separately allow and authenticate it. |
 | Add adopter-specific, stricter metadata or decision controls without changing base semantics | namespaced extension | The addition fits a schema-declared extension container or a permitted pointer to a separate namespaced artifact and satisfies `CONF-003`. |
 
@@ -240,29 +240,20 @@ combining the changes under the label `profile`.
 ### Evaluation-Profile Resolution
 
 `PROFILE-001` — A suite **MUST** publish a closed `evaluationProfiles[]`
-containing every
-evaluation profile used by its cases. Each non-A0 case **MUST** pin exactly one
-effective leaf evaluation profile and one compatible outcome profile. Each
-scheduled cell **MUST** resolve by `caseId` to exactly one sealed
-`caseProfiles[]` entry whose profile and outcome-profile IDs, versions, and
-digests form the cell's measurement identity. A cell **MUST NOT** duplicate,
-override, or weaken that case-level binding.
-
-This requirement invokes the complete
-[Evaluation-Profile Resolution Contract](profile-resolution-contract.md) for
-inheritance, authentication, provenance, fixture execution, and canonical
-digests. Schema validation or a summary of that algorithm is insufficient.
-
-The effective evaluation profile and outcome profile are case/cell measurement
-identity shared by comparator arms, not treatment-arm components. A direct agent
-comparison **MUST** use identical effective measurement-profile digests across
-arms. Changing one creates a measurement-system study instead.
+containing every evaluation profile used by its cases. Each non-A0 case
+**MUST** pin exactly one evaluation profile and one compatible outcome profile
+by ID, version, and digest. A cell inherits the case binding and **MUST NOT**
+override it. Comparator arms share the measurement profile; changing it creates
+a measurement-system study instead. A profile narrows the base (supported
+assurance levels, risk range, capability families, interaction modes, outcome
+profiles, gates, QA controls, and metrics) and **MUST NOT** add a capability
+family, interaction mode, outcome contract, or weaker obligation.
 
 Assurance is a base-owned overlay, not profile-owned semantics. A profile's
 `supportedAssuranceLevels` can only narrow eligible levels. Its
-`additionalAssuranceRequirements` are structured additive deltas: the effective
-requirements are the complete base level, every inherited lower level, and all
-applicable deltas. A profile **MUST NOT** delete, replace, downgrade, or
+`additionalAssuranceRequirements` are structured additive deltas: the
+requirements are the complete base level, every lower level, and all applicable
+deltas. A profile **MUST NOT** delete, replace, downgrade, or
 reinterpret a base assurance requirement.
 
 ## SDLC Capability Taxonomy
@@ -349,7 +340,7 @@ A positive claim **MUST NOT** extend to an uncovered capability family, artifact
 type, risk context, repository class, or interaction mode. A suite intended only
 for code changes **MAY** omit other families if every resulting claim states
 that boundary. Each case **MUST** bind a nonempty `capabilityFamilyIds` subset of
-its effective evaluation profile; every claim-bearing material subject **MUST**
+its evaluation profile; every claim-bearing material subject **MUST**
 map to at least one of those IDs, and every selected ID **MUST** own at least one
 material work product through the registry.
 
@@ -747,21 +738,21 @@ sealed evaluator manifest pins. Changing the contract or the executable changes 
 registered digest; it does not silently change this base requirement.
 
 `OUTPROF-001` — Each non-A0 case **MUST** pin exactly one outcome-profile ID,
-version, and digest allowed by its effective evaluation profile. An outcome
+version, and digest allowed by its evaluation profile. An outcome
 profile specializes result shape; it **MUST NOT** expand capability scope,
 effective-risk range, assurance eligibility, or base requirements. The case,
-effective evaluation profile, selected outcome profile, and conformance scope
+evaluation profile, selected outcome profile, and conformance scope
 slice **MUST** bind the same authenticated work-artifact registry. Every case,
 cell, or conformance scope-slice work-artifact type **MUST** be supported by at
 least one authenticated selected outcome profile and map to a selected
 capability family; every selected capability family **MUST** have at least one
 material mapped type. A case's exact `interactionModeId` **MUST** be in the
-effective evaluation profile's complete `interactionModes` set.
+evaluation profile's complete `interactionModes` set.
 
 ### Authoring
 
 `CASE-001` — A case contract **MUST** contain a stable ID and version, source and
-rights metadata, effective evaluation-profile ID and digest, outcome-profile ID,
+rights metadata, evaluation-profile ID and digest, outcome-profile ID,
 version and digest, the authenticated work-artifact registry, complete material
 `workArtifactTypes`, capability-family IDs,
 exactly one closed `interactionModeId`, an authenticated inherent-hazard risk
@@ -905,10 +896,9 @@ the cell.
 
 Before execution, the sealed manifest **MUST** authenticate and pin one exact
 suite, every scheduled case, and one exact `evaluator-manifest-1`.
-Case-set membership and each case's evaluation-profile, effective-profile, and
+Case-set membership and each case's evaluation-profile and
 outcome-profile bindings **MUST** equal the authenticated suite. The validator
-**MUST** resolve each evaluation profile by digest, reproduce its flattened
-`effectiveProfileDigest`, and authenticate the selected outcome profile; a
+**MUST** resolve each evaluation profile by digest and authenticate the selected outcome profile; a
 copied digest string, matching ID, or fixture-side related-record hint is not a
 binding.
 
@@ -930,7 +920,7 @@ implementations, permissions, budgets, retrieval, memory, context projection,
 environment, and external services. Every item **MUST** carry a version and
 digest or an authenticated provider identity with immutability evidence.
 
-Each scheduled cell **MUST** resolve its effective evaluation-profile ID and
+Each scheduled cell **MUST** resolve its evaluation-profile ID and
 digest and outcome-profile ID, version, and digest indirectly and exactly
 through its case's sealed `caseProfiles[]` entry. The cell **MUST NOT** carry a
 second profile binding or an override. This resolved measurement profile is

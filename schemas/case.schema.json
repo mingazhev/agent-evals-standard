@@ -23,9 +23,9 @@
       "additionalProperties": false
     },
     "id": { "$ref": "#/$defs/id" },
-    "evaluationProfile": { "$comment": "Semantic validation must verify that outcomeProfile is listed in the resolved evaluation profile's allowedOutcomeProfiles and that effectiveProfileDigest matches the flattened profile.", "type": "object", "required": ["id", "version", "digest", "effectiveProfileDigest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" }, "effectiveProfileDigest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
+    "evaluationProfile": { "$comment": "Semantic validation must verify that outcomeProfile is listed in the evaluation profile's allowedOutcomeProfiles.", "type": "object", "required": ["id", "version", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
     "outcomeProfile": { "$ref": "#/$defs/component" },
-    "capabilityFamilyIds": { "$comment": "Semantic validation must require this set to be a subset of the resolved evaluation profile capabilityFamilies, require it to equal the set of families that workArtifactTypes map to through the authenticated work-artifact registry, and require every selected family to own at least one material workArtifactTypes entry. A family with no material work product is a passenger and is invalid.", "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/capabilityFamilyId" }, "uniqueItems": true },
+    "capabilityFamilyIds": { "$comment": "Semantic validation must require this set to be a subset of the evaluation profile capabilityFamilies, require it to equal the set of families that workArtifactTypes map to through the authenticated work-artifact registry, and require every selected family to own at least one material workArtifactTypes entry. A family with no material work product is a passenger and is invalid.", "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/capabilityFamilyId" }, "uniqueItems": true },
     "applicability": { "$ref": "#/$defs/applicability" },
     "source": {
       "type": "object", "required": ["type", "artifact"],
@@ -135,12 +135,12 @@
     "decisionSurfaces": { "$comment": "Optional at A1 and required by the pre-run manifest for A2 and A3 claims (CASE-005).", "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/decisionSurface" } },
     "claimRegistry": { "type": "object", "minProperties": 1, "propertyNames": { "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" }, "additionalProperties": { "$ref": "#/$defs/claimDefinition" } },
     "interactionModeId": {
-      "$comment": "One exact closed interaction-mode ID. Semantic validation must require membership in the resolved evaluation profile's complete interactionModes set; no binary alias or inferred translation is permitted.",
+      "$comment": "One exact closed interaction-mode ID. Semantic validation must require membership in the evaluation profile's complete interactionModes set; no binary alias or inferred translation is permitted.",
       "$ref": "#/$defs/interactionModeId"
     },
     "interactionProtocol": { "$ref": "#/$defs/verifiedContract" },
     "workArtifactRegistry": {
-      "$comment": "must equal the authenticated registry binding in both the resolved evaluation profile and selected outcome profile.",
+      "$comment": "must equal the authenticated registry binding in both the evaluation profile and selected outcome profile.",
       "$ref": "#/$defs/versionedArtifactPointer"
     },
     "workArtifactTypes": {

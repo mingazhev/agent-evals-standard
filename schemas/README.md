@@ -12,7 +12,7 @@ enumerate that set rather than relying on this summary.
 | --- | --- |
 | Core level (`A1-lite`) | `core-case.schema.json`, `core-case-qa.schema.json`, `core-run-manifest.schema.json`, `core-attempt-ledger.schema.json`, `core-scorecard.schema.json`, `core-conformance-statement.schema.json` |
 | Case and activation QA | `case.schema.json`, `case-qa-record.schema.json` |
-| Suite, evaluator, and measurement profiles | `suite-manifest.schema.json`, `evaluator-manifest.schema.json`, `evaluation-profile.schema.json`, `profile-resolution-record.schema.json`, `profile-resolution-proof-inputs.schema.json`, `outcome-profile.schema.json` |
+| Suite, evaluator, and measurement profiles | `suite-manifest.schema.json`, `evaluator-manifest.schema.json`, `evaluation-profile.schema.json`, `outcome-profile.schema.json` |
 | Closed SDLC work products | `work-artifact-registry.schema.json` |
 | Environment and sealed execution | `environment-contract.schema.json`, `pre-run-manifest.schema.json` |
 | Risk derivation and sealed tier identity | `risk-assessment.schema.json` |
