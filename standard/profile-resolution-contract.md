@@ -30,7 +30,6 @@ Inheritance is closed by field:
 | `capabilityFamilies`, `interactionModes`, `supportedAssuranceLevels`, `effectiveRiskRange` | replace the complete parent set only when the child set is a nonempty subset; equality is allowed and any added value is a conflict |
 | `allowedOutcomeProfiles` | replace the complete parent declaration with a nonempty subset of its authenticated IDs; an omitted parent ID is removed, a new ID is a conflict, and a retained ID with a different pointer requires the same `content_equal`, `preserves`, or `strengthens` replacement proof used for keyed pointer replacement |
 | `gateRegistry`, `caseQa`, `failureTaxonomy` | replace the singleton only after resolving both contracts and proving that every applicable parent obligation is preserved or strengthened; an unproved replacement is a conflict |
-| `requirementMapping` | replace with the leaf's complete declaration; never inherit, merge, or use a replacement proof |
 | `metrics`, `additionalAssuranceRequirements` | merge by `id` |
 | `exclusions` | merge by `scope` |
 | `fixtures` | form a validation-only union by fixture `id`: omitted parent fixtures remain required, a child may add only previously unseen IDs, and any duplicate ID anywhere in the chain is a conflict; authenticate and validate the union, then omit it from the effective digest projection |
@@ -39,29 +38,11 @@ Inheritance is closed by field:
 The resolver **MUST** authenticate `baseCompatibility.requirementRegistry`
 against the exact registry ID, version, and digest distributed with the named
 standard version. A caller-selected registry is not authoritative even when it
-has the same requirement IDs. Each leaf `requirementMapping` **MUST** then
-contain exactly one lexically ordered entry for every canonical registry ID, no
-unknown ID, and no duplicate. Every `sourceProfileId` **MUST** equal the leaf
-profile ID.
-
-Every mapping entry **MUST** bind its leaf's same authenticated
-`requirement-implementation-contract-1`. That closed contract **MUST** bind the
-leaf profile and source identity, the exact canonical registry identity and
-digest, the canonical digest and `criterionId` of every registry-owned
-`verificationContract`, and the ID, version, and byte digest of the
-requirement-mapping resolver pinned by the evaluator manifest. The validator
-**MUST** resolve and schema-check the contract, hash that pinned resolver, and
-recompute every entry. Arbitrary JSON, missing or additional requirements,
-criterion drift, an alternate registry, an unresolved implementation, or a
-claimant-selected resolver is a conflict.
-
-`requirementMapping` is neutral routing metadata. It **MUST NOT** contain or
-imply a claimant-declared `preserves`, `strengthens`, applicability, exception,
-or conformance result. Actual satisfaction or strengthening of a requirement
-is established only by the requirement-owned conformance proof selected by the
-canonical registry's `verificationContract` and the applicable assurance
-rules. A valid mapping alone is never evidence that the profile, suite, case,
-evaluator, experiment, decision, or claim conforms.
+has the same requirement IDs. A profile declares no per-requirement routing:
+which requirements apply to a target is decided by the registry alone, and
+whether they are satisfied is decided only by the requirement-owned
+conformance evidence under `CONF-002`. A valid profile is never evidence that
+the profile, suite, case, evaluator, experiment, decision, or claim conforms.
 
 Every fixture descriptor in the validation-only union **MUST** resolve
 `manifestUri` relative to the profile that declared it and within the
@@ -82,22 +63,18 @@ mismatch invalidates the profile.
 For delta keyed collections an omitted parent key remains effective: omission is
 not deletion. A repeated key replaces the parent only after a validator proves
 monotonic narrowing or strengthening; otherwise it is a conflict. Version 0.1.0
-has no deletion operator. `allowedOutcomeProfiles` and `requirementMapping` are
-complete-child exceptions. `fixtures` is the add-only exception: omission
+has no deletion operator. `allowedOutcomeProfiles` is the
+complete-child exception. `fixtures` is the add-only exception: omission
 inherits a parent fixture and a repeated fixture ID is always a conflict, so a
 child cannot replace or shadow a parent conformance obligation.
 `allowedOutcomeProfiles` authenticates every retained binding and intentionally
-removes an omitted parent ID. `requirementMapping` is rebuilt completely for the
-leaf and validated against the canonical registry and closed routing contract;
-no parent mapping row or relation is inherited. Set and singleton fields are
+removes an omitted parent ID. Set and singleton fields are
 also complete child declarations; other keyed collections in a child are
 deltas, and constraints stated for an effective collection are checked after
 merging. Unlisted fields or arrays **MUST NOT** be inherited.
 Set fields are ordered by their closed base enumeration; keyed collections are
 ordered lexicographically by merge key. The resolution evidence **MUST** record
-the source profile for every effective field or key; every
-`requirementMapping.sourceProfileId` is the leaf profile ID and its provenance
-operation is `leaf_complete`.
+the source profile for every effective field or key.
 
 Every profile **MUST** bind one versioned `resolutionEvidence` pointer to a
 detached, self-digested `profile-resolution-record-1`. Its
@@ -113,9 +90,7 @@ pointers, claimed relation (`subset`, `content_equal`, `preserves`, or
 `strengthens`), and proof-input evidence IDs. This includes different pointer
 metadata that
 resolves to content-equal bytes. Byte-for-byte identical pointer declarations
-**MUST NOT** have a replacement proof. `requirementMapping` never has a
-replacement proof because it is a complete, independently validated leaf
-declaration rather than an inherited keyed delta.
+**MUST NOT** have a replacement proof.
 The pinned PROFILE-001 semantic resolver **MUST** reject a
 missing, duplicate, or unpaired proof; resolve both pointers and every evidence
 ID exactly once through the record's canonical `evidenceManifest`; validate each
@@ -138,8 +113,8 @@ authenticated content `digest`. `uri` is a document-relative locator and is not
 measurement identity: every locator **MUST** resolve to the declared artifact,
 but two profiles in different directories may use different locators for the
 same content. Resolution retains the earliest effective canonical pointer.
-Except for the exact identity-preservation fields and complete
-`requirementMapping` named in the table, where a child repeats a singleton or
+Except for the exact identity-preservation fields named in the table, where a
+child repeats a singleton or
 delta-keyed pointer with different serialized locator metadata, the resolution
 record **MUST** include a `content_equal` replacement proof. The
 identity-preservation fields record `exact_match` provenance only after the

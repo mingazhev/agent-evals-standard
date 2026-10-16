@@ -77,15 +77,8 @@
     },
     "mappings": {
       "type": "array",
-      "minItems": 59,
-      "maxItems": 59,
-      "$comment": "Exactly one mapping is required for every requirement ID in requirement-registry-1; validators must enforce projected uniqueness and exact registry equality.",
-      "items": {
-        "oneOf": [
-          { "$ref": "#/$defs/sourceEvidenceMapping" },
-          { "$ref": "#/$defs/designInvariantMapping" }
-        ]
-      }
+      "$comment": "One mapping per requirement whose registry evidenceBasis.kind is source_evidence; design-invariant requirements are classified in the registry and have no mapping here. Validators must enforce projected uniqueness of requirementId.",
+      "items": { "$ref": "#/$defs/sourceEvidenceMapping" }
     },
     "capabilityCoverage": {
       "type": "array",
@@ -746,29 +739,6 @@
           "then": { "properties": { "basisObservationIds": { "type": "array", "minItems": 1 } } }
         }
       ],
-      "additionalProperties": false
-    },
-    "designInvariantMapping": {
-      "type": "object",
-      "required": [
-        "requirementId",
-        "kind",
-        "rationale",
-        "failureMode",
-        "validationObligation",
-        "claimRestriction"
-      ],
-      "properties": {
-        "requirementId": { "$ref": "#/$defs/id" },
-        "kind": { "const": "design_invariant" },
-        "rationale": { "type": "string", "minLength": 1 },
-        "failureMode": { "type": "string", "minLength": 1 },
-        "validationObligation": { "type": "string", "minLength": 1 },
-        "rationaleEvidence": { "$ref": "#/$defs/rationaleEvidence" },
-        "claimRestriction": {
-          "const": "This mapping records a normative design choice and MUST NOT be represented as an empirical observation or triangulated empirical validation."
-        }
-      },
       "additionalProperties": false
     },
     "capabilityCoverage": {

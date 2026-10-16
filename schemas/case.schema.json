@@ -4,9 +4,9 @@
   "title": "Conforming repository SDLC agent evaluation case",
   "type": "object",
   "required": [
-    "schemaVersion", "caseVersion", "contracts", "id", "evaluationProfile", "outcomeProfile", "capabilityFamilyIds", "capabilityClassification", "applicability", "source", "repository", "task",
+    "schemaVersion", "caseVersion", "contracts", "id", "evaluationProfile", "outcomeProfile", "capabilityFamilyIds", "applicability", "source", "repository", "task",
     "agentVisibleProjection", "setupExecutors", "contamination", "leakageControls", "inherentRiskAssessment", "inherentRiskTier", "tags",
-    "memberships", "sliceIds", "lifecycle", "environment", "budgets", "validation", "decisionSurfaces",
+    "memberships", "sliceIds", "lifecycle", "environment", "budgets", "validation",
     "claimRegistry", "interactionModeId", "workArtifactRegistry", "workArtifactTypes", "scoring", "artifactPolicy", "policy", "ownership", "digest"
   ],
   "properties": {
@@ -25,13 +25,7 @@
     "id": { "$ref": "#/$defs/id" },
     "evaluationProfile": { "$comment": "Semantic validation must verify that outcomeProfile is listed in the resolved evaluation profile's allowedOutcomeProfiles and that effectiveProfileDigest matches the flattened profile.", "type": "object", "required": ["id", "version", "digest", "effectiveProfileDigest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" }, "effectiveProfileDigest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
     "outcomeProfile": { "$ref": "#/$defs/component" },
-    "capabilityFamilyIds": { "$comment": "Semantic validation must require this set to be a subset of the resolved evaluation profile capabilityFamilies and require every selected family to own at least one material workArtifactTypes entry through the authenticated work-artifact registry. A family with no material work product is a passenger and is invalid.", "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/capabilityFamilyId" }, "uniqueItems": true },
-    "capabilityClassification": {
-      "$comment": "Semantic validation must reject duplicate capabilityFamilyId values; require their projected set to equal capabilityFamilyIds exactly; resolve evaluatedConstructIds through the suite validity argument; require every materialWorkArtifactType to resolve through workArtifactRegistry and map to this record's capabilityFamilyId; require the union of those types to equal workArtifactTypes; and require the classification records containing each material subjectType/subjectId pair to project exactly the capabilityFamilyIds on that materialSubjectDependency. Incidental actions must not add a family.",
-      "type": "array",
-      "minItems": 1,
-      "items": { "$ref": "#/$defs/capabilityClassification" }
-    },
+    "capabilityFamilyIds": { "$comment": "Semantic validation must require this set to be a subset of the resolved evaluation profile capabilityFamilies, require it to equal the set of families that workArtifactTypes map to through the authenticated work-artifact registry, and require every selected family to own at least one material workArtifactTypes entry. A family with no material work product is a passenger and is invalid.", "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/capabilityFamilyId" }, "uniqueItems": true },
     "applicability": { "$ref": "#/$defs/applicability" },
     "source": {
       "type": "object", "required": ["type", "artifact"],
@@ -94,9 +88,9 @@
     "lifecycle": {
       "type": "object", "required": ["status"],
       "properties": {
-        "status": { "enum": ["candidate", "active", "saturated", "regression", "quarantined", "retired"] },
+        "status": { "enum": ["candidate", "active", "quarantined", "retired"] },
         "qaRecord": { "$ref": "#/$defs/artifactPointer" }, "activationInputDigest": { "$ref": "#/$defs/digest" },
-        "preQuarantineEligibleState": { "enum": ["active", "saturated", "regression"] }, "quarantineRecord": { "$ref": "#/$defs/artifactPointer" }
+        "quarantineRecord": { "$ref": "#/$defs/artifactPointer" }
       },
       "additionalProperties": false
     },
@@ -138,7 +132,7 @@
       ],
       "additionalProperties": false
     },
-    "decisionSurfaces": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/decisionSurface" } },
+    "decisionSurfaces": { "$comment": "Optional at A1 and required by the pre-run manifest for A2 and A3 claims (CASE-005).", "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/decisionSurface" } },
     "claimRegistry": { "type": "object", "minProperties": 1, "propertyNames": { "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" }, "additionalProperties": { "$ref": "#/$defs/claimDefinition" } },
     "interactionModeId": {
       "$comment": "One exact closed interaction-mode ID. Semantic validation must require membership in the resolved evaluation profile's complete interactionModes set; no binary alias or inferred translation is permitted.",
@@ -150,7 +144,7 @@
       "$ref": "#/$defs/versionedArtifactPointer"
     },
     "workArtifactTypes": {
-      "$comment": "The complete set of material claim-bearing work products for this case. It must equal the union projected by capabilityClassification, be a subset of the selected outcome profile, and cover every capabilityFamilyIds value through workArtifactRegistry.",
+      "$comment": "The complete set of material claim-bearing work products for this case. It must be a subset of the selected outcome profile and map, through workArtifactRegistry, onto exactly capabilityFamilyIds.",
       "type": "array",
       "minItems": 1,
       "items": { "$ref": "urn:agent-evals-standard:schema:work-artifact-registry:1#/$defs/workArtifactTypeId" },
@@ -178,12 +172,12 @@
   },
   "allOf": [
     {
-      "if": { "type": "object", "properties": { "lifecycle": { "type": "object", "properties": { "status": { "enum": ["active", "saturated", "regression"] } }, "required": ["status"] } }, "required": ["lifecycle"] },
+      "if": { "type": "object", "properties": { "lifecycle": { "type": "object", "properties": { "status": { "const": "active" } }, "required": ["status"] } }, "required": ["lifecycle"] },
       "then": { "type": "object", "properties": { "lifecycle": { "type": "object", "properties": { "qaRecord": {}, "activationInputDigest": {} }, "required": ["qaRecord", "activationInputDigest"] } } }
     },
     {
       "if": { "type": "object", "properties": { "lifecycle": { "type": "object", "properties": { "status": { "const": "quarantined" } }, "required": ["status"] } }, "required": ["lifecycle"] },
-      "then": { "type": "object", "properties": { "lifecycle": { "type": "object", "properties": { "preQuarantineEligibleState": {}, "quarantineRecord": {} }, "required": ["preQuarantineEligibleState", "quarantineRecord"] } } }
+      "then": { "type": "object", "properties": { "lifecycle": { "type": "object", "properties": { "quarantineRecord": {} }, "required": ["quarantineRecord"] } } }
     },
     {
       "if": {
@@ -212,28 +206,6 @@
     "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$" }, "digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
     "capabilityFamilyId": { "enum": ["CAP.DISCOVER_SPECIFY", "CAP.PLAN_DESIGN", "CAP.IMPLEMENT_CHANGE", "CAP.VERIFY_ASSURE", "CAP.REVIEW_DECIDE", "CAP.RELEASE_OPERATE", "CAP.REMEDIATE_LEARN"] },
     "interactionModeId": { "enum": ["noninteractive_repository_task", "interactive_repository_session", "pull_request_workflow", "ci_or_release_workflow"] },
-    "capabilityClassification": {
-      "type": "object",
-      "required": ["capabilityFamilyId", "evaluatedConstructIds", "materialSubjects", "materialWorkArtifactTypes", "rationale", "classificationVerifier"],
-      "properties": {
-        "capabilityFamilyId": { "$ref": "#/$defs/capabilityFamilyId" },
-        "evaluatedConstructIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
-        "materialSubjects": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/materialSubjectRef" }, "uniqueItems": true },
-        "materialWorkArtifactTypes": { "type": "array", "minItems": 1, "items": { "$ref": "urn:agent-evals-standard:schema:work-artifact-registry:1#/$defs/workArtifactTypeId" }, "uniqueItems": true },
-        "rationale": { "type": "string", "minLength": 1 },
-        "classificationVerifier": { "$ref": "#/$defs/verifiedContract" }
-      },
-      "additionalProperties": false
-    },
-    "materialSubjectRef": {
-      "type": "object",
-      "required": ["subjectType", "subjectId"],
-      "properties": {
-        "subjectType": { "enum": ["outcome_profile", "claim"] },
-        "subjectId": { "$ref": "#/$defs/id" }
-      },
-      "additionalProperties": false
-    },
     "component": { "type": "object", "required": ["id", "version", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
     "artifactPointer": { "type": "object", "required": ["id", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
     "versionedArtifactPointer": { "type": "object", "required": ["id", "version", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
@@ -267,31 +239,18 @@
     },
     "actor": { "type": "object", "required": ["id", "role"], "properties": { "id": { "$ref": "#/$defs/id" }, "role": { "type": "string", "minLength": 1 } }, "additionalProperties": false },
     "applicability": {
-      "$comment": "Semantic validation must resolve all four evidence pointers, require exactly one outcome_profile dependency for outcomeProfile.id and exactly one claim dependency for every claimRegistry key, reject unknown or duplicate subjects, require every dependency capabilityFamilyIds set to be a subset of the case capabilityFamilyIds, and recompute both repository-dependency and removal-counterfactual verdicts as pass.",
+      "$comment": "The four SCOPE-003 tests. A case must hold all four; each rationale is reviewed in Case QA (CASE-004).",
       "type": "object",
-      "required": ["repositoryStateNecessityEvidence", "acceptanceInvariantTraceEvidence", "repositoryGovernedResultEvidence", "removalCounterfactualEvidence", "materialSubjectDependencies"],
+      "required": ["repositoryStateNecessary", "invariantsTraceToRepository", "changesRepositoryArtifactOrDecision", "removalChangesVerdict"],
       "properties": {
-        "repositoryStateNecessityEvidence": { "$ref": "#/$defs/artifactPointer" },
-        "acceptanceInvariantTraceEvidence": { "$ref": "#/$defs/artifactPointer" },
-        "repositoryGovernedResultEvidence": { "$ref": "#/$defs/artifactPointer" },
-        "removalCounterfactualEvidence": { "$ref": "#/$defs/artifactPointer" },
-        "materialSubjectDependencies": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/materialSubjectDependency" } }
+        "repositoryStateNecessary": { "$ref": "#/$defs/scopeTest" },
+        "invariantsTraceToRepository": { "$ref": "#/$defs/scopeTest" },
+        "changesRepositoryArtifactOrDecision": { "$ref": "#/$defs/scopeTest" },
+        "removalChangesVerdict": { "$ref": "#/$defs/scopeTest" }
       },
       "additionalProperties": false
     },
-    "materialSubjectDependency": {
-      "type": "object",
-      "required": ["subjectType", "subjectId", "capabilityFamilyIds", "repositoryDependencyEvidence", "removalCounterfactualEvidence", "verdict"],
-      "properties": {
-        "subjectType": { "enum": ["outcome_profile", "claim"] },
-        "subjectId": { "$ref": "#/$defs/id" },
-        "capabilityFamilyIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/capabilityFamilyId" }, "uniqueItems": true },
-        "repositoryDependencyEvidence": { "$ref": "#/$defs/artifactPointer" },
-        "removalCounterfactualEvidence": { "$ref": "#/$defs/verifiedContract" },
-        "verdict": { "const": "pass" }
-      },
-      "additionalProperties": false
-    },
+    "scopeTest": { "type": "object", "required": ["holds", "rationale"], "properties": { "holds": { "const": true }, "rationale": { "type": "string", "minLength": 1 } }, "additionalProperties": false },
     "leakageControl": {
       "oneOf": [
         {

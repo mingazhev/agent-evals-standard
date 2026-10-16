@@ -50,7 +50,7 @@ addresses requirements by the stable IDs below.
 | `CASE-004` | Case QA activation and revalidation | Case QA validator | [Standard](standard.md#activation-and-maintenance) | professional task audit in [Informative References](references.md) |
 | `CASE-005` | decision-surface coverage | Case QA validator | [Standard](standard.md#decision-surface-coverage) | trajectory-aware evaluation |
 | `HOLD-001` | oracle isolation | run validator | [Standard](standard.md#i2-lifecycle-wide-oracle-isolation) | contamination findings in [Informative References](references.md) |
-| `HOLD-002` | held-out exposure and reuse budget | suite validator | [Standard](standard.md#held-out-exposure-and-reuse), [machine contracts](validity-threat-exposure-contracts.md#held-out-budget-and-ledger) | contamination and saturation control |
+| `HOLD-002` | held-out exposure and reuse budget | suite validator | [Standard](standard.md#held-out-exposure-and-reuse), [exposure contracts](validity-threat-exposure-contracts.md#held-out-budget-and-ledger) | contamination and saturation control |
 | `EXP-001` | sealed experiment and scheduled cells | run validator | [Standard](standard.md#sealed-experiment-contract) | reproducibility and pre-registration |
 | `EXP-002` | complete arm identity | run validator | [Standard](standard.md#sealed-experiment-contract) | causal comparability |
 | `EXP-003` | comparative design | statistical validator | [Standard](standard.md#sealed-experiment-contract) | paired experimental design |
@@ -115,7 +115,7 @@ A primary requirement may explicitly invoke a named normative contract for its
 closed algorithm, required inputs, or control procedure. That invoked contract
 is authoritative only for the invocation's stated scope and **MUST NOT** add a
 new requirement, target, or verdict consequence. The
-[Validity, threat, and held-out exposure machine contracts](validity-threat-exposure-contracts.md),
+[Validity, threat, and held-out exposure contracts](validity-threat-exposure-contracts.md),
 for example, are invoked by their registered primary anchors; they are not a
 second primary location for `VALID-002` or any other requirement.
 
@@ -211,9 +211,10 @@ seven capability families or transfer to an adopter's population.
 
 `evidenceReadiness: ready` requires current, projection-bound maintainer review
 receipts for every cited source and no normative requirement mapped as
-`evidence_gap`.
-Design invariants remain eligible when their threat rationale, failure mode,
-validation obligation, and claim restriction are explicit. The release gate
+`evidence_gap`. A requirement whose registry `evidenceBasis.kind` is
+`design_invariant` carries its threat rationale in the registry and has no
+source mapping; only `source_evidence` requirements appear in the manifest's
+`mappings[]`. The release gate
 **MUST** run the repository check (`npm test`) on a clean checkout of the exact
 candidate commit and confirm that every maintainer review receipt is current.
 On a release tag it **MUST** additionally bind the exact `v0.1.0` annotated tag

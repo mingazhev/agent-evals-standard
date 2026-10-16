@@ -62,147 +62,23 @@
       "CAP.IMPLEMENT_CHANGE",
       "CAP.VERIFY_ASSURE"
     ],
-    "capabilityClassification": [
-      {
-        "capabilityFamilyId": "CAP.IMPLEMENT_CHANGE",
-        "evaluatedConstructIds": [
-          "construct.patch.correctness"
-        ],
-        "materialSubjects": [
-          {
-            "subjectType": "outcome_profile",
-            "subjectId": "workspace-change-v1"
-          },
-          {
-            "subjectType": "claim",
-            "subjectId": "claim.patch"
-          }
-        ],
-        "materialWorkArtifactTypes": [
-          "code_change",
-          "test_change"
-        ],
-        "rationale": "Tests are authored as components of the evaluated patch; no independent test-design verdict is implied by this classification.",
-        "classificationVerifier": {
-          "id": "architecture-capability-classifier",
-          "version": "0.1.0",
-          "digest": "sha256:10d2c10c7e3270dec5a56e937b9d3a7c62939d79ee803d34717d437f65dc4233",
-          "schemaId": "agent-eval-case-classification-validity-argument-1",
-          "verifierDigest": "sha256:10d2c10c7e3270dec5a56e937b9d3a7c62939d79ee803d34717d437f65dc4233"
-        }
-      },
-      {
-        "capabilityFamilyId": "CAP.VERIFY_ASSURE",
-        "evaluatedConstructIds": [
-          "construct.test-design.quality"
-        ],
-        "materialSubjects": [
-          {
-            "subjectType": "outcome_profile",
-            "subjectId": "workspace-change-v1"
-          },
-          {
-            "subjectType": "claim",
-            "subjectId": "claim.test_design"
-          }
-        ],
-        "materialWorkArtifactTypes": [
-          "assurance_report"
-        ],
-        "rationale": "The test design receives an independent claim-bearing verdict, so verification is a material evaluated construct.",
-        "classificationVerifier": {
-          "id": "architecture-capability-classifier",
-          "version": "0.1.0",
-          "digest": "sha256:10d2c10c7e3270dec5a56e937b9d3a7c62939d79ee803d34717d437f65dc4233",
-          "schemaId": "agent-eval-case-classification-validity-argument-1",
-          "verifierDigest": "sha256:10d2c10c7e3270dec5a56e937b9d3a7c62939d79ee803d34717d437f65dc4233"
-        }
-      }
-    ],
     "applicability": {
-      "repositoryStateNecessityEvidence": {
-        "id": "repository-state-necessity",
-        "uri": "scorecard-case-validity-argument.json",
-        "digest": "sha256:55f508f58fe759501923225df77bc2870d70ed8ee1f0a39bcd5e264c83f422a1"
+      "repositoryStateNecessary": {
+        "holds": true,
+        "rationale": "The evaluated change targets code and tests that exist only in the sealed repository snapshot; the task cannot be stated or solved without it."
       },
-      "acceptanceInvariantTraceEvidence": {
-        "id": "acceptance-invariant-trace",
-        "uri": "scorecard-case-validity-argument.json",
-        "digest": "sha256:55f508f58fe759501923225df77bc2870d70ed8ee1f0a39bcd5e264c83f422a1"
+      "invariantsTraceToRepository": {
+        "holds": true,
+        "rationale": "Every acceptance check executes the repository's own build and test suite plus hidden checks bound to named repository modules."
       },
-      "repositoryGovernedResultEvidence": {
-        "id": "repository-governed-result",
-        "uri": "scorecard-case-validity-argument.json",
-        "digest": "sha256:55f508f58fe759501923225df77bc2870d70ed8ee1f0a39bcd5e264c83f422a1"
+      "changesRepositoryArtifactOrDecision": {
+        "holds": true,
+        "rationale": "The result is a repository change (code and tests) evaluated as a workspace diff."
       },
-      "removalCounterfactualEvidence": {
-        "id": "case-removal-counterfactual",
-        "uri": "scorecard-case-validity-argument.json",
-        "digest": "sha256:55f508f58fe759501923225df77bc2870d70ed8ee1f0a39bcd5e264c83f422a1"
-      },
-      "materialSubjectDependencies": [
-        {
-          "subjectType": "outcome_profile",
-          "subjectId": "workspace-change-v1",
-          "capabilityFamilyIds": [
-            "CAP.IMPLEMENT_CHANGE",
-            "CAP.VERIFY_ASSURE"
-          ],
-          "repositoryDependencyEvidence": {
-            "id": "dependency.outcome.multi-label",
-            "uri": "scorecard-case-validity-argument.json",
-            "digest": "sha256:55f508f58fe759501923225df77bc2870d70ed8ee1f0a39bcd5e264c83f422a1"
-          },
-          "removalCounterfactualEvidence": {
-            "id": "counterfactual.outcome.multi-label",
-            "version": "0.1.0",
-            "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
-            "schemaId": "agent-eval-case-classification-validity-argument-1",
-            "verifierDigest": "sha256:10d2c10c7e3270dec5a56e937b9d3a7c62939d79ee803d34717d437f65dc4233"
-          },
-          "verdict": "pass"
-        },
-        {
-          "subjectType": "claim",
-          "subjectId": "claim.patch",
-          "capabilityFamilyIds": [
-            "CAP.IMPLEMENT_CHANGE"
-          ],
-          "repositoryDependencyEvidence": {
-            "id": "dependency.claim.patch",
-            "uri": "scorecard-case-validity-argument.json",
-            "digest": "sha256:55f508f58fe759501923225df77bc2870d70ed8ee1f0a39bcd5e264c83f422a1"
-          },
-          "removalCounterfactualEvidence": {
-            "id": "counterfactual.claim.patch",
-            "version": "0.1.0",
-            "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
-            "schemaId": "agent-eval-case-classification-validity-argument-1",
-            "verifierDigest": "sha256:10d2c10c7e3270dec5a56e937b9d3a7c62939d79ee803d34717d437f65dc4233"
-          },
-          "verdict": "pass"
-        },
-        {
-          "subjectType": "claim",
-          "subjectId": "claim.test_design",
-          "capabilityFamilyIds": [
-            "CAP.VERIFY_ASSURE"
-          ],
-          "repositoryDependencyEvidence": {
-            "id": "dependency.claim.test-design",
-            "uri": "scorecard-case-validity-argument.json",
-            "digest": "sha256:55f508f58fe759501923225df77bc2870d70ed8ee1f0a39bcd5e264c83f422a1"
-          },
-          "removalCounterfactualEvidence": {
-            "id": "counterfactual.claim.test-design",
-            "version": "0.1.0",
-            "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
-            "schemaId": "agent-eval-case-classification-validity-argument-1",
-            "verifierDigest": "sha256:10d2c10c7e3270dec5a56e937b9d3a7c62939d79ee803d34717d437f65dc4233"
-          },
-          "verdict": "pass"
-        }
-      ]
+      "removalChangesVerdict": {
+        "holds": true,
+        "rationale": "Without the repository there is no code to change and no checks to run, so no verdict can be produced."
+      }
     },
     "source": {
       "type": "synthetic",

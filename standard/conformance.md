@@ -22,15 +22,12 @@ interaction modes, assurance levels, and effective-risk range in scope.
 The structured scope **MUST** be a nonempty set of uniquely identified slices.
 Each slice independently binds one immutable content-addressed workspace
 manifest whose URI resolves to the exact manifest bytes, exactly one effective
-leaf evaluation profile, one or more authenticated outcome profiles, assurance,
-risk, capability families, interaction modes, and work-artifact types. Every
-slice declares `bindingUse`. For A1–A3, it **MUST** be `claims_eligible`, and the
-evaluation profile, outcome profiles, registry, and declared scope **MUST** be
-compatible. For A0, it **MUST** be `diagnostic_only`; the validator **MUST**
-authenticate and reproduce each bound artifact but **MUST NOT** infer or assert
-compatibility among them or with the declared diagnostic scope. A validator
-**MUST NOT** infer a cross-profile or cross-repository union from fields
-belonging to different slices.
+leaf evaluation profile, one or more authenticated outcome profiles, assurance
+(`A1`–`A3`), risk, capability families, interaction modes, and work-artifact
+types. The evaluation profile, outcome profiles, registry, and declared scope
+**MUST** be compatible. A validator **MUST NOT** infer a cross-profile or
+cross-repository union from fields belonging to different slices. An A0
+diagnostic run is not a conformance subject and has no slice.
 
 `CONF-001` invokes the versioned
 [Integrity and Semantic Validation Contract](integrity-and-semantic-validation.md)
@@ -39,19 +36,11 @@ as its cross-document verdict algorithm and
 distribution-identity contract. A target cannot satisfy `CONF-001` by validating
 schema shape while omitting an applicable check from either contract.
 
-The applicability-boundary label is not evidence. Every slice **MUST** bind
-one `repository-grounding-evidence-1` payload containing exactly four
-typed assertions: repository necessity, claim/invariant traceability, a
-repository-governed outcome, and a semantic counterfactual. The validator
-**MUST** resolve and hash every embedded workspace object byte string, reproduce
-the workspace root, execute every exact outcome and target-claim predicate with
-an evaluator-pinned implementation, reproduce the counterfactual `pass` to
-`fail` transition, and reproduce the declared verifier inputs and outputs. A
-label, repeated subject metadata, arbitrary repository bytes, loss of
-input availability, or a self-reported verdict is not grounding evidence.
-Missing, non-executable, incomplete, or mismatched grounding evidence places the
-slice outside the boundary; it may be represented honestly only as
-`insufficient_evidence`.
+The applicability-boundary label is not evidence. Every case in a slice
+**MUST** carry the four `SCOPE-003` tests as holding, each with a rationale
+confirmed by an independent Case QA reviewer. A slice containing a case whose
+tests are unconfirmed is outside the boundary and may be represented honestly
+only as `insufficient_evidence`.
 
 The foundation invariants are part of this base standard. They are not a
 standalone general-agent certification. An evaluation outside the applicability
@@ -85,15 +74,11 @@ resolution record, replacement proof, effective projection, and fixture needed
 to execute that primary algorithm without implementation-specific assumptions.
 The conformance validator **MUST** apply the primary profile-resolution
 algorithm unchanged and **MUST** reject a profile when any required input is
-absent, unauthenticated, or cannot reproduce the declared effective digest. For
-an A1–A3 `claims_eligible` slice, profile shape, work-product classification,
-interaction-mode membership, outcome compatibility, and terminal-evidence
-semantics are validated through the exact registered schemas and primary
-contracts selected by that effective profile; conformance does not create a
-second definition of them. For an A0 `diagnostic_only` slice, only the
-standalone artifacts, identities, digests, and effective profile resolution
-are authenticated; those cross-artifact compatibility and profile-specific
-case-acceptance checks **MUST NOT** run.
+absent, unauthenticated, or cannot reproduce the declared effective digest. Profile
+shape, work-product classification, interaction-mode membership, outcome
+compatibility, and terminal-evidence semantics are validated through the exact
+registered schemas and primary contracts selected by that effective profile;
+conformance does not create a second definition of them.
 
 The repository **MUST** bundle one repository-change evaluation profile, one
 compatible outcome profile, and positive and negative examples as an
@@ -101,13 +86,6 @@ interoperability example. Bundled and adopter-defined profiles receive identical
 schema, semantic, inheritance, and base-compatibility validation when they
 satisfy this contract and publish schemas, evidence, examples, versions, and
 digests. A profile is not a separate conformance target.
-
-Apply `ASSURE-001` in the core standard for A0 run semantics. Under `CONF-001`,
-an A0 conformance statement **MUST** claim only the evaluator target, contain
-exactly that one `targetEvidence` record, omit `decisionEnvelope`, and mark
-every A0 scope slice `bindingUse: diagnostic_only`. This evaluator claim covers the
-measurement stack, not compatibility or conformance of a bound profile, case,
-suite, experiment, or decision.
 
 ## Core Level
 
@@ -135,13 +113,14 @@ below and does not imply any of them. Every Core claim has assurance level
 
 Core conformance requires every obligation below. Each obligation applies the
 named requirements in the stated Core form; where the Core form is narrower
-than the full requirement, the narrowing is deliberate and is the reason Core
-claims cannot reach governance use.
+than the full requirement (notably `CASE-004`, which at Core needs only the
+three controls and one review rather than the full playbook), the narrowing is
+deliberate and is the reason Core claims cannot reach governance use.
 
 | ID | Obligation | Requirements | Core form |
 | --- | --- | --- | --- |
 | C1 | System identity | `SCOPE-001` | Every arm records model, agent configuration, prompts, harness, tools, permissions, and budgets by version or digest. |
-| C2 | Repository grounding | `SCOPE-003` | Each case records all four `SCOPE-003` tests as holding, each with a rationale reviewed in Case QA. The executable ablation contract is not required. |
+| C2 | Repository grounding | `SCOPE-003` | Each case records all four `SCOPE-003` tests as holding, each with a rationale reviewed in Case QA. |
 | C3 | Pre-registration | `I3` | The run manifest — cases, arms, repetitions, retry policy, claims, decision rules, and statistics — is committed before the commit containing the first attempt, and is never edited afterward. |
 | C4 | Oracle isolation | `HOLD-001` | Hidden checks and reference solutions are outside every agent-readable path, history, and remote; attributed access is a hard-gate failure and unattributed exposure invalidates the run. |
 | C5 | Non-compensable acceptance | `I1`, `GATE-001` | Success is exactly "every acceptance check and every hard gate passes"; no quality, cost, or composite value can override a failed gate. |
@@ -221,18 +200,9 @@ containing target nonconforming. Transitive dependencies are established by the
 dependency statements and their passing validation envelopes; copying only
 their target IDs or verdict strings is not composition evidence.
 
-Conformance at one target does not imply another. `full conformance` is a
-derived presentation label, not a sixth target or a statement value. It
-**MUST NOT** be derived merely from any five passing statements. It requires an
-independently validated aggregate manifest over a verified dependency
-graph: every case is an exact member of the suite; the experiment binds the
-exact suite, cases, evaluator, profiles, and repositories; the decision binds
-the exact experiment, scorecard, and claims; and all scope slices and validity
-intervals are compatible. Version 0.1.0 does not publish an aggregate-
-conformance-manifest schema, so an implementation **MUST NOT** publish the `full
-conformance` label until that required future artifact and its semantic
-validator are versioned and available. A target field **MUST NOT** use `full` or
-a profile as its value.
+Conformance at one target does not imply another, and version 0.1.0 defines
+no aggregate label over several targets. A target field **MUST NOT** use `full`
+or a profile as its value.
 
 ## Requirement Coverage
 
@@ -248,93 +218,30 @@ exactly one status:
 - `insufficient_evidence`: required evidence is absent, invalid, expired, or
   indeterminate.
 
-Each `requirementResult` **MUST** include `requirementId`, `target`, a
-digest-bound `applicabilityContract`, `status`, `verifierOrReviewer`, canonical
-`evidenceIds`, `evaluationProfileRuleIds`, and deterministic `claimEffect`.
-The contract pointer **MUST** resolve to an authenticated
-`conformance-applicability-contract-1`; its `ruleId` **MUST** select exactly one
-rule for the same requirement and target. The contract **MUST** bind every scope
-slice to its exact effective evaluation profile. Its rule predicate **MUST** be
-typed `target_membership`, bind the recomputed digest of the authenticated
-requirement-registry entry's ID, targets, and applicability rule, and derive
-applicability from registry target membership. An issuer cannot exclude an
-applicable requirement. Unknown rules, unresolved contracts, indeterminate
-predicates, irrelevant evidence, expired evidence, or an unresolvable
-selected-profile rule produce `insufficient_evidence`.
+Each `requirementResult` **MUST** include `requirementId`, `target`, `status`,
+`verifierOrReviewer`, canonical `evidenceIds`, `evaluationProfileRuleIds`, and
+deterministic `claimEffect`. Applicability is registry target membership and
+nothing else: an issuer cannot exclude an applicable requirement, and a row for
+a requirement not registered for the target is invalid.
 
-The authenticated requirement-registry entry is the sole owner of verification
-criterion strength. Each entry **MUST** contain one `verificationContract` with:
-
-- `criterionId` equal to `<requirementId>.complete`;
-- `strength: complete_primary_definition`;
-- `normativeReference` exactly equal to the entry's primary
-  `normativeReference`;
-- the exact question “Does the target satisfy every applicable REQUIRED
-  obligation of `<requirementId>` at `<normativeReference>` and every named
-  semantic contract invoked there, and either satisfy or record an approved,
-  scoped deviation for every applicable RECOMMENDED obligation?”; and
-- `permittedMethods` derived from `verificationKind`: `schema` and `semantic`
-  permit only `automated_replay`; `manual_governance` permits only
-  `accountable_review`. Assurance level does not relax this partition: A2 or A3
-  review is additional assurance and **MUST NOT** replace required replay.
-
-This single complete criterion is atomic for conformance aggregation: it cannot
-be replaced by a subset of clauses, a looser question, or locally selected
-acceptance criteria. A verifier registry entry **MUST** project, byte for byte,
-the canonical verification contract for every allowed requirement ID and
-**MUST NOT** add, omit, split, merge, or rewrite a criterion. Its authority is
-limited to installed implementation and actor authorization. A mismatch makes
-the affected result `insufficient_evidence`; it cannot be approved as an
-extension or deviation.
-
-A proof-set is an authenticated binding graph, not an authority for its own
-result. It **MUST NOT** contain an assertion status, reviewer verdict, or an
-unresolvable `verifierOutputDigest` that a validator merely trusts. For each
-`pass` or `fail` row and each scope slice, the validator **MUST** instead find
-exactly one assertion that points to material
-`agent-eval-conformance-verification-record-1` bytes and binds the exact target
-subject, dependency manifest, scope slice, requirement, and input artifacts by
-raw-byte SHA-256 digest and byte length. The proof-set itself **MUST** first be
-authenticated through its evidence-artifact wrapper.
-
-Every assertion also binds one material
-`agent-eval-conformance-verifier-registry-1`. The registry **MUST** be pinned by
-digest outside the claimant, statement, proof-set, and cited evidence — in the
-validator's own configuration or in an evaluator manifest sealed before the
-claim — and the validator **MUST** recompute that digest. Its entry fixes the
-allowed requirement IDs and JCS digest of each exact authenticated
-requirement-registry entry, method, exact input roles, authorized actor and
-trust-domain pairs and, for automated checks, the adapter ID, executable bytes,
-runtime, and exported function. A validator
-**MUST** execute only a locally installed allow-listed adapter whose raw bytes
-match the registered digest; it **MUST NOT** load or execute claimant-selected
-code merely because a URI names it.
-
-For `automated_replay`, the validator first verifies that the entry projects
-the requirement-owned complete criterion, then resolves and hashes every
-registered input, reruns the pinned adapter, and derives result and findings
-from that execution. A record that says `pass` while replay says anything else
-is invalid. `accountable_review` is valid only for a `manual_governance`
-requirement; a reviewer-authored criterion result cannot establish a schema or
-semantic obligation, even when the reviewer is independent or the review is
-used at A2 or A3. For an eligible manual-governance requirement, the reviewer
-identity and trust domain **MUST** be externally authorized, and the reviewer
-**MUST** be [independent](glossary.md#independence) of both the claimant and
-the verifier-registry authority. The record **MUST** answer the
-requirement-owned complete criterion exactly once, cite only bound material
-inputs, and include a nonempty rationale that addresses every applicable
-required obligation, recommendation, and deviation at the primary definition
-and invoked semantic contracts. The validator derives `pass` only
-when that criterion passes, `fail` when it fails, and otherwise
-`insufficient_evidence`. The recorded reviewer identity establishes
-accountability; it does not permit a missing, invented, subdivided, or weakened
-criterion. Missing
-proof is allowed only for an
-`insufficient_evidence` row and can never be upgraded by a declaration.
+The registry entry's `verificationKind` fixes the method. `schema` and
+`semantic` requirements are established only by automated replay of the
+registered primary definition and every semantic contract it invokes; a
+reviewer statement cannot replace replay, and A2 or A3 review is additional
+assurance, not a substitute. `manual_governance` requirements are established
+only by an accountable review that answers, for the whole primary definition,
+whether every applicable REQUIRED obligation is satisfied and every applicable
+RECOMMENDED obligation is satisfied or covered by a recorded, scoped deviation.
+The reviewer **MUST** be [independent](glossary.md#independence) of the
+claimant, and the record names the reviewer, cites the evidence used, and gives
+a rationale that addresses each applicable obligation. The validator derives
+`pass` only from passing replay or a passing complete review, `fail` from a
+failing one, and otherwise `insufficient_evidence`; a status asserted in
+evidence is never trusted.
 
 `evaluationProfileRuleIds` **MUST** list every selected-profile rule that affects
 the result and **MUST** be empty only when no selected-profile rule applies (as
-in a base-only or A0 result).
+in a base-only result).
 Claim effect is `none` for `pass`, `nonconforming` for `fail`, and `insufficient_evidence` for
 `insufficient_evidence`. Its target **MUST** equal the containing target record.
 A target conforms only when every applicable REQUIRED requirement is `pass` and every
@@ -346,12 +253,10 @@ applicable row yields `not_claimed`; only complete qualifying coverage yields
 conformance claim and does not require a passing detached validation envelope.
 
 The bundled decision-statement example is intentionally `not_claimed`: the
-repository ships no replay adapters and no complete authenticated
+repository ships no validator and no complete authenticated
 prerequisite-conformance graph. Turning placeholder digests or self-reported
 passes into a demonstrative `conforming` example would overstate what the
-repository proves. Adopters may produce a conforming statement only after
-supplying the complete registered verification and dependency evidence
-required above.
+repository proves.
 
 ## Conformance Statement
 
@@ -383,11 +288,9 @@ nonempty `slices[]`. Every slice has a unique ID and independently binds one
 resolvable content-addressed `workspace-manifest-1`, exactly one effective leaf
 `evaluationProfile`, one or more authenticated outcome profiles, a nonempty
 subset of the closed SDLC capability-family taxonomy, interaction modes, work-
-artifact types, assurance, risk tiers, `bindingUse`, and one grounding
-payload with exactly four typed assertion IDs. `claims_eligible` A1–A3 slices
-require full evaluation-profile, outcome-profile, registry, and scope
-compatibility. `diagnostic_only` A0 slices require exact authentication but do
-not claim or test that compatibility. Versions of adopter snapshots and
+artifact types, assurance, and risk tiers, and requires full
+evaluation-profile, outcome-profile, registry, and scope compatibility.
+Versions of adopter snapshots and
 profiles are authenticated exact-match identities and are not required to equal
 the standard's version. A general-agent,
 customer-support, office-automation, browser-use, or embodied-agent claim
@@ -402,15 +305,15 @@ record. The target record's `targetId` **MUST** equal its resolved
 `targetSubject.id`; reusing the same ID with different bytes or a different
 digest is a hard failure. Its dependency manifest **MUST** enumerate the exact
 target subject, scope workspaces, effective evaluation profiles, selected
-work-artifact registries, outcome profiles, and applicability contracts. Proof
-artifacts bind this manifest but are excluded from its entries to avoid a digest
+work-artifact registries, and outcome profiles. The detached validation
+envelope binds this manifest but is excluded from its entries to avoid a digest
 cycle. For an experiment or decision, it **MUST** additionally contain the exact
 compound conformance dependencies and decision scorecards required by the
 closed target composition rules above.
 
 The dependency-manifest digest is `sha256:` plus SHA-256 of the UTF-8 RFC 8785
 JCS bytes of exactly `{id, version, entries}` under those field names. It
-**MUST NOT** include the manifest's `digest` or any proof artifact. The verifier
+**MUST NOT** include the manifest's `digest`. The verifier
 **MUST** reject any other projection even when all declared entries happen to
 resolve.
 
@@ -418,8 +321,7 @@ The statement is the validation subject and **MUST NOT** embed its semantic-
 validation result. A conforming claim consists of the statement plus a separate
 `validation-envelope-1`, produced by a validator
 [independent](glossary.md#independence) of the claimant, whose subject digest
-equals the statement digest. Every typed requirement-proof payload, every
-material verification record, and the detached envelope **MUST** repeat the
+equals the statement digest. The detached envelope **MUST** repeat the
 exact target-subject digest and dependency manifest; a subject-ID echo is
 insufficient. A statement whose bytes do not match its published digest, or
 that has no passing envelope, is an unauthenticated assertion, not conformance.
@@ -503,8 +405,6 @@ Evidence **MUST** be sufficient for an independent reviewer to reproduce the
 target verdict without privileged oral context. The validator **MUST** verify
 schema and semantic consistency, content digests, producer authorization,
 version-control order of sealed artifacts, requirement coverage, subject digest,
-and expiry. It **MUST** verify evaluation-profile and
-outcome-profile compatibility for every A1–A3 `claims_eligible` slice and
-**MUST NOT** report such compatibility for an A0 `diagnostic_only` slice. A
-self-reported boolean is not evidence. This standard does not appoint a
+expiry, and evaluation-profile and outcome-profile compatibility for every
+slice. A self-reported boolean is not evidence. This standard does not appoint a
 certifier or imply legal or regulatory compliance.

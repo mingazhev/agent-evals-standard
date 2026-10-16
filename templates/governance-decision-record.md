@@ -17,7 +17,7 @@ decision digest.
 - Requirements Registry version/digest:
 - Scorecard Contract version/digest:
 - Operational policy ID/version/location/digest:
-- Escalation and Stop Matrix ID/version/location/digest:
+- Escalation-event registry ID/version/location/digest:
 - Suite `profiles[]` manifest location/digest:
 - Effective leaf evaluation-profile ID/version/`effectiveProfileDigest`:
 - Parent chain, deterministic flattening, requirement-source mapping, and conflict-report evidence:
@@ -82,7 +82,7 @@ trace.
 - Scorecard validation-envelope IDs/digests:
 - Attempt-integrity status:
 - Core/evaluation-profile/risk/case hard-gate status and failures:
-- Governance statuses and resolution-ledger event IDs:
+- Governance statuses and governance-record event IDs:
 - Invalid and not-assessable attempt counts by arm/case:
 - Unresolved-cell rates by arm/case:
 - No-assumption identification bounds:
@@ -165,7 +165,7 @@ An override or waiver **MUST NOT** be inferred from free text or silence.
 - Applied stop action:
 - Rollback or scope reduction:
 - Independent verification and evidence:
-- Resolution-ledger event ID:
+- Governance-record event ID:
 - Revalidation and resume conditions:
 
 The record applies only thresholds and actions sealed in the policy and

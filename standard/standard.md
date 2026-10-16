@@ -166,73 +166,12 @@ only immutable Git input identity and closure, not material repository
 grounding, task validity, or outcome correctness.
 
 A repository URL, ticket link, copied code fragment, or output location alone is
-insufficient. The case contract **MUST** record four typed evidence-artifact
-pointers, one for each test. It **MUST** also bind a closed set of executable
-material-subject contracts. A contract identifies an actual selected outcome or
-claim, a predicate, an evaluator-pinned executor, and a verifier-selected
-counterfactual intervention. A claim is in scope only when that exact predicate
-executes successfully on the authenticated repository and changes from `pass`
-to `fail` under the intervention. Making bytes unavailable, citing an arbitrary
-repository blob, or adding a repository-dependent side condition **MUST NOT**
-bootstrap an otherwise general-agent claim into scope.
-
-At the [Core level](conformance.md#core-level), each case instead records the
-four tests as holding with rationales reviewed in Case QA, and no executable
-material-subject contract is required. That Core form satisfies `SCOPE-003`
-only for `A1-lite` claims.
-
-#### Repository Grounding Ablation Contract (`SCOPE-003`)
-
-`registered-semantic-counterfactual-v1` is the executable grounding algorithm
-for version 0.1.0. The verifier **MUST** first authenticate the conformance
-statement, scope slice, immutable target subject, dependency manifest, workspace
-manifest, selected outcome profiles, its own executable bytes, and the
-grounding-executor registry pinned by the sealed evaluator manifest. It
-**MUST** hash the exact executor bytes before running them, require exactly one
-registry entry for `(id, version)`, and reject duplicates, code drift, or
-evidence-selected code.
-
-The material-subject contract is verifier input, never evidence output.
-When one is supplied, its outcome subjects **MUST** equal the scope slice's exact
-outcome-profile `{id, version, digest}` set. Its claim subjects **MUST** equal
-the immutable target subject, except that a `not_claimed` target has no claim
-subject. `subjectCoverage` and the declared causal contract **MUST** reproduce
-that externally selected set exactly. An omitted selected outcome, a substituted
-target claim, an extra general-agent claim, a duplicate subject, or an executor
-substitution is invalid. Without an executable material-subject contract, the
-payload **MUST** contain empty coverage, null contract and replay values, and the
-derived verdict `insufficient_evidence`; this is an honest diagnostic artifact,
-not an established applicability boundary.
-
-For each exact subject, the pinned executor **MUST** execute its registered
-predicate over the authenticated workspace. The verifier then applies the exact
-counterfactual replacements from its external contract, verifies each original
-and replacement digest, and executes the same predicate again. Every replacement
-**MUST** target an object actually consumed by a covered predicate; passenger
-objects are invalid. `established` requires every baseline execution to return
-`executed/pass` and every counterfactual execution to return `executed/fail`.
-Missing, malformed, or unavailable bytes return `insufficient_evidence`; loss of
-evaluability is not a semantic change and cannot establish causality.
-
-The intervention need not be a single local file edit. A predicate whose
-repository grounding is distributed across several objects **MAY** register one
-minimal, closed multi-object replacement set, provided every replaced object is
-consumed, the set is selected before evidence is observed, and the same
-baseline predicate changes from pass to fail. Profile validation **SHOULD**
-include a false-exclusion boundary corpus covering legitimate distributed
-dependencies; failing to find a stable evaluable intervention remains
-`insufficient_evidence`, never an invented pass or an automatic declaration that
-the construct is outside SDLC.
-
-The verifier **MUST** independently reproduce the baseline and counterfactual
-results, consumed-object bindings, four assertion results, and all digests. The
-causal-contract, replay, assertion, and output digests are SHA-256 over RFC 8785
-JCS of the stated projection after omitting only that object's digest field.
-`verifierExecution.inputs` **MUST** equal the authenticated workspace, target,
-dependency manifest, causal contract, exact outcome and claim subjects, and the
-unique pinned executors. Any input, coverage, code, execution, projection, or
-digest mismatch yields `insufficient_evidence`; a self-reported `established`
-value cannot cure it.
+insufficient. The case contract **MUST** record each of the four tests as
+holding, with a rationale that an independent reviewer confirms during Case QA
+(`CASE-004`). Making bytes unavailable, citing an arbitrary repository blob, or
+adding a repository-dependent side condition **MUST NOT** bootstrap an otherwise
+general-agent claim into scope; a reviewer who cannot confirm a test records it
+as failed and the case stays `candidate`.
 
 In scope are repository changes; repository research, debugging, review,
 security, and test design; repository-bound requirements, plans, architecture,
@@ -253,53 +192,11 @@ production actions **MUST NOT** become evaluation cases, even under operational
 authorization. Live or unsealed production telemetry **MAY** support only
 validity or post-decision assurance. It **MUST NOT** become task input, trial
 outcome evidence, or a scheduled cell, and it does not convert production
-operation into a trial. The only permitted production-origin task input is the
-sealed, controlled `production_derived` exception defined immediately below.
-A sealed snapshot derived from production **MAY** become controlled fixture
-input only under an environment contract whose `inputOrigin` is
-`production_derived`. Its `productionDerivedInput` **MUST** bind a content-
-addressed authority contract, input snapshot, and authenticated, passing evidence
-for provenance,
-data-owner authorization for evaluation-fixture use, redaction verification,
-re-identification-risk approval, and absence of every production read path,
-write path, live connection, and credential. Every data-control proof **MUST**
-bind the input-snapshot digest. The isolation proof **MUST** bind the digest of
-the named `environment_production_path_boundary_v1` projection defined by the
-environment schema.
-That projection is RFC 8785 JCS of exactly `evaluationMode`,
-`productionActionAllowed`, `productionTelemetryPolicy`, `network`,
-`filesystem`, and `process`, under those field names and no others; its digest
-is SHA-256 of those bytes. Both the isolation proof `subjectDigest` and the
-authority contract's named boundary digest **MUST** equal the recomputed value.
-
-The authority contract **MUST** map every closed proof kind to exactly one
-producer identity, role, trust domain, creation phase, evidence schema, and
-verifier implementation. The authenticated consuming pre-run manifest **MUST**
-seal the environment contract that content-addresses those authority-contract
-bytes. Data-owner authorization, privacy verification, and production-path
-isolation **MUST** use pairwise-distinct producer IDs and trust domains, and
-their producers **MUST** be independent of each other under the
-[glossary definition](glossary.md#independence). Redaction and
-re-identification **MUST** share one accountable privacy authority. The proof
-or evidence bundle **MUST NOT** add or replace an authority or verifier. A
-verifier is trusted only when its exact implementation bytes match an
-evaluator-controlled registry established outside evaluated input.
-
-The source cutoff **MUST** be no later than snapshot creation and strictly
-earlier than the consuming pre-run manifest's `sealedAt`. Snapshot-bound proofs
-**MUST NOT** predate snapshot creation; the snapshot, authorization, and every
-required verification **MUST** exist no later than that seal. An authorization
-proof's `verifiedAt` **MUST NOT** precede its `authorizedAt`; a proof cannot
-verify authority that did not yet exist. A verifier
-**MUST** reproduce content-addressed digests, resolve every proof to
-authenticated evidence, reproduce both subject bindings, re-evaluate the closed
-kind-specific payload fields with the registered implementation, and check this
-time order. `synthetic` and `public` origins **MUST**
-carry `productionDerivedInput: null`; relabeling production-derived input is a
-semantic failure. Production-derived controlled input is governed evaluation
-data, not live telemetry, and **MUST NOT** itself count as trial outcome
-evidence. Production actions and live production telemetry, connectivity, or
-credentials remain prohibited as task input.
+operation into a trial. Version 0.1.0 defines no production-derived fixture
+input: every case environment declares `inputOrigin` as `synthetic` or
+`public`. An adopter that needs sealed, redacted production snapshots as
+fixture input adds that path as a namespaced extension under `CONF-003` with
+its own provenance, authorization, redaction, and isolation evidence.
 
 The base layer defines common identity, isolation, experiment, evidence,
 accounting, claims, risk, and governance requirements. An evaluation profile
@@ -319,27 +216,7 @@ inheritance, and base-compatibility validation.
 The base invariants are an internal foundation, not a standalone claim for
 agents outside this applicability boundary.
 
-Version 0.1.0 intentionally defines no domain-neutral parent standard. A future
-shared foundation is eligible for standardization only after at least two
-materially different domains, with independent authorship, implementation, and
-adoption, demonstrate identical normalized rule semantics. Eligibility also
-requires one common conformance corpus without domain-specific branches,
-negative portability tests that reject repository, artifact-taxonomy,
-interaction-mode, or outcome assumptions outside the proposed shared interface,
-a formal composition and versioning contract, and a migration proof that neither
-child is weakened. The foundation would have its own release cycle; satisfying
-it would not imply either domain conformance or a general-agent capability claim.
-
-For that future eligibility test, a “materially different domain” shares
-neither repository-state identity, the SDLC work-artifact taxonomy, nor this
-standard's outcome contracts. “Independent” means separate maintainers,
-implementations, adopters, and release authority rather than two adapters owned
-by one project. “Identical normalized rule semantics” means the same predicate
-and verdict for the same logical conformance vector; a domain adapter may map
-identity, transport, and artifact representation, but may not add a
-domain-conditional branch to the candidate shared rule. A portability matrix
-would have to record those mappings, every accepted and rejected vector, and
-the evidence of independent adoption.
+Version 0.1.0 intentionally defines no domain-neutral parent standard.
 
 In the requirement name “universal gates,” `universal` means every conforming
 repository-SDLC evaluation inside this boundary. It never means agents or
@@ -436,23 +313,13 @@ defined below:
 
 A case is classified by the construct actually measured and the material work
 product on which its verdict depends, not by incidental tools or intermediate
-steps. It **MUST** publish one `capabilityClassification` record for every
-declared capability family. The record identifies evaluated constructs,
-material subjects, closed `materialWorkArtifactTypes`, and a verifier. Its
-projected family IDs **MUST** equal `capabilityFamilyIds` exactly; its projected
-artifact types **MUST** equal the case `workArtifactTypes` exactly. Each type
-**MUST** map to the record's family in the authenticated registry. Conversely,
-every selected family **MUST** have at least one material mapped artifact type;
-a family with only incidental activity or no material output is an invalid
-passenger.
-
-The classification verifier **MUST** authenticate and reproduce the exact case,
-effective evaluation profile, selected outcome profile, work-artifact registry,
-suite validity argument, verifier implementation bytes, and every
-construct-to-artifact-to-capability mapping. The classification record is
-evidence of that replay, not authority to redefine a construct, artifact type,
-or registry mapping. An unresolved input, mismatched identity, unknown
-construct, or non-reproducible mapping invalidates the classification.
+steps. The case declares its closed `workArtifactTypes`; its
+`capabilityFamilyIds` **MUST** equal exactly the set of families those types
+map to in the authenticated registry. Every selected family therefore has at
+least one material mapped artifact type; a family with only incidental activity
+or no material output is an invalid passenger. Whether a declared type is in
+fact a material work product of the case is reviewed in Case QA, not asserted
+by the author.
 
 `code_change` is the closed fallback ID for a material repository-content
 implementation change not separately classified as `test_change` or
@@ -506,7 +373,7 @@ an owner, and a residual limitation or an explicit unresolved gap.
 
 The machine-authoritative validity bindings and review evidence invoked by this
 requirement are defined in the
-[Validity, threat, and held-out exposure machine contracts](validity-threat-exposure-contracts.md#validity-argument).
+[Validity, threat, and held-out exposure contracts](validity-threat-exposure-contracts.md#validity-argument).
 
 `VALID-003` — Capability, comparative, release, and autonomy studies **MUST**
 include pre-declared reference baselines appropriate to the intended decision.
@@ -542,7 +409,7 @@ study. That Core form satisfies `VALID-003` only for `A1-lite` claims.
 
 The structured baseline binding and fail-closed semantic checks invoked by this
 requirement are defined in the
-[Validity, threat, and held-out exposure machine contracts](validity-threat-exposure-contracts.md#validity-argument).
+[Validity, threat, and held-out exposure contracts](validity-threat-exposure-contracts.md#validity-argument).
 
 ## Invariants
 
@@ -585,10 +452,6 @@ filesystem, process, cache, retrieval, provider-session, human, or simulator
 state **MUST** be an identified treatment or dependence source. Identity-
 critical bytes **MUST** be content-addressed, and every arm and measurement
 component **MUST** have immutable provenance.
-
-The verified-machine-contract and aggregate control-binding rules invoked by
-this invariant are defined in the
-[Validity, threat, and held-out exposure machine contracts](validity-threat-exposure-contracts.md#resolvable-verified-machine-contract).
 
 ### I5. Attribution and complete attempt accounting
 
@@ -645,18 +508,11 @@ or indeterminate governance evidence yields an open blocking status. These
 conditions **MUST NOT** become pass, not-applicable, zero, or omitted data.
 
 Every use of `material`, `claim-bearing`, `decision-bearing`, or `incidental`
-**MUST** apply the dependency and counterfactual definitions in the
-[Glossary](glossary.md). A claimant classification is not authoritative. If the
-selected verifier cannot establish whether an item is consumed or whether its
-admissible removal or substitution can change a named predicate, it **MUST NOT**
-classify the item as incidental; the affected predicate and every dependent
-positive claim yield `insufficient_evidence`. Conditional evidence, retention,
+**MUST** apply the definitions in the [Glossary](glossary.md). A claimant
+classification is not authoritative: an item whose materiality cannot be
+established is treated as material, and conditional evidence, retention,
 independence, or review duties **MUST NOT** be bypassed through an unresolved
 materiality label.
-
-The fail-closed resolution and aggregate-binding rules invoked by this invariant
-are defined in the
-[Validity, threat, and held-out exposure machine contracts](validity-threat-exposure-contracts.md#suite-case-and-pre-run-binding).
 
 ### I11. Causal comparability
 
@@ -671,10 +527,9 @@ an immutable migration artifact.
 Every active case **MUST** have current Case QA evidence bound to the full sealed
 agent-visible projection and outcome profile. Checks **MUST** distinguish known-
 good from known-bad controls and admit every valid non-reference material
-equivalence class. If an authenticated, fail-closed Case QA proof establishes
-that the valid-result set has only one material equivalence class, the canonical
-passing result plus the required singleton counterexample and near-miss controls
-replace, rather than waive, the non-reference control. Invalid QA evidence
+equivalence class. Where no independently produced alternative valid result
+could be obtained, Case QA records that as a gap that restricts dependent
+claims; it is not a proof that only one valid result exists. Invalid QA evidence
 **MUST** quarantine the case atomically until revalidation or retirement.
 
 ### I13. Trusted measurement boundary
@@ -754,19 +609,11 @@ same-level obligation is non-conforming; a lower level **MUST NOT** support a
 higher-level decision.
 
 An A0 experiment **MUST** declare `runMode: diagnostic_run`,
-`claimEligibility: none`, and empty `claims[]` and `claimResults[]`. It
-**MUST NOT** support a positive claim or suite, case, experiment, or decision
-conformance, nor assert evaluation- or outcome-profile compatibility. Its
-evidence **MAY** support evaluator conformance because the evaluator is the
-object being diagnosed. It **MUST** still bind every scheduled case to explicit
-evaluation- and outcome-profile measurement semantics with
-`bindingUse: diagnostic_only`; that binding makes diagnostics reproducible and
-**MUST NOT** be interpreted as profile compatibility. Every A0 scope slice in
-an evaluator conformance statement **MUST** use the same `diagnostic_only`
-binding. The validator **MUST** authenticate each bound profile and reproduce
-its identity and effective digest, but **MUST NOT** apply cross-profile,
-profile-to-scope, or profile-specific case-acceptance compatibility rules to
-that diagnostic binding.
+`claimEligibility: none`, and empty `claims[]` and `claimResults[]`. It is a
+harness-development run: it **MUST NOT** support any claim or any conformance
+target, and it asserts no evaluation- or outcome-profile compatibility. It
+still binds every scheduled case to explicit evaluation- and outcome-profile
+measurement semantics so that diagnostics are reproducible.
 
 ## Risk Model
 
@@ -821,27 +668,20 @@ stateDiagram-v2
   [*] --> candidate
   candidate --> active
   candidate --> retired
-  active --> saturated
   active --> quarantined
   active --> retired
-  saturated --> regression
-  saturated --> quarantined
-  saturated --> retired
-  regression --> quarantined
-  regression --> retired
   quarantined --> candidate
   quarantined --> active
-  quarantined --> saturated
-  quarantined --> regression
   quarantined --> retired
 ```
 
 - `candidate`: prepared, not claim-eligible;
-- `active`: QA-valid and capability-eligible;
-- `saturated`: validated but without useful capability headroom;
-- `regression`: monitored under a sealed reliability threshold;
+- `active`: QA-valid and claim-eligible;
 - `quarantined`: excluded because measurement validity is unresolved;
 - `retired`: no longer scheduled; history remains immutable.
+
+Saturation (no capability headroom) and regression-suite membership are suite
+memberships and health signals under `HEALTH-001`, not lifecycle states.
 
 Every transition **MUST** record source state, target state, reason, actor,
 timestamp, case hash, and evidence. Retirement **MUST** state the affected
@@ -923,12 +763,12 @@ effective evaluation profile's complete `interactionModes` set.
 `CASE-001` — A case contract **MUST** contain a stable ID and version, source and
 rights metadata, effective evaluation-profile ID and digest, outcome-profile ID,
 version and digest, the authenticated work-artifact registry, complete material
-`workArtifactTypes`, capability-family IDs and capability-classification records,
+`workArtifactTypes`, capability-family IDs,
 exactly one closed `interactionModeId`, an authenticated inherent-hazard risk
 assessment and its exact `inherentRiskTier`, lifecycle, owners,
 review and expiry, task input, full sealed agent-visible projection, the four
-material repository-grounding evidence pointers and material-subject dependency
-inventory, environment, budgets, expected interactions, decision surfaces,
+`SCOPE-003` applicability tests with rationales, environment, budgets, expected
+interactions, decision surfaces where declared,
 valid alternatives, a complete applicability-driven validation strategy, checks
 or adjudication protocol, gates, claim
 compatibility, oracle manifest, contamination history, and exposure budget.
@@ -979,13 +819,15 @@ retrieval corpus, tool schemas, and interaction protocol. A hidden check
 
 ### Decision-Surface Coverage
 
-`CASE-005` — A case **MUST** inventory consequential decisions not proven by the
-terminal artifact, including instruction following, tool and argument choice,
-clarification, handoff, escalation, stop, context management, and evaluation-profile-
-specific risk decisions. Each surface **MUST** declare materiality,
-applicability verifier, coverage mode, evidence, valid alternatives, and claim
-effect. Indeterminate applicability fails closed. A declared gap restricts each
-named claim and **MUST NOT** appear as pass.
+`CASE-005` — A case **SHOULD** inventory consequential decisions not proven by
+the terminal artifact, including instruction following, tool and argument
+choice, clarification, handoff, escalation, stop, context management, and
+evaluation-profile-specific risk decisions. For a case scheduled in an A2 or A3
+experiment the inventory is REQUIRED. Each declared surface **MUST** state
+materiality, applicability verifier, coverage mode, evidence, valid
+alternatives, and claim effect. Indeterminate applicability fails closed. A
+declared gap restricts each named claim and **MUST NOT** appear as pass. A
+case without an inventory supports only claims about the terminal artifact.
 
 ### Activation and Maintenance
 
@@ -1002,9 +844,8 @@ and revalidation procedure in the versioned
 [Case QA Playbook](case-qa-playbook.md). A subset of its stages or evidence
 categories is not an alternative activation path. An evaluation profile may
 specialize applicable controls and evidence but **MUST NOT** omit a stage or
-weaken its fail-closed result. Stage 7 `not_applicable` is a completed stage only
-under the playbook's authenticated singleton-validity proof and replacement
-controls; it is not an omitted stage.
+weaken its fail-closed result. Stage 7 `not_applicable` is a recorded gap with
+a rationale that restricts dependent claims; it is not an omitted stage.
 
 The [Core level](conformance.md#core-level) is the one exception: a
 `core-case-qa` record with known-good, no-op, and plausible wrong controls, a
@@ -1026,9 +867,9 @@ provider. Every exposure **MUST** enter an immutable ledger before execution.
 Held-out content observed by an evaluated arm, operator, provider session, or
 development loop **MUST NOT** later be treated as unseen for that scope.
 
-The budget, ledger, checkpoint, and stage-order contracts invoked by this
+The budget, ledger, and stage-order contracts invoked by this
 requirement are defined in the
-[Validity, threat, and held-out exposure machine contracts](validity-threat-exposure-contracts.md#held-out-budget-and-ledger).
+[Validity, threat, and held-out exposure contracts](validity-threat-exposure-contracts.md#held-out-budget-and-ledger).
 
 QA **SHOULD** use sequestered control configurations. A pilot with the candidate
 arm consumes the budget and permits a claim only if no outcome-informed change
@@ -1072,11 +913,10 @@ outcome-profile bindings **MUST** equal the authenticated suite. The validator
 copied digest string, matching ID, or fixture-side related-record hint is not a
 binding.
 
-The aggregate control binding **MUST** name one suite slice and a non-empty
-canonical ordered material `cases[]`. That order **MUST** equal the selected
-suite slice, pre-run `caseSet` and `caseProfiles`, first case appearance in the
-scheduled cells, risk and threat scopes, applicable exposure budget, and every
-statistical claim. Missing, extra, duplicate, reordered, substituted, or
+The pre-run `caseSet` **MUST** equal the selected suite slice in canonical
+order, and `caseProfiles`, first case appearance in the scheduled cells, the
+risk assessment, the held-out budget, and every statistical claim **MUST** use
+that same ordered set. Missing, extra, duplicate, reordered, substituted, or
 passenger cases are `insufficient_evidence`.
 
 Run-artifact integrity rests on content addressing and version-control order,
@@ -1278,18 +1118,13 @@ experiment or scorecard.
 
 ## Suite Health
 
-`HEALTH-001` — An A1–A3 suite **MUST** maintain a closed health inventory covering
-measurement error, reviewer disagreement, flakiness, quarantine age, saturation
-and headroom, contamination and exposure budget, coverage by SDLC family and
-risk, Case QA currency, simulator drift, production concordance, and claim-
-affecting missingness. For every surface, an authenticated applicability rule
-**MUST** derive either `monitored` or `not_applicable`; unknown or unsupported
-applicability is `insufficient_evidence`. `simulator_drift` is applicable only
-when the suite uses a simulator. `production_concordance` is applicable only
-when a claim, decision, or post-decision assurance plan relies on a measured
-offline-to-production relation. A `not_applicable` result **MUST** cite the
-determinate evidence that establishes the absent dependency. For each monitored
-surface, thresholds, cadence, owners, and responses **MUST** be policy-pinned. A
+`HEALTH-001` — An A1–A3 suite **MUST** maintain a health inventory with a
+policy-pinned threshold, cadence, owner, and response for each monitored
+signal. At minimum it monitors measurement error, flakiness, quarantine age,
+saturation and headroom, contamination and exposure budget, Case QA currency,
+and claim-affecting missingness; reviewer disagreement, simulator drift, and
+production concordance are monitored when the suite uses adjudication, a
+simulator, or a measured offline-to-production relation respectively. A
 material breach blocks the affected claim until resolution, revalidation, or
 retirement.
 

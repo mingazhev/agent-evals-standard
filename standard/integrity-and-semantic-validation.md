@@ -4,8 +4,8 @@
 - Status: unpublished 0.1.0 publication candidate
 
 JSON Schema validates transport shape. It does not establish that hashes are
-correct, references resolve, formulas were recomputed, signatures are valid,
-or verdict fields agree. A scorecard or conformance statement is conforming
+correct, references resolve, formulas were recomputed, or verdict fields
+agree. A scorecard or conformance statement is conforming
 only after both schema validation and this semantic validation succeed.
 
 ## Git workspace digest projections
@@ -59,20 +59,16 @@ phase, unauthorized access, or expired evidence fails the affected path closed.
 ## Hash-chained append-only ledger
 
 Attempt accounting uses the Scorecard Contract's
-[terminal-record chain](scorecard-contract.md#attempt-integrity-fields) and
-[independent dispatch checkpoint](scorecard-contract.md#independent-attempt-checkpoint).
-These are the version 0.1.0 transport and root algorithms; no separate
+[terminal-record chain](scorecard-contract.md#attempt-integrity-fields).
+That is the version 0.1.0 transport and root algorithm; no separate
 `fromState`/`toState` event stream is required. The verifier **MUST** reproduce
-the record-chain roots, resolve the dispatch receipts and terminal checkpoint
-from the scheduler's log, reconcile one terminal record per dispatch, preserve
-undispatched
-scheduled cells as unresolved, and verify retry lineage and first-valid
-selection under those contracts.
+the record-chain roots, reconcile one terminal record per dispatch, preserve
+undispatched scheduled cells as unresolved, and verify retry lineage and
+first-valid selection under that contract.
 
 Ordering and rewrite resistance come from the
-[integrity model](evidence-and-validation-contract.md#integrity-model).
-Recomputing evaluator-owned hashes cannot substitute for the scheduler receipts
-and log head that the scorecard producer cannot rewrite.
+[integrity model](evidence-and-validation-contract.md#integrity-model): the
+ledger's commit history, not a recomputed hash, is what a verifier inspects.
 
 ## Required scorecard checks
 
@@ -95,7 +91,7 @@ missing evidence.
 | 10 | Identity | All identity-critical contract, suite, case, model, agent, environment, evaluator, grader, and formula versions resolve to authenticated digests. |
 | 11 | Cost estimands | Both cost estimands are recomputed from every physical attempt record; the numerator, denominator predicate, success and attempt counts, reported and required cost counts, currency, price table, timestamp, and evidence agree. Missing cost with `fail_closed` yields `insufficient_evidence`; a `pre_registered_bound` policy requires the declared bound and reproduces it. `telemetry.status: complete` requires provider/schema, CLI/normalizer when applicable, raw native events, timing boundaries, token components, and tool-call definitions to be present and mutually consistent. A zero success count forces `insufficient_evidence`, null value, and the `zero_success_denominator` reason; the observed cost numerator remains. |
 | 12 | Decision surfaces | Decision-surface IDs, materialities, coverage modes, and typed declared-gap claim restrictions match the sealed case inventory exactly once in every activated Case QA record and scorecard result; applicability rules and final-state proofs resolve through their versioned deterministic schemas and verifiers; assignments, triggers, check IDs, and evidence resolve. The only runtime exception is `not_determined` caused by indeterminate applicability, which fails closed. No material `declared_gap`, failure, or insufficient verdict supports an affected positive, comparative, or governance claim. Every declared-gap affected claim ID resolves to the sealed case `claimRegistry`; the selected scorecard claim ID resolves to that registry, and a listed material restriction requires its claim status to be `insufficient_evidence`. |
-| 13 | Lifecycle transitions | A Case QA record that quarantines a case binds an eligible source state, identical `preQuarantineEligibleState`, and invalidation record; a re-QA record for a quarantined case resolves the pinned case hash and its lifecycle predecessor, returns to that predecessor only when activated, and returns to `candidate` when rejected; rejected transitions from every other lifecycle state are invalid. |
+| 13 | Lifecycle transitions | A Case QA record that quarantines a case binds the `active` source state and an invalidation record; a re-QA record for a quarantined case resolves the pinned case hash, returns to `active` only when activated, and returns to `candidate` when rejected; rejected transitions from every other lifecycle state are invalid. |
 | 14 | Transcript evidence | Transcript evidence is `complete` for every valid trial, resolves to the raw runner-produced event stream, verifies its append-only root, proves pre-transform capture, and preserves context-management events. A compacted view, summary, cleared tool output, or agent-authored memory cannot satisfy this requirement. |
 | 15 | Interaction evidence | Interaction evidence is `complete` for every valid trial whose case `interactionModeId` is not `noninteractive_repository_task`, and is `not_applicable` only for that exact noninteractive mode; it binds the case protocol, has the same unique actor set, attributes every event and shared-state mutation, verifies initial and final state hashes, and has zero unattributed mutations when complete. |
 | 16 | Statistical plan | The pre-registered statistical plan resolves and recomputes the target population, sampling frame and unit, primary and exploratory claims, power or minimum-sample rule, estimators, intervals, dependence, missingness and retry handling, multiplicity adjustment, sequential-look schedule and stopping rule, and held-out exposure and reuse budget. Unregistered looks, post-observation threshold changes, exhausted reuse, or an exploratory result used as a hard gate yield `insufficient_evidence`. |
@@ -177,8 +173,7 @@ The validator verifies the canonical statement digest and issuer identity,
 every target-specific evidence bundle, the exact standard version and source
 commit and, for a published release, its exact release tag,
 schema and component pins, operational (not template) governance artifacts for
-decision targets, derived full-conformance bundles, deviation-to-restriction
-coverage, and expiry. For a
+decision targets, deviation-to-restriction coverage, and expiry. For a
 decision target it also resolves the normative decision record, recomputes
 every sealed condition and final decision, enforces
 `effectiveAt < reviewAt <= expiresAt`, the policy's maximum lifetime and
@@ -190,76 +185,28 @@ present in the statement evidence manifest and resolves to the sealed plan
 artifact. Its change triggers cover every required trigger exactly once and bind its threshold,
 claim effect, stop, scope, rollback, revalidation, and resume actions; whose production signals,
 sampling, evidence-retention, thresholds, owner, SLA, claim effects, and fail-closed missing-
-evidence action agree with the operational policy and matrix. A statement whose
+evidence action agree with the operational policy and escalation-event registry. A statement whose
 bytes do not reproduce its published digest, or whose issuer is not an
 authorized identity, is an unauthenticated self-assertion and is not conforming.
 
 Requirement coverage is fail-closed and non-circular. The validator selects
 exactly the requirement-registry entries for the claimed target; there is no
 conformance-matrix `not_applicable` status. For each asserted `pass` or `fail`
-and each scope slice, it authenticates the proof-set evidence wrapper, verifier
-registry, material verification record, and every raw input byte string. It
-then authorizes the exact actor and trust-domain pair and either re-executes
-the locally allow-listed adapter whose bytes match the registry or validates
-exact coverage of independent accountable-review criteria. It derives the row
-status from that work. A status field in a proof, an arbitrary output digest, a
-claimant-selected executable, an incomplete review, or an unauthorized reviewer
-cannot establish a result. Missing or invalid proof derives
+it either replays the registered primary definition itself (`schema` and
+`semantic` kinds) or validates a complete independent accountable review
+(`manual_governance` kind), and derives the row status from that work. A status
+field in evidence, an incomplete review, or a non-independent reviewer cannot
+establish a result. Missing or invalid evidence derives
 `insufficient_evidence`, which derives target verdict `not_claimed`.
 
-## Governance-resolution ledger checks
+## Post-decision governance state
 
-The governance-resolution ledger has its own evidence manifest; post-run
-evidence does not resolve through the immutable scorecard manifest. Validation
-recomputes canonical event hashes, chain continuity, initial and current roots,
-the version-control order of every appended event, evidence digests, actor
-authorization, role conflicts, and the effective blocker state over the
-immutable scorecard. It rejects truncated, rewritten, reordered, forked,
-scope-mismatched, or dangling history.
-
-Every trigger begins as an immutable open escalation event with no terminal
-disposition. The validator requires a separate enforcement receipt for each
-stop, rollback, narrowing, suspension, revocation, or resume action. The receipt
-**MUST** bind the source-event hash, exact affected scope, action IDs,
-authorized executor, times, outcome, and canonical evidence. A later resolution
-**MUST** bind the unchanged source event, required receipts, triage and
-corrective evidence, authorized resolver, role-conflict check, terminal
-disposition, residual risk, and expiry. Missing or late enforcement keeps the
-event open and emits `assuranceEvidenceMissing`; a resolution **MUST NOT**
-rewrite, replace, or delete its source event.
-
-The source hash, triage artifact, finding reference, receipts, and resolution
-**MUST** resolve to the same earlier escalation payload in the hash chain; an
-out-of-ledger source cannot be resolved. `waive` is rejected for every baseline
-gate, `heldOutLeakage`, `measurementBoundaryCompromise`,
-`irreversibleCriticalOperation`, `productionCredentialsProhibited`, and every
-unknown ID. `approvedConfigurationChanged`, `assuranceEvidenceMissing`, and
-`confirmedContamination` are also non-waivable. `suspectedContamination`
-remains open until independent disposition. Interactive actor and assurance-
-evidence producer IDs are cross-checked against incompatible governance roles.
-
-Every expected assurance window has exactly one typed assurance-observation
-event binding the assurance-plan hash, decision, scope, signal, window, sample,
-estimate, uncertainty, sequential-look index, threshold, verdict, producer,
-reviewer, and evidence.
-The validator resolves the signal, sampling, calculation, and threshold
-contracts and their pinned schemas and verifier identities; recomputes sample
-count, estimate, interval ordering, uncertainty, missingness treatment,
-multiplicity adjustment, sequential-look schedule and stopping rule, threshold
-verdict, and effect; rejects malformed, zero, negative, or
-calendar-ambiguous cadence and window durations so both decode to strictly
-positive elapsed time; verifies
-`anchorAt <= firstWindowStartsAt < firstWindowEndsAt`; and
-reconciles every half-open UTC window against the anchor, cadence, window, and
-first-window phase. A missing, late, duplicate, expired, unlawfully collected,
-or unauthenticated observation emits `assuranceEvidenceMissing`. A monitoring
-breach emits `productionMonitoringBreach`. `productionConcordanceDegraded` is
-valid only for a pre-registered measured concordance estimand with verified
-offline and production units, matching and linkage, lag, censoring, missingness,
-selection treatment, estimator, uncertainty, and calibration or drift rule.
-Escalation validation also checks that event, claim effect,
-governance status, stop-action ID, scope-action ID, and row hash exactly match
-the pinned operational matrix.
+Version 0.1.0 defines the governance decision record and the post-decision
+assurance plan it binds, but no ledger, escalation-event, enforcement-receipt,
+or assurance-observation schema. Adopters record post-decision state in their
+own version-controlled governance records under the
+[Governance Policy](governance-policy.md); those records are outside the
+semantic checks of this contract.
 
 ## Validator provenance
 

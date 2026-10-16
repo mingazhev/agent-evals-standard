@@ -102,7 +102,7 @@ For each risk tier, the policy version used for a decision **MUST** define:
 - the required lifecycle for blocking statuses: original finding,
   `not_applicable/open/resolved/waived` state, disposition, resolver, evidence,
   and timestamp;
-- the pinned [Escalation and Stop Matrix](escalation-stop-matrix.md) version and
+- the pinned [escalation-event registry](escalation-stop-matrix.md) version and
   hash;
 - maximum approval lifetime by risk tier and UTC
   `effectiveAt < reviewAt <= expiresAt` timestamps;
@@ -111,8 +111,8 @@ For each risk tier, the policy version used for a decision **MUST** define:
   approver, risk owner, and rollback verifier;
 - incompatible-role rules also covering every decision-affecting interactive
   requester, simulator, human, or helper and the post-decision assurance owner;
-- the append-only governance-resolution ledger used after the immutable run
-  scorecard closes.
+- the version-controlled governance record in which post-run status
+  resolutions, waivers, expiry, and revocations are appended.
 - an immutable post-decision assurance-plan ID, version, hash, and approval;
 - material-change triggers covering model, agent configuration, prompt,
   harness, adapter, tool schema and implementation, permissions, environment,
@@ -191,71 +191,26 @@ rises, `release` below `capability_claim`, or `autonomy`/`risk_acceptance` below
   they will judge.
 - The run scorecard is immutable at run close. Later status resolutions,
   waivers, expiry, narrowing, renewal, rollback, and supersession are appended
-  to a hash-chained governance-resolution ledger. Decision records reference the
-  immutable scorecard and ledger roots rather than mutating or circularly
-  linking either artifact.
+  to the adopter's version-controlled governance record under the
+  [integrity model](evidence-and-validation-contract.md#integrity-model).
+  Decision records reference the immutable scorecard rather than mutating it.
 
 ## Escalation, Enforcement, and Resolution
 
-An escalation trigger **MUST** append one immutable open event before any
-resolution is considered. The event binds the matrix row and digest, observed
-facts, source evidence, affected claims and scope, trigger time, owner, SLA,
-claim effect, governance status, stop action, and rollback or scope action. It
-**MUST NOT** contain a terminal disposition and **MUST NOT** be edited, deleted,
-or replaced.
-
-The stop and scope actions **MUST** produce a separate enforcement receipt that
-binds the event hash, exact affected scope, action IDs, executor identity and
-authorization, start and completion times, outcome, and evidence. Failure to
-produce a complete receipt within the SLA keeps the event open and emits
-`assuranceEvidenceMissing`; asserted intent is not enforcement.
-The event's `enforcementRequest.action` **MUST** equal its registered
-`stopAction`; a request cannot silently substitute a weaker or different action.
-
-A resolution **MUST** be a later event that binds the original event hash,
-triage and corrective evidence, resolver authorization, role-conflict check,
-terminal disposition, residual risk, claim effect, expiry, and the required
-enforcement receipt. Resolution closes the status; it never rewrites the source
-event. Resume **MUST** have its own enforcement receipt proving that every
-pre-registered resume condition holds for the same scope. Narrowing,
-suspension, revocation, and renewal follow the same event–receipt–resolution
-model.
-
-An enforcement receipt has exactly one action form. A stop receipt retains
-`stopAction` and `scopeAction` matching its original event. A resume receipt
-instead carries `resumeAction: resume_approved_scope`, `sourceResolutionId`,
-`sourceResolutionDigest`, and `resumeConditionResults`; it **MUST NOT** carry
-stop or scope actions. Both forms bind the exact original event and affected
-scope. The resume source **MUST** be a prior authenticated `resolve` resolution
-in the same ledger, with the original event ID, hash, type, governance status,
-risk tier, and `scope` equal to the affected `scopeDigest`. Resolution and
-enforcement times **MUST** precede the resume request. Expired resolutions,
-unclosed blockers, revoked or expired approvals, and unauthorized executors
-**MUST NOT** authorize resume. A replacement approval, where the sealed row
-requires one, **MUST** be independently validated before resume.
-
-`resumeConditionResults` **MUST** cover the source event's sealed
-`resumeConditions` exactly once by their exact text, with no omission, duplicate,
-or added condition. Every result has `status: pass` and authenticated evidence
-IDs also present in the receipt's evidence set. The evaluator **MUST** verify
-each result using the sealed condition's verifier and external authorization
-policy; a receipt's claimed pass or producer role alone is insufficient. A
-missing verifier or indeterminate result fails closed.
-
-The `dataOwnerReviewRequired` and `riskAcceptanceRequired` events preserve
-their respective `data_owner_review_required` and `risk_acceptance_required`
-statuses throughout the ledger. They close only with `action: resolve` by a
-policy-authorized `data_owner` or `risk_acceptance_authority`, respectively,
-with evidence authorizing the exact original request or residual risk and
-scope. Their resolutions **MUST** bind the original stop receipt and pass the
-applicable separation-of-duties checks. A role string is not authorization, a
-manual/security status cannot substitute, and neither event permits a waiver.
-
-A governance decision's `enforcementReceipts` array is the closed set of every
-receipt relevant to that decision. Receipt IDs **MUST** be unique, each pointer
-**MUST** resolve exactly once and bind a required action in the same event and
-scope chain, and an unrelated, missing, or duplicate receipt invalidates the
-decision evidence.
+Every escalation trigger is one of the closed events in the
+[escalation-event registry](escalation-stop-matrix.md). Its claim effect,
+governance status, stop action, scope action, and waivability are fixed by the
+registry; an operational policy assigns owner and SLA and **MUST NOT** change
+the tuple. A trigger **MUST** be recorded as an open event, committed before
+any resolution, with its observed facts, evidence, affected scope, and owner.
+The stop and scope actions **MUST** be executed and their execution recorded
+with executor, time, and outcome before the event may be resolved; asserted
+intent is not enforcement. A resolution is a later committed record that cites
+the open event, the corrective evidence, the authorized resolver, and the
+terminal disposition; it never rewrites the event. Events the registry marks
+non-waivable **MUST NOT** resolve as `waived`. Version 0.1.0 fixes these
+semantics but publishes no event, receipt, or ledger schema; the adopter's
+governance record is a version-controlled directory of such records.
 
 ## Post-Decision Assurance
 
@@ -280,18 +235,12 @@ window. Unmatched telemetry or a threshold alert cannot satisfy that claim.
 
 Missing, delayed, unauthenticated, expired, unlawfully collected, or materially
 incomplete required evidence triggers `assuranceEvidenceMissing` and suspends
-the affected approval. Every expected monitoring window is appended as a typed
-assurance observation, including the plan hash, scope, signal, sample, estimate,
-uncertainty, sequential-look index, threshold, verdict, producer, reviewer, and
-canonical evidence references. Monitoring and later evidence **MUST NOT**
-rewrite the original run or decision rationale.
+the affected approval. Every expected monitoring window is recorded as an
+observation in the governance record, including the plan hash, scope, signal,
+sample, estimate, uncertainty, sequential-look index, threshold, verdict,
+producer, reviewer, and canonical evidence references. Monitoring and later
+evidence **MUST NOT** rewrite the original run or decision rationale.
 
-Resolution events use
-[`schemas/governance-resolution.schema.json`](../schemas/governance-resolution.schema.json)
-and monitoring windows use
-[`schemas/assurance-observation.schema.json`](../schemas/assurance-observation.schema.json)
-inside the authenticated
-[`governance-resolution-ledger.schema.json`](../schemas/governance-resolution-ledger.schema.json).
 All evidence and validation references follow the
 [Evidence and Detached Validation Contract](evidence-and-validation-contract.md),
 including its [integrity model](evidence-and-validation-contract.md#integrity-model).

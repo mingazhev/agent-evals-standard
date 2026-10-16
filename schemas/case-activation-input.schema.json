@@ -21,10 +21,10 @@
       "type": "object",
       "required": [
         "schemaVersion", "caseVersion", "contracts", "id", "evaluationProfile", "outcomeProfile",
-        "capabilityFamilyIds", "capabilityClassification", "applicability", "source", "repository", "task",
+        "capabilityFamilyIds", "applicability", "source", "repository", "task",
         "agentVisibleProjection", "setupExecutors", "contamination", "leakageControls", "inherentRiskAssessment",
         "inherentRiskTier", "tags", "memberships", "sliceIds", "environment", "budgets", "validation",
-        "decisionSurfaces", "claimRegistry", "interactionModeId", "workArtifactRegistry", "workArtifactTypes",
+        "claimRegistry", "interactionModeId", "workArtifactRegistry", "workArtifactTypes",
         "scoring", "artifactPolicy", "policy", "ownership"
       ],
       "properties": {
@@ -35,7 +35,6 @@
         "evaluationProfile": { "$ref": "urn:agent-evals-standard:schema:case:1#/properties/evaluationProfile" },
         "outcomeProfile": { "$ref": "urn:agent-evals-standard:schema:case:1#/properties/outcomeProfile" },
         "capabilityFamilyIds": { "$ref": "urn:agent-evals-standard:schema:case:1#/properties/capabilityFamilyIds" },
-        "capabilityClassification": { "$ref": "urn:agent-evals-standard:schema:case:1#/properties/capabilityClassification" },
         "applicability": { "$ref": "urn:agent-evals-standard:schema:case:1#/properties/applicability" },
         "source": { "$ref": "urn:agent-evals-standard:schema:case:1#/properties/source" },
         "repository": { "$ref": "urn:agent-evals-standard:schema:case:1#/properties/repository" },

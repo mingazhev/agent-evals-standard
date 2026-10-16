@@ -60,8 +60,8 @@
     },
     {
       "if": { "type": "object", "properties": { "experiment": { "type": "object", "properties": { "assuranceLevel": { "const": "A0" } }, "required": ["assuranceLevel"] } }, "required": ["experiment"] },
-      "then": { "type": "object", "properties": { "experiment": { "type": "object", "properties": { "runMode": { "const": "diagnostic_run" }, "claimEligibility": { "const": "none" }, "caseProfiles": { "type": "array", "minItems": 1, "items": { "type": "object", "properties": { "bindingUse": { "const": "diagnostic_only" } } } } } }, "claims": { "type": "array", "maxItems": 0 }, "claimResults": { "type": "array", "maxItems": 0 } } },
-      "else": { "type": "object", "properties": { "experiment": { "type": "object", "properties": { "runMode": { "const": "evaluation" }, "claimEligibility": { "const": "claims_eligible" }, "caseProfiles": { "type": "array", "minItems": 1, "items": { "type": "object", "properties": { "bindingUse": { "const": "claims_eligible" } } } } } }, "claims": { "type": "array", "minItems": 1 }, "claimResults": { "type": "array", "minItems": 1 } } }
+      "then": { "type": "object", "properties": { "experiment": { "type": "object", "properties": { "runMode": { "const": "diagnostic_run" }, "claimEligibility": { "const": "none" } } }, "claims": { "type": "array", "maxItems": 0 }, "claimResults": { "type": "array", "maxItems": 0 } } },
+      "else": { "type": "object", "properties": { "experiment": { "type": "object", "properties": { "runMode": { "const": "evaluation" }, "claimEligibility": { "const": "claims_eligible" } } }, "claims": { "type": "array", "minItems": 1 }, "claimResults": { "type": "array", "minItems": 1 } } }
     }
   ],
   "additionalProperties": false,
@@ -71,7 +71,7 @@
     "artifactPointer": { "type": "object", "required": ["id", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
     "versionedArtifactPointer": { "type": "object", "required": ["id", "version", "uri", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "uri": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
     "component": { "type": "object", "required": ["id", "version", "digest"], "properties": { "id": { "$ref": "#/$defs/id" }, "version": { "type": "string", "minLength": 1 }, "digest": { "$ref": "#/$defs/digest" } }, "additionalProperties": false },
-    "caseProfile": { "type": "object", "required": ["caseId", "bindingUse", "evaluationProfile", "effectiveProfileDigest", "outcomeProfile"], "properties": { "caseId": { "$ref": "#/$defs/id" }, "bindingUse": { "enum": ["diagnostic_only", "claims_eligible"] }, "evaluationProfile": { "$ref": "#/$defs/component" }, "effectiveProfileDigest": { "$ref": "#/$defs/digest" }, "outcomeProfile": { "$ref": "#/$defs/component" } }, "additionalProperties": false },
+    "caseProfile": { "type": "object", "required": ["caseId", "evaluationProfile", "effectiveProfileDigest", "outcomeProfile"], "properties": { "caseId": { "$ref": "#/$defs/id" }, "evaluationProfile": { "$ref": "#/$defs/component" }, "effectiveProfileDigest": { "$ref": "#/$defs/digest" }, "outcomeProfile": { "$ref": "#/$defs/component" } }, "additionalProperties": false },
     "arm": {
       "type": "object", "required": ["id", "label", "treatmentRole", "model", "agentConfiguration", "prompts", "policies", "harness", "adapter", "tools", "permissions", "budgets", "retrieval", "memory", "agentVisibleProjection", "environment", "externalServices", "graderSet", "identityDigest"],
       "properties": {
@@ -277,7 +277,6 @@
       "required": [
         "status",
         "ledger",
-        "externalAttemptCheckpoint",
         "scheduledSetCommitment",
         "initialLedgerRoot",
         "terminalLedgerRoot",
@@ -298,13 +297,6 @@
       "properties": {
         "status": { "enum": ["valid", "invalid"] },
         "ledger": { "$ref": "#/$defs/artifactPointer" },
-        "externalAttemptCheckpoint": {
-          "$comment": "Pointer to agent-eval-attempt-checkpoint-1. Semantic verification must resolve it through an externally configured scheduler trust boundary; a key supplied only by the scorecard is not trust.",
-          "allOf": [
-            { "$ref": "#/$defs/versionedArtifactPointer" },
-            { "type": "object", "properties": { "version": { "const": "0.1.0" } } }
-          ]
-        },
         "scheduledSetCommitment": { "$ref": "#/$defs/artifactPointer" },
         "initialLedgerRoot": { "$ref": "#/$defs/digest" },
         "terminalLedgerRoot": { "$ref": "#/$defs/digest" },

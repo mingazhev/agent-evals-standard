@@ -91,11 +91,10 @@ claims.
 The bundled [Governance Policy](governance-policy.md) and
 [Escalation and Stop Matrix](escalation-stop-matrix.md) fix base assurance floors
 and event semantics but leave adopter thresholds, owners, and SLAs unset.
-Prepare authenticated adopter-owned instances before the Case QA and run stages
-that bind them. Their schemas are
-[`operational-governance-policy.schema.json`](../schemas/operational-governance-policy.schema.json)
-and [`operational-escalation-matrix.schema.json`](../schemas/operational-escalation-matrix.schema.json).
-An unset required value blocks the affected path.
+Prepare an authenticated adopter-owned policy instance
+([`operational-governance-policy.schema.json`](../schemas/operational-governance-policy.schema.json))
+before the Case QA and run stages that bind it. An unset required value blocks
+the affected path.
 
 ### 3. Author a case
 
@@ -106,9 +105,9 @@ then produce a `case.json` that satisfies
 
 A case binds exactly one effective [evaluation profile](../profiles/), one
 outcome profile shared by all its cells, one or more capability families with mapped
-work-artifact types, an applicability contract, a Git workspace manifest, a
-claim registry, and a sealed risk assessment. The bundled executable profiles
-are `repo-change-v1` and read-only `repository-review-v1`; they demonstrate
+work-artifact types, the four `SCOPE-003` applicability tests with
+rationales, a Git workspace manifest, a claim registry, and a sealed risk
+assessment. The bundled executable profile is `repo-change-v1`; it demonstrates
 interoperability mechanics, not empirical validity.
 
 Checklist:
@@ -119,8 +118,9 @@ Checklist:
 - [ ] the Git workspace is sealed with oracle-isolated state and visible-history closure
 - [ ] risk assessment, inherent risk tier, leakage controls, and contamination
       metadata are recorded
-- [ ] every decision surface is `checked`, `covered_by_final_state`,
-      `not_applicable`, or an explicit declared gap with claim restrictions
+- [ ] for A2/A3 use, every decision surface is `checked`,
+      `covered_by_final_state`, `not_applicable`, or an explicit declared gap
+      with claim restrictions
 - [ ] every claim in the claim registry resolves
 
 ### 4. Activate via Case QA
@@ -132,8 +132,8 @@ stages and record the result in a `case-qa-record.json`
 Use the outcome-specific known-good, known-bad, trivial-strategy, and
 alternative-result controls in Stages 3–7, followed by stability validation.
 A reference result is one possible known-good control. For `already_satisfied`,
-the declared empty-diff control is expected to pass. Stage 7 allows
-`not_applicable` only through the authenticated singleton-validity proof.
+the declared empty-diff control is expected to pass. Stage 7 may be
+`not_applicable` only with a rationale, and that gap restricts dependent claims.
 The playbook defines the complete activation evidence; its semantic validation
 precedes `active` and no blocking defect may remain open.
 
@@ -169,9 +169,8 @@ locations and hashes, deviations with claim restrictions, and the issuer
 identity. The target record also contains the closed
 requirement-coverage matrix required by `CONF-002`: exactly the requirements
 whose authenticated [requirement-registry](requirement-registry.json) entry
-includes the claimed target, each with an authenticated
-`conformance-applicability-contract-1` whose rule predicate binds the digest of
-that registry entry.
+includes the claimed target, each with a status derived from replay or an
+independent review as the entry's `verificationKind` dictates.
 
 A conforming claim is the committed statement plus a separate
 `validation-envelope-1`, produced by an independent validator, whose subject
@@ -194,15 +193,15 @@ These steps consume the validated evidence from the pre-planned governance run.
 Decisions use [`schemas/governance-decision.schema.json`](../schemas/governance-decision.schema.json)
 and the [decision-record template](../templates/governance-decision-record.md).
 An approval additionally binds a post-decision assurance plan. Resolutions,
-waivers, renewals, and rollbacks are appended to the hash-chained
-governance-resolution ledger; the scorecard itself is immutable.
+waivers, renewals, and rollbacks are appended to the adopter's
+version-controlled governance record; the scorecard itself is immutable.
 
 ### 9. Monitor via assurance observations
 
-Every expected monitoring window appends a typed assurance observation
-(`assurance-observation.schema.json`). Missing, late, or unauthenticated
-evidence triggers `assuranceEvidenceMissing` and suspends the affected
-approval.
+Every expected monitoring window is recorded as an observation in the
+governance record. Missing, late, or unauthenticated evidence triggers
+`assuranceEvidenceMissing` and suspends the affected approval. Version 0.1.0
+publishes no schema for these records.
 
 ## Frequently used rules
 

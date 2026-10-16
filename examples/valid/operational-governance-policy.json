@@ -343,11 +343,6 @@
     "confirmedContamination",
     "privacyIpRetentionBreach"
   ],
-  "escalationMatrix": {
-    "id": "operational-escalation-matrix-fixture-1",
-    "uri": "artifact:fixture:operational-escalation-matrix-fixture-1",
-    "digest": "sha256:c2e6fb87a1f3f8936db5de56124ee776d258c67e383dd9e82487ca712169351d"
-  },
   "measurementMaintenance": {
     "id": "measurement-maintenance-fixture-1",
     "uri": "artifact:fixture:measurement-maintenance-fixture-1",

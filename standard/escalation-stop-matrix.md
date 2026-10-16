@@ -4,8 +4,8 @@
 - Version: 0.1.0
 - Owner: adopter-defined; a conforming matrix instance requires a resolvable
   team identifier or email before any held-out, release, or autonomy decision.
-- Storage: the adopter policy instance **MUST** define the event, enforcement-
-  receipt, resolution, and checkpoint locations.
+- Storage: the adopter policy instance **MUST** name the version-controlled
+  governance record in which events and their resolutions are committed.
 
 The canonical closed event registry is
 [`escalation-event-registry.json`](escalation-event-registry.json). Its 22
@@ -51,35 +51,18 @@ review, and assurance rows. Every registry action remains normative; the
 adopter **MUST** assign a concrete owner and SLA before an operational decision
 can cite this matrix.
 
-## Immutable event lifecycle
+## Event lifecycle
 
-1. A trigger **MUST** append an immutable open escalation event. The source
-   event contains no resolution or terminal disposition.
-2. The stop and rollback/scope actions **MUST** be applied and recorded in a
-   separate enforcement receipt binding the event hash, exact scope, action IDs,
-   authorized executor, times, outcome, and canonical evidence.
-3. A later resolution **MUST** bind the unchanged source-event hash, triage and
-   corrective evidence, resolver authorization and role-conflict check,
-   terminal disposition, residual risk, expiry, and required receipt. It closes
-   status; it **MUST NOT** mutate the event.
-4. Resume **MUST** produce another receipt proving all row conditions for the
-   same scope. Missing, late, or failed enforcement emits
-   `assuranceEvidenceMissing` and keeps the original event open.
-
-Informative summary: resume uses a separately typed receipt binding the prior
-authorized resolution and verified sealed conditions. The complete resume
-binding and authorization rules are defined by the
-[Governance Policy](governance-policy.md#escalation-enforcement-and-resolution).
+Open event, enforced action, then resolution, each a separately committed
+record that cites its predecessor and never rewrites it. The complete rules are
+in the [Governance Policy](governance-policy.md#escalation-enforcement-and-resolution).
 
 Baseline hard-gate events and every identifier declared non-waivable by the
 Governance Policy **MUST NOT** resolve as `waived`. Case or evaluator defects
 **MAY** be quarantined only through independent Case QA invalidation; the failed
 run remains immutable and a new sealed run is REQUIRED.
 
-Events are recorded using the normative
-[`schemas/escalation-event.schema.json`](../schemas/escalation-event.schema.json)
-payload shape inside the hash-chained event envelope of the
-governance-resolution ledger. Resolutions and enforcement receipts use separate
-typed payloads and bind the earlier escalation payload hash in the same chain.
+Version 0.1.0 publishes no event or resolution schema; the registry fixes the
+tuples and the governance record holds the instances.
 Evidence and ledger ordering follow the
 [Evidence and Detached Validation Contract](evidence-and-validation-contract.md#integrity-model).
