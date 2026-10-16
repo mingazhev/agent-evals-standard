@@ -3,69 +3,39 @@
   "version": "0.1.0",
   "examples": [
     {
-      "id": "case-activation-input.valid",
-      "path": "valid/case-activation-input.json",
-      "schema": "schemas/case-activation-input.schema.json",
-      "valid": true
-    },
-    {
-      "id": "case-qa-record.valid",
-      "path": "valid/case-qa-record.json",
-      "schema": "schemas/case-qa-record.schema.json",
-      "valid": true
-    },
-    {
-      "id": "case.valid",
-      "path": "valid/case.json",
-      "schema": "schemas/case.schema.json",
-      "valid": true
-    },
-    {
-      "id": "conformance-statement.valid",
-      "path": "valid/conformance-statement.json",
-      "schema": "schemas/conformance-statement.schema.json",
-      "valid": true
-    },
-    {
-      "id": "core-attempt-ledger.valid",
+      "id": "attempt-ledger.valid",
       "path": "core/attempt-ledger.json",
-      "schema": "schemas/core-attempt-ledger.schema.json",
+      "schema": "schemas/attempt-ledger.schema.json",
       "valid": true
     },
     {
       "id": "core-case-qa.valid",
       "path": "core/case-qa.json",
-      "schema": "schemas/core-case-qa.schema.json",
+      "schema": "schemas/case-qa.schema.json",
       "valid": true
     },
     {
       "id": "core-case.valid",
       "path": "core/case.json",
-      "schema": "schemas/core-case.schema.json",
+      "schema": "schemas/case.schema.json",
       "valid": true
     },
     {
-      "id": "core-conformance-statement.valid",
+      "id": "conformance-statement.valid",
       "path": "core/conformance-statement.json",
-      "schema": "schemas/core-conformance-statement.schema.json",
+      "schema": "schemas/conformance-statement.schema.json",
       "valid": true
     },
     {
-      "id": "core-run-manifest.valid",
+      "id": "run-manifest.valid",
       "path": "core/run-manifest.json",
-      "schema": "schemas/core-run-manifest.schema.json",
+      "schema": "schemas/run-manifest.schema.json",
       "valid": true
     },
     {
-      "id": "core-scorecard.valid",
+      "id": "scorecard.valid",
       "path": "core/scorecard.json",
-      "schema": "schemas/core-scorecard.schema.json",
-      "valid": true
-    },
-    {
-      "id": "environment-contract.valid",
-      "path": "valid/environment-contract.json",
-      "schema": "schemas/environment-contract.schema.json",
+      "schema": "schemas/scorecard.schema.json",
       "valid": true
     },
     {
@@ -84,12 +54,6 @@
       "id": "evaluation-threat-model.valid",
       "path": "valid/evaluation-threat-model.json",
       "schema": "schemas/evaluation-threat-model.schema.json",
-      "valid": true
-    },
-    {
-      "id": "evaluator-manifest.valid",
-      "path": "valid/evaluator-manifest.json",
-      "schema": "schemas/evaluator-manifest.schema.json",
       "valid": true
     },
     {
@@ -135,12 +99,6 @@
       "valid": true
     },
     {
-      "id": "pre-run-manifest.valid",
-      "path": "valid/pre-run-manifest.json",
-      "schema": "schemas/pre-run-manifest.schema.json",
-      "valid": true
-    },
-    {
       "id": "requirement-registry.valid",
       "path": "../standard/requirement-registry.json",
       "schema": "schemas/requirement-registry.schema.json",
@@ -150,30 +108,6 @@
       "id": "risk-assessment.valid",
       "path": "valid/risk-assessment.json",
       "schema": "schemas/risk-assessment.schema.json",
-      "valid": true
-    },
-    {
-      "id": "scorecard.valid",
-      "path": "valid/scorecard.json",
-      "schema": "schemas/scorecard.schema.json",
-      "valid": true
-    },
-    {
-      "id": "sdlc-coverage.valid",
-      "path": "valid/sdlc-coverage.json",
-      "schema": "schemas/sdlc-coverage.schema.json",
-      "valid": true
-    },
-    {
-      "id": "statistical-plan.valid",
-      "path": "valid/statistical-plan.json",
-      "schema": "schemas/statistical-plan.schema.json",
-      "valid": true
-    },
-    {
-      "id": "suite-manifest.valid",
-      "path": "valid/suite-manifest.json",
-      "schema": "schemas/suite-manifest.schema.json",
       "valid": true
     },
     {
@@ -201,28 +135,58 @@
       "valid": true
     },
     {
-      "id": "case.high-risk-held-out-without-probe",
-      "path": "invalid/case.high-risk-held-out-without-probe.json",
-      "schema": "schemas/case.schema.json",
-      "valid": false,
-      "expectedError": "memorizationProbe",
-      "illustrates": "HOLD-002: a high-risk held-out case needs a memorization probe"
+      "id": "run-manifest.a3.valid",
+      "path": "valid/run-manifest.a3.json",
+      "schema": "schemas/run-manifest.schema.json",
+      "valid": true
     },
     {
-      "id": "case.interaction-alias",
-      "path": "invalid/case.interaction-alias.json",
-      "schema": "schemas/case.schema.json",
-      "valid": false,
-      "expectedError": "/interactionModeId",
-      "illustrates": "SCOPE-002: interaction modes are a closed set; non_interactive is not a valid ID"
+      "id": "conformance-statement.decision.valid",
+      "path": "valid/conformance-statement.decision.json",
+      "schema": "schemas/conformance-statement.schema.json",
+      "valid": true
     },
     {
-      "id": "core-conformance-statement.conforming-with-failed-obligation",
-      "path": "invalid/core-conformance-statement.conforming-with-failed-obligation.json",
-      "schema": "schemas/core-conformance-statement.schema.json",
+      "id": "case-qa.quarantined.valid",
+      "path": "valid/case-qa.quarantined.json",
+      "schema": "schemas/case-qa.schema.json",
+      "valid": true
+    },
+    {
+      "id": "case.a2.valid",
+      "path": "valid/case.a2.json",
+      "schema": "schemas/case.schema.json",
+      "valid": true,
+      "illustrates": "an A2 case adds the workspace manifest, evaluation and outcome profiles, an active lifecycle with its QA record, contamination, leakage controls, a decision surface, and an exposure budget"
+    },
+    {
+      "id": "case-qa.a2.valid",
+      "path": "valid/case-qa.a2.json",
+      "schema": "schemas/case-qa.schema.json",
+      "valid": true,
+      "illustrates": "an A2 Case QA record passes stages 3-8 (stage 7 with an alternative-valid-result probe), fixes a defect, and binds a grader validation and a decision-surface validation"
+    },
+    {
+      "id": "scorecard.a2.valid",
+      "path": "valid/scorecard.a2.json",
+      "schema": "schemas/scorecard.schema.json",
+      "valid": true,
+      "illustrates": "an A2 scorecard adds governance statuses, validity, and per-arm telemetry to a computed metric"
+    },
+    {
+      "id": "scorecard.uncomputable-metric.valid",
+      "path": "valid/scorecard.uncomputable-metric.json",
+      "schema": "schemas/scorecard.schema.json",
+      "valid": true,
+      "illustrates": "an arm with no valid trial in any scheduled cell makes its pass_at_1 metric uncomputable: null estimate and interval, reasons, and identification bounds [0, 1]"
+    },
+    {
+      "id": "conformance-statement.conforming-with-failed-requirement",
+      "path": "invalid/conformance-statement.conforming-with-failed-requirement.json",
+      "schema": "schemas/conformance-statement.schema.json",
       "valid": false,
       "expectedError": "/verdict",
-      "illustrates": "Core level: a failed obligation forces verdict nonconforming; core_conforming requires thirteen pass rows"
+      "illustrates": "A1: a failed requirement row forces verdict nonconforming; conforming requires every row pass"
     },
     {
       "id": "evaluation-profile.general-agent-capability",
@@ -241,12 +205,36 @@
       "illustrates": "EVID-001: digest-only metadata is not material evidence"
     },
     {
-      "id": "scorecard.supported-claim-failed-rule",
-      "path": "invalid/scorecard.supported-claim-failed-rule.json",
+      "id": "run-manifest.a1-high-risk",
+      "path": "invalid/run-manifest.a1-high-risk.json",
+      "schema": "schemas/run-manifest.schema.json",
+      "valid": false,
+      "expectedError": "/effectiveRisk/tier",
+      "illustrates": "A1 and A2 allow only low or medium effective risk; high and critical require A3"
+    },
+    {
+      "id": "run-manifest.a2-missing-held-out",
+      "path": "invalid/run-manifest.a2-missing-held-out.json",
+      "schema": "schemas/run-manifest.schema.json",
+      "valid": false,
+      "expectedError": "heldOut",
+      "illustrates": "A2 and above require the held-out budget and ledger refs"
+    },
+    {
+      "id": "conformance-statement.a1-governance-eligible",
+      "path": "invalid/conformance-statement.a1-governance-eligible.json",
+      "schema": "schemas/conformance-statement.schema.json",
+      "valid": false,
+      "expectedError": "/restrictions/governanceUse",
+      "illustrates": "A1 statements keep governanceUse prohibited; eligible needs A2 or above"
+    },
+    {
+      "id": "scorecard.uncomputable-without-reasons",
+      "path": "invalid/scorecard.uncomputable-without-reasons.json",
       "schema": "schemas/scorecard.schema.json",
       "valid": false,
-      "expectedError": "/claimResults/0/decisionRuleResult",
-      "illustrates": "CLAIM-001: a supported claim cannot carry a failed decision rule"
+      "expectedError": "reasons",
+      "illustrates": "an uncomputable metric carries a null estimate and must state why in reasons"
     }
   ]
 }

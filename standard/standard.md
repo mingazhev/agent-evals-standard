@@ -157,10 +157,10 @@ materialization verification, and offline replay semantics.
 
 Schema validation alone does not establish this boundary. A repository-state
 verifier that implements algorithm `git-repository-state-v1` and is pinned in
-the sealed evaluator manifest **MUST** execute all rules above. Any
+the sealed run manifest **MUST** execute all rules above. Any
 unresolved base identity, reference, object, gitlink, LFS, projection, or digest
 condition yields `insufficient_evidence` for case activation and for every
-dependent positive claim or conformance target; it **MUST NOT** be downgraded to
+dependent positive claim or conformance claim; it **MUST NOT** be downgraded to
 a warning or `not_applicable`. A passing repository-state verdict establishes
 only immutable Git input identity and closure, not material repository
 grounding, task validity, or outcome correctness.
@@ -239,11 +239,11 @@ combining the changes under the label `profile`.
 
 ### Evaluation-Profile Resolution
 
-`PROFILE-001` — A suite **MUST** publish a closed `evaluationProfiles[]`
-containing every evaluation profile used by its cases. Each non-A0 case
-**MUST** pin exactly one evaluation profile and one compatible outcome profile
-by ID, version, and digest. A cell inherits the case binding and **MUST NOT**
-override it. Comparator arms share the measurement profile; changing it creates
+`PROFILE-001` — Each case scheduled at A2 or above **MUST** pin exactly one evaluation profile
+and one compatible outcome profile by ID, version, and digest. At A2 and above,
+the run manifest binds one `evaluationProfile`, and every scheduled case's
+evaluation-profile binding **MUST** equal it. A cell inherits the case binding
+and **MUST NOT** override it. Comparator arms share the measurement profile; changing it creates
 a measurement-system study instead. A profile narrows the base (supported
 assurance levels, risk range, capability families, interaction modes, outcome
 profiles, gates, QA controls, and metrics) and **MUST NOT** add a capability
@@ -258,16 +258,16 @@ reinterpret a base assurance requirement.
 
 ## SDLC Capability Taxonomy
 
-`SCOPE-002` — A suite **MUST** declare coverage and gaps against this closed
-taxonomy. The IDs are stable in version 0.1.0; an evaluation profile can select a
+`SCOPE-002` — The run manifest **MUST** declare `coverage`
+`{capabilityFamilyIds, gaps}` against this closed taxonomy. The IDs are stable in version 0.1.0; an evaluation profile can select a
 subset but cannot add a capability family.
 
 Interaction-mode scope is also closed in version 0.1.0:
 `noninteractive_repository_task`, `interactive_repository_session`,
 `pull_request_workflow`, and `ci_or_release_workflow`. An evaluation profile
 publishes the complete modes it supports. A case selects exactly one of those
-IDs as `interactionModeId`; a cell inherits that exact ID. A conformance scope
-slice may aggregate a nonempty subset. The aliases `interactive` and
+IDs as `interactionModeId`; a cell inherits that exact ID. The run manifest's
+coverage may aggregate a nonempty subset. The aliases `interactive` and
 `non_interactive` are not valid interaction-mode IDs.
 
 | Stable ID | Capability family | Representative work products |
@@ -337,21 +337,24 @@ is ancillary; it is `CAP.DISCOVER_SPECIFY` only when discovery, requirements, or
 acceptance criteria are themselves evaluated work products.
 
 A positive claim **MUST NOT** extend to an uncovered capability family, artifact
-type, risk context, repository class, or interaction mode. A suite intended only
+type, risk context, repository class, or interaction mode. A run intended only
 for code changes **MAY** omit other families if every resulting claim states
-that boundary. Each case **MUST** bind a nonempty `capabilityFamilyIds` subset of
-its evaluation profile; every claim-bearing material subject **MUST**
-map to at least one of those IDs, and every selected ID **MUST** own at least one
-material work product through the registry.
+that boundary; each omission is a `coverage.gaps` entry. Each case
+**MUST** bind a `capabilityFamilyId` of its evaluation profile, and every
+claim-bearing material subject **MUST** map to it. The run manifest's
+`coverage.capabilityFamilyIds` **MUST** equal the families its cases bind, and
+every listed ID **MUST** own at least one material work product through the
+registry.
 
 ## Intended Use and Validity Argument
 
-`VALID-001` — Before case selection, the suite manifest **MUST** declare:
+`VALID-001` — Before case selection, the run manifest (and, at A2 and above,
+the validity argument it binds) **MUST** declare:
 
 - intended users and decisions;
 - construct definitions and excluded constructs;
 - target population, sampling frame, strata, and expected use conditions;
-- claims the suite is designed to support;
+- claims the run is designed to support;
 - required assurance level and effective-risk range;
 - construct-to-capability and construct-to-evidence mappings.
 
@@ -368,14 +371,14 @@ requirement are defined in the
 
 `VALID-003` — Capability, comparative, release, and autonomy studies **MUST**
 include pre-declared reference baselines appropriate to the intended decision.
-The independently approved, content-addressed validity argument **MUST** bind a
-structured baseline inventory. Each baseline records its kind, whether any
-agent participates, conditions, resources, tools, and scoring. The experiment
-and statistical plan **MUST** identify where each required baseline enters the
+At A2 and above, the independently approved, content-addressed validity argument
+**MUST** bind a structured baseline inventory. Each baseline records its kind, whether any
+agent participates, conditions, resources, tools, and scoring. The run
+manifest **MUST** identify where each required baseline enters the
 sealed comparison or criterion evidence; a catalog entry with no measured or
 authenticated reference result is not inclusion in the study.
 
-When a current workflow or incumbent system exists, the inventory **MUST** bind
+When a current workflow or incumbent system exists, the A2 inventory **MUST** bind
 it and a distinct baseline with no agent involvement. When neither exists, the
 same authenticated validity argument **MUST** contain `no_incumbent_exists`, a
 substantive rationale, and the evidence references on which the independent
@@ -392,11 +395,12 @@ unreviewed, or self-declared incumbent disposition yields
 or otherwise non-comparable baseline **MUST NOT** support an incremental-value
 claim.
 
-At the [Core level](conformance.md#core-level), the run **MUST** include both a
+At [A1](conformance.md#baseline-a1), the run manifest **MUST** include both a
 no-action baseline and a distinct non-agent control and **MUST** record any
 incumbent; an unmeasured incumbent is a recorded gap that forbids any claim of
 improvement over it rather than an `insufficient_evidence` result for the whole
-study. That Core form satisfies `VALID-003` only for `A1-lite` claims.
+study. A2 and above add the validity-argument inventory and incumbent
+disposition described above.
 
 The structured baseline binding and fail-closed semantic checks invoked by this
 requirement are defined in the
@@ -446,8 +450,10 @@ component **MUST** have immutable provenance.
 
 ### I5. Attribution and complete attempt accounting
 
-`RUN-002` — Every scheduled and started attempt, including invalid,
-interrupted, missing-capture, and replacement attempts, **MUST** appear in the
+`RUN-002` — Every scheduled and started attempt, including invalid
+(`invalid_infrastructure` for setup or infrastructure failures,
+`invalid_capture` for interrupted or uncaptured attempts) and replacement
+attempts, **MUST** appear in the
 runner-owned append-only ledger. A replacement **MUST** link to its original and
 **MUST NOT** create a new statistical observation. Measurement failures
 **MUST NOT** be classified as agent failures or silently removed.
@@ -539,14 +545,12 @@ of the [Security Threat Model and Coverage Contract](security-threat-model.md).
 `ASSURE-001` — Every experiment and claim **MUST** declare one assurance level.
 The level **MUST** be at least the minimum selected by the authenticated
 operational policy for the exact decision class and the authenticated effective
-risk tier. Assurance order is `A0 < A1-lite < A1 < A2 < A3`.
+risk tier. Assurance order is `A0 < A1 < A2 < A3`.
 
-`A1-lite` is the assurance level of the [Core level](conformance.md#core-level).
-It exists only for Core artifacts, supports only a capability claim at `low` or
-`medium` effective risk, needs no operational policy because it never supports
-a governance decision, and is below every floor in the table below. Full-level
-artifacts and operational policies use `A0`–`A3`; a Core claim **MUST NOT** be
-relabeled `A1` or higher without a new run under the full requirements.
+`A1` is the entry level, defined in [Conformance](conformance.md#baseline-a1).
+The artifacts are one schema family for all levels: A2 and A3 add attachments
+and stronger forms of the same artifacts, and a lower-level artifact **MUST NOT**
+be relabeled with a higher level without a new run that meets that level.
 
 The closed decision classes are:
 
@@ -560,8 +564,8 @@ An experiment may be valid at `capability_claim` assurance and still be
 ineligible for a later positive governance use. Before an `approve` verdict or
 a positive governance-evidence claim, the validator **MUST** re-evaluate every
 supporting scorecard against the consuming decision class. A conclusive harmful
-event may support rejection under I6 at the otherwise applicable capability
-floor; absent such a sealed rejection rule, lower-assurance evidence yields
+event in A2 or higher evidence may support rejection under I6 at the otherwise
+applicable capability floor; A1 evidence is excluded from this exception; absent such a sealed rejection rule, lower-assurance evidence yields
 `insufficient_evidence`, never approval or a positive governance claim.
 
 The following base floors are non-weakenable. An operational policy **MAY**
@@ -586,11 +590,10 @@ non-monotonic policy value yields `insufficient_evidence`.
 
 | Level | Intended use | Minimum evidence depth |
 | --- | --- | --- |
-| `A0 diagnostic_run` | harness development and debugging | schema-valid inputs, universal safety controls, complete attempt accounting, `claimEligibility: none`, and no claims or claim results |
-| `A1-lite core_capability` | bounded capability claim at low or medium effective risk; never governance use | the thirteen [Core obligations](conformance.md#core-level): committed run manifest before the first attempt, validated cases with positive and negative controls, complete hash-chained attempt ledger, deterministic gates, non-agent baselines, identification bounds, and the base statistical defaults or sealed overrides |
-| `A1 capability` | bounded capability claim at low or medium effective risk | current authenticated Case QA and validity argument; sealed sampling frame, unit, estimand, minimum-sample rule, and decision rule; complete scheduled-attempt accounting; the minimum-sample rule passes over independent analysis units; uncertainty interval and identification bounds are reported |
-| `A2 controlled_decision` | release or production-pilot evidence at low or medium effective risk | every A1 obligation plus held-out membership; pre-run pinned baselines under `VALID-003`, including its authenticated `no_incumbent_exists` path when applicable, and a machine-verifiable currentness rule for any current-workflow baseline; authenticated independent-review identities satisfying the declared role-separation contract; operational policy and rollback contract |
-| `A3 high_assurance` | autonomy, risk acceptance, or any high/critical effective risk | every A2 obligation plus a pinned adversarial-validation contract and passing positive attack controls; separate authorized security approval; a passing reliability contract; a bound post-decision assurance plan; and a pre-registered suspension action and enforcement path |
+| `A0 diagnostic_run` | harness development and debugging | schema-valid inputs, universal safety controls, complete attempt accounting, and no claims |
+| `A1 capability` | bounded capability claim at low or medium effective risk; never governance use | the thirteen baseline obligations in [Conformance](conformance.md#baseline-a1): committed run manifest before the first attempt; validated cases (`case-1`, `case-qa-1`) with known-good, no-op, and plausible-wrong controls and an independent inferability review; complete hash-chained attempt ledger; deterministic gates; gates, outcomes, claims, and verdict in separate fields; non-agent baselines; identification bounds; `stat-defaults-v1` or declared overrides; least privilege |
+| `A2 controlled_decision` | release or production-pilot evidence at low or medium effective risk | every A1 obligation plus a held-out budget and ledger; an independently reviewed validity argument with a baseline inventory under `VALID-003`, including its authenticated `no_incumbent_exists` path when applicable; a risk-assessment record; an operational policy; Case QA stages 3–8; the decision-surface inventory; evaluation- and outcome-profile bindings; and a detached validation envelope on the conformance statement |
+| `A3 high_assurance` | autonomy, risk acceptance, or any high/critical effective risk | every A2 obligation plus an evaluation threat model; a separate authorized security approval; a bound post-decision assurance plan; and passing adversarial positive controls |
 
 The evidence rows are cumulative and their named records, rules, identities,
 verdicts, and bindings are machine inputs, not reviewer adjectives. Evaluation
@@ -599,12 +602,11 @@ profiles **MAY** require additional typed evidence through
 same-level obligation is non-conforming; a lower level **MUST NOT** support a
 higher-level decision.
 
-An A0 experiment **MUST** declare `runMode: diagnostic_run`,
-`claimEligibility: none`, and empty `claims[]` and `claimResults[]`. It is a
+An A0 experiment **MUST** declare `assuranceLevel: A0` and empty `claims[]`. It is a
 harness-development run: it **MUST NOT** support any claim or any conformance
-target, and it asserts no evaluation- or outcome-profile compatibility. It
-still binds every scheduled case to explicit evaluation- and outcome-profile
-measurement semantics so that diagnostics are reproducible.
+claim, and it asserts no evaluation- or outcome-profile compatibility. It
+still records every scheduled case and arm in the run manifest so that
+diagnostics are reproducible.
 
 ## Risk Model
 
@@ -632,15 +634,18 @@ approval, and the sealed result. Missing or unresolved factor, policy, evidence,
 or uncertainty information **MUST** fail closed as insufficient evidence; an
 author **MUST NOT** choose a lower tier manually.
 
-A case **MUST** bind a `case_inherent_hazard` assessment and reproduce its exact
-tier as `inherentRiskTier`. Before execution, the pre-run manifest **MUST** bind a
-separate assessment covering the exact scheduled cases, arms, permissions,
-tools, environment, and exposure, and reproduce its exact `effectiveRiskTier`.
-A claims-eligible run uses `experiment_decision_envelope` and also binds the
+A case's inherent-hazard classification is `case.effectiveRisk` (`tier` plus `rationale`); its
+tier is `low`, `medium`, `high`, or `critical`, and a case at `high` or `critical` **MUST** be
+scheduled only by an A3 run. At A2 and above, before execution, the run manifest **MUST** bind
+(`riskAssessment`) the authenticated `risk-assessment-1` record covering the exact scheduled cases,
+arms, permissions, tools, environment, and exposure, and its `effectiveRiskTier` equals the manifest's
+`effectiveRisk.tier`. The run manifest's `effectiveRisk` records a `tier` (`low`, `medium`, `high`, or
+`critical`) with its rationale; at A1 the schema restricts it to `low` or `medium`, A2 allows `low` or
+`medium`, and `high` or `critical` require A3. A claims-eligible A2 or A3 run uses `experiment_decision_envelope` and also binds the
 intended decision; an A0 diagnostic with no decision plan uses
-`experiment_envelope`. The sealed scorecard and every
-governance decision supported by it **MUST** reproduce that same authenticated
-assessment identity and exact tier. A changed factor, scope, policy, identity,
+`experiment_envelope`. The scorecard inherits risk identity through its `runManifest` ref and carries no
+risk fields; every governance decision supported by it **MUST** reproduce that
+same authenticated assessment identity and exact tier. A changed factor, scope, policy, identity,
 or tier requires a new assessment and a newly sealed experiment; it cannot be
 patched into a completed scorecard or decision.
 
@@ -686,7 +691,7 @@ predecessor link, quarantine restoration, and retirement field.
 
 ### Outcome Profiles
 
-`CASE-002` — Each case **MUST** bind one versioned outcome profile. The following
+`CASE-002` — At A2 and above, each case **MUST** bind one versioned outcome profile. The following
 rows are illustrative profile classes, not reserved IDs or bundled contracts:
 
 | Illustrative outcome-profile class | Required terminal evidence examples |
@@ -708,7 +713,7 @@ outcome. It is a cross-cutting evidence pattern: its protocol ledger,
 responsibility, and communication evidence attach to a registered material work
 product and that product's outcome profile.
 
-The eight base primary outcomes are normalized aggregation classes. An outcome
+The seven base primary outcomes are normalized aggregation classes. An outcome
 profile **MUST** publish a closed `nativeOutcomes[]` mapping from its own outcome
 IDs to those classes, including an explicit allowed substatus vocabulary. Every
 trial **MUST** retain the selected native outcome and substatus in addition to
@@ -734,16 +739,17 @@ base semantics and **MUST NOT** affect another outcome-profile ID. The bundled
 [repository-change replay contract](../profiles/repo-change-v1/outcome-replay-contract.md).
 An implementation executes that contract through an outcome-replay executor
 registered in an executor registry, in the implementation's own format, that the
-sealed evaluator manifest pins. Changing the contract or the executable changes their
+run manifest pins. Changing the contract or the executable changes their
 registered digest; it does not silently change this base requirement.
 
-`OUTPROF-001` — Each non-A0 case **MUST** pin exactly one outcome-profile ID,
+`OUTPROF-001` — At A2 and above, each case **MUST** pin exactly one outcome-profile ID,
 version, and digest allowed by its evaluation profile. An outcome
 profile specializes result shape; it **MUST NOT** expand capability scope,
 effective-risk range, assurance eligibility, or base requirements. The case,
-evaluation profile, selected outcome profile, and conformance scope
-slice **MUST** bind the same authenticated work-artifact registry. Every case,
-cell, or conformance scope-slice work-artifact type **MUST** be supported by at
+evaluation profile, selected outcome profile, and the run manifest's coverage
+(with the case's `evaluationProfile` and `outcomeProfile` refs) **MUST** bind the
+same authenticated work-artifact registry. Every case or
+coverage work-artifact type **MUST** be supported by at
 least one authenticated selected outcome profile and map to a selected
 capability family; every selected capability family **MUST** have at least one
 material mapped type. A case's exact `interactionModeId` **MUST** be in the
@@ -751,18 +757,21 @@ evaluation profile's complete `interactionModes` set.
 
 ### Authoring
 
-`CASE-001` — A case contract **MUST** contain a stable ID and version, source and
-rights metadata, evaluation-profile ID and digest, outcome-profile ID,
-version and digest, the authenticated work-artifact registry, complete material
-`workArtifactTypes`, capability-family IDs,
-exactly one closed `interactionModeId`, an authenticated inherent-hazard risk
-assessment and its exact `inherentRiskTier`, lifecycle, owners,
-review and expiry, task input, full sealed agent-visible projection, the four
-`SCOPE-003` applicability tests with rationales, environment, budgets, expected
-interactions, decision surfaces where declared,
-valid alternatives, a complete applicability-driven validation strategy, checks
-or adjudication protocol, gates, claim
-compatibility, oracle manifest, contamination history, and exposure budget.
+`CASE-001` — A case is a `case-1` document. At every level it **MUST** contain
+a stable ID and version, author, repository identity (URI, base commit, visible
+history), the task statement and complete agent-visible inputs, one
+`capabilityFamilyId`, one material `workArtifactType`, exactly one closed
+`interactionModeId`, the four `SCOPE-003` applicability tests with rationales,
+acceptance (the success rule, checks, and hard gates), oracle isolation, and
+the case's effective risk.
+
+At A2 and above the optional `case-1` properties are **REQUIRED**, so one case
+can be reused across levels: a `workspaceManifest` that replaces the plain
+repository base-commit identity, the `evaluationProfile` and `outcomeProfile`
+bindings, `lifecycle` with its Case QA record, `contamination` history,
+`leakageControls`, the `decisionSurfaces` inventory, the `exposureBudget`, and
+the `interactionProtocol` for an interactive case. Their full validation rules
+follow.
 
 Technology tags describe the evaluated construct; they are not placeholders
 for a code-centric assumption. `technologyContext.applicability` **MUST** be
@@ -820,15 +829,28 @@ case without an inventory supports only claims about the terminal artifact.
 
 ### Activation and Maintenance
 
-`CASE-004` — Activation **MUST** establish solvability or adjudicability,
-requirement traceability, known-good and known-bad discrimination, alternative-
-outcome acceptance, gate positive controls, stability, oracle isolation,
-adversarial resistance proportional to assurance level, and current shared-
-grader validation. Case-specific QA **SHOULD** reference a shared grader-
-validation artifact instead of duplicating population-level false-positive and
-false-negative evidence.
+`CASE-004` — Activation evidence is a `case-qa-1` record. At A1 it **MUST**
+establish, for each case, a known-good result that passes, a no-op result and at
+least one plausible wrong result that fail, stability over repeated runs, and an
+inferability and scope review by a person independent of the case author.
 
-This requirement invokes the complete activation, evidence, invalidation, and
+The record binds the case at its candidate commit, meaning the case document
+without `lifecycle`. The active case is that document plus `lifecycle`, and no
+other field may differ, so `case.lifecycle.qaRecord` → QA record → candidate case
+is acyclic. The record's `decision` is `active`, `rejected`, or `quarantined`; a
+quarantined record carries an `invalidation` with a reason and nonempty evidence,
+and the case's `lifecycle.quarantineRecord` references it.
+
+At A2 and above activation **MUST** additionally establish solvability or
+adjudicability, requirement traceability, alternative-outcome acceptance, gate
+positive controls, oracle isolation, adversarial resistance proportional to
+assurance level, and current shared-grader validation, recorded as stages 3–8
+in the record's `stages`, with `defects`, `graderValidation`, and
+`decisionSurfaceValidation` where they apply. Case-specific QA **SHOULD**
+reference a shared grader-validation artifact instead of duplicating
+population-level false-positive and false-negative evidence.
+
+The A2 form invokes the complete activation, evidence, invalidation, and
 revalidation procedure in the versioned [Case QA Playbook](case-qa-playbook.md):
 its Stages 3-8 are the complete activation procedure, and a subset of them or of
 their evidence categories is not an alternative activation path. The playbook's
@@ -836,12 +858,6 @@ pre-activation checklist is informative. An evaluation profile may
 specialize applicable controls and evidence but **MUST NOT** omit a stage or
 weaken its fail-closed result. Stage 7 `not_applicable` is a recorded gap with
 a rationale that restricts dependent claims; it is not an omitted stage.
-
-The [Core level](conformance.md#core-level) is the one exception: a
-`core-case-qa` record with known-good, no-op, and plausible wrong controls, a
-stability check, and an independent inferability and scope review activates a
-case for `A1-lite` claims only. Such a case is not activated for `A1`–`A3` use
-until it passes the complete playbook.
 
 A material change to task input, projection, environment, outcome profile,
 check, rubric, adjudicator qualification, simulator, gate, or applicability rule
@@ -871,10 +887,10 @@ case and restrict historical claims.
 
 ### Status and applicability
 
-This document is normative for the suite validity argument, reference-baseline
+This document is normative for the validity argument, reference-baseline
 inventory, evaluation threat model, and held-out exposure controls under
 `VALID-002`, `VALID-003`, and `HOLD-002`. It defines the minimum interoperable
-contracts used by suite, statistical-plan, and pre-run artifacts. Prose-only
+attachments that the run manifest binds at A2 and above. Prose-only
 declarations and untyped URI pointers do not satisfy these controls: every
 binding below is a content-addressed reference `{id, version, uri, digest}`
 whose bytes the verifier resolves and re-hashes under the
@@ -884,8 +900,8 @@ All contract versions in this release are `0.1.0`.
 
 ### Validity argument
 
-The suite validity argument **MUST** validate against
-`agent-eval-validity-argument-1`. It **MUST** identify the exact suite,
+The validity argument **MUST** validate against
+`agent-eval-validity-argument-1`. It **MUST** identify the exact case set,
 intended use, target population, evaluated constructs, permitted claims,
 evidence required for each claim, assumptions, limitations, and an independent
 review decision. It **MUST** address construct, internal, external, and
@@ -922,8 +938,8 @@ threat **MUST** bound the affected claim or produce `insufficient_evidence`.
 ### Evaluation threat model
 
 The evaluation threat model **MUST** validate against
-`agent-eval-evaluation-threat-model-1` and cover the declared suite,
-evaluation profiles, and lifecycle phases. It **MUST** enumerate protected
+`agent-eval-evaluation-threat-model-1` and cover the declared case set,
+evaluation profile, and lifecycle phases. It **MUST** enumerate protected
 assets, actors and their trust, enforced trust boundaries, attack paths,
 impacts, mitigations, detections, residual risk, accountable owners,
 assumptions, exclusions, and review triggers.
@@ -937,7 +953,7 @@ review before new claims are accepted.
 ### Held-out budget and ledger
 
 A held-out exposure budget **MUST** validate against
-`agent-eval-held-out-exposure-budget-1`. It **MUST** bind the suite and
+`agent-eval-held-out-exposure-budget-1`. It **MUST** bind the
 held-out case scope, identity dimensions, validity interval, permitted
 purposes, the committed authorization record, and independent maxima for:
 
@@ -969,15 +985,17 @@ unrecorded events, oracle access, budget mismatch, or a false unsaturated state
 cases **MUST** be rotated or the affected claim scope retired according to the
 sealed budget.
 
-### Suite and pre-run binding
+### Run manifest binding
 
-The suite manifest binds its validity argument, threat model, budget, and
-current ledger snapshot directly. The pre-run manifest binds the sealed suite,
-the ordered case set, the statistical plan, and a ledger snapshot sealed no
-later than the pre-run seal; the projected attempts **MUST** fit within the
-remaining budget. After an authorized held-out exposure, the runner **MUST**
-append and seal the ledger before a later pre-run manifest can be accepted.
-Unknown, absent, stale, or divergent bindings fail closed.
+The run manifest binds its validity argument, evaluation profile, risk
+assessment, policy, and held-out budget and ledger snapshot (`heldOut`)
+directly, the decision plan for a governance run, and at A3 the threat model,
+security approval, and assurance plan. The ordered case set, the claims, and
+the ledger snapshot are sealed together, with the snapshot sealed no later than
+the run manifest; the projected attempts **MUST** fit within the remaining
+budget. After an authorized held-out exposure, the runner **MUST** append and
+seal the ledger before a later run manifest can be accepted. Unknown, absent,
+stale, or divergent bindings fail closed.
 
 ## Data, IP, Privacy, and Retention
 
@@ -1006,19 +1024,21 @@ the design has only one of each. Cell IDs and `(case, arm, repetition)` tuples
 **MUST** be unique. One physical attempt or its permitted retry lineage resolves
 the cell.
 
-Before execution, the sealed manifest **MUST** authenticate and pin one exact
-suite, every scheduled case, and one exact `evaluator-manifest-1`.
-Case-set membership and each case's evaluation-profile and
-outcome-profile bindings **MUST** equal the authenticated suite. The validator
-**MUST** resolve each evaluation profile by digest and authenticate the selected outcome profile; a
-copied digest string, matching ID, or fixture-side related-record hint is not a
+The sealed run manifest (`run-manifest-1`) is the one pre-registration
+artifact. Before execution it **MUST** declare the arms, the cases, the
+repetitions, the replacement policy, the claims with their decision rules, the
+statistics defaults or overrides, the comparative design when the run has
+several arms, and at A2 and above the attached references the level requires.
+Each manifest `cases` entry pins one case by ID and content-addressed
+reference; the validator **MUST** resolve it by digest and, at A2 and above,
+authenticate each case's evaluation- and outcome-profile bindings. A copied
+digest string, matching ID, or fixture-side related-record hint is not a
 binding.
 
-The pre-run `caseSet` **MUST** equal the selected suite slice in canonical
-order, and `caseProfiles`, first case appearance in the scheduled cells, the
-risk assessment, the held-out budget, and every statistical claim **MUST** use
-that same ordered set. Missing, extra, duplicate, reordered, substituted, or
-passenger cases are `insufficient_evidence`.
+The manifest's ordered `cases`, the risk assessment, the held-out budget, and
+every statistical claim **MUST** use the same case set. Missing, extra,
+duplicate, reordered, substituted, or passenger cases are
+`insufficient_evidence`.
 
 Run-artifact integrity rests on content addressing and version-control order,
 not on cryptographic signatures. The sealed manifest and every artifact it pins
@@ -1034,20 +1054,20 @@ digest or an authenticated provider identity with immutability evidence.
 
 Each scheduled cell **MUST** resolve its evaluation-profile ID and
 digest and outcome-profile ID, version, and digest indirectly and exactly
-through its case's sealed `caseProfiles[]` entry. The cell **MUST NOT** carry a
-second profile binding or an override. This resolved measurement profile is
+through its case's own `evaluationProfile` and `outcomeProfile` bindings. The
+cell **MUST NOT** carry a second profile binding or an override. This resolved measurement profile is
 shared by direct comparator arms and is not part of arm identity or the
 declared treatment bundle.
 
 `EXP-003` — An experiment with multiple arms **MUST** contain
-`comparativeDesign`: comparator arms, declared treatment bundle, hypotheses,
-explicit `pairedUnits` of case, block, repetition, and seed, randomization and
-ordering, state reset, interference controls, identical measurement-profile
-bindings across direct comparator arms, shared measurement stack, and analysis
-plan. For every paired tuple, the schedule **MUST** contain exactly one cell for
+`comparativeDesign` in the run manifest: `comparatorArmIds`, the declared
+`treatmentBundle`, and `pairedUnits` of cases by repetition, together with
+randomization and ordering, state reset, interference controls, identical
+measurement-profile bindings across direct comparator arms, and a shared
+measurement stack, each declared in the manifest or the attachments it binds. For every paired tuple, the schedule **MUST** contain exactly one cell for
 every comparator arm; marginal equality of case and arm sets is insufficient.
-Every statistical claim **MUST** seal the exact ordered eligible-cell tuples it
-uses. Split arms, a missing arm or repetition, asymmetric block or seed,
+Every statistical claim **MUST** seal, in the run manifest, the exact ordered
+eligible-cell tuples it uses. Split arms, a missing arm or repetition, asymmetric block or seed,
 eligible-cell subsets or supersets, undeclared arm differences, or unresolved
 interference make the direct comparative claim insufficient.
 
@@ -1067,10 +1087,11 @@ population limits **MUST** be validated before it supports a claim.
 ### Evidence Contracts
 
 `EVID-001` and `EVID-002` apply to every case, experiment, scorecard, decision,
-ledger, and conformance statement. Evidence references **MUST** use the canonical
-`evidence-artifact-1` contract in
-[Evidence and Detached Validation](evidence-and-validation-contract.md).
-Semantic validation **MUST** be detached: the subject never embeds its validation
+ledger, and conformance statement. At A1, references are `{path, commit, digest}`
+triples and the statement is validated by independent review. At A2 and above,
+evidence references **MUST** use the canonical `evidence-artifact-1` contract in
+[Evidence and Detached Validation](evidence-and-validation-contract.md), and
+semantic validation **MUST** be detached: the subject never embeds its validation
 result; an external `validation-envelope-1` binds the subject digest.
 
 ### Run Protocol
@@ -1078,7 +1099,7 @@ result; an external `validation-envelope-1` binds the subject digest.
 `RUN-001` — Each attempt **MUST** execute this ordered protocol:
 
 1. register the scheduled cell and attempt in the authenticated ledger;
-2. materialize the clean base, projection, environment, and arm identity;
+2. materialize the clean base, projection, environment, and the arm identity in the run manifest;
 3. run bootstrap and preconditions in the runner trust domain;
 4. invoke the arm with sealed budgets, tools, permissions, and context;
 5. capture the raw event stream before compaction or display transformation;
@@ -1146,9 +1167,9 @@ valid. Repeated-trial designs **MUST** declare case, arm, cell, physical attempt
 selected trial, and claim-analysis units; state reset and dependence assumptions;
 seeds or randomization; and the estimator's target.
 
-`STAT-002` — Invalid and not-assessable attempts **MUST** remain in accounting.
-Every claim **MUST** report scheduled, resolved, valid, invalid, interrupted,
-missing-capture, and replacement counts by arm and case. Binary success claims
+`STAT-002` — Invalid attempts **MUST** remain in accounting. Every claim
+**MUST** report scheduled, resolved, valid, invalid, and replacement counts by
+arm and case. Binary success claims
 **MUST** report identification bounds that assign unresolved cells both failure
 and success unless a stronger missingness model was sealed and validated.
 Comparative claims **MUST** propagate arm-specific bounds and differential
@@ -1156,15 +1177,18 @@ missingness. A valid-only estimate **MUST NOT** be governance-eligible by itself
 
 `STAT-003` — Inference **MUST** match the design: paired case-level contrasts for
 paired arms, case-aware uncertainty for repeated trials, and multiplicity or
-hierarchical treatment for multiple claims and slices. The plan **MUST** declare
+hierarchical treatment for multiple claims and slices. The run manifest's statistics and claims **MUST** declare
 effect size, interval method, minimum information or power rule, weighting,
 stopping, exclusions, and handling of ambiguous, quarantined, and saturated
-cases. Unsupported assumptions yield `insufficient_evidence`.
+cases. A claim's decision rule consumes the reported interval limit (the lower
+limit at the failure endpoint for an at-least claim, the upper limit at the
+success endpoint for an at-most claim). Unsupported assumptions yield
+`insufficient_evidence`.
 
 ### Base statistical defaults
 
-When a sealed statistical plan does not declare a parameter, `STAT-003` applies
-the defaults `stat-defaults-v1` below. A plan **MAY** override any default only
+When the run manifest's statistics do not declare a parameter, `STAT-003` applies
+the defaults `stat-defaults-v1` below. The manifest **MAY** override any default only
 before the first attempt, and the scorecard **MUST** list every override.
 Results from different adopters are comparable only when both use
 `stat-defaults-v1` without override or with identical declared overrides, on
@@ -1199,8 +1223,8 @@ The aggregate **MUST NOT** silently transfer to an unsupported population.
 
 ## Governance Decisions and Post-Decision Assurance
 
-`GOV-001` — Before an A2 or A3 experiment, the adopter **MUST** seal the policy,
-decision plan, minimum evidence, claims, thresholds, cost and review limits,
+`GOV-001` — Before an A2 or A3 experiment, the adopter **MUST** seal, through the
+run manifest's `policy` and `decisionPlan`, the policy, decision plan, minimum evidence, claims, thresholds, cost and review limits,
 zero-tolerance gates, approver roles, separation of duties, decision envelope,
 expiry, rollback, and approve/reject/insufficient conditions. The decision record
 **MUST** trace each condition to a scorecard claim or canonical evidence artifact.
@@ -1219,7 +1243,8 @@ experiment or scorecard.
 
 ## Suite Health
 
-`HEALTH-001` — An A1–A3 suite **MUST** maintain a health inventory with a
+`HEALTH-001` — At A2 and A3, a suite — the case collection a run draws
+from — **MUST** maintain a health inventory with a
 policy-pinned threshold, cadence, owner, and response for each monitored
 signal. At minimum it monitors measurement error, flakiness, quarantine age,
 saturation and headroom, contamination and exposure budget, Case QA currency,

@@ -1,0 +1,194 @@
+{
+  "schemaVersion": "agent-eval-conformance-statement-1",
+  "id": "ledger-service-release-decision-statement-1",
+  "version": "1.0.0",
+  "standard": {
+    "version": "0.1.0",
+    "commit": "d30cc5ade9e9518cd8e7eb71c81f29f2daa793f9"
+  },
+  "assuranceLevel": "A2",
+  "claim": "decision",
+  "issuer": {
+    "id": "person-a",
+    "role": "case author and evaluation owner"
+  },
+  "subject": {
+    "governanceDecision": {
+      "path": "examples/valid/governance-decision.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "scorecards": [
+      {
+        "path": "examples/core/scorecard.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      {
+        "path": "examples/core/scorecard.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+      }
+    ]
+  },
+  "requirementResults": [
+    {
+      "requirementId": "ARCH-001",
+      "status": "pass",
+      "evidence": [
+        "examples/valid/governance-decision.json@9807bf4aec58",
+        "examples/valid/validation-envelope.json@9807bf4aec58#/checks"
+      ]
+    },
+    {
+      "requirementId": "TRACE-001",
+      "status": "pass",
+      "evidence": [
+        "examples/valid/governance-decision.json@9807bf4aec58",
+        "examples/valid/validation-envelope.json@9807bf4aec58#/checks"
+      ]
+    },
+    {
+      "requirementId": "I1",
+      "status": "pass",
+      "evidence": [
+        "examples/valid/governance-decision.json@9807bf4aec58",
+        "examples/valid/validation-envelope.json@9807bf4aec58#/checks"
+      ]
+    },
+    {
+      "requirementId": "I6",
+      "status": "pass",
+      "evidence": [
+        "examples/valid/governance-decision.json@9807bf4aec58",
+        "examples/valid/validation-envelope.json@9807bf4aec58#/checks"
+      ]
+    },
+    {
+      "requirementId": "I10",
+      "status": "pass",
+      "evidence": [
+        "examples/valid/governance-decision.json@9807bf4aec58",
+        "examples/valid/validation-envelope.json@9807bf4aec58#/checks"
+      ]
+    },
+    {
+      "requirementId": "DATA-002",
+      "status": "pass",
+      "evidence": [
+        "examples/valid/governance-decision.json@9807bf4aec58",
+        "examples/valid/validation-envelope.json@9807bf4aec58#/checks"
+      ]
+    },
+    {
+      "requirementId": "EVID-001",
+      "status": "pass",
+      "evidence": [
+        "examples/valid/governance-decision.json@9807bf4aec58",
+        "examples/valid/validation-envelope.json@9807bf4aec58#/checks"
+      ]
+    },
+    {
+      "requirementId": "EVID-002",
+      "status": "pass",
+      "evidence": [
+        "examples/valid/governance-decision.json@9807bf4aec58",
+        "examples/valid/validation-envelope.json@9807bf4aec58#/checks"
+      ]
+    },
+    {
+      "requirementId": "CLAIM-001",
+      "status": "pass",
+      "evidence": [
+        "examples/valid/governance-decision.json@9807bf4aec58",
+        "examples/valid/validation-envelope.json@9807bf4aec58#/checks"
+      ]
+    },
+    {
+      "requirementId": "CLAIM-002",
+      "status": "pass",
+      "evidence": [
+        "examples/valid/governance-decision.json@9807bf4aec58",
+        "examples/valid/validation-envelope.json@9807bf4aec58#/checks"
+      ]
+    },
+    {
+      "requirementId": "ASSURE-001",
+      "status": "pass",
+      "evidence": [
+        "examples/valid/governance-decision.json@9807bf4aec58",
+        "examples/valid/validation-envelope.json@9807bf4aec58#/checks"
+      ]
+    },
+    {
+      "requirementId": "RISK-001",
+      "status": "pass",
+      "evidence": [
+        "examples/valid/governance-decision.json@9807bf4aec58",
+        "examples/valid/validation-envelope.json@9807bf4aec58#/checks"
+      ]
+    },
+    {
+      "requirementId": "GOV-001",
+      "status": "pass",
+      "evidence": [
+        "examples/valid/governance-decision.json@9807bf4aec58",
+        "examples/valid/validation-envelope.json@9807bf4aec58#/checks"
+      ]
+    },
+    {
+      "requirementId": "GOV-002",
+      "status": "pass",
+      "evidence": [
+        "examples/valid/governance-decision.json@9807bf4aec58",
+        "examples/valid/validation-envelope.json@9807bf4aec58#/checks"
+      ]
+    },
+    {
+      "requirementId": "HEALTH-001",
+      "status": "pass",
+      "evidence": [
+        "examples/valid/governance-decision.json@9807bf4aec58",
+        "examples/valid/validation-envelope.json@9807bf4aec58#/checks"
+      ]
+    },
+    {
+      "requirementId": "CONF-001",
+      "status": "pass",
+      "evidence": [
+        "examples/valid/governance-decision.json@9807bf4aec58",
+        "examples/valid/validation-envelope.json@9807bf4aec58#/checks"
+      ]
+    },
+    {
+      "requirementId": "CONF-002",
+      "status": "pass",
+      "evidence": [
+        "examples/valid/governance-decision.json@9807bf4aec58",
+        "examples/valid/validation-envelope.json@9807bf4aec58#/checks"
+      ]
+    },
+    {
+      "requirementId": "CONF-003",
+      "status": "pass",
+      "evidence": [
+        "examples/valid/governance-decision.json@9807bf4aec58",
+        "examples/valid/validation-envelope.json@9807bf4aec58#/checks"
+      ]
+    }
+  ],
+  "restrictions": {
+    "governanceUse": "eligible",
+    "population": "Population: 50 bug-fix issues sampled at random from 212 eligible closed issues of ledger-service (Python 3.12, pytest), closed between 2025-01 and 2026-06.",
+    "incumbentComparison": "not_claimed"
+  },
+  "independentReview": {
+    "reviewer": {
+      "id": "person-b",
+      "role": "independent reviewer"
+    },
+    "verdict": "confirmed",
+    "recordedAtCommit": "8771bf636f4c4d2f928e95d63d756df7466f492f"
+  },
+  "verdict": "conforming"
+}

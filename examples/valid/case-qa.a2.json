@@ -1,0 +1,210 @@
+{
+  "schemaVersion": "agent-eval-case-qa-1",
+  "id": "qa-ls-a2-001",
+  "version": "1.0.0",
+  "case": {
+    "path": "examples/valid/case.a2.json",
+    "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+    "digest": "sha256:9949901b0af895b7dbfeb930f8c517c073ea10c88e0da056db6795512e9352e4"
+  },
+  "author": {
+    "id": "person-a",
+    "role": "case author and evaluation owner"
+  },
+  "reviewer": {
+    "id": "person-b",
+    "role": "independent reviewer"
+  },
+  "knownGood": {
+    "description": "The maintainers' original fix for LS-417 (integer minor units throughout).",
+    "result": "pass",
+    "evidence": {
+      "path": "qa/ls-a2-001/known-good.log",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:5e58935079bd4af391dad877766c398966a2b1711d503a60a308b5e62145c31a"
+    }
+  },
+  "knownBad": [
+    {
+      "id": "no-op",
+      "description": "Unchanged base snapshot.",
+      "result": "fail",
+      "evidence": {
+        "path": "qa/ls-a2-001/no-op.log",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:e6f4068b1e6ec5933b1c4841597f6263fa6062ca9194bd294585555969980a26"
+      }
+    },
+    {
+      "id": "round-float",
+      "description": "Plausible wrong fix: round(amount, 2) on floats; fails 37 of 1,000 generated amounts.",
+      "result": "fail",
+      "evidence": {
+        "path": "qa/ls-a2-001/round-float.log",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:08708186aa59b852226e572165e72dad5cf4d7ce76da211c677989abaed88431"
+      }
+    }
+  ],
+  "stability": {
+    "runsPerControl": 5,
+    "allControlsStable": true
+  },
+  "inferabilityReview": {
+    "verdict": "all_required_behavior_inferable",
+    "findings": [
+      "The two-minor-unit restriction is stated in the task; the hidden test does not exercise other currencies."
+    ],
+    "recordedAtCommit": "9807bf4aec588a164b340583b8cfff5fc040ca4d"
+  },
+  "scopeReview": {
+    "verdict": "all_four_tests_hold",
+    "recordedAtCommit": "9807bf4aec588a164b340583b8cfff5fc040ca4d"
+  },
+  "decision": "active",
+  "stages": {
+    "stage3": {
+      "status": "passed",
+      "reviewer": {
+        "id": "person-b",
+        "role": "independent reviewer"
+      },
+      "recordedAtCommit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "evidence": [
+        {
+          "path": "qa/ls-a2-001/stage3.log",
+          "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+          "digest": "sha256:1d1444f304d444a21b68e0d07f873bb024d5545820b6df946923956bd86b0826"
+        }
+      ],
+      "findings": []
+    },
+    "stage4": {
+      "status": "passed",
+      "reviewer": {
+        "id": "person-b",
+        "role": "independent reviewer"
+      },
+      "recordedAtCommit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "evidence": [
+        {
+          "path": "qa/ls-a2-001/stage4.log",
+          "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+          "digest": "sha256:f0a2f992de07a18a5e405328f42a5aa40c15470874bca6708f4d92190aaa9556"
+        }
+      ],
+      "findings": []
+    },
+    "stage5": {
+      "status": "passed",
+      "reviewer": {
+        "id": "person-b",
+        "role": "independent reviewer"
+      },
+      "recordedAtCommit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "evidence": [
+        {
+          "path": "qa/ls-a2-001/stage5.log",
+          "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+          "digest": "sha256:65c8f9120c5164b07c7500563cde3e0984d838bf7308df576a7519989b51d433"
+        }
+      ],
+      "findings": []
+    },
+    "stage6": {
+      "status": "passed",
+      "reviewer": {
+        "id": "person-b",
+        "role": "independent reviewer"
+      },
+      "recordedAtCommit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "evidence": [
+        {
+          "path": "qa/ls-a2-001/stage6.log",
+          "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+          "digest": "sha256:e70045a5cc2d5c62af70e8edc9b03ab2d7abf14fd1ce3b734a98b099059c1758"
+        }
+      ],
+      "findings": []
+    },
+    "stage7": {
+      "status": "passed",
+      "reviewer": {
+        "id": "person-b",
+        "role": "independent reviewer"
+      },
+      "recordedAtCommit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "evidence": [
+        {
+          "path": "qa/ls-a2-001/alternative-result.json",
+          "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+          "digest": "sha256:d06657a95c48489cc35aacd8eca54dc4582fa8a48633f481ee5b843c86b7cf00"
+        }
+      ],
+      "findings": []
+    },
+    "stage8": {
+      "status": "passed",
+      "reviewer": {
+        "id": "person-b",
+        "role": "independent reviewer"
+      },
+      "recordedAtCommit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "evidence": [
+        {
+          "path": "qa/ls-a2-001/stage8.log",
+          "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+          "digest": "sha256:46f54b817b5cd6355db55d1ac21afbf1efabee4741ec35c4ace1281e47c6ab9f"
+        }
+      ],
+      "findings": []
+    }
+  },
+  "defects": [
+    {
+      "id": "defect-1",
+      "type": "underspecified",
+      "severity": 1,
+      "status": "fixed",
+      "evidence": [
+        {
+          "path": "qa/ls-a2-001/defect-1.md",
+          "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+          "digest": "sha256:7ab969c3df6811656e3e5413ce3dfb66f7e333bdec8f1c15a03b5fd650d4090a"
+        }
+      ]
+    }
+  ],
+  "graderValidation": {
+    "path": "examples/valid/grader-validation.json",
+    "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+    "digest": "sha256:387e2938000f37719dbe585566b0d8a1baab337dc44ef44f2428a8d1522a2d4d"
+  },
+  "decisionSurfaceValidation": [
+    {
+      "surfaceId": "surf-refund-api",
+      "coverage": "checked",
+      "status": "pass",
+      "knownGoodControl": {
+        "id": "known-good",
+        "expected": "pass",
+        "observed": "pass",
+        "evidence": {
+          "path": "qa/ls-a2-001/known-good.log",
+          "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+          "digest": "sha256:5e58935079bd4af391dad877766c398966a2b1711d503a60a308b5e62145c31a"
+        }
+      },
+      "knownBadControl": {
+        "id": "no-op",
+        "expected": "fail",
+        "observed": "fail",
+        "evidence": {
+          "path": "qa/ls-a2-001/no-op.log",
+          "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+          "digest": "sha256:e6f4068b1e6ec5933b1c4841597f6263fa6062ca9194bd294585555969980a26"
+        }
+      }
+    }
+  ]
+}

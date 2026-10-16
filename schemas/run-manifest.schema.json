@@ -1,0 +1,871 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-evals-standard:schema:run-manifest:1",
+  "title": "Sealed run manifest",
+  "$comment": "Obligations C1, C3, C10, C12, C13 at A1 plus A2/A3 attachments. The commit that first contains this file is the seal point; it must be an ancestor of the commit that first contains any attempt. Semantic checks: every case ref resolves to an active case; every arm has exactly one repetitions entry; claim arm IDs resolve; an incumbent comparison appears only when the incumbent is an arm; coverage.capabilityFamilyIds are in the closed SDLC taxonomy. Risk: at A1 and A2 effectiveRisk.tier is low or medium; high and critical require A3. At A2+ riskAssessment.effectiveRiskTier must equal effectiveRisk.tier.",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "version",
+    "standard",
+    "assuranceLevel",
+    "owner",
+    "effectiveRisk",
+    "environment",
+    "arms",
+    "incumbent",
+    "cases",
+    "repetitions",
+    "replacementPolicy",
+    "statistics",
+    "claims",
+    "coverage"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "agent-eval-run-manifest-1"
+    },
+    "id": {
+      "$ref": "#/$defs/id"
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "standard": {
+      "type": "object",
+      "required": [
+        "version",
+        "commit"
+      ],
+      "properties": {
+        "version": {
+          "const": "0.1.0"
+        },
+        "commit": {
+          "$ref": "#/$defs/commit"
+        }
+      },
+      "additionalProperties": false
+    },
+    "assuranceLevel": {
+      "enum": [
+        "A0",
+        "A1",
+        "A2",
+        "A3"
+      ]
+    },
+    "owner": {
+      "$ref": "#/$defs/person"
+    },
+    "effectiveRisk": {
+      "type": "object",
+      "required": [
+        "tier",
+        "rationale"
+      ],
+      "properties": {
+        "tier": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "environment": {
+      "type": "object",
+      "required": [
+        "evaluationMode",
+        "productionActionAllowed",
+        "productionCredentials",
+        "network",
+        "agentWritableRoots",
+        "enforcement"
+      ],
+      "properties": {
+        "evaluationMode": {
+          "enum": [
+            "controlled_fixture",
+            "simulation"
+          ]
+        },
+        "productionActionAllowed": {
+          "const": false
+        },
+        "productionCredentials": {
+          "const": false
+        },
+        "network": {
+          "enum": [
+            "none",
+            "allowlist"
+          ]
+        },
+        "networkAllowlist": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "agentWritableRoots": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "enforcement": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "network": {
+                "const": "allowlist"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "networkAllowlist": {
+                "type": "array"
+              }
+            },
+            "required": [
+              "networkAllowlist"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "arms": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "$ref": "#/$defs/arm"
+      },
+      "allOf": [
+        {
+          "contains": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "const": "agent"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          }
+        },
+        {
+          "contains": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "const": "non_agent_control"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          }
+        },
+        {
+          "contains": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "const": "no_action_baseline"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          }
+        }
+      ]
+    },
+    "incumbent": {
+      "type": "object",
+      "required": [
+        "exists",
+        "description",
+        "measuredAsArmId"
+      ],
+      "properties": {
+        "exists": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "measuredAsArmId": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "ref"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "ref": {
+            "$ref": "#/$defs/ref"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "repetitions": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "armId",
+          "trialsPerCase"
+        ],
+        "properties": {
+          "armId": {
+            "$ref": "#/$defs/id"
+          },
+          "trialsPerCase": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "replacementPolicy": {
+      "type": "object",
+      "required": [
+        "maxReplacementsPerCell",
+        "replaceableValidity"
+      ],
+      "properties": {
+        "maxReplacementsPerCell": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "replaceableValidity": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "invalid_infrastructure",
+              "invalid_capture"
+            ]
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "statistics": {
+      "type": "object",
+      "required": [
+        "defaults",
+        "overrides"
+      ],
+      "properties": {
+        "defaults": {
+          "const": "stat-defaults-v1"
+        },
+        "overrides": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "parameter",
+              "value",
+              "rationale"
+            ],
+            "properties": {
+              "parameter": {
+                "type": "string",
+                "minLength": 1
+              },
+              "value": {},
+              "rationale": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "$ref": "#/$defs/claim"
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "required": [
+        "capabilityFamilyIds",
+        "gaps"
+      ],
+      "properties": {
+        "capabilityFamilyIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "uniqueItems": true
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "evaluationProfile": {
+      "$ref": "#/$defs/ref"
+    },
+    "validityArgument": {
+      "$ref": "#/$defs/ref"
+    },
+    "riskAssessment": {
+      "$ref": "#/$defs/ref"
+    },
+    "policy": {
+      "$ref": "#/$defs/ref"
+    },
+    "heldOut": {
+      "type": "object",
+      "required": [
+        "budget",
+        "ledger"
+      ],
+      "properties": {
+        "budget": {
+          "$ref": "#/$defs/ref"
+        },
+        "ledger": {
+          "$ref": "#/$defs/ref"
+        }
+      },
+      "additionalProperties": false
+    },
+    "decisionPlan": {
+      "$ref": "#/$defs/ref"
+    },
+    "comparativeDesign": {
+      "type": "object",
+      "required": [
+        "comparatorArmIds",
+        "treatmentBundle",
+        "pairedUnits"
+      ],
+      "properties": {
+        "comparatorArmIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/id"
+          },
+          "uniqueItems": true
+        },
+        "treatmentBundle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pairedUnits": {
+          "const": "cases_by_repetition"
+        }
+      },
+      "additionalProperties": false
+    },
+    "threatModel": {
+      "$ref": "#/$defs/ref"
+    },
+    "securityApproval": {
+      "type": "object",
+      "required": [
+        "approver",
+        "recordedAtCommit"
+      ],
+      "properties": {
+        "approver": {
+          "$ref": "#/$defs/person"
+        },
+        "recordedAtCommit": {
+          "$ref": "#/$defs/commit"
+        }
+      },
+      "additionalProperties": false
+    },
+    "assurancePlan": {
+      "$ref": "#/$defs/ref"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "commit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}([a-f0-9]{24})?$"
+    },
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "ref": {
+      "type": "object",
+      "required": [
+        "path",
+        "commit",
+        "digest"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "commit": {
+          "$ref": "#/$defs/commit"
+        },
+        "digest": {
+          "$ref": "#/$defs/digest"
+        }
+      },
+      "additionalProperties": false
+    },
+    "person": {
+      "type": "object",
+      "required": [
+        "id",
+        "role"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "arm": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "description",
+        "components"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "enum": [
+            "agent",
+            "non_agent_control",
+            "no_action_baseline",
+            "incumbent_workflow"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "components": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "role",
+              "identity"
+            ],
+            "properties": {
+              "role": {
+                "enum": [
+                  "model",
+                  "agent_configuration",
+                  "prompt",
+                  "harness",
+                  "tool",
+                  "permission_policy",
+                  "budget",
+                  "rule_set",
+                  "environment_image"
+                ]
+              },
+              "identity": {
+                "type": "string",
+                "minLength": 1
+              },
+              "digest": {
+                "$ref": "#/$defs/digest"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "agent"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "components": {
+                "type": "array",
+                "minItems": 1,
+                "allOf": [
+                  {
+                    "contains": {
+                      "type": "object",
+                      "properties": {
+                        "role": {
+                          "const": "model"
+                        }
+                      },
+                      "required": [
+                        "role"
+                      ]
+                    }
+                  },
+                  {
+                    "contains": {
+                      "type": "object",
+                      "properties": {
+                        "role": {
+                          "const": "agent_configuration"
+                        }
+                      },
+                      "required": [
+                        "role"
+                      ]
+                    }
+                  },
+                  {
+                    "contains": {
+                      "type": "object",
+                      "properties": {
+                        "role": {
+                          "const": "budget"
+                        }
+                      },
+                      "required": [
+                        "role"
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "claim": {
+      "type": "object",
+      "required": [
+        "id",
+        "classification",
+        "statement",
+        "estimand",
+        "armId",
+        "comparatorArmId",
+        "decisionRule"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "classification": {
+          "enum": [
+            "primary",
+            "exploratory"
+          ]
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "estimand": {
+          "enum": [
+            "pass_at_1",
+            "pass_hat_k",
+            "paired_difference_pass_at_1"
+          ]
+        },
+        "k": {
+          "type": "integer",
+          "minimum": 2
+        },
+        "armId": {
+          "$ref": "#/$defs/id"
+        },
+        "comparatorArmId": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "decisionRule": {
+          "type": "object",
+          "required": [
+            "kind",
+            "threshold"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "lower_limit_above",
+                "upper_limit_below",
+                "report_only"
+              ]
+            },
+            "threshold": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "estimand": {
+                "const": "pass_hat_k"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "k": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "k"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "estimand": {
+                "const": "paired_difference_pass_at_1"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "comparatorArmId": {
+                "$ref": "#/$defs/id"
+              }
+            },
+            "required": [
+              "comparatorArmId"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "primary"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "decisionRule": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "lower_limit_above",
+                      "upper_limit_below"
+                    ]
+                  },
+                  "threshold": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "assuranceLevel": {
+            "const": "A0"
+          }
+        },
+        "required": [
+          "assuranceLevel"
+        ]
+      },
+      "then": {
+        "properties": {
+          "claims": {
+            "type": "array",
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "assuranceLevel": {
+            "enum": [
+              "A2",
+              "A3"
+            ]
+          }
+        },
+        "required": [
+          "assuranceLevel"
+        ]
+      },
+      "then": {
+        "required": [
+          "evaluationProfile",
+          "validityArgument",
+          "riskAssessment",
+          "policy",
+          "heldOut"
+        ],
+        "properties": {
+          "evaluationProfile": {},
+          "validityArgument": {},
+          "riskAssessment": {},
+          "policy": {},
+          "heldOut": {}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "assuranceLevel": {
+            "const": "A3"
+          }
+        },
+        "required": [
+          "assuranceLevel"
+        ]
+      },
+      "then": {
+        "required": [
+          "threatModel",
+          "securityApproval",
+          "assurancePlan"
+        ],
+        "properties": {
+          "threatModel": {},
+          "securityApproval": {},
+          "assurancePlan": {}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "assuranceLevel": {
+            "enum": [
+              "A0",
+              "A1",
+              "A2"
+            ]
+          }
+        },
+        "required": [
+          "assuranceLevel"
+        ]
+      },
+      "then": {
+        "properties": {
+          "effectiveRisk": {
+            "type": "object",
+            "properties": {
+              "tier": {
+                "enum": [
+                  "low",
+                  "medium"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

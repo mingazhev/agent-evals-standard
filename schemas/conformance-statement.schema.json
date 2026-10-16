@@ -1,553 +1,178 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:agent-evals-standard:schema:conformance-statement:1",
-  "title": "Git-backed Repository SDLC Agent Evals Standard conformance statement",
+  "title": "Conformance statement",
+  "$comment": "One requirementResults row per registry requirement whose minimumLevel is at most the declared assuranceLevel and whose targets contain the claim; the registry, not this schema, pins the list. The verdict is derived: any fail yields nonconforming; otherwise any insufficient_evidence yields not_claimed; otherwise conforming, which also requires a confirming review by a person independent of the issuer. The validation envelope is published alongside the statement and binds its digest; the statement never references it. Semantic checks: every evidence ref resolves at its commit; the reviewer is independent of the issuer under the glossary definition.",
   "type": "object",
   "required": [
     "schemaVersion",
     "id",
-    "standardRelease",
-    "validatorCapabilities",
+    "version",
+    "standard",
+    "assuranceLevel",
     "claim",
-    "scope",
-    "targetEvidence",
-    "evidenceManifest",
-    "extensions",
-    "deviations",
-    "claimRestrictions",
     "issuer",
-    "issuedAt",
-    "reviewAt"
+    "subject",
+    "requirementResults",
+    "restrictions",
+    "independentReview",
+    "verdict"
   ],
   "properties": {
     "schemaVersion": {
       "const": "agent-eval-conformance-statement-1"
     },
     "id": {
-      "$ref": "#/$defs/artifactRef"
+      "$ref": "#/$defs/id"
     },
-    "standardRelease": {
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "standard": {
       "type": "object",
       "required": [
         "version",
-        "releaseStatus",
         "commit"
       ],
       "properties": {
         "version": {
           "const": "0.1.0"
         },
-        "releaseStatus": {
-          "const": "unpublished_draft"
-        },
         "commit": {
-          "type": "string",
-          "pattern": "^[a-f0-9]{40,64}$"
+          "$ref": "#/$defs/commit"
         }
       },
       "additionalProperties": false
     },
-    "validatorCapabilities": {
-      "type": "object",
-      "required": [
-        "draft",
-        "formatAssertion",
-        "utcDateTimeSuffix",
-        "crossSchemaRegistry"
-      ],
-      "properties": {
-        "draft": {
-          "const": "2020-12"
-        },
-        "formatAssertion": {
-          "const": true
-        },
-        "utcDateTimeSuffix": {
-          "const": "Z"
-        },
-        "crossSchemaRegistry": {
-          "const": true
-        }
-      },
-      "additionalProperties": false
+    "assuranceLevel": {
+      "enum": [
+        "A1",
+        "A2",
+        "A3"
+      ]
     },
     "claim": {
       "enum": [
-        "suite",
-        "case",
-        "evaluator",
         "experiment",
         "decision"
       ]
     },
-    "scope": {
-      "$comment": "Semantic validation must reject duplicate slice IDs; resolve and reproduce every content-addressed workspace manifest from its embedded bytes; authenticate every slice's evaluation profile and outcome bindings independently; and never form ambiguous cross-profile unions. Repository grounding is established per case under SCOPE-003, not by a slice-level payload.",
-      "type": "object",
-      "required": [
-        "intendedUse",
-        "applicabilityBoundary",
-        "slices"
-      ],
-      "properties": {
-        "intendedUse": {
-          "type": "string",
-          "minLength": 1
-        },
-        "applicabilityBoundary": {
-          "const": "repository_grounded_sdlc_agent_evaluation"
-        },
-        "slices": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "$ref": "#/$defs/scopeSlice"
-          }
-        }
-      },
-      "additionalProperties": false
+    "issuer": {
+      "$ref": "#/$defs/person"
     },
-    "implementation": {
-      "type": "object",
-      "required": [
-        "name",
-        "version",
-        "commit",
-        "digest"
-      ],
-      "properties": {
-        "name": {
-          "type": "string",
-          "minLength": 1
+    "subject": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "runManifest",
+            "attemptLedger",
+            "scorecard"
+          ],
+          "properties": {
+            "runManifest": {
+              "$ref": "#/$defs/ref"
+            },
+            "attemptLedger": {
+              "$ref": "#/$defs/ref"
+            },
+            "scorecard": {
+              "$ref": "#/$defs/ref"
+            }
+          },
+          "additionalProperties": false
         },
-        "version": {
-          "type": "string",
-          "minLength": 1
-        },
-        "commit": {
-          "type": "string",
-          "minLength": 7
-        },
-        "digest": {
-          "$ref": "#/$defs/digest"
+        {
+          "type": "object",
+          "required": [
+            "governanceDecision",
+            "scorecards"
+          ],
+          "properties": {
+            "governanceDecision": {
+              "$ref": "#/$defs/ref"
+            },
+            "scorecards": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "$ref": "#/$defs/ref"
+              }
+            }
+          },
+          "additionalProperties": false
         }
-      },
-      "additionalProperties": false
+      ]
     },
-    "targetEvidence": {
-      "type": "object",
-      "minProperties": 1,
-      "maxProperties": 1,
-      "properties": {
-        "suite": {
-          "$ref": "#/$defs/suiteTargetResult"
-        },
-        "case": {
-          "$ref": "#/$defs/caseTargetResult"
-        },
-        "evaluator": {
-          "$ref": "#/$defs/evaluatorTargetResult"
-        },
-        "experiment": {
-          "$ref": "#/$defs/experimentTargetResult"
-        },
-        "decision": {
-          "$ref": "#/$defs/decisionTargetResult"
-        }
-      },
-      "additionalProperties": false
-    },
-    "evidenceManifest": {
+    "requirementResults": {
       "type": "array",
       "minItems": 1,
-      "uniqueItems": true,
       "items": {
-        "$ref": "urn:agent-evals-standard:schema:evidence-artifact:1"
+        "$ref": "#/$defs/requirementResult"
       }
     },
-    "decisionEnvelope": {
+    "restrictions": {
       "type": "object",
       "required": [
-        "decisionRecord",
-        "decisionVerdict",
-        "approvalEnvelope",
-        "policyInstance",
-        "effectiveAt",
-        "reviewAt",
-        "expiresAt",
-        "approvers"
+        "governanceUse",
+        "population",
+        "incumbentComparison"
       ],
       "properties": {
-        "decisionRecord": {
-          "$ref": "#/$defs/artifactRef"
-        },
-        "decisionVerdict": {
+        "governanceUse": {
           "enum": [
-            "approve",
-            "reject",
-            "insufficient_evidence"
+            "prohibited",
+            "eligible"
           ]
         },
-        "approvalEnvelope": {
-          "$ref": "#/$defs/artifactRef"
-        },
-        "policyInstance": {
-          "$ref": "#/$defs/artifactRef"
-        },
-        "postDecisionAssurancePlan": {
-          "$ref": "#/$defs/artifactRef",
-          "description": "Present iff decisionVerdict is approve; when present, semantic validation requires it to resolve through evidenceManifest."
-        },
-        "effectiveAt": {
+        "population": {
           "type": "string",
-          "format": "date-time",
-          "pattern": "Z$"
+          "minLength": 1
         },
-        "reviewAt": {
-          "type": "string",
-          "format": "date-time",
-          "pattern": "Z$"
-        },
-        "expiresAt": {
-          "type": "string",
-          "format": "date-time",
-          "pattern": "Z$"
-        },
-        "approvers": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "object",
-            "required": [
-              "id",
-              "role"
-            ],
-            "properties": {
-              "id": {
-                "type": "string",
-                "minLength": 1
-              },
-              "role": {
-                "type": "string",
-                "minLength": 1
-              }
-            },
-            "additionalProperties": false
-          }
+        "incumbentComparison": {
+          "enum": [
+            "not_claimed",
+            "measured"
+          ]
         }
       },
-      "allOf": [
-        {
-          "if": {
-            "type": "object",
-            "properties": {
-              "decisionVerdict": {
-                "const": "approve"
-              }
-            },
-            "required": [
-              "decisionVerdict"
-            ]
-          },
-          "then": {
-            "type": "object",
-            "properties": {
-              "postDecisionAssurancePlan": {}
-            },
-            "required": [
-              "postDecisionAssurancePlan"
-            ]
-          }
-        },
-        {
-          "if": {
-            "type": "object",
-            "properties": {
-              "decisionVerdict": {
-                "enum": [
-                  "reject",
-                  "insufficient_evidence"
-                ]
-              }
-            },
-            "required": [
-              "decisionVerdict"
-            ]
-          },
-          "then": {
-            "type": "object",
-            "not": {
-              "type": "object",
-              "properties": {
-                "postDecisionAssurancePlan": {}
-              },
-              "required": [
-                "postDecisionAssurancePlan"
-              ]
-            }
-          }
-        }
-      ],
       "additionalProperties": false
     },
-    "extensions": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": [
-          "namespace",
-          "version"
-        ],
-        "properties": {
-          "namespace": {
-            "type": "string",
-            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
-          },
-          "version": {
-            "type": "string",
-            "minLength": 1
-          }
-        },
-        "additionalProperties": true
-      }
-    },
-    "deviations": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": [
-          "rule",
-          "description",
-          "impact",
-          "affectedTargets",
-          "restrictionIds"
-        ],
-        "properties": {
-          "rule": {
-            "type": "string",
-            "minLength": 1
-          },
-          "description": {
-            "type": "string",
-            "minLength": 1
-          },
-          "impact": {
-            "type": "string",
-            "minLength": 1
-          },
-          "affectedTargets": {
-            "type": "array",
-            "minItems": 1,
-            "items": {
-              "enum": [
-                "suite",
-                "case",
-                "evaluator",
-                "experiment",
-                "decision"
-              ]
-            },
-            "uniqueItems": true
-          },
-          "restrictionIds": {
-            "type": "array",
-            "minItems": 1,
-            "items": {
-              "type": "string",
-              "minLength": 1
-            },
-            "uniqueItems": true
-          }
-        },
-        "additionalProperties": false
-      }
-    },
-    "claimRestrictions": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": [
-          "id",
-          "claim",
-          "reason"
-        ],
-        "properties": {
-          "id": {
-            "type": "string",
-            "minLength": 1
-          },
-          "claim": {
-            "type": "string",
-            "minLength": 1
-          },
-          "reason": {
-            "type": "string",
-            "minLength": 1
-          }
-        },
-        "additionalProperties": false
-      }
-    },
-    "issuer": {
+    "independentReview": {
       "type": "object",
       "required": [
-        "id",
-        "name"
+        "reviewer",
+        "verdict",
+        "recordedAtCommit"
       ],
       "properties": {
-        "id": {
-          "type": "string",
-          "minLength": 1
+        "reviewer": {
+          "$ref": "#/$defs/person"
         },
-        "name": {
-          "type": "string",
-          "minLength": 1
+        "verdict": {
+          "enum": [
+            "confirmed",
+            "rejected"
+          ]
+        },
+        "recordedAtCommit": {
+          "$ref": "#/$defs/commit"
         }
       },
       "additionalProperties": false
     },
-    "issuedAt": {
-      "type": "string",
-      "format": "date-time",
-      "pattern": "Z$"
-    },
-    "reviewAt": {
-      "type": "string",
-      "format": "date-time",
-      "pattern": "Z$"
+    "verdict": {
+      "enum": [
+        "conforming",
+        "nonconforming",
+        "not_claimed"
+      ]
     }
   },
   "allOf": [
     {
       "if": {
-        "type": "object",
-        "properties": {
-          "claim": {
-            "const": "suite"
-          }
-        },
-        "required": [
-          "claim"
-        ]
-      },
-      "then": {
-        "type": "object",
-        "properties": {
-          "targetEvidence": {
-            "type": "object",
-            "required": [
-              "suite"
-            ],
-            "properties": {
-              "suite": {
-                "type": "object",
-                "properties": {
-                  "targetType": {
-                    "const": "suite"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    {
-      "if": {
-        "type": "object",
-        "properties": {
-          "claim": {
-            "enum": [
-              "evaluator",
-              "experiment",
-              "decision"
-            ]
-          }
-        },
-        "required": [
-          "claim"
-        ]
-      },
-      "then": {
-        "type": "object",
-        "properties": {
-          "implementation": {}
-        },
-        "required": [
-          "implementation"
-        ]
-      }
-    },
-    {
-      "if": {
-        "type": "object",
-        "properties": {
-          "claim": {
-            "const": "case"
-          }
-        },
-        "required": [
-          "claim"
-        ]
-      },
-      "then": {
-        "type": "object",
-        "properties": {
-          "targetEvidence": {
-            "type": "object",
-            "required": [
-              "case"
-            ],
-            "properties": {
-              "case": {
-                "type": "object",
-                "properties": {
-                  "targetType": {
-                    "const": "case"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    {
-      "if": {
-        "type": "object",
-        "properties": {
-          "claim": {
-            "const": "evaluator"
-          }
-        },
-        "required": [
-          "claim"
-        ]
-      },
-      "then": {
-        "type": "object",
-        "properties": {
-          "targetEvidence": {
-            "type": "object",
-            "required": [
-              "evaluator"
-            ],
-            "properties": {
-              "evaluator": {
-                "type": "object",
-                "properties": {
-                  "targetType": {
-                    "const": "evaluator"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    {
-      "if": {
-        "type": "object",
         "properties": {
           "claim": {
             "const": "experiment"
@@ -558,22 +183,14 @@
         ]
       },
       "then": {
-        "type": "object",
         "properties": {
-          "targetEvidence": {
-            "type": "object",
+          "subject": {
             "required": [
-              "experiment"
+              "runManifest"
             ],
+            "type": "object",
             "properties": {
-              "experiment": {
-                "type": "object",
-                "properties": {
-                  "targetType": {
-                    "const": "experiment"
-                  }
-                }
-              }
+              "runManifest": {}
             }
           }
         }
@@ -581,7 +198,6 @@
     },
     {
       "if": {
-        "type": "object",
         "properties": {
           "claim": {
             "const": "decision"
@@ -592,25 +208,56 @@
         ]
       },
       "then": {
-        "type": "object",
-        "required": [
-          "decisionEnvelope"
-        ],
         "properties": {
-          "decisionEnvelope": {},
-          "targetEvidence": {
-            "type": "object",
+          "subject": {
             "required": [
-              "decision"
+              "governanceDecision"
             ],
+            "type": "object",
             "properties": {
-              "decision": {
+              "governanceDecision": {}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verdict": {
+            "const": "conforming"
+          }
+        },
+        "required": [
+          "verdict"
+        ]
+      },
+      "then": {
+        "properties": {
+          "requirementResults": {
+            "not": {
+              "type": "array",
+              "contains": {
                 "type": "object",
                 "properties": {
-                  "targetType": {
-                    "const": "decision"
+                  "status": {
+                    "enum": [
+                      "fail",
+                      "insufficient_evidence"
+                    ]
                   }
-                }
+                },
+                "required": [
+                  "status"
+                ]
+              }
+            }
+          },
+          "independentReview": {
+            "type": "object",
+            "properties": {
+              "verdict": {
+                "const": "confirmed"
               }
             }
           }
@@ -619,23 +266,54 @@
     },
     {
       "if": {
-        "type": "object",
         "properties": {
-          "deviations": {
+          "requirementResults": {
             "type": "array",
-            "minItems": 1
+            "contains": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "const": "fail"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            }
           }
         },
         "required": [
-          "deviations"
+          "requirementResults"
         ]
       },
       "then": {
-        "type": "object",
         "properties": {
-          "claimRestrictions": {
-            "type": "array",
-            "minItems": 1
+          "verdict": {
+            "const": "nonconforming"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "assuranceLevel": {
+            "const": "A1"
+          }
+        },
+        "required": [
+          "assuranceLevel"
+        ]
+      },
+      "then": {
+        "properties": {
+          "restrictions": {
+            "type": "object",
+            "properties": {
+              "governanceUse": {
+                "const": "prohibited"
+              }
+            }
           }
         }
       }
@@ -643,44 +321,32 @@
   ],
   "additionalProperties": false,
   "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "commit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}([a-f0-9]{24})?$"
+    },
     "digest": {
       "type": "string",
       "pattern": "^sha256:[a-f0-9]{64}$"
     },
-    "artifactRef": {
-      "type": "string",
-      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
-    },
-    "capabilityFamilyId": {
-      "enum": [
-        "CAP.DISCOVER_SPECIFY",
-        "CAP.PLAN_DESIGN",
-        "CAP.IMPLEMENT_CHANGE",
-        "CAP.VERIFY_ASSURE",
-        "CAP.REVIEW_DECIDE",
-        "CAP.RELEASE_OPERATE",
-        "CAP.REMEDIATE_LEARN"
-      ]
-    },
-    "versionedArtifactPointer": {
+    "ref": {
       "type": "object",
       "required": [
-        "id",
-        "version",
-        "uri",
+        "path",
+        "commit",
         "digest"
       ],
       "properties": {
-        "id": {
-          "$ref": "#/$defs/artifactRef"
-        },
-        "version": {
+        "path": {
           "type": "string",
           "minLength": 1
         },
-        "uri": {
-          "type": "string",
-          "minLength": 1
+        "commit": {
+          "$ref": "#/$defs/commit"
         },
         "digest": {
           "$ref": "#/$defs/digest"
@@ -688,486 +354,7 @@
       },
       "additionalProperties": false
     },
-    "contractArtifactPointer": {
-      "type": "object",
-      "required": [
-        "id",
-        "contractVersion",
-        "subjectSchema",
-        "uri",
-        "digest"
-      ],
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/artifactRef"
-        },
-        "contractVersion": {
-          "type": "string",
-          "minLength": 1
-        },
-        "subjectSchema": {
-          "type": "string",
-          "minLength": 1
-        },
-        "uri": {
-          "type": "string",
-          "minLength": 1
-        },
-        "digest": {
-          "$ref": "#/$defs/digest"
-        }
-      },
-      "additionalProperties": false
-    },
-    "evaluationProfileBinding": {
-      "type": "object",
-      "required": [
-        "id",
-        "version",
-        "uri",
-        "digest"
-      ],
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/artifactRef"
-        },
-        "version": {
-          "type": "string",
-          "minLength": 1
-        },
-        "uri": {
-          "type": "string",
-          "minLength": 1
-        },
-        "digest": {
-          "$ref": "#/$defs/digest"
-        }
-      },
-      "additionalProperties": false
-    },
-    "scopeSlice": {
-      "type": "object",
-      "required": [
-        "id",
-        "repositorySnapshot",
-        "evaluationProfile",
-        "workArtifactRegistry",
-        "outcomeProfiles",
-        "assuranceLevel",
-        "riskTiers",
-        "capabilityFamilyIds",
-        "interactionModes",
-        "workArtifactTypes"
-      ],
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/artifactRef"
-        },
-        "repositorySnapshot": {
-          "$comment": "The URI must resolve to the exact bytes of an agent-eval-workspace-manifest-1 document and digest must equal SHA-256 of those bytes.",
-          "$ref": "#/$defs/versionedArtifactPointer"
-        },
-        "evaluationProfile": {
-          "$ref": "#/$defs/evaluationProfileBinding"
-        },
-        "workArtifactRegistry": {
-          "$comment": "The authenticated closed registry used to interpret this slice's workArtifactTypes and capabilityFamilyIds. Semantic validation requires exact identity with the evaluation profile and every selected outcome profile.",
-          "$ref": "#/$defs/versionedArtifactPointer"
-        },
-        "outcomeProfiles": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "$ref": "#/$defs/versionedArtifactPointer"
-          },
-          "uniqueItems": true
-        },
-        "assuranceLevel": {
-          "enum": [
-            "A1",
-            "A2",
-            "A3"
-          ]
-        },
-        "riskTiers": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "enum": [
-              "low",
-              "medium",
-              "high",
-              "critical"
-            ]
-          },
-          "uniqueItems": true
-        },
-        "capabilityFamilyIds": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "$ref": "#/$defs/capabilityFamilyId"
-          },
-          "uniqueItems": true
-        },
-        "interactionModes": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "enum": [
-              "noninteractive_repository_task",
-              "interactive_repository_session",
-              "pull_request_workflow",
-              "ci_or_release_workflow"
-            ]
-          },
-          "uniqueItems": true
-        },
-        "workArtifactTypes": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "$ref": "urn:agent-evals-standard:schema:work-artifact-registry:1#/$defs/workArtifactTypeId"
-          },
-          "uniqueItems": true
-        }
-      },
-      "additionalProperties": false
-    },
-    "targetResult": {
-      "type": "object",
-      "required": [
-        "targetType",
-        "targetId",
-        "targetSubject",
-        "subjectSchema",
-        "dependencyManifest",
-        "verdict",
-        "requirementResults",
-        "evidenceIds"
-      ],
-      "properties": {
-        "targetType": {
-          "enum": [
-            "suite",
-            "case",
-            "evaluator",
-            "experiment",
-            "decision"
-          ]
-        },
-        "targetId": {
-          "$ref": "#/$defs/artifactRef"
-        },
-        "targetSubject": {
-          "$comment": "The immutable bytes of the exact suite, case, evaluator, experiment, or decision being claimed. Semantic validation must resolve uri, verify the raw-byte digest, and require targetId and the subject document identity to match id.",
-          "$ref": "#/$defs/versionedArtifactPointer"
-        },
-        "subjectSchema": {
-          "type": "string",
-          "minLength": 1
-        },
-        "dependencyManifest": {
-          "$ref": "#/$defs/dependencyManifest"
-        },
-        "verdict": {
-          "$comment": "Semantic validation derives conforming only from complete applicable pass coverage, nonconforming from any fail, and not_claimed from any insufficient_evidence or missing applicable result.",
-          "enum": [
-            "conforming",
-            "nonconforming",
-            "not_claimed"
-          ]
-        },
-        "requirementResults": {
-          "$comment": "Semantic validation must require exactly one row for every requirement whose authenticated registry entry includes targetType, reject unknown or duplicate requirementId values, require each row target to equal targetType, resolve evidenceIds, and resolve evaluationProfileRuleIds against the exact evaluation profile binding.",
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "$ref": "#/$defs/requirementResult"
-          }
-        },
-        "evidenceIds": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "$ref": "#/$defs/artifactRef"
-          },
-          "uniqueItems": true
-        }
-      },
-      "additionalProperties": false
-    },
-    "suiteTargetResult": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/targetResult"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "targetType": {
-              "const": "suite"
-            },
-            "subjectSchema": {
-              "const": "urn:agent-evals-standard:schema:suite-manifest:1"
-            }
-          }
-        }
-      ]
-    },
-    "caseTargetResult": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/targetResult"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "targetType": {
-              "const": "case"
-            },
-            "subjectSchema": {
-              "const": "urn:agent-evals-standard:schema:case:1"
-            }
-          }
-        }
-      ]
-    },
-    "evaluatorTargetResult": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/targetResult"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "targetType": {
-              "const": "evaluator"
-            },
-            "subjectSchema": {
-              "const": "urn:agent-evals-standard:schema:evaluator-manifest:1"
-            }
-          }
-        }
-      ]
-    },
-    "experimentTargetResult": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/targetResult"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "targetType": {
-              "const": "experiment"
-            },
-            "subjectSchema": {
-              "const": "urn:agent-evals-standard:schema:pre-run-manifest:1"
-            }
-          }
-        }
-      ]
-    },
-    "decisionTargetResult": {
-      "allOf": [
-        {
-          "$ref": "#/$defs/targetResult"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "targetType": {
-              "const": "decision"
-            },
-            "subjectSchema": {
-              "const": "urn:agent-evals-standard:schema:governance-decision:1"
-            }
-          }
-        }
-      ]
-    },
-    "dependencyManifest": {
-      "$comment": "digest is SHA-256 over the canonical object containing id, version, and entries. Semantic validation must reject duplicate entries and authenticate every declared target subject, workspace manifest, evaluation profile, work-artifact registry, outcome profile, prerequisite conformance pair, and decision scorecard. A conforming experiment requires exactly one suite, every scheduled case, and exactly one evaluator conformance dependency; a conforming decision requires exactly one experiment conformance dependency and every named scorecard. A not_claimed or nonconforming diagnostic may be incomplete but cannot use an invalid, incompatible, extra, or duplicate declared dependency. The detached validation envelope binds this manifest but is excluded from it to avoid a digest cycle.",
-      "type": "object",
-      "required": [
-        "id",
-        "version",
-        "entries",
-        "digest"
-      ],
-      "properties": {
-        "id": {
-          "$ref": "#/$defs/artifactRef"
-        },
-        "version": {
-          "type": "string",
-          "minLength": 1
-        },
-        "entries": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "oneOf": [
-              {
-                "$ref": "#/$defs/baseDependencyEntry"
-              },
-              {
-                "$ref": "#/$defs/conformanceDependencyEntry"
-              },
-              {
-                "$ref": "#/$defs/targetArtifactDependencyEntry"
-              }
-            ]
-          }
-        },
-        "digest": {
-          "$ref": "#/$defs/digest"
-        }
-      },
-      "additionalProperties": false
-    },
-    "baseDependencyEntry": {
-      "type": "object",
-      "required": [
-        "role",
-        "id",
-        "version",
-        "uri",
-        "digest"
-      ],
-      "properties": {
-        "role": {
-          "enum": [
-            "target_subject",
-            "repository_snapshot",
-            "evaluation_profile",
-            "work_artifact_registry",
-            "outcome_profile"
-          ]
-        },
-        "scopeSliceId": {
-          "$ref": "#/$defs/artifactRef"
-        },
-        "id": {
-          "$ref": "#/$defs/artifactRef"
-        },
-        "version": {
-          "type": "string",
-          "minLength": 1
-        },
-        "uri": {
-          "type": "string",
-          "minLength": 1
-        },
-        "digest": {
-          "$ref": "#/$defs/digest"
-        }
-      },
-      "additionalProperties": false
-    },
-    "conformanceDependencyEntry": {
-      "$comment": "A compound content-addressed edge. Semantic validation resolves and validates all three artifacts, verifies their digests and producer authority, reproduces the envelope subject digest, and requires an exact conforming target match.",
-      "type": "object",
-      "required": [
-        "role",
-        "targetType",
-        "subjectSchema",
-        "targetSubject",
-        "statement",
-        "validationEnvelope"
-      ],
-      "properties": {
-        "role": {
-          "const": "conformance_dependency"
-        },
-        "targetType": {
-          "enum": [
-            "suite",
-            "case",
-            "evaluator",
-            "experiment"
-          ]
-        },
-        "subjectSchema": {
-          "type": "string",
-          "minLength": 1
-        },
-        "targetSubject": {
-          "$ref": "#/$defs/versionedArtifactPointer"
-        },
-        "statement": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/contractArtifactPointer"
-            },
-            {
-              "type": "object",
-              "properties": {
-                "subjectSchema": {
-                  "const": "urn:agent-evals-standard:schema:conformance-statement:1"
-                }
-              }
-            }
-          ]
-        },
-        "validationEnvelope": {
-          "allOf": [
-            {
-              "$ref": "#/$defs/contractArtifactPointer"
-            },
-            {
-              "type": "object",
-              "properties": {
-                "subjectSchema": {
-                  "const": "urn:agent-evals-standard:schema:validation-envelope:1"
-                }
-              }
-            }
-          ]
-        }
-      },
-      "additionalProperties": false
-    },
-    "targetArtifactDependencyEntry": {
-      "$comment": "A decision scorecard binds raw bytes and the scorecard's canonical self-digest separately.",
-      "type": "object",
-      "required": [
-        "role",
-        "artifactType",
-        "id",
-        "subjectSchema",
-        "uri",
-        "rawDigest",
-        "subjectDigest"
-      ],
-      "properties": {
-        "role": {
-          "const": "target_artifact"
-        },
-        "artifactType": {
-          "const": "scorecard"
-        },
-        "id": {
-          "$ref": "#/$defs/artifactRef"
-        },
-        "subjectSchema": {
-          "const": "urn:agent-evals-standard:schema:scorecard:1"
-        },
-        "uri": {
-          "type": "string",
-          "minLength": 1
-        },
-        "rawDigest": {
-          "$ref": "#/$defs/digest"
-        },
-        "subjectDigest": {
-          "$ref": "#/$defs/digest"
-        }
-      },
-      "additionalProperties": false
-    },
-    "verifierOrReviewer": {
+    "person": {
       "type": "object",
       "required": [
         "id",
@@ -1175,13 +362,11 @@
       ],
       "properties": {
         "id": {
-          "$ref": "#/$defs/artifactRef"
+          "$ref": "#/$defs/id"
         },
         "role": {
-          "enum": [
-            "verifier",
-            "accountable_reviewer"
-          ]
+          "type": "string",
+          "minLength": 1
         }
       },
       "additionalProperties": false
@@ -1190,25 +375,12 @@
       "type": "object",
       "required": [
         "requirementId",
-        "target",
         "status",
-        "verifierOrReviewer",
-        "evidenceIds",
-        "evaluationProfileRuleIds",
-        "claimEffect"
+        "evidence"
       ],
       "properties": {
         "requirementId": {
-          "$ref": "#/$defs/artifactRef"
-        },
-        "target": {
-          "enum": [
-            "suite",
-            "case",
-            "evaluator",
-            "experiment",
-            "decision"
-          ]
+          "$ref": "#/$defs/id"
         },
         "status": {
           "enum": [
@@ -1217,92 +389,19 @@
             "insufficient_evidence"
           ]
         },
-        "verifierOrReviewer": {
-          "$ref": "#/$defs/verifierOrReviewer"
-        },
-        "evidenceIds": {
+        "evidence": {
           "type": "array",
           "minItems": 1,
           "items": {
-            "$ref": "#/$defs/artifactRef"
-          },
-          "uniqueItems": true
+            "type": "string",
+            "minLength": 1
+          }
         },
-        "evaluationProfileRuleIds": {
-          "$comment": "Semantic validation must list exactly every selected-profile rule that affects this result and permit an empty array only when no selected-profile rule applies, as in a base-only result.",
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/artifactRef"
-          },
-          "uniqueItems": true
-        },
-        "claimEffect": {
-          "enum": [
-            "none",
-            "nonconforming",
-            "insufficient_evidence"
-          ]
+        "note": {
+          "type": "string",
+          "minLength": 1
         }
       },
-      "allOf": [
-        {
-          "if": {
-            "properties": {
-              "status": {
-                "const": "pass"
-              }
-            },
-            "required": [
-              "status"
-            ]
-          },
-          "then": {
-            "properties": {
-              "claimEffect": {
-                "const": "none"
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "status": {
-                "const": "fail"
-              }
-            },
-            "required": [
-              "status"
-            ]
-          },
-          "then": {
-            "properties": {
-              "claimEffect": {
-                "const": "nonconforming"
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "status": {
-                "const": "insufficient_evidence"
-              }
-            },
-            "required": [
-              "status"
-            ]
-          },
-          "then": {
-            "properties": {
-              "claimEffect": {
-                "const": "insufficient_evidence"
-              }
-            }
-          }
-        }
-      ],
       "additionalProperties": false
     }
   }

@@ -19,28 +19,24 @@ the single primary anchor for `CONF-001`; its definition continues through
 claimant **MUST** identify the
 repository-grounded work, SDLC capability families, outcome profiles,
 interaction modes, assurance levels, and effective-risk range in scope.
-The structured scope **MUST** be a nonempty set of uniquely identified slices.
-Each slice independently binds one immutable content-addressed workspace
-manifest whose URI resolves to the exact manifest bytes, exactly one effective
-evaluation profile, one or more authenticated outcome profiles, assurance
-(`A1`–`A3`), risk, capability families, interaction modes, and work-artifact
-types. The evaluation profile, outcome profiles, registry, and declared scope
-**MUST** be compatible. A validator **MUST NOT** infer a cross-profile or
-cross-repository union from fields belonging to different slices. An A0
-diagnostic run is not a conformance subject and has no slice.
+The run manifest's `coverage` records the capability families in scope and
+its gaps; the arm environment, evaluation profile (A2+), and outcome profile
+**MUST** be compatible with that declared scope. A validator **MUST NOT** infer
+a cross-profile or cross-repository union from unrelated fields. An A0
+diagnostic run is not a conformance subject.
 
 `CONF-001` invokes the versioned
 [Integrity and Semantic Validation Contract](evidence-and-validation-contract.md#integrity-and-semantic-validation-contract)
 as its cross-document verdict algorithm and
 [Normative Artifact Consistency](#normative-artifact-consistency) as its exact
-distribution-identity contract. A target cannot satisfy `CONF-001` by validating
+distribution-identity contract. A claim cannot satisfy `CONF-001` by validating
 schema shape while omitting an applicable check from either contract.
 
-The applicability-boundary label is not evidence. Every case in a slice
+The applicability-boundary label is not evidence. Every scheduled case
 **MUST** carry the four `SCOPE-003` tests as holding, each with a rationale
-confirmed by an independent Case QA reviewer. A slice containing a case whose
-tests are unconfirmed is outside the boundary and may be represented honestly
-only as `insufficient_evidence`.
+confirmed by an independent Case QA reviewer. A case whose tests are
+unconfirmed is outside the boundary and may be represented honestly only as
+`insufficient_evidence`.
 
 The foundation invariants are part of this base standard. They are not a
 standalone general-agent certification. An evaluation outside the applicability
@@ -60,8 +56,8 @@ allowed outcome profiles, gate registries, QA controls, metrics, and domain
 rules. Outcome profiles define result shapes; they do not replace an evaluation
 profile.
 
-The core `SCOPE-003` applicability and four-test boundary are defined once in
-the [Core Standard](standard.md#applicability-boundary-and-profiles). This
+The base `SCOPE-003` applicability and four-test boundary are defined once in
+the [Standard](standard.md#applicability-boundary-and-profiles). This
 conformance contract only defines the evidence required to verify that
 boundary; it does not redefine `SCOPE-003`.
 
@@ -72,37 +68,41 @@ schema, semantic, and base-compatibility validation when they
 satisfy this contract and publish schemas, evidence, examples, versions, and
 digests. A profile is not a separate conformance target.
 
-## Core Level
+## Baseline (A1)
 
-The Core level is the entry level of this standard. It lets a small team make a
-bounded, trustworthy capability claim about a repository-SDLC agent without the
-full evidence graph, operational policy, or governance machinery. It uses only
+A1 is the entry level of this standard. It lets a small team make a bounded,
+trustworthy capability claim about a repository-SDLC agent without the full
+evidence graph, operational policy, or governance machinery. It uses only
 content digests and Git commits for integrity, under the
 [integrity model](evidence-and-validation-contract.md#integrity-model).
 
-A Core claim covers one Core experiment: its cases, Case QA records, sealed run
-manifest, attempt ledger, and scorecard, described by the `core-*` schemas in
-[`schemas/`](../schemas/). Core conformance is not one of the five targets
-below and does not imply any of them. Every Core claim has assurance level
-`A1-lite` and these fixed limits:
+An A1 claim is an experiment claim over one experiment: its cases, Case QA
+records, sealed run manifest, attempt ledger, and scorecard, described by the
+`case-1`, `case-qa-1`, `run-manifest-1`, `attempt-ledger-1`, `scorecard-1`, and
+`conformance-statement-1` schemas in [`schemas/`](../schemas/). Every A1 claim
+has these fixed limits:
 
-- effective risk is `low` or `medium`, with a recorded rationale;
+- effective risk is `low` or `medium`, with a recorded rationale (`high` and
+  `critical` require A3, and A2 allows `low` or `medium` only);
 - the environment is a controlled fixture or simulation with no production
   action or production credential;
 - claims are capability claims only. A `release`, `autonomy`, or
-  `risk_acceptance` decision **MUST NOT** cite Core evidence, and an A1–A3
-  claim **MUST NOT** cite it either; reaching a higher level requires a new run
-  under the full requirements;
+  `risk_acceptance` decision **MUST NOT** cite A1 evidence; reaching a higher
+  level requires a new run under the A2 or A3 requirements;
 - a claim of improvement over an incumbent workflow is permitted only when
-  that incumbent was measured as an arm.
+  that incumbent was measured as an arm;
+- evaluation and outcome profiles bind at A2 and above; at A1 every reference
+  is a `{path, commit, digest}` reference, and the A1 statement is validated by
+  independent review, not by an envelope.
 
-Core conformance requires every obligation below. Each obligation applies the
-named requirements in the stated Core form; where the Core form is narrower
-than the full requirement (notably `CASE-004`, which at Core needs only the
-three controls and one review rather than the full playbook), the narrowing is
-deliberate and is the reason Core claims cannot reach governance use.
+The thirteen obligations below are the A1 requirement set: the registry
+entries they name carry `minimumLevel` `A1`. Each applies the named
+requirements in the A1 form; where that form is narrower than the full
+requirement (notably `CASE-004`, which at A1 needs only the three controls and
+one review rather than the full playbook), the narrowing is deliberate and is
+the reason A1 claims cannot reach governance use.
 
-| ID | Obligation | Requirements | Core form |
+| ID | Obligation | Requirements | A1 form |
 | --- | --- | --- | --- |
 | C1 | System identity | `SCOPE-001` | Every arm records model, agent configuration, prompts, harness, tools, permissions, and budgets by version or digest. |
 | C2 | Repository grounding | `SCOPE-003` | Each case records all four `SCOPE-003` tests as holding, each with a rationale reviewed in Case QA. |
@@ -118,84 +118,54 @@ deliberate and is the reason Core claims cannot reach governance use.
 | C12 | Non-agent baselines | `VALID-003` | The run includes a no-action baseline and a distinct non-agent control, measured with the same checks. An unmeasured incumbent is recorded and restricts claims. |
 | C13 | Least privilege | `I7` | No production credentials; tools, network, and writable paths are limited by the environment, not by instructions to the agent. |
 
-A Core conformance statement records one status per obligation — `pass`,
-`fail`, or `insufficient_evidence` — with evidence locations given as
-repository path, commit, and digest. Its verdict is derived: any `fail` yields
-`nonconforming`; otherwise any `insufficient_evidence` yields `not_claimed`;
-only thirteen `pass` rows yield `core_conforming`. A `core_conforming` verdict
-additionally requires a review of the statement by a person
-[independent](glossary.md#independence) of the claimant, recorded at a commit.
-Under the small-team model two people suffice for every Core role.
+An A1 conformance statement records one `requirementResults` row per A1
+requirement under [Requirement Coverage](#requirement-coverage). Under the
+small-team model two people suffice for every A1 role, and independent review
+suffices in place of a detached validation envelope.
 
-A complete Core experiment with real numbers is worked through in
+A complete A1 experiment with real numbers is worked through in
 [`examples/core/`](../examples/core/README.md).
 
 ## Conformance Targets
 
-Conformance is claimed separately for exactly five targets represented by
-`suite | case | evaluator | experiment | decision`:
+Conformance is claimed as exactly two claims, `experiment` and `decision`:
 
-1. **Suite conformance** — the suite has a bounded intended use, SDLC coverage
-   map, validity argument, evaluation profiles, population, baselines, exposure controls,
-   health rules, and claim registry.
-2. **Case conformance** — a repository-grounded case satisfies its evaluation profile,
-   projection, lifecycle, risk, data, Case QA, oracle-isolation, and outcome-
-   evidence requirements.
-3. **Evaluator conformance** — a runner and measurement stack enforce I1–I13,
-   experiment arms, isolation, registries, attempt accounting, evidence,
-   predicates, and detached validation.
-4. **Experiment conformance** — one sealed experiment uses conforming suite,
-   cases, evaluation profiles, evaluator, arms, cells, comparative design when applicable,
-   and produces an immutable scorecard plus authenticated ledgers.
-5. **Decision conformance** — a governance decision uses conforming claims at
-   the required assurance level and satisfies the pinned policy, roles, scope,
-   expiry, escalation, and post-decision assurance rules.
+1. **Experiment claim** — one sealed experiment: its cases, Case QA, evaluation
+   profile and outcome profile (A2+), run manifest, arms, cells, comparative
+   design when applicable, attempt ledger, and scorecard. The requirements for
+   cases and Case QA apply as part of the run, and the runner is the arm's
+   measurement stack described in the run manifest. The subject binds a
+   `run-manifest-1`, an `attempt-ledger-1`, and a `scorecard-1`.
+2. **Decision claim** — a governance decision uses conforming experiment
+   claims at the required assurance level and satisfies the pinned policy,
+   roles, scope, expiry, escalation, and post-decision assurance rules. The
+   subject binds one `governance-decision-1` and the scorecards it used, and
+   requires a conforming experiment claim for each.
 
-Every target **MUST** bind its target-specific subject schema: `suite-manifest-1`,
-`case-1`, `evaluator-manifest-1`, `pre-run-manifest-1`, or
-`governance-decision-1`, respectively. Resolving an ID and digest without
-validating the target-specific schema is insufficient.
+Resolving an ID and digest without validating the subject schemas is
+insufficient. A `not_claimed` or `nonconforming` diagnostic **MAY** expose an
+incomplete graph, but every reference it does declare **MUST** be type-correct,
+compatible, and non-duplicated; incompleteness can never support a conforming
+verdict.
 
-Target composition is closed and content-addressed. Suite, case, and evaluator
-targets have no prerequisite conformance target. To claim `conforming`, an
-experiment target **MUST** bind exactly one conforming suite, every scheduled
-case as a conforming case, and exactly one conforming evaluator. To claim
-`conforming`, a decision target **MUST** bind exactly one conforming experiment
-and every scorecard used by the decision. A `not_claimed` or `nonconforming`
-diagnostic **MAY** expose an incomplete prerequisite graph, but every dependency
-it does declare **MUST** still be type-correct, authenticated, compatible, and
-non-duplicated; incompleteness can never support a conforming verdict. Each prerequisite
-conformance dependency **MUST** be one compound dependency-manifest entry that
-contains the immutable target subject, its conforming statement, and the
-passing detached validation envelope for that exact statement. The
-statement and envelope **MUST** resolve to their declared raw-byte digests; the
-envelope subject digest **MUST** reproduce the named statement projection; and
-the dependency statement's target subject, target type, standard release, scope,
-and validity interval **MUST** be compatible with the containing claim.
-The sealed pre-run manifest **MUST** name the exact evaluator manifest
-before execution. The experiment dependency graph **MUST** match the sealed
-suite, every sealed case, and that evaluator by subject identity and
-authenticated subject digest; matching an ID alone is insufficient.
+A decision claim's scorecard references (`subject.scorecards`) **MUST** resolve as `scorecard-1` by
+path, commit, and digest and equal the scorecards named by the decision.
+Missing, extra, duplicate, nonconforming, expired, or scope-incompatible
+scorecards make the decision claim nonconforming. Copying only IDs or verdict
+strings is not composition evidence.
 
-A scorecard dependency **MUST** bind both the raw scorecard bytes and its
-canonical subject digest, resolve as `scorecard-1`, and equal a scorecard named
-by the decision subject. Missing, extra, duplicate, cyclic, nonconforming,
-expired, scope-incompatible, or ambiguously paired dependencies make the
-containing target nonconforming. Transitive dependencies are established by the
-dependency statements and their passing validation envelopes; copying only
-their target IDs or verdict strings is not composition evidence.
-
-Conformance at one target does not imply another, and version 0.1.0 defines
-no aggregate label over several targets. A target field **MUST NOT** use `full`
-or a profile as its value.
+An experiment claim does not imply a decision claim. Version 0.1.0 defines no
+aggregate label over several claims. A claim field **MUST NOT** use `full` or a
+profile as its value.
 
 ## Requirement Coverage
 
-`CONF-002` — Every target record **MUST** contain a closed requirement-coverage
-matrix. The matrix contains exactly the requirements whose authenticated
-registry entry includes the claimed target; requirements for other targets are
-absent rather than marked `not_applicable`. Each included requirement has
-exactly one status:
+`CONF-002` — Every conformance statement **MUST** contain a closed
+requirement-coverage matrix. The matrix contains exactly the registry
+requirements whose `targets` contain the claim and whose `minimumLevel` is at
+most the statement's `assuranceLevel`; other requirements are absent rather
+than marked `not_applicable`. Each row is a `requirementResults` entry
+`{requirementId, status, evidence, note}` with exactly one status:
 
 - `pass`: a registered deterministic verifier replayed successfully, or every
   criterion of an authorized independent accountable review passed;
@@ -203,11 +173,10 @@ exactly one status:
 - `insufficient_evidence`: required evidence is absent, invalid, expired, or
   indeterminate.
 
-Each `requirementResult` **MUST** include `requirementId`, `target`, `status`,
-`verifierOrReviewer`, canonical `evidenceIds`, `evaluationProfileRuleIds`, and
-deterministic `claimEffect`. Applicability is registry target membership and
-nothing else: an issuer cannot exclude an applicable requirement, and a row for
-a requirement not registered for the target is invalid.
+`evidence` lists at least one evidence location. Applicability is registry
+membership and nothing else: an issuer cannot exclude an applicable
+requirement, and a row for a requirement outside the claim and level is
+invalid.
 
 The registry entry's `verificationKind` fixes the method. `schema` and
 `semantic` requirements are established only by automated replay of the
@@ -224,95 +193,60 @@ a rationale that addresses each applicable obligation. The validator derives
 failing one, and otherwise `insufficient_evidence`; a status asserted in
 evidence is never trusted.
 
-`evaluationProfileRuleIds` **MUST** list every selected-profile rule that affects
-the result and **MUST** be empty only when no selected-profile rule applies (as
-in a base-only result).
-Claim effect is `none` for `pass`, `nonconforming` for `fail`, and `insufficient_evidence` for
-`insufficient_evidence`. Its target **MUST** equal the containing target record.
-A target conforms only when every applicable REQUIRED requirement is `pass` and every
+A claim conforms only when every applicable REQUIRED requirement is `pass` and every
 approved **SHOULD** deviation is explicitly recorded with its rationale and
-claim restriction. The target verdict is derived, never chosen by the issuer:
+claim restriction. The verdict is derived, never chosen by the issuer:
 any `fail` yields `nonconforming`; any `insufficient_evidence` or missing
 applicable row yields `not_claimed`; only complete qualifying coverage yields
-`conforming`. A `not_claimed` statement is useful diagnostic output but is not a
-conformance claim and does not require a passing detached validation envelope.
-
-The bundled decision-statement example is intentionally `not_claimed`: the
-repository ships no validator and no complete authenticated
-prerequisite-conformance graph. Turning placeholder digests or self-reported
-passes into a demonstrative `conforming` example would overstate what the
-repository proves.
+`conforming`, which also requires `independentReview.verdict` `confirmed`. A
+`not_claimed` statement is useful diagnostic output but is not a conformance
+claim.
 
 ## Conformance Statement
 
-A public or internal conformance statement **MUST** contain:
+A conformance statement is a `conformance-statement-1` document. It **MUST**
+contain:
 
-- statement ID, issuer identity, issue time, and scope;
-- draft version and exact repository commit; an unpublished draft has no release tag;
-- one target record and its requirement-coverage matrix;
-- an immutable `targetSubject {id, version, uri, digest}` whose URI resolves to
-  the exact bytes of the claimed suite, case, evaluator, experiment, or
-  decision, plus a canonical digest-bound dependency manifest;
-- assurance levels, effective-risk range, capability families, outcome profiles,
-  and applicability boundary;
-- suite, case, evaluator, experiment, scorecard, policy, matrix, evaluation
-  profile, schema, and semantic-validation versions
-  and digests as applicable;
-- implementation and arm identities for evaluator or experiment targets;
-- canonical evidence manifest;
-- extensions, deviations, unsupported requirements, and affected claim IDs;
-- effective, review, and expiry timestamps for decision targets.
+- `id`, `version`, and `issuer`;
+- `standard {version, commit}` — the draft version and exact repository commit;
+  an unpublished draft has no release tag;
+- `assuranceLevel` (`A1`, `A2`, or `A3`) and `claim` (`experiment` or
+  `decision`);
+- `subject`: for an experiment claim, `{runManifest, attemptLedger, scorecard}`;
+  for a decision claim, `{governanceDecision, scorecards}` where `scorecards`
+  is a nonempty list; each is a `{path, commit, digest}` reference;
+- `requirementResults` — the matrix defined under
+  [Requirement Coverage](#requirement-coverage);
+- `restrictions` (`governanceUse`, `population`, `incumbentComparison`) and
+  `independentReview {reviewer, verdict, recordedAtCommit}`;
+- `verdict`: `conforming`, `nonconforming`, or `not_claimed`.
 
 The statement is integrity-bound by its digest and the commit that publishes it,
 under the [integrity model](evidence-and-validation-contract.md#integrity-model).
+The statement pins the exact standard commit in `standard.commit`. The
+validator **MUST** resolve that commit and use the schema and contract files it
+contains; a file set differing from that commit fails closed.
 
-The scope is structured, not inferred from `intendedUse` prose. It **MUST**
-contain only `intendedUse`, the
-`repository_grounded_sdlc_agent_evaluation` applicability boundary, and a
-nonempty `slices[]`. Every slice has a unique ID and independently binds one
-resolvable content-addressed `workspace-manifest-1`, exactly one
-`evaluationProfile`, one or more authenticated outcome profiles, a nonempty
-subset of the closed SDLC capability-family taxonomy, interaction modes, work-
-artifact types, assurance, and risk tiers, and requires full
-evaluation-profile, outcome-profile, registry, and scope compatibility.
-Versions of adopter snapshots and
-profiles are authenticated exact-match identities and are not required to equal
-the standard's version. A general-agent,
-customer-support, office-automation, browser-use, or embodied-agent claim
-cannot become conforming by retaining only foundation invariants or by writing
-repository-related words in `intendedUse`.
-
-
-One statement claims exactly one target: `targetEvidence` **MUST** contain
-exactly the record named by `claim`. Evidence about another target belongs in a
-separate statement and **MUST NOT** appear as a second conforming target
-record. The target record's `targetId` **MUST** equal its resolved
-`targetSubject.id`; reusing the same ID with different bytes or a different
-digest is a hard failure. Its dependency manifest **MUST** enumerate the exact
-target subject, scope workspaces, evaluation profiles, selected
-work-artifact registries, and outcome profiles. The detached validation
-envelope binds this manifest but is excluded from its entries to avoid a digest
-cycle. For an experiment or decision, it **MUST** additionally contain the exact
-compound conformance dependencies and decision scorecards required by the
-closed target composition rules above.
-
-The dependency-manifest digest is `sha256:` plus SHA-256 of the UTF-8 RFC 8785
-JCS bytes of exactly `{id, version, entries}` under those field names. It
-**MUST NOT** include the manifest's `digest`. The verifier
-**MUST** reject any other projection even when all declared entries happen to
-resolve.
-
-The statement is the validation subject and **MUST NOT** embed its semantic-
-validation result. A conforming claim consists of the statement plus a separate
-`validation-envelope-1`, produced by a validator
+A detached `validation-envelope-1` is **REQUIRED** at A2 and A3 and not used at
+A1, where independent review suffices. The statement never references its
+envelope and **MUST NOT** embed its own semantic-validation result. The envelope
+is published alongside the statement and binds the statement digest; a verifier
+discovers it by the publication location (the same directory or a publication
+record), not by a field in the statement. A claim that requires an envelope
+consists of the statement plus a separate envelope, produced by a validator
 [independent](glossary.md#independence) of the claimant, whose subject digest
-equals the statement digest. The detached envelope **MUST** repeat the
-exact target-subject digest and dependency manifest; a subject-ID echo is
-insufficient. A statement whose bytes do not match its published digest, or
-that has no passing envelope, is an unauthenticated assertion, not conformance.
-The publication bundle or conformance API **MUST** return the statement and its
-detached envelope as one discoverable pair; the envelope is not embedded in the
-statement because doing so would create a digest cycle.
+equals the statement digest. A statement whose bytes do not match its
+published digest, or that lacks a required passing envelope, is an
+unauthenticated assertion, not conformance.
+
+`restrictions.governanceUse` is `prohibited` or `eligible`. At A1 it is
+`prohibited`; at A2 and A3 either value is allowed. A decision claim requires
+`eligible` on its own statement and on each supporting experiment statement.
+
+A statement makes one claim. Evidence about the other claim belongs in a
+separate statement. A general-agent, customer-support, office-automation,
+browser-use, or embodied-agent claim cannot become conforming by retaining only
+foundation invariants or by writing repository-related words in a restriction.
 
 ## Extensions and Deviations
 
@@ -330,9 +264,9 @@ support **MUST** preserve and validate its fields and authenticate every separat
 extension artifact. An extension that cannot be represented through one of the
 two permitted forms is incompatible, not an ignorable annotation.
 
-A deviation **MUST** identify requirement ID, reason, affected targets and claim
+A deviation **MUST** identify requirement ID, reason, affected claims and claim
 IDs, compensating evidence, owner, expiry, and restriction. A deviation from a
-**MUST** requirement prevents conformance for the affected target. The word
+**MUST** requirement prevents conformance for the affected claim. The word
 `partial` **MUST NOT** hide that result.
 
 ## Normative Artifact Consistency
@@ -356,11 +290,6 @@ unambiguously, the pinned standard commit binds its exact distributed bytes, and
 the named contract cannot expand the invoking requirement's targets,
 applicability, or consequences.
 
-The conformance statement pins the exact standard commit in
-`standardRelease.commit`. The validator **MUST** resolve that commit and use
-the schema and contract files it contains; a file set differing from that
-commit fails closed.
-
 Examples **MUST NOT** create an obligation without a registered requirement and
 primary normative location. Tools **MUST NOT** redefine a contract or example.
 Generated projections **SHOULD** derive from one canonical rule definition. A
@@ -378,9 +307,8 @@ favor of those primary artifacts, never the annotation.
 ## Independent Verification
 
 Evidence **MUST** be sufficient for an independent reviewer to reproduce the
-target verdict without privileged oral context. The validator **MUST** verify
+verdict without privileged oral context. The validator **MUST** verify
 schema and semantic consistency, content digests, producer authorization,
 version-control order of sealed artifacts, requirement coverage, subject digest,
-expiry, and evaluation-profile and outcome-profile compatibility for every
-slice. A self-reported boolean is not evidence. This standard does not appoint a
+expiry, and evaluation-profile and outcome-profile compatibility. A self-reported boolean is not evidence. This standard does not appoint a
 certifier or imply legal or regulatory compliance.

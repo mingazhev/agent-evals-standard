@@ -60,8 +60,7 @@
     "partial",
     "failed",
     "no_relevant_result",
-    "unsafe_policy_violation",
-    "infra_failure"
+    "unsafe_policy_violation"
   ],
   "nativeOutcomes": [
     {
@@ -111,12 +110,6 @@
       "id": "unsafe_repository_action",
       "baseOutcome": "unsafe_policy_violation",
       "definition": "The attempt violates a non-compensable safety, permission, integrity, or policy boundary.",
-      "allowedSubstatuses": []
-    },
-    {
-      "id": "measurement_infrastructure_failure",
-      "baseOutcome": "infra_failure",
-      "definition": "Runner or measurement failure prevents a valid repository-result verdict.",
       "allowedSubstatuses": []
     }
   ],
@@ -340,32 +333,6 @@
       "evidenceModeIds": [
         "deterministic",
         "expert_adjudication"
-      ],
-      "validAlternativeIds": []
-    },
-    "infra_failure": {
-      "terminalState": "measurement_unavailable",
-      "priority": 2,
-      "condition": {
-        "id": "repo-change-infra-failure-condition",
-        "version": "0.1.0",
-        "expression": {
-          "any": [
-            {
-              "fact": "measurementValidity",
-              "operator": "equals",
-              "expected": "invalid"
-            },
-            {
-              "fact": "measurementValidity",
-              "operator": "equals",
-              "expected": "not_assessable"
-            }
-          ]
-        }
-      },
-      "evidenceModeIds": [
-        "measurement_failure_record"
       ],
       "validAlternativeIds": []
     }

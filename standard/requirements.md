@@ -17,12 +17,12 @@ addresses requirements by the stable IDs below.
 
 ## Requirement registry
 
-The registry JSON, [`requirement-registry.json`](requirement-registry.json), is the sole normative list of requirement IDs, subjects, primary locations, targets, verification kinds, and owners. This document does not repeat that list; it holds only the traceability rules (`ARCH-001`, `TRACE-001`) and the canonical artifact contracts note.
+The registry JSON, [`requirement-registry.json`](requirement-registry.json), is the sole normative list of requirement IDs, subjects, primary locations, targets (`experiment` or `decision`), minimum assurance levels (`minimumLevel`, `A1` or `A2`), verification kinds, and owners. This document does not repeat that list; it holds only the traceability rules (`ARCH-001`, `TRACE-001`) and the canonical artifact contracts note.
 
 ## Traceability rules
 
 `ARCH-001` — A normative requirement **MUST** have one stable ID, one primary
-normative location, a conformance target, a required verifier or accountable
+normative location, a conformance claim (`experiment` or `decision`) and a `minimumLevel`, a required verifier or accountable
 reviewer, and an evidence basis. An artifact **MUST NOT** redefine another
 artifact's requirement or add a verdict-changing consequence under that
 requirement ID. A secondary artifact **MAY** provide navigation, an example, or
@@ -54,7 +54,7 @@ population.
 A primary requirement may explicitly invoke a named normative contract for its
 closed algorithm, required inputs, or control procedure. That invoked contract
 is authoritative only for the invocation's stated scope and **MUST NOT** add a
-new requirement, target, or verdict consequence. The
+new requirement, claim, or verdict consequence. The
 [Validity, threat, and held-out exposure contracts](standard.md#validity-threat-and-held-out-exposure-contracts),
 for example, are invoked by their registered primary anchors; they are not a
 second primary location for `VALID-002` or any other requirement.
@@ -72,8 +72,10 @@ only; it is not a conformance validator.
 
 `EVID-001` and `EVID-002` are defined once in
 [Evidence and Detached Validation](evidence-and-validation-contract.md). Every
-normative artifact **MUST** use its canonical `evidence-artifact-1` and detached
-`validation-envelope-1` contracts. Scorecards, Case QA records, conformance
+normative artifact **MUST**, at A2 and above, use its canonical
+`evidence-artifact-1` and detached `validation-envelope-1` contracts; at A1,
+references are `{path, commit, digest}` refs and the statement is validated by
+independent review. Scorecards, Case QA records, conformance
 statements, decisions, and ledgers **MUST NOT** embed their own validation
 result. This registry records ownership and traceability without duplicating the
 field-level contracts.

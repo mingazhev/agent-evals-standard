@@ -2,8 +2,9 @@
 // Lightweight repository check for the standard's contracts. It is not a
 // conformance validator: it proves only that schemas compile, examples match
 // their declared expectations, bundled contracts are schema-valid, profile
-// fixture descriptors resolve, and local Markdown links resolve.
+// fixture descriptors resolve, local Markdown links resolve, and the worked example recomputes.
 
+import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
@@ -159,9 +160,13 @@ for (const absolute of allFiles.filter((file) => file.endsWith(".md"))) {
   }
 }
 
+// 6. The worked example's ledger chain and point estimates recompute.
+const worked = spawnSync(process.execPath, [path.join(root, "tools/verify-worked-example.mjs")], { encoding: "utf8" });
+if (worked.status !== 0) failures.push(`worked example: ${worked.stderr.trim()}`);
+
 if (failures.length) {
   console.error(`Repository check failed (${failures.length}):`);
   for (const failure of failures) console.error(`- ${failure}`);
   process.exit(1);
 }
-console.log(`Repository check passed: ${schemaFiles.length} schemas, ${exampleManifest.examples.length} examples, bundled contracts, profile fixtures, and Markdown links.`);
+console.log(`Repository check passed: ${schemaFiles.length} schemas, ${exampleManifest.examples.length} examples, bundled contracts, profile fixtures, Markdown links, and the worked example.`);

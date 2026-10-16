@@ -18,9 +18,8 @@ decision digest.
 - Scorecard Contract version/digest:
 - Operational policy ID/version/location/digest:
 - Escalation-event registry ID/version/location/digest:
-- Suite `profiles[]` manifest location/digest:
-- Effective leaf evaluation-profile ID/version/`effectiveProfileDigest`:
-- Parent chain, deterministic flattening, requirement-source mapping, and conflict-report evidence:
+- Run manifest ID/location/digest:
+- Evaluation-profile ID/version/digest:
 - Outcome-profile ID/version/digest:
 - Pre-run decision-plan ID/location/digest/timestamp:
 - Decision schema and semantic-validation contract versions/digests:
@@ -81,7 +80,7 @@ trace.
 
 - Scorecard validation-envelope IDs/digests:
 - Attempt-integrity status:
-- Core/evaluation-profile/risk/case hard-gate status and failures:
+- Universal/evaluation-profile/risk/case hard-gate status and failures:
 - Governance statuses and governance-record event IDs:
 - Invalid and not-assessable attempt counts by arm/case:
 - Unresolved-cell rates by arm/case:

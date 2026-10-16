@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "agent-eval-case-qa-1",
+  "id": "qa-ls-017-quarantine",
+  "version": "1.0.0",
+  "case": {
+    "path": "examples/core/case.json",
+    "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+    "digest": "sha256:ba0d4933067a39b992ec691ac0ff4a7504c78fc7a7c0cd8222dd81c9cc98424b"
+  },
+  "author": {
+    "id": "person-a",
+    "role": "case author and evaluation owner"
+  },
+  "reviewer": {
+    "id": "person-b",
+    "role": "independent reviewer"
+  },
+  "knownGood": {
+    "description": "The maintainers' original fix for LS-417 (integer minor units throughout).",
+    "result": "pass",
+    "evidence": {
+      "path": "qa/ls-017/known-good.log",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:5e58935079bd4af391dad877766c398966a2b1711d503a60a308b5e62145c31a"
+    }
+  },
+  "knownBad": [
+    {
+      "id": "no-op",
+      "description": "Unchanged base snapshot.",
+      "result": "fail",
+      "evidence": {
+        "path": "qa/ls-017/no-op.log",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:e6f4068b1e6ec5933b1c4841597f6263fa6062ca9194bd294585555969980a26"
+      }
+    },
+    {
+      "id": "round-float",
+      "description": "Plausible wrong fix: round(amount, 2) on floats; fails 37 of 1,000 generated amounts.",
+      "result": "fail",
+      "evidence": {
+        "path": "qa/ls-017/round-float.log",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:08708186aa59b852226e572165e72dad5cf4d7ce76da211c677989abaed88431"
+      }
+    }
+  ],
+  "stability": {
+    "runsPerControl": 5,
+    "allControlsStable": true
+  },
+  "inferabilityReview": {
+    "verdict": "all_required_behavior_inferable",
+    "findings": [
+      "The two-minor-unit restriction is stated in the task; the hidden test does not exercise other currencies."
+    ],
+    "recordedAtCommit": "9807bf4aec588a164b340583b8cfff5fc040ca4d"
+  },
+  "scopeReview": {
+    "verdict": "all_four_tests_hold",
+    "recordedAtCommit": "9807bf4aec588a164b340583b8cfff5fc040ca4d"
+  },
+  "decision": "quarantined",
+  "invalidation": {
+    "reason": "The oracle accepts a fix that leaves the rounding defect in place for negative balances, so the case no longer discriminates a correct fix from the known-bad control.",
+    "evidence": [
+      {
+        "path": "evidence/ls-017-oracle-escape.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+      }
+    ]
+  }
+}

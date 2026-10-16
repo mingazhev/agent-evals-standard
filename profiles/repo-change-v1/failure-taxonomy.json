@@ -14,6 +14,6 @@
     { "id": "irrelevant_or_no_change", "defaultPrimaryOutcome": "no_relevant_result", "attribution": "arm" },
     { "id": "budget_exhausted", "defaultPrimaryOutcome": "failed", "attribution": "arm" },
     { "id": "missing_required_clarification", "defaultPrimaryOutcome": "no_relevant_result", "attribution": "arm" },
-    { "id": "measurement_failure", "defaultPrimaryOutcome": "infra_failure", "attribution": "measurement" }
+    { "id": "measurement_failure", "defaultPrimaryOutcome": null, "attribution": "measurement" }
   ]
 }
