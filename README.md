@@ -31,12 +31,6 @@ The full levels (`A1`–`A3`, five conformance targets, governance) build on the
 same invariants. Read the [Adoption Guide](standard/adoption-guide.md), then use
 the [authority map](#normative-authority-map) to find each contract.
 
-The [source-evidence manifest](standard/source-evidence-manifest.json) records
-`evidenceReadiness: blocked`: removing the signature profile changed the
-`EVID-001` claim bound to RFC 8785, whose maintainer review receipt must be
-re-issued before readiness returns to `ready`. Neither status establishes
-empirical validity for an adopter's population.
-
 ## Scope and implementation coverage
 
 The bundled profile is narrower than the seven-family taxonomy. Its maturity
@@ -93,7 +87,7 @@ explicitly invokes it; it is not a second definition.
 | Invoked normative templates | [Governance Policy](standard/governance-policy.md) and [Escalation and Stop Matrix](standard/escalation-stop-matrix.md) | Required adopter-owned policy and response shapes invoked by governance requirements; the bundled instances remain non-operational. |
 | Normative shape | [Schemas](schemas/) and authenticated JSON registries | Closed JSON structure and registered machine identities; schema annotations are informative. |
 | Informative instances | [`examples/`](examples/README.md) | One valid example per schema, a few schema-level invalid examples, and the Core worked example; examples cannot create obligations. Digests inside examples are illustrative. |
-| Normative traceability; informative sources | [Source-evidence manifest](standard/source-evidence-manifest.json) and [Informative References](standard/references.md) | Evidence-readiness and traceability records are normative; cited external sources and narrative summaries are informative. |
+| Informative references | [references.md](standard/references.md) | Cited sources and the requirement IDs they inform; informative only. |
 
 The governance decision template is in
 [templates/governance-decision-record.md](templates/governance-decision-record.md).
@@ -105,10 +99,9 @@ the working draft in place. A first publication must freeze an exact commit and
 create a protected annotated release tag. Repository administrators must
 enforce tag immutability with a GitHub ruleset; repository files cannot make a
 remotely hosted tag undeletable. The release gate is `npm test` on that exact
-commit plus `evidenceReadiness: ready` in the source-evidence manifest; tag runs
+commit; tag runs
 additionally require exact annotated tag `v0.1.0` to resolve to the checked-out
-commit. Publication readiness does not promote capability evidence beyond
-the status and population limits recorded in the source-evidence manifest. A
+commit. A
 raw version string or Git tag by itself is not evidence that this candidate was
 published.
 

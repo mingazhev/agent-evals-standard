@@ -20,7 +20,7 @@ enumerate that set rather than relying on this summary.
 | Statistics and grader validity | `statistical-plan.schema.json`, `grader-validation.schema.json` |
 | Validity, reference baselines, threats, and held-out exposure | `validity-argument.schema.json`, `evaluation-threat-model.schema.json`, `held-out-exposure-budget.schema.json`, `held-out-exposure-ledger.schema.json` |
 | Scorecard | `scorecard.schema.json` |
-| Canonical evidence and detached validation | `evidence-artifact.schema.json`, `source-evidence-manifest.schema.json`, `validation-envelope.schema.json` |
+| Canonical evidence and detached validation | `evidence-artifact.schema.json`, `validation-envelope.schema.json` |
 | Repository snapshot | `workspace-manifest.schema.json` |
 | Requirements | `requirement-registry.schema.json` |
 | Operational policy and escalation | `escalation-event-registry.schema.json`, `operational-governance-policy.schema.json` (closed ASSURE-001 risk/decision minima) |
