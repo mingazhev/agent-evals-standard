@@ -128,6 +128,9 @@ A complete A1 experiment with real numbers is worked through in
 
 ## Conformance Targets
 
+An A2 or A3 statement records in `restrictions` that it is a claim against the
+draft annex of 0.1.0.
+
 Conformance is claimed as exactly two claims, `experiment` and `decision`:
 
 1. **Experiment claim** — one sealed experiment: its cases, Case QA, evaluation

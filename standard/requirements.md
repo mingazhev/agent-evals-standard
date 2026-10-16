@@ -17,7 +17,7 @@ addresses requirements by the stable IDs below.
 
 ## Requirement registry
 
-The registry JSON, [`requirement-registry.json`](requirement-registry.json), is the sole normative list of requirement IDs, subjects, primary locations, targets (`experiment` or `decision`), minimum assurance levels (`minimumLevel`, `A1` or `A2`), verification kinds, and owners. This document does not repeat that list; it holds only the traceability rules (`ARCH-001`, `TRACE-001`) and the canonical artifact contracts note.
+The registry JSON, [`requirement-registry.json`](requirement-registry.json), is the sole normative list of requirement IDs, subjects, primary locations, targets (`experiment` or `decision`), minimum assurance levels (`minimumLevel`, `A1` or `A2`), verification kinds, and owners. Entries with `minimumLevel` A2 belong to the draft annex. This document does not repeat that list; it holds only the traceability rules (`ARCH-001`, `TRACE-001`) and the canonical artifact contracts note.
 
 ## Traceability rules
 

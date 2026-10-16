@@ -602,6 +602,11 @@ profiles **MAY** require additional typed evidence through
 same-level obligation is non-conforming; a lower level **MUST NOT** support a
 higher-level decision.
 
+Maturity: 0.1.0 is normative for A0 and A1. A2 and A3 are published as a
+draft annex, stable in intent but unvalidated by any run and open to
+incompatible change in a later 0.1.x; their obligations above are draft annex.
+A claim at A2 or A3 is a claim against the draft annex.
+
 An A0 experiment **MUST** declare `assuranceLevel: A0` and empty `claims[]`. It is a
 harness-development run: it **MUST NOT** support any claim or any conformance
 claim, and it asserts no evaluation- or outcome-profile compatibility. It
