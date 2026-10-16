@@ -28,15 +28,17 @@ the run manifest and are not echoed here. The measurement fields are:
 | `outcomes` | per arm: a count for each of the seven primary outcomes |
 | `hardGateFailures` | `{armId, gateId, count}` rows |
 | `perCase` | per case and arm: `scheduled`, `resolved`, `successes` |
-| `metrics` | estimand, arm, comparator, case count, identification bounds, and interval |
+| `metrics` | `id`, `estimand`, `k`, `armId`, `comparatorArmId`, `cases`, `status` (`computed` or `uncomputable`), `estimate`, `identificationBounds`, `interval`, and `reasons` |
 | `claims` | claim `id`, `status`, `metricId`, `population`, `restrictions` |
 | `governanceStatuses` | optional; `{id, status, evidence}` rows |
 | `validity` | optional; `{status, reasons}` |
 | `telemetry` | optional; per arm `tokens`, `costUsd`, `wallClockSeconds` |
 | `decisionVerdict` | always `not_applicable`; a scorecard never decides |
 
-Every count, per-case row, point estimate, bound, and interval **MUST** be
-reproducible from the attempt ledger and the run manifest. The reproduction is
+A `computed` metric requires `estimate`, `identificationBounds`, and
+`interval`; an `uncomputable` metric sets them to null and requires nonempty
+`reasons`. Every count, per-case row, point estimate, bound, and interval
+**MUST** be reproducible from the attempt ledger and the run manifest. The reproduction is
 the semantic check; reported values are projections, never inputs. The
 scorecard is immutable and **MUST NOT** embed its semantic-validation result;
 any validation is a separate `validation-envelope-1` that binds its canonical
@@ -49,7 +51,7 @@ separate fields and never combine into one value.
 
 ## Gate Registry
 
-`GATE-001` — These base gates apply to every completed attempt:
+`GATE-001` — These base gates apply to every attempt:
 
 | Gate ID | Required evidence | Failure effect |
 | --- | --- | --- |
@@ -106,29 +108,24 @@ or policy violation is a valid `unsafe_policy_violation` when evidence
 independently establishes attribution; when the failed measurement path is
 required to establish attribution, the attempt is invalid instead.
 
-Each physical attempt in the ledger is `valid`, `invalid`, or, for an
-interrupted or missing-capture attempt, `not_assessable`. An invalid or
-not-assessable attempt resolves no cell unless a sealed eligible replacement
-later supplies a valid trial.
+Each physical attempt in the ledger has `validity` `valid`,
+`invalid_infrastructure` (a setup or infrastructure failure), or
+`invalid_capture` (an interrupted or uncaptured attempt). An invalid attempt
+resolves no cell unless a sealed eligible replacement later supplies a valid
+trial.
 
 ## Claims
 
 `CLAIM-001` — The scorecard's `claims` is a closed list with unique IDs. Each
 claim reports `id`, `status`, `metricId`, `population`, and `restrictions`.
 Each claim's sealed contract in the run manifest **MUST** declare, before
-observation:
-
-```text
-claim.{id,type,construct,estimand,direction,successDefinition,
-       analysisUnit,population,threshold,confidenceLevel,armIds,
-       comparatorArmIds,decisionRule,restrictions}
-```
-
-Supported types include `capability`, `reliability`, `comparative`, `quality`,
-`safety`, `cost`, and `governance_evidence`; evaluation profiles can add
-namespaced types. The scorecard's fields **MUST** match the sealed contract. A
-post-observation threshold, scope, success-predicate, estimand, or
-decision-rule change is not a new result; it is an unregistered analysis and
+observation, `id`, `classification` (`primary` or `exploratory`), `statement`,
+`estimand`, `k` (for `pass_hat_k`), `armId`, `comparatorArmId` (required for
+`paired_difference_pass_at_1`), and a `decisionRule` of `kind`
+(`lower_limit_above` or `upper_limit_below`; a primary claim needs one of
+these, an exploratory claim may use `report_only`) and `threshold`. The
+scorecard's fields **MUST** match the sealed contract. A post-observation
+threshold, scope, estimand, or decision-rule change is not a new result; it is an unregistered analysis and
 yields `insufficient_evidence` for the original claim.
 
 Status is `supported`, `not_supported`, `insufficient_evidence`, or
@@ -137,17 +134,15 @@ set sealed in the run manifest; a subgroup with different case membership needs
 its own sealed experiment. Claims may differ in construct, success definition,
 or comparator arms.
 
-A decision rule is a typed contract: an input (`estimate`, `lower_bound`, or
-`upper_bound`), `gte` or `lte`, whether equality passes, and the fail-closed
-result for a missing input. The validator **MUST NOT** infer an operator from a
-direction or rule ID, substitute a sampling-interval endpoint, or fall back to
-another field when input is missing. Identification bounds address unresolved
-observations, not sampling uncertainty; a population-confidence claim still
-requires the sealed uncertainty procedure under `STAT-003`.
+The decision rule consumes the reported interval limit: the lower limit at the
+failure endpoint for an at-least claim (`lower_limit_above`), the upper limit at
+the success endpoint for an at-most claim (`upper_limit_below`), under
+`stat-defaults-v1`. An uncomputable metric yields `insufficient_evidence`.
 
-At A0 the run manifest has no claims and the scorecard `claims` is empty; A0
-diagnostics **MUST NOT** be presented as positive claims or as conformance
-evidence. At A1 through A3, `claims` **MUST NOT** be empty.
+At A0 the run manifest has no claims and the scorecard `claims` is empty
+(the schema permits an empty list); A0 diagnostics **MUST NOT** be presented as
+positive claims or as conformance evidence. At A1 through A3, `claims` **MUST
+NOT** be empty.
 
 Claim support and numerical computability are separate. A computable estimate
 and interval **MUST** remain reported when a threshold fails or another
@@ -228,8 +223,8 @@ waiver. A declared gap does not change the trial predicate; it restricts named
 claims.
 
 Version 0.1.0 permits only `functional-outcome-v1` and `accepted-outcome-v1`
-as executable `successDefinition` IDs. A new predicate requires a coordinated
-contract, schema, and verifier revision. Cell resolution depends on measurement
+as executable trial-success predicates. A new
+predicate requires a coordinated contract, schema, and verifier revision. Cell resolution depends on measurement
 validity and retry lineage, not on whether the trial satisfies a predicate.
 
 The verifier **MUST** independently execute the outcome rules and both
@@ -282,27 +277,27 @@ selected trial) or `unresolved` (no eligible valid result at close). Every
 physical attempt transitions exactly once through:
 
 ```text
-scheduled -> started -> completed | interrupted | missing_capture
+scheduled -> started -> closed (valid | invalid_infrastructure | invalid_capture)
 ```
 
-`started` is scheduler dispatch, before workspace materialization. A captured
-setup failure closes as `completed` with invalid measurement; an interrupted or
-uncaptured dispatch closes as `interrupted` or `missing_capture` with
-`not_assessable` measurement; a never-dispatched cell stays unresolved without
-an invented attempt. The `accounting` rows **MUST** reconcile to the attempt
-ledger: every transition, lineage link, count, and root. The first eligible
+`started` is scheduler dispatch, before workspace materialization. A setup or
+infrastructure failure closes as `invalid_infrastructure`; an interrupted or
+uncaptured dispatch closes as `invalid_capture`; invalid attempts have a null
+`primaryOutcome`; a never-dispatched cell stays unresolved without an invented
+attempt. The failed-gate rule (a failed hard gate implies a non-null outcome of
+`unsafe_policy_violation`, `failed`, `partial`, or `no_relevant_result`) applies
+only to valid attempts. The `accounting` rows **MUST** reconcile to the attempt
+ledger: every transition, lineage link, count, and entry digest. The first eligible
 valid lineage member resolves a cell; a later attempt **MUST NOT** replace it
 or select a more favorable result.
 
-For `agent-eval-attempt-ledger-1`, roots use `sha256-jcs-chain-v1` over
-I-JSON/JCS values:
-
-```text
-initialLedgerRoot = SHA-256(JCS({experimentId, scheduledSetCommitment}))
-root[0] = initialLedgerRoot
-root[i + 1] = SHA-256(JCS({previousRoot: root[i], attempt: attemptRecords[i]}))
-terminalLedgerRoot = root[attemptRecords.length]
-```
+For `agent-eval-attempt-ledger-1`, the chain algorithm is
+`sha256-jcs-entry-chain-v1`. Each entry in `entries` carries
+`previousEntryDigest` and `entryDigest`, where `entryDigest` is SHA-256 over the
+RFC 8785 JCS serialization of the entry without `entryDigest`. The first entry's
+`previousEntryDigest` is the digest of the run manifest ref `{path, commit,
+digest}`; each later entry's is the prior entry's `entryDigest`. `terminalDigest`
+is the last `entryDigest`.
 
 The run manifest's replacement policy fixes the maximum attempts per cell,
 retryable measurement-validity states, a linear parent chain, first-valid

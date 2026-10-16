@@ -114,9 +114,9 @@ Saying “based on” the standard is not a conformance claim.
 - **Scorecard and statement:** the scorecard may carry `governanceStatuses`,
   `validity`, and `telemetry`; the conformance statement
   ([`conformance-statement.schema.json`](../schemas/conformance-statement.schema.json))
-  **MUST** add a `validationEnvelope`, a separate `validation-envelope-1`
-  produced by an independent validator whose subject digest equals the statement
-  digest. A statement without a passing envelope is an unauthenticated
+  **MUST** be accompanied by a separate `validation-envelope-1`, published
+  alongside it (the statement does not reference it), produced by an independent
+  validator whose subject digest equals the statement digest. A statement without a passing envelope is an unauthenticated
   assertion, not conformance. The
   [Integrity and Semantic Validation Contract](evidence-and-validation-contract.md#integrity-and-semantic-validation-contract)
   recomputes hashes, formulas, ledger continuity, verdict implications, and

@@ -115,8 +115,8 @@ but cannot change these meanings.
   bounded capability claims at low or medium risk that never support a
   governance decision. **`stat-defaults-v1`** — the
   [base statistical defaults](standard.md#base-statistical-defaults).
-- **Validation envelope** — a detached `validation-envelope-1` binding a
-  verdict to a subject digest ([EVID-002](evidence-and-validation-contract.md#detached-validation-envelope)).
+- **Validation envelope** — a detached `validation-envelope-1`, required at A2
+  and above, binding a verdict to a subject digest ([EVID-002](evidence-and-validation-contract.md#detached-validation-envelope)).
 - **Measurement trust domain** — runner-owned components evaluated output
   cannot modify ([RUN-003](standard.md#i13-trusted-measurement-boundary)).
 - **Deterministic verifier**, **expert adjudication**, **model-based grader**

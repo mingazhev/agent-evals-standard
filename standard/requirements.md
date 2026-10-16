@@ -72,8 +72,10 @@ only; it is not a conformance validator.
 
 `EVID-001` and `EVID-002` are defined once in
 [Evidence and Detached Validation](evidence-and-validation-contract.md). Every
-normative artifact **MUST** use its canonical `evidence-artifact-1` and detached
-`validation-envelope-1` contracts. Scorecards, Case QA records, conformance
+normative artifact **MUST**, at A2 and above, use its canonical
+`evidence-artifact-1` and detached `validation-envelope-1` contracts; at A1,
+references are `{path, commit, digest}` refs and the statement is validated by
+independent review. Scorecards, Case QA records, conformance
 statements, decisions, and ledgers **MUST NOT** embed their own validation
 result. This registry records ownership and traceability without duplicating the
 field-level contracts.

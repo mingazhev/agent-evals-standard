@@ -26,7 +26,7 @@ three mechanisms that every conforming implementation **MUST** apply:
    that first contains a sealed artifact is its seal point. "Before execution"
    means that commit is an ancestor of the commit that first contains any trial
    result for the run. Ledgers are hash chains: each entry binds the digest of
-   its predecessor and the verifier recomputes the root. Hosted repositories
+   its predecessor and the verifier recomputes the chain. Hosted repositories
    **SHOULD** use a protected branch that rejects history rewrites, and the
    claimant **MUST** disclose the hosting, branch-protection, and write-access
    settings on which the ordering relies.
@@ -47,8 +47,8 @@ extension under `CONF-003`; that extension cannot weaken any requirement here.
 
 ## Canonical evidence artifact
 
-`EVID-001` — Every evidence reference used by Case QA, a scorecard, semantic
-validation, or governance **MUST** resolve to exactly one
+`EVID-001` — At A2 and above, every evidence reference used by Case QA, a
+scorecard, semantic validation, or governance **MUST** resolve to exactly one
 `evidence-artifact-1` record. The record **MUST** contain:
 
 - a stable artifact ID, immutable URI, and resolvable `payload` locator;
@@ -58,6 +58,10 @@ validation, or governance **MUST** resolve to exactly one
 - access class, retention class, retention deadline or disposition rule, and
   applicable privacy or IP restrictions;
 - the schema and semantic-contract versions needed to interpret the bytes.
+
+At A1, evidence is referenced as a `{path, commit, digest}` triple under the
+[integrity model](#integrity-model); `evidence-artifact-1` records are not
+required.
 
 The producer's authority for the artifact's schema and creation phase is
 established by the [integrity model](#integrity-model), not by a field in the
@@ -108,9 +112,18 @@ no resolvable payload **MUST NOT** satisfy a terminal-evidence requirement.
 
 ## Detached validation envelope
 
-`EVID-002` — Semantic validation **MUST** produce a detached
+`EVID-002` — At A2 and above, semantic validation **MUST** produce a detached
 `validation-envelope-1`. The subject artifact **MUST NOT** contain the envelope
 or the completed-envelope digest. This separation prevents a self-hash cycle.
+The envelope is published alongside its subject and binds the subject digest; a
+verifier discovers it by the publication location (the same directory or a
+publication record), not by a field in the subject. A conformance statement
+never references its envelope. At A1 the statement is validated by independent
+review and no envelope is used.
+
+The envelope's `subject.type` is one of `run_manifest`, `attempt_ledger`,
+`scorecard`, `case`, `case_qa`, `conformance_statement`, or
+`governance_decision`, and its `claimTarget` is `experiment` or `decision`.
 
 The envelope **MUST** bind:
 
@@ -254,12 +267,16 @@ phase, unauthorized access, or expired evidence fails the affected path closed.
 ### Hash-chained append-only ledger
 
 Attempt accounting uses the Scorecard Contract's
-[terminal-record chain](scorecard-contract.md#attempt-accounting).
-That is the version 0.1.0 transport and root algorithm; no separate
-`fromState`/`toState` event stream is required. The verifier **MUST** reproduce
-the record-chain roots, reconcile one terminal record per dispatch, preserve
-undispatched scheduled cells as unresolved, and verify retry lineage and
-first-valid selection under that contract.
+[entry chain](scorecard-contract.md#attempt-accounting), algorithm
+`sha256-jcs-entry-chain-v1`: each entry's `entryDigest` is SHA-256 over the RFC
+8785 JCS of the entry without `entryDigest`, the first entry's
+`previousEntryDigest` is the digest of the run manifest ref
+`{path, commit, digest}`, each later entry's is its predecessor's `entryDigest`,
+and `terminalDigest` is the last `entryDigest`. That is the version 0.1.0
+transport algorithm; no separate `fromState`/`toState` event stream is required.
+The verifier **MUST** reproduce every entry digest, reconcile one terminal entry
+per dispatch, preserve undispatched scheduled cells as unresolved, and verify
+retry lineage and first-valid selection under that contract.
 
 Ordering and rewrite resistance come from the
 [integrity model](#integrity-model): the
@@ -277,8 +294,8 @@ missing evidence.
 | 1 | Gate set | Every `hardGateFailures` row names a gate that the evaluation profile, case, or `GATE-001` registers, and is backed by nonempty, valid evidence references. |
 | 2 | Governance statuses | When `governanceStatuses` is present, every status obeys the Scorecard Contract's disposition rules and every terminal or `not_applicable` status has the required evidence; at A2 and above every status the operational policy expects is present. |
 | 3 | Outcome replay | Per-arm `outcomes` and every selected predicate are recomputed exclusively from the Scorecard Contract's `functional-outcome-v1` and `accepted-outcome-v1` definitions, including transcript and interaction evidence, by executing the verifier's own outcome-replay executor over the selected work-artifact set. Where the outcome profile requires independently graded work, replay also requires the runner-captured work product and a separate authenticated grader assessment. Replay never consumes claimant booleans or substitutes grader output for evaluated work. |
-| 4 | Invalid attempts | An invalid attempt has no primary outcome, is not accepted, and is excluded from valid-only estimates while remaining in `accounting`, `telemetry`, and identification bounds; agent-attributed interference remains a valid `unsafe_policy_violation` rather than infrastructure invalidity. For each arm the seven `outcomes` counts sum to `validTrials`. |
-| 5 | Attempt accounting | `scheduledCells`, `physicalAttempts`, `validTrials`, `invalidAttempts`, `replacementAttempts`, `unresolvedCells`, and the `perCase` rows equal the attempt ledger; every dispatch has one terminal record; every resolved cell selects its first eligible valid trial regardless of success. `completed` attempts have measurement validity `valid` or `invalid`, while `interrupted` and `missing_capture` attempts are `not_assessable`. |
+| 4 | Invalid attempts | An invalid attempt (`invalid_infrastructure` or `invalid_capture`) has a null primary outcome, is not accepted, and is excluded from valid-only estimates while remaining in `accounting`, `telemetry`, and identification bounds; agent-attributed interference remains a valid `unsafe_policy_violation` rather than infrastructure invalidity. For each arm the seven `outcomes` counts sum to `validTrials`. |
+| 5 | Attempt accounting | `scheduledCells`, `physicalAttempts`, `validTrials`, `invalidAttempts`, `replacementAttempts`, `unresolvedCells`, and the `perCase` rows equal the attempt ledger; every dispatch has one terminal record; every resolved cell selects its first eligible valid trial regardless of success. Each attempt's `validity` is `valid`, `invalid_infrastructure`, or `invalid_capture`; the failed-gate rule requiring a non-null outcome applies only to valid attempts. |
 | 6 | Bounds and statistics | Each metric's `identificationBounds` are recomputed from scheduled cells under the Scorecard Contract; component binary-rate bounds stay within `[0,1]` and comparative difference bounds within `[-1,1]`; interval endpoints are ordered; every pass@k/pass^k value is recomputed from consistent valid counts, successes, and `k`. |
 | 7 | Aggregation | Per-case contributions, weights, and the run estimate reproduce the declared estimator and the complete case set sealed in the run manifest. |
 | 8 | Claim support | `supported` implies valid accounting, a complete sealed run manifest, current Case QA evidence for every case, no coverage or telemetry gap material to the claim, and a recomputed decision rule that passes. |
@@ -286,7 +303,7 @@ missing evidence.
 | 10 | Identity | Every reference — run manifest, attempt ledger, Case QA records — resolves at its commit to bytes matching its digest, and the run manifest's arm identities resolve to authenticated versions or digests. |
 | 11 | Cost estimands | Both cost estimands are recomputed from every physical attempt record; the numerator, denominator predicate, success and attempt counts, and `telemetry` rows agree. Missing cost under a fail-closed policy yields `insufficient_evidence`. A zero success count forces `insufficient_evidence`, a null value, and the `zero_success_denominator` reason; the observed cost numerator remains. |
 | 12 | Decision surfaces | At A2 and above, decision-surface IDs, materialities, coverage modes, and declared-gap claim restrictions match the case's inventory exactly once in every Case QA `decisionSurfaceValidation`; applicability rules and final-state proofs resolve through deterministic verifiers. No material `declared_gap`, failure, or insufficient verdict supports an affected positive, comparative, or governance claim, and a listed material restriction requires that claim's status to be `insufficient_evidence`. |
-| 13 | Lifecycle transitions | A Case QA record that quarantines a case binds the `active` source state and an invalidation record; a re-QA record for a quarantined case returns to `active` only when activated, and to `candidate` when rejected; rejected transitions from every other lifecycle state are invalid. |
+| 13 | Lifecycle transitions | A Case QA record with `decision` `quarantined` carries an `invalidation` (reason and nonempty evidence) and is the target of the case's `lifecycle.quarantineRecord`; a re-QA record for a quarantined case returns to `active` only when `active`, and to `candidate` when `rejected`. A QA record binds the case at its candidate commit (the case document without `lifecycle`), and the active case differs from it only by `lifecycle`, so `lifecycle.qaRecord` → QA record → candidate case is acyclic. |
 | 14 | Transcript evidence | Transcript evidence is complete for every valid trial, resolves to the raw runner-produced event stream, verifies its append-only root, proves pre-transform capture, and preserves context-management events. A compacted view, summary, cleared tool output, or agent-authored memory cannot satisfy this requirement. |
 | 15 | Interaction evidence | Interaction evidence is complete for every valid trial whose case `interactionModeId` is not `noninteractive_repository_task` and `not_applicable` only for that exact mode; it binds the case protocol, attributes every event and shared-state mutation, verifies initial and final state hashes, and has zero unattributed mutations. |
 | 16 | Run manifest statistics | The statistics sealed in the run manifest (`stat-defaults-v1` plus overrides) recompute the target population, estimators, intervals, dependence, missingness and retry handling, and multiplicity adjustment. At A2 and above they also cover the held-out exposure and reuse budget. Unregistered looks, post-observation threshold changes, exhausted reuse, or an exploratory result used as a hard gate yield `insufficient_evidence`. |
@@ -370,11 +387,16 @@ exact standard version and source commit (`standard.commit`), the declared
 `claim` and `assuranceLevel`, and that every `subject` reference resolves at its
 commit to bytes matching its digest and validates against its schema
 (`run-manifest-1`, `attempt-ledger-1`, `scorecard-1` for an experiment claim;
-`governance-decision-1` and `scorecard-1` for a decision claim). A statement
+`governance-decision-1` and each `scorecard-1` of `subject.scorecards` for a
+decision claim). It also checks `restrictions.governanceUse`: `prohibited` at
+A1, and for a decision claim `eligible` on the statement and on each supporting
+experiment statement. A statement
 whose bytes do not reproduce its published digest, or whose issuer is not an
 authorized identity, is an unauthenticated self-assertion and is not conforming.
-At A2 and above it also verifies the detached `validationEnvelope`, whose
-subject digest equals the statement digest.
+At A2 and above it also verifies the detached envelope published alongside the
+statement (found by publication location, not by a statement field), whose
+subject digest equals the statement digest; at A1 independent review replaces
+the envelope.
 
 For an experiment claim it additionally applies the scorecard checks above to
 the bound scorecard, run manifest, and attempt ledger. For a decision claim it
