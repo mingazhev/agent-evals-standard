@@ -1501,7 +1501,7 @@
       "armId": "agent-x",
       "comparatorArmId": null,
       "cases": 50,
-      "estimate": 0.6639,
+      "estimate": 0.6667,
       "identificationBounds": {
         "failureEndpoint": 0.66,
         "successEndpoint": 0.6667
@@ -1520,7 +1520,7 @@
       "armId": "agent-x",
       "comparatorArmId": "control-codemods",
       "cases": 50,
-      "estimate": 0.584,
+      "estimate": 0.5867,
       "identificationBounds": {
         "failureEndpoint": 0.58,
         "successEndpoint": 0.5867

@@ -153,6 +153,34 @@
       "valid": true
     },
     {
+      "id": "case.a2.valid",
+      "path": "valid/case.a2.json",
+      "schema": "schemas/case.schema.json",
+      "valid": true,
+      "illustrates": "an A2 case adds the workspace manifest, evaluation and outcome profiles, an active lifecycle with its QA record, contamination, leakage controls, a decision surface, and an exposure budget"
+    },
+    {
+      "id": "case-qa.a2.valid",
+      "path": "valid/case-qa.a2.json",
+      "schema": "schemas/case-qa.schema.json",
+      "valid": true,
+      "illustrates": "an A2 Case QA record passes stages 3-8 (stage 7 not applicable with a rationale), fixes a defect, and binds a grader validation and a decision-surface validation"
+    },
+    {
+      "id": "scorecard.a2.valid",
+      "path": "valid/scorecard.a2.json",
+      "schema": "schemas/scorecard.schema.json",
+      "valid": true,
+      "illustrates": "an A2 scorecard adds governance statuses, validity, and per-arm telemetry to a computed metric"
+    },
+    {
+      "id": "scorecard.uncomputable-metric.valid",
+      "path": "valid/scorecard.uncomputable-metric.json",
+      "schema": "schemas/scorecard.schema.json",
+      "valid": true,
+      "illustrates": "an uncomputable metric has a null estimate and reasons yet still reports identification bounds [0, 1]"
+    },
+    {
       "id": "conformance-statement.conforming-with-failed-requirement",
       "path": "invalid/conformance-statement.conforming-with-failed-requirement.json",
       "schema": "schemas/conformance-statement.schema.json",
@@ -206,7 +234,7 @@
       "schema": "schemas/scorecard.schema.json",
       "valid": false,
       "expectedError": "reasons",
-      "illustrates": "an uncomputable metric carries null estimate, bounds and interval and must state why in reasons"
+      "illustrates": "an uncomputable metric carries a null estimate and must state why in reasons"
     }
   ]
 }

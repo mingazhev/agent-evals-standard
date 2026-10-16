@@ -36,8 +36,9 @@ the run manifest and are not echoed here. The measurement fields are:
 | `decisionVerdict` | always `not_applicable`; a scorecard never decides |
 
 A `computed` metric requires `estimate`, `identificationBounds`, and
-`interval`; an `uncomputable` metric sets them to null and requires nonempty
-`reasons`. Every count, per-case row, point estimate, bound, and interval
+`interval`; an `uncomputable` metric sets `estimate` to null and requires
+nonempty `reasons`, while `identificationBounds` and `interval` are each an
+object or null independently, so bounds remain reported whenever they are computable. Every count, per-case row, point estimate, bound, and interval
 **MUST** be reproducible from the attempt ledger and the run manifest. The reproduction is
 the semantic check; reported values are projections, never inputs. The
 scorecard is immutable and **MUST NOT** embed its semantic-validation result;

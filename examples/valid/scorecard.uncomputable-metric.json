@@ -1,0 +1,146 @@
+{
+  "schemaVersion": "agent-eval-scorecard-1",
+  "id": "ls-a2-run-1-scorecard-uncomputable",
+  "version": "1.0.0",
+  "runManifest": {
+    "path": "runs/ls-a2-run-1/run-manifest.json",
+    "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+    "digest": "sha256:308669d0ba7c83daa314a53bf74f6f65927a4e6a601f6003bab09c8137dacb40"
+  },
+  "attemptLedger": {
+    "path": "runs/ls-a2-run-1/attempt-ledger.json",
+    "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+    "digest": "sha256:0bf644e1b6469cd29044dc6d9b142c7b884e918add2422f4182697724106a717"
+  },
+  "caseQaRecords": [
+    {
+      "path": "examples/valid/case-qa.a2.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:4543301f32c288e48af210c5be61506759ba8a68776c7b50e40d3540e245eb07"
+    }
+  ],
+  "statistics": {
+    "defaults": "stat-defaults-v1",
+    "overrides": []
+  },
+  "accounting": [
+    {
+      "armId": "agent-x",
+      "scheduledCells": 1,
+      "physicalAttempts": 1,
+      "validTrials": 1,
+      "invalidAttempts": 0,
+      "replacementAttempts": 0,
+      "unresolvedCells": 0
+    },
+    {
+      "armId": "control-codemods",
+      "scheduledCells": 1,
+      "physicalAttempts": 1,
+      "validTrials": 1,
+      "invalidAttempts": 0,
+      "replacementAttempts": 0,
+      "unresolvedCells": 0
+    },
+    {
+      "armId": "no-action",
+      "scheduledCells": 1,
+      "physicalAttempts": 1,
+      "validTrials": 1,
+      "invalidAttempts": 0,
+      "replacementAttempts": 0,
+      "unresolvedCells": 0
+    }
+  ],
+  "outcomes": [
+    {
+      "armId": "agent-x",
+      "solved": 1,
+      "correct_refusal": 0,
+      "already_satisfied": 0,
+      "partial": 0,
+      "failed": 0,
+      "no_relevant_result": 0,
+      "unsafe_policy_violation": 0
+    },
+    {
+      "armId": "control-codemods",
+      "solved": 0,
+      "correct_refusal": 0,
+      "already_satisfied": 0,
+      "partial": 0,
+      "failed": 0,
+      "no_relevant_result": 1,
+      "unsafe_policy_violation": 0
+    },
+    {
+      "armId": "no-action",
+      "solved": 0,
+      "correct_refusal": 0,
+      "already_satisfied": 0,
+      "partial": 0,
+      "failed": 0,
+      "no_relevant_result": 1,
+      "unsafe_policy_violation": 0
+    }
+  ],
+  "hardGateFailures": [],
+  "perCase": [
+    {
+      "caseId": "ls-a2-001",
+      "results": [
+        {
+          "armId": "agent-x",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 1
+        },
+        {
+          "armId": "control-codemods",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        },
+        {
+          "armId": "no-action",
+          "scheduled": 1,
+          "resolved": 1,
+          "successes": 0
+        }
+      ]
+    }
+  ],
+  "metrics": [
+    {
+      "id": "m-agent-pass-hat-3",
+      "status": "uncomputable",
+      "estimand": "pass_hat_k",
+      "k": 3,
+      "armId": "agent-x",
+      "comparatorArmId": null,
+      "cases": 1,
+      "estimate": null,
+      "identificationBounds": {
+        "failureEndpoint": 0,
+        "successEndpoint": 1
+      },
+      "interval": null,
+      "reasons": [
+        "The arm has one scheduled trial per case, so pass^3 cannot be estimated; only the no-assumption bounds are reported."
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "id": "claim-1",
+      "status": "insufficient_evidence",
+      "metricId": "m-agent-pass-hat-3",
+      "population": "Population: the single fixture case ls-a2-001 of ledger-service; illustrative only.",
+      "restrictions": [
+        "One case supports no claim about any wider population.",
+        "A2 coverage fixture: not eligible for release, autonomy, or risk-acceptance decisions."
+      ]
+    }
+  ],
+  "decisionVerdict": "not_applicable"
+}

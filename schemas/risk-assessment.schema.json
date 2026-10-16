@@ -20,7 +20,7 @@
     "schemaVersion": { "const": "risk-assessment-1" },
     "id": { "$ref": "#/$defs/id" },
     "version": { "const": "0.1.0" },
-    "assessmentKind": { "enum": ["case_inherent_hazard", "experiment_envelope", "experiment_decision_envelope"] },
+    "assessmentKind": { "enum": ["experiment_envelope", "experiment_decision_envelope"] },
     "scope": {
       "$comment": "For experiment_decision_envelope, semantic validation requires exact caseIds and armIds equality with the consuming sealed run manifest and decisionEnvelopeId equality with its decision plan.",
       "type": "object",
@@ -150,21 +150,6 @@
     "digest": { "$ref": "#/$defs/digest" }
   },
   "allOf": [
-    {
-      "if": { "type": "object", "properties": { "assessmentKind": { "const": "case_inherent_hazard" } }, "required": ["assessmentKind"] },
-      "then": {
-        "type": "object",
-        "properties": {
-          "scope": {
-            "type": "object",
-            "properties": {
-              "armIds": { "type": "array", "maxItems": 0 },
-              "decisionEnvelopeId": { "type": "null" }
-            }
-          }
-        }
-      }
-    },
     {
       "if": { "type": "object", "properties": { "assessmentKind": { "const": "experiment_envelope" } }, "required": ["assessmentKind"] },
       "then": {

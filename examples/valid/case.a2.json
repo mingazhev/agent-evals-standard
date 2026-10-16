@@ -1,0 +1,148 @@
+{
+  "schemaVersion": "agent-eval-case-1",
+  "id": "ls-a2-001",
+  "version": "1.0.0",
+  "author": {
+    "id": "person-a",
+    "role": "case author and evaluation owner"
+  },
+  "repository": {
+    "uri": "https://git.example.org/acme/ledger-service",
+    "baseCommit": "4490296d159684a14e566f256d4d930b28d81ff1",
+    "visibleHistory": "none"
+  },
+  "task": {
+    "statement": "Refunds of partially captured payments are sometimes one cent short (issue LS-417). Make refund amounts exact for every currency with two minor units without changing the public API of ledger.refunds.",
+    "agentVisibleInputs": [
+      "repository snapshot at baseCommit",
+      "issue LS-417 text",
+      "CONTRIBUTING.md",
+      "tests/unit/"
+    ]
+  },
+  "capabilityFamilyId": "CAP.IMPLEMENT_CHANGE",
+  "workArtifactType": "code_change",
+  "interactionModeId": "noninteractive_repository_task",
+  "scopeTests": {
+    "repositoryStateNecessary": {
+      "holds": true,
+      "rationale": "The defect lives in ledger/refunds.py and its interaction with ledger/money.py; the task cannot be solved without that code."
+    },
+    "invariantsTraceToRepository": {
+      "holds": true,
+      "rationale": "Acceptance is the repository's own test suite plus a hidden regression test written against ledger.refunds.compute_refund."
+    },
+    "changesRepositoryArtifactOrDecision": {
+      "holds": true,
+      "rationale": "The result is a code change to the repository."
+    },
+    "removalChangesVerdict": {
+      "holds": true,
+      "rationale": "Without the repository there is no function to fix and no test to run, so the verdict cannot be produced."
+    }
+  },
+  "acceptance": {
+    "successRule": "all_checks_and_hard_gates_pass",
+    "checks": [
+      {
+        "id": "unit-suite",
+        "kind": "deterministic",
+        "visibility": "agent_visible",
+        "description": "Existing unit tests still pass.",
+        "command": "pytest -q tests/unit"
+      },
+      {
+        "id": "hidden-regression",
+        "kind": "deterministic",
+        "visibility": "hidden",
+        "description": "Hidden regression test over 1,000 generated partial-capture amounts, including the LS-417 reproducer.",
+        "command": "pytest -q /oracle/ls-017/test_refund_rounding.py"
+      }
+    ],
+    "hardGates": [
+      {
+        "id": "tests-not-weakened",
+        "description": "No existing test is deleted, skipped, or loses an assertion.",
+        "command": "python /runner/gates/tests_not_weakened.py --base $BASE --head $HEAD"
+      },
+      {
+        "id": "protected-paths-unchanged",
+        "description": "CI configuration, lockfiles, and tests/fixtures are unchanged.",
+        "command": "python /runner/gates/protected_paths.py --base $BASE --head $HEAD"
+      }
+    ]
+  },
+  "oracleIsolation": {
+    "hiddenMaterialLocation": "runner-only volume /oracle, mounted after the agent process tree has exited",
+    "excludedFromAgentPaths": true,
+    "excludedFromVisibleHistory": true,
+    "method": "The workspace is exported as a tree snapshot with no history; the original fix commit and the hidden test live only in the runner's oracle store."
+  },
+  "effectiveRisk": {
+    "tier": "medium",
+    "rationale": "Sandboxed controlled fixture with no network or production data, but the refund path touches monetary amounts, so the inherent hazard is rated medium."
+  },
+  "workspaceManifest": {
+    "path": "examples/valid/workspace-manifest.json",
+    "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+    "digest": "sha256:ac84ebe4e4b1642db506acf575626e48589b287a96df46cea8962870ba16094d"
+  },
+  "evaluationProfile": {
+    "id": "repo-change-v1",
+    "version": "0.1.0",
+    "digest": "sha256:ce3c6b7bec2b6b77cfe861f2aa7b27cd98da61b4fd9cec94842b287e2c39976b"
+  },
+  "outcomeProfile": {
+    "id": "workspace-change-v1",
+    "version": "0.1.0",
+    "digest": "sha256:416ef0aaf3df1b68d2dc7612eacd5fd8c026eaf2dd4410c6957c215dfd8d35f1"
+  },
+  "lifecycle": {
+    "status": "active",
+    "qaRecord": {
+      "path": "examples/valid/case-qa.a2.json",
+      "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+      "digest": "sha256:397fcadb75729b154fc8b39f442bb126416a8aeba552b7fd3d9ed5255f1028fe"
+    }
+  },
+  "contamination": {
+    "sourceVisibility": "private",
+    "previousEvaluationExposure": "Never used in a prior evaluation or published; authored for this fixture.",
+    "trainingOrMemoryRisk": "low"
+  },
+  "leakageControls": [
+    {
+      "type": "canary",
+      "artifactId": "canary-ls-a2-001",
+      "description": "Unique canary string embedded in the hidden regression test and absent from every agent-visible path."
+    }
+  ],
+  "decisionSurfaces": [
+    {
+      "id": "surf-refund-api",
+      "kind": "functional_output",
+      "materiality": "outcome",
+      "applicabilityRule": {
+        "id": "rule-refund-api-touched",
+        "version": "1.0.0",
+        "digest": "sha256:2396f663f0c0d6e08313c351444ff9efcf81ef1604b9edb77a22ce73bd371339"
+      },
+      "unknownApplicabilityResult": "indeterminate",
+      "coverage": "checked",
+      "rationale": "Correct refund amounts are the outcome the case decides; the hidden regression test checks them directly.",
+      "checkIds": [
+        "hidden-regression"
+      ],
+      "coverageProof": {
+        "id": "proof-refund-api",
+        "version": "1.0.0",
+        "digest": "sha256:75fa7e113273db8fcd80364ae626a6cdb4ea6a9d1df99c06bfb8c956a1a9f751"
+      }
+    }
+  ],
+  "exposureBudget": {
+    "path": "examples/valid/held-out-exposure-budget.json",
+    "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+    "digest": "sha256:8db7f5be0fe5cc49c5e1a3db877cdf0aa1a27a6442d773208edb6334e65a4b3a"
+  }
+}

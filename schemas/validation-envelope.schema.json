@@ -22,7 +22,7 @@
       "type": "object",
       "required": ["type", "id", "claimTarget", "digest", "projection"],
       "properties": {
-        "type": { "enum": ["run_manifest", "attempt_ledger", "scorecard", "case", "case_qa", "conformance_statement", "governance_decision"] },
+        "type": { "enum": ["run_manifest", "attempt_ledger", "scorecard", "case", "case_qa", "conformance_statement", "governance_decision", "grader_validation", "validity_argument", "evaluation_threat_model", "held_out_exposure_budget", "held_out_exposure_ledger", "risk_assessment", "operational_governance_policy", "evaluation_profile", "outcome_profile"] },
         "id": { "$ref": "#/$defs/id" },
         "claimTarget": { "$comment": "The conformance target whose applicable requirement set this validation envelope evaluates. It is explicit because an artifact type such as scorecard may support more than one conformance target.", "enum": ["experiment", "decision"] },
         "digest": { "$ref": "#/$defs/digest" },

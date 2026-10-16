@@ -376,10 +376,16 @@
                   "type": "null"
                 },
                 "identificationBounds": {
-                  "type": "null"
+                  "type": [
+                    "object",
+                    "null"
+                  ]
                 },
                 "interval": {
-                  "type": "null"
+                  "type": [
+                    "object",
+                    "null"
+                  ]
                 },
                 "reasons": {
                   "type": "array",

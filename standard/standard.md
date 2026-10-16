@@ -634,16 +634,14 @@ approval, and the sealed result. Missing or unresolved factor, policy, evidence,
 or uncertainty information **MUST** fail closed as insufficient evidence; an
 author **MUST NOT** choose a lower tier manually.
 
-At A2 and above, a case **MUST** bind a `case_inherent_hazard` assessment and reproduce its exact
-tier as `inherentRiskTier`. At A2 and above, before execution, the run manifest **MUST** bind
-(`riskAssessment`) a separate assessment covering the exact scheduled cases, arms, permissions,
-tools, environment, and exposure, and reproduce its exact `effectiveRiskTier`.
-The run manifest's `effectiveRisk` records a `tier` (`low`, `medium`, `high`, or
-`critical`) with its rationale; at A1 the schema restricts it to `low` or
-`medium`, A2 allows `low` or `medium`, and `high` or `critical` require A3. The
-case's effective risk is the inherent-hazard classification; at A2 and above the
-`riskAssessment` ref carries the `risk-assessment-1` record whose
-`effectiveRiskTier` equals the manifest's `effectiveRisk.tier`. A claims-eligible A2 or A3 run uses `experiment_decision_envelope` and also binds the
+A case's inherent-hazard classification is `case.effectiveRisk` (`tier` plus `rationale`); its
+tier is `low`, `medium`, `high`, or `critical`, and a case at `high` or `critical` **MUST** be
+scheduled only by an A3 run. At A2 and above, before execution, the run manifest **MUST** bind
+(`riskAssessment`) the authenticated `risk-assessment-1` record covering the exact scheduled cases,
+arms, permissions, tools, environment, and exposure, and its `effectiveRiskTier` equals the manifest's
+`effectiveRisk.tier`. The run manifest's `effectiveRisk` records a `tier` (`low`, `medium`, `high`, or
+`critical`) with its rationale; at A1 the schema restricts it to `low` or `medium`, A2 allows `low` or
+`medium`, and `high` or `critical` require A3. A claims-eligible A2 or A3 run uses `experiment_decision_envelope` and also binds the
 intended decision; an A0 diagnostic with no decision plan uses
 `experiment_envelope`. The scorecard inherits risk identity through its `runManifest` ref and carries no
 risk fields; every governance decision supported by it **MUST** reproduce that
@@ -1089,10 +1087,11 @@ population limits **MUST** be validated before it supports a claim.
 ### Evidence Contracts
 
 `EVID-001` and `EVID-002` apply to every case, experiment, scorecard, decision,
-ledger, and conformance statement. Evidence references **MUST** use the canonical
-`evidence-artifact-1` contract in
-[Evidence and Detached Validation](evidence-and-validation-contract.md).
-Semantic validation **MUST** be detached: the subject never embeds its validation
+ledger, and conformance statement. At A1, references are `{path, commit, digest}`
+triples and the statement is validated by independent review. At A2 and above,
+evidence references **MUST** use the canonical `evidence-artifact-1` contract in
+[Evidence and Detached Validation](evidence-and-validation-contract.md), and
+semantic validation **MUST** be detached: the subject never embeds its validation
 result; an external `validation-envelope-1` binds the subject digest.
 
 ### Run Protocol

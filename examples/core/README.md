@@ -144,6 +144,8 @@ successful trials `y_i`.
   `0.660 − 2.3124 · 0.3897 / √50 = 0.533` and the upper limit is
   `0.667 + 2.3124 · 0.3927 / √50 = 0.795`.
 
+The reported point estimate `0.6667` is the valid-only mean, `(24 + 1 + 9·2/3 + 7·1/3) / 50`, which excludes the unresolved cell (that case contributes `2/2 = 1`) and therefore sits at the success endpoint; the two endpoints above bracket it and the interval is built on the endpoints.
+
 The lower limit 0.533 exceeds 0.50, so `claim-1` is **supported**.
 
 ### Agent minus non-agent control (`claim-2`)
