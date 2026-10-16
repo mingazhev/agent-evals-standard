@@ -219,7 +219,7 @@
           "cellId": "cell-fixture-1",
           "success": true,
           "evidenceIds": [
-            "outcome-replay-receipt"
+            "outcome-replay-record"
           ]
         }
       ],
@@ -509,7 +509,7 @@
                 "status": "pass",
                 "evidenceIds": [
                   "workspace-diff-evidence",
-                  "outcome-replay-receipt"
+                  "outcome-replay-record"
                 ]
               }
             ],
@@ -536,7 +536,7 @@
               "governance-evidence",
               "transcript-evidence",
               "interaction-evidence",
-              "outcome-replay-receipt",
+              "outcome-replay-record",
               "assurance-report-evidence",
               "grader-assessment-evidence",
               "adjudication-evidence"
@@ -547,7 +547,7 @@
                 "version": "0.1.0",
                 "digest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
               },
-              "receiptEvidenceId": "outcome-replay-receipt",
+              "receiptEvidenceId": "outcome-replay-record",
               "materialArtifacts": [
                 {
                   "workArtifactType": "code_change",
@@ -791,7 +791,7 @@
       "creationPhase": "execution",
       "createdAt": "2026-08-01T01:00:10Z",
       "schemaMetadata": {
-        "schemaId": "agent-eval-repo-change-runner-check-record-1",
+        "schemaId": "repo-change-runner-check-record-1",
         "schemaVersion": "0.1.0",
         "validatorDigest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
       },
@@ -1016,7 +1016,7 @@
       "creationPhase": "execution",
       "createdAt": "2026-08-01T01:00:09Z",
       "schemaMetadata": {
-        "schemaId": "agent-eval-repo-change-assurance-report-1",
+        "schemaId": "repo-change-assurance-report-1",
         "schemaVersion": "0.1.0",
         "validatorDigest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
       },
@@ -1065,7 +1065,7 @@
       "creationPhase": "grading",
       "createdAt": "2026-08-01T01:00:17Z",
       "schemaMetadata": {
-        "schemaId": "agent-eval-repo-change-grader-assessment-1",
+        "schemaId": "repo-change-grader-assessment-1",
         "schemaVersion": "0.1.0",
         "validatorDigest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
       },
@@ -1114,7 +1114,7 @@
       "creationPhase": "grading",
       "createdAt": "2026-08-01T01:00:17Z",
       "schemaMetadata": {
-        "schemaId": "agent-eval-repo-change-adjudication-record-1",
+        "schemaId": "repo-change-adjudication-record-1",
         "schemaVersion": "0.1.0",
         "validatorDigest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
       },
@@ -1150,7 +1150,7 @@
       "artifactType": "repo-change-v1:adjudication_record"
     },
     {
-      "id": "outcome-replay-receipt",
+      "id": "outcome-replay-record",
       "uri": "artifact:sha256:9187d2966c8ff16076d87956cec552a66192cd86cc2c31c3fb077398ffb0b2e9",
       "mediaType": "application/json",
       "digest": "sha256:9187d2966c8ff16076d87956cec552a66192cd86cc2c31c3fb077398ffb0b2e9",
@@ -1163,7 +1163,7 @@
       "creationPhase": "grading",
       "createdAt": "2026-08-01T01:00:18Z",
       "schemaMetadata": {
-        "schemaId": "agent-eval-outcome-replay-receipt-1",
+        "schemaId": "outcome-replay-record-1",
         "schemaVersion": "0.1.0",
         "validatorDigest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
       },
@@ -1194,7 +1194,7 @@
       },
       "payload": {
         "kind": "repository_relative",
-        "path": "outcome-replay-receipt.json"
+        "path": "outcome-replay-record.json"
       },
       "artifactType": "repo-change-v1:outcome_replay_receipt"
     }

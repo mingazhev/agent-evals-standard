@@ -182,7 +182,7 @@
         "outcomeReplayRegistry": {
           "id": "agent-evals-standard-outcome-replay-executors",
           "version": "0.1.0",
-          "uri": "standard/outcome-replay-executor-registry.json",
+          "uri": "standard/outcome-replay-executors.json",
           "digest": "sha256:d60687b5222a6b8b5d32682709ca58770082462945905ca34380ae032787c9e8"
         }
       },

@@ -143,18 +143,6 @@
       "digest": "sha256:59dbe775c0d1f24900fe65d37175fbbd439edcae3354657baa5554fd66ab55c4"
     },
     {
-      "id": "urn:agent-evals-standard:schema:outcome-replay-executor-registry:1",
-      "version": "0.1.0",
-      "uri": "schemas/outcome-replay-executor-registry.schema.json",
-      "digest": "sha256:d515bad1323c01262f8e0531350bbbae5f74ab7c3571c537f50d0c5c8591f230"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:outcome-replay-receipt:1",
-      "version": "0.1.0",
-      "uri": "schemas/outcome-replay-receipt.schema.json",
-      "digest": "sha256:5040fceeda3f0ebdbd6ed7fecccd80b74454ef674cfc3d6228eecefba1836868"
-    },
-    {
       "id": "urn:agent-evals-standard:schema:pre-run-manifest:1",
       "version": "0.1.0",
       "uri": "schemas/pre-run-manifest.schema.json",
@@ -171,60 +159,6 @@
       "version": "0.1.0",
       "uri": "schemas/profile-resolution-record.schema.json",
       "digest": "sha256:146114197b502e1b9d7ed65fd95ffd5af255413d7787d7ebcddd417431cf2e8b"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:repo-change-adjudication-record:1",
-      "version": "0.1.0",
-      "uri": "schemas/repo-change-adjudication-record.schema.json",
-      "digest": "sha256:9bc1308ae8ca6667d9eb91dca1ff5ce3544fe60245bea686c084e038f8fe3f1f"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:repo-change-alternative-terminal-record:1",
-      "version": "0.1.0",
-      "uri": "schemas/repo-change-alternative-terminal-record.schema.json",
-      "digest": "sha256:f1137f86eacfa0773dc7b626b53b876df225e975a398e0af3411709ea513a3d2"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:repo-change-assurance-report:1",
-      "version": "0.1.0",
-      "uri": "schemas/repo-change-assurance-report.schema.json",
-      "digest": "sha256:a4d088206f902c8941a8b1acf6983baae22c0b0e92daed0cef4640c376c7efc5"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:repo-change-case-contract:1",
-      "version": "0.1.0",
-      "uri": "schemas/repo-change-case-contract.schema.json",
-      "digest": "sha256:aee77c4431462f18d687358df16af45dc9a6c8fe8dbe8854328f538d938aac66"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:repo-change-failure-taxonomy:1",
-      "version": "0.1.0",
-      "uri": "schemas/repo-change-failure-taxonomy.schema.json",
-      "digest": "sha256:ca30478abfdc3909ba1ad944ea3554d68f9f941114aa5c6cc7931221c50b77ec"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:repo-change-gate-registry:1",
-      "version": "0.1.0",
-      "uri": "schemas/repo-change-gate-registry.schema.json",
-      "digest": "sha256:9e46170b4b2159f93b445387c3722b9f334d3031e989fe35647486caf2d9459d"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:repo-change-grader-assessment:1",
-      "version": "0.1.0",
-      "uri": "schemas/repo-change-grader-assessment.schema.json",
-      "digest": "sha256:34ffb35a9ad14bb54f96c871d8a08a2e235b038e2340cca8e14661978008a9b5"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:repo-change-measurement-validity-record:1",
-      "version": "0.1.0",
-      "uri": "schemas/repo-change-measurement-validity-record.schema.json",
-      "digest": "sha256:519f8d40e0d7eef25ea47b31e9a622b764d38fe2301135c1e9cfeec8c765813e"
-    },
-    {
-      "id": "urn:agent-evals-standard:schema:repo-change-runner-check-record:1",
-      "version": "0.1.0",
-      "uri": "schemas/repo-change-runner-check-record.schema.json",
-      "digest": "sha256:20769ecad221b990153be262bff6e8fa01eaa3d1e826a1e782e77383101ab6bb"
     },
     {
       "id": "urn:agent-evals-standard:schema:requirement-registry:1",
