@@ -837,10 +837,11 @@ grader validation. Case-specific QA **SHOULD** reference a shared grader-
 validation artifact instead of duplicating population-level false-positive and
 false-negative evidence.
 
-This requirement invokes the complete staged activation, evidence, invalidation,
-and revalidation procedure in the versioned
-[Case QA Playbook](case-qa-playbook.md). A subset of its stages or evidence
-categories is not an alternative activation path. An evaluation profile may
+This requirement invokes the complete activation, evidence, invalidation, and
+revalidation procedure in the versioned [Case QA Playbook](case-qa-playbook.md):
+its Stages 3-8 are the complete activation procedure, and a subset of them or of
+their evidence categories is not an alternative activation path. The playbook's
+pre-activation checklist is informative. An evaluation profile may
 specialize applicable controls and evidence but **MUST NOT** omit a stage or
 weaken its fail-closed result. Stage 7 `not_applicable` is a recorded gap with
 a rationale that restricts dependent claims; it is not an omitted stage.

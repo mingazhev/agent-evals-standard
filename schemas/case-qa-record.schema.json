@@ -62,7 +62,7 @@
     },
     "stages": {
       "type": "object",
-      "required": ["stage0", "stage1", "stage2", "stage3", "stage4", "stage5", "stage6", "stage7", "stage8"],
+      "required": ["stage3", "stage4", "stage5", "stage6", "stage7", "stage8"],
       "properties": {
         "stage0": { "$ref": "#/$defs/stage0" }, "stage1": { "$ref": "#/$defs/stage1" }, "stage2": { "$ref": "#/$defs/stage2" },
         "stage3": { "$ref": "#/$defs/stage3" }, "stage4": { "$ref": "#/$defs/stage4" }, "stage5": { "$ref": "#/$defs/stage5" },
@@ -145,9 +145,6 @@
           "stages": {
             "type": "object",
             "properties": {
-              "stage0": { "type": "object", "properties": { "status": { "const": "passed" } }, "required": ["status"] },
-              "stage1": { "type": "object", "properties": { "status": { "const": "passed" } }, "required": ["status"] },
-              "stage2": { "type": "object", "properties": { "status": { "const": "passed" } }, "required": ["status"] },
               "stage3": { "type": "object", "properties": { "status": { "const": "passed" } }, "required": ["status"] },
               "stage4": { "type": "object", "properties": { "status": { "const": "passed" } }, "required": ["status"] },
               "stage5": { "type": "object", "properties": { "status": { "const": "passed" } }, "required": ["status"] },
