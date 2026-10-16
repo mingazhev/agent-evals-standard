@@ -13,8 +13,9 @@ If you have not yet made a claim under this standard, start at
 
 1. **Author cases** (`case-1`): task, repository commit, the four scope
    tests, deterministic checks, hard gates, and oracle isolation.
-2. **Validate cases** (`case-qa-1`): a known-good result passes, a no-op and a
-   plausible wrong result fail, stably; a second person confirms inferability
+2. **Validate cases** (`case-qa-1`): a known-good result passes; a no-op, a
+   plausible wrong result, and (where the case has tests) disabled-tests and
+   hard-coded-output results fail, stably; a second person confirms inferability
    and scope before any result exists.
 3. **Seal the run** (`run-manifest-1`): arms including a no-action baseline
    and a non-agent control, trials per case, replacement policy, claims with

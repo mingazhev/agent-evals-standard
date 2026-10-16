@@ -27,6 +27,7 @@
   "knownBad": [
     {
       "id": "no-op",
+      "kind": "no_op",
       "description": "Unchanged base snapshot.",
       "result": "fail",
       "evidence": {
@@ -37,6 +38,7 @@
     },
     {
       "id": "round-float",
+      "kind": "plausible_wrong",
       "description": "Plausible wrong fix: round(amount, 2) on floats; fails 37 of 1,000 generated amounts.",
       "result": "fail",
       "evidence": {
@@ -44,8 +46,38 @@
         "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
         "digest": "sha256:08708186aa59b852226e572165e72dad5cf4d7ce76da211c677989abaed88431"
       }
+    },
+    {
+      "id": "hidden-test-deleted",
+      "kind": "disabled_or_weakened_tests",
+      "description": "Hidden regression test deleted from the workspace; the hard gate on the required test fails.",
+      "result": "fail",
+      "evidence": {
+        "path": "qa/ls-017/hidden-test-deleted.log",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:5ba0203b8ae6f7553a0106847e8811978fe7a7510cb2545c8dd4e201114e77cb"
+      }
+    },
+    {
+      "id": "table-lookup",
+      "kind": "hardcoded_outputs",
+      "description": "Fix that returns the expected values for the 1,000 generated amounts by table lookup; fails on fresh amounts.",
+      "result": "fail",
+      "evidence": {
+        "path": "qa/ls-017/table-lookup.log",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:ab0ed854f682fd7e6a973a8d4ee32c0f0fe199fcfbb810e7924596fe70ad89a9"
+      }
     }
   ],
+  "trivialStrategies": {
+    "disabledOrWeakenedTests": {
+      "applicable": true
+    },
+    "hardcodedOutputs": {
+      "applicable": true
+    }
+  },
   "stability": {
     "runsPerControl": 5,
     "allControlsStable": true

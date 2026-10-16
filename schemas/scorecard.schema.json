@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:agent-evals-standard:schema:scorecard:1",
   "title": "Scorecard",
-  "$comment": "Obligations C5, C9, C10, and C11. Hard-gate results, primary outcomes, claim status, and decision verdict are separate fields. Semantic checks: every count, per-case row, point estimate, bound, and interval is reproducible from the attempt ledger and run manifest under stat-defaults-v1 and the sealed overrides.",
+  "$comment": "Requirements I1, GATE-001, OUT-001, CLAIM-001, CLAIM-002, I6, STAT-001, STAT-002, STAT-003. Hard-gate results, primary outcomes, claim status, and decision verdict are separate fields. Semantic checks: every count, per-case row, point estimate, bound, and interval is reproducible from the attempt ledger and run manifest under stat-defaults-v1 and the sealed overrides.",
   "type": "object",
   "required": [
     "schemaVersion",

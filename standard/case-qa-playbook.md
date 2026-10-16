@@ -371,8 +371,11 @@ The A1 record carries exactly these fields, in addition to `id`, `version`,
 `case`, `author`, and `reviewer`:
 
 - `knownGood` — a known-good result that passes, with evidence;
-- `knownBad` — at least two known-bad results that fail, including a `no-op`
-  result, each with evidence;
+- `knownBad` — known-bad results that fail, each with a `kind` and evidence,
+  including one `no_op` and one `plausible_wrong`, plus `disabled_or_weakened_tests`
+  and `hardcoded_outputs` results where the case has tests or hidden checks;
+- `trivialStrategies` (optional) — whether each of those two strategies applies,
+  with a rationale where it does not;
 - `stability` — at least three runs per control, all stable;
 - `inferabilityReview` — the verdict (`all_required_behavior_inferable` or
   `defects_found`), findings, and the commit at which it was recorded;
