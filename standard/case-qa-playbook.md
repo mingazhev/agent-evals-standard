@@ -22,9 +22,7 @@ A case proceeds through the stages in order. A failed stage returns the case to
 
 ```mermaid
 flowchart TD
-  s0[Stage 0: Author Self-Check] --> s1[Stage 1: Automated Case Lint]
-  s1 --> s2[Stage 2: Semantic Review]
-  s2 --> s3[Stage 3: Independent QA Run]
+  s3[Stage 3: Independent QA Run]
   s3 --> s4[Stage 4: Control Proofs]
   s4 --> s5[Stage 5: Trivial-Strategy Battery]
   s5 --> s6[Stage 6: Adversarial Exploit Pass]
@@ -32,10 +30,7 @@ flowchart TD
   s7 --> s8[Stage 8: Pilot Runs and Stability]
   s8 --> active[Activation record / active]
 
-  s0 -.->|fail| cand[Return to candidate]
-  s1 -.->|fail| cand
-  s2 -.->|fail| cand
-  s3 -.->|fail| cand
+  s3 -.->|fail| cand[Return to candidate]
   s4 -.->|fail| cand
   s5 -.->|fail| cand
   s6 -.->|fail| cand
@@ -59,11 +54,10 @@ kind never waives a check. A stage that invokes a deterministic recomputation or
 an independent human label still requires that evidence regardless of which
 implementation coordinates the stage.
 
-The capability IDs are closed and stage-specific: `case_author_self_check`,
-`case_contract_lint`, `case_semantic_review`, `independent_case_execution`,
+The capability IDs are closed and stage-specific: `independent_case_execution`,
 `verdict_control_verification`, `trivial_strategy_testing`,
 `adversarial_measurement_review`, `alternative_valid_result_validation`, and
-`pilot_stability_validation` for Stages 0 through 8 respectively. A record with
+`pilot_stability_validation` for Stages 3 through 8 respectively. A record with
 the wrong capability at a stage is invalid even if its free-form evidence looks
 plausible.
 
@@ -81,163 +75,32 @@ does not establish independence.
 Missing, duplicate, unresolved, or unauthenticated independence evidence fails
 closed.
 
-### Stage 0 — Author Self-Check
+### Before activation (informative)
 
-The author confirms that the case contract includes a content-addressed
-workspace manifest with one selected state binding per repository (`baseTree`
-for `tree_snapshot`, or `baseRevision` and the declared history projection for
-a commit-based mode), task
-description, full agent-visible projection manifest, profile, setup and
-validation strategy, scoring rules, risk tier, ambiguity label, tags, owner,
-review date, leakage-control declaration, and contamination metadata. Each
-protected oracle domain selects a runner-only canary only when it can be
-embedded safely; otherwise it selects authenticated access telemetry or a
-semantically matched decoy. The strategy covers
-public checks, hidden checks, security checks, and control proofs exactly once.
-Each class is either `checked` with a nonempty check set or `not_applicable` with
-an authenticated applicability rule and evidence; an unknown result is invalid.
-The author also inventories every material decision surface, registers the
-closed claim IDs it is permitted to support in `claimRegistry`, binds the
-authenticated work-artifact registry, selects exactly one supported
-`interactionModeId`, and, when that mode requires interaction, pins the typed
-actor protocol and simulator components.
+This checklist is guidance for authors and reviewers; it is not an activation
+stage, and the activation record does not require it. Stages 3-8 are the
+complete activation procedure.
 
-The projection manifest **MUST** enumerate every file, history view, visible
-test, document, tool response, policy, network source, and generated context
-available to the evaluated agent, with its digest or deterministic capture
-rule. It **MUST** classify hidden checks, reference results, canaries, grader
-prompts, QA findings, and adjudication data as runner-only.
-
-When the selected outcome profile uses replay-time path classification, Stage 0
-**MUST** record `classificationPolicyApplicability`. It binds the exact outcome
-profile, classification-policy contract, replay executor, applicability rule,
-repository-convention manifest digest, and complete activation-time material-
-path-frame digest.
-The classified-path count **MUST** equal the material-path count, with zero
-unknown paths and zero classification collisions, before the result may be
-`applicable`. An unknown convention, ambiguous or colliding class, uncovered
-material path, unresolved evidence, or mismatched policy/executor is
-`insufficient_evidence` and makes Stage 0 fail. `not_applicable` requires an
-authenticated rule proving that the selected outcome profile performs no such
-classification; a claimant assertion is insufficient.
-
-For an applicable replay policy, the validator **MUST** resolve the outcome
-profile, semantic contract, executor, and applicability-rule pointers from the
-outcome-replay registry pinned by the evaluator manifest and compare every ID, version,
-URI, and digest exactly. The applicability and coverage evidence **MUST** use
-the typed `case-qa-classification-applicability-evidence-1` payload. That payload
-binds the case and activation-input digest, the exact registry graph, the
-repository-convention manifest from the sealed activation input, the complete
-activation-time material-path frame, and one convention-supported
-classification per path. Every material path is carried as the raw, safe Git
-path plus its repository ID and exact UTF-8-byte digest. Every convention
-carries its selector definition in the closed selector language, not only an
-opaque selector hash. The validator resolves the frame independently from the
-sealed activation input, compares it exactly, recomputes the selector, manifest,
-and path-set digests, executes every selector, executes the exact classifier
-whose source digest is registered for the outcome profile, and requires the
-claimed matched conventions and class to equal that derived result. A generic
-blob, self-declared count, self-consistent selector/class relabeling,
-matching ID with a substituted digest, or evidence for a different case is
-insufficient.
-
-The trusted frame resolver **MUST NOT** obtain selectors or paths from the Stage
-0 evidence it is validating. It resolves paths from the sealed activation-input
-closure and authenticates selector definitions under the repository owner or a
-pre-authorized measurement-governance authority. Authorization is fixed outside
-the case author's and Case QA evidence producer's control; an assertion by
-either actor does not make substituted selectors trusted.
-
-Stage 0 occurs before evaluation trials exist. Therefore this frame is the
-complete set of material paths available for activation-time applicability
-checking and is included in the sealed activation-input manifest identified by
-`case.activationInputDigest`; it is not evidence about a future trial's actual
-workspace diff. At replay, the trusted executor **MUST** independently parse the
-authenticated workspace-diff bytes, derive the actual changed-path set, and run
-the same registered classifier on every actual path. A Stage 0 frame or verdict
-**MUST NOT** substitute for that trial-time check.
-
-### Stage 1 — Automated Case Lint
-
-A deterministic linter verifies at least the following:
-
-- the workspace manifest's canonical digest matches its content-addressed
-  locator; repository IDs and paths are unique; and the named repository-state
-  verifier passes the selected mode for every root. A `tree_snapshot` has a
-  `baseTree`, no commit base, and no refs or commit objects. A
-  `bounded_ancestry` or `full_ancestry` projection has a `baseRevision` equal to
-  its own `cutoffRevision`, exact permitted refs and object closure, and, for
-  bounded ancestry, the declared parent-depth boundary. The snapshot is
-  reproducible. The environment contract has an explicit closed input origin;
-- oracle and hidden artifacts are absent from the agent-visible tree, checkout,
-  Git objects and refs, caches, indexes, build layers, environment variables,
-  tool responses, logs, retrieval stores, network mounts, provider state, and
-  inherited sessions;
-- hidden-oracle ticket or merge-request identifiers, solution-lineage
-  identifiers, and solution commit messages do not appear in the agent
-  context. A task or pull-request identifier explicitly declared in the
-  agent-visible projection remains permitted;
-- the agent checkout contains no future or solution commits and no refs,
-  branches, or remotes outside the selected repository-state projection.
-  `tree_snapshot` exposes none; a commit-based mode exposes only its sealed
-  local base branch ref;
-- every oracle domain uses at least one validated leakage control: a runner-only
-  canary when it can be embedded without changing semantics or signed/byte-exact
-  content, otherwise authenticated access telemetry or a semantically matched
-  decoy; the linter verifies that control values and reversible encodings do not
-  enter a visible projection, prompt, manifest, log, or report;
-- every required case-contract field is present and schema-valid; the case,
-  effective evaluation profile, and outcome profile bind one registry; every
-  material work-artifact type maps to its declared family; and every selected
-  family has at least one material mapped type;
-- every validation class has one authenticated applicability determination; the
-  linter executes its rule over the bound evidence, requires `checked` exactly
-  when applicable and `not_applicable` exactly when inapplicable, and rejects an
-  unknown result or an author-edited projection;
-- decision-surface IDs and actor IDs are unique; every check reference resolves;
-  an interactive protocol has exactly one evaluated agent; and the sealed
-  clarification policy references that protocol.
-- an activated Case QA record resolves every decision-surface ID through its
-  pinned case hash and preserves the sealed coverage mode and, for a declared
-  gap, the exact typed claim restriction; no post-hoc `not_applicable` or
-  `declared_gap` reclassification is permitted.
-
-### Stage 2 — Semantic Review
-
-The accountable reviewer exercising the `case_semantic_review` capability
-checks the complete sealed agent-visible projection and every applicable
-verdict mechanism for underspecification. Hidden checks are
-one possible mechanism, not a universal requirement. When their applicability
-rule returns `not_applicable`, the reviewer verifies that authenticated result;
-a self-declared empty array is not sufficient. Every requirement enforced by a
-deterministic check or adjudication rubric **MUST** be inferable from that
-projection: task text, pinned repository state, visible tests and documentation,
-applicable policy, and deterministic tool or environment behavior. The
-requirement **MUST NOT** depend only on the reference result, hidden grader
-rationale, author intent, or post-run knowledge.
-
-For each enforced requirement, the reviewer records a trace from the check ID
-to the exact projection artifact, digest, and location that establishes it, plus
-the permitted outcome invariant. Missing or conflicting trace evidence is an
-`underspecified` defect. As a sufficiency heuristic, two independent domain
-experts given the same sealed projection **SHOULD** agree on the verdict for the
-same candidate result.
-
-Two independent annotators confirm the ambiguity label. Disagreement is
-escalated to the owner and resolved before activation.
-This two-person floor is a fail-closed defense against a single-rater failure,
-not an empirically universal optimum. The sealed reliability target, effective
-risk, and observed agreement **MAY** require more reviewers and **MUST NOT**
-justify fewer for decision-bearing expert evidence.
-For an `ambiguous` case, the activation evidence lists the defensible
-resolutions and proves that each one is accepted by the evidence mode selected
-by the bound outcome profile. A case that requires an unavailable interactive
-requester remains `candidate`; reviewer intuition is not a substitute for that
-protocol.
-The review challenges every `covered_by_final_state` assertion. A material
-`declared_gap` records its typed claim restriction and prevents the activation
-evidence from supporting every affected claim; indeterminate applicability fails closed as
-`insufficient_evidence`.
+- Case contract complete: workspace manifest with one state binding per
+  repository, task, agent-visible projection manifest, profile, validation
+  strategy, scoring, risk tier, ambiguity label, owner, review date, and
+  contamination metadata.
+- Each validation class (public, hidden, security, control) is `checked` with a
+  nonempty check set or `not_applicable` with an authenticated rule.
+- Decision surfaces, claim IDs, work-artifact registry, interaction mode, and
+  actor protocol are declared, unique, and resolvable.
+- Oracle and hidden artifacts, solution lineage, and future commits are absent
+  from every agent-visible surface; each oracle domain has a leakage control.
+- Replay-time path classification, when used, has activation-time applicability
+  evidence from the sealed material-path frame; this never replaces
+  trial-time classification at replay.
+- Each enforced requirement traces to an exact projection artifact, digest, and
+  location; none depends only on the reference result, hidden rationale, or
+  author intent.
+- Two independent annotators confirm the ambiguity label; an `ambiguous` case
+  lists its defensible resolutions.
+- `covered_by_final_state` assertions are challenged; a material `declared_gap`
+  records its typed claim restriction.
 
 ### Stage 3 — Independent QA Run
 
@@ -529,7 +392,7 @@ alone does not prove coverage. The record includes:
 - the base standard, case, environment, scorecard-contract, risk-policy,
   profile, and grader versions under which the evidence was
   collected;
-- for each Stage 0–8: status, exact capability ID, implementation kind,
+- for each Stage 3–8: status, exact capability ID, implementation kind,
   reviewer actor ID, role, trust domain, timestamp,
   evidence-artifact path and hash, and findings; plus the exact sealed
   independence baseline and claim for Stages 3, 6, and 7;
