@@ -239,7 +239,7 @@ combining the changes under the label `profile`.
 
 ### Evaluation-Profile Resolution
 
-`PROFILE-001` — Each non-A0 case **MUST** pin exactly one evaluation profile
+`PROFILE-001` — Each case scheduled at A2 or above **MUST** pin exactly one evaluation profile
 and one compatible outcome profile by ID, version, and digest. At A2 and above,
 the run manifest binds one `evaluationProfile`, and every scheduled case's
 evaluation-profile binding **MUST** equal it. A cell inherits the case binding
@@ -266,8 +266,8 @@ Interaction-mode scope is also closed in version 0.1.0:
 `noninteractive_repository_task`, `interactive_repository_session`,
 `pull_request_workflow`, and `ci_or_release_workflow`. An evaluation profile
 publishes the complete modes it supports. A case selects exactly one of those
-IDs as `interactionModeId`; a cell inherits that exact ID. A conformance scope
-slice may aggregate a nonempty subset. The aliases `interactive` and
+IDs as `interactionModeId`; a cell inherits that exact ID. The run manifest's
+coverage may aggregate a nonempty subset. The aliases `interactive` and
 `non_interactive` are not valid interaction-mode IDs.
 
 | Stable ID | Capability family | Representative work products |
@@ -450,8 +450,10 @@ component **MUST** have immutable provenance.
 
 ### I5. Attribution and complete attempt accounting
 
-`RUN-002` — Every scheduled and started attempt, including invalid,
-interrupted, missing-capture, and replacement attempts, **MUST** appear in the
+`RUN-002` — Every scheduled and started attempt, including invalid
+(`invalid_infrastructure` for setup or infrastructure failures,
+`invalid_capture` for interrupted or uncaptured attempts) and replacement
+attempts, **MUST** appear in the
 runner-owned append-only ledger. A replacement **MUST** link to its original and
 **MUST NOT** create a new statistical observation. Measurement failures
 **MUST NOT** be classified as agent failures or silently removed.
@@ -562,8 +564,8 @@ An experiment may be valid at `capability_claim` assurance and still be
 ineligible for a later positive governance use. Before an `approve` verdict or
 a positive governance-evidence claim, the validator **MUST** re-evaluate every
 supporting scorecard against the consuming decision class. A conclusive harmful
-event may support rejection under I6 at the otherwise applicable capability
-floor; absent such a sealed rejection rule, lower-assurance evidence yields
+event in A2 or higher evidence may support rejection under I6 at the otherwise
+applicable capability floor; A1 evidence is excluded from this exception; absent such a sealed rejection rule, lower-assurance evidence yields
 `insufficient_evidence`, never approval or a positive governance claim.
 
 The following base floors are non-weakenable. An operational policy **MAY**
@@ -636,12 +638,16 @@ At A2 and above, a case **MUST** bind a `case_inherent_hazard` assessment and re
 tier as `inherentRiskTier`. At A2 and above, before execution, the run manifest **MUST** bind
 (`riskAssessment`) a separate assessment covering the exact scheduled cases, arms, permissions,
 tools, environment, and exposure, and reproduce its exact `effectiveRiskTier`.
-At A1 the run manifest's `effectiveRisk` records a `low` or `medium` tier with
-its rationale. A claims-eligible A2 or A3 run uses `experiment_decision_envelope` and also binds the
+The run manifest's `effectiveRisk` records a `tier` (`low`, `medium`, `high`, or
+`critical`) with its rationale; at A1 the schema restricts it to `low` or
+`medium`, A2 allows `low` or `medium`, and `high` or `critical` require A3. The
+case's effective risk is the inherent-hazard classification; at A2 and above the
+`riskAssessment` ref carries the `risk-assessment-1` record whose
+`effectiveRiskTier` equals the manifest's `effectiveRisk.tier`. A claims-eligible A2 or A3 run uses `experiment_decision_envelope` and also binds the
 intended decision; an A0 diagnostic with no decision plan uses
-`experiment_envelope`. The sealed scorecard and every
-governance decision supported by it **MUST** reproduce that same authenticated
-assessment identity and exact tier. A changed factor, scope, policy, identity,
+`experiment_envelope`. The scorecard inherits risk identity through its `runManifest` ref and carries no
+risk fields; every governance decision supported by it **MUST** reproduce that
+same authenticated assessment identity and exact tier. A changed factor, scope, policy, identity,
 or tier requires a new assessment and a newly sealed experiment; it cannot be
 patched into a completed scorecard or decision.
 
@@ -742,9 +748,10 @@ registered digest; it does not silently change this base requirement.
 version, and digest allowed by its evaluation profile. An outcome
 profile specializes result shape; it **MUST NOT** expand capability scope,
 effective-risk range, assurance eligibility, or base requirements. The case,
-evaluation profile, selected outcome profile, and conformance scope
-slice **MUST** bind the same authenticated work-artifact registry. Every case,
-cell, or conformance scope-slice work-artifact type **MUST** be supported by at
+evaluation profile, selected outcome profile, and the run manifest's coverage
+(with the case's `evaluationProfile` and `outcomeProfile` refs) **MUST** bind the
+same authenticated work-artifact registry. Every case or
+coverage work-artifact type **MUST** be supported by at
 least one authenticated selected outcome profile and map to a selected
 capability family; every selected capability family **MUST** have at least one
 material mapped type. A case's exact `interactionModeId` **MUST** be in the
@@ -828,6 +835,13 @@ case without an inventory supports only claims about the terminal artifact.
 establish, for each case, a known-good result that passes, a no-op result and at
 least one plausible wrong result that fail, stability over repeated runs, and an
 inferability and scope review by a person independent of the case author.
+
+The record binds the case at its candidate commit, meaning the case document
+without `lifecycle`. The active case is that document plus `lifecycle`, and no
+other field may differ, so `case.lifecycle.qaRecord` → QA record → candidate case
+is acyclic. The record's `decision` is `active`, `rejected`, or `quarantined`; a
+quarantined record carries an `invalidation` with a reason and nonempty evidence,
+and the case's `lifecycle.quarantineRecord` references it.
 
 At A2 and above activation **MUST** additionally establish solvability or
 adjudicability, requirement traceability, alternative-outcome acceptance, gate
@@ -1154,9 +1168,9 @@ valid. Repeated-trial designs **MUST** declare case, arm, cell, physical attempt
 selected trial, and claim-analysis units; state reset and dependence assumptions;
 seeds or randomization; and the estimator's target.
 
-`STAT-002` — Invalid and not-assessable attempts **MUST** remain in accounting.
-Every claim **MUST** report scheduled, resolved, valid, invalid, interrupted,
-missing-capture, and replacement counts by arm and case. Binary success claims
+`STAT-002` — Invalid attempts **MUST** remain in accounting. Every claim
+**MUST** report scheduled, resolved, valid, invalid, and replacement counts by
+arm and case. Binary success claims
 **MUST** report identification bounds that assign unresolved cells both failure
 and success unless a stronger missingness model was sealed and validated.
 Comparative claims **MUST** propagate arm-specific bounds and differential
@@ -1167,7 +1181,10 @@ paired arms, case-aware uncertainty for repeated trials, and multiplicity or
 hierarchical treatment for multiple claims and slices. The run manifest's statistics and claims **MUST** declare
 effect size, interval method, minimum information or power rule, weighting,
 stopping, exclusions, and handling of ambiguous, quarantined, and saturated
-cases. Unsupported assumptions yield `insufficient_evidence`.
+cases. A claim's decision rule consumes the reported interval limit (the lower
+limit at the failure endpoint for an at-least claim, the upper limit at the
+success endpoint for an at-most claim). Unsupported assumptions yield
+`insufficient_evidence`.
 
 ### Base statistical defaults
 

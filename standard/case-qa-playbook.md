@@ -360,8 +360,11 @@ legal-hold handling, and the effect of evidence expiry on active claims.
 
 Activation is recorded in a Case QA record (`case-qa-1`,
 `schemaVersion: agent-eval-case-qa-1`), stored beside the case. The record
-binds the case by its `case` reference `{path, commit, digest}`; there is no
-separate activation manifest. The normative machine-readable form is
+binds the case by its `case` reference `{path, commit, digest}` at the case's
+candidate commit, meaning the case document without `lifecycle`; there is no
+separate activation manifest. The active case is that document plus `lifecycle`,
+and no other field may differ, so `case.lifecycle.qaRecord` → QA record →
+candidate case is acyclic. The normative machine-readable form is
 [`schemas/case-qa.schema.json`](../schemas/case-qa.schema.json).
 
 The A1 record carries exactly these fields, in addition to `id`, `version`,
@@ -375,7 +378,8 @@ The A1 record carries exactly these fields, in addition to `id`, `version`,
   `defects_found`), findings, and the commit at which it was recorded;
 - `scopeReview` — the verdict (`all_four_tests_hold` or `out_of_scope`) and
   the commit at which it was recorded;
-- `decision` — `active` or `rejected`.
+- `decision` — `active`, `rejected`, or `quarantined`; a `quarantined` record
+  also carries `invalidation` with a `reason` and a nonempty `evidence` list.
 
 At A2 and above the record **MUST** additionally carry:
 
@@ -418,8 +422,9 @@ Invalidate the QA record and repeat the applicable stages when:
   regression membership.
 
 Record the invalidation and move the case from `active` to `quarantined` in one
-atomic state transition, binding the transition record in
-`case.lifecycle.quarantineRecord`. That record has `decision.status: quarantined`.
+atomic state transition, binding the record in
+`case.lifecycle.quarantineRecord`. That record has `decision: quarantined` and an
+`invalidation` with the reason and nonempty evidence.
 A case with a failed re-QA returns to `candidate`. A case with a new valid QA
 record returns to `active`; a suite-health report does not replace this
 enforcement.

@@ -82,14 +82,18 @@ records, sealed run manifest, attempt ledger, and scorecard, described by the
 `conformance-statement-1` schemas in [`schemas/`](../schemas/). Every A1 claim
 has these fixed limits:
 
-- effective risk is `low` or `medium`, with a recorded rationale;
+- effective risk is `low` or `medium`, with a recorded rationale (`high` and
+  `critical` require A3, and A2 allows `low` or `medium` only);
 - the environment is a controlled fixture or simulation with no production
   action or production credential;
 - claims are capability claims only. A `release`, `autonomy`, or
   `risk_acceptance` decision **MUST NOT** cite A1 evidence; reaching a higher
   level requires a new run under the A2 or A3 requirements;
 - a claim of improvement over an incumbent workflow is permitted only when
-  that incumbent was measured as an arm.
+  that incumbent was measured as an arm;
+- evaluation and outcome profiles bind at A2 and above; at A1 every reference
+  is a `{path, commit, digest}` reference, and the A1 statement is validated by
+  independent review, not by an envelope.
 
 The thirteen obligations below are the A1 requirement set: the registry
 entries they name carry `minimumLevel` `A1`. Each applies the named
@@ -144,7 +148,7 @@ incomplete graph, but every reference it does declare **MUST** be type-correct,
 compatible, and non-duplicated; incompleteness can never support a conforming
 verdict.
 
-A decision claim's scorecard references **MUST** resolve as `scorecard-1` by
+A decision claim's scorecard references (`subject.scorecards`) **MUST** resolve as `scorecard-1` by
 path, commit, and digest and equal the scorecards named by the decision.
 Missing, extra, duplicate, nonconforming, expired, or scope-incompatible
 scorecards make the decision claim nonconforming. Copying only IDs or verdict
@@ -209,11 +213,12 @@ contain:
 - `assuranceLevel` (`A1`, `A2`, or `A3`) and `claim` (`experiment` or
   `decision`);
 - `subject`: for an experiment claim, `{runManifest, attemptLedger, scorecard}`;
-  for a decision claim, `{governanceDecision, scorecard}`; each is a
-  `{path, commit, digest}` reference;
+  for a decision claim, `{governanceDecision, scorecards}` where `scorecards`
+  is a nonempty list; each is a `{path, commit, digest}` reference;
 - `requirementResults` — the matrix defined under
   [Requirement Coverage](#requirement-coverage);
-- `restrictions` and `independentReview {reviewer, verdict, recordedAtCommit}`;
+- `restrictions` (`governanceUse`, `population`, `incumbentComparison`) and
+  `independentReview {reviewer, verdict, recordedAtCommit}`;
 - `verdict`: `conforming`, `nonconforming`, or `not_claimed`.
 
 The statement is integrity-bound by its digest and the commit that publishes it,
@@ -222,15 +227,21 @@ The statement pins the exact standard commit in `standard.commit`. The
 validator **MUST** resolve that commit and use the schema and contract files it
 contains; a file set differing from that commit fails closed.
 
-A detached `validation-envelope-1` is **REQUIRED** at A2 and A3 and optional at
-A1, where independent review suffices. The statement carries it as the optional
-`validationEnvelope` reference and **MUST NOT** embed its own semantic-
-validation result. A claim that requires an envelope consists of the statement
-plus a separate envelope, produced by a validator
+A detached `validation-envelope-1` is **REQUIRED** at A2 and A3 and not used at
+A1, where independent review suffices. The statement never references its
+envelope and **MUST NOT** embed its own semantic-validation result. The envelope
+is published alongside the statement and binds the statement digest; a verifier
+discovers it by the publication location (the same directory or a publication
+record), not by a field in the statement. A claim that requires an envelope
+consists of the statement plus a separate envelope, produced by a validator
 [independent](glossary.md#independence) of the claimant, whose subject digest
 equals the statement digest. A statement whose bytes do not match its
 published digest, or that lacks a required passing envelope, is an
 unauthenticated assertion, not conformance.
+
+`restrictions.governanceUse` is `prohibited` or `eligible`. At A1 it is
+`prohibited`; at A2 and A3 either value is allowed. A decision claim requires
+`eligible` on its own statement and on each supporting experiment statement.
 
 A statement makes one claim. Evidence about the other claim belongs in a
 separate statement. A general-agent, customer-support, office-automation,
