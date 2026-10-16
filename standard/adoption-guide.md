@@ -89,7 +89,7 @@ operational policy determines the assurance minimum even for capability
 claims.
 
 The bundled [Governance Policy](governance-policy.md) and
-[Escalation and Stop Matrix](escalation-stop-matrix.md) fix base assurance floors
+[Escalation and Stop Matrix](governance-policy.md#escalation-and-stop-matrix) fix base assurance floors
 and event semantics but leave adopter thresholds, owners, and SLAs unset.
 Prepare an authenticated adopter-owned policy instance
 ([`operational-governance-policy.schema.json`](../schemas/operational-governance-policy.schema.json))
@@ -103,7 +103,7 @@ and the [Authoring requirements](standard.md#authoring) in the core standard,
 then produce a `case.json` that satisfies
 [`schemas/case.schema.json`](../schemas/case.schema.json).
 
-A case binds exactly one effective [evaluation profile](../profiles/), one
+A case binds exactly one [evaluation profile](../profiles/), one
 outcome profile shared by all its cells, one or more capability families with mapped
 work-artifact types, the four `SCOPE-003` applicability tests with
 rationales, a Git workspace manifest, a claim registry, and a sealed risk
@@ -156,7 +156,7 @@ scorecard must show, in order: experiment identity, arms, and cells; validity,
 hard-gate and governance statuses; one trial result for each resolved cell;
 claims and claim results; metrics, cost, and provenance. Schema validation is
 necessary but not sufficient: the
-[Integrity and Semantic Validation Contract](integrity-and-semantic-validation.md)
+[Integrity and Semantic Validation Contract](evidence-and-validation-contract.md#integrity-and-semantic-validation-contract)
 recomputes hashes, formulas, ledger continuity, verdict implications, and
 outcome replay for claim-bearing cells.
 

@@ -31,12 +31,6 @@ The full levels (`A1`–`A3`, five conformance targets, governance) build on the
 same invariants. Read the [Adoption Guide](standard/adoption-guide.md), then use
 the [authority map](#normative-authority-map) to find each contract.
 
-The [source-evidence manifest](standard/source-evidence-manifest.json) records
-`evidenceReadiness: blocked`: removing the signature profile changed the
-`EVID-001` claim bound to RFC 8785, whose maintainer review receipt must be
-re-issued before readiness returns to `ready`. Neither status establishes
-empirical validity for an adopter's population.
-
 ## Scope and implementation coverage
 
 The bundled profile is narrower than the seven-family taxonomy. Its maturity
@@ -84,16 +78,15 @@ explicitly invokes it; it is not a second definition.
 | Primary requirements | [Scorecard Contract](standard/scorecard-contract.md) | Primary definitions of `GATE-001`, `OUT-001`, and `CLAIM-001`; scorecard projections invoked by the core statistical requirements. |
 | Primary requirements | [Evidence and Detached Validation](standard/evidence-and-validation-contract.md) | Primary definitions of `DATA-002`, `EVID-001`, and `EVID-002`. |
 | Primary requirements | [Conformance](standard/conformance.md) | Primary definitions of `CONF-001`, `CONF-002`, and `CONF-003`, including the Core level, authority, and contradiction handling. |
-| Invoked normative contract | [Evaluation-Profile Resolution](standard/profile-resolution-contract.md) | Complete inheritance, authentication, provenance, fixture-execution, and digest algorithm invoked by `PROFILE-001`. |
 | Invoked normative contract | [Case QA Playbook](standard/case-qa-playbook.md) | Complete activation and revalidation procedure invoked by `CASE-004`. |
-| Invoked normative contract | [Validity, threat, and held-out exposure contracts](standard/validity-threat-exposure-contracts.md) | Validity-argument, baseline, threat-model, and held-out budget and ledger contracts invoked by `VALID-002`, `VALID-003`, and `HOLD-002`. |
-| Invoked normative contract | [Integrity and Semantic Validation](standard/integrity-and-semantic-validation.md) | Named canonical, cross-document, ledger, and verdict reproduction algorithms invoked by primary requirements. |
+| Invoked normative contract | [Validity, threat, and held-out exposure contracts](standard/standard.md#validity-threat-and-held-out-exposure-contracts) | Validity-argument, baseline, threat-model, and held-out budget and ledger contracts invoked by `VALID-002`, `VALID-003`, and `HOLD-002`. |
+| Invoked normative contract | [Integrity and Semantic Validation](standard/evidence-and-validation-contract.md#integrity-and-semantic-validation-contract) | Named canonical, cross-document, ledger, and verdict reproduction algorithms invoked by primary requirements. |
 
 | Invoked normative contract | [Security Threat Model](standard/security-threat-model.md) | Threat-coverage rules invoked by `RISK-001`, `RUN-003`, `DATA-001`, and `DATA-002`. |
-| Invoked normative templates | [Governance Policy](standard/governance-policy.md) and [Escalation and Stop Matrix](standard/escalation-stop-matrix.md) | Required adopter-owned policy and response shapes invoked by governance requirements; the bundled instances remain non-operational. |
+| Invoked normative templates | [Governance Policy](standard/governance-policy.md) and [Escalation and Stop Matrix](standard/governance-policy.md#escalation-and-stop-matrix) | Required adopter-owned policy and response shapes invoked by governance requirements; the bundled instances remain non-operational. |
 | Normative shape | [Schemas](schemas/) and authenticated JSON registries | Closed JSON structure and registered machine identities; schema annotations are informative. |
 | Informative instances | [`examples/`](examples/README.md) | One valid example per schema, a few schema-level invalid examples, and the Core worked example; examples cannot create obligations. Digests inside examples are illustrative. |
-| Normative traceability; informative sources | [Source-evidence manifest](standard/source-evidence-manifest.json) and [Informative References](standard/references.md) | Evidence-readiness and traceability records are normative; cited external sources and narrative summaries are informative. |
+| Informative references | [references.md](standard/references.md) | Cited sources and the requirement IDs they inform; informative only. |
 
 The governance decision template is in
 [templates/governance-decision-record.md](templates/governance-decision-record.md).
@@ -105,10 +98,9 @@ the working draft in place. A first publication must freeze an exact commit and
 create a protected annotated release tag. Repository administrators must
 enforce tag immutability with a GitHub ruleset; repository files cannot make a
 remotely hosted tag undeletable. The release gate is `npm test` on that exact
-commit plus `evidenceReadiness: ready` in the source-evidence manifest; tag runs
+commit; tag runs
 additionally require exact annotated tag `v0.1.0` to resolve to the checked-out
-commit. Publication readiness does not promote capability evidence beyond
-the status and population limits recorded in the source-evidence manifest. A
+commit. A
 raw version string or Git tag by itself is not evidence that this candidate was
 published.
 

@@ -12,15 +12,14 @@ enumerate that set rather than relying on this summary.
 | --- | --- |
 | Core level (`A1-lite`) | `core-case.schema.json`, `core-case-qa.schema.json`, `core-run-manifest.schema.json`, `core-attempt-ledger.schema.json`, `core-scorecard.schema.json`, `core-conformance-statement.schema.json` |
 | Case and activation QA | `case.schema.json`, `case-qa-record.schema.json` |
-| Suite, evaluator, and measurement profiles | `suite-manifest.schema.json`, `evaluator-manifest.schema.json`, `evaluation-profile.schema.json`, `profile-resolution-record.schema.json`, `profile-resolution-proof-inputs.schema.json`, `outcome-profile.schema.json` |
-| Repository-change profile contracts and registries | `repo-change-case-contract.schema.json`, `repo-change-gate-registry.schema.json`, `repo-change-failure-taxonomy.schema.json` |
+| Suite, evaluator, and measurement profiles | `suite-manifest.schema.json`, `evaluator-manifest.schema.json`, `evaluation-profile.schema.json`, `outcome-profile.schema.json` |
 | Closed SDLC work products | `work-artifact-registry.schema.json` |
 | Environment and sealed execution | `environment-contract.schema.json`, `pre-run-manifest.schema.json` |
 | Risk derivation and sealed tier identity | `risk-assessment.schema.json` |
 | Statistics and grader validity | `statistical-plan.schema.json`, `grader-validation.schema.json` |
 | Validity, reference baselines, threats, and held-out exposure | `validity-argument.schema.json`, `evaluation-threat-model.schema.json`, `held-out-exposure-budget.schema.json`, `held-out-exposure-ledger.schema.json` |
 | Scorecard | `scorecard.schema.json` |
-| Canonical evidence and detached validation | `evidence-artifact.schema.json`, `source-evidence-manifest.schema.json`, `validation-envelope.schema.json` |
+| Canonical evidence and detached validation | `evidence-artifact.schema.json`, `validation-envelope.schema.json` |
 | Repository snapshot | `workspace-manifest.schema.json` |
 | Requirements | `requirement-registry.schema.json` |
 | Operational policy and escalation | `escalation-event-registry.schema.json`, `operational-governance-policy.schema.json` (closed ASSURE-001 risk/decision minima) |

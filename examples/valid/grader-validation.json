@@ -15,9 +15,7 @@
   "protocol": {
     "id": "grader-validation-protocol",
     "version": "0.1.0",
-    "digest": "sha256:90a8c659fe09abdbbd4a3dfd1b92bc62536f2f0f952c61fc194cf36496313e6a",
-    "schemaId": "grader-validation-protocol-schema",
-    "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+    "digest": "sha256:90a8c659fe09abdbbd4a3dfd1b92bc62536f2f0f952c61fc194cf36496313e6a"
   },
   "sealedAt": "2026-08-01T01:00:04Z",
   "validationWindow": {
@@ -27,16 +25,12 @@
   "samplingFrame": {
     "id": "grader-sampling-frame",
     "version": "0.1.0",
-    "digest": "sha256:e836f86094a768bda471416b89c5fbbeb72cabed92eb25b499a0a5aa1929ee3f",
-    "schemaId": "grader-sampling-frame-schema",
-    "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+    "digest": "sha256:e836f86094a768bda471416b89c5fbbeb72cabed92eb25b499a0a5aa1929ee3f"
   },
   "minimumSampleRule": {
     "id": "grader-minimum-sample-rule",
     "version": "0.1.0",
-    "digest": "sha256:030cae4feadad39030185c1a050ea39e52374a0021fa85f92135508de2111015",
-    "schemaId": "grader-minimum-sample-rule-schema",
-    "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+    "digest": "sha256:030cae4feadad39030185c1a050ea39e52374a0021fa85f92135508de2111015"
   },
   "classBalance": {
     "knownGood": 20,
@@ -45,9 +39,7 @@
   "humanLabelUncertainty": {
     "id": "human-label-uncertainty",
     "version": "0.1.0",
-    "digest": "sha256:88f5eca392b543a48a102c796a8e469e0dd0447625abd078524450ab2d2a3af3",
-    "schemaId": "human-label-uncertainty-schema",
-    "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+    "digest": "sha256:88f5eca392b543a48a102c796a8e469e0dd0447625abd078524450ab2d2a3af3"
   },
   "humanLabelStrata": [
     {
@@ -76,9 +68,7 @@
   "blindedAdjudication": {
     "id": "blinded-adjudication",
     "version": "0.1.0",
-    "digest": "sha256:7656dc12fcfe2afe1bd83c82d13ae44a1dc8a483d6b2eaa34b2e8887d95db514",
-    "schemaId": "blinded-adjudication-schema",
-    "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+    "digest": "sha256:7656dc12fcfe2afe1bd83c82d13ae44a1dc8a483d6b2eaa34b2e8887d95db514"
   },
   "judgeBiasSuite": [
     {
@@ -86,9 +76,7 @@
       "protocol": {
         "id": "bias-identity-protocol",
         "version": "0.1.0",
-        "digest": "sha256:25f8cc584f498380eadda0a8226f5bb0a9e2ade0ef71741ffa9e44e569dda3d6",
-        "schemaId": "bias-identity-protocol-schema",
-        "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+        "digest": "sha256:25f8cc584f498380eadda0a8226f5bb0a9e2ade0ef71741ffa9e44e569dda3d6"
       },
       "evidenceId": "bias-identity-evidence",
       "verdict": "pass"
@@ -98,9 +86,7 @@
       "protocol": {
         "id": "bias-position-protocol",
         "version": "0.1.0",
-        "digest": "sha256:b809489e1d7f37dffe04560647221eed57e32ce5b49bac344a94f2fde8529e10",
-        "schemaId": "bias-position-protocol-schema",
-        "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+        "digest": "sha256:b809489e1d7f37dffe04560647221eed57e32ce5b49bac344a94f2fde8529e10"
       },
       "evidenceId": "bias-position-evidence",
       "verdict": "pass"
@@ -110,9 +96,7 @@
       "protocol": {
         "id": "bias-verbosity-protocol",
         "version": "0.1.0",
-        "digest": "sha256:7e8af8f6810f4250261da2426d57c3b3d733f748ea19237bb4cb72bc1ff34485",
-        "schemaId": "bias-verbosity-protocol-schema",
-        "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+        "digest": "sha256:7e8af8f6810f4250261da2426d57c3b3d733f748ea19237bb4cb72bc1ff34485"
       },
       "evidenceId": "bias-verbosity-evidence",
       "verdict": "pass"
@@ -122,9 +106,7 @@
       "protocol": {
         "id": "bias-style-protocol",
         "version": "0.1.0",
-        "digest": "sha256:89f3f603c65f01857a832672abaf38aa81628dbefd0bc68b2dd550e67e11bf7d",
-        "schemaId": "bias-style-protocol-schema",
-        "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+        "digest": "sha256:89f3f603c65f01857a832672abaf38aa81628dbefd0bc68b2dd550e67e11bf7d"
       },
       "evidenceId": "bias-style-evidence",
       "verdict": "pass"
@@ -134,9 +116,7 @@
       "protocol": {
         "id": "bias-reference_anchoring-protocol",
         "version": "0.1.0",
-        "digest": "sha256:baedbbaae7ec32575c21c73982e50c9be14874ed4b5fcfce92338f1b39793d67",
-        "schemaId": "bias-reference_anchoring-protocol-schema",
-        "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+        "digest": "sha256:baedbbaae7ec32575c21c73982e50c9be14874ed4b5fcfce92338f1b39793d67"
       },
       "evidenceId": "bias-reference_anchoring-evidence",
       "verdict": "pass"
@@ -146,9 +126,7 @@
       "protocol": {
         "id": "bias-prompt_injection-protocol",
         "version": "0.1.0",
-        "digest": "sha256:71311e19d3ba5185fcc87c29c8669267c5ef25fb35f38f75e6914b01d7dec0d5",
-        "schemaId": "bias-prompt_injection-protocol-schema",
-        "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+        "digest": "sha256:71311e19d3ba5185fcc87c29c8669267c5ef25fb35f38f75e6914b01d7dec0d5"
       },
       "evidenceId": "bias-prompt_injection-evidence",
       "verdict": "pass"
@@ -158,9 +136,7 @@
       "protocol": {
         "id": "bias-judge_family-protocol",
         "version": "0.1.0",
-        "digest": "sha256:956a2d9174fe2b771b084c9f38bb1333de480c85a67bfe517f98dbd1d522e940",
-        "schemaId": "bias-judge_family-protocol-schema",
-        "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+        "digest": "sha256:956a2d9174fe2b771b084c9f38bb1333de480c85a67bfe517f98dbd1d522e940"
       },
       "evidenceId": "bias-judge_family-evidence",
       "verdict": "pass"
@@ -179,9 +155,7 @@
     "rule": {
       "id": "false-positive-rule",
       "version": "0.1.0",
-      "digest": "sha256:c11a5a91d1b83ef43ad3a35bfaddf6e87dd7dd0e746027c6c712ab7b24047c98",
-      "schemaId": "false-positive-rule-schema",
-      "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+      "digest": "sha256:c11a5a91d1b83ef43ad3a35bfaddf6e87dd7dd0e746027c6c712ab7b24047c98"
     },
     "verdict": "pass"
   },
@@ -198,9 +172,7 @@
     "rule": {
       "id": "false-negative-rule",
       "version": "0.1.0",
-      "digest": "sha256:d0be085511bb62c5c2f230a8c362d90fd8d6e8a195d093638413eba2985708fc",
-      "schemaId": "false-negative-rule-schema",
-      "verifierDigest": "sha256:c673f02009d05b4f4976745e8749998328582fe8d4f4de07fc6d1b27b33c11dd"
+      "digest": "sha256:d0be085511bb62c5c2f230a8c362d90fd8d6e8a195d093638413eba2985708fc"
     },
     "verdict": "pass"
   },

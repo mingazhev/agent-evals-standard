@@ -103,7 +103,7 @@ authorize an implementation to substitute a looser path heuristic.
 Case QA **MUST** establish that the policy matches repository conventions and a
 trusted, sealed-activation material-path frame before execution. That frame and
 its selectors **MUST** be authorized by the repository owner or a preauthorized
-measurement authority; neither the Stage 0 payload nor its producer may invent
+measurement authority; neither the activation-time payload nor its producer may invent
 their own authority. The actual trial diff does not yet exist at activation, so
 this check **MUST NOT** stand in for replay. Replay **MUST** parse the
 authenticated `workspace_diff` bytes and rerun the exact registered classifier
@@ -111,7 +111,7 @@ on every actual material path. A known collision, ambiguous convention, or
 unknown applicability is `insufficient_evidence` and requires a differently
 identified, sealed outcome profile and executor. A claimant **MUST NOT**
 reinterpret path classes after execution.
-Stage 0 records this determination in the Case QA record's
+The case records this determination in the Case QA record's
 `classificationPolicyApplicability` object, binding the exact outcome profile,
 semantic contract, executor, applicability rule, repository-convention
 manifest, complete material-path-set digest, and authenticated applicability and
@@ -132,6 +132,10 @@ claimed freely:
 
 ## Evidence modes
 
+The implementation records each kind below in its own format; every record
+**MUST** carry the case, cell, and attempt identity, the consumed evidence
+digests, and the verdict.
+
 `runner-check` binds the exact validation plan and evaluated diff or registered-
 alternative terminal projection. `adjudication-record` additionally binds the
 arm's sealed `graderSet` and implements `JUDGE-003`: at least two pairwise-
@@ -142,5 +146,5 @@ with uncertainty, and a passing verdict from every decision-bearing rater.
 `runner-failure-record` binds a failed or invalid exact runner-check set to the
 sealed workspace. `measurement-validity-record` binds that runner record, the
 same workspace and fact projection, and a verifier independent from claimant
-and runner. Evidence-kind labels are closed; a wrong schema, subject, authority,
+and runner. Evidence-kind labels are closed; a wrong record kind, subject, authority,
 protocol, workspace, or evidence set fails replay.

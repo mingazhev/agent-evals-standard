@@ -46,8 +46,7 @@ Do not add migration aliases or legacy contracts unless publication has created
 compatibility obligations.
 
 The publication process MUST freeze an exact commit. The candidate commit MUST
-pass `npm test` from a clean checkout, and `standard/source-evidence-manifest.json`
-MUST report `evidenceReadiness: ready`. The first release MUST use the
+pass `npm test` from a clean checkout. The first release MUST use the
 annotated tag `v0.1.0`; its CI run MUST resolve that tag to the exact checked-out
 commit. Repository administrators MUST protect the tag with a GitHub ruleset,
 and a published tag must never be rewritten.

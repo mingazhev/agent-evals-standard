@@ -20,7 +20,7 @@ Reading map (informative):
 | --- | --- |
 | Does this evaluation fit the standard? | [Applicability](#applicability-boundary-and-profiles), [capabilities](#sdlc-capability-taxonomy), and [validity](#intended-use-and-validity-argument) |
 | What applies across all evaluations? | [Invariants](#invariants), [assurance](#assurance-levels), and [risk](#risk-model) |
-| How do I implement profile resolution and evidence digests? | [Profile resolution contract](profile-resolution-contract.md) and [integrity algorithms](integrity-and-semantic-validation.md) |
+| How do I implement evidence digests? | [Integrity algorithms](evidence-and-validation-contract.md#integrity-and-semantic-validation-contract) |
 | How do I prepare and maintain cases? | [Case lifecycle](#case-lifecycle-requirements) and [Case QA](case-qa-playbook.md) |
 | How do I run, score, and interpret an experiment? | [Execution](#execution-requirements), [judgment](#judgment-requirements), and [statistics](#statistics-and-missingness) |
 | How do I approve and monitor use? | [Governance](#governance-decisions-and-post-decision-assurance) and [suite health](#suite-health) |
@@ -110,7 +110,7 @@ Each repository entry **MUST** select exactly one closed mode:
 For every mode, the verifier **MUST** recompute each Git object ID from the
 declared object format and raw uncompressed object content, recompute the graph,
 tree, and workspace digests using the invoked
-[Git workspace digest projections](integrity-and-semantic-validation.md#git-workspace-digest-projections),
+[Git workspace digest projections](evidence-and-validation-contract.md#git-workspace-digest-projections),
 and require exact object closure: missing,
 unreachable, future, duplicate, or wrong-type objects are invalid. `files[]`
 **MUST** equal the flattened non-directory, non-gitlink entries of the selected
@@ -203,7 +203,7 @@ accounting, claims, risk, and governance requirements. An evaluation profile
 only narrows this repository-SDLC base to capabilities, outcome profiles,
 environments, gates, controls, and metrics. It **MUST NOT** add a new domain or
 weaken the base. A new domain requires a separate sibling base or domain
-standard. Version 0.1.0 defines no inheritance, conformance, or compatibility
+standard. Version 0.1.0 defines no conformance, or compatibility
 relation between that sibling and this standard; copied or similarly named
 rules do not create one.
 
@@ -211,7 +211,7 @@ The repository **MUST** bundle one conforming repository-change evaluation
 profile, outcome profile, and positive and negative examples as an
 interoperability example. It has no privileged normative status. An
 adopter-defined evaluation profile receives the same schema, semantic,
-inheritance, and base-compatibility validation.
+and base-compatibility validation.
 
 The base invariants are an internal foundation, not a standalone claim for
 agents outside this applicability boundary.
@@ -227,8 +227,8 @@ choice follows semantics, not directory layout or naming preference:
 
 | Needed change | Contract to create or change | Boundary test |
 | --- | --- | --- |
-| Narrow an existing repository-SDLC evaluation profile | child evaluation profile | Every changed inherited field is a permitted subset, preservation, or strengthening under `PROFILE-001`; no new capability family, interaction mode, outcome contract, or weaker obligation appears. |
-| Cover a repository-SDLC capability or environment that cannot be expressed as such a narrowing | new root evaluation profile | The work still passes `SCOPE-003` and the base taxonomy, but no existing profile can parent it without an addition or semantic substitution. The root supplies a complete requirement mapping and conformance fixtures. |
+| Narrow the repository-SDLC base | a new profile that narrows the base | Every field is a permitted subset, preservation, or strengthening under `PROFILE-001`; no new capability family, interaction mode, outcome contract, or weaker obligation appears. |
+| Cover a repository-SDLC capability or environment that cannot be expressed as such a narrowing | new evaluation profile | The work still passes `SCOPE-003` and the base taxonomy, but cannot be expressed as a narrowing without an addition or semantic substitution. The profile supplies a complete requirement mapping and conformance fixtures. |
 | Define how one work-product class reaches terminal results | outcome profile | The change concerns terminal evidence, valid alternatives, evidence modes, gates, failure taxonomy, native outcomes, or claim compatibility. Each consuming evaluation profile must separately allow and authenticate it. |
 | Add adopter-specific, stricter metadata or decision controls without changing base semantics | namespaced extension | The addition fits a schema-declared extension container or a permitted pointer to a separate namespaced artifact and satisfies `CONF-003`. |
 
@@ -240,29 +240,20 @@ combining the changes under the label `profile`.
 ### Evaluation-Profile Resolution
 
 `PROFILE-001` — A suite **MUST** publish a closed `evaluationProfiles[]`
-containing every
-evaluation profile used by its cases. Each non-A0 case **MUST** pin exactly one
-effective leaf evaluation profile and one compatible outcome profile. Each
-scheduled cell **MUST** resolve by `caseId` to exactly one sealed
-`caseProfiles[]` entry whose profile and outcome-profile IDs, versions, and
-digests form the cell's measurement identity. A cell **MUST NOT** duplicate,
-override, or weaken that case-level binding.
-
-This requirement invokes the complete
-[Evaluation-Profile Resolution Contract](profile-resolution-contract.md) for
-inheritance, authentication, provenance, fixture execution, and canonical
-digests. Schema validation or a summary of that algorithm is insufficient.
-
-The effective evaluation profile and outcome profile are case/cell measurement
-identity shared by comparator arms, not treatment-arm components. A direct agent
-comparison **MUST** use identical effective measurement-profile digests across
-arms. Changing one creates a measurement-system study instead.
+containing every evaluation profile used by its cases. Each non-A0 case
+**MUST** pin exactly one evaluation profile and one compatible outcome profile
+by ID, version, and digest. A cell inherits the case binding and **MUST NOT**
+override it. Comparator arms share the measurement profile; changing it creates
+a measurement-system study instead. A profile narrows the base (supported
+assurance levels, risk range, capability families, interaction modes, outcome
+profiles, gates, QA controls, and metrics) and **MUST NOT** add a capability
+family, interaction mode, outcome contract, or weaker obligation.
 
 Assurance is a base-owned overlay, not profile-owned semantics. A profile's
 `supportedAssuranceLevels` can only narrow eligible levels. Its
-`additionalAssuranceRequirements` are structured additive deltas: the effective
-requirements are the complete base level, every inherited lower level, and all
-applicable deltas. A profile **MUST NOT** delete, replace, downgrade, or
+`additionalAssuranceRequirements` are structured additive deltas: the
+requirements are the complete base level, every lower level, and all applicable
+deltas. A profile **MUST NOT** delete, replace, downgrade, or
 reinterpret a base assurance requirement.
 
 ## SDLC Capability Taxonomy
@@ -335,7 +326,7 @@ constructs or material work products span multiple families. A delivered
 debugging, security, performance, or reliability conclusions materialize as an
 `assurance_report` under `CAP.VERIFY_ASSURE`; a case evaluating both is
 multi-label. That report is the evaluated work product; a grader assessment or
-replay receipt evaluating it is measurement evidence and **MUST NOT** satisfy the
+replay record evaluating it is measurement evidence and **MUST NOT** satisfy the
 selected `assurance_report` type. Repairing an escaped defect is
 `CAP.IMPLEMENT_CHANGE` and becomes
 `CAP.REMEDIATE_LEARN` only when incident analysis, prevention, or learning is a
@@ -349,7 +340,7 @@ A positive claim **MUST NOT** extend to an uncovered capability family, artifact
 type, risk context, repository class, or interaction mode. A suite intended only
 for code changes **MAY** omit other families if every resulting claim states
 that boundary. Each case **MUST** bind a nonempty `capabilityFamilyIds` subset of
-its effective evaluation profile; every claim-bearing material subject **MUST**
+its evaluation profile; every claim-bearing material subject **MUST**
 map to at least one of those IDs, and every selected ID **MUST** own at least one
 material work product through the registry.
 
@@ -373,7 +364,7 @@ an owner, and a residual limitation or an explicit unresolved gap.
 
 The machine-authoritative validity bindings and review evidence invoked by this
 requirement are defined in the
-[Validity, threat, and held-out exposure contracts](validity-threat-exposure-contracts.md#validity-argument).
+[Validity, threat, and held-out exposure contracts](#validity-argument).
 
 `VALID-003` — Capability, comparative, release, and autonomy studies **MUST**
 include pre-declared reference baselines appropriate to the intended decision.
@@ -409,7 +400,7 @@ study. That Core form satisfies `VALID-003` only for `A1-lite` claims.
 
 The structured baseline binding and fail-closed semantic checks invoked by this
 requirement are defined in the
-[Validity, threat, and held-out exposure contracts](validity-threat-exposure-contracts.md#validity-argument).
+[Validity, threat, and held-out exposure contracts](#validity-argument).
 
 ## Invariants
 
@@ -742,26 +733,26 @@ base semantics and **MUST NOT** affect another outcome-profile ID. The bundled
 `workspace-change-v1` example is bound to its separate
 [repository-change replay contract](../profiles/repo-change-v1/outcome-replay-contract.md).
 An implementation executes that contract through an outcome-replay executor
-registered in an `outcome-replay-executor-registry-1` document that the sealed
-evaluator manifest pins. Changing the contract or the executable changes their
+registered in an executor registry, in the implementation's own format, that the
+sealed evaluator manifest pins. Changing the contract or the executable changes their
 registered digest; it does not silently change this base requirement.
 
 `OUTPROF-001` — Each non-A0 case **MUST** pin exactly one outcome-profile ID,
-version, and digest allowed by its effective evaluation profile. An outcome
+version, and digest allowed by its evaluation profile. An outcome
 profile specializes result shape; it **MUST NOT** expand capability scope,
 effective-risk range, assurance eligibility, or base requirements. The case,
-effective evaluation profile, selected outcome profile, and conformance scope
+evaluation profile, selected outcome profile, and conformance scope
 slice **MUST** bind the same authenticated work-artifact registry. Every case,
 cell, or conformance scope-slice work-artifact type **MUST** be supported by at
 least one authenticated selected outcome profile and map to a selected
 capability family; every selected capability family **MUST** have at least one
 material mapped type. A case's exact `interactionModeId` **MUST** be in the
-effective evaluation profile's complete `interactionModes` set.
+evaluation profile's complete `interactionModes` set.
 
 ### Authoring
 
 `CASE-001` — A case contract **MUST** contain a stable ID and version, source and
-rights metadata, effective evaluation-profile ID and digest, outcome-profile ID,
+rights metadata, evaluation-profile ID and digest, outcome-profile ID,
 version and digest, the authenticated work-artifact registry, complete material
 `workArtifactTypes`, capability-family IDs,
 exactly one closed `interactionModeId`, an authenticated inherent-hazard risk
@@ -792,12 +783,10 @@ requires a nonempty corresponding check set and `not_applicable` requires an
 empty set. A case author **MUST NOT** remove a required check by changing the
 projected coverage value.
 
-An authenticated rule reference in a case is an identity tuple, not a
-claimant-chosen locator. The verifier **MUST** resolve the exact `(id, version,
-digest, schemaId, verifierDigest)` tuple exactly once through an
-evaluator-controlled registry configured outside the case. That registry binds
-the rule bytes, schema, executable verifier, locator, and authorized authority;
-missing, duplicate, substituted, or claimant-only resolution is invalid.
+A rule or check reference is `{id, version, digest}`. The verifier resolves it
+to exact bytes under the [integrity
+model](evidence-and-validation-contract.md#integrity-model) and recomputes the
+digest; an unresolved or mismatched reference is invalid.
 
 Repository state **MUST** be identified first by a content-addressed
 `workspaceManifest`. That manifest **MUST** enumerate every repository root with
@@ -839,10 +828,11 @@ grader validation. Case-specific QA **SHOULD** reference a shared grader-
 validation artifact instead of duplicating population-level false-positive and
 false-negative evidence.
 
-This requirement invokes the complete staged activation, evidence, invalidation,
-and revalidation procedure in the versioned
-[Case QA Playbook](case-qa-playbook.md). A subset of its stages or evidence
-categories is not an alternative activation path. An evaluation profile may
+This requirement invokes the complete activation, evidence, invalidation, and
+revalidation procedure in the versioned [Case QA Playbook](case-qa-playbook.md):
+its Stages 3-8 are the complete activation procedure, and a subset of them or of
+their evidence categories is not an alternative activation path. The playbook's
+pre-activation checklist is informative. An evaluation profile may
 specialize applicable controls and evidence but **MUST NOT** omit a stage or
 weaken its fail-closed result. Stage 7 `not_applicable` is a recorded gap with
 a rationale that restricts dependent claims; it is not an omitted stage.
@@ -869,13 +859,125 @@ development loop **MUST NOT** later be treated as unseen for that scope.
 
 The budget, ledger, and stage-order contracts invoked by this
 requirement are defined in the
-[Validity, threat, and held-out exposure contracts](validity-threat-exposure-contracts.md#held-out-budget-and-ledger).
+[Validity, threat, and held-out exposure contracts](#held-out-budget-and-ledger).
 
 QA **SHOULD** use sequestered control configurations. A pilot with the candidate
 arm consumes the budget and permits a claim only if no outcome-informed change
 is made to that arm before the sealed experiment. Budget exhaustion, suspected
 memory, or unauthorized reuse **MUST** rotate, quarantine, or reclassify the
 case and restrict historical claims.
+
+## Validity, threat, and held-out exposure contracts
+
+### Status and applicability
+
+This document is normative for the suite validity argument, reference-baseline
+inventory, evaluation threat model, and held-out exposure controls under
+`VALID-002`, `VALID-003`, and `HOLD-002`. It defines the minimum interoperable
+contracts used by suite, statistical-plan, and pre-run artifacts. Prose-only
+declarations and untyped URI pointers do not satisfy these controls: every
+binding below is a content-addressed reference `{id, version, uri, digest}`
+whose bytes the verifier resolves and re-hashes under the
+[integrity model](evidence-and-validation-contract.md#integrity-model).
+
+All contract versions in this release are `0.1.0`.
+
+### Validity argument
+
+The suite validity argument **MUST** validate against
+`agent-eval-validity-argument-1`. It **MUST** identify the exact suite,
+intended use, target population, evaluated constructs, permitted claims,
+evidence required for each claim, assumptions, limitations, and an independent
+review decision. It **MUST** address construct, internal, external, and
+statistical-conclusion validity threats with explicit mitigations and residual
+claim effects.
+
+For `VALID-003`, `evidencePlan.referenceBaselines[]` **MUST** contain at least
+two uniquely identified structured baselines and
+`evidencePlan.incumbentDisposition` **MUST** be present in the exact reviewed
+bytes. Every inventory entry records closed kind and agent-involvement values
+plus nonempty conditions, resources, tools, and scoring. At least one baseline
+has `agentInvolvement: none`.
+
+For `incumbent_available`, `baselineId` **MUST** resolve exactly once to a
+`current_workflow` or `incumbent_system` entry and a different entry **MUST** be
+a non-agent control. For `no_incumbent_exists`, `baselineId` **MUST** be null,
+rationale and evidence references **MUST** be nonempty, the inventory **MUST**
+contain a `base_state_no_action` entry, and a different entry **MUST** be a
+non-agent control. Unknown status, duplicate IDs, an unresolved incumbent, or a
+single entry reused for both required roles yields `insufficient_evidence`.
+
+The review decision **MUST** reference the committed review record as an
+evidence artifact. The reviewer **MUST** be
+[independent](glossary.md#independence) of the owner and every claimant, and
+the review commit **MUST** be an ancestor of the first commit containing any
+trial result of a run that cites the argument. Reviewer identity equal to the
+owner or any claimant identity invalidates the independence claim.
+
+Every claim's construct identifiers **MUST** resolve exactly once. An
+unsupported construct, population, claim type, or evidence kind **MUST NOT** be
+inferred from a successful score. Missing limitations or an unknown validity
+threat **MUST** bound the affected claim or produce `insufficient_evidence`.
+
+### Evaluation threat model
+
+The evaluation threat model **MUST** validate against
+`agent-eval-evaluation-threat-model-1` and cover the declared suite,
+evaluation profiles, and lifecycle phases. It **MUST** enumerate protected
+assets, actors and their trust, enforced trust boundaries, attack paths,
+impacts, mitigations, detections, residual risk, accountable owners,
+assumptions, exclusions, and review triggers.
+
+Every threat reference to an actor, asset, or boundary **MUST** resolve exactly
+once in the same model. At least one enforced mitigation and one detection are
+required for every threat. A scope change, new tool or provider, boundary
+change, contamination event, or material control failure **MUST** trigger
+review before new claims are accepted.
+
+### Held-out budget and ledger
+
+A held-out exposure budget **MUST** validate against
+`agent-eval-held-out-exposure-budget-1`. It **MUST** bind the suite and
+held-out case scope, identity dimensions, validity interval, permitted
+purposes, the committed authorization record, and independent maxima for:
+
+- agent-visible case exposures;
+- unblinded outcome looks; and
+- oracle access, whose permitted maximum is zero.
+
+The authorization record names the authorizing person or operated service,
+role, and decision time; the authorizer **MUST** be
+[independent](glossary.md#independence) of every evaluated arm's configurer. A
+claimant-authored identifier does not authorize a budget.
+
+An exposure ledger snapshot **MUST** validate against
+`agent-eval-held-out-exposure-ledger-1`. It **MUST** bind the exact budget,
+previous snapshot or genesis, monotonic sequence, immutable event records,
+totals, remaining budget, saturation state, and seal time. Events **MUST**
+identify the case, complete arm identity digest, purpose, authorization, units,
+and evidence digest. Each snapshot is committed before the exposure it
+authorizes; the commit history, not a recomputed hash, is the evidence against
+rollback.
+
+Semantic validation **MUST** recompute totals from the append-only event
+sequence, require `remaining = limits - totals`, reject negative remaining
+units, and set `saturated=true` when a consumable limit is reached or any
+forbidden oracle access occurs. A zero oracle-access maximum is a prohibition,
+not a budget that starts saturated. Duplicate, missing, reordered, or
+unrecorded events, oracle access, budget mismatch, or a false unsaturated state
+**MUST** stop the affected run and produce `insufficient_evidence`. Saturated
+cases **MUST** be rotated or the affected claim scope retired according to the
+sealed budget.
+
+### Suite and pre-run binding
+
+The suite manifest binds its validity argument, threat model, budget, and
+current ledger snapshot directly. The pre-run manifest binds the sealed suite,
+the ordered case set, the statistical plan, and a ledger snapshot sealed no
+later than the pre-run seal; the projected attempts **MUST** fit within the
+remaining budget. After an authorized held-out exposure, the runner **MUST**
+append and seal the ledger before a later pre-run manifest can be accepted.
+Unknown, absent, stale, or divergent bindings fail closed.
 
 ## Data, IP, Privacy, and Retention
 
@@ -906,10 +1008,9 @@ the cell.
 
 Before execution, the sealed manifest **MUST** authenticate and pin one exact
 suite, every scheduled case, and one exact `evaluator-manifest-1`.
-Case-set membership and each case's evaluation-profile, effective-profile, and
+Case-set membership and each case's evaluation-profile and
 outcome-profile bindings **MUST** equal the authenticated suite. The validator
-**MUST** resolve each evaluation profile by digest, reproduce its flattened
-`effectiveProfileDigest`, and authenticate the selected outcome profile; a
+**MUST** resolve each evaluation profile by digest and authenticate the selected outcome profile; a
 copied digest string, matching ID, or fixture-side related-record hint is not a
 binding.
 
@@ -931,7 +1032,7 @@ implementations, permissions, budgets, retrieval, memory, context projection,
 environment, and external services. Every item **MUST** carry a version and
 digest or an authenticated provider identity with immutability evidence.
 
-Each scheduled cell **MUST** resolve its effective evaluation-profile ID and
+Each scheduled cell **MUST** resolve its evaluation-profile ID and
 digest and outcome-profile ID, version, and digest indirectly and exactly
 through its case's sealed `caseProfiles[]` entry. The cell **MUST NOT** carry a
 second profile binding or an override. This resolved measurement profile is

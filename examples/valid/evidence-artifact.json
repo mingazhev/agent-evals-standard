@@ -12,7 +12,7 @@
   "creationPhase": "grading",
   "createdAt": "2026-08-01T01:00:18Z",
   "schemaMetadata": {
-    "schemaId": "agent-eval-repo-change-measurement-validity-record-1",
+    "schemaId": "repo-change-measurement-validity-record-1",
     "schemaVersion": "0.1.0",
     "validatorDigest": "sha256:f06738a370406a6e3e408df08d3ee8e407f156850fd49e43f24c0ee28830c1fe"
   },

@@ -22,7 +22,7 @@ interaction modes, assurance levels, and effective-risk range in scope.
 The structured scope **MUST** be a nonempty set of uniquely identified slices.
 Each slice independently binds one immutable content-addressed workspace
 manifest whose URI resolves to the exact manifest bytes, exactly one effective
-leaf evaluation profile, one or more authenticated outcome profiles, assurance
+evaluation profile, one or more authenticated outcome profiles, assurance
 (`A1`–`A3`), risk, capability families, interaction modes, and work-artifact
 types. The evaluation profile, outcome profiles, registry, and declared scope
 **MUST** be compatible. A validator **MUST NOT** infer a cross-profile or
@@ -30,7 +30,7 @@ cross-repository union from fields belonging to different slices. An A0
 diagnostic run is not a conformance subject and has no slice.
 
 `CONF-001` invokes the versioned
-[Integrity and Semantic Validation Contract](integrity-and-semantic-validation.md)
+[Integrity and Semantic Validation Contract](evidence-and-validation-contract.md#integrity-and-semantic-validation-contract)
 as its cross-document verdict algorithm and
 [Normative Artifact Consistency](#normative-artifact-consistency) as its exact
 distribution-identity contract. A target cannot satisfy `CONF-001` by validating
@@ -65,25 +65,10 @@ the [Core Standard](standard.md#applicability-boundary-and-profiles). This
 conformance contract only defines the evidence required to verify that
 boundary; it does not redefine `SCOPE-003`.
 
-`PROFILE-001` is defined in the
-[Core Standard](standard.md#evaluation-profile-resolution), which invokes the
-complete [resolution algorithm](profile-resolution-contract.md).
-This contract does not restate or alter that algorithm. For a `CONF-001` claim,
-the claimant **MUST** provide every source profile, authenticated contract,
-resolution record, replacement proof, effective projection, and fixture needed
-to execute that primary algorithm without implementation-specific assumptions.
-The conformance validator **MUST** apply the primary profile-resolution
-algorithm unchanged and **MUST** reject a profile when any required input is
-absent, unauthenticated, or cannot reproduce the declared effective digest. Profile
-shape, work-product classification, interaction-mode membership, outcome
-compatibility, and terminal-evidence semantics are validated through the exact
-registered schemas and primary contracts selected by that effective profile;
-conformance does not create a second definition of them.
-
 The repository **MUST** bundle one repository-change evaluation profile, one
 compatible outcome profile, and positive and negative examples as an
 interoperability example. Bundled and adopter-defined profiles receive identical
-schema, semantic, inheritance, and base-compatibility validation when they
+schema, semantic, and base-compatibility validation when they
 satisfy this contract and publish schemas, evidence, examples, versions, and
 digests. A profile is not a separate conformance target.
 
@@ -271,7 +256,7 @@ A public or internal conformance statement **MUST** contain:
 - assurance levels, effective-risk range, capability families, outcome profiles,
   and applicability boundary;
 - suite, case, evaluator, experiment, scorecard, policy, matrix, evaluation
-  profile, profile-resolution record, schema, and semantic-validation versions
+  profile, schema, and semantic-validation versions
   and digests as applicable;
 - implementation and arm identities for evaluator or experiment targets;
 - canonical evidence manifest;
@@ -285,7 +270,7 @@ The scope is structured, not inferred from `intendedUse` prose. It **MUST**
 contain only `intendedUse`, the
 `repository_grounded_sdlc_agent_evaluation` applicability boundary, and a
 nonempty `slices[]`. Every slice has a unique ID and independently binds one
-resolvable content-addressed `workspace-manifest-1`, exactly one effective leaf
+resolvable content-addressed `workspace-manifest-1`, exactly one
 `evaluationProfile`, one or more authenticated outcome profiles, a nonempty
 subset of the closed SDLC capability-family taxonomy, interaction modes, work-
 artifact types, assurance, and risk tiers, and requires full
@@ -304,7 +289,7 @@ separate statement and **MUST NOT** appear as a second conforming target
 record. The target record's `targetId` **MUST** equal its resolved
 `targetSubject.id`; reusing the same ID with different bytes or a different
 digest is a hard failure. Its dependency manifest **MUST** enumerate the exact
-target subject, scope workspaces, effective evaluation profiles, selected
+target subject, scope workspaces, evaluation profiles, selected
 work-artifact registries, and outcome profiles. The detached validation
 envelope binds this manifest but is excluded from its entries to avoid a digest
 cycle. For an experiment or decision, it **MUST** additionally contain the exact
@@ -360,30 +345,21 @@ authority exists only because that primary definition names it.
 | --- | --- | --- |
 | requirement identity, primary location, targets, ownership, applicability, and evidence basis | primary index | `requirement-registry.json` together with the linked primary requirement prose |
 | accepted JSON structure | normative shape | JSON validation keywords in the registered JSON Schema; annotations such as `$comment`, `title`, `description`, and `examples` are informative |
-| evaluation-profile inheritance, effective projection, provenance and replacement-proof algorithm | primary requirement plus normative shape | the [resolution algorithm](profile-resolution-contract.md) invoked by `PROFILE-001`, together with `profile-resolution-record.schema.json` |
 | canonicalization, hashing, cross-field and cross-document verdict algorithms | invoked normative contract | the exact named semantic contract, but only for the scope stated by its invoking primary requirement |
 | illustrative instances | informative | `examples/`; an example demonstrates shape and cannot create, waive, or decide an obligation |
-| requirement-to-source traceability and publication readiness | primary traceability record | `source-evidence-manifest.json`; the cited external sources remain informative |
+| requirement-to-source references | informative | `references.md`; cited external sources never create obligations |
 | implementation technique | non-normative | the repository check, validator implementations, and implementation notes |
 
 By `ARCH-001`, a semantic document that no registered primary anchor invokes has
 no verdict-changing authority. The invocation identifies the contract
-unambiguously, the dependency manifest binds its exact distributed bytes, and
+unambiguously, the pinned standard commit binds its exact distributed bytes, and
 the named contract cannot expand the invoking requirement's targets,
 applicability, or consequences.
 
-Every conformance statement **MUST** bind two exact raw-byte distribution
-manifests. The schema manifest enumerates every distributed JSON Schema. The
-contract manifest enumerates every standard-owned JSON contract, every
-profile-owned JSON contract, and every Markdown file under `standard/` that can
-supply primary or invoked normative prose. Each entry binds stable ID, version,
-repository-relative URI, and SHA-256 of the exact file bytes; the manifest also
-binds the canonical digest of the complete ordered entry array. The validator
-**MUST** independently enumerate the distribution and require set and byte-digest
-equality. A missing, extra, duplicate, renamed, or changed file fails closed.
-A release tag or commit string does not substitute for these manifests; when an
-implementation additionally cites one, it **MUST** resolve that identifier to
-the same authenticated distribution bytes.
+The conformance statement pins the exact standard commit in
+`standardRelease.commit`. The validator **MUST** resolve that commit and use
+the schema and contract files it contains; a file set differing from that
+commit fails closed.
 
 Examples **MUST NOT** create an obligation without a registered requirement and
 primary normative location. Tools **MUST NOT** redefine a contract or example.

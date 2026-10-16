@@ -63,9 +63,8 @@ Every component is an immutable ID/version/digest or an authenticated provider
 identity with immutability evidence.
 
 `caseProfiles[]` **MUST** contain exactly one binding for each scheduled case:
-the case ID; effective evaluation-profile ID, digest, and
-`effectiveProfileDigest`; and one outcome-profile ID, version, and digest. For
-A1–A3 the outcome profile **MUST** be compatible with the effective evaluation
+the case ID; evaluation-profile ID, version, and digest; and one outcome-profile ID, version, and digest. For
+A1–A3 the outcome profile **MUST** be compatible with the evaluation
 profile; an A0 binding only selects explicit measurement semantics. Every cell
 references exactly one case ID and one arm ID and resolves its measurement
 semantics through that case's binding. A case-profile binding is measurement
@@ -393,15 +392,16 @@ replay uses three non-interchangeable roles. The evaluated arm's material work
 product is captured and authenticated by the runner during execution; any
 self-reported verdict in it is not grading truth. A separate grader assessment
 derives structured facts from that product and the other terminal artifacts. A
-separately authenticated replay receipt binds both exact digests and supplies
-those grader facts to the pinned executor. Grader and receipt authority **MUST**
-come from a non-claimant trust root configured outside the scorecard and receipt;
-runner-capture authority is configured independently for the evaluated artifact.
-A receipt-discovered executor, role string, or authority policy is not
-authority. An example receipt in this repository is illustrative and **MUST
-NOT** authorize an operational claim.
+separately authenticated replay record binds both exact digests and supplies
+those grader facts to the pinned executor. The implementation records this
+evidence in its own format; each record **MUST** carry the case, cell, and
+attempt identity, the consumed evidence digests, and the verdict. Grader and
+replay-record authority **MUST** come from a non-claimant trust root configured
+outside the scorecard and record; runner-capture authority is configured
+independently for the evaluated artifact. A record-discovered executor, role
+string, or authority policy is not authority.
 When no registered executor or independently authenticated grader-assessment
-and receipt chain can reproduce the predicates, the cell and every dependent
+and replay-record chain can reproduce the predicates, the cell and every dependent
 result are diagnostic or `insufficient_evidence`; an implementation **MUST NOT**
 copy claimant booleans as a fallback.
 
@@ -415,7 +415,7 @@ terminal-evidence set and applicability check. One evidence artifact may satisfy
 more than one selected work-artifact type only when the profile-owned executor
 independently derives every mapping from its bytes. An artifact of one selected
 type cannot substitute for a different required type. A grader assessment or
-replay receipt cannot substitute for the evaluated work product, and that work
+replay record cannot substitute for the evaluated work product, and that work
 product cannot substitute for either measurement artifact.
 
 Acceptance is a trial predicate. A governance decision additionally evaluates
@@ -629,8 +629,7 @@ The scorecard **MUST** bind:
 
 - standard, requirements registry, scorecard, evaluation profile, policy, matrix, schema,
   and semantic-validation contract versions and digests;
-- suite `evaluationProfiles[]`, effective-profile resolution and conflict
-  reports, experiment `caseProfiles[]`, and outcome-profile versions and
+- suite `evaluationProfiles[]`, experiment `caseProfiles[]`, and outcome-profile versions and
   digests;
 - experiment manifest, intended use, validity argument, suite, case set,
   exposure ledger, assurance level, and the exact authenticated

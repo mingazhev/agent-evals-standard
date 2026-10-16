@@ -7,14 +7,13 @@
     "role": "profile_maintainer"
   },
   "version": "0.1.0",
-  "parentProfile": null,
   "baseCompatibility": {
     "standardVersion": "0.1.0",
     "requirementRegistry": {
       "id": "agent-evals-standard-requirements",
       "version": "0.1.0",
       "uri": "../../standard/requirement-registry.json",
-      "digest": "sha256:e22bde88fda59c08ed186c90721db88c80e849d3624b558958e74ccfcc62dcbe"
+      "digest": "sha256:4b35d0f0e2a28ca8812020ed27e69610277425fce285d4788323a3467fddce40"
     },
     "verdict": "compatible_no_weakening"
   },
@@ -117,33 +116,17 @@
     {
       "id": "repo-change-positive",
       "manifestUri": "../../examples/manifest.json",
-      "manifestDigest": "sha256:ef6148fb1aaaa1cdb79b35c986754745f41f6179a163ae1f4539423b4d278cc5",
+      "manifestDigest": "sha256:e6a614f484c2cf5902efe810b654db2443e1592c34cf086d6517a78db1aae976",
       "manifestExpectationId": "evaluation-profile.valid",
       "expectedVerdict": "pass"
     },
     {
       "id": "reject-general-agent-capability",
       "manifestUri": "../../examples/manifest.json",
-      "manifestDigest": "sha256:ef6148fb1aaaa1cdb79b35c986754745f41f6179a163ae1f4539423b4d278cc5",
+      "manifestDigest": "sha256:e6a614f484c2cf5902efe810b654db2443e1592c34cf086d6517a78db1aae976",
       "manifestExpectationId": "evaluation-profile.general-agent-capability",
       "expectedVerdict": "fail"
     }
   ],
-  "conflictReport": {
-    "status": "no_unresolved_conflicts",
-    "evidence": {
-      "id": "repo-change-v1-profile-resolution",
-      "version": "0.1.0",
-      "uri": "profile-resolution.json",
-      "digest": "sha256:c8a35666ddddaf900c2ebdb3d8f85e5a57f7a45897204ae5d212bbf4648ae738"
-    }
-  },
-  "resolutionEvidence": {
-    "id": "repo-change-v1-profile-resolution",
-    "version": "0.1.0",
-    "uri": "profile-resolution.json",
-    "digest": "sha256:c8a35666ddddaf900c2ebdb3d8f85e5a57f7a45897204ae5d212bbf4648ae738"
-  },
-  "effectiveProfileDigest": "sha256:cae0789af93296f590f8b2e9576a9e0e73aff4c6e53debe4fbb1c4e64487436b",
-  "digest": "sha256:63ba96470cfd8438697bf2af7dd0eb42475db56805b99861ab2d398437f7e313"
+  "digest": "sha256:ec2efb7df14991d4ca44a49c884a52c630be7c93f84186883c30dc57b5e6b9f6"
 }
