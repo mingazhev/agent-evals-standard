@@ -13,7 +13,7 @@
       "id": "agent-evals-standard-requirements",
       "version": "0.1.0",
       "uri": "../../standard/requirement-registry.json",
-      "digest": "sha256:05d8b85bfd293c33e8f88a5094b2fb274e74ba6596c51f8810e6ba5e09803708"
+      "digest": "sha256:77f294e5b693091ea6e9cfa1fffa351f66d35287578894046d9bd4d102c57b3e"
     },
     "verdict": "compatible_no_weakening"
   },
@@ -48,7 +48,7 @@
       "id": "workspace-change-v1",
       "version": "0.1.0",
       "uri": "outcome-profile.json",
-      "digest": "sha256:32d1b646d4597e84efd14b3e35d7c3e065f722825abd1ae118d92a4a89ebbb57"
+      "digest": "sha256:e9e150a209ad3750a2a079a9c62cca76d03109ca20cba6c1ccf4b87ce339a4e8"
     }
   ],
   "caseContract": {
@@ -120,17 +120,17 @@
     {
       "id": "repo-change-positive",
       "manifestUri": "../../examples/manifest.json",
-      "manifestDigest": "sha256:404aa9e89557dc8c1c80fc7b3794830aaa675892f03f2ab3a650e828199685c5",
+      "manifestDigest": "sha256:a9d2cab7b650f69d42eb6266f6a015495a00ea201830aba96ff27c24baa2d865",
       "manifestExpectationId": "evaluation-profile.valid",
       "expectedVerdict": "pass"
     },
     {
       "id": "reject-general-agent-capability",
       "manifestUri": "../../examples/manifest.json",
-      "manifestDigest": "sha256:404aa9e89557dc8c1c80fc7b3794830aaa675892f03f2ab3a650e828199685c5",
+      "manifestDigest": "sha256:a9d2cab7b650f69d42eb6266f6a015495a00ea201830aba96ff27c24baa2d865",
       "manifestExpectationId": "evaluation-profile.general-agent-capability",
       "expectedVerdict": "fail"
     }
   ],
-  "digest": "sha256:d6c8ba382c777cf7e69b5abd30fdbe67973386ea6b3456321d0b6c7fbaf700c9"
+  "digest": "sha256:db56a3210f02b6d5e4b28553e6679af267c47a15d7148a1a4004a69e3b15db91"
 }

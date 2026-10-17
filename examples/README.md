@@ -11,6 +11,9 @@ conformance, and they cannot create, waive, or decide an obligation.
   no bundled instance in [`profiles/`](../profiles/) or [`standard/`](../standard/).
 - `invalid/` — a few instances that the schema itself rejects, each illustrating
   one rule.
+- [`valid/governance-decision.approve.json`](valid/governance-decision.approve.json)
+  — an approval with the complete 13-trigger assurance-plan shape, alongside the
+  rejecting decision example; its evidence references remain illustrative.
 - [`manifest.json`](manifest.json) — the declared expectation for every example:
   path, schema, `valid`, and for invalid examples the expected error location
   and the rule it illustrates. Profile `fixtures` descriptors point here.

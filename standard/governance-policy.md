@@ -64,17 +64,22 @@ slices.
 
 ## Required Decision-Rule Schema
 
-For each risk tier, the policy version used for a decision **MUST** define:
+For each risk tier, the policy version used for a decision **MUST** define the
+following decision-rule contract. Run-specific inputs are recorded in the
+immutable pre-run decision plan; the run manifest binds the policy and plan
+separately. The reusable policy does not contain a completed plan or final
+run-manifest digest. The plan's own hash belongs in its external binding, not
+inside the plan.
 
 - an immutable pre-run decision-plan ID, hash, and timestamp;
 - pinned versions of the base standard, Scorecard Contract, governance
-  policy, and run manifest;
+  policy, and run-manifest schema;
 - the closed `minimumAssuranceByDecision` values for `capability_claim`,
   `release`, `autonomy`, and `risk_acceptance`, each no lower than the
   `ASSURE-001` base floor;
 - required case-set membership (`held-out`; `development` and `smoke` are not
   governance-eligible) and, for longitudinal claims, the frozen-slice IDs;
-- required pass^k/reliability@k and/or pass@k;
+- required pass^k (`pass_hat_k`) and/or pass@1 (`pass_at_1`);
 - the confidence-interval method and minimum sample size;
 - the run manifest statistics digest, target population, sampling frame
   and unit, primary and exploratory claims, power or minimum-sample rule,

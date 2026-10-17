@@ -113,6 +113,38 @@ Case profile references use the profile's declared self-digest; run attachments
 with `{path, commit, digest}` authenticate stored file bytes. These digests may
 differ for the same profile file; both are recomputed under their named contract.
 
+### Preparing an A2/A3 pilot
+
+Before spending the run budget, work through these steps with the independent
+reviewer:
+
+1. Fix the claim population, intended application envelope, risk assessment,
+   and assurance level. A capability-only claim does not grant a release or
+   autonomy approval; `RISK-001` still requires the intended decision envelope
+   for claims-eligible A2/A3 runs.
+2. Prepare the operational policy, profiles, Case QA, held-out budget and
+   pre-debits, and any governance decision plan. For A3 also prepare the threat
+   model, separate security approval, and contingent assurance plan. Keep
+   run-specific inputs in the decision plan rather than the reusable policy.
+3. Finalize all run fields except `validityArgument`, then follow the
+   [validity-argument sealing order](evidence-and-validation-contract.md#validity-argument-run-binding).
+   Review the argument and seal the complete manifest before the first attempt.
+4. Exercise the implementation's preflight checks and decision outcomes before
+   dispatch. The examples below are useful boundary cases, not conformance
+   evidence supplied by this repository.
+
+| Boundary case | Expected behavior |
+| --- | --- |
+| `pass_hat_k`, `k=3`, three scheduled cells per case | One all-three-successful indicator per case. An unresolved cell remains in the failure/success bounds. |
+| `pass_hat_k`, `k=3`, two or four scheduled cells per case | Reject before dispatch; if discovered later, `insufficient_evidence`. Do not select three from four. |
+| Approval with all policy conditions passing | Bind the independently approved assurance plan, including all 13 material-change triggers. See the [approval shape example](../examples/valid/governance-decision.approve.json). |
+| Failed or insufficient policy condition | Apply the sealed reject/insufficient rule; no approval. A rejecting decision does not bind an assurance plan. |
+| Required monitoring evidence missing or late after approval | Suspend the affected approval under the sealed rule and record the governance event. |
+
+Complete the pilot with authenticated evidence, detached validation, and the
+independent conformance review. Schema checks alone cannot establish that these
+cross-document and operational behaviors work.
+
 ## Pinning and governance
 
 This candidate is unpublished. A conformance statement pins version `0.1.0`

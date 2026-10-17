@@ -1109,6 +1109,14 @@ is unsupported, that interval is uncomputable; the claim yields
 was selected before execution. Wilson is not applied to fractional or signed
 case observations.
 
+For a `pass_hat_k` claim, the named arm's sealed `trialsPerCase` **MUST** equal
+the claim's `k`, including after pre-execution overrides. All `k` scheduled
+cells form the case's single all-success indicator; selecting a subset of a
+larger schedule is not supported. A mismatch **MUST** be rejected before
+dispatch and yields `insufficient_evidence` if discovered later. This equality
+concerns scheduled cells, not physical attempts or valid trials; unresolved
+cells retain their `STAT-002` conservative-bound treatment.
+
 The case minimums are eligibility floors, not power guarantees: with 30 cases
 and an observed rate near 0.5, the 95% Wilson interval is about ±0.17 wide.
 A plan **SHOULD** state the interval width its decision needs.

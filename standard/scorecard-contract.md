@@ -392,7 +392,11 @@ value, interval, and reasons. The `metrics` `estimand` values are `pass_at_1`,
 `wilson`, `t_over_cases`, or `t_over_paired_differences`.
 
 The supported pass@1 and pass^k estimands are computed per case under the sealed sampling model, then
-aggregated with declared case weights. If eligible repetitions are fewer than
+aggregated with declared case weights. For `pass_hat_k`, `STAT-003` requires
+the named arm's sealed `trialsPerCase` to equal the claim's `k`; a mismatch is
+rejected before dispatch and yields `insufficient_evidence` if discovered later.
+All `k` scheduled cells enter each case indicator, with unresolved cells handled
+by [Conservative Bounds](#conservative-bounds). If eligible repetitions are fewer than
 `k`, assumptions fail, or counts do not reconcile, status is
 `insufficient_evidence` and the value is null.
 

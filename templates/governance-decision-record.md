@@ -39,7 +39,7 @@ decision digest.
 - Target population and sampling frame:
 - Represented strata:
 - Exclusions and coverage gaps:
-- Assurance level: A2 release | A3 autonomy
+- Assurance level: A2 or A3 release | A3 autonomy or risk acceptance
 - Effective-risk tier and risk-record ID/digest:
 - Inherent task hazards:
 - Data sensitivity, residency, IP, and retention boundary:
@@ -67,7 +67,7 @@ decision digest.
 ## Claim Decision Table
 
 Every decision-bearing claim ID resolves to one immutable scorecard
-`claimResults[]` entry.
+`claims[]` entry.
 
 | Claim ID | Type/construct | Population/slice | Required status/threshold | Observed estimate/interval/bounds | Missingness and coverage | Assurance/risk compatibility | Verdict | Evidence IDs |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
