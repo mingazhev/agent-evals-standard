@@ -22,8 +22,8 @@ and applicability records; `already_satisfied` requires a base-state record.
 These alternatives do not fabricate a diff. There are no native substatuses.
 
 The adopter supplies the runner and replay implementation, sealed through the
-run manifest's existing `harness` component binding. This repository does not
-ship an executor or require an executor registry. The normative details are in
+run manifest's `replayImplementation` reference. This repository does not ship
+an executor. The normative details are in
 the [outcome replay contract](outcome-replay-contract.md) and authenticated
 [case contract](case-contract.json); this README is an orientation guide.
 The base workspace schema supports multiple roots, but this bundled patch

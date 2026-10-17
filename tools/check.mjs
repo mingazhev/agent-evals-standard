@@ -28,6 +28,7 @@ const canonicalDocumentDigest = (document) => {
   return sha256(Buffer.from(jcs(projection), "utf8"));
 };
 assert.equal(jcs({ b: [2, 1], a: "quote\"\nline" }), "{\"a\":\"quote\\\"\\nline\",\"b\":[2,1]}");
+// shortcut: infers only bundled schemas' top-level self-digest convention, not payload evidence digests; add target-schema selection for a new target kind.
 const referencedDigest = (document, bytes) => typeof document?.digest === "string" ? canonicalDocumentDigest(document) : sha256(bytes);
 assert.equal(referencedDigest({}, Buffer.from("profile reference")), "sha256:a86ea6454739ac2f561f67559e599632fef8ec47dc3a422016a1414719e073a5");
 assert.notEqual(referencedDigest({ id: "a", digest: "stale" }), referencedDigest({ id: "b", digest: "stale" }));
@@ -72,6 +73,7 @@ function validate(schemaFile, document) {
 }
 
 function hasSchemaProperty(schema, pointer) {
+  // shortcut: direct properties only; use schema resolution if case schemas add $ref or composition.
   if (!pointer.startsWith("/")) return false;
   let current = schema;
   for (const segment of pointer.slice(1).split("/").map((part) => part.replace(/~1/g, "/").replace(/~0/g, "~"))) {

@@ -566,6 +566,11 @@
     "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
     "digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
   },
+  "replayImplementation": {
+    "path": "implementations/repo-change-replay.json",
+    "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+    "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
   "validityArgument": {
     "path": "evidence/validity-argument.json",
     "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",

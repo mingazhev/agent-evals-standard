@@ -39,6 +39,10 @@
       "additionalProperties": false
     },
     "version": { "type": "string", "minLength": 1 },
+    "replayContract": {
+      "$comment": "Optional binding to the exact replay semantic contract. When present, A2+ runs must bind replayImplementation to this exact contract; without it, no replay binding is required.",
+      "$ref": "#/$defs/artifactBinding"
+    },
     "workArtifactRegistry": {
       "$comment": "The authenticated sole work-artifact taxonomy. Semantic validation must require exact identity with the resolved evaluation profile and case bindings.",
       "$ref": "#/$defs/artifactBinding"
@@ -174,6 +178,7 @@
       "additionalProperties": false
     },
     "artifactBinding": {
+      "$comment": "For profile artifact pointers, resolve uri and use the target schema's declared self-digest projection when one is defined, recomputing it and verifying any stored self-digest; otherwise digest is SHA-256 of the stored bytes. This rule does not change {path,commit,digest} reference semantics.",
       "type": "object",
       "required": ["id", "version", "uri", "digest"],
       "properties": {
@@ -198,7 +203,7 @@
     },
     "nativeOutcome": {
       "type": "object",
-      "required": ["id", "baseOutcome", "definition", "allowedSubstatuses"],
+      "required": ["id", "baseOutcome", "definition"],
       "properties": {
         "id": { "$ref": "#/$defs/id" },
         "baseOutcome": { "$ref": "#/$defs/primaryOutcome" },

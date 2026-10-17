@@ -183,7 +183,7 @@ commit an intended-use and sampling plan declaring:
 - construct-to-capability and construct-to-evidence mappings.
 
 The plan uses the adopter's format. The validity argument's `review.evidence`
-record **MUST** bind its exact committed bytes and verify selection against it.
+record **MUST** bind the plan's exact committed bytes and verify selection against it.
 After selection, the completed validity argument **MUST** bind
 the exact run and case set through the
 [run projection](evidence-and-validation-contract.md#validity-argument-run-binding)
@@ -285,13 +285,15 @@ component **MUST** have immutable provenance.
 
 ### I5. Attribution and complete attempt accounting
 
-`RUN-002` — Every scheduled and started attempt, including invalid
+`RUN-002` — Every dispatched attempt, including invalid
 (`invalid_infrastructure` for setup or infrastructure failures,
 `invalid_capture` for interrupted or uncaptured attempts) and replacement
 attempts, **MUST** appear in the
 runner-owned append-only ledger. A replacement **MUST** link to its original and
 **MUST NOT** create a new statistical observation. Measurement failures
 **MUST NOT** be classified as agent failures or silently removed.
+A never-dispatched cell remains unresolved under the sealed schedule; it has
+no invented attempt-ledger entry.
 
 ### I6. Claims are bounded by evidence
 
@@ -555,9 +557,11 @@ product and that product's outcome profile.
 
 The seven base primary outcomes are normalized aggregation classes. An outcome
 profile **MUST** publish a closed `nativeOutcomes[]` mapping from its own outcome
-IDs to those classes, including an explicit allowed substatus vocabulary. Every
-trial **MUST** retain the selected native outcome and any applicable substatus in addition to
-the normalized primary outcome. `solved`, `correct_refusal`, and
+IDs to those classes. A profile using substatuses **MUST** declare their closed
+vocabulary; omitting `allowedSubstatuses` permits none. Every trial **MUST**
+retain the selected native outcome and any applicable substatus in its
+authenticated trial evidence record (adopter format), in addition to the
+normalized primary outcome. `solved`, `correct_refusal`, and
 `already_satisfied` therefore do not force a code-review profile to replace
 `approved` or `changes_requested`, or an operational profile to replace
 `rolled_back`, with generic task-solving language.
@@ -573,17 +577,20 @@ behavior remains subject to the agent-visible inferability rule in `CASE-001`.
 
 Profile-specific result parsing, terminal-artifact semantics, evidence-kind
 contracts, materiality rules, and native-substatus derivation belong to the
-selected outcome profile and its authenticated replay contract. They are not
+selected outcome profile and its authenticated replay contract, when supplied. They are not
 base semantics and **MUST NOT** affect another outcome-profile ID. The bundled
 `workspace-change-v1` example is bound to its separate
 [repository-change replay contract](../profiles/repo-change-v1/outcome-replay-contract.md).
 An implementation executes that contract through an outcome-replay executor.
-The run manifest's arm `components` with role `harness` **MUST** bind the exact
-executor code, configuration, and selected semantic contract, directly or
-through a resolvable implementation manifest in the adopter's format. Its
-`identity` resolves the artifact and its `digest` authenticates it. A separate
-executor registry is optional. Changing any bound bytes changes the digest;
-it does not silently change this base requirement.
+An outcome profile defining replay semantics **MUST** authenticate their
+contract through `replayContract`. At A2 and above, a run whose selected
+outcome profiles contain `replayContract` **MUST** bind the
+executor code, configuration, and selected semantic contract through its
+`replayImplementation` reference to a committed implementation manifest in the
+adopter's format. That manifest **MUST** bind every `replayContract` selected by
+the run's cases. This is shared measurement infrastructure, separate from
+`arms[].components` and the treatment bundle. Changing any bound bytes requires
+a new binding; it does not silently change this base requirement.
 
 `OUTPROF-001` — At A2 and above, each case **MUST** pin exactly one outcome-profile ID,
 version, and digest allowed by its evaluation profile. An outcome
@@ -816,13 +823,34 @@ totals, remaining budget, saturation state, and seal time. Events **MUST**
 identify the case, complete actor identity digest, purpose, authorization,
 units, and evidence digest. Events are **pre-exposure debits**: `occurredAt` is
 the debit time, and `evidenceDigest` binds an existing authorization record
-identifying the run ID and scheduled exposures or reviews it pays for. It does
+identifying its subject and the scheduled exposures or reviews it pays for.
+For a run, it names the run ID; pre-run Case QA instead names the case and QA
+stage. A debit authorizes only the exposures in that record; unused units
+cannot be transferred to another authorization. A named run ID **MUST NOT** be
+reused for a different sealed run. The authorization does
 not bind a future result or final run-manifest digest. The snapshot containing
 the debit is committed before the authorized exposure. A debit consumes its
 units even if execution is cancelled; there are no refunds or mutable
 reservation states. An actual exposure **MUST** map to exactly one paid unit,
 and a paid unit **MUST NOT** authorize two exposures. Completion evidence is
 recorded separately and does not debit the ledger again.
+
+Each authorized actual exposure **MUST** have an authenticated use record,
+linked through the relevant Case QA evidence references or the consuming
+scorecard/envelope's evidence manifest. A disclosure covering several held-out
+cases consumes one unit per case for each actor. The use record's adopter-defined
+payload **MUST** bind the debit event ID, unit
+kind and one-based unit index, authorized subject, case ID, actor identity digest,
+exposure time, and a distinct exposure identity (attempt, QA-stage, or disclosure
+event ID, as applicable). It includes the run ID when the authorization names
+one. The unit index **MUST** be within
+the event's debit for that kind; the same `(event ID, kind, index)` **MUST NOT**
+occur twice, and an exposure **MUST NOT** be assigned multiple use records.
+Subject, case, actor, run when present, purpose, and exposure **MUST** match the
+authorization. Existing evidence may supply the record if it binds all these
+values; non-attempt disclosures still require use evidence. Oracle access
+cannot be authorized or assigned a paid unit; it is recorded as a violation
+and triggers the stop rule below.
 
 Each snapshot contains the cumulative ordered `events` array; its predecessor's
 array **MUST** be an exact prefix. Genesis has `sequence: 0`, no predecessor,
@@ -957,7 +985,7 @@ no separate obligations or validation-result fields.
 
 `RUN-001` — Each attempt **MUST** execute this ordered protocol:
 
-1. register the scheduled cell and attempt in the authenticated ledger;
+1. register the dispatched attempt against its scheduled cell in the authenticated ledger;
 2. materialize the clean base, projection, environment, and the arm identity in the run manifest;
 3. run bootstrap and preconditions in the runner trust domain;
 4. invoke the arm with sealed budgets, tools, permissions, and context;
@@ -976,7 +1004,8 @@ work-artifact type requires a repository change.
 
 If isolation, teardown, capture, or attribution cannot be established, oracle
 material **MUST NOT** be exposed and measurement **MUST** be invalid. Aggregation
-starts only after every scheduled cell has a reconciled ledger state.
+starts only after every scheduled cell is reconciled with its dispatched
+attempts or marked unresolved because it was never dispatched.
 
 ## Judgment Requirements
 

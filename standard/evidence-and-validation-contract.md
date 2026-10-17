@@ -19,7 +19,13 @@ three mechanisms that every conforming implementation **MUST** apply:
    JCS projection its schema names. A reference is a binding only when the
    verifier resolves the bytes and recomputes that digest. A changed byte is a
    different artifact; it cannot be patched into a sealed experiment, scorecard,
-   or decision.
+   or decision. For profile pointers containing `uri` and `digest`, and case
+   profile references containing `{id, version, digest}`, the digest
+   **MUST** use the target schema's declared self-digest projection when one
+   exists, otherwise SHA-256 of stored bytes. A verifier **MUST** recompute the
+   projected digest and verify both the target's self-digest and the pointer;
+   copying the self-digest is insufficient. This rule does not override explicit
+   digest contracts on other bindings, including `{path, commit, digest}`.
 2. **Version-control order.** Every sealed artifact — the run manifest, decision
    plan, and policy instance — and every append-only ledger **MUST** be committed to a
    version-controlled repository before any step that depends on it. The commit
@@ -143,13 +149,14 @@ For a conformance-statement subject, the authenticated requirement registry
 selects the exact closed check set using both `subject.claimTarget` and the
 statement's `assuranceLevel`, under `CONF-002`. For a supporting-artifact subject,
 the evaluator-controlled validation contract selects the closed checks of the
-named semantic contract for that artifact type, validation stage, and level; it
-does not require future run results to activate a case. `subject.claimTarget`
+named semantic contract for that artifact type and level, and for `case_qa`
+subjects its validation stages; it does not require future run results to
+activate a case. `subject.claimTarget`
 identifies the target that relies on the artifact and does not select that
 target's full requirement set. The selected set is fixed outside the subject
 and bound by the validator's contract and implementation identity. If the
-subject type, stage, or level does not resolve one closed set, validation is
-`insufficient_evidence`; a validator **MUST NOT** substitute a target-wide set.
+subject type, level, or applicable Case QA stages do not resolve one closed set,
+validation is `insufficient_evidence`; a validator **MUST NOT** substitute a target-wide set.
 For a `case_qa` subject, the stage is read from the authenticated QA record and
 the selected checks cover that record's applicable Case QA stages only.
 A supporting-artifact envelope cannot replace full conformance coverage. The envelope **MUST** contain each selected
@@ -356,9 +363,11 @@ missing evidence.
 
 ### Required evaluator-boundary checks
 
-The run manifest **MUST** identify, for each arm, the measurement stack: every
-outcome-relevant runner, grader, capture, policy, statistics, and
-external-service component, using pinned `arms[].components` entries. These
+The run manifest **MUST** identify the measurement stack used for each arm:
+every outcome-relevant runner, grader, capture, policy, statistics, and
+external-service component. Shared replay components are pinned once through
+`replayImplementation`; the remaining arm-specific components use pinned
+`arms[].components` entries. These
 runner-owned entries describe measurement provenance, not the evaluated
 treatment bundle. The runner-owned evidence packet binds the detailed component,
 trust-domain, authority, data-flow, and control inventories; the closed manifest

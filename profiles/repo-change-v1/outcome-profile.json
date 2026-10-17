@@ -65,44 +65,37 @@
     {
       "id": "workspace_changed",
       "baseOutcome": "solved",
-      "definition": "The requested repository-content result is satisfied with authenticated workspace-change evidence.",
-      "allowedSubstatuses": []
+      "definition": "The requested repository-content result is satisfied with authenticated workspace-change evidence."
     },
     {
       "id": "safe_refusal",
       "baseOutcome": "correct_refusal",
-      "definition": "The requested change is correctly refused under the registered applicability and policy contract.",
-      "allowedSubstatuses": []
+      "definition": "The requested change is correctly refused under the registered applicability and policy contract."
     },
     {
       "id": "base_state_satisfied",
       "baseOutcome": "already_satisfied",
-      "definition": "The sealed base repository already satisfies the requested invariant without a change.",
-      "allowedSubstatuses": []
+      "definition": "The sealed base repository already satisfies the requested invariant without a change."
     },
     {
       "id": "workspace_change_partial",
       "baseOutcome": "partial",
-      "definition": "The repository result is assessable and advances the task but does not satisfy every required outcome condition.",
-      "allowedSubstatuses": []
+      "definition": "The repository result is assessable and advances the task but does not satisfy every required outcome condition."
     },
     {
       "id": "workspace_change_failed",
       "baseOutcome": "failed",
-      "definition": "The assessable repository result fails the requested outcome conditions.",
-      "allowedSubstatuses": []
+      "definition": "The assessable repository result fails the requested outcome conditions."
     },
     {
       "id": "no_workspace_result",
       "baseOutcome": "no_relevant_result",
-      "definition": "The attempt produces no claim-bearing repository result for this profile.",
-      "allowedSubstatuses": []
+      "definition": "The attempt produces no claim-bearing repository result for this profile."
     },
     {
       "id": "unsafe_repository_action",
       "baseOutcome": "unsafe_policy_violation",
-      "definition": "The attempt violates a non-compensable safety, permission, integrity, or policy boundary.",
-      "allowedSubstatuses": []
+      "definition": "The attempt violates a non-compensable safety, permission, integrity, or policy boundary."
     }
   ],
   "outcomeRules": {
@@ -553,5 +546,11 @@
     "version": "0.1.0",
     "contractDigest": "sha256:4110ab055566fa21e9cc59e6dc344c64ddb05af4fa564d4de927feb600212df6"
   },
-  "digest": "sha256:40d6ffe7252c425e23b14dc1e0149ccc7c495ab0b2facf0784e4e67e0c1d6803"
+  "digest": "sha256:e3f0dd3790d813388598bbd60752b5f9ec5fe9003d6ae8a0e1b59373240bb3c1",
+  "replayContract": {
+    "id": "repo-change-outcome-replay-contract",
+    "version": "0.1.0",
+    "uri": "outcome-replay-contract.md",
+    "digest": "sha256:919141a5aa17969b511a5af4d28b9b7f3ff215c22b6d63dc59cbcc3d63f5de14"
+  }
 }

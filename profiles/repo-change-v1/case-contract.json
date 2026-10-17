@@ -22,6 +22,7 @@
     "work_artifact_registry_exact",
     "material_capability_work_product_coverage",
     "workspace_manifest_content_addressed",
+    "single_repository_root",
     "terminal_evidence_outcome_specific",
     "capability_family_exact_registry_mapping",
     "work_artifact_type_member_of_outcome"

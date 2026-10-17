@@ -48,14 +48,14 @@
       "id": "workspace-change-v1",
       "version": "0.1.0",
       "uri": "outcome-profile.json",
-      "digest": "sha256:40d6ffe7252c425e23b14dc1e0149ccc7c495ab0b2facf0784e4e67e0c1d6803"
+      "digest": "sha256:e3f0dd3790d813388598bbd60752b5f9ec5fe9003d6ae8a0e1b59373240bb3c1"
     }
   ],
   "caseContract": {
     "id": "repo-change-case-contract",
     "version": "0.1.0",
     "uri": "case-contract.json",
-    "digest": "sha256:86e8eaeceb69e4e07efeeeeb0c76f35e3801d0c66359d38ed21b4f860f2bd2d5"
+    "digest": "sha256:0cebe910ce6b0f8472a69b0aa8a2492a17deb7847bc07e11ebc9dcaee7a6e823"
   },
   "gateRegistry": {
     "id": "repo-change-gate-registry",
@@ -132,5 +132,5 @@
       "expectedVerdict": "fail"
     }
   ],
-  "digest": "sha256:8d36246454b30b9326dc2858bda2b974618b543bba52f8454bb31e0882737e54"
+  "digest": "sha256:7034495aafdfd471bffb0cfa50b7fdc03d98fc5a84657a747b13905fa287bd03"
 }

@@ -44,7 +44,7 @@
       "additionalProperties": false
     },
     "checks": {
-      "$comment": "For a conformance_statement subject, this is the exact closed set selected by the authenticated requirement registry using claimTarget and the statement assuranceLevel. For supporting artifacts, the evaluator-controlled contract selects the closed set by subject type and validation stage; claimTarget does not select the full target requirement set. Semantic validation rejects duplicate or unknown IDs relative to that selected set and resolves every evidence and finding ID. A selected check therefore cannot be not_applicable: its result is pass, fail, or insufficient_evidence.",
+      "$comment": "For a conformance_statement subject, this is the exact closed set selected by the authenticated requirement registry using claimTarget and the statement assuranceLevel. For supporting artifacts, the evaluator-controlled contract selects the closed set by subject type and level, and by applicable validation stages for case_qa only; claimTarget does not select the full target requirement set. Semantic validation rejects duplicate or unknown IDs relative to that selected set and resolves every evidence and finding ID. A selected check therefore cannot be not_applicable: its result is pass, fail, or insufficient_evidence.",
       "type": "array",
       "minItems": 1,
       "items": {

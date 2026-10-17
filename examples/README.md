@@ -25,5 +25,7 @@ example, the one event prepays one case exposure and one outcome look; its
 `npm test` checks that every schema has a valid example, that each example
 matches its expectation, and that bundled contracts validate. It does not
 re-verify digests, cross-document references, or commit identifiers inside the
-examples; those are illustrative. Bundled profile hashes and local references
+examples; those are illustrative. In particular, case profile digests and run
+attachment references (including `replayImplementation`) are placeholders,
+not references to the current bundled files. Bundled profile hashes and local references
 in `profiles/` are checked separately and are not illustrative placeholders.

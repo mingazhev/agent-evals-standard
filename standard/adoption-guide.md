@@ -56,7 +56,7 @@ depends on it:
    [`conformance-statement.schema.json`](../schemas/conformance-statement.schema.json)).
    Record one result for every applicable A1 requirement. Have the independent
    reviewer review the subject and results, commit that review, then commit the
-   statement referencing the reviewed evidence.
+   statement binding the review commit in `independentReview.recordedAtCommit`.
 
 The [worked example](../examples/core/README.md) shows the document contents,
 Git order, and scorecard arithmetic. For deterministic cases, two people can
@@ -92,7 +92,8 @@ attachments just to make an A1 capability claim.
 - **A2** adds evaluation- and outcome-profile bindings, a validity argument,
   risk assessment, operational policy, held-out budget and ledger, canonical
   evidence-artifact records, Case QA stages 3–8, and detached validation of the
-  conformance statement. Multi-arm runs add a comparative design; governance
+  conformance statement. Outcome profiles with `replayContract` also bind the shared executor
+  through the run's `replayImplementation`. Multi-arm runs add a comparative design; governance
   runs also seal a decision plan before execution.
 - **A3** adds an evaluation threat model, separate security approval, a bound
   post-decision assurance plan, and adversarial positive controls.
@@ -100,6 +101,10 @@ attachments just to make an A1 capability claim.
 See [assurance levels](standard.md#assurance-levels) and the registered
 requirements for the exact conditions. The A2/A3 path is a draft annex and may
 change incompatibly.
+
+Case profile references use the profile's declared self-digest; run attachments
+with `{path, commit, digest}` authenticate stored file bytes. These digests may
+differ for the same profile file; both are recomputed under their named contract.
 
 ## Pinning and governance
 
