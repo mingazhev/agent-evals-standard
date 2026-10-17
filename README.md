@@ -20,7 +20,8 @@ candidate contract; it does not assert that a release has occurred.
 needs thirteen obligations — pre-registration, oracle isolation,
 non-compensable gates, deterministic evidence, validated cases, complete attempt
 accounting, separate gates/outcomes/claims, case-level statistics with
-identification bounds, and non-agent baselines — and two people. Integrity rests
+identification bounds, and non-agent baselines. Two people suffice for deterministic cases;
+judgment-bound checks require two independent raters besides the author. Integrity rests
 on content digests and Git commit order; there are no signatures, keys, or trust
 services anywhere in this standard. A1 claims are bounded capability claims
 and never support release, autonomy, or risk-acceptance decisions. All levels
@@ -56,7 +57,7 @@ is explicit:
 | Capability surface | Bundled profile in 0.1.0 | Target-population evidence status |
 | --- | --- | --- |
 | `CAP.IMPLEMENT_CHANGE` | `repo-change-v1` | not yet established |
-| `CAP.VERIFY_ASSURE` | change-bound assurance inside `repo-change-v1`; no pure read-only assurance profile | not yet established |
+| `CAP.VERIFY_ASSURE` | taxonomy and contract surface only; no bundled assurance profile | not yet established |
 | `CAP.DISCOVER_SPECIFY`, `CAP.PLAN_DESIGN`, `CAP.REVIEW_DECIDE`, `CAP.RELEASE_OPERATE`, `CAP.REMEDIATE_LEARN` | normative taxonomy and contract surface only | not yet established |
 
 The profile demonstrates interoperability, not production trust readiness.
@@ -98,7 +99,6 @@ explicitly invokes it; it is not a second definition.
 | Invoked normative contract | [Validity, threat, and held-out exposure contracts](standard/standard.md#validity-threat-and-held-out-exposure-contracts) | Validity-argument, baseline, threat-model, and held-out budget and ledger contracts invoked by `VALID-002`, `VALID-003`, and `HOLD-002`. |
 | Invoked normative contract | [Integrity and Semantic Validation](standard/evidence-and-validation-contract.md#integrity-and-semantic-validation-contract) | Named canonical, cross-document, ledger, and verdict reproduction algorithms invoked by primary requirements. |
 | Invoked normative contract | [Git repository-state contract](standard/git-repository-state-contract.md) | Repository-state modes, closure, path and gitlink rules invoked by `SCOPE-003`. |
-
 | Invoked normative contract | [Security Threat Model](standard/security-threat-model.md) | Threat-coverage rules invoked by `RISK-001`, `RUN-003`, `DATA-001`, and `DATA-002`. |
 | Invoked normative templates | [Governance Policy](standard/governance-policy.md) and [Escalation and Stop Matrix](standard/governance-policy.md#escalation-and-stop-matrix) | Required adopter-owned policy and response shapes invoked by governance requirements; the bundled instances remain non-operational. |
 | Normative shape | [Schemas](schemas/) and authenticated JSON registries | Closed JSON structure and registered machine identities; schema annotations are informative. |

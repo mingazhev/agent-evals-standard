@@ -13,7 +13,7 @@
       "id": "agent-evals-standard-requirements",
       "version": "0.1.0",
       "uri": "../../standard/requirement-registry.json",
-      "digest": "sha256:4b35d0f0e2a28ca8812020ed27e69610277425fce285d4788323a3467fddce40"
+      "digest": "sha256:f1c3c5796af5824299c4f260c1cffd5a5d008d477f38f313844eaf4c7a1d5f3f"
     },
     "verdict": "compatible_no_weakening"
   },
@@ -29,8 +29,7 @@
     "critical"
   ],
   "capabilityFamilies": [
-    "CAP.IMPLEMENT_CHANGE",
-    "CAP.VERIFY_ASSURE"
+    "CAP.IMPLEMENT_CHANGE"
   ],
   "interactionModes": [
     "noninteractive_repository_task",
@@ -42,21 +41,21 @@
     "id": "repository-sdlc-work-artifact-registry",
     "version": "0.1.0",
     "uri": "../../standard/work-artifact-registry.json",
-    "digest": "sha256:873dbab837c0ccf5e72bffbb77468e11645e710cc57d44f6567f3c26ecc2bf9b"
+    "digest": "sha256:ebe356f9faf6541db5a13957635027ccd8db586811fe7347a23aa9f985cfd36c"
   },
   "allowedOutcomeProfiles": [
     {
       "id": "workspace-change-v1",
       "version": "0.1.0",
       "uri": "outcome-profile.json",
-      "digest": "sha256:f8898ca1711f8e725f4babb3c884669d1a4917ed75839950c6425d0ebc729cf7"
+      "digest": "sha256:a58112902ae2250a6bb9aa47a582ff4b92a03a2d9411ebc38fa49bda1d45ca9a"
     }
   ],
   "caseContract": {
     "id": "repo-change-case-contract",
     "version": "0.1.0",
     "uri": "case-contract.json",
-    "digest": "sha256:9e905bd4844001d514670cf3b2239232d31bdcbf710448ee146593bf99ced1d9"
+    "digest": "sha256:86e8eaeceb69e4e07efeeeeb0c76f35e3801d0c66359d38ed21b4f860f2bd2d5"
   },
   "gateRegistry": {
     "id": "repo-change-gate-registry",
@@ -68,7 +67,7 @@
     "id": "repo-change-case-qa-contract",
     "version": "0.1.0",
     "uri": "case-qa-contract.json",
-    "digest": "sha256:d17987895c74e0fec9b6b7433ee80974758c49ddee61a7c56476326a77c15b98"
+    "digest": "sha256:344bc44916563dad011fed03ee0dd6afb29c4e7b2b82272038c3efc6f476721a"
   },
   "metrics": [
     {
@@ -82,7 +81,7 @@
     "id": "repo-change-failure-taxonomy",
     "version": "0.1.0",
     "uri": "failure-taxonomy.json",
-    "digest": "sha256:40b163062c44b813605d6126f95e31ebff7d172958fc2b97ef3e136058910636"
+    "digest": "sha256:9a5435383cba2e67ce03523096036efa0c53702b62bcf2bec325fd2db89887a2"
   },
   "additionalAssuranceRequirements": [],
   "exclusions": [
@@ -110,23 +109,28 @@
       "scope": "CAP.REMEDIATE_LEARN",
       "reason": "No incident or learning-cycle outcome profile is bundled.",
       "claimEffect": "forbidden"
+    },
+    {
+      "scope": "CAP.VERIFY_ASSURE",
+      "reason": "The 0.1.0 case format selects one material artifact type; this change profile cannot also bind an independently evaluated assurance report.",
+      "claimEffect": "forbidden"
     }
   ],
   "fixtures": [
     {
       "id": "repo-change-positive",
       "manifestUri": "../../examples/manifest.json",
-      "manifestDigest": "sha256:0f45912f00b98403a9b98105599e6eabf0c3aae4de3e76a0875f7343cecbbff9",
+      "manifestDigest": "sha256:8f98996a98eb9c510039eb37d7c12a92139c832d00a5cacfcaee92941bb5a208",
       "manifestExpectationId": "evaluation-profile.valid",
       "expectedVerdict": "pass"
     },
     {
       "id": "reject-general-agent-capability",
       "manifestUri": "../../examples/manifest.json",
-      "manifestDigest": "sha256:0f45912f00b98403a9b98105599e6eabf0c3aae4de3e76a0875f7343cecbbff9",
+      "manifestDigest": "sha256:8f98996a98eb9c510039eb37d7c12a92139c832d00a5cacfcaee92941bb5a208",
       "manifestExpectationId": "evaluation-profile.general-agent-capability",
       "expectedVerdict": "fail"
     }
   ],
-  "digest": "sha256:ec2efb7df14991d4ca44a49c884a52c630be7c93f84186883c30dc57b5e6b9f6"
+  "digest": "sha256:d14e43b823d426c787c95fdad5b7c870758280d8995de67398f071136da91bc7"
 }

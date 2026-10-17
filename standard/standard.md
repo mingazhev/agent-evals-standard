@@ -97,7 +97,7 @@ and **MUST NOT** override it. Comparator arms share the measurement profile; cha
 a measurement-system study instead. A profile narrows the base (supported
 assurance levels, risk range, capability families, interaction modes, outcome
 profiles, gates, QA controls, and metrics) and **MUST NOT** add a capability
-family, interaction mode, outcome contract, or weaker obligation.
+family, interaction mode, normalized primary outcome, or weaker obligation.
 
 Assurance is a base-owned overlay, not profile-owned semantics. A profile's
 `supportedAssuranceLevels` can only narrow eligible levels. Its
@@ -132,35 +132,12 @@ coverage may aggregate a nonempty subset. The aliases `interactive` and
 
 The authenticated
 [`repository-sdlc-work-artifact-registry`](work-artifact-registry.json) is the
-sole normative work-artifact-to-capability mapping. Every type maps to exactly
-one family. The mapping is mechanically decidable after a type is selected;
-selecting the type still requires the classification evidence and verifier
-defined below:
-
-| Work artifact type | Capability family |
-| --- | --- |
-| `requirements_or_specification` | `CAP.DISCOVER_SPECIFY` |
-| `repository_analysis` | `CAP.DISCOVER_SPECIFY` |
-| `technical_plan_or_design` | `CAP.PLAN_DESIGN` |
-| `code_change` | `CAP.IMPLEMENT_CHANGE` |
-| `test_change` | `CAP.IMPLEMENT_CHANGE` |
-| `repository_configuration` | `CAP.IMPLEMENT_CHANGE` |
-| `assurance_report` | `CAP.VERIFY_ASSURE` |
-| `review_decision` | `CAP.REVIEW_DECIDE` |
-| `release_artifact` | `CAP.RELEASE_OPERATE` |
-| `operational_change_record` | `CAP.RELEASE_OPERATE` |
-| `incident_analysis` | `CAP.REMEDIATE_LEARN` |
-| `prevention_plan` | `CAP.REMEDIATE_LEARN` |
-
-A case is classified by the construct actually measured and the material work
-product on which its verdict depends, not by incidental tools or intermediate
-steps. The case declares its closed `workArtifactTypes`; its
-`capabilityFamilyIds` **MUST** equal exactly the set of families those types
-map to in the authenticated registry. Every selected family therefore has at
-least one material mapped artifact type; a family with only incidental activity
-or no material output is an invalid passenger. Whether a declared type is in
-fact a material work product of the case is reviewed in Case QA, not asserted
-by the author.
+sole normative work-artifact-to-capability mapping. Each case declares one
+`workArtifactType` and one `capabilityFamilyId`; the family **MUST** equal the
+selected type's registry mapping. Case QA verifies that this type describes the
+material evaluated work product, rather than incidental tools or intermediate
+steps. The 0.1.0 case schema cannot represent several material artifact types
+or capability families in one case; such work needs separately scoped cases.
 
 `code_change` is the closed fallback ID for a material repository-content
 implementation change not separately classified as `test_change` or
@@ -170,27 +147,21 @@ NOT** be used to infer that source-code bytes changed.
 `repository_configuration` remains the distinct type for build, dependency,
 workflow, policy-as-code, and other recognized repository configuration.
 
-Multi-label classification is required only when distinct claim-bearing
-constructs or material work products span multiple families. A delivered
-`test_change` is `CAP.IMPLEMENT_CHANGE`; independently evaluated test-design,
-debugging, security, performance, or reliability conclusions materialize as an
-`assurance_report` under `CAP.VERIFY_ASSURE`; a case evaluating both is
-multi-label. That report is the evaluated work product; a grader assessment or
-replay record evaluating it is measurement evidence and **MUST NOT** satisfy the
-selected `assurance_report` type. Repairing an escaped defect is
-`CAP.IMPLEMENT_CHANGE` and becomes
-`CAP.REMEDIATE_LEARN` only when incident analysis, prevention, or learning is a
-material evaluated result. A release-readiness recommendation is
-`CAP.REVIEW_DECIDE`; a controlled simulated rollout or rollback is
-`CAP.RELEASE_OPERATE`. Repository research that merely supports another result
-is ancillary; it is `CAP.DISCOVER_SPECIFY` only when discovery, requirements, or
-acceptance criteria are themselves evaluated work products.
+A delivered `test_change` is `CAP.IMPLEMENT_CHANGE`; an independently evaluated
+test-design, debugging, security, performance, or reliability conclusion is an
+`assurance_report` under `CAP.VERIFY_ASSURE`. That report is the evaluated work
+product; a grader assessment or replay record is measurement evidence and
+**MUST NOT** satisfy the selected `assurance_report` type. Incident analysis,
+prevention, and learning qualify as `CAP.REMEDIATE_LEARN` only when they are the
+material evaluated result. Repository research supporting another result is
+ancillary; discovery or acceptance criteria qualify as `CAP.DISCOVER_SPECIFY`
+only when they are themselves evaluated work products.
 
 A positive claim **MUST NOT** extend to an uncovered capability family, artifact
 type, risk context, repository class, or interaction mode. A run intended only
 for code changes **MAY** omit other families if every resulting claim states
-that boundary; each omission is a `coverage.gaps` entry. Each case
-**MUST** bind a `capabilityFamilyId` of its evaluation profile, and every
+that boundary; each omission is a `coverage.gaps` entry. At A2 and above, each case
+**MUST** bind a `capabilityFamilyId` supported by its evaluation profile, and every
 claim-bearing material subject **MUST** map to it. The run manifest's
 `coverage.capabilityFamilyIds` **MUST** equal the families its cases bind, and
 every listed ID **MUST** own at least one material work product through the
@@ -258,7 +229,9 @@ requirement are defined in the
 
 ## Invariants
 
-I1–I13 collectively define the invariant boundary. Each invariant applies only
+I1–I13 collectively describe the invariant boundary. I2, I5, and I13 are
+navigation labels for `HOLD-001`, `RUN-002`, and `RUN-003`, respectively, not
+additional requirement IDs. Each invariant applies only
 to the target kinds listed for it in the authenticated requirement registry and
 only when its registered applicability rule resolves true; an unknown result is
 `insufficient_evidence`. Within that target and applicability scope, assurance
@@ -577,7 +550,7 @@ the normalized primary outcome. `solved`, `correct_refusal`, and
 `approved` or `changes_requested`, or an operational profile to replace
 `rolled_back`, with generic task-solving language.
 
-The outcome profile **MUST** bind the same authenticated
+At A2 and above, the outcome profile **MUST** bind the same authenticated
 `workArtifactRegistry` as its evaluation profile and define terminal state, a
 closed nonempty `workArtifactTypes` subset of that registry, outcome-specific `terminalEvidenceRequirements`,
 valid alternatives, evidence mode, applicable gate registry, failure taxonomy,
@@ -600,14 +573,10 @@ registered digest; it does not silently change this base requirement.
 `OUTPROF-001` — At A2 and above, each case **MUST** pin exactly one outcome-profile ID,
 version, and digest allowed by its evaluation profile. An outcome
 profile specializes result shape; it **MUST NOT** expand capability scope,
-effective-risk range, assurance eligibility, or base requirements. The case,
-evaluation profile, selected outcome profile, and the run manifest's coverage
-(with the case's `evaluationProfile` and `outcomeProfile` refs) **MUST** bind the
-same authenticated work-artifact registry. Every case or
-coverage work-artifact type **MUST** be supported by at
-least one authenticated selected outcome profile and map to a selected
-capability family; every selected capability family **MUST** have at least one
-material mapped type. A case's exact `interactionModeId` **MUST** be in the
+effective-risk range, assurance eligibility, or base requirements. The evaluation profile and selected outcome profile **MUST** bind the same
+authenticated work-artifact registry. The case's `workArtifactType` **MUST**
+belong to the outcome profile's `workArtifactTypes` and map to the case's
+`capabilityFamilyId`; run coverage is the union of those case families. A case's exact `interactionModeId` **MUST** be in the
 evaluation profile's complete `interactionModes` set.
 
 ### Authoring
@@ -628,32 +597,26 @@ bindings, `lifecycle` with its Case QA record, `contamination` history,
 the `interactionProtocol` for an interactive case. Their full validation rules
 follow.
 
-Technology tags describe the evaluated construct; they are not placeholders
-for a code-centric assumption. `technologyContext.applicability` **MUST** be
-`applicable` exactly when language or stack values are material to the task,
-work artifacts, validation, or claim, and those values **MUST** then be
-nonempty. It **MUST** be `not_applicable` only when none of those elements has a
-material technology dimension, and language and stack values **MUST** then be
-absent. Review, requirements, incident, and other non-code outcomes **MUST NOT**
-invent values such as `n/a`; a verifier **MUST** derive applicability from the
-construct and authenticated material work-artifact classifications rather than
-trust the case author's label.
+Material language, stack, repository-convention, and validation assumptions
+**MUST** be recorded in the sealed task inputs and Case QA evidence. Non-code
+outcomes **MUST NOT** invent technology values such as `n/a`.
 
-The validation strategy **MUST** cover public checks, hidden checks, security
-checks, and control proofs exactly once. For each class, an authenticated rule
-and material applicability evidence derive either `checked` or
-`not_applicable`; unknown or unresolved applicability is invalid. `checked`
-requires a nonempty corresponding check set and `not_applicable` requires an
-empty set. A case author **MUST NOT** remove a required check by changing the
-projected coverage value.
+The case's `acceptance.checks` and `acceptance.hardGates`, together with QA
+control evidence, **MUST** cover all applicable public, hidden, security, and
+control checks. An omitted check class requires an authenticated applicability
+rationale in QA evidence; unknown applicability is invalid. The closed case
+schema has no separate technology-context or validation-strategy object.
 
-A rule or check reference is `{id, version, digest}`. The verifier resolves it
+An external rule or check reference, where used, is `{id, version, digest}`;
+inline acceptance checks retain their schema-defined fields. The verifier resolves it
 to exact bytes under the [integrity
 model](evidence-and-validation-contract.md#integrity-model) and recomputes the
 digest; an unresolved or mismatched reference is invalid.
 
-Repository state **MUST** be identified first by a content-addressed
-`workspaceManifest`. That manifest **MUST** enumerate every repository root with
+At A2 and above, repository state **MUST** be identified by a content-addressed
+`workspaceManifest`. The required `repository` object still identifies the
+primary repository; its base commit must resolve to that repository's selected
+base tree or revision, without exposing an excluded commit to the arm. That manifest **MUST** enumerate every repository root with
 its own path, object format, tree digest, exact object graph, selected repository-
 state mode, mode-specific base object, and verifier. `tree_snapshot` binds
 `baseTree` and permits neither a commit base nor refs. `bounded_ancestry` and
@@ -685,17 +648,22 @@ case without an inventory supports only claims about the terminal artifact.
 ### Activation and Maintenance
 
 `CASE-004` — Activation evidence is a `case-qa-1` record. At A1 it **MUST**
-establish, for each case, a known-good result that passes; a no-op result, at
+establish, for each case, a known-good result that passes; a no-op result (unless
+it proves a pre-registered `already_satisfied` alternative), at
 least one plausible wrong result and, where the case has tests or hidden checks,
 a result with those tests disabled or weakened and a result that hard-codes the
 expected outputs that all fail, with a case where a trivial strategy is not
 applicable recording why; stability over repeated runs; and an inferability and
-scope review by a person independent of the case author.
+scope review by a person independent of the case author. A no-op exception
+**MUST** be recorded as `trivialStrategies.noOp.applicable: false` with a
+rationale, and the known-good control **MUST** prove the registered base-state
+alternative; an author label alone cannot excuse a no-op failure control.
 
 The record binds the case at its candidate commit, meaning the case document
 without `lifecycle`. The active case is that document plus `lifecycle`, and no
 other field may differ, so `case.lifecycle.qaRecord` → QA record → candidate case
-is acyclic. The record's `decision` is `active`, `rejected`, or `quarantined`; a
+is acyclic. The record's `decision` is `active`, `rejected`, or `quarantined`; rejected or quarantined records preserve actual control results and stability,
+even when they block activation; a
 quarantined record carries an `invalidation` with a reason and nonempty evidence,
 and the case's `lifecycle.quarantineRecord` references it.
 
@@ -750,8 +718,10 @@ inventory, evaluation threat model, and held-out exposure controls under
 `VALID-002`, `VALID-003`, and `HOLD-002`. It defines the minimum interoperable
 attachments that the run manifest binds at A2 and above. Prose-only
 declarations and untyped URI pointers do not satisfy these controls: every
-binding below is a content-addressed reference `{id, version, uri, digest}`
-whose bytes the verifier resolves and re-hashes under the
+binding below uses its schema-defined content-addressed reference (`{path,
+commit, digest}` for run attachments; `{id, version, uri, digest}` where the
+attachment schema declares that form). The verifier resolves and re-hashes the
+referenced bytes under the
 [integrity model](evidence-and-validation-contract.md#integrity-model).
 
 All contract versions in this release are `0.1.0`.
@@ -875,10 +845,12 @@ This section adds no second definition.
 
 ### Sealed Experiment Contract
 
-`EXP-001` — A run is one sealed experiment containing one or more arms and a
-fixed canonical scheduled-cell manifest. A scheduled cell is one `cellId`,
-case, arm, repetition, block, and seed; block and seed are explicit even when
-the design has only one of each. Cell IDs and `(case, arm, repetition)` tuples
+`EXP-001` — A run is one sealed experiment containing an agent arm, a no-action baseline,
+and a distinct non-agent control, with optional additional arms and a
+fixed schedule derived from `cases`, `arms`, and `repetitions`. Each case has
+trials `1..trialsPerCase` for each arm; the tuple `(caseId, armId, trial)`
+identifies a cell, whose runner-assigned `cellId` remains stable in the ledger.
+Cell IDs and `(case, arm, repetition)` tuples
 **MUST** be unique. One physical attempt or its permitted retry lineage resolves
 the cell.
 
@@ -910,24 +882,25 @@ implementations, permissions, budgets, retrieval, memory, context projection,
 environment, and external services. Every item **MUST** carry a version and
 digest or an authenticated provider identity with immutability evidence.
 
-Each scheduled cell **MUST** resolve its evaluation-profile ID and
+At A2 and above, each scheduled cell **MUST** resolve its evaluation-profile ID and
 digest and outcome-profile ID, version, and digest indirectly and exactly
 through its case's own `evaluationProfile` and `outcomeProfile` bindings. The
 cell **MUST NOT** carry a second profile binding or an override. This resolved measurement profile is
 shared by direct comparator arms and is not part of arm identity or the
 declared treatment bundle.
 
-`EXP-003` — An experiment with multiple arms **MUST** contain
+`EXP-003` — At A2 and above, an experiment with multiple arms **MUST** contain
 `comparativeDesign` in the run manifest: `comparatorArmIds`, the declared
-`treatmentBundle`, and `pairedUnits` of cases by repetition, together with
-randomization and ordering, state reset, interference controls, identical
-measurement-profile bindings across direct comparator arms, and a shared
-measurement stack, each declared in the manifest or the attachments it binds. For every paired tuple, the schedule **MUST** contain exactly one cell for
-every comparator arm; marginal equality of case and arm sets is insufficient.
-Every statistical claim **MUST** seal, in the run manifest, the exact ordered
-eligible-cell tuples it uses. Split arms, a missing arm or repetition, asymmetric block or seed,
-eligible-cell subsets or supersets, undeclared arm differences, or unresolved
-interference make the direct comparative claim insufficient.
+`treatmentBundle`, and `pairedUnits: cases_by_repetition`. Every comparator is
+measured on the same complete case set. For each case, all repetitions sealed
+for each arm enter that arm's case-level mean; arms may have different declared
+repetition counts. No repetition may be silently dropped or selected.
+Randomization, ordering, seeds, blocking, state reset, interference controls,
+and statistical assumptions **MUST** be sealed in `statistics.overrides` when
+not determined by `stat-defaults-v1`; comparator arms share the measurement
+profile and stack. Each claim uses the manifest's complete case set and named
+arms. Missing cases, undeclared arm differences, or unresolved interference
+make the direct comparative claim `insufficient_evidence`.
 
 ### Interactive Actors and Simulators
 
@@ -944,13 +917,9 @@ population limits **MUST** be validated before it supports a claim.
 
 ### Evidence Contracts
 
-`EVID-001` and `EVID-002` apply to every case, experiment, scorecard, decision,
-ledger, and conformance statement. At A1, references are `{path, commit, digest}`
-triples and the statement is validated by independent review. At A2 and above,
-evidence references **MUST** use the canonical `evidence-artifact-1` contract in
-[Evidence and Detached Validation](evidence-and-validation-contract.md), and
-semantic validation **MUST** be detached: the subject never embeds its validation
-result; an external `validation-envelope-1` binds the subject digest.
+Evidence references and detached validation follow the primary definitions
+[EVID-001 and EVID-002](evidence-and-validation-contract.md). This section adds
+no separate obligations or validation-result fields.
 
 ### Run Protocol
 
@@ -1061,11 +1030,17 @@ populations each claim describes.
 | pass^k estimator | fraction of cases whose `k` scheduled trials all succeed, with `k = 3` |
 | Confidence level | 95% two-sided; with `m` primary claims in one plan, `1 - 0.05/m` for each (Bonferroni) |
 | Interval, one trial per case | Wilson score interval |
-| Interval, repeated trials | `mean ± t(1 - α/2, n - 1) · s / √n` over per-case values, clipped to `[0, 1]`; when `s = 0`, the Wilson interval on the case count |
-| Interval, paired contrast | the same `t` interval over per-case differences, clipped to `[-1, 1]` |
+| Interval, pass^k | Wilson score interval over the binary all-`k`-trials-successful indicator for each independent case |
+| Interval, repeated-trial pass@1 | approximate `mean ± t(1 - α/2, n - 1) · s / √n` over per-case fractions, clipped to `[0, 1]`; requires a justified case-level approximation |
+| Interval, paired contrast | approximate `t` interval over per-case differences, clipped to `[-1, 1]`; requires a justified case-level approximation |
 | Missingness | identification bounds that assign every unresolved cell failure, then success; the reported interval runs from the lower limit at the failure endpoint to the upper limit at the success endpoint |
 | Decision rule | an at-least claim is `supported` only when the reported interval's lower limit exceeds the sealed threshold; an at-most (harm) claim only when its upper limit falls below it |
 | Replacement attempts | at most one per cell, only after a measurement-invalid attempt |
+
+When a `t` interval has zero sample variance or its case-level approximation
+is unsupported, the default interval is uncomputable; the claim yields
+`insufficient_evidence` unless a justified alternative method was sealed as an
+override. Wilson is not applied to fractional or signed case observations.
 
 The case minimums are eligibility floors, not power guarantees: with 30 cases
 and an observed rate near 0.5, the 95% Wilson interval is about ±0.17 wide.
@@ -1082,7 +1057,7 @@ The aggregate **MUST NOT** silently transfer to an unsupported population.
 ## Governance Decisions and Post-Decision Assurance
 
 `GOV-001` — Before an A2 or A3 experiment, the adopter **MUST** seal, through the
-run manifest's `policy` and `decisionPlan`, the policy, decision plan, minimum evidence, claims, thresholds, cost and review limits,
+run manifest's `policy` and, for governance use, `decisionPlan`, the applicable policy and decision-plan inputs: minimum evidence, claims, thresholds, cost and review limits,
 zero-tolerance gates, approver roles, separation of duties, decision envelope,
 expiry, rollback, and approve/reject/insufficient conditions. The decision record
 **MUST** trace each condition to a scorecard claim or canonical evidence artifact.

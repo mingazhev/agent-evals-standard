@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:agent-evals-standard:schema:evaluation-profile:1",
   "title": "Versioned evaluation profile",
-  "$comment": "A profile is a complete standalone declaration that narrows the base under PROFILE-001. Set values use closed-enum order and keyed collections use lexical key order.",
+  "$comment": "A profile is a complete standalone declaration that narrows the base under PROFILE-001. Set values use closed-enum order and keyed collections use lexical key order. The top-level digest is SHA-256 over RFC 8785 JCS with only the top-level digest omitted (full_document_without_digest).",
   "type": "object",
   "required": ["schemaVersion", "id", "namespace", "owner", "version", "baseCompatibility", "supportedAssuranceLevels", "effectiveRiskRange", "capabilityFamilies", "interactionModes", "workArtifactRegistry", "allowedOutcomeProfiles", "caseContract", "gateRegistry", "caseQa", "metrics", "failureTaxonomy", "additionalAssuranceRequirements", "exclusions", "fixtures", "digest"],
   "properties": {

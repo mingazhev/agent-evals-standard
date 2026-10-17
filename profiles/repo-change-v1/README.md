@@ -8,39 +8,22 @@
 This profile is the smallest concrete specialization shipped with the draft. It
 covers repository changes that produce a workspace diff and can be evaluated by
 build, test, security, repository-integrity, and policy evidence. It supports
-`CAP.IMPLEMENT_CHANGE` and `CAP.VERIFY_ASSURE`; it does not claim coverage of
-the other SDLC capability families.
+`CAP.IMPLEMENT_CHANGE`. The taxonomy's other capability families need other
+evaluation and outcome profiles.
 
-Cases select one concrete interaction ID from the profile's closed
-`interactionModes` set; binary aliases are not accepted. The profile, outcome,
-and case all bind the standard
-[`work-artifact-registry`](../../standard/work-artifact-registry.json).
-Delivered `code_change`, `test_change`, and `repository_configuration` outputs
-materialize implementation; an independently graded verification conclusion
-materializes as `assurance_report`. Every selected capability must therefore
-have a material mapped output rather than appearing as a passenger label.
-`code_change` is the fallback ID for material repository-content implementation
-changes not recognized as tests or repository configuration. It is deliberately
-extension-agnostic, so an unfamiliar programming language does not disappear
-from material evidence. The native `workspace_changed` outcome uses
-`documentation_only` only when every changed path is recognized as repository
-documentation.
-
-An implementation-only case selects `CAP.IMPLEMENT_CHANGE` and one or more
-implementation artifact types without selecting `CAP.VERIFY_ASSURE` or an
-`assurance_report`. `CAP.VERIFY_ASSURE` is optional and change-bound: when it is
-selected, the case must also select `CAP.IMPLEMENT_CHANGE`, at least one mapped
-implementation artifact, and `assurance_report` as a material, independently
-judged output. Conversely, `assurance_report` is invalid unless
-`CAP.VERIFY_ASSURE` is selected. A pure read-only analysis, debugging, security
-assessment, or assurance case is outside `repo-change-v1` and must select a
-different evaluation and outcome profile. A workspace diff proves the change
-outcome; it never substitutes for the assurance verdict.
+Each case selects one `capabilityFamilyId`, one `workArtifactType`, and one
+`interactionModeId`. The selected artifact type is `code_change`, `test_change`,
+or `repository_configuration` and maps to `CAP.IMPLEMENT_CHANGE` in the profile's
+[work-artifact registry](../../standard/work-artifact-registry.json).
+`code_change` includes repository documentation and implementation assets.
+The 0.1.0 case format cannot express several material artifact types in one
+case. Independently evaluated assurance reports and pure read-only assurance
+cases are outside this bundled profile; verification used to assess a change
+is measurement evidence, not a second evaluated capability.
 
 The profile's accepted terminal alternatives are outcome-specific. Every
 `solved` result requires exactly one authenticated content-addressed
-`workspace_diff`; the case contract adds the conditional material-work-product
-obligation above when verification is selected. `correct_refusal` requires
+`workspace_diff` matching the selected material work-artifact type. `correct_refusal` requires
 authenticated refusal and applicability records; `already_satisfied` requires an
 authenticated base-state record. The latter two do not fabricate a diff. The authenticated
 [case contract](case-contract.json) fixes the profile-specific case shape and
@@ -65,8 +48,8 @@ deletion, mode-only, rename, copy, and binary records; it rejects unsafe paths
 and metadata-only headers. It derives the native substatus from the complete
 changed-path classification: `documentation_only` for documentation-only
 `code_change`, `code_only`, `tests_only`, or `configuration_only` for the
-corresponding singleton class, `code_and_tests` for exactly those two classes,
-and `mixed_repository_change` otherwise. An implementation seals the
+corresponding singleton class. Several material classes require separately
+scoped cases under the 0.1.0 case format. An implementation seals the
 executor's exact bytes and digest through an outcome-replay executor registry
 pinned in the run manifest. Projects with different path
 conventions need a differently identified and sealed profile/executor.

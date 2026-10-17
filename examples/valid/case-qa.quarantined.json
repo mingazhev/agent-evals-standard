@@ -40,7 +40,7 @@
       "id": "round-float",
       "kind": "plausible_wrong",
       "description": "Plausible wrong fix: round(amount, 2) on floats; fails 37 of 1,000 generated amounts.",
-      "result": "fail",
+      "result": "pass",
       "evidence": {
         "path": "qa/ls-017/round-float.log",
         "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",

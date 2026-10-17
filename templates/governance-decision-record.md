@@ -3,6 +3,12 @@
 - Status: unpublished working draft
 - Template version: 0.1.0
 
+This informative authoring checklist includes companion publication metadata;
+the decision itself uses the closed `governance-decision-1` schema. Envelope
+locators below belong to a separate publication record, never inside the
+validated decision. The primary evidence and governance contracts determine
+the obligations.
+
 This authoring view represents one decision over immutable scorecards and claim
 results. The decision is a validation subject and **MUST NOT** embed its
 semantic-validation result. A detached `validation-envelope-1` binds the final

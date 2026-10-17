@@ -1,5 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "The top-level digest is SHA-256 over the RFC 8785 canonical JSON projection with only the top-level digest omitted (full_document_without_digest).",
   "$id": "urn:agent-evals-standard:schema:requirement-registry:1",
   "title": "Closed normative requirement registry",
   "type": "object",

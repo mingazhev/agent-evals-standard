@@ -17,6 +17,11 @@ successes.
 
 ## Activation Pipeline
 
+The stages below are the A2/A3 procedure invoked by `CASE-004`. At A1, use
+its primary [activation definition](standard.md#activation-and-maintenance)
+and the A1 [record form](#activation-record); stages 3–8 and their attachment
+requirements are not additional A1 obligations.
+
 A case proceeds through the stages in order. A failed stage returns the case to
 `candidate` with a recorded defect from the Defect Taxonomy.
 
@@ -63,14 +68,14 @@ This checklist is guidance for authors and reviewers; it is not an activation
 stage, and the activation record does not require it. Stages 3-8 are the
 complete activation procedure.
 
-- Case contract complete: workspace manifest with one state binding per
-  repository, task, agent-visible projection manifest, profile, validation
-  strategy, scoring, risk tier, ambiguity label, owner, review date, and
-  contamination metadata.
-- Each validation class (public, hidden, security, control) is `checked` with a
-  nonempty check set or `not_applicable` with an authenticated rule.
-- Decision surfaces, claim IDs, work-artifact registry, interaction mode, and
-  actor protocol are declared, unique, and resolvable.
+- Case contract complete: task, acceptance, risk tier, ambiguity label, owner,
+  review date, profile bindings, workspace manifest, and contamination metadata;
+  authenticated projection and validation evidence resolve separately.
+- Acceptance checks and hard gates cover applicable public, hidden, and security
+  checks; QA evidence covers controls and justifies any omitted class.
+- Decision surfaces, interaction mode, and applicable actor protocol resolve;
+  profile bindings authenticate the work-artifact registry, and the later run
+  manifest owns claim IDs.
 - Oracle and hidden artifacts, solution lineage, and future commits are absent
   from every agent-visible surface; each oracle domain has a leakage control.
 - Replay-time path classification, when used, has activation-time applicability
@@ -209,8 +214,8 @@ runs the no-op-agent/co-actor control; the control **MUST** fail to achieve succ
 
 By default, at least one independently produced material result that is valid under the
 bound outcome profile **MUST** receive an accepted verdict from every applicable
-required verdict mechanism. Hidden checks participate when their authenticated
-case disposition is `checked`; when it is `not_applicable`, the selected
+required verdict mechanism. Hidden checks participate when present in `acceptance.checks`; when an
+authenticated QA rationale establishes their inapplicability, the selected
 deterministic public, security, or control checks, expert adjudication, or hybrid
 evidence mode serves instead.
 
@@ -233,8 +238,8 @@ agent-visible projection and bound outcome profile.
 
 Stage 7 **MAY** instead record `not_applicable` with a rationale when no
 independently produced alternative valid result could be obtained — for
-example because the task admits one byte-identical answer. That record sets
-`alternativeValidResult` to `null`. It is a recorded gap, not a proof that only
+example because the task admits one byte-identical answer. That stage records `status: not_applicable` and a nonempty
+`notApplicableRationale`; it does not add an `alternativeValidResult` field. It is a recorded gap, not a proof that only
 one valid result exists: a claim that depends on the case **MUST** carry the
 restriction that false-negative rejection of alternative valid results was not
 tested for it, and a later alternative valid result that the verdict mechanism
@@ -267,8 +272,10 @@ because that configuration was used as a probe:
 - for interactive cases, verify actor attribution, shared-state hashes,
   terminal rules, and zero unattributed mutations across repeated trials.
 
-Before pilot or validation outcomes are observed, Stage 8 **MUST** seal the
-run manifest statistics covering every quantitative QA claim. They
+Before pilot or validation outcomes are observed, Stage 8 **MUST** seal a QA
+statistics plan in its evidence, using the run-manifest statistics conventions
+for every quantitative QA claim. This is not the later evaluation run manifest,
+which cannot bind an active case until QA completes. They
 **MUST** declare the estimand, target population, sampling frame and unit,
 primary and exploratory endpoints, power or minimum-sample rule, estimator,
 interval method, dependence, missingness and retry handling, multiplicity
@@ -337,17 +344,16 @@ Severity levels:
   High-stakes governance **MUST** quarantine suspected cases until independent
   review resolves or excludes the signal; confirmed cases **MUST NOT** enter a
   clean reporting slice and trigger historical-claim review.
-- **Contamination metadata.** At A2 and above the case's `contamination` object is required and records
-  risk level, source visibility, public dates, previous evaluation exposure, and
-  whether an agent has previously solved the task in the same workspace. It
-  also records every probe exposure, status, evidence, resolver, affected
-  model/harness scope, and disposition.
+- **Contamination metadata.** At A2 and above the case's `contamination` object
+  records `sourceVisibility`, `previousEvaluationExposure`, and
+  `trainingOrMemoryRisk`. Public dates, probe exposures, statuses, evidence,
+  resolvers, affected model/harness scope, and dispositions belong in the
+  authenticated QA and exposure evidence, not extra fields in that closed object.
 
 ## Evidence Handling
 
-Every QA artifact **MUST** use the canonical evidence record and detached
-validation envelope defined by the
-[Evidence and Detached Validation Contract](evidence-and-validation-contract.md).
+QA evidence references and detached validation follow the level-specific
+[EVID-001 and EVID-002 contracts](evidence-and-validation-contract.md).
 The Case QA record **MUST NOT** embed or hash its own validation envelope.
 Reference results, hidden checks, canaries, personal data, customer content,
 licensed code, and exploitable security details **MUST** remain access
@@ -370,13 +376,19 @@ candidate case is acyclic. The normative machine-readable form is
 The A1 record carries exactly these fields, in addition to `id`, `version`,
 `case`, `author`, and `reviewer`:
 
-- `knownGood` — a known-good result that passes, with evidence;
-- `knownBad` — known-bad results that fail, each with a `kind` and evidence,
-  including one `no_op` and one `plausible_wrong`, plus `disabled_or_weakened_tests`
+- `knownGood` — the intended known-good result, its observed result, and evidence;
+  activation requires `pass`;
+- `knownBad` — intended known-bad controls, each with its observed result, `kind`,
+  and evidence; activation requires every observed result to be `fail`,
+  including one `no_op` (unless its registered base-state exception applies) and
+  one `plausible_wrong`, plus `disabled_or_weakened_tests`
   and `hardcoded_outputs` results where the case has tests or hidden checks;
-- `trivialStrategies` (optional) — whether each of those two strategies applies,
-  with a rationale where it does not;
-- `stability` — at least three runs per control, all stable;
+- `trivialStrategies` (optional) — applicability of `disabledOrWeakenedTests`,
+  `hardcodedOutputs`, and `noOp`, with a rationale where one does not apply;
+  `noOp.applicable: false` requires the known-good control to prove the
+  pre-registered `already_satisfied` alternative;
+- `stability` — actual runs per control and stability; activation requires at
+  least three runs per control, all stable;
 - `inferabilityReview` — the verdict (`all_required_behavior_inferable` or
   `defects_found`), findings, and the commit at which it was recorded;
 - `scopeReview` — the verdict (`all_four_tests_hold` or `out_of_scope`) and

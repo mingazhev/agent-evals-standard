@@ -66,26 +66,6 @@
       }
     },
     {
-      "id": "I2",
-      "subject": "lifecycle-wide oracle isolation",
-      "normativeReference": "standard.md#i2-lifecycle-wide-oracle-isolation",
-      "minimumLevel": "A2",
-      "targets": [
-        "experiment"
-      ],
-      "verificationKind": "semantic",
-      "verificationOwner": "run-validator",
-      "accountableReviewer": "run-validator-owner",
-      "evidenceBasis": {
-        "kind": "design_invariant",
-        "threatRationale": "contamination findings in Informative References"
-      },
-      "applicability": {
-        "rule": "Applies when lifecycle-wide oracle isolation can affect the declared case, evaluator, experiment target or any claim derived from it.",
-        "unknownEffect": "insufficient_evidence"
-      }
-    },
-    {
       "id": "I3",
       "subject": "no post-hoc adaptation or selection",
       "normativeReference": "standard.md#i3-no-post-hoc-adaptation-or-selection",
@@ -122,26 +102,6 @@
       },
       "applicability": {
         "rule": "Applies when reconstructible conditions and provenance can affect the declared evaluator, experiment target or any claim derived from it.",
-        "unknownEffect": "insufficient_evidence"
-      }
-    },
-    {
-      "id": "I5",
-      "subject": "attribution and complete attempt accounting",
-      "normativeReference": "standard.md#i5-attribution-and-complete-attempt-accounting",
-      "minimumLevel": "A2",
-      "targets": [
-        "experiment"
-      ],
-      "verificationKind": "semantic",
-      "verificationOwner": "ledger-validator",
-      "accountableReviewer": "ledger-validator-owner",
-      "evidenceBasis": {
-        "kind": "design_invariant",
-        "threatRationale": "retry and missingness control"
-      },
-      "applicability": {
-        "rule": "Applies when attribution and complete attempt accounting can affect the declared evaluator, experiment target or any claim derived from it.",
         "unknownEffect": "insufficient_evidence"
       }
     },
@@ -284,26 +244,6 @@
       },
       "applicability": {
         "rule": "Applies when validated measurement only can affect the declared case, suite, experiment target or any claim derived from it.",
-        "unknownEffect": "insufficient_evidence"
-      }
-    },
-    {
-      "id": "I13",
-      "subject": "trusted measurement boundary",
-      "normativeReference": "standard.md#i13-trusted-measurement-boundary",
-      "minimumLevel": "A2",
-      "targets": [
-        "experiment"
-      ],
-      "verificationKind": "semantic",
-      "verificationOwner": "run-validator",
-      "accountableReviewer": "run-validator-owner",
-      "evidenceBasis": {
-        "kind": "design_invariant",
-        "threatRationale": "adversarial measurement-system design"
-      },
-      "applicability": {
-        "rule": "Applies when trusted measurement boundary can affect the declared evaluator, experiment target or any claim derived from it.",
         "unknownEffect": "insufficient_evidence"
       }
     },
@@ -1261,5 +1201,5 @@
       }
     }
   ],
-  "digest": "sha256:f56b474cfad416341ed627cc62e3f20421a54b26ffca888ed11c2d032d797199"
+  "digest": "sha256:f1c3c5796af5824299c4f260c1cffd5a5d008d477f38f313844eaf4c7a1d5f3f"
 }

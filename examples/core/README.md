@@ -19,7 +19,7 @@ commits are illustrative identifiers.
 ## The team
 
 Two people, which the [small-team model](../../standard/glossary.md#independence)
-allows for every A1 role:
+allows for these deterministic cases:
 
 - `person-a` authors the cases, configures the agent arm, owns the run, and
   issues the conformance statement;
@@ -39,8 +39,8 @@ The commits below are each an ancestor of the next:
 | 3 | `first-attempt-recorded` | the first ledger entry; step 2 must be its ancestor (`I3`) |
 | 4 | `ledger-closed` | the complete hash-chained ledger |
 | 5 | `scorecard` | the scorecard |
-| 6 | `conformance-statement` | the statement |
-| 7 | `independent-review` | `person-b`'s confirmation |
+| 6 | `independent-review` | `person-b`'s confirmation of subject artifacts, requirement results, and restrictions |
+| 7 | `conformance-statement` | the final statement, referencing the review commit |
 
 The repository's protected branch rejects history rewrites, so nothing sealed in
 step 2 can be edited after results appear in step 3.
@@ -59,7 +59,7 @@ exits (`HOLD-001`).
 ## 2. Case QA — [`case-qa.json`](case-qa.json)
 
 The original fix passes; the unchanged snapshot (`no-op`), a plausible wrong
-fix (`round(amount, 2)` on floats), the hidden regression test deleted
+fix (`round(amount, 2)` on floats), the existing agent-visible unit tests disabled
 (`disabled_or_weakened_tests`), and a fix that returns the expected values for
 the 1,000 generated amounts by table lookup (`hardcoded_outputs`) all fail, and
 fail on fresh amounts for the last; all five controls are stable over five
@@ -186,8 +186,8 @@ this sample size, and the claims are written so that it is enough.
 
 The statement lists, in `requirementResults`, the 26 requirement IDs registered at
 minimum level A1 for the experiment claim (`SCOPE-001` through `CONF-003`), each with `pass`
-and evidence locations written as `path@commit#pointer`. `person-b` reviewed it at the
-`independent-review` commit and confirmed it, so the derived verdict is
+and evidence locations written as `path@commit#pointer`. `person-b` confirmed the subjects, requirement results, and restrictions at the
+`independent-review` commit; the final statement records that earlier review, so the derived verdict is
 `conforming`.
 
 [`../invalid/conformance-statement.conforming-with-failed-requirement.json`](../invalid/conformance-statement.conforming-with-failed-requirement.json)

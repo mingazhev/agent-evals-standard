@@ -235,6 +235,14 @@
       "valid": false,
       "expectedError": "reasons",
       "illustrates": "an uncomputable metric carries a null estimate and must state why in reasons"
+    },
+    {
+      "id": "case-qa.active-failed-control",
+      "path": "invalid/case-qa.active-failed-control.json",
+      "schema": "schemas/case-qa.schema.json",
+      "valid": false,
+      "expectedError": "/knownGood/result",
+      "illustrates": "CASE-004: actual failed controls may be recorded for rejected or quarantined cases, but an active case still requires knownGood pass and every knownBad fail."
     }
   ]
 }

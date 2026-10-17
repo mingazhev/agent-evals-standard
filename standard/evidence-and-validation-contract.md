@@ -61,7 +61,11 @@ scorecard, semantic validation, or governance **MUST** resolve to exactly one
 
 At A1, evidence is referenced as a `{path, commit, digest}` triple under the
 [integrity model](#integrity-model); `evidence-artifact-1` records are not
-required.
+required. At every level, structural document bindings (for example
+`runManifest`, `case`, or `workspaceManifest`) keep their schema-defined shape
+and resolve directly to the named document. At A2 and above, payload-evidence
+references use that shape to locate an evidence-artifact record, which in turn
+locates the payload; they do not replace document bindings with a new shape.
 
 The producer's authority for the artifact's schema and creation phase is
 established by the [integrity model](#integrity-model), not by a field in the
@@ -135,8 +139,14 @@ The envelope **MUST** bind:
 - the complete evidence manifest and either `output: null` or a content-addressed
   output artifact when validation produces a separate deterministic result.
 
-The authenticated requirement registry selects the exact closed check set for
-the envelope's `subject.claimTarget`. The envelope **MUST** contain each selected
+For a conformance-statement subject, the authenticated requirement registry
+selects the exact closed check set using both `subject.claimTarget` and the
+statement's `assuranceLevel`, under `CONF-002`. For a supporting-artifact subject,
+the evaluator-controlled validation contract selects the closed checks of the
+named semantic contract for that artifact and validation level; it does not
+require future run results to activate a case. That selection is fixed outside
+the subject and bound by the validator's contract and implementation identity.
+A supporting-artifact envelope cannot replace full conformance coverage. The envelope **MUST** contain each selected
 requirement ID exactly once and no unselected or unknown requirement ID. Every
 evidence ID and finding ID **MUST** resolve exactly once. Because applicability
 is resolved before a requirement is selected, a selected check has exactly one
@@ -211,6 +221,10 @@ and [`validation-envelope.schema.json`](../schemas/validation-envelope.schema.js
 - Version: 0.1.0
 - Status: unpublished 0.1.0 publication candidate
 
+Checks apply only within the invoking requirement's registered target and
+minimum assurance level. A1 uses its primary requirements and schema-defined
+references; A2/A3 attachment checks do not create additional A1 obligations.
+
 JSON Schema validates transport shape. It does not establish that hashes are
 correct, references resolve, formulas were recomputed, or verdict fields
 agree. A scorecard or conformance statement is conforming
@@ -259,24 +273,19 @@ digest.
 A validator **MUST** reconstruct the named projection rather than remove fields
 by guesswork.
 
-Every evidence reference **MUST** resolve to one canonical authenticated
+At A2 and above, every payload-evidence reference **MUST** resolve to one canonical authenticated
 artifact with authorized producer, phase, access, privacy/IP, and retention
 metadata. A dangling reference, digest or length mismatch, wrong producer or
 phase, unauthorized access, or expired evidence fails the affected path closed.
 
 ### Hash-chained append-only ledger
 
-Attempt accounting uses the Scorecard Contract's
-[entry chain](scorecard-contract.md#attempt-accounting), algorithm
-`sha256-jcs-entry-chain-v1`: each entry's `entryDigest` is SHA-256 over the RFC
-8785 JCS of the entry without `entryDigest`, the first entry's
-`previousEntryDigest` is the digest of the run manifest ref
-`{path, commit, digest}`, each later entry's is its predecessor's `entryDigest`,
-and `terminalDigest` is the last `entryDigest`. That is the version 0.1.0
-transport algorithm; no separate `fromState`/`toState` event stream is required.
-The verifier **MUST** reproduce every entry digest, reconcile one terminal entry
-per dispatch, preserve undispatched scheduled cells as unresolved, and verify
-retry lineage and first-valid selection under that contract.
+Attempt accounting uses the sole chain definition in the Scorecard Contract's
+[Attempt Accounting](scorecard-contract.md#attempt-accounting), algorithm
+`sha256-jcs-entry-chain-v1`. The verifier reproduces its entry digests, genesis,
+terminal digest, retry lineage, and first-valid selection, reconciles one
+terminal entry per dispatch, and leaves undispatched cells unresolved. No
+separate state-transition event stream is required.
 
 Ordering and rewrite resistance come from the
 [integrity model](#integrity-model): the
@@ -291,7 +300,7 @@ missing evidence.
 
 | # | Check | Normative requirement |
 | --- | --- | --- |
-| 1 | Gate set | Every `hardGateFailures` row names a gate that the evaluation profile, case, or `GATE-001` registers, and is backed by nonempty, valid evidence references. |
+| 1 | Gate set | Every `hardGateFailures` row names a gate that the evaluation profile, case, or `GATE-001` registers, and is backed by the affected attempts' authenticated evidence, resolved through their `evidenceDigest`; the summary row does not add an evidence field. |
 | 2 | Governance statuses | When `governanceStatuses` is present, every status obeys the Scorecard Contract's disposition rules and every terminal or `not_applicable` status has the required evidence; at A2 and above every status the operational policy expects is present. |
 | 3 | Outcome replay | Per-arm `outcomes` and every selected predicate are recomputed exclusively from the Scorecard Contract's `functional-outcome-v1` and `accepted-outcome-v1` definitions, including transcript and interaction evidence, by executing the verifier's own outcome-replay executor over the selected work-artifact set. Where the outcome profile requires independently graded work, replay also requires the runner-captured work product and a separate authenticated grader assessment. Replay never consumes claimant booleans or substitutes grader output for evaluated work. |
 | 4 | Invalid attempts | An invalid attempt (`invalid_infrastructure` or `invalid_capture`) has a null primary outcome, is not accepted, and is excluded from valid-only estimates while remaining in `accounting`, `telemetry`, and identification bounds; agent-attributed interference remains a valid `unsafe_policy_violation` rather than infrastructure invalidity. For each arm the seven `outcomes` counts sum to `validTrials`. |
@@ -311,10 +320,13 @@ missing evidence.
 
 ### Required evaluator-boundary checks
 
-The run manifest **MUST** describe, for each arm, the measurement stack: every
+The run manifest **MUST** identify, for each arm, the measurement stack: every
 outcome-relevant runner, grader, capture, policy, statistics, and
-external-service component, as part of the arm's identity. Component IDs are
-unique; every enforcement contract and data-flow endpoint resolves exactly
+external-service component, using pinned `arms[].components` entries. These
+runner-owned entries describe measurement provenance, not the evaluated
+treatment bundle. The runner-owned evidence packet binds the detailed component,
+trust-domain, authority, data-flow, and control inventories; the closed manifest
+does not embed those inventories. Inventory component IDs are unique; every enforcement contract and data-flow endpoint resolves exactly
 once. Trust-domain membership partitions the component set exactly once, and an
 `evaluated_arm` domain **MUST NOT** own a `runner_owned` enforcement contract.
 The declared data-flow inventory is closed: an unknown endpoint or undeclared
@@ -341,11 +353,9 @@ expiry and coverage, and binds its result evidence into the Case QA record.
 A mismatch, unknown method, expired validation, or non-`pass` verdict blocks
 activation.
 It also checks that decision-surface validation covers every case surface,
-authenticates and executes the applicability rule for each of the four case
-validation classes, requires `checked` to have a nonempty matching check set and
-`not_applicable` to have an empty set, and treats an unresolved, unknown, or
-mismatched determination as invalid rather than accepting an author-authored
-omission. It then re-executes or recomputes the typed known-good, known-bad, and alternate-path
+checks the case's inline acceptance checks and hard gates and the QA evidence
+for public, hidden, security, and control coverage under `CASE-001`. An unknown
+applicability determination or unsupported omission is invalid. It then re-executes or recomputes the typed known-good, known-bad, and alternate-path
 controls against their bound check and component digests, requires observed
 verdicts to equal the sealed expected verdicts,
 verifies that every hidden requirement traces to an exact artifact and location

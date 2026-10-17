@@ -2,6 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:agent-evals-standard:schema:outcome-profile:1",
   "title": "Versioned outcome profile",
+  "$comment": "The top-level digest is SHA-256 over RFC 8785 JCS with only the top-level digest omitted (full_document_without_digest).",
   "type": "object",
   "required": [
     "schemaVersion",

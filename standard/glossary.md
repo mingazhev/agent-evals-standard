@@ -88,7 +88,7 @@ but cannot change these meanings.
   outcome-profile identity bound to a case; comparator arms share it.
 - **Comparative design** — the sealed comparator, treatment-bundle, pairing,
   and analysis definition ([EXP-003](standard.md#sealed-experiment-contract)).
-- **Scheduled cell** — one case, arm, repetition, block, and seed; the
+- **Scheduled cell** — one case, arm, and repetition; the
   experimental observation. **Physical attempt** — one execution in a cell's
   retry lineage; an accounting unit, not an observation. **Trial** — the valid
   selected result that resolves a cell.
@@ -141,13 +141,14 @@ subject when all three conditions hold:
    author, from whoever configured the evaluated arm, and from the claimant
    whose claim depends on the judgment. An automated producer is independent
    only when a different person operates it.
-2. **No prior access to results.** Before their judgment was recorded, they had
-   no access to trial outcomes, scores, claim results, other raters' judgments,
-   or — where blinding applies — arm identities for the subject. A judgment is
-   recorded when it is committed to version control; that commit **MUST** be an
-   ancestor of the first commit containing those results, or an access log of an
-   access-controlled store **MUST** show no read of them before the judgment
-   time.
+2. **Role-appropriate blinding.** Case activation and pre-run reviewers have
+   no access to evaluated-trial outcomes, scores, or claim results before their
+   judgment is committed. Their review commit **MUST** precede the first result
+   commit, or access-controlled-store logs **MUST** establish the same order.
+   Raters **MUST NOT** see other raters' judgments before recording their own,
+   and arm identities remain hidden where the applicable protocol requires it.
+   Conformance reviewers and governance approvers inspect the completed evidence
+   their duties require; access to that evidence does not defeat independence.
 3. **No declared conflict.** They declare no conflict of interest under the
    sealed conflict-of-interest rule. Membership in the same team or reporting
    line is not, by itself, a conflict.
@@ -158,10 +159,10 @@ commit or time at which the results first became available to anyone in that
 role.
 
 **Small-team model.** Independence is about people and information flow, not
-organizational distance. Two people satisfy every independence requirement of
-[A1](conformance.md#baseline-a1): one authors the
-cases and configures the arm; the other reviews, rates, or approves before
-seeing results. Two raters required by `JUDGE-003` additionally **MUST NOT** see
+organizational distance. Two people suffice for deterministic
+[A1](conformance.md#baseline-a1) cases: one authors the
+cases and configures the arm; the other performs the pre-run reviews and later
+reviews conformance. Two raters required by `JUDGE-003` additionally **MUST NOT** see
 each other's judgments before recording their own, so a two-rater requirement
 needs two people besides the author. The same person **MAY** author one case and
 independently review another. When a team has fewer people than the
@@ -184,7 +185,8 @@ NOT** weaken it.
 - **Claim** — one registered proposition with construct, estimand, population,
   scope, predicate, analysis, threshold, and evidence status
   ([CLAIM-001](scorecard-contract.md#claims)). **Claim status** —
-  `supported`, `insufficient_evidence`, or `not_applicable`, computed per claim.
+  `supported`, `not_supported`, `insufficient_evidence`, or `reported_only`,
+  computed per claim under the [Scorecard Contract](scorecard-contract.md#claims).
 - **Validity** — whether measurement supports interpretation and attribution,
   distinct from success or acceptance.
 - **Assurance level** — `A0 diagnostic_run`, `A1 capability`,
@@ -202,8 +204,10 @@ NOT** weaken it.
   **Effective risk** — the policy-derived tier combining hazard, data,
   autonomy, permissions, environment, blast radius, oversight, likelihood, and
   uncertainty ([RISK-001](standard.md#risk-model)).
-- **pass@k** and **pass^k** — pre-declared estimators of at least one, and of
-  all, `k` repetitions succeeding ([STAT-001](standard.md#statistics-and-missingness)).
+- **pass@k** and **pass^k** — estimators of at least one, and of all, `k`
+  repetitions succeeding ([STAT-001](standard.md#statistics-and-missingness)).
+  The 0.1.0 machine contract supports pass@1 and pass^k (`pass_hat_k`), not
+  pass@k for `k > 1`.
 - **Identification bounds** — the range of claim values compatible with
   resolved cells and sealed assumptions about unresolved cells
   ([STAT-002](standard.md#statistics-and-missingness)).

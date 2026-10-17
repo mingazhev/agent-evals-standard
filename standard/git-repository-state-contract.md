@@ -10,7 +10,13 @@ Only uppercase keywords are normative.
 
 ### Git Repository-State Boundary Contract (`SCOPE-003`)
 
-`workspace-manifest-1` is the primary executable repository-state identity.
+At A1, `case.repository` binds the URI, base commit, and visible-history mode.
+The verifier resolves the immutable commit, verifies its tree and the declared
+history projection, and confirms oracle isolation under `HOLD-001`. The detailed
+manifest transport below is required at A2 and above; it is not an additional
+A1 artifact requirement.
+
+At A2 and above, `workspace-manifest-1` is the executable repository-state identity.
 Each repository entry **MUST** select exactly one closed mode:
 
 - `tree_snapshot` — `baseTree` identifies the selected root tree. The object
@@ -78,7 +84,7 @@ pointer is not by itself invalid. A later contract may add LFS only with
 content-addressed payload identity, authenticated retrieval, byte-level
 materialization verification, and offline replay semantics.
 
-Schema validation alone does not establish this boundary. A repository-state
+Schema validation alone does not establish this boundary. At A2 and above, a repository-state
 verifier that implements algorithm `git-repository-state-v1` and is pinned in
 the sealed run manifest **MUST** execute all rules above. Any
 unresolved base identity, reference, object, gitlink, LFS, projection, or digest
@@ -130,11 +136,8 @@ standard. Version 0.1.0 defines no conformance, or compatibility
 relation between that sibling and this standard; copied or similarly named
 rules do not create one.
 
-The repository **MUST** bundle one conforming repository-change evaluation
-profile, outcome profile, and positive and negative examples as an
-interoperability example. It has no privileged normative status. An
-adopter-defined evaluation profile receives the same schema, semantic,
-and base-compatibility validation.
+Profile distribution and equal treatment of bundled and adopter-defined profiles
+are governed by [Conformance](conformance.md#base-and-evaluation-profile-model).
 
 The base invariants are an internal foundation, not a standalone claim for
 agents outside this applicability boundary.
@@ -150,8 +153,8 @@ choice follows semantics, not directory layout or naming preference:
 
 | Needed change | Contract to create or change | Boundary test |
 | --- | --- | --- |
-| Narrow the repository-SDLC base | a new profile that narrows the base | Every field is a permitted subset, preservation, or strengthening under `PROFILE-001`; no new capability family, interaction mode, outcome contract, or weaker obligation appears. |
-| Cover a repository-SDLC capability or environment that cannot be expressed as such a narrowing | new evaluation profile | The work still passes `SCOPE-003` and the base taxonomy, but cannot be expressed as a narrowing without an addition or semantic substitution. The profile supplies a complete requirement mapping and conformance fixtures. |
+| Narrow the repository-SDLC base | a new profile that narrows the base | Every field is a permitted subset, preservation, or strengthening under `PROFILE-001`; no new capability family, interaction mode, normalized primary outcome, or weaker obligation appears. |
+| Cover repository-SDLC work that cannot be expressed under the current base | a new base revision, followed by a compatible evaluation profile | Passing `SCOPE-003` alone does not authorize additions or semantic substitutions forbidden by `PROFILE-001`. |
 | Define how one work-product class reaches terminal results | outcome profile | The change concerns terminal evidence, valid alternatives, evidence modes, gates, failure taxonomy, native outcomes, or claim compatibility. Each consuming evaluation profile must separately allow and authenticate it. |
 | Add adopter-specific, stricter metadata or decision controls without changing base semantics | namespaced extension | The addition fits a schema-declared extension container or a permitted pointer to a separate namespaced artifact and satisfies `CONF-003`. |
 
