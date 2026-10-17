@@ -243,6 +243,29 @@
       "valid": false,
       "expectedError": "/knownGood/result",
       "illustrates": "CASE-004: actual failed controls may be recorded for rejected or quarantined cases, but an active case still requires knownGood pass and every knownBad fail."
+    },
+    {
+      "id": "attempt-ledger.empty.valid",
+      "path": "valid/attempt-ledger.empty.json",
+      "schema": "schemas/attempt-ledger.schema.json",
+      "valid": true,
+      "illustrates": "A sealed run with no dispatched attempts has an empty ledger; its terminal digest is the genesis commitment and every scheduled cell remains unresolved."
+    },
+    {
+      "id": "run-manifest.exploratory-threshold",
+      "path": "invalid/run-manifest.exploratory-threshold.json",
+      "schema": "schemas/run-manifest.schema.json",
+      "valid": false,
+      "expectedError": "/claims/0/decisionRule/kind",
+      "illustrates": "Exploratory claims are report_only with a null threshold; only primary claims can test thresholds."
+    },
+    {
+      "id": "scorecard.unsupported-interval",
+      "path": "invalid/scorecard.unsupported-interval.json",
+      "schema": "schemas/scorecard.schema.json",
+      "valid": false,
+      "expectedError": "/metrics/0/interval/method",
+      "illustrates": "Statistical overrides cannot introduce an interval method outside the closed 0.1.0 method set."
     }
   ]
 }

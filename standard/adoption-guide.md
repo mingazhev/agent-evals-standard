@@ -17,7 +17,9 @@ For a repository-change case, use `CAP.IMPLEMENT_CHANGE` and one material
 [work-artifact registry](work-artifact-registry.json). The bundled
 [`repo-change-v1` profile](../profiles/repo-change-v1/README.md) is an
 interoperability example. Evaluation- and outcome-profile bindings are A2
-requirements; they are not needed to establish an A1 claim.
+requirements; they are not needed to establish an A1 claim. At A1, the existing
+case acceptance checks and descriptions define the evidence and outcome
+classification under [`OUT-001`](scorecard-contract.md#primary-outcome-categories).
 
 Build these six document types in order. Keep each seal in Git before work that
 depends on it:
@@ -25,7 +27,9 @@ depends on it:
 1. **Case** (`case-1`, [`case.schema.json`](../schemas/case.schema.json)). Pin
    the repository state and visible inputs; describe the task, material work
    product, all four scope tests and rationales, deterministic checks, hard
-   gates, oracle isolation, and effective risk. Commit this candidate case.
+   gates, oracle isolation, and effective risk. In the acceptance descriptions
+   and checks, seal outcome distinctions and any refusal or already-satisfied
+   alternative. Commit this candidate case.
 2. **Case QA** (`case-qa-1`,
    [`case-qa.schema.json`](../schemas/case-qa.schema.json)). A reviewer
    independent of the case author checks scope and inferability before results
@@ -78,6 +82,9 @@ derived.
 | Do references, hashes, Git order, ledger, scorecard, and verdict agree? | The invoked semantic contract: chiefly [Integrity and Semantic Validation](evidence-and-validation-contract.md#integrity-and-semantic-validation-contract), [Scorecard](scorecard-contract.md), and the [Git repository-state contract](git-repository-state-contract.md). A schema-valid document may still fail these checks. |
 | How is an A1 case activated? | `CASE-004` in the [Core Standard](standard.md#activation-and-maintenance) and the [A1 activation record](case-qa-playbook.md#activation-record). The playbook's stages 3–8 are A2/A3 requirements. |
 | What do examples establish? | Nothing normative. [`examples/`](../examples/README.md) illustrates document shape and calculations; it cannot add or waive requirements. |
+
+At A1, independent review replaces the detached validation envelope, not the
+automated semantic checks required by the requirement registry.
 
 The repository's `npm test` checks schemas, examples, bundled contracts, and
 links. It does not validate an adopter's evaluation. An independent

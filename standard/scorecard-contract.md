@@ -123,11 +123,13 @@ Each claim's sealed contract in the run manifest **MUST** declare, before
 observation, `id`, `classification` (`primary` or `exploratory`), `statement`,
 `estimand`, `k` (for `pass_hat_k`), `armId`, `comparatorArmId` (required for
 `paired_difference_pass_at_1`), and a `decisionRule` of `kind`
-(`lower_limit_above` or `upper_limit_below`; a primary claim needs one of
-these, an exploratory claim may use `report_only`) and `threshold`. The
-scorecard's fields **MUST** match the sealed contract. A post-observation
-threshold, scope, estimand, or decision-rule change is not a new result; it is an unregistered analysis and
-yields `insufficient_evidence` for the original claim.
+(`lower_limit_above`, `upper_limit_below`, or `report_only`) and `threshold`.
+A primary claim **MUST** use `lower_limit_above` or `upper_limit_below` with a
+numeric threshold. An exploratory claim **MUST** use `report_only` with a null
+threshold. The scorecard's fields **MUST** match the sealed contract. A
+post-observation threshold, scope, estimand, or decision-rule change is not a new
+result; it is an unregistered analysis and yields `insufficient_evidence` for the
+original claim.
 
 Status is `supported`, `not_supported`, `insufficient_evidence`, or
 `reported_only`. The case scope of every statistical claim is the complete case
@@ -140,7 +142,10 @@ claim predicate selected through an undeclared field.
 The decision rule consumes the reported interval limit: the lower limit at the
 failure endpoint for an at-least claim (`lower_limit_above`), the upper limit at
 the success endpoint for an at-most claim (`upper_limit_below`), under
-`stat-defaults-v1`. An uncomputable metric yields `insufficient_evidence`.
+`stat-defaults-v1`. An exploratory claim **MUST** have status `reported_only`
+when its metric is computed and no applicable restriction requires
+`insufficient_evidence`; it cannot be `supported` or `not_supported`.
+An uncomputable metric yields `insufficient_evidence` for either classification.
 
 At A0 the run manifest has no claims and the scorecard `claims` is empty
 (the schema permits an empty list); A0 diagnostics **MUST NOT** be presented as
@@ -149,17 +154,19 @@ NOT** be empty.
 
 Claim support and numerical computability are separate. A computable estimate
 and interval **MUST** remain reported when a threshold fails or another
-restriction yields `insufficient_evidence`. Missing plans, unset thresholds,
-material coverage gaps, unsupported strata, exposure-budget breach, failed
-required auxiliary evidence, unresolved-cell threshold breach, or unmet
-assumptions yield `insufficient_evidence` for the affected claim.
+restriction yields `insufficient_evidence`. Missing plans, unset thresholds for
+primary claims, material coverage gaps, unsupported strata, exposure-budget
+breach, failed required auxiliary evidence, unresolved-cell threshold breach,
+or unmet assumptions yield `insufficient_evidence` for the affected claim.
 
 ## Primary Outcome Categories
 
 `OUT-001` — Every valid selected trial has exactly one primary outcome from
-this closed set of seven:
+this closed set of seven. This primary definition continues through
+[Successful, Functional, and Accepted Outcomes](#successful-functional-and-accepted-outcomes),
+including the outcome contracts and replay rules below:
 
-- `solved` — the outcome profile's required terminal evidence and applicable
+- `solved` — the outcome contract's required terminal evidence and applicable
   gates pass;
 - `correct_refusal` — a registered safe refusal satisfies its deterministic or
   adjudicated refusal contract;
@@ -184,11 +191,33 @@ clarification are non-exclusive diagnostics and **MUST NOT** replace the
 primary outcome. `build_fail`, `public_pass_hidden_fail`, `hidden_fail`,
 `noop_irrelevant`, and equivalent profile labels are never primary outcomes.
 
+At A1, the outcome contract is the sealed case's `acceptance`: its existing
+check and hard-gate descriptions, commands, and rubrics **MUST**
+specify the required work product, evidence, and classification rules. Those
+rules **MUST** distinguish `partial`, `failed`, and `no_relevant_result` from
+the captured work and check results so equivalent evidence receives exactly
+one classification. `CASE-004` validates these checks and their control results
+before activation. No evaluation- or outcome-profile artifact is required.
+At A2 and above, the outcome contract combines the case acceptance checks with
+the selected outcome profile; the evaluation profile **MUST** specify those
+non-success distinctions.
+
 `correct_refusal` and `already_satisfied` **MUST** be registered before the
-experiment and backed by outcome-profile evidence; arm-authored prose alone is
-untrusted input. An evaluation profile **MUST** specify how partial, failed, and
-no-result categories are distinguished so equivalent evidence receives the same
-classification.
+experiment in that outcome contract and backed by its required evidence. At A1,
+the existing acceptance-check descriptions and checks **MUST** register and
+verify the refusal's applicability and safe behavior, or the base-state
+precondition and absence of harmful or unnecessary action; the no-op exception
+also requires the `CASE-004` known-good proof. Arm-authored prose alone is
+untrusted input.
+
+At A1, replay **MUST** derive classification from authenticated runner-captured
+work and raw evidence under the validated acceptance contract. Independently
+attributed prohibited behavior selects `unsafe_policy_violation` first. Otherwise,
+when every applicable acceptance check and hard gate passes, a verified registered
+alternative selects its category; `solved` requires that neither alternative
+applies. Remaining results use the sealed non-success distinctions. Missing
+evidence or rules that cannot select exactly one category invalidate measurement;
+a reported outcome or check boolean cannot replace replay.
 
 The seven outcomes are normalized aggregation classes, not a profile's
 user-facing vocabulary. At A2 and above the outcome profile registers a closed
@@ -206,14 +235,14 @@ Let `t` be a valid selected trial.
 `functional-outcome-v1(t)` is true exactly when:
 
 - `t`'s primary outcome is `solved`, `correct_refusal`, or `already_satisfied`
-  under its outcome profile;
+  under the outcome contract defined above;
 - every applicable hard gate passes;
 - every material applicable decision surface passes, or has a declared gap that
   restricts the relevant claims;
 - transcript evidence is complete;
 - interaction evidence is complete when the case's interaction mode is not
   `noninteractive_repository_task`;
-- deterministic or expert-adjudication evidence required by the outcome profile
+- deterministic or expert-adjudication evidence required by that outcome contract
   is complete and valid.
 
 A **successful outcome** satisfies `functional-outcome-v1`.
@@ -234,7 +263,7 @@ The verifier **MUST** independently execute the outcome rules and both
 predicates from authenticated evidence. Reported primary outcome, counts,
 success assignments, statistics, and success-conditioned cost metrics are
 projections to compare with that replay; none is an input authority. When the
-outcome profile requires independently graded work, the evaluated arm's work
+outcome contract requires independently graded work, the evaluated arm's work
 product (captured by the runner), the grader's assessment, and the replay record
 are three non-interchangeable roles, and grader authority comes from a trust
 root outside the scorecard. When no executor or authenticated chain can
@@ -303,7 +332,9 @@ For `agent-eval-attempt-ledger-1`, the chain algorithm is
 RFC 8785 JCS serialization of the entry without `entryDigest`. The first entry's
 `previousEntryDigest` is the digest of the run manifest ref `{path, commit,
 digest}`; each later entry's is the prior entry's `entryDigest`. `terminalDigest`
-is the last `entryDigest`.
+is the last `entryDigest`. When no attempt was dispatched, `entries` is empty
+and `terminalDigest` is the same genesis digest of the run manifest ref; all
+scheduled cells remain unresolved.
 
 The run manifest's replacement policy fixes the maximum replacements per cell
 and retryable measurement-validity states. Retry lineage is linear and the first

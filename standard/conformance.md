@@ -17,11 +17,13 @@ as defined in the [Glossary](glossary.md). This Applicability Boundary section i
 the single primary anchor for `CONF-001`; its definition continues through
 [Conformance Targets](#conformance-targets) and the evidence rules below. A
 claimant **MUST** identify the
-repository-grounded work, SDLC capability families, outcome profiles,
-interaction modes, assurance levels, and effective-risk range in scope.
+repository-grounded work, SDLC capability families, case acceptance contracts,
+interaction modes, assurance levels, and effective-risk range in scope, plus
+outcome profiles at A2 and above.
 The run manifest's `coverage` records the capability families in scope and
-its gaps; the arm environment, evaluation profile (A2+), and outcome profile
-**MUST** be compatible with that declared scope. A validator **MUST NOT** infer
+its gaps; the arm environment and case acceptance contracts, plus evaluation
+and outcome profiles at A2 and above, **MUST** be compatible with that declared
+scope. A validator **MUST NOT** infer
 a cross-profile or cross-repository union from unrelated fields. An A0
 diagnostic run is not a conformance subject.
 
@@ -326,5 +328,7 @@ Evidence **MUST** be sufficient for an independent reviewer to reproduce the
 verdict without privileged oral context. The validator **MUST** verify
 schema and semantic consistency, content digests, producer authorization,
 version-control order of sealed artifacts, requirement coverage, subject digest,
-expiry, and evaluation-profile and outcome-profile compatibility. A self-reported boolean is not evidence. This standard does not appoint a
+expiry, and at A2 and above evaluation-profile and outcome-profile compatibility.
+At A1 it verifies the case-based outcome contract under `OUT-001` instead.
+A self-reported boolean is not evidence. This standard does not appoint a
 certifier or imply legal or regulatory compliance.

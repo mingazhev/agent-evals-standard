@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:agent-evals-standard:schema:attempt-ledger:1",
   "title": "Hash-chained attempt ledger",
-  "$comment": "Requirement RUN-002. entryDigest is sha256 of RFC 8785 JCS of the entry without entryDigest; previousEntryDigest is the prior entry's entryDigest, and for the first entry the digest of the run manifest ref {path, commit, digest}; terminalDigest is the last entryDigest. Semantic checks: sequences are contiguous from 1; every dispatched attempt appears; never-dispatched cells remain unresolved under the sealed schedule without invented entries; a replacement names an earlier invalid attempt of the same cell; at most the sealed number of replacements per cell.",
+  "$comment": "Requirement RUN-002. entryDigest is sha256 of RFC 8785 JCS of the entry without entryDigest; previousEntryDigest is the prior entry's entryDigest, and for the first entry the digest of the run manifest ref {path, commit, digest}; terminalDigest is the last entryDigest, or that genesis digest when entries is empty. Semantic checks: sequences are contiguous from 1; every dispatched attempt appears; never-dispatched cells remain unresolved under the sealed schedule without invented entries; a replacement names an earlier invalid attempt of the same cell; at most the sealed number of replacements per cell.",
   "type": "object",
   "required": [
     "schemaVersion",
@@ -32,7 +32,6 @@
     },
     "entries": {
       "type": "array",
-      "minItems": 1,
       "items": {
         "$ref": "#/$defs/entry"
       }

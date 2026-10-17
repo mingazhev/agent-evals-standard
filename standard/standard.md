@@ -269,11 +269,11 @@ the leakage process.
 ### I3. No post-hoc adaptation or selection
 
 Before execution, the experiment manifest **MUST** seal membership, exclusions,
-arms, cells, budgets, context, retry rules, outcome profiles, gate and status
-registries, applicability rules, claims, estimands, thresholds, analysis, and
-decision rules. A correction after results **MUST NOT** rewrite the original
-scorecard. A versioned migration applies to a new experiment or a declared
-rebased analysis.
+arms, cells, budgets, context, retry rules, case acceptance contracts, gate and
+status registries, applicability rules, claims, estimands, thresholds, analysis,
+and decision rules, plus outcome profiles at A2 and above. A correction after
+results **MUST NOT** rewrite the original scorecard. A versioned migration
+applies to a new experiment or a declared rebased analysis.
 
 ### I4. Reconstructible conditions and provenance
 
@@ -298,10 +298,10 @@ no invented attempt-ledger entry.
 ### I6. Claims are bounded by evidence
 
 A claim **MUST** be limited to its pre-declared population, represented strata,
-construct, outcome profile, assurance level, exposure history, and statistical
-plan. Unsupported strata **MUST** remain gaps. A conclusive harmful event can
-support rejection or stopping, but **MUST NOT** support a broader positive
-claim.
+construct, case acceptance contract, assurance level, exposure history, and
+statistical plan, and at A2 and above its outcome profile. Unsupported strata
+**MUST** remain gaps. A conclusive harmful event can support rejection or
+stopping, but **MUST NOT** support a broader positive claim.
 
 ### I7. Enforced least privilege
 
@@ -359,8 +359,9 @@ an immutable migration artifact.
 ### I12. Only validated measurement enters claims
 
 Every active case **MUST** have current Case QA evidence bound to the full sealed
-agent-visible projection and outcome profile. Checks **MUST** distinguish known-
-good from known-bad controls and admit every valid non-reference material
+agent-visible projection and case acceptance contract, and at A2 and above its
+outcome profile. Checks **MUST** distinguish known-good from known-bad controls
+and admit every valid non-reference material
 equivalence class. Where no independently produced alternative valid result
 could be obtained, Case QA records that as a gap that restricts dependent
 claims; it is not a proof that only one valid result exists. Invalid QA evidence
@@ -1076,8 +1077,12 @@ success endpoint for an at-most claim). Unsupported assumptions yield
 ### Base statistical defaults
 
 When the run manifest's statistics do not declare a parameter, `STAT-003` applies
-the defaults `stat-defaults-v1` below. The manifest **MAY** override any default only
-before the first attempt, and the scorecard **MUST** list every override.
+the defaults `stat-defaults-v1` below. The manifest **MAY** override a default only
+before the first attempt, and the scorecard **MUST** list every override. An
+override **MUST** remain representable by the supported scorecard estimands and
+interval methods (`wilson`, `t_over_cases`, `t_over_paired_differences`) and
+satisfy the selected method's design assumptions; it cannot introduce a custom
+interval method.
 Results from different adopters are comparable only when both use
 `stat-defaults-v1` without override or with identical declared overrides, on
 populations each claim describes.
@@ -1089,7 +1094,7 @@ populations each claim describes.
 | Trials per case | 1 for pass@1 claims; 3 for every case of an arm whose repeatability (pass^k) is claimed |
 | pass@1 estimator | mean over cases of each case's fraction of successful trials |
 | pass^k estimator | fraction of cases whose `k` scheduled trials all succeed, with `k = 3` |
-| Confidence level | 95% two-sided; with `m` primary claims in one plan, `1 - 0.05/m` for each (Bonferroni) |
+| Confidence level | 95% two-sided; with `m` primary threshold claims in one plan, `1 - 0.05/m` for each primary claim (Bonferroni); exploratory report-only results retain 95% and do not enter `m` |
 | Interval, one trial per case | Wilson score interval |
 | Interval, pass^k | Wilson score interval over the binary all-`k`-trials-successful indicator for each independent case |
 | Interval, repeated-trial pass@1 | approximate `mean ± t(1 - α/2, n - 1) · s / √n` over per-case fractions, clipped to `[0, 1]`; requires a justified case-level approximation |
@@ -1099,9 +1104,10 @@ populations each claim describes.
 | Replacement attempts | at most one per cell, only after a measurement-invalid attempt |
 
 When a `t` interval has zero sample variance or its case-level approximation
-is unsupported, the default interval is uncomputable; the claim yields
-`insufficient_evidence` unless a justified alternative method was sealed as an
-override. Wilson is not applied to fractional or signed case observations.
+is unsupported, that interval is uncomputable; the claim yields
+`insufficient_evidence` unless a supported method justified by the sealed design
+was selected before execution. Wilson is not applied to fractional or signed
+case observations.
 
 The case minimums are eligibility floors, not power guarantees: with 30 cases
 and an observed rate near 0.5, the 95% Wilson interval is about ±0.17 wide.
