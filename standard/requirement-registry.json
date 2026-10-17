@@ -107,7 +107,7 @@
     },
     {
       "id": "I6",
-      "subject": "claims bounded by evidence",
+      "subject": "claims bounded by level-specific evidence",
       "normativeReference": "standard.md#i6-claims-are-bounded-by-evidence",
       "minimumLevel": "A1",
       "targets": [
@@ -122,7 +122,7 @@
         "threatRationale": "target-population inference"
       },
       "applicability": {
-        "rule": "Applies when claims bounded by evidence can affect the declared suite, experiment, decision target or any claim derived from it.",
+        "rule": "Applies when claims bounded by level-specific evidence can affect the declared suite, experiment, decision target or any claim derived from it.",
         "unknownEffect": "insufficient_evidence"
       }
     },
@@ -229,7 +229,7 @@
     },
     {
       "id": "I12",
-      "subject": "validated measurement only",
+      "subject": "validated level-specific measurement only",
       "normativeReference": "standard.md#i12-only-validated-measurement-enters-claims",
       "minimumLevel": "A1",
       "targets": [
@@ -243,7 +243,7 @@
         "threatRationale": "task and grader validation"
       },
       "applicability": {
-        "rule": "Applies when validated measurement only can affect the declared case, suite, experiment target or any claim derived from it.",
+        "rule": "Applies when validated level-specific measurement only can affect the declared case, suite, experiment target or any claim derived from it.",
         "unknownEffect": "insufficient_evidence"
       }
     },
@@ -693,7 +693,7 @@
     },
     {
       "id": "RUN-002",
-      "subject": "complete attempt accounting",
+      "subject": "complete dispatch and unresolved-cell accounting",
       "normativeReference": "standard.md#i5-attribution-and-complete-attempt-accounting",
       "minimumLevel": "A1",
       "targets": [
@@ -707,7 +707,7 @@
         "threatRationale": "missingness and retry-bias control"
       },
       "applicability": {
-        "rule": "Applies when complete attempt accounting can affect the declared evaluator, experiment target or any claim derived from it.",
+        "rule": "Applies when complete dispatch and unresolved-cell accounting can affect the declared evaluator, experiment target or any claim derived from it.",
         "unknownEffect": "insufficient_evidence"
       }
     },
@@ -895,8 +895,8 @@
     },
     {
       "id": "OUT-001",
-      "subject": "outcome taxonomy and predicates",
-      "normativeReference": "scorecard-contract.md#successful-functional-and-accepted-outcomes",
+      "subject": "level-specific outcome taxonomy and predicates",
+      "normativeReference": "scorecard-contract.md#primary-outcome-categories",
       "minimumLevel": "A1",
       "targets": [
         "experiment"
@@ -909,13 +909,13 @@
         "threatRationale": "explicit outcome contracts"
       },
       "applicability": {
-        "rule": "Applies when outcome taxonomy and predicates can affect the declared case, evaluator, experiment target or any claim derived from it.",
+        "rule": "Applies when level-specific outcome taxonomy and predicates can affect the declared case, evaluator, experiment target or any claim derived from it.",
         "unknownEffect": "insufficient_evidence"
       }
     },
     {
       "id": "CLAIM-001",
-      "subject": "closed claims registry and `claims[]`",
+      "subject": "primary threshold claims and exploratory reporting",
       "normativeReference": "scorecard-contract.md#claims",
       "minimumLevel": "A1",
       "targets": [
@@ -930,7 +930,7 @@
         "threatRationale": "claim-bounded reporting"
       },
       "applicability": {
-        "rule": "Applies when closed claims registry and `claims[]` can affect the declared suite, evaluator, experiment, decision target or any claim derived from it.",
+        "rule": "Applies when primary threshold claims and exploratory reporting can affect the declared suite, evaluator, experiment, decision target or any claim derived from it.",
         "unknownEffect": "insufficient_evidence"
       }
     },
@@ -1002,7 +1002,7 @@
     },
     {
       "id": "STAT-003",
-      "subject": "comparison and uncertainty",
+      "subject": "comparison, multiplicity, and supported uncertainty methods",
       "normativeReference": "standard.md#statistics-and-missingness",
       "minimumLevel": "A1",
       "targets": [
@@ -1019,7 +1019,7 @@
         ]
       },
       "applicability": {
-        "rule": "Applies when comparison and uncertainty can affect the declared experiment target or any claim derived from it.",
+        "rule": "Applies when comparison, multiplicity, and supported uncertainty methods can affect the declared experiment target or any claim derived from it.",
         "unknownEffect": "insufficient_evidence"
       }
     },
@@ -1201,5 +1201,5 @@
       }
     }
   ],
-  "digest": "sha256:f1c3c5796af5824299c4f260c1cffd5a5d008d477f38f313844eaf4c7a1d5f3f"
+  "digest": "sha256:05d8b85bfd293c33e8f88a5094b2fb274e74ba6596c51f8810e6ba5e09803708"
 }

@@ -133,8 +133,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 This repository holds contracts only — prose, JSON Schemas, profiles, templates,
 and examples — and no validator, runner, or grader code. `npm test` runs one
-lightweight check: every schema compiles in strict mode, every example matches
-its declared expectation, bundled contracts validate, profile hashes and
+lightweight check: every schema compiles in strict mode and keeps annotations
+informative, every example matches its declared expectation, bundled contracts validate, profile hashes and
 references agree, required case fields exist in the schema, profile fixture
 descriptors resolve, and local Markdown links and anchors resolve. It is not a
 conformance validator. Semantic validation belongs to implementations of this

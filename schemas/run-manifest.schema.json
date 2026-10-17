@@ -758,6 +758,21 @@
                 }
               }
             }
+          },
+          "else": {
+            "properties": {
+              "decisionRule": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "const": "report_only"
+                  },
+                  "threshold": {
+                    "type": "null"
+                  }
+                }
+              }
+            }
           }
         }
       ],

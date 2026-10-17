@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "agent-eval-run-manifest-1",
+  "id": "exploratory-threshold-invalid",
+  "version": "1.0.0",
+  "standard": {
+    "version": "0.1.0",
+    "commit": "d30cc5ade9e9518cd8e7eb71c81f29f2daa793f9"
+  },
+  "assuranceLevel": "A1",
+  "owner": {
+    "id": "person-a",
+    "role": "case author and evaluation owner"
+  },
+  "effectiveRisk": {
+    "tier": "low",
+    "rationale": "Every case runs in a sandboxed controlled fixture with no network, production data, credentials, or deployment path."
+  },
+  "arms": [
+    {
+      "id": "agent-x",
+      "kind": "agent",
+      "description": "Example coding agent evaluated as a whole system.",
+      "components": [
+        {
+          "role": "model",
+          "identity": "example-model-2026-05 via example provider API",
+          "digest": "sha256:c1f542aae1c7439b571e512f48cf5f7d53b58e5d301986889d1ff2fc438b2e8e"
+        },
+        {
+          "role": "agent_configuration",
+          "identity": "example-agent-harness 2.3.0, config agent.yaml",
+          "digest": "sha256:953abd9897211bd605d5abd747787d95b727a5ec006e22f9c926e9a43297aa66"
+        },
+        {
+          "role": "prompt",
+          "identity": "system prompt v14",
+          "digest": "sha256:e77874dcf60080194e1a58937ae040557c1aa3d60a671a302fe6724ecc16120b"
+        },
+        {
+          "role": "tool",
+          "identity": "sandboxed shell, file editor, pytest runner"
+        },
+        {
+          "role": "permission_policy",
+          "identity": "write /workspace only; no network"
+        },
+        {
+          "role": "budget",
+          "identity": "40 tool calls, 20 minutes wall clock, 200k tokens per attempt"
+        },
+        {
+          "role": "environment_image",
+          "identity": "python:3.12 runner image",
+          "digest": "sha256:652b3ecdc36851ca85a5b04280e51382f1f4d143c0a63b733bfa4e4b06edca53"
+        }
+      ]
+    },
+    {
+      "id": "control-codemods",
+      "kind": "non_agent_control",
+      "description": "Deterministic rewrite rules for rounding, off-by-one, and missing-None patterns.",
+      "components": [
+        {
+          "role": "rule_set",
+          "identity": "example-codemods 1.4 (6 rules)",
+          "digest": "sha256:e0abab4649a6b49c7c388761793f040e4f1666dcd3f2155dffda0de9b186719b"
+        }
+      ]
+    },
+    {
+      "id": "no-action",
+      "kind": "no_action_baseline",
+      "description": "The unchanged base snapshot scored with the same checks.",
+      "components": []
+    }
+  ],
+  "incumbent": {
+    "exists": true,
+    "description": "Engineers fix these issues by hand during normal sprint work; not measured in this run.",
+    "measuredAsArmId": null
+  },
+  "cases": [
+    {
+      "id": "ls-001",
+      "ref": {
+        "path": "cases/ls-001.json",
+        "commit": "9807bf4aec588a164b340583b8cfff5fc040ca4d",
+        "digest": "sha256:c85d22f192b229c5fe7d6dc085f1707368d0fc71a6ba3120ffaf42a399586f06"
+      }
+    }
+  ],
+  "repetitions": [
+    {
+      "armId": "agent-x",
+      "trialsPerCase": 3
+    },
+    {
+      "armId": "control-codemods",
+      "trialsPerCase": 1
+    },
+    {
+      "armId": "no-action",
+      "trialsPerCase": 1
+    }
+  ],
+  "replacementPolicy": {
+    "maxReplacementsPerCell": 1,
+    "replaceableValidity": [
+      "invalid_infrastructure",
+      "invalid_capture"
+    ]
+  },
+  "statistics": {
+    "defaults": "stat-defaults-v1",
+    "overrides": []
+  },
+  "claims": [
+    {
+      "id": "claim-1",
+      "classification": "exploratory",
+      "statement": "The agent's pass@1 on this population exceeds 0.50.",
+      "estimand": "pass_at_1",
+      "armId": "agent-x",
+      "comparatorArmId": null,
+      "decisionRule": {
+        "kind": "lower_limit_above",
+        "threshold": 0.5
+      }
+    }
+  ],
+  "environment": {
+    "evaluationMode": "controlled_fixture",
+    "productionActionAllowed": false,
+    "productionCredentials": false,
+    "network": "none",
+    "agentWritableRoots": [
+      "/workspace"
+    ],
+    "enforcement": "Rootless container per attempt, read-only image, network namespace without interfaces, /workspace as the only writable mount; /oracle is mounted only after the agent process tree exits."
+  },
+  "coverage": {
+    "capabilityFamilyIds": [
+      "CAP.IMPLEMENT_CHANGE"
+    ],
+    "gaps": []
+  }
+}

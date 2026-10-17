@@ -55,7 +55,7 @@
         "id": "hidden-regression",
         "kind": "deterministic",
         "visibility": "hidden",
-        "description": "Hidden regression test over 1,000 generated partial-capture amounts, including the LS-417 reproducer.",
+        "description": "Hidden regression test over 1,000 generated partial-capture amounts, including the LS-417 reproducer. Runner-captured repository state and full check output determine non-success: no change to refund code is no_relevant_result; a refund-code change with the unit suite passing and at least one regression assertion passing is partial; every other assessable change is failed. No correct_refusal or already_satisfied alternative is registered.",
         "command": "pytest -q /oracle/ls-017/test_refund_rounding.py"
       }
     ],

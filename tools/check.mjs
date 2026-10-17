@@ -3,7 +3,8 @@
 // conformance validator: it proves only that schemas compile, examples match
 // their declared expectations, bundled contracts are schema-valid, profile
 // digests and references agree, required case fields exist, fixture descriptors
-// resolve, local Markdown links resolve, and the worked example recomputes.
+// resolve, schema annotations stay informative, local Markdown links resolve,
+// and the worked example recomputes.
 
 import { spawnSync } from "node:child_process";
 import assert from "node:assert/strict";
@@ -44,7 +45,23 @@ async function walk(directory) {
   return files;
 }
 
-// 1. Every schema compiles in strict mode with every $ref resolved.
+function normativeAnnotations(value, location = "", propertyMap = false) {
+  if (!value || typeof value !== "object") return [];
+  return Object.entries(value).flatMap(([key, child]) => {
+    const here = `${location}/${key}`;
+    if (!propertyMap && ["$comment", "title", "description", "examples"].includes(key)
+      && /\b(?:MUST|REQUIRED|SHOULD|MAY)\b/.test(JSON.stringify(child))) return [here];
+    if (!propertyMap && ["const", "enum", "default"].includes(key)) return [];
+    return normativeAnnotations(child, here, !propertyMap
+      && ["properties", "patternProperties", "$defs", "definitions", "dependentSchemas"].includes(key));
+  });
+}
+assert.deepEqual(normativeAnnotations({ properties: { x: { description: "MUST pass" } } }), ["/properties/x/description"]);
+assert.deepEqual(normativeAnnotations({ $comment: "must pass", enum: ["MUST"] }), []);
+assert.deepEqual(normativeAnnotations({ properties: { description: { type: "string", enum: ["MUST"] } }, const: { description: "MUST" } }), []);
+assert.deepEqual(normativeAnnotations({ $defs: { enum: { description: "MUST pass" } } }), ["/$defs/enum/description"]);
+
+// 1. Every schema compiles in strict mode with every $ref resolved; annotations are informative.
 const ajv = new Ajv2020({ allErrors: true, strict: true, validateFormats: true });
 addFormats(ajv);
 const schemaFiles = (await readdir(path.join(root, "schemas"))).filter((name) => name.endsWith(".schema.json")).sort();
@@ -52,6 +69,9 @@ const schemaIdByFile = new Map();
 const schemaFileByVersion = new Map();
 for (const name of schemaFiles) {
   const schema = await readJson(path.join(root, "schemas", name));
+  for (const pointer of normativeAnnotations(schema)) {
+    failures.push(`schemas/${name}${pointer} contains a normative keyword in an informative annotation (ARCH-001)`);
+  }
   ajv.addSchema(schema);
   schemaIdByFile.set(`schemas/${name}`, schema.$id);
   const version = schema.properties?.schemaVersion?.const;
@@ -117,6 +137,17 @@ for (const example of exampleManifest.examples) {
 for (const file of schemaIdByFile.keys()) {
   if (!coveredSchemas.has(file)) failures.push(`${file} has no valid example in examples/manifest.json`);
 }
+
+// Exercise both halves of the exploratory rule independently of the invalid fixture.
+const exploratoryRun = await readJson(path.join(examplesDirectory, "invalid/run-manifest.exploratory-threshold.json"));
+for (const [kind, threshold, expected] of [["report_only", null, true], ["report_only", 0.5, false],
+  ["lower_limit_above", 0.5, false], ["upper_limit_below", 0.5, false]]) {
+  exploratoryRun.claims[0].decisionRule = { kind, threshold };
+  assert.equal(validate("schemas/run-manifest.schema.json", exploratoryRun).valid, expected, `exploratory ${kind}/${threshold}`);
+}
+const emptyLedger = await readJson(path.join(examplesDirectory, "valid/attempt-ledger.empty.json"));
+assert.equal(emptyLedger.entries.length, 0);
+assert.equal(emptyLedger.terminalDigest, sha256(Buffer.from(jcs(emptyLedger.runManifest))));
 
 // 3. Bundled contracts in profiles/ and standard/ match the schema named by their schemaVersion.
 const allFiles = await walk(root);

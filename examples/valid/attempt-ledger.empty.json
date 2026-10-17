@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "agent-eval-attempt-ledger-1",
+  "id": "cancelled-before-dispatch-ledger",
+  "version": "1.0.0",
+  "runManifest": {
+    "path": "examples/core/run-manifest.json",
+    "commit": "8229bd5ef1c3d9c850a2dd2415ece95706b9fc9e",
+    "digest": "sha256:6fcabfeb6164a14485d6a686109d62df2bda50415b63e85241fb02707fcaf95d"
+  },
+  "chainAlgorithm": "sha256-jcs-entry-chain-v1",
+  "entries": [],
+  "terminalDigest": "sha256:05b1f05326f46d038f831043a91de4980b197abcb88d5fecd6080c043471010e"
+}
