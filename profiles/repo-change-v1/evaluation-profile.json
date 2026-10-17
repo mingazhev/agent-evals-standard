@@ -41,14 +41,14 @@
     "id": "repository-sdlc-work-artifact-registry",
     "version": "0.1.0",
     "uri": "../../standard/work-artifact-registry.json",
-    "digest": "sha256:ebe356f9faf6541db5a13957635027ccd8db586811fe7347a23aa9f985cfd36c"
+    "digest": "sha256:d9124e2ff064457c1844ae6332b9c282b6047ed289e3a8ca70d2eed4b68719ca"
   },
   "allowedOutcomeProfiles": [
     {
       "id": "workspace-change-v1",
       "version": "0.1.0",
       "uri": "outcome-profile.json",
-      "digest": "sha256:a58112902ae2250a6bb9aa47a582ff4b92a03a2d9411ebc38fa49bda1d45ca9a"
+      "digest": "sha256:40d6ffe7252c425e23b14dc1e0149ccc7c495ab0b2facf0784e4e67e0c1d6803"
     }
   ],
   "caseContract": {
@@ -112,7 +112,7 @@
     },
     {
       "scope": "CAP.VERIFY_ASSURE",
-      "reason": "The 0.1.0 case format selects one material artifact type; this change profile cannot also bind an independently evaluated assurance report.",
+      "reason": "An independently evaluated assurance report needs its own case and outcome profile; checks supporting a repository change are measurement evidence.",
       "claimEffect": "forbidden"
     }
   ],
@@ -132,5 +132,5 @@
       "expectedVerdict": "fail"
     }
   ],
-  "digest": "sha256:d14e43b823d426c787c95fdad5b7c870758280d8995de67398f071136da91bc7"
+  "digest": "sha256:8d36246454b30b9326dc2858bda2b974618b543bba52f8454bb31e0882737e54"
 }

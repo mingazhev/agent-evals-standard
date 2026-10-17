@@ -14,24 +14,30 @@ component is version **0.1.0** and may change incompatibly until the first
 release commit and protected annotated tag are created. The version identifies the
 candidate contract; it does not assert that a release has occurred.
 
-## Start at A1
+## Implement an A1 evaluation
 
-[A1](standard/conformance.md#baseline-a1) is the entry point. It
-needs thirteen obligations — pre-registration, oracle isolation,
-non-compensable gates, deterministic evidence, validated cases, complete attempt
-accounting, separate gates/outcomes/claims, case-level statistics with
-identification bounds, and non-agent baselines. Two people suffice for deterministic cases;
-judgment-bound checks require two independent raters besides the author. Integrity rests
-on content digests and Git commit order; there are no signatures, keys, or trust
-services anywhere in this standard. A1 claims are bounded capability claims
-and never support release, autonomy, or risk-acceptance decisions. All levels
-use one schema family of 22 schemas. A complete A1 experiment with every number worked
-out is in [`examples/core/`](examples/core/README.md).
+[A1](standard/conformance.md#baseline-a1) is the entry point for an independent
+implementation. For a repository-change evaluation, follow the
+[Adoption Guide](standard/adoption-guide.md) for the six document types and
+their Git seal order, then inspect the arithmetic
+[worked example](examples/core/README.md).
 
-A2 and A3 (release, autonomy, and risk-acceptance evidence, governance) build
-on the same invariants, artifacts, and schemas, adding attachments and stronger
-forms. Read the [Adoption Guide](standard/adoption-guide.md), then use
-the [authority map](#normative-authority-map) to find each contract.
+Implementers can use the [requirement registry](standard/requirement-registry.json)
+to find A1 obligations and their primary definitions. Validate document shape
+with the schemas; implement the semantic checks required by the linked
+contracts, since schema validation alone does not establish conformance. The
+[authority map](#normative-authority-map) lists the primary requirements and
+invoked contracts.
+
+A1 supports bounded capability claims at low or medium effective risk. It does
+not support release, autonomy, or risk-acceptance decisions. Two people can
+cover author/configurer and independent review for deterministic cases;
+judgment-bound checks require two independent raters besides the
+author/configurer.
+
+A2 and A3 retain the A1 requirements and add profile bindings, attachments, and
+stronger evidence forms. They are a draft annex; use the linked assurance
+requirements when implementing those levels.
 
 ## Maturity
 
@@ -128,7 +134,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 This repository holds contracts only — prose, JSON Schemas, profiles, templates,
 and examples — and no validator, runner, or grader code. `npm test` runs one
 lightweight check: every schema compiles in strict mode, every example matches
-its declared expectation, bundled contracts validate, profile fixture
+its declared expectation, bundled contracts validate, profile hashes and
+references agree, required case fields exist in the schema, profile fixture
 descriptors resolve, and local Markdown links and anchors resolve. It is not a
 conformance validator. Semantic validation belongs to implementations of this
 standard, which maintain their own test vectors and versioning. The same check

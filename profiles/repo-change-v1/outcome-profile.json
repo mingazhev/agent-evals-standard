@@ -11,7 +11,7 @@
     "id": "repository-sdlc-work-artifact-registry",
     "version": "0.1.0",
     "uri": "../../standard/work-artifact-registry.json",
-    "digest": "sha256:ebe356f9faf6541db5a13957635027ccd8db586811fe7347a23aa9f985cfd36c"
+    "digest": "sha256:d9124e2ff064457c1844ae6332b9c282b6047ed289e3a8ca70d2eed4b68719ca"
   },
   "workArtifactTypes": [
     "code_change",
@@ -66,14 +66,7 @@
       "id": "workspace_changed",
       "baseOutcome": "solved",
       "definition": "The requested repository-content result is satisfied with authenticated workspace-change evidence.",
-      "allowedSubstatuses": [
-        "code_and_tests",
-        "code_only",
-        "configuration_only",
-        "documentation_only",
-        "mixed_repository_change",
-        "tests_only"
-      ]
+      "allowedSubstatuses": []
     },
     {
       "id": "safe_refusal",
@@ -560,5 +553,5 @@
     "version": "0.1.0",
     "contractDigest": "sha256:4110ab055566fa21e9cc59e6dc344c64ddb05af4fa564d4de927feb600212df6"
   },
-  "digest": "sha256:a58112902ae2250a6bb9aa47a582ff4b92a03a2d9411ebc38fa49bda1d45ca9a"
+  "digest": "sha256:40d6ffe7252c425e23b14dc1e0149ccc7c495ab0b2facf0784e4e67e0c1d6803"
 }

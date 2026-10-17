@@ -3,16 +3,21 @@
 - Status: bundled profile contract
 - Version: 0.1.0
 - Outcome profile: `workspace-change-v1`
-- Executor: `agent-evals-standard.repo-change-outcome-replay`
 
-This contract owns the result and material-evidence semantics implemented by the
-adopter-supplied executor. This repository ships the contract, not executable
-replay code or an executor registry. The adopter authenticates the contract and
-executor bytes through its own registry, pinned by the run manifest. These rules apply only when
-`workspace-change-v1` is selected; they are not base requirements for another
-outcome profile.
+This contract defines the result and material-evidence semantics of
+`workspace-change-v1`. The adopter supplies the executor; this repository ships
+no replay implementation. Before execution, each arm's `harness` component
+**MUST** bind a resolvable, digested implementation manifest containing the
+exact executor code, this contract, validation plan, Git version/configuration,
+resource limits, and any adjudication protocol. The manifest uses the adopter's
+format; its component `identity` resolves its bytes and `digest` authenticates
+them. A separate executor registry is not required. Direct comparisons **MUST**
+use the same replay semantics and validation plan.
 
 ## Terminal evidence
+
+This bundled profile supports one repository root per workspace. A multi-root
+profile needs its own per-root artifact packaging and reconstruction contract.
 
 A `solved` result **MUST** resolve exactly one authenticated, content-addressed
 `workspace_diff`. `correct_refusal` instead requires the registered safe-refusal
@@ -20,127 +25,79 @@ and applicability records. `already_satisfied` requires the registered sealed
 base-state record. Neither alternative fabricates a diff.
 
 The executor **MUST** bind every result to the exact case, scheduled cell,
-attempt, arm, raw workspace-manifest digest, workspace-root digest, receipt-fact
-projection, material-evidence projection, and executor ID, version, and digest.
-An unresolved, passenger, substituted, unauthenticated, or cross-subject
-artifact fails replay.
+attempt, arm, workspace-manifest digest, base and assessed repository states,
+consumed evidence digests, and implementation-manifest digest. An unresolved,
+substituted, unauthenticated, or cross-subject artifact cannot support a result.
 
-## Git diff serialization and materiality
+## Patch reconstruction
 
-`workspace_diff` is a strict UTF-8 Git unified-diff serialization. The executor
-**MUST** decode canonical Git C-quoted paths, including octal-escaped UTF-8
-bytes, and accept safe repository-relative Unicode paths and ASCII spaces in
-both quoted and ordinary Git headers. It also accepts the unambiguous trailing
-TAB field separator emitted by Git on file-marker lines, with an empty field or
-a canonical unified-diff timestamp; the TAB is not part of the path. It **MUST** reject malformed quoting,
-invalid UTF-8, absolute paths, backslashes, control characters, empty path
-segments, and `.` or `..` segments.
+`workspace_diff` is a Git patch that reconstructs the delivered repository
+change from the sealed base. Its semantics are those of the pinned Git
+implementation, not a second parser defined by this standard. A conforming
+executor **MUST**:
 
-Every record **MUST** have one unambiguous, internally consistent `diff --git`
-path pair. File markers and rename, copy, or binary operands **MUST** resolve to
-that pair. Hunk old/new counts **MUST** equal their parsed context, deletion, and
-addition lines; multiple hunks **MUST** have non-overlapping, monotonic old and
-new ranges. Singleton metadata and file markers **MUST NOT** be duplicated, and
-metadata **MUST** precede hunks. Create and delete modes are mutually exclusive;
-a paired mode change must change the mode. Rename and copy metadata are mutually
-exclusive. `Binary files ... differ` and `GIT binary patch` are mutually
-exclusive. A binary patch requires one or two non-empty, length-consistent Git
-base-85 payload sections. Every section **MUST** decode and inflate; a `literal`
-must inflate to its declared byte length and a `delta` must be a structurally
-valid Git delta whose header length equals the inflated instruction-stream
-length and whose internal source size, result size, and instructions agree. A `/dev/null`
-operand or marker **MUST** be unique to one side and accompanied by the matching
-new-file or deleted-file mode.
+1. Materialize the authenticated base in an isolated repository, with the
+   sealed configuration and resource limits. The evaluated arm **MUST NOT**
+   control Git configuration, hooks, external diff drivers, or replay tooling.
+2. Apply the entire patch from the repository root to the base index and
+   working tree, using `git apply --index` or an equivalent implementation.
+   Partial application, path filtering, three-way fallback, whitespace repair,
+   and unsafe-path overrides **MUST NOT** be used to make a patch pass.
+3. Compare the reconstructed repository state with the independently captured
+   state on which the required outcome checks ran. Paths, file bytes, file
+   modes, symlink targets, and submodule object IDs **MUST** agree. The
+   [repository-state contract](../../standard/git-repository-state-contract.md)
+   governs state authentication. Temporary grader files and other excluded
+   paths **MUST** be declared before execution and **MUST NOT** supply any part
+   of the agent's solution. Untracked or ignored solution files are part of
+   the delivered state and **MUST** be included in the patch.
+4. Require a nonempty base-to-result state difference for `workspace_changed`,
+   then evaluate the registered outcome conditions and hard gates. Merely
+   changing a file is not evidence that the task is satisfied.
 
-A rename or copy with similarity below 100% **MUST** serialize the corresponding
-textual or binary content change. Similarity of 100% **MUST NOT** carry a content
-change; mode metadata may still record an independent mode change.
+For example, Git's `diff --binary --full-index --no-ext-diff --no-textconv`
+can serialize text and binary changes after all solution files have been
+included in the compared trees. A plain `Binary files differ` marker cannot
+reconstruct changed binary bytes and therefore cannot satisfy this contract.
+The [Git diff](https://git-scm.com/docs/git-diff) and
+[Git apply](https://git-scm.com/docs/git-apply) manuals define these commands.
 
-When an object-index line is present, a creation **MUST** have an all-zero old
-object ID and a nonzero new object ID; a deletion **MUST** have the inverse; and
-every other change **MUST** have two nonzero IDs. A content-changing record
-**MUST** use distinct IDs. A content-preserving similarity-100 or mode-only
-record **MUST** use equal IDs. Object-ID abbreviation widths need not be equal.
+Missing bytes, reconstruction mismatch, or exceeded capture/replay limits make
+the affected result `insufficient_evidence`; they do not prove agent failure.
+An authenticated unchanged or incorrect result remains an assessable
+non-success under the outcome rules. Resource limits **MUST** be fixed before
+execution and reported; this contract does not prescribe universal byte or
+file-count ceilings.
 
-At least one record **MUST** establish a material textual hunk, file creation or
-deletion, changed mode, rename, copy, binary difference, or complete binary
-patch. A header, object index, similarity value, no-op mode pair, incomplete
-binary section, or unknown metadata line alone is not a material change.
+## Evaluated work product
 
-The conforming executor applies authenticated resource ceilings before semantic
-parsing: 128 MiB per serialized diff, 20,000 file records, 2,000,000 lines,
-8,388,608 UTF-16 code units per line, and 16 KiB of UTF-8 per path. One binary
-section is limited to 96 MiB compressed and 128 MiB inflated. Inflation is also
-bounded to one byte beyond the declared section length so a small declaration
-cannot trigger unbounded decompression. Path-pair metadata is limited to the
-maximum encoded size of two bounded paths and at most 64 ambiguous separator
-candidates. Quoted paths are decoded against the byte ceiling incrementally.
-Git binary payloads require canonical 52-byte non-final chunks and are decoded
-into one bounded buffer. Exceeding a ceiling is invalid, not a partial parse. A
-deployment needing a larger boundary requires a differently identified
-executor and outcome profile with its own authenticated limits and conformance
-vectors.
+The case's single `workArtifactType` describes the requested, independently
+evaluated result, not the extensions or directories of every changed file.
+Case QA **MUST** verify that classification against the task and acceptance
+conditions before execution. A `code_change` may include regression tests,
+configuration, and documentation needed for that change. A `test_change` or
+`repository_configuration` may likewise include supporting files. This does
+not establish a second capability claim or exempt any changed file from gates.
 
-## Work-artifact classification
-
-The executor applies the following deterministic interoperability policy in
-order: recognized test paths are `test_change`; recognized build, dependency,
-workflow, infrastructure, policy-as-code, and repository configuration paths
-are `repository_configuration`; every other safe repository-content path is
-`code_change`. The last class deliberately supports source languages and
-implementation assets without an extension allowlist. The case's declared
-`workArtifactType`, reviewed in Case QA, remains the semantic authority for the
-evaluated construct; this path policy is a structural replay check, not
-permission to relabel a test or configuration artifact as code.
-
-The adopter supplies the exact classifier implementation, with its recognized
-path selectors, version, and digest sealed before execution. Category examples
-such as test directories, CI workflows, dependency files, or source files are
-informative; they are not a portable machine definition. Direct comparisons
-use the same classifier bytes. An implementation cannot claim an unspecified
-bundled classifier as its authority.
-
-Case QA **MUST** establish that the policy matches repository conventions and a
-trusted, sealed-activation material-path frame before execution. That frame and
-its selectors **MUST** be authorized by the repository owner or a preauthorized
-measurement authority; neither the activation-time payload nor its producer may invent
-their own authority. The actual trial diff does not yet exist at activation, so
-this check **MUST NOT** stand in for replay. Replay **MUST** parse the
-authenticated `workspace_diff` bytes and rerun the exact registered classifier
-on every actual material path. A known collision, ambiguous convention, or
-unknown applicability is `insufficient_evidence` and requires a differently
-identified, sealed outcome profile and executor. A claimant **MUST NOT**
-reinterpret path classes after execution.
-The Case QA stage evidence records this determination, binding the exact
-outcome profile, semantic contract, executor, applicability rule,
-repository-convention manifest, material-path frame, and authenticated
-applicability and coverage evidence. No extra property is added to the closed
-Case QA record. At replay every actual material path is classified, all paths
-are covered, and unknown or colliding classifications fail closed.
-
-The observed material path classes **MUST** equal the case's single selected
-`workArtifactType`. Native `workspace_changed` substatus is `documentation_only`
-when all `code_change` paths are documentation, `code_only` for other
-`code_change`, `tests_only` for `test_change`, and `configuration_only` for
-`repository_configuration`. The outcome schema's multi-class substatus labels
-are not reachable through the 0.1.0 single-type case format; they do not permit
-undeclared material types.
+The profile has no path classifier and no native substatuses.
+`workspace_changed` maps to `solved` only when reconstruction and the required
+outcome conditions pass. Independently evaluated work products of another
+capability family require a separately scoped case and compatible profile.
 
 ## Evidence modes
 
-The implementation records each kind below in its own format; every record
-**MUST** carry the case, cell, and attempt identity, the consumed evidence
-digests, and the verdict.
+The implementation records each kind below in its own format. Every record
+**MUST** carry case, cell, and attempt identity, consumed evidence digests, and
+verdict; the sealed implementation manifest fixes how it is interpreted.
 
-`runner-check` binds the exact validation plan and evaluated diff or registered-
-alternative terminal projection. `adjudication-record` additionally binds the
-arm's sealed `graderSet` and implements `JUDGE-003`: at least two pairwise-
-independent blinded raters, one qualification rule, qualification and conflict
-evidence commitments, reasons, applicable presentation-order control, agreement
-with uncertainty, and a passing verdict from every decision-bearing rater.
+`runner-check` binds the exact validation plan and reconstructed state or
+registered alternative. `adjudication-record` additionally binds the sealed
+grader identities and protocol and implements `JUDGE-003`: at least two
+pairwise-independent blinded raters, qualification and conflict evidence,
+reasons, applicable presentation-order control, agreement with uncertainty,
+and a passing verdict from every decision-bearing rater.
 
-`runner-failure-record` binds a failed or invalid exact runner-check set to the
-sealed workspace. `measurement-validity-record` binds that runner record, the
-same workspace and fact projection, and a verifier independent from claimant
-and runner. Evidence-kind labels are closed; a wrong record kind, subject, authority,
-protocol, workspace, or evidence set fails replay.
+`runner-failure-record` binds a failed or invalid runner-check set to the same
+workspace. `measurement-validity-record` binds that record and workspace to a
+verifier independent from claimant and runner. A wrong record kind, subject,
+authority, protocol, workspace, or evidence set fails replay.

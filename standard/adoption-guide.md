@@ -2,175 +2,129 @@
 
 - Status: unpublished 0.1.0 publication candidate
 - Version: 0.1.0
-- Purpose: an informative reading and dependency guide for a draft-conforming
-  case, experiment, scorecard, and conformance statement. The linked primary
-  contracts determine the requirements.
+- Purpose: an informative implementation guide. The registered requirements
+  and their primary contracts define conformance.
 
-## Start here: the A1 path
+## Minimum implementation: an A1 repository-change evaluation
 
-If you have not yet made a claim under this standard, start at
-[A1](conformance.md#baseline-a1). Deterministic cases need two people, Git,
-and six schemas; judgment-bound checks require two independent raters besides
-the author/configurer:
+A1 is the smallest level for a bounded capability claim. It is limited to low
+or medium effective risk and cannot support a release, autonomy, or risk
+acceptance decision. Start with the [A1 contract](conformance.md#baseline-a1)
+and the registry entries whose `minimumLevel` is `A1`.
 
-1. **Author cases** (`case-1`): task, repository commit, the four scope
-   tests, deterministic checks, hard gates, and oracle isolation.
-2. **Validate cases** (`case-qa-1`): a known-good result passes; a no-op, a
-   plausible wrong result, and (where the case has tests or hidden checks) disabled-tests and
-   hard-coded-output results fail, stably; a second person confirms inferability
-   and scope before evaluated results exist. A no-op may pass only for the
-   registered, independently verified `already_satisfied` alternative.
-3. **Seal the run** (`run-manifest-1`): arms including a no-action baseline
-   and a non-agent control, trials per case, replacement policy, claims with
-   decision rules, and `stat-defaults-v1`. Commit it before the first attempt.
-4. **Run** (`attempt-ledger-1`): append every attempt, valid or not, to a
-   hash-chained ledger in Git.
-5. **Score** (`scorecard-1`): counts, outcomes, gate failures, per-case
-   results, identification bounds, and intervals; gates, outcomes, claims, and
-   verdict stay in separate fields.
-6. **State conformance** (`conformance-statement-1`): one result per A1
-   requirement, reviewed by the second person.
+For a repository-change case, use `CAP.IMPLEMENT_CHANGE` and one material
+`workArtifactType` whose mapping is in the
+[work-artifact registry](work-artifact-registry.json). The bundled
+[`repo-change-v1` profile](../profiles/repo-change-v1/README.md) is an
+interoperability example. Evaluation- and outcome-profile bindings are A2
+requirements; they are not needed to establish an A1 claim.
 
-The [worked example](../examples/core/README.md) shows every step with numbers.
-Everything below describes A2 and A3, which keep the same artifacts and add
-attachments and stronger forms.
+Build these six document types in order. Keep each seal in Git before work that
+depends on it:
 
-## A2 and A3 (draft annex)
+1. **Case** (`case-1`, [`case.schema.json`](../schemas/case.schema.json)). Pin
+   the repository state and visible inputs; describe the task, material work
+   product, all four scope tests and rationales, deterministic checks, hard
+   gates, oracle isolation, and effective risk. Commit this candidate case.
+2. **Case QA** (`case-qa-1`,
+   [`case-qa.schema.json`](../schemas/case-qa.schema.json)). A reviewer
+   independent of the case author checks scope and inferability before results
+   exist. A known-good result must pass; a no-op, plausible wrong result, and,
+   where applicable, disabled-test and hard-coded-output controls must fail
+   stably; record why a trivial-strategy control does not apply. Record the
+   `already_satisfied` no-op alternative only when it is registered and
+   independently verified. The QA record binds the candidate case; then commit
+   the active case with only its `lifecycle` added.
+3. **Run manifest** (`run-manifest-1`,
+   [`run-manifest.schema.json`](../schemas/run-manifest.schema.json)). Pin the
+   active cases, identify every arm, and declare the no-action baseline, a
+   distinct non-agent control, trial schedule, replacement policy, claims and
+   decision rules, and `stat-defaults-v1` or explicit statistical overrides.
+   Commit the manifest before the first attempt; that commit is the seal point.
+4. **Attempt ledger** (`attempt-ledger-1`,
+   [`attempt-ledger.schema.json`](../schemas/attempt-ledger.schema.json)).
+   Record every dispatched attempt, including invalid and replacement
+   attempts, in the hash chain. Reconcile never-dispatched cells against the
+   sealed schedule as unresolved, without inventing attempts. Commit ledger updates to Git; the
+   manifest seal commit must be an ancestor of the first attempt.
+5. **Scorecard** (`scorecard-1`,
+   [`scorecard.schema.json`](../schemas/scorecard.schema.json)). Derive counts,
+   outcomes, gate failures, per-case results, identification bounds, and
+   intervals from the ledger and the sealed rules. Keep gates, outcomes, claim
+   status, and verdict in their separate fields.
+6. **Conformance statement** (`conformance-statement-1`,
+   [`conformance-statement.schema.json`](../schemas/conformance-statement.schema.json)).
+   Record one result for every applicable A1 requirement. Have the independent
+   reviewer review the subject and results, commit that review, then commit the
+   statement referencing the reviewed evidence.
 
-A2 and A3 use the same six artifacts as A1. They add attachments and stronger
-forms; nothing from the A1 path is replaced. Use the
-[requirement registry](requirements.md) to find each rule's authoritative
-location. Measurement and governance share a preparation path; governance
-planning branches **before** the run it will judge:
+The [worked example](../examples/core/README.md) shows the document contents,
+Git order, and scorecard arithmetic. For deterministic cases, two people can
+cover author/configurer and independent review; judgment-bound checks need two
+independent raters in addition to the author/configurer.
 
-```mermaid
-flowchart LR
-  A[Pin commit and select intended use] --> P[Prepare policy, risk and assurance]
-  P --> B[Author case and activate via Case QA]
-  B --> C{Intended decision}
-  C -->|Capability| R[Seal and execute experiment]
-  C -->|Governance| G[Seal decision plan and held-out controls]
-  G --> R
-  R --> S[Scorecard and detached validation]
-  S --> E[Conformance statement per claim]
-  S --> D[Governance decision if pre-planned]
-  D --> M[Assurance monitoring after approval]
-```
+## Where implementation rules live
 
-A conformance statement makes one claim, `experiment` or `decision`, and
-covers every requirement registered for that claim at the declared assurance
-level. A deviation records the unsupported rule and affected claim
-restrictions; it does not permit omitting a required result row
-([Conformance](conformance.md)).
+Use the
+[requirement registry](requirement-registry.json) to select applicable
+requirements and locate each primary definition. The [Conformance
+Contract](conformance.md) defines A1 coverage and how a statement's verdict is
+derived.
 
-## Local development
+| Implementer question | Authority |
+| --- | --- |
+| What obligations apply? | The registered primary requirement and its linked contract. The [Core Standard](standard.md) owns most requirements; [Scorecard](scorecard-contract.md), [Evidence and Validation](evidence-and-validation-contract.md), and [Conformance](conformance.md) own their registered requirements. |
+| Is the JSON document well-formed? | The matching JSON Schema in [`schemas/`](../schemas/). Schemas define accepted structure, not cross-document truth. |
+| Do references, hashes, Git order, ledger, scorecard, and verdict agree? | The invoked semantic contract: chiefly [Integrity and Semantic Validation](evidence-and-validation-contract.md#integrity-and-semantic-validation-contract), [Scorecard](scorecard-contract.md), and the [Git repository-state contract](git-repository-state-contract.md). A schema-valid document may still fail these checks. |
+| How is an A1 case activated? | `CASE-004` in the [Core Standard](standard.md#activation-and-maintenance) and the [A1 activation record](case-qa-playbook.md#activation-record). The playbook's stages 3–8 are A2/A3 requirements. |
+| What do examples establish? | Nothing normative. [`examples/`](../examples/README.md) illustrates document shape and calculations; it cannot add or waive requirements. |
 
-The repository contains contracts only: prose, JSON Schemas, profiles, and
-[examples](../examples/). One lightweight check validates them:
+The repository's `npm test` checks schemas, examples, bundled contracts, and
+links. It does not validate an adopter's evaluation. An independent
+implementation needs semantic checks for the registered requirements it
+claims, with its own positive and negative vectors.
 
-```bash
-npm ci
-npm test   # schemas compile, examples match expectations, bundled contracts and links resolve
-```
+## What changes at A2 and A3
 
-The check is not a conformance validator. Semantic validation — digest
-reproduction, outcome replay, ledger continuity, independence — belongs to an
-implementation of this standard. If you change a schema, update its valid
-example and any affected invalid example in the same pull request.
+A2 and A3 retain the A1 artifacts and add requirements. Do not build these
+attachments just to make an A1 capability claim.
 
-## A2 and A3 attachments and stronger forms
+- **A2** adds evaluation- and outcome-profile bindings, a validity argument,
+  risk assessment, operational policy, held-out budget and ledger, canonical
+  evidence-artifact records, Case QA stages 3–8, and detached validation of the
+  conformance statement. Multi-arm runs add a comparative design; governance
+  runs also seal a decision plan before execution.
+- **A3** adds an evaluation threat model, separate security approval, a bound
+  post-decision assurance plan, and adversarial positive controls.
 
-### Pin the draft
+See [assurance levels](standard.md#assurance-levels) and the registered
+requirements for the exact conditions. The A2/A3 path is a draft annex and may
+change incompatibly.
 
-The standard is an unpublished `0.1.0` candidate. Record the exact commit and
-the version `0.1.0`; after publication you must additionally pin the protected
-annotated tag `v0.1.0`. Every artifact you produce later references these pins.
-Saying “based on” the standard is not a conformance claim.
+## Pinning and governance
 
-### A2: add to each A1 artifact
+This candidate is unpublished. A conformance statement pins version `0.1.0`
+and the exact standard commit. After publication, it must also pin the
+protected annotated release tag. A “based on” statement is not a conformance
+claim.
 
-- **Policy and risk.** Select the intended decision class and risk/assurance
-  path under [ASSURE-001 and RISK-001](standard.md#assurance-levels). Prepare an
-  authenticated adopter-owned operational policy
-  ([`operational-governance-policy.schema.json`](../schemas/operational-governance-policy.schema.json));
-  the bundled [Governance Policy](governance-policy.md) and
-  [Escalation and Stop Matrix](governance-policy.md#escalation-and-stop-matrix)
-  leave adopter thresholds, owners, and SLAs unset, and an unset required value
-  blocks the affected path. Record the risk assessment
-  ([`risk-assessment.schema.json`](../schemas/risk-assessment.schema.json)).
-- **Case** ([`case.schema.json`](../schemas/case.schema.json)): fill the
-  optional properties — `workspaceManifest`, `evaluationProfile`,
-  `outcomeProfile`, `lifecycle`, `contamination`, `leakageControls`,
-  `decisionSurfaces`, `exposureBudget`, and, for interactive cases,
-  `interactionProtocol`. The bundled
-  evaluation profile is `repo-change-v1`; it demonstrates interoperability
-  mechanics, not empirical validity.
-- **Case QA** ([`case-qa.schema.json`](../schemas/case-qa.schema.json)): record
-  stages 3–8 of the [Case QA Playbook](case-qa-playbook.md) in `stages`, with
-  `defects`, `graderValidation`, and `decisionSurfaceValidation`. Stage 7 may be
-  `not_applicable` only with a rationale, and that gap restricts dependent
-  claims.
-- **Run manifest** ([`run-manifest.schema.json`](../schemas/run-manifest.schema.json)):
-  attach `evaluationProfile`, `validityArgument` (with its baseline inventory),
-  `riskAssessment`, `policy`, and `heldOut` (budget and ledger); add
-  `comparativeDesign` for several arms and `decisionPlan` for governance use.
-  Seal all of it before the first trial. A diagnostic or development run cannot
-  acquire a missing decision plan or held-out controls retroactively.
-- **Scorecard and statement:** the scorecard may carry `governanceStatuses`,
-  `validity`, and `telemetry`; the conformance statement
-  ([`conformance-statement.schema.json`](../schemas/conformance-statement.schema.json))
-  is accompanied by a separate `validation-envelope-1`, published
-  alongside it (the statement does not reference it), produced by an independent
-  validator whose subject digest equals the statement digest. A statement without a passing envelope is an unauthenticated
-  assertion, not conformance. The
-  [Integrity and Semantic Validation Contract](evidence-and-validation-contract.md#integrity-and-semantic-validation-contract)
-  recomputes hashes, formulas, ledger continuity, verdict implications, and
-  outcome replay for claim-bearing cells.
+For governance use, prepare the decision plan and controls before the run, then
+make a separate decision against validated experiment evidence. Use the
+[Governance Policy](governance-policy.md) and
+[decision-record template](../templates/governance-decision-record.md); keep
+decisions, renewals, waivers, and rollbacks in a version-controlled governance
+record. Record expected assurance-monitoring windows there as well. Missing or
+late monitoring evidence suspends the affected approval; this candidate does
+not define a schema for those observations.
 
-### A3: add to A2
+## Invariants to preserve
 
-An evaluation threat model (`threatModel`), a separate security approval
-(`securityApproval`), a post-decision assurance plan (`assurancePlan`), and
-adversarial positive controls.
+- Seal everything that affects the verdict before results are observed (`I3`).
+- A failed acceptance or hard gate cannot be offset by quality, cost, or a
+  composite score (`I1`); indeterminate gates do not pass (`I10`).
+- Keep claims within the declared population and evidence (`I6`), and use
+  deterministic checks for objectively executable or mechanically inspectable
+  outcomes (`I9`).
 
-## Governance path (decisions)
-
-These steps consume the validated evidence from the pre-planned governance run.
-
-### Make a governance decision
-
-Decisions use [`schemas/governance-decision.schema.json`](../schemas/governance-decision.schema.json)
-and the [decision-record template](../templates/governance-decision-record.md).
-An approval additionally binds a post-decision assurance plan. Resolutions,
-waivers, renewals, and rollbacks are appended to the adopter's
-version-controlled governance record; the scorecard itself is immutable.
-
-### Monitor via assurance observations
-
-Every expected monitoring window is recorded as an observation in the
-governance record. Missing, late, or unauthenticated evidence triggers
-`assuranceEvidenceMissing` and suspends the affected approval. Version 0.1.0
-publishes no schema for these records.
-
-## Frequently used rules
-
-- **Pre-registration (I3).** Everything that decides a verdict - case set,
-  thresholds, gates, claims and statistics, success definition - is sealed before
-  the run and cannot be changed after results are observed.
-- **Non-compensation (I1).** An acceptance, security, or policy violation
-  cannot be offset by quality, cost, or composite scores.
-- **Fail closed (I10).** An indeterminate gate or blocker is not a silent pass.
-- **Evidence bounds claims (I6).** Positive, comparative, and governance claims
-  are limited to the pre-declared target population, strata, and the statistics
-  sealed in the run manifest; `insufficient_evidence` is a verdict, not a failure.
-- **Evidence fits the construct (I9).** Correctness and quality must use the
-  strongest evidence that directly measures the declared construct;
-  deterministic verification is required when the outcome is objectively
-  executable or mechanically inspectable, and model-based grading cannot be the
-  sole evidence for a hard safety gate or deterministic fact.
-
-## What the standard deliberately does not do
-
-This repository provides no evaluation runner, grader, benchmark cases,
-certification, or leaderboard. If you need those, this standard is the contract
-your implementation should satisfy, not the implementation itself.
+This repository defines contracts only. It supplies no evaluation runner,
+grader, benchmark suite, certification, or leaderboard.

@@ -135,9 +135,12 @@ The authenticated
 sole normative work-artifact-to-capability mapping. Each case declares one
 `workArtifactType` and one `capabilityFamilyId`; the family **MUST** equal the
 selected type's registry mapping. Case QA verifies that this type describes the
-material evaluated work product, rather than incidental tools or intermediate
-steps. The 0.1.0 case schema cannot represent several material artifact types
-or capability families in one case; such work needs separately scoped cases.
+material evaluated work product, rather than incidental tools, individual
+changed paths, or intermediate steps. A code fix with regression tests and
+supporting configuration is one `code_change`; all of its files remain subject
+to the same gates. The 0.1.0 case schema cannot represent independently evaluated
+work products of several types or capability families in one case; such claims
+need separately scoped cases.
 
 `code_change` is the closed fallback ID for a material repository-content
 implementation change not separately classified as `test_change` or
@@ -169,8 +172,8 @@ registry.
 
 ## Intended Use and Validity Argument
 
-`VALID-001` — Before case selection, the run manifest (and, at A2 and above,
-the validity argument it binds) **MUST** declare:
+`VALID-001` — At A2 and above, before case selection the evaluator **MUST**
+commit an intended-use and sampling plan declaring:
 
 - intended users and decisions;
 - construct definitions and excluded constructs;
@@ -178,6 +181,15 @@ the validity argument it binds) **MUST** declare:
 - claims the run is designed to support;
 - required assurance level and effective-risk range;
 - construct-to-capability and construct-to-evidence mappings.
+
+The plan uses the adopter's format. The validity argument's `review.evidence`
+record **MUST** bind its exact committed bytes and verify selection against it.
+After selection, the completed validity argument **MUST** bind
+the exact run and case set through the
+[run projection](evidence-and-validation-contract.md#validity-argument-run-binding)
+and be independently reviewed before the final run manifest is sealed. It
+**MUST NOT** silently change the prior plan; a material revision requires a new
+plan and case-selection pass before execution.
 
 `VALID-002` — Every claim **MUST** cite a versioned validity argument covering
 content representation, construct under-representation and contamination,
@@ -544,7 +556,7 @@ product and that product's outcome profile.
 The seven base primary outcomes are normalized aggregation classes. An outcome
 profile **MUST** publish a closed `nativeOutcomes[]` mapping from its own outcome
 IDs to those classes, including an explicit allowed substatus vocabulary. Every
-trial **MUST** retain the selected native outcome and substatus in addition to
+trial **MUST** retain the selected native outcome and any applicable substatus in addition to
 the normalized primary outcome. `solved`, `correct_refusal`, and
 `already_satisfied` therefore do not force a code-review profile to replace
 `approved` or `changes_requested`, or an operational profile to replace
@@ -565,10 +577,13 @@ selected outcome profile and its authenticated replay contract. They are not
 base semantics and **MUST NOT** affect another outcome-profile ID. The bundled
 `workspace-change-v1` example is bound to its separate
 [repository-change replay contract](../profiles/repo-change-v1/outcome-replay-contract.md).
-An implementation executes that contract through an outcome-replay executor
-registered in an executor registry, in the implementation's own format, that the
-run manifest pins. Changing the contract or the executable changes their
-registered digest; it does not silently change this base requirement.
+An implementation executes that contract through an outcome-replay executor.
+The run manifest's arm `components` with role `harness` **MUST** bind the exact
+executor code, configuration, and selected semantic contract, directly or
+through a resolvable implementation manifest in the adopter's format. Its
+`identity` resolves the artifact and its `digest` authenticates it. A separate
+executor registry is optional. Changing any bound bytes changes the digest;
+it does not silently change this base requirement.
 
 `OUTPROF-001` — At A2 and above, each case **MUST** pin exactly one outcome-profile ID,
 version, and digest allowed by its evaluation profile. An outcome
@@ -798,20 +813,35 @@ An exposure ledger snapshot **MUST** validate against
 `agent-eval-held-out-exposure-ledger-1`. It **MUST** bind the exact budget,
 previous snapshot or genesis, monotonic sequence, immutable event records,
 totals, remaining budget, saturation state, and seal time. Events **MUST**
-identify the case, complete arm identity digest, purpose, authorization, units,
-and evidence digest. Each snapshot is committed before the exposure it
-authorizes; the commit history, not a recomputed hash, is the evidence against
-rollback.
+identify the case, complete actor identity digest, purpose, authorization,
+units, and evidence digest. Events are **pre-exposure debits**: `occurredAt` is
+the debit time, and `evidenceDigest` binds an existing authorization record
+identifying the run ID and scheduled exposures or reviews it pays for. It does
+not bind a future result or final run-manifest digest. The snapshot containing
+the debit is committed before the authorized exposure. A debit consumes its
+units even if execution is cancelled; there are no refunds or mutable
+reservation states. An actual exposure **MUST** map to exactly one paid unit,
+and a paid unit **MUST NOT** authorize two exposures. Completion evidence is
+recorded separately and does not debit the ledger again.
+
+Each snapshot contains the cumulative ordered `events` array; its predecessor's
+array **MUST** be an exact prefix. Genesis has `sequence: 0`, no predecessor,
+and no events; each successor increments the snapshot sequence by one and
+appends at least one event. Event sequences start at 1 and increase by one;
+event IDs are unique across the chain. The commit history, not a recomputed
+hash, is the evidence against rollback.
 
 Semantic validation **MUST** recompute totals from the append-only event
 sequence, require `remaining = limits - totals`, reject negative remaining
 units, and set `saturated=true` when a consumable limit is reached or any
 forbidden oracle access occurs. A zero oracle-access maximum is a prohibition,
-not a budget that starts saturated. Duplicate, missing, reordered, or
-unrecorded events, oracle access, budget mismatch, or a false unsaturated state
-**MUST** stop the affected run and produce `insufficient_evidence`. Saturated
-cases **MUST** be rotated or the affected claim scope retired according to the
-sealed budget.
+not a budget that starts saturated. Saturation closes new authorizations;
+already paid exposures may finish within their limits. Duplicate, missing,
+reordered, unpaid, or multiply consumed events, oracle access, budget mismatch,
+or a false unsaturated state **MUST** stop the affected run and produce
+`insufficient_evidence`. Before further exposures beyond the paid units,
+saturated cases **MUST** be rotated or the affected claim scope retired
+according to the sealed budget.
 
 ### Run manifest binding
 
@@ -820,10 +850,12 @@ assessment, policy, and held-out budget and ledger snapshot (`heldOut`)
 directly, the decision plan for a governance run, and at A3 the threat model,
 security approval, and assurance plan. The ordered case set, the claims, and
 the ledger snapshot are sealed together, with the snapshot sealed no later than
-the run manifest; the projected attempts **MUST** fit within the remaining
-budget. After an authorized held-out exposure, the runner **MUST** append and
-seal the ledger before a later run manifest can be accepted. Unknown, absent,
-stale, or divergent bindings fail closed.
+the run manifest. Every possible attempt, including the allowed replacements,
+and every planned unblinded look **MUST** be covered by unused debits in that
+snapshot. `remaining` is capacity for later authorizations, not a second charge
+for this run. The runner records actual use against those debits; later runs
+**MUST** authenticate the latest ledger and use records so that no unit can be
+reused. Unknown, absent, stale, or divergent bindings fail closed.
 
 ## Data, IP, Privacy, and Retention
 
@@ -854,11 +886,11 @@ Cell IDs and `(case, arm, repetition)` tuples
 **MUST** be unique. One physical attempt or its permitted retry lineage resolves
 the cell.
 
-The sealed run manifest (`run-manifest-1`) is the one pre-registration
-artifact. Before execution it **MUST** declare the arms, the cases, the
+The sealed run manifest (`run-manifest-1`) is the experiment's pre-registration
+entry point, binding any earlier plans and attachments. Before execution it **MUST** declare the arms, the cases, the
 repetitions, the replacement policy, the claims with their decision rules, the
-statistics defaults or overrides, the comparative design when the run has
-several arms, and at A2 and above the attached references the level requires.
+statistics defaults or overrides, and at A2 and above the comparative design
+and attached references the level requires.
 Each manifest `cases` entry pins one case by ID and content-addressed
 reference; the validator **MUST** resolve it by digest and, at A2 and above,
 authenticate each case's evaluation- and outcome-profile bindings. A copied

@@ -3,9 +3,10 @@
 - Status: informative example for the unpublished 0.1.0 candidate
 - Level: [A1](../../standard/conformance.md#baseline-a1)
 
-This is a complete A1 experiment: one case, its Case QA record, the sealed run
-manifest, the attempt ledger, the scorecard, and the conformance statement. It
-shows what each artifact contains and how every number is computed.
+This is an arithmetic walkthrough of an A1 experiment: one illustrative case
+and Case QA record, a 50-case run manifest, the attempt ledger, scorecard, and
+conformance statement. It shows artifact shapes and how every number is
+computed; it is not a complete, resolvable conformance bundle.
 
 **The run is synthetic.** "example-model", "example-agent-harness",
 "example-codemods", and `ledger-service` are fictional, and the outcomes are a

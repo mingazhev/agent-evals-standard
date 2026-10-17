@@ -2,9 +2,11 @@
 // Lightweight repository check for the standard's contracts. It is not a
 // conformance validator: it proves only that schemas compile, examples match
 // their declared expectations, bundled contracts are schema-valid, profile
-// fixture descriptors resolve, local Markdown links resolve, and the worked example recomputes.
+// digests and references agree, required case fields exist, fixture descriptors
+// resolve, local Markdown links resolve, and the worked example recomputes.
 
 import { spawnSync } from "node:child_process";
+import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
@@ -17,6 +19,18 @@ const failures = [];
 const relative = (absolute) => path.relative(root, absolute).split(path.sep).join("/");
 const readJson = async (absolute) => JSON.parse(await readFile(absolute, "utf8"));
 const sha256 = (bytes) => `sha256:${createHash("sha256").update(bytes).digest("hex")}`;
+// shortcut: schema-checked repository JSON only; use a rejecting JCS parser for untrusted input.
+const jcs = (value) => Array.isArray(value) ? `[${value.map(jcs).join(",")}]`
+  : value && typeof value === "object" ? `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${jcs(value[key])}`).join(",")}}`
+  : JSON.stringify(value);
+const canonicalDocumentDigest = (document) => {
+  const { digest, ...projection } = document;
+  return sha256(Buffer.from(jcs(projection), "utf8"));
+};
+assert.equal(jcs({ b: [2, 1], a: "quote\"\nline" }), "{\"a\":\"quote\\\"\\nline\",\"b\":[2,1]}");
+const referencedDigest = (document, bytes) => typeof document?.digest === "string" ? canonicalDocumentDigest(document) : sha256(bytes);
+assert.equal(referencedDigest({}, Buffer.from("profile reference")), "sha256:a86ea6454739ac2f561f67559e599632fef8ec47dc3a422016a1414719e073a5");
+assert.notEqual(referencedDigest({ id: "a", digest: "stale" }), referencedDigest({ id: "b", digest: "stale" }));
 
 async function walk(directory) {
   const files = [];
@@ -56,6 +70,19 @@ function validate(schemaFile, document) {
   const valid = validator(document);
   return { valid, errors: valid ? "" : JSON.stringify(validator.errors) };
 }
+
+function hasSchemaProperty(schema, pointer) {
+  if (!pointer.startsWith("/")) return false;
+  let current = schema;
+  for (const segment of pointer.slice(1).split("/").map((part) => part.replace(/~1/g, "/").replace(/~0/g, "~"))) {
+    if (!Object.hasOwn(current?.properties ?? {}, segment)) return false;
+    current = current.properties[segment];
+  }
+  return true;
+}
+
+assert.equal(hasSchemaProperty({ properties: { nested: { properties: { value: {} } } } }, "/nested/value"), true);
+assert.equal(hasSchemaProperty({ properties: { nested: {} } }, "/nested/value"), false);
 
 // 2. Examples behave as the example manifest declares.
 const examplesDirectory = path.join(root, "examples");
@@ -101,9 +128,79 @@ for (const absolute of allFiles.filter((file) => file.endsWith(".json"))) {
   if (!result.valid) failures.push(`${file} is invalid against ${schemaFile}: ${result.errors}`);
 }
 
-// 4. Profile fixture descriptors resolve to declared example expectations.
-for (const absolute of allFiles.filter((file) => /profiles\/[^/]+\/evaluation-profile\.json$/.test(relative(file)))) {
+// 4. Profile references resolve to local artifact identities and digests.
+async function checkProfileReferences(value, profilePath, location = relative(profilePath)) {
+  if (Array.isArray(value)) {
+    for (const item of value) await checkProfileReferences(item, profilePath, location);
+    return;
+  }
+  if (!value || typeof value !== "object") return;
+  if (typeof value.uri === "string" && typeof value.digest === "string") {
+    const target = path.resolve(path.dirname(profilePath), value.uri);
+    if (!/^[a-z]+:/i.test(value.uri)) {
+      if (!allFiles.includes(target)) {
+        failures.push(`${location} references missing local artifact ${value.uri}`);
+      } else {
+        const bytes = await readFile(target);
+        let document;
+        if (target.endsWith(".json")) {
+          document = JSON.parse(bytes.toString("utf8"));
+          if (typeof document.id === "string" && value.id !== document.id) {
+            failures.push(`${location} reference ${value.uri} must identify ${document.id}`);
+          }
+          const version = document.version ?? document.standardVersion;
+          if (typeof version === "string" && value.version !== version) {
+            failures.push(`${location} reference ${value.uri} must use version ${version}`);
+          }
+        }
+        const expectedDigest = referencedDigest(document, bytes);
+        if (typeof document?.digest === "string" && document.digest !== expectedDigest) {
+          failures.push(`${relative(target)} digest must be ${expectedDigest}`);
+        }
+        if (value.digest !== expectedDigest) failures.push(`${location} reference ${value.uri} must use digest ${expectedDigest}`);
+      }
+    }
+  }
+  for (const [key, child] of Object.entries(value)) {
+    await checkProfileReferences(child, profilePath, `${location}.${key}`);
+  }
+}
+
+// 5. Profile fixture descriptors resolve to declared example expectations.
+for (const absolute of allFiles.filter((file) => /profiles\/[^/]+\/(?:evaluation-profile|outcome-profile)\.json$/.test(relative(file)))) {
   const profile = await readJson(absolute);
+  const expectedProfileDigest = canonicalDocumentDigest(profile);
+  if (profile.digest !== expectedProfileDigest) {
+    failures.push(`${relative(absolute)} digest must be ${expectedProfileDigest}`);
+  }
+  await checkProfileReferences(profile, absolute);
+  if (!/evaluation-profile\.json$/.test(relative(absolute))) {
+    const scorecardContractDigest = sha256(await readFile(path.join(root, "standard/scorecard-contract.md")));
+    for (const [field, id] of [["functionalSuccess", "functional-outcome-v1"], ["acceptedOutcome", "accepted-outcome-v1"]]) {
+      const predicate = profile[field];
+      if (predicate?.id !== id || predicate.version !== "0.1.0" || predicate.contractDigest !== scorecardContractDigest) {
+        failures.push(`${relative(absolute)} ${field} must bind ${id} 0.1.0 to standard/scorecard-contract.md (${scorecardContractDigest})`);
+      }
+    }
+    continue;
+  }
+  const contractRef = profile.caseContract;
+  const contractPath = path.resolve(path.dirname(absolute), contractRef.uri);
+  const caseContract = await readJson(contractPath);
+  const caseSchemaFile = [...schemaIdByFile].find(([, id]) => id === caseContract.caseSchema?.id)?.[0];
+  if (!caseSchemaFile) {
+    failures.push(`${relative(contractPath)} references unknown case schema ${caseContract.caseSchema?.id}`);
+  } else {
+    const caseSchema = await readJson(path.join(root, caseSchemaFile));
+    if (caseSchema.additionalProperties !== false) {
+      failures.push(`${caseSchemaFile} must remain a closed case schema`);
+    }
+    for (const property of caseContract.requiredCaseProperties ?? []) {
+      if (!hasSchemaProperty(caseSchema, property)) {
+        failures.push(`${relative(contractPath)} requires undeclared case property ${property}`);
+      }
+    }
+  }
   for (const fixture of profile.fixtures ?? []) {
     const label = `${relative(absolute)} fixture ${fixture.id}`;
     if (path.resolve(path.dirname(absolute), fixture.manifestUri) !== exampleManifestPath) {
@@ -121,7 +218,7 @@ for (const absolute of allFiles.filter((file) => /profiles\/[^/]+\/evaluation-pr
   }
 }
 
-// 5. Local Markdown links and heading anchors resolve.
+// 6. Local Markdown links and heading anchors resolve.
 function githubHeadingSlug(text) {
   return text.trim().replace(/\s+#+\s*$/, "").replace(/<[^>]*>/g, "").replace(/[`*_~]/g, "")
     .toLowerCase().replace(/[^\p{L}\p{N}\s-]/gu, "").trim().replace(/\s+/g, "-");
@@ -160,7 +257,7 @@ for (const absolute of allFiles.filter((file) => file.endsWith(".md"))) {
   }
 }
 
-// 6. The worked example's ledger chain and point estimates recompute.
+// 7. The worked example's ledger chain and point estimates recompute.
 const worked = spawnSync(process.execPath, [path.join(root, "tools/verify-worked-example.mjs")], { encoding: "utf8" });
 if (worked.status !== 0) failures.push(`worked example: ${worked.stderr.trim()}`);
 
