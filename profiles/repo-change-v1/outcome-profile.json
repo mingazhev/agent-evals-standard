@@ -539,14 +539,14 @@
   "functionalSuccess": {
     "id": "functional-outcome-v1",
     "version": "0.1.0",
-    "contractDigest": "sha256:ea6f0cfe5ba751e54eab77f5bda207ea9b3451ab5007b6179d2b0997f8f0e556"
+    "contractDigest": "sha256:1b5498716da0ffb4883524cb13466c089f8dd6aac8e0c37fce797b1ea849a5db"
   },
   "acceptedOutcome": {
     "id": "accepted-outcome-v1",
     "version": "0.1.0",
-    "contractDigest": "sha256:ea6f0cfe5ba751e54eab77f5bda207ea9b3451ab5007b6179d2b0997f8f0e556"
+    "contractDigest": "sha256:1b5498716da0ffb4883524cb13466c089f8dd6aac8e0c37fce797b1ea849a5db"
   },
-  "digest": "sha256:32d1b646d4597e84efd14b3e35d7c3e065f722825abd1ae118d92a4a89ebbb57",
+  "digest": "sha256:e9e150a209ad3750a2a079a9c62cca76d03109ca20cba6c1ccf4b87ce339a4e8",
   "replayContract": {
     "id": "repo-change-outcome-replay-contract",
     "version": "0.1.0",

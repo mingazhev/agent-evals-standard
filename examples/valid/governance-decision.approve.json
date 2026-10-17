@@ -1,0 +1,306 @@
+{
+  "schemaVersion": "agent-eval-governance-decision-1",
+  "decisionId": "governance-approval-fixture-1",
+  "version": "0.1.0",
+  "decisionType": "release",
+  "verdict": "approve",
+  "riskAssessment": {"id": "repo-change-experiment-risk-fixture-1", "version": "0.1.0", "uri": "risk-assessment.json", "digest": "sha256:f6a204351e4c842b8c63d1435760ecdf1783bd1b370471db3a5d4eb071622c9c"},
+  "effectiveRiskTier": "medium",
+  "policyInstance": {"id": "operational-governance-policy-fixture-1", "location": "artifact:fixture:operational-governance-policy-fixture-1", "digest": "sha256:f2fbd75c175344432e7f030a56baf942dc6c1807aa3caf3d30c452afe247c067"},
+  "preRunDecisionPlan": {"id": "pre-run-decision-plan-fixture-1", "location": "artifact:fixture:pre-run-decision-plan-fixture-1", "digest": "sha256:a1da9a3933951d7e27b03cea8ef0414770bc233c0edc04665daa520fc3d57055"},
+  "scorecards": [{"id": "scorecard-fixture-1", "location": "artifact:fixture:scorecard-fixture-1", "digest": "sha256:623b507d79b4aad84a0d9f26b6f9e554b0e39cab306eea07913f7a485b674bb1"}],
+  "effectiveAt": "2026-08-01T00:00:25Z",
+  "reviewAt": "2026-08-02T00:00:25Z",
+  "expiresAt": "2026-08-03T00:00:25Z",
+  "roles": {
+    "operator": {"id": "fixture-operator", "role": "operator"},
+    "evidenceProducer": {"id": "fixture-evidence-producer", "role": "evidence_producer"},
+    "approver": {"id": "fixture-approver", "role": "approver"},
+    "securityApprover": {"id": "fixture-security-approver", "role": "security_approver"},
+    "riskOwner": {"id": "fixture-risk-owner", "role": "risk_owner"},
+    "statusResolver": {"id": "fixture-status-resolver", "role": "status_resolver"},
+    "waiverAuthority": {"id": "fixture-waiver-authority", "role": "waiver_authority"},
+    "rollbackVerifier": {"id": "fixture-rollback-verifier", "role": "rollback_verifier"}
+  },
+  "separationOfDutiesEvidence": {"id": "fixture-separation-of-duties-1", "location": "artifact:fixture:fixture-separation-of-duties-1", "digest": "sha256:898700a1c8b876326bbe7a1c74c8552c7904a33b195ed0180f1653aee2fad7d6"},
+  "conditionTrace": [
+    {
+      "conditionId": "all-required-gates-pass",
+      "sealedRequirement": "all required gates pass",
+      "observedValue": true,
+      "evidence": {"id": "fixture-condition-evidence-1", "location": "artifact:fixture:fixture-condition-evidence-1", "digest": "sha256:5a7fef7200d00bdcacc3a8c0fb4ee24403849861c115c5c032f6acc94036f03f"},
+      "evaluator": {"id": "fixture-condition-evaluator", "role": "independent_verifier"},
+      "verdict": "pass",
+      "failureEffect": "reject"
+    }
+  ],
+  "approvalEnvelope": {
+    "configurationHash": "sha256:4a2867511946c604466c0046e5ad16b2746734b6c0f7950709f9e125a50a82ff",
+    "taskScope": ["repository_change"],
+    "repositoryScope": ["fixture-repository"],
+    "environmentScope": ["fixture-environment"],
+    "targetPopulation": "enterprise SDLC repository changes",
+    "representedStrata": ["medium-risk-change"],
+    "exclusions": [],
+    "tools": ["git", "test-runner"],
+    "autonomy": "supervised"
+  },
+  "postDecisionAssurancePlan": {
+    "artifact": {"id": "assurance-plan-fixture-1", "location": "artifact:fixture:assurance-plan-fixture-1", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+    "version": "0.1.0",
+    "approval": {"id": "assurance-plan-approval-fixture-1", "location": "artifact:fixture:assurance-plan-approval-fixture-1", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+    "triggers": [
+      {
+        "trigger": "model",
+        "thresholdContract": {
+          "artifact": {"id": "change-model", "location": "artifact:fixture:change-model", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "schema": {"id": "change-model-schema", "location": "artifact:fixture:change-model-schema", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "verifier": {"id": "fixture-assurance-verifier", "version": "0.1.0", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+          "deterministic": true
+        },
+        "claimEffect": "suspend",
+        "stopAction": "suspend_approval",
+        "scopeAction": "revalidate_or_revoke",
+        "rollbackConditions": ["Restore the last approved configuration when safe."],
+        "revalidationConditions": ["Validate the changed scope under the sealed policy."],
+        "resumeConditions": ["Independent approval of complete revalidation evidence."]
+      },
+      {
+        "trigger": "agent_configuration",
+        "thresholdContract": {
+          "artifact": {"id": "change-agent_configuration", "location": "artifact:fixture:change-agent_configuration", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "schema": {"id": "change-agent_configuration-schema", "location": "artifact:fixture:change-agent_configuration-schema", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "verifier": {"id": "fixture-assurance-verifier", "version": "0.1.0", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+          "deterministic": true
+        },
+        "claimEffect": "suspend",
+        "stopAction": "suspend_approval",
+        "scopeAction": "revalidate_or_revoke",
+        "rollbackConditions": ["Restore the last approved configuration when safe."],
+        "revalidationConditions": ["Validate the changed scope under the sealed policy."],
+        "resumeConditions": ["Independent approval of complete revalidation evidence."]
+      },
+      {
+        "trigger": "prompt",
+        "thresholdContract": {
+          "artifact": {"id": "change-prompt", "location": "artifact:fixture:change-prompt", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "schema": {"id": "change-prompt-schema", "location": "artifact:fixture:change-prompt-schema", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "verifier": {"id": "fixture-assurance-verifier", "version": "0.1.0", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+          "deterministic": true
+        },
+        "claimEffect": "suspend",
+        "stopAction": "suspend_approval",
+        "scopeAction": "revalidate_or_revoke",
+        "rollbackConditions": ["Restore the last approved configuration when safe."],
+        "revalidationConditions": ["Validate the changed scope under the sealed policy."],
+        "resumeConditions": ["Independent approval of complete revalidation evidence."]
+      },
+      {
+        "trigger": "harness",
+        "thresholdContract": {
+          "artifact": {"id": "change-harness", "location": "artifact:fixture:change-harness", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "schema": {"id": "change-harness-schema", "location": "artifact:fixture:change-harness-schema", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "verifier": {"id": "fixture-assurance-verifier", "version": "0.1.0", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+          "deterministic": true
+        },
+        "claimEffect": "suspend",
+        "stopAction": "suspend_approval",
+        "scopeAction": "revalidate_or_revoke",
+        "rollbackConditions": ["Restore the last approved configuration when safe."],
+        "revalidationConditions": ["Validate the changed scope under the sealed policy."],
+        "resumeConditions": ["Independent approval of complete revalidation evidence."]
+      },
+      {
+        "trigger": "adapter",
+        "thresholdContract": {
+          "artifact": {"id": "change-adapter", "location": "artifact:fixture:change-adapter", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "schema": {"id": "change-adapter-schema", "location": "artifact:fixture:change-adapter-schema", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "verifier": {"id": "fixture-assurance-verifier", "version": "0.1.0", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+          "deterministic": true
+        },
+        "claimEffect": "suspend",
+        "stopAction": "suspend_approval",
+        "scopeAction": "revalidate_or_revoke",
+        "rollbackConditions": ["Restore the last approved configuration when safe."],
+        "revalidationConditions": ["Validate the changed scope under the sealed policy."],
+        "resumeConditions": ["Independent approval of complete revalidation evidence."]
+      },
+      {
+        "trigger": "tool_schema",
+        "thresholdContract": {
+          "artifact": {"id": "change-tool_schema", "location": "artifact:fixture:change-tool_schema", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "schema": {"id": "change-tool_schema-schema", "location": "artifact:fixture:change-tool_schema-schema", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "verifier": {"id": "fixture-assurance-verifier", "version": "0.1.0", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+          "deterministic": true
+        },
+        "claimEffect": "suspend",
+        "stopAction": "suspend_approval",
+        "scopeAction": "revalidate_or_revoke",
+        "rollbackConditions": ["Restore the last approved configuration when safe."],
+        "revalidationConditions": ["Validate the changed scope under the sealed policy."],
+        "resumeConditions": ["Independent approval of complete revalidation evidence."]
+      },
+      {
+        "trigger": "tool_implementation",
+        "thresholdContract": {
+          "artifact": {"id": "change-tool_implementation", "location": "artifact:fixture:change-tool_implementation", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "schema": {"id": "change-tool_implementation-schema", "location": "artifact:fixture:change-tool_implementation-schema", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "verifier": {"id": "fixture-assurance-verifier", "version": "0.1.0", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+          "deterministic": true
+        },
+        "claimEffect": "suspend",
+        "stopAction": "suspend_approval",
+        "scopeAction": "revalidate_or_revoke",
+        "rollbackConditions": ["Restore the last approved configuration when safe."],
+        "revalidationConditions": ["Validate the changed scope under the sealed policy."],
+        "resumeConditions": ["Independent approval of complete revalidation evidence."]
+      },
+      {
+        "trigger": "permissions",
+        "thresholdContract": {
+          "artifact": {"id": "change-permissions", "location": "artifact:fixture:change-permissions", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "schema": {"id": "change-permissions-schema", "location": "artifact:fixture:change-permissions-schema", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "verifier": {"id": "fixture-assurance-verifier", "version": "0.1.0", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+          "deterministic": true
+        },
+        "claimEffect": "suspend",
+        "stopAction": "suspend_approval",
+        "scopeAction": "revalidate_or_revoke",
+        "rollbackConditions": ["Restore the last approved configuration when safe."],
+        "revalidationConditions": ["Validate the changed scope under the sealed policy."],
+        "resumeConditions": ["Independent approval of complete revalidation evidence."]
+      },
+      {
+        "trigger": "environment",
+        "thresholdContract": {
+          "artifact": {"id": "change-environment", "location": "artifact:fixture:change-environment", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "schema": {"id": "change-environment-schema", "location": "artifact:fixture:change-environment-schema", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "verifier": {"id": "fixture-assurance-verifier", "version": "0.1.0", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+          "deterministic": true
+        },
+        "claimEffect": "suspend",
+        "stopAction": "suspend_approval",
+        "scopeAction": "revalidate_or_revoke",
+        "rollbackConditions": ["Restore the last approved configuration when safe."],
+        "revalidationConditions": ["Validate the changed scope under the sealed policy."],
+        "resumeConditions": ["Independent approval of complete revalidation evidence."]
+      },
+      {
+        "trigger": "profile",
+        "thresholdContract": {
+          "artifact": {"id": "change-profile", "location": "artifact:fixture:change-profile", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "schema": {"id": "change-profile-schema", "location": "artifact:fixture:change-profile-schema", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "verifier": {"id": "fixture-assurance-verifier", "version": "0.1.0", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+          "deterministic": true
+        },
+        "claimEffect": "suspend",
+        "stopAction": "suspend_approval",
+        "scopeAction": "revalidate_or_revoke",
+        "rollbackConditions": ["Restore the last approved configuration when safe."],
+        "revalidationConditions": ["Validate the changed scope under the sealed policy."],
+        "resumeConditions": ["Independent approval of complete revalidation evidence."]
+      },
+      {
+        "trigger": "grader",
+        "thresholdContract": {
+          "artifact": {"id": "change-grader", "location": "artifact:fixture:change-grader", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "schema": {"id": "change-grader-schema", "location": "artifact:fixture:change-grader-schema", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "verifier": {"id": "fixture-assurance-verifier", "version": "0.1.0", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+          "deterministic": true
+        },
+        "claimEffect": "suspend",
+        "stopAction": "suspend_approval",
+        "scopeAction": "revalidate_or_revoke",
+        "rollbackConditions": ["Restore the last approved configuration when safe."],
+        "revalidationConditions": ["Validate the changed scope under the sealed policy."],
+        "resumeConditions": ["Independent approval of complete revalidation evidence."]
+      },
+      {
+        "trigger": "retrieval",
+        "thresholdContract": {
+          "artifact": {"id": "change-retrieval", "location": "artifact:fixture:change-retrieval", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "schema": {"id": "change-retrieval-schema", "location": "artifact:fixture:change-retrieval-schema", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "verifier": {"id": "fixture-assurance-verifier", "version": "0.1.0", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+          "deterministic": true
+        },
+        "claimEffect": "suspend",
+        "stopAction": "suspend_approval",
+        "scopeAction": "revalidate_or_revoke",
+        "rollbackConditions": ["Restore the last approved configuration when safe."],
+        "revalidationConditions": ["Validate the changed scope under the sealed policy."],
+        "resumeConditions": ["Independent approval of complete revalidation evidence."]
+      },
+      {
+        "trigger": "application_scope",
+        "thresholdContract": {
+          "artifact": {"id": "change-application_scope", "location": "artifact:fixture:change-application_scope", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "schema": {"id": "change-application_scope-schema", "location": "artifact:fixture:change-application_scope-schema", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "verifier": {"id": "fixture-assurance-verifier", "version": "0.1.0", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+          "deterministic": true
+        },
+        "claimEffect": "suspend",
+        "stopAction": "suspend_approval",
+        "scopeAction": "revalidate_or_revoke",
+        "rollbackConditions": ["Restore the last approved configuration when safe."],
+        "revalidationConditions": ["Validate the changed scope under the sealed policy."],
+        "resumeConditions": ["Independent approval of complete revalidation evidence."]
+      }
+    ],
+    "productionSignals": [
+      {
+        "id": "unauthorized-action-rate",
+        "outcome": "unauthorized_action",
+        "source": "authenticated-action-log",
+        "unit": "action",
+        "direction": "lower_is_better",
+        "signalContract": {
+          "artifact": {"id": "action-signal", "location": "artifact:fixture:action-signal", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "schema": {"id": "action-signal-schema", "location": "artifact:fixture:action-signal-schema", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "verifier": {"id": "fixture-assurance-verifier", "version": "0.1.0", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+          "deterministic": true
+        },
+        "calculationContract": {
+          "artifact": {"id": "action-rate", "location": "artifact:fixture:action-rate", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "schema": {"id": "action-rate-schema", "location": "artifact:fixture:action-rate-schema", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "verifier": {"id": "fixture-assurance-verifier", "version": "0.1.0", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+          "deterministic": true
+        },
+        "thresholdContract": {
+          "artifact": {"id": "action-threshold", "location": "artifact:fixture:action-threshold", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "schema": {"id": "action-threshold-schema", "location": "artifact:fixture:action-threshold-schema", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+          "verifier": {"id": "fixture-assurance-verifier", "version": "0.1.0", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+          "deterministic": true
+        }
+      }
+    ],
+    "samplingSchedule": {
+      "contract": {
+        "artifact": {"id": "daily-sampling", "location": "artifact:fixture:daily-sampling", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+        "schema": {"id": "daily-sampling-schema", "location": "artifact:fixture:daily-sampling-schema", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+        "verifier": {"id": "fixture-assurance-verifier", "version": "0.1.0", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+        "deterministic": true
+      },
+      "cadence": "P1D",
+      "window": "P1D",
+      "anchorAt": "2026-08-01T00:00:25Z",
+      "firstWindowStartsAt": "2026-08-01T00:00:25Z",
+      "firstWindowEndsAt": "2026-08-02T00:00:25Z",
+      "alignmentRule": "half_open_utc_windows",
+      "timeZone": "UTC",
+      "latenessSeconds": 300,
+      "targetPopulation": "Approved medium-risk repository changes",
+      "samplingFrame": "All actions in the approved scope",
+      "missingnessPolicy": "fail_closed",
+      "minimumSampleSize": 30
+    },
+    "evidenceRetention": {
+      "artifact": {"id": "assurance-retention", "location": "artifact:fixture:assurance-retention", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+      "schema": {"id": "assurance-retention-schema", "location": "artifact:fixture:assurance-retention-schema", "digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},
+      "verifier": {"id": "fixture-assurance-verifier", "version": "0.1.0", "digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+      "deterministic": true
+    },
+    "owner": {"id": "fixture-assurance-owner", "role": "assurance_owner"},
+    "sla": "Suspend approval within 5 minutes of a missing required observation.",
+    "missingEvidenceEffect": "suspend"
+  }
+}

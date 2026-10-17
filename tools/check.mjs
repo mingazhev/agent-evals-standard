@@ -149,6 +149,54 @@ const emptyLedger = await readJson(path.join(examplesDirectory, "valid/attempt-l
 assert.equal(emptyLedger.entries.length, 0);
 assert.equal(emptyLedger.terminalDigest, sha256(Buffer.from(jcs(emptyLedger.runManifest))));
 
+// Exercise cumulative A2/A3 attachments and their different risk boundaries.
+const a3Run = await readJson(path.join(examplesDirectory, "valid/run-manifest.a3.json"));
+const a3Attachments = ["threatModel", "securityApproval", "assurancePlan"];
+const a2Run = structuredClone(a3Run);
+a2Run.assuranceLevel = "A2";
+a2Run.effectiveRisk.tier = "medium";
+for (const field of a3Attachments) delete a2Run[field];
+for (const run of [a2Run, a3Run]) {
+  const runSchema = "schemas/run-manifest.schema.json";
+  assert.equal(validate(runSchema, run).valid, true, run.assuranceLevel);
+  const attachments = ["evaluationProfile", "validityArgument", "riskAssessment", "policy", "heldOut",
+    ...(run.assuranceLevel === "A3" ? a3Attachments : [])];
+  for (const field of attachments) {
+    const missing = structuredClone(run);
+    delete missing[field];
+    assert.equal(validate(runSchema, missing).valid, false, `${run.assuranceLevel} missing ${field}`);
+  }
+  for (const tier of ["low", "medium", "high", "critical"]) {
+    const withRisk = { ...run, effectiveRisk: { ...run.effectiveRisk, tier } };
+    assert.equal(validate(runSchema, withRisk).valid,
+      run.assuranceLevel === "A3" || ["low", "medium"].includes(tier), `${run.assuranceLevel}/${tier}`);
+  }
+}
+
+// A complete approval must remain representable, with every trigger present once.
+const approval = await readJson(path.join(examplesDirectory, "valid/governance-decision.approve.json"));
+const decisionSchema = "schemas/governance-decision.schema.json";
+for (const decisionType of ["release", "autonomy", "risk_acceptance"]) {
+  assert.equal(validate(decisionSchema, { ...approval, decisionType }).valid, true, decisionType);
+}
+for (let index = 0; index < approval.postDecisionAssurancePlan.triggers.length; index++) {
+  const missing = structuredClone(approval);
+  const [trigger] = missing.postDecisionAssurancePlan.triggers.splice(index, 1);
+  assert.equal(validate(decisionSchema, missing).valid, false, `missing ${trigger.trigger}`);
+  const duplicate = structuredClone(approval);
+  duplicate.postDecisionAssurancePlan.triggers[index].trigger =
+    duplicate.postDecisionAssurancePlan.triggers[(index + 1) % 13].trigger;
+  assert.equal(validate(decisionSchema, duplicate).valid, false, `replaced ${trigger.trigger}`);
+}
+for (const verdict of ["fail", "insufficient_evidence"]) {
+  const failedApproval = structuredClone(approval);
+  failedApproval.conditionTrace[0].verdict = verdict;
+  assert.equal(validate(decisionSchema, failedApproval).valid, false, `approval condition ${verdict}`);
+}
+const unplannedApproval = structuredClone(approval);
+delete unplannedApproval.postDecisionAssurancePlan;
+assert.equal(validate(decisionSchema, unplannedApproval).valid, false, "approval missing assurance plan");
+
 // 3. Bundled contracts in profiles/ and standard/ match the schema named by their schemaVersion.
 const allFiles = await walk(root);
 for (const absolute of allFiles.filter((file) => file.endsWith(".json"))) {

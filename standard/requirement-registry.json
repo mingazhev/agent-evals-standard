@@ -1002,7 +1002,7 @@
     },
     {
       "id": "STAT-003",
-      "subject": "comparison, multiplicity, and supported uncertainty methods",
+      "subject": "comparison, multiplicity, scheduled repeatability, and supported uncertainty methods",
       "normativeReference": "standard.md#statistics-and-missingness",
       "minimumLevel": "A1",
       "targets": [
@@ -1019,7 +1019,7 @@
         ]
       },
       "applicability": {
-        "rule": "Applies when comparison, multiplicity, and supported uncertainty methods can affect the declared experiment target or any claim derived from it.",
+        "rule": "Applies when comparison, multiplicity, scheduled repeatability, and supported uncertainty methods can affect the declared experiment target or any claim derived from it. For pass_hat_k, the named arm's sealed trialsPerCase equals the claim's k; all scheduled cells enter its case indicator.",
         "unknownEffect": "insufficient_evidence"
       }
     },
@@ -1201,5 +1201,5 @@
       }
     }
   ],
-  "digest": "sha256:05d8b85bfd293c33e8f88a5094b2fb274e74ba6596c51f8810e6ba5e09803708"
+  "digest": "sha256:77f294e5b693091ea6e9cfa1fffa351f66d35287578894046d9bd4d102c57b3e"
 }

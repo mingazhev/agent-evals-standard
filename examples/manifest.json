@@ -266,6 +266,13 @@
       "valid": false,
       "expectedError": "/metrics/0/interval/method",
       "illustrates": "Statistical overrides cannot introduce an interval method outside the closed 0.1.0 method set."
+    },
+    {
+      "id": "governance-decision.approve.valid",
+      "path": "valid/governance-decision.approve.json",
+      "schema": "schemas/governance-decision.schema.json",
+      "valid": true,
+      "illustrates": "An approval contains a complete post-decision assurance plan with each of the 13 required change triggers exactly once; the referenced evidence remains illustrative."
     }
   ]
 }
