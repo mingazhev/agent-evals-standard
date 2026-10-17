@@ -132,8 +132,10 @@ yields `insufficient_evidence` for the original claim.
 Status is `supported`, `not_supported`, `insufficient_evidence`, or
 `reported_only`. The case scope of every statistical claim is the complete case
 set sealed in the run manifest; a subgroup with different case membership needs
-its own sealed experiment. Claims may differ in construct, success definition,
-or comparator arms.
+its own sealed experiment. Claims may differ in construct or comparator arms. The supported 0.1.0
+estimands use `functional-outcome-v1` as their success predicate; an
+`accepted-outcome-v1` rate is diagnostic profile telemetry, not an alternative
+claim predicate selected through an undeclared field.
 
 The decision rule consumes the reported interval limit: the lower limit at the
 failure endpoint for an at-least claim (`lower_limit_above`), the upper limit at
@@ -258,7 +260,10 @@ metrics influence tuning or governance only through a sealed objective.
 Raw resource and trajectory telemetry **MUST** be retained for every started
 attempt, including failures, unsafe outcomes, and invalid measurement; the
 scorecard's optional `telemetry` rows summarize `tokens`, `costUsd`, and
-`wallClockSeconds` per arm. Missing values are null with reasons, never zero.
+`wallClockSeconds` per arm. Missing raw values are null with reasons, never zero. The optional scorecard
+summary accepts complete numeric totals only: omit an incomplete arm summary
+and record the gap in claim restrictions (and `validity.reasons` when material
+to measurement), rather than inserting nulls into its closed numeric fields.
 Keep two cost estimands distinct:
 
 - `meanCostConditionalOnSuccess`: cost among valid `functional-outcome-v1`
@@ -300,9 +305,10 @@ RFC 8785 JCS serialization of the entry without `entryDigest`. The first entry's
 digest}`; each later entry's is the prior entry's `entryDigest`. `terminalDigest`
 is the last `entryDigest`.
 
-The run manifest's replacement policy fixes the maximum attempts per cell,
-retryable measurement-validity states, a linear parent chain, first-valid
-selection, and whether retry after a valid attempt is allowed. The ledger is
+The run manifest's replacement policy fixes the maximum replacements per cell
+and retryable measurement-validity states. Retry lineage is linear and the first
+eligible valid trial always resolves the cell; retry after a valid attempt is
+never allowed. The ledger is
 committed to version control and protected from history rewrites under the
 [integrity model](evidence-and-validation-contract.md#integrity-model);
 deleting a failed attempt is a visible history rewrite, not a silent
@@ -327,7 +333,8 @@ upper = sum_c w_c * f_c(S_c, Y_c + U_c)
 
 The `metrics` entry reports these as `identificationBounds.failureEndpoint` and
 `identificationBounds.successEndpoint`. The endpoint assignments apply to binary
-success statistics monotone in successes, including pass@k and reliability@k.
+success statistics monotone in successes, including pass@1 and pass^k. Version 0.1.0 has no executable pass@k
+estimand for `k > 1`; those general statistical names do not add a schema value.
 If a case lacks the scheduled repetitions its statistic requires, or the
 statistic or weighting cannot be reproduced, the bound is not computable and
 the affected claim is `insufficient_evidence`. Pooled `Y / S` and
@@ -353,14 +360,15 @@ value, interval, and reasons. The `metrics` `estimand` values are `pass_at_1`,
 `pass_hat_k`, and `paired_difference_pass_at_1`; the interval `method` is
 `wilson`, `t_over_cases`, or `t_over_paired_differences`.
 
-pass@k and pass^k are computed per case under the sealed sampling model, then
+The supported pass@1 and pass^k estimands are computed per case under the sealed sampling model, then
 aggregated with declared case weights. If eligible repetitions are fewer than
 `k`, assumptions fail, or counts do not reconcile, status is
 `insufficient_evidence` and the value is null.
 
 The `wilson` interval at confidence level `L` uses the two-sided standard-normal
-quantile `z = Φ⁻¹(1 - (1 - L) / 2)`. For `Y` successes in `N > 0` valid binary
-trials, with `p = Y/N`:
+quantile `z = Φ⁻¹(1 - (1 - L) / 2)`. For `Y` successful binary case observations in `N > 0` independent cases,
+with `p = Y/N` (one trial per case, or one all-`k`-trials-successful indicator
+per case for pass^k):
 
 ```text
 center = (p + z²/(2N)) / (1 + z²/N)

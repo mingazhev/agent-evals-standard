@@ -11,13 +11,12 @@
     "id": "repository-sdlc-work-artifact-registry",
     "version": "0.1.0",
     "uri": "../../standard/work-artifact-registry.json",
-    "digest": "sha256:151684e0e5c35023ec07d6f4554ebedb9ecd4e52ef7738bd77c1eb31c95053c7"
+    "digest": "sha256:ebe356f9faf6541db5a13957635027ccd8db586811fe7347a23aa9f985cfd36c"
   },
   "workArtifactTypes": [
     "code_change",
     "test_change",
-    "repository_configuration",
-    "assurance_report"
+    "repository_configuration"
   ],
   "terminalEvidenceRequirements": {
     "solved": {
@@ -526,7 +525,7 @@
     "id": "repo-change-failure-taxonomy",
     "version": "0.1.0",
     "uri": "failure-taxonomy.json",
-    "digest": "sha256:40b163062c44b813605d6126f95e31ebff7d172958fc2b97ef3e136058910636"
+    "digest": "sha256:9a5435383cba2e67ce03523096036efa0c53702b62bcf2bec325fd2db89887a2"
   },
   "claimCompatibility": {
     "allowedClaimTypes": [
@@ -554,12 +553,12 @@
   "functionalSuccess": {
     "id": "functional-outcome-v1",
     "version": "0.1.0",
-    "contractDigest": "sha256:2913e485b666d5b54b144f5d8b731dc1bf2e1beee89518f9987b170c329c235b"
+    "contractDigest": "sha256:4110ab055566fa21e9cc59e6dc344c64ddb05af4fa564d4de927feb600212df6"
   },
   "acceptedOutcome": {
     "id": "accepted-outcome-v1",
     "version": "0.1.0",
-    "contractDigest": "sha256:2913e485b666d5b54b144f5d8b731dc1bf2e1beee89518f9987b170c329c235b"
+    "contractDigest": "sha256:4110ab055566fa21e9cc59e6dc344c64ddb05af4fa564d4de927feb600212df6"
   },
-  "digest": "sha256:f8898ca1711f8e725f4babb3c884669d1a4917ed75839950c6425d0ebc729cf7"
+  "digest": "sha256:a58112902ae2250a6bb9aa47a582ff4b92a03a2d9411ebc38fa49bda1d45ca9a"
 }

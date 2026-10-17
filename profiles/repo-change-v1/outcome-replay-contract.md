@@ -6,8 +6,9 @@
 - Executor: `agent-evals-standard.repo-change-outcome-replay`
 
 This contract owns the result and material-evidence semantics implemented by the
-bundled executor. Its exact bytes and the executor bytes are authenticated by
-the distribution outcome-replay executor registry. These rules apply only when
+adopter-supplied executor. This repository ships the contract, not executable
+replay code or an executor registry. The adopter authenticates the contract and
+executor bytes through its own registry, pinned by the run manifest. These rules apply only when
 `workspace-change-v1` is selected; they are not base requirements for another
 outcome profile.
 
@@ -66,7 +67,7 @@ deletion, changed mode, rename, copy, binary difference, or complete binary
 patch. A header, object index, similarity value, no-op mode pair, incomplete
 binary section, or unknown metadata line alone is not a material change.
 
-The bundled executor applies authenticated resource ceilings before semantic
+The conforming executor applies authenticated resource ceilings before semantic
 parsing: 128 MiB per serialized diff, 20,000 file records, 2,000,000 lines,
 8,388,608 UTF-16 code units per line, and 16 KiB of UTF-8 per path. One binary
 section is limited to 96 MiB compressed and 128 MiB inflated. Inflation is also
@@ -88,17 +89,16 @@ workflow, infrastructure, policy-as-code, and repository configuration paths
 are `repository_configuration`; every other safe repository-content path is
 `code_change`. The last class deliberately supports source languages and
 implementation assets without an extension allowlist. The case's declared
-`workArtifactTypes`, reviewed in Case QA, remain the semantic authority for the
+`workArtifactType`, reviewed in Case QA, remains the semantic authority for the
 evaluated construct; this path policy is a structural replay check, not
 permission to relabel a test or configuration artifact as code.
 
-The authenticated executor source is the exact machine definition. Its bundled
-policy recognizes common test, spec, end-to-end, integration, acceptance,
-functional-test, test-data, fixture, Cypress, and feature-file conventions. It
-recognizes common CI/workflow, dependency, build-system, toolchain, container,
-infrastructure, deployment, policy-as-code, language-project, lockfile, and
-JavaScript tool configuration conventions. These category descriptions do not
-authorize an implementation to substitute a looser path heuristic.
+The adopter supplies the exact classifier implementation, with its recognized
+path selectors, version, and digest sealed before execution. Category examples
+such as test directories, CI workflows, dependency files, or source files are
+informative; they are not a portable machine definition. Direct comparisons
+use the same classifier bytes. An implementation cannot claim an unspecified
+bundled classifier as its authority.
 
 Case QA **MUST** establish that the policy matches repository conventions and a
 trusted, sealed-activation material-path frame before execution. That frame and
@@ -111,24 +111,20 @@ on every actual material path. A known collision, ambiguous convention, or
 unknown applicability is `insufficient_evidence` and requires a differently
 identified, sealed outcome profile and executor. A claimant **MUST NOT**
 reinterpret path classes after execution.
-The case records this determination in the Case QA record's
-`classificationPolicyApplicability` object, binding the exact outcome profile,
-semantic contract, executor, applicability rule, repository-convention
-manifest, complete material-path-set digest, and authenticated applicability and
-coverage evidence. `classifiedPathCount` **MUST** equal `materialPathCount`, and
-both `unknownPathCount` and `collisionCount` **MUST** be zero.
+The Case QA stage evidence records this determination, binding the exact
+outcome profile, semantic contract, executor, applicability rule,
+repository-convention manifest, material-path frame, and authenticated
+applicability and coverage evidence. No extra property is added to the closed
+Case QA record. At replay every actual material path is classified, all paths
+are covered, and unknown or colliding classifications fail closed.
 
-Across all material diffs, the observed path classes **MUST** exactly equal the
-case's selected repository work-artifact types. Native substatus is derived, not
-claimed freely:
-
-- exact `code_change`, with every path recognized as documentation:
-  `documentation_only`;
-- other exact `code_change`: `code_only`;
-- exact `test_change`: `tests_only`;
-- exact `repository_configuration`: `configuration_only`;
-- exactly `code_change` plus `test_change`: `code_and_tests`;
-- every other valid multi-class set: `mixed_repository_change`.
+The observed material path classes **MUST** equal the case's single selected
+`workArtifactType`. Native `workspace_changed` substatus is `documentation_only`
+when all `code_change` paths are documentation, `code_only` for other
+`code_change`, `tests_only` for `test_change`, and `configuration_only` for
+`repository_configuration`. The outcome schema's multi-class substatus labels
+are not reachable through the 0.1.0 single-type case format; they do not permit
+undeclared material types.
 
 ## Evidence modes
 

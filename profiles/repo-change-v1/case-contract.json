@@ -9,27 +9,22 @@
   "requiredCaseProperties": [
     "/evaluationProfile",
     "/outcomeProfile",
-    "/capabilityFamilyIds",
+    "/capabilityFamilyId",
     "/interactionModeId",
-    "/workArtifactRegistry",
-    "/workArtifactTypes",
-    "/repository/workspaceManifest",
-    "/scoring",
-    "/artifactPolicy"
+    "/workArtifactType",
+    "/workspaceManifest",
+    "/acceptance"
   ],
   "requiredProfileBindings": [
     "evaluation_profile_exact",
     "outcome_profile_allowed",
-    "capability_families_subset",
     "interaction_mode_exact_member",
     "work_artifact_registry_exact",
-    "work_artifact_types_subset_outcome",
     "material_capability_work_product_coverage",
-    "change_bound_verify_requires_implement_change",
-    "change_bound_verify_requires_assurance_report",
-    "assurance_report_requires_verify_assure",
     "workspace_manifest_content_addressed",
-    "terminal_evidence_outcome_specific"
+    "terminal_evidence_outcome_specific",
+    "capability_family_exact_registry_mapping",
+    "work_artifact_type_member_of_outcome"
   ],
   "unknownOrIndeterminate": "reject"
 }

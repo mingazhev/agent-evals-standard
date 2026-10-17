@@ -5,10 +5,10 @@
   "requiredControls": [
     "known_good_workspace_change",
     "known_bad_workspace_change",
-    "independent_alternative_valid_result_or_proven_singleton_controls",
-    "hidden_oracle_canary",
+    "independent_alternative_valid_result_or_declared_gap",
+    "oracle_domain_leakage_control",
     "measurement_boundary_attack"
   ],
-  "activationRule": "stages 3-6 and 8 passed; stage 7 passed or not_applicable with rationale; no open severity-2-or-3 defect; shared grader validation current",
+  "activationRule": "stages 3-6 and 8 passed; stage 7 passed or not_applicable with rationale; no open severity-2-or-3 defect; shared grader validation current when a model grader is enabled",
   "materialChangeRule": "invalidate dependent QA evidence and quarantine before reuse"
 }

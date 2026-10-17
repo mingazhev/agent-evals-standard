@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:agent-evals-standard:schema:case-qa:1",
   "title": "Case QA record",
-  "$comment": "A1 requirements I12 and CASE-004. knownBad MUST contain one no_op and one plausible_wrong entry. trivialStrategies is optional; applicable:false requires a rationale, and applicable:true requires a knownBad entry of the matching kind (disabled_or_weakened_tests or hardcoded_outputs). Stage, defect, and grader fields are optional here and required by prose at A2+. Semantic checks outside JSON Schema: reviewer.id differs from author.id and the reviewer is independent under the glossary definition; every evidence ref resolves to bytes matching its digest at the named commit.",
+  "$comment": "A1 requirements I12 and CASE-004. knownBad MUST contain one plausible_wrong entry and one no_op unless trivialStrategies.noOp.applicable is false with a rationale; semantic validation permits that exception only for a pre-registered already_satisfied alternative proved by knownGood. trivialStrategies is optional; applicable:false requires a rationale, and applicable:true requires a knownBad entry of the matching kind (no_op, disabled_or_weakened_tests, or hardcoded_outputs). Stage, defect, and grader fields are optional here and required by prose at A2+. Semantic checks outside JSON Schema: reviewer.id differs from author.id and the reviewer is independent under the glossary definition; every evidence ref resolves to bytes matching its digest at the named commit.",
   "type": "object",
   "required": [
     "schemaVersion",
@@ -51,7 +51,10 @@
           "minLength": 1
         },
         "result": {
-          "const": "pass"
+          "enum": [
+            "pass",
+            "fail"
+          ]
         },
         "evidence": {
           "$ref": "#/$defs/ref"
@@ -61,7 +64,7 @@
     },
     "knownBad": {
       "type": "array",
-      "minItems": 2,
+      "minItems": 1,
       "items": {
         "type": "object",
         "required": [
@@ -89,7 +92,10 @@
             "minLength": 1
           },
           "result": {
-            "const": "fail"
+            "enum": [
+              "pass",
+              "fail"
+            ]
           },
           "evidence": {
             "$ref": "#/$defs/ref"
@@ -98,20 +104,6 @@
         "additionalProperties": false
       },
       "allOf": [
-        {
-          "contains": {
-            "type": "object",
-            "properties": {
-              "kind": {
-                "const": "no_op"
-              }
-            },
-            "required": [
-              "kind"
-            ]
-          },
-          "type": "array"
-        },
         {
           "contains": {
             "type": "object",
@@ -212,6 +204,47 @@
             }
           ],
           "additionalProperties": false
+        },
+        "noOp": {
+          "type": "object",
+          "required": [
+            "applicable"
+          ],
+          "properties": {
+            "applicable": {
+              "type": "boolean"
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "applicable": {
+                    "const": false
+                  }
+                },
+                "required": [
+                  "applicable"
+                ]
+              },
+              "then": {
+                "required": [
+                  "rationale"
+                ],
+                "properties": {
+                  "rationale": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          ],
+          "additionalProperties": false
         }
       },
       "additionalProperties": false
@@ -225,10 +258,10 @@
       "properties": {
         "runsPerControl": {
           "type": "integer",
-          "minimum": 3
+          "minimum": 1
         },
         "allControlsStable": {
-          "const": true
+          "type": "boolean"
         }
       },
       "additionalProperties": false
@@ -681,6 +714,37 @@
                 "const": "all_four_tests_hold"
               }
             }
+          },
+          "knownGood": {
+            "type": "object",
+            "properties": {
+              "result": {
+                "const": "pass"
+              }
+            }
+          },
+          "knownBad": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "const": "fail"
+                }
+              }
+            }
+          },
+          "stability": {
+            "type": "object",
+            "properties": {
+              "runsPerControl": {
+                "type": "integer",
+                "minimum": 3
+              },
+              "allControlsStable": {
+                "const": true
+              }
+            }
           }
         }
       }
@@ -786,6 +850,54 @@
               "properties": {
                 "kind": {
                   "const": "hardcoded_outputs"
+                }
+              },
+              "required": [
+                "kind"
+              ]
+            },
+            "type": "array"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "type": "object",
+        "required": [
+          "trivialStrategies"
+        ],
+        "properties": {
+          "trivialStrategies": {
+            "type": "object",
+            "required": [
+              "noOp"
+            ],
+            "properties": {
+              "noOp": {
+                "type": "object",
+                "required": [
+                  "applicable"
+                ],
+                "properties": {
+                  "applicable": {
+                    "const": false
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "then": {},
+      "else": {
+        "properties": {
+          "knownBad": {
+            "contains": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "no_op"
                 }
               },
               "required": [

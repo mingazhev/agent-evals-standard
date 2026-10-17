@@ -9,14 +9,17 @@
 ## Start here: the A1 path
 
 If you have not yet made a claim under this standard, start at
-[A1](conformance.md#baseline-a1). It needs two people, Git, and six schemas:
+[A1](conformance.md#baseline-a1). Deterministic cases need two people, Git,
+and six schemas; judgment-bound checks require two independent raters besides
+the author/configurer:
 
 1. **Author cases** (`case-1`): task, repository commit, the four scope
    tests, deterministic checks, hard gates, and oracle isolation.
 2. **Validate cases** (`case-qa-1`): a known-good result passes; a no-op, a
-   plausible wrong result, and (where the case has tests) disabled-tests and
+   plausible wrong result, and (where the case has tests or hidden checks) disabled-tests and
    hard-coded-output results fail, stably; a second person confirms inferability
-   and scope before any result exists.
+   and scope before evaluated results exist. A no-op may pass only for the
+   registered, independently verified `already_satisfied` alternative.
 3. **Seal the run** (`run-manifest-1`): arms including a no-action baseline
    and a non-agent control, trials per case, replacement policy, claims with
    decision rules, and `stat-defaults-v1`. Commit it before the first attempt.
@@ -98,8 +101,9 @@ Saying “based on” the standard is not a conformance claim.
 - **Case** ([`case.schema.json`](../schemas/case.schema.json)): fill the
   optional properties — `workspaceManifest`, `evaluationProfile`,
   `outcomeProfile`, `lifecycle`, `contamination`, `leakageControls`,
-  `decisionSurfaces`, `exposureBudget`, `interactionProtocol`. The bundled
-  executable profile is `repo-change-v1`; it demonstrates interoperability
+  `decisionSurfaces`, `exposureBudget`, and, for interactive cases,
+  `interactionProtocol`. The bundled
+  evaluation profile is `repo-change-v1`; it demonstrates interoperability
   mechanics, not empirical validity.
 - **Case QA** ([`case-qa.schema.json`](../schemas/case-qa.schema.json)): record
   stages 3–8 of the [Case QA Playbook](case-qa-playbook.md) in `stages`, with
@@ -115,7 +119,7 @@ Saying “based on” the standard is not a conformance claim.
 - **Scorecard and statement:** the scorecard may carry `governanceStatuses`,
   `validity`, and `telemetry`; the conformance statement
   ([`conformance-statement.schema.json`](../schemas/conformance-statement.schema.json))
-  **MUST** be accompanied by a separate `validation-envelope-1`, published
+  is accompanied by a separate `validation-envelope-1`, published
   alongside it (the statement does not reference it), produced by an independent
   validator whose subject digest equals the statement digest. A statement without a passing envelope is an unauthenticated
   assertion, not conformance. The
