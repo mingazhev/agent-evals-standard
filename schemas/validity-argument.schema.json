@@ -244,6 +244,7 @@
           "const": "urn:agent-evals-standard:schema:run-manifest:1"
         },
         "projection": {
+          "$comment": "For this run binding, suite_precontrol_projection_v1 is RFC 8785 JCS of the complete run-manifest object after removing only its top-level validityArgument property; see the Evidence and Detached Validation Contract.",
           "const": "suite_precontrol_projection_v1"
         },
         "digest": {

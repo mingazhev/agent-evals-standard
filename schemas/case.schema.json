@@ -505,6 +505,7 @@
       "additionalProperties": false
     },
     "versionedDigestRef": {
+      "$comment": "When used for evaluationProfile or outcomeProfile, digest is the target profile's declared self-digest projection: resolve the profile, recompute the projection, and verify its stored self-digest; do not hash raw stored file bytes. Uses for decisionSurface.applicabilityRule and coverageProof follow those target artifacts' own digest contracts.",
       "type": "object",
       "required": [
         "id",

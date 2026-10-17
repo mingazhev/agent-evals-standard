@@ -25,19 +25,19 @@
       "id": "code_change",
       "capabilityFamilyId": "CAP.IMPLEMENT_CHANGE",
       "definition": "A material repository-content implementation change that is not separately classified as test_change or repository_configuration, including source code in any language, generated code, repository documentation, and implementation assets.",
-      "boundary": "The token code does not imply that source-code bytes changed. The presence of analysis or verification steps does not change the implementation classification of the repository-content change itself."
+      "boundary": "The token code does not imply that source-code bytes changed. Classify the requested evaluated result, not each changed path: a code_change may include supporting tests, configuration, and documentation without selecting additional artifact types."
     },
     {
       "id": "test_change",
       "capabilityFamilyId": "CAP.IMPLEMENT_CHANGE",
       "definition": "A material test-code or test-fixture change delivered as a repository change.",
-      "boundary": "Writing tests is implementation; an independently evaluated verification conclusion must use assurance_report."
+      "boundary": "Use this type when the requested evaluated result is a test or fixture change; supporting implementation files do not select another type. Writing tests is implementation; an independently evaluated verification conclusion must use assurance_report."
     },
     {
       "id": "repository_configuration",
       "capabilityFamilyId": "CAP.IMPLEMENT_CHANGE",
       "definition": "A material build, dependency, policy-as-code, workflow, or other repository-governed configuration change.",
-      "boundary": "Observed configuration state without a delivered change is not this work-artifact type."
+      "boundary": "Use this type when the requested evaluated result is a configuration change; supporting tests or source files do not select another type. Observed configuration state without a delivered change is not this work-artifact type."
     },
     {
       "id": "assurance_report",
@@ -49,7 +49,7 @@
       "id": "review_decision",
       "capabilityFamilyId": "CAP.REVIEW_DECIDE",
       "definition": "A claim-bearing accountable disposition or recommendation about proposed repository work, such as approval, rejection, prioritization, risk acceptance, required remediation, or release readiness.",
-      "boundary": "A finding or fact-finding assessment without an accountable disposition is assurance_report, not review_decision. A case evaluating both factual assurance and a disposition declares both material artifacts. Executing a rollout or repository change is classified by its own delivered artifact, not as review."
+      "boundary": "A finding or fact-finding assessment without an accountable disposition is assurance_report, not review_decision. Independently evaluated factual assurance and disposition require separately scoped cases. Executing a rollout or repository change is classified by its own delivered artifact, not as review."
     },
     {
       "id": "release_artifact",

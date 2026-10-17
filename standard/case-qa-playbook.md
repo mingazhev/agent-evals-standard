@@ -78,9 +78,6 @@ complete activation procedure.
   manifest owns claim IDs.
 - Oracle and hidden artifacts, solution lineage, and future commits are absent
   from every agent-visible surface; each oracle domain has a leakage control.
-- Replay-time path classification, when used, has activation-time applicability
-  evidence from the sealed material-path frame; this never replaces
-  trial-time classification at replay.
 - Each enforced requirement traces to an exact projection artifact, digest, and
   location; none depends only on the reference result, hidden rationale, or
   author intent.

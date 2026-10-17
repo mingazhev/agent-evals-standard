@@ -41,21 +41,21 @@
     "id": "repository-sdlc-work-artifact-registry",
     "version": "0.1.0",
     "uri": "../../standard/work-artifact-registry.json",
-    "digest": "sha256:ebe356f9faf6541db5a13957635027ccd8db586811fe7347a23aa9f985cfd36c"
+    "digest": "sha256:d9124e2ff064457c1844ae6332b9c282b6047ed289e3a8ca70d2eed4b68719ca"
   },
   "allowedOutcomeProfiles": [
     {
       "id": "workspace-change-v1",
       "version": "0.1.0",
       "uri": "outcome-profile.json",
-      "digest": "sha256:a58112902ae2250a6bb9aa47a582ff4b92a03a2d9411ebc38fa49bda1d45ca9a"
+      "digest": "sha256:e3f0dd3790d813388598bbd60752b5f9ec5fe9003d6ae8a0e1b59373240bb3c1"
     }
   ],
   "caseContract": {
     "id": "repo-change-case-contract",
     "version": "0.1.0",
     "uri": "case-contract.json",
-    "digest": "sha256:86e8eaeceb69e4e07efeeeeb0c76f35e3801d0c66359d38ed21b4f860f2bd2d5"
+    "digest": "sha256:0cebe910ce6b0f8472a69b0aa8a2492a17deb7847bc07e11ebc9dcaee7a6e823"
   },
   "gateRegistry": {
     "id": "repo-change-gate-registry",
@@ -112,7 +112,7 @@
     },
     {
       "scope": "CAP.VERIFY_ASSURE",
-      "reason": "The 0.1.0 case format selects one material artifact type; this change profile cannot also bind an independently evaluated assurance report.",
+      "reason": "An independently evaluated assurance report needs its own case and outcome profile; checks supporting a repository change are measurement evidence.",
       "claimEffect": "forbidden"
     }
   ],
@@ -132,5 +132,5 @@
       "expectedVerdict": "fail"
     }
   ],
-  "digest": "sha256:d14e43b823d426c787c95fdad5b7c870758280d8995de67398f071136da91bc7"
+  "digest": "sha256:7034495aafdfd471bffb0cfa50b7fdc03d98fc5a84657a747b13905fa287bd03"
 }

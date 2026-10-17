@@ -19,7 +19,13 @@ three mechanisms that every conforming implementation **MUST** apply:
    JCS projection its schema names. A reference is a binding only when the
    verifier resolves the bytes and recomputes that digest. A changed byte is a
    different artifact; it cannot be patched into a sealed experiment, scorecard,
-   or decision.
+   or decision. For profile pointers containing `uri` and `digest`, and case
+   profile references containing `{id, version, digest}`, the digest
+   **MUST** use the target schema's declared self-digest projection when one
+   exists, otherwise SHA-256 of stored bytes. A verifier **MUST** recompute the
+   projected digest and verify both the target's self-digest and the pointer;
+   copying the self-digest is insufficient. This rule does not override explicit
+   digest contracts on other bindings, including `{path, commit, digest}`.
 2. **Version-control order.** Every sealed artifact — the run manifest, decision
    plan, and policy instance — and every append-only ledger **MUST** be committed to a
    version-controlled repository before any step that depends on it. The commit
@@ -143,9 +149,16 @@ For a conformance-statement subject, the authenticated requirement registry
 selects the exact closed check set using both `subject.claimTarget` and the
 statement's `assuranceLevel`, under `CONF-002`. For a supporting-artifact subject,
 the evaluator-controlled validation contract selects the closed checks of the
-named semantic contract for that artifact and validation level; it does not
-require future run results to activate a case. That selection is fixed outside
-the subject and bound by the validator's contract and implementation identity.
+named semantic contract for that artifact type and level, and for `case_qa`
+subjects its validation stages; it does not require future run results to
+activate a case. `subject.claimTarget`
+identifies the target that relies on the artifact and does not select that
+target's full requirement set. The selected set is fixed outside the subject
+and bound by the validator's contract and implementation identity. If the
+subject type, level, or applicable Case QA stages do not resolve one closed set,
+validation is `insufficient_evidence`; a validator **MUST NOT** substitute a target-wide set.
+For a `case_qa` subject, the stage is read from the authenticated QA record and
+the selected checks cover that record's applicable Case QA stages only.
 A supporting-artifact envelope cannot replace full conformance coverage. The envelope **MUST** contain each selected
 requirement ID exactly once and no unselected or unknown requirement ID. Every
 evidence ID and finding ID **MUST** resolve exactly once. Because applicability
@@ -162,14 +175,44 @@ The supported projection identifiers have these meanings:
   after removing only the top-level digest field named by its schema;
 
 An unknown or ambiguous projection yields `insufficient_evidence`.
-`sealed_activation_input`, `sealed_run`, and `governance_state` are reserved
-identifiers with no projection contract in this version; an envelope using any
-of them **MUST** fail closed. A Case QA record binds its case by the case
-reference `{path, commit, digest}` instead. A projection contract **MUST**
-identify exact included fields and ordering.
+`sealed_run` and `governance_state` are reserved identifiers with no projection
+contract in this version; an envelope using either **MUST** fail closed. A Case
+QA record binds its case by the case reference `{path, commit, digest}` instead.
+A projection contract **MUST** identify exact included fields and ordering.
 
 A later artifact **MAY** refer independently to the subject digest and the
 digest of the completed envelope.
+
+### Validity argument run binding
+
+The `run` binding in `agent-eval-validity-argument-1` uses the
+`suite_precontrol_projection_v1` projection. Its digest is SHA-256 of UTF-8 RFC
+8785 JCS of the complete, schema-valid run-manifest object after removing only
+the top-level `validityArgument` property. No other field is removed or
+normalized; optional fields are included when present, absent fields remain
+absent, and array order is preserved. The projection includes the exact case
+set and all other run fields, while removing the sole run-to-argument reference
+that would make the two digests depend on each other.
+
+To create the binding, finalize the run-manifest fields and attachments except
+`validityArgument`, then compute the projection digest. Put that digest and the
+run ID in the validity argument and obtain the independent review. The review
+record **MUST** authenticate SHA-256 of UTF-8 RFC 8785 JCS of the complete
+validity argument with only `review.evidence` omitted. All other review fields,
+the run binding, and the argument content are included. Commit that review
+record, add its reference as `review.evidence`, and commit the final argument;
+no other field may change after review. This removes the argument-to-review
+self-reference without excluding reviewed claims or baseline definitions.
+Add the argument's `{path, commit, digest}`
+reference to the run manifest and commit the complete run manifest before any
+trial result. A verifier validates the complete run manifest, removes only
+`validityArgument`, recomputes the projection digest, and checks it against the
+argument's `run` binding. It also checks that `run.id` equals the projected
+manifest's `id`, `run.artifactVersion` equals its `standard.version`, and
+`run.schemaId` identifies the run-manifest schema. Any change to another run
+field requires a newly reviewed validity argument. The verifier also recomputes
+the argument's review projection and compares it with the authenticated review
+record; merely resolving `review.evidence` is insufficient.
 
 ## Evidence minimization and retention
 
@@ -320,9 +363,11 @@ missing evidence.
 
 ### Required evaluator-boundary checks
 
-The run manifest **MUST** identify, for each arm, the measurement stack: every
-outcome-relevant runner, grader, capture, policy, statistics, and
-external-service component, using pinned `arms[].components` entries. These
+The run manifest **MUST** identify the measurement stack used for each arm:
+every outcome-relevant runner, grader, capture, policy, statistics, and
+external-service component. Shared replay components are pinned once through
+`replayImplementation`; the remaining arm-specific components use pinned
+`arms[].components` entries. These
 runner-owned entries describe measurement provenance, not the evaluated
 treatment bundle. The runner-owned evidence packet binds the detailed component,
 trust-domain, authority, data-flow, and control inventories; the closed manifest

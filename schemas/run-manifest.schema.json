@@ -57,6 +57,10 @@
         "A3"
       ]
     },
+    "replayImplementation": {
+      "$comment": "Required semantically at A2+ when any resolved case outcome profile has replayContract. Authenticates the committed implementation manifest as shared measurement infrastructure, separate from arms[].components.",
+      "$ref": "#/$defs/ref"
+    },
     "owner": {
       "$ref": "#/$defs/person"
     },

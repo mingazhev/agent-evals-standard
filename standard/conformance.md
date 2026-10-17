@@ -116,7 +116,7 @@ governance use.
 - **Validated cases.**
   - `I12`, `CASE-004`: each active case has a known-good result that passes; a no-op result (except a proven pre-registered `already_satisfied` alternative), at least one plausible wrong result and, where the case has tests or hidden checks, a result with those tests disabled or weakened and a result that hard-codes the expected outputs all fail, repeated stably; a case where a trivial strategy is not applicable records why; and a person independent of the case author reviews inferability.
 - **Accounting and statistics.**
-  - `RUN-002`: a hash-chained attempt ledger committed to Git records every scheduled and started attempt, including invalid and replacement attempts; a replacement links its original and is not a new observation.
+  - `RUN-002`: a hash-chained attempt ledger committed to Git records every dispatched attempt, including invalid and replacement attempts; never-dispatched cells remain unresolved under the sealed schedule. A replacement links its original and is not a new observation.
   - `OUT-001`, `CLAIM-001`, `CLAIM-002`, `I6`: hard-gate results, primary outcomes, claim status, and decision verdict are separate fields; each claim states its population, case count, and restrictions and does not extend beyond them.
   - `STAT-001`, `STAT-003`: cases are the analysis unit; repeatability claims need repeated trials per case; estimators and intervals follow the [base statistical defaults](standard.md#base-statistical-defaults) or overrides sealed in the run manifest.
   - `STAT-002`: the scorecard reports scheduled, resolved, valid, invalid, and replacement counts per arm and case and identification bounds for every success metric; a valid-only estimate alone supports no claim.
@@ -130,7 +130,7 @@ small-team model two people suffice for deterministic A1 cases; judgment-bound
 checks need at least two independent raters besides the author/configurer.
 Independent review suffices in place of a detached validation envelope.
 
-A complete A1 experiment with real numbers is worked through in
+An A1 arithmetic walkthrough with synthetic outcomes is provided in
 [`examples/core/`](../examples/core/README.md).
 
 ## Conformance Targets

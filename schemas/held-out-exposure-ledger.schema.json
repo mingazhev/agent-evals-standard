@@ -2,6 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "urn:agent-evals-standard:schema:held-out-exposure-ledger:1",
   "title": "Held-out exposure append-only ledger snapshot",
+  "$comment": "HOLD-002: events are cumulative pre-exposure debits, not post-execution receipts. occurredAt is debit time; evidenceDigest binds existing authorization evidence. Units are consumed once, even if unused; completion does not append a second debit. Each successor preserves its predecessor event array as an exact prefix. See standard.md#held-out-budget-and-ledger for sequencing, saturation, and run coverage.",
   "type": "object",
   "required": [
     "schemaVersion",
