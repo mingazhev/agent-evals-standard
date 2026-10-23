@@ -258,7 +258,7 @@
       "properties": {
         "runsPerControl": {
           "type": "integer",
-          "minimum": 1
+          "minimum": 3
         },
         "allControlsStable": {
           "type": "boolean"
@@ -322,6 +322,88 @@
     "stages": {
       "type": "object",
       "properties": {
+        "stage1": {
+          "type": "object",
+          "required": [
+            "status",
+            "reviewer",
+            "recordedAtCommit"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "passed",
+                "failed",
+                "not_applicable"
+              ]
+            },
+            "reviewer": {
+              "$ref": "#/$defs/person"
+            },
+            "recordedAtCommit": {
+              "$ref": "#/$defs/commit"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/ref"
+              }
+            },
+            "findings": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "notApplicableRationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": false
+        },
+        "stage2": {
+          "type": "object",
+          "required": [
+            "status",
+            "reviewer",
+            "recordedAtCommit"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "passed",
+                "failed",
+                "not_applicable"
+              ]
+            },
+            "reviewer": {
+              "$ref": "#/$defs/person"
+            },
+            "recordedAtCommit": {
+              "$ref": "#/$defs/commit"
+            },
+            "evidence": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/ref"
+              }
+            },
+            "findings": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "notApplicableRationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "additionalProperties": false
+        },
         "stage3": {
           "type": "object",
           "required": [
@@ -443,88 +525,6 @@
               "minLength": 1
             }
           },
-          "additionalProperties": false
-        },
-        "stage6": {
-          "type": "object",
-          "required": [
-            "status",
-            "reviewer",
-            "recordedAtCommit"
-          ],
-          "properties": {
-            "status": {
-              "enum": [
-                "passed",
-                "failed",
-                "not_applicable"
-              ]
-            },
-            "reviewer": {
-              "$ref": "#/$defs/person"
-            },
-            "recordedAtCommit": {
-              "$ref": "#/$defs/commit"
-            },
-            "evidence": {
-              "type": "array",
-              "items": {
-                "$ref": "#/$defs/ref"
-              }
-            },
-            "findings": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1
-              }
-            },
-            "notApplicableRationale": {
-              "type": "string",
-              "minLength": 1
-            }
-          },
-          "additionalProperties": false
-        },
-        "stage7": {
-          "type": "object",
-          "required": [
-            "status",
-            "reviewer",
-            "recordedAtCommit"
-          ],
-          "properties": {
-            "status": {
-              "enum": [
-                "passed",
-                "failed",
-                "not_applicable"
-              ]
-            },
-            "reviewer": {
-              "$ref": "#/$defs/person"
-            },
-            "recordedAtCommit": {
-              "$ref": "#/$defs/commit"
-            },
-            "evidence": {
-              "type": "array",
-              "items": {
-                "$ref": "#/$defs/ref"
-              }
-            },
-            "findings": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "minLength": 1
-              }
-            },
-            "notApplicableRationale": {
-              "type": "string",
-              "minLength": 1
-            }
-          },
           "allOf": [
             {
               "if": {
@@ -553,7 +553,7 @@
           ],
           "additionalProperties": false
         },
-        "stage8": {
+        "stage6": {
           "type": "object",
           "required": [
             "status",
@@ -680,6 +680,47 @@
           "items": {
             "$ref": "#/$defs/ref"
           }
+        }
+      },
+      "additionalProperties": false
+    },
+    "constructFit": {
+      "type": "object",
+      "required": [
+        "candidateModes",
+        "selectedMode",
+        "dominanceArgument",
+        "reviewer",
+        "recordedAtCommit"
+      ],
+      "properties": {
+        "candidateModes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "deterministic",
+              "expert_adjudication",
+              "hybrid"
+            ]
+          }
+        },
+        "selectedMode": {
+          "enum": [
+            "deterministic",
+            "expert_adjudication",
+            "hybrid"
+          ]
+        },
+        "dominanceArgument": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reviewer": {
+          "$ref": "#/$defs/person"
+        },
+        "recordedAtCommit": {
+          "$ref": "#/$defs/commit"
         }
       },
       "additionalProperties": false

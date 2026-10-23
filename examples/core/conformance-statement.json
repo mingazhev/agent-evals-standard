@@ -38,6 +38,14 @@
       ]
     },
     {
+      "requirementId": "SCOPE-002",
+      "status": "pass",
+      "evidence": [
+        "examples/core/run-manifest.json@8229bd5ef1c3#/coverage",
+        "examples/core/case.json@9807bf4aec58#/capabilityFamilyId"
+      ]
+    },
+    {
       "requirementId": "SCOPE-003",
       "status": "pass",
       "evidence": [
@@ -54,11 +62,34 @@
       ]
     },
     {
+      "requirementId": "EXP-001",
+      "status": "pass",
+      "evidence": [
+        "examples/core/run-manifest.json@8229bd5ef1c3#/cases",
+        "examples/core/run-manifest.json@8229bd5ef1c3#/repetitions"
+      ]
+    },
+    {
+      "requirementId": "EXP-002",
+      "status": "pass",
+      "evidence": [
+        "examples/core/run-manifest.json@8229bd5ef1c3#/arms"
+      ]
+    },
+    {
       "requirementId": "HOLD-001",
       "status": "pass",
       "evidence": [
         "examples/core/case.json@9807bf4aec58#/oracleIsolation",
         "examples/core/run-manifest.json@8229bd5ef1c3#/environment/enforcement"
+      ]
+    },
+    {
+      "requirementId": "CASE-001",
+      "status": "pass",
+      "evidence": [
+        "examples/core/case.json@9807bf4aec58#/task",
+        "examples/core/case.json@9807bf4aec58#/acceptance"
       ]
     },
     {
@@ -194,22 +225,6 @@
       "status": "pass",
       "evidence": [
         "examples/core/run-manifest.json@8229bd5ef1c3#/environment"
-      ]
-    },
-    {
-      "requirementId": "ARCH-001",
-      "status": "pass",
-      "evidence": [
-        "examples/core/run-manifest.json@8229bd5ef1c3",
-        "examples/core/scorecard.json@2367e7660fe4"
-      ]
-    },
-    {
-      "requirementId": "TRACE-001",
-      "status": "pass",
-      "evidence": [
-        "examples/core/conformance-statement.json#/requirementResults",
-        "every row cites a file@commit location"
       ]
     },
     {

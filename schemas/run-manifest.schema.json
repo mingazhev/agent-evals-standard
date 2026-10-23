@@ -184,19 +184,6 @@
             "type": "object",
             "properties": {
               "kind": {
-                "const": "non_agent_control"
-              }
-            },
-            "required": [
-              "kind"
-            ]
-          }
-        },
-        {
-          "contains": {
-            "type": "object",
-            "properties": {
-              "kind": {
                 "const": "no_action_baseline"
               }
             },
@@ -827,7 +814,21 @@
           "validityArgument": {},
           "riskAssessment": {},
           "policy": {},
-          "heldOut": {}
+          "heldOut": {},
+          "arms": {
+            "contains": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "non_agent_control"
+                }
+              },
+              "required": [
+                "kind"
+              ]
+            },
+            "type": "array"
+          }
         }
       }
     },

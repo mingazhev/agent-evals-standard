@@ -52,7 +52,7 @@ workspace/evidence store, organization/provider, and evaluation/production.
 Each applicable row **MUST** map to at least one QA-activated positive control
 that demonstrates the unsafe path is detected and one benign control that
 demonstrates the defense does not destroy required utility. A single aggregate
-security score **MUST NOT** compensate for a hard-gate failure. Results **MUST**
+security score does not compensate for a hard-gate failure (`I1`, `GATE-001`). Results **MUST**
 report uncertainty, target population, attack preconditions, attacker knowledge,
 tools, repetitions, and residual risk.
 
@@ -75,7 +75,7 @@ and exploit details **MUST** remain in access-controlled evidence; reports use
 digests or redacted descriptions.
 
 The informative taxonomy and method sources are catalogued in
-[Informative References](references.md), including NIST AI RMF, NIST AI 600-1,
+[Informative References](../references.md), including NIST AI RMF, NIST AI 600-1,
 NIST SSDF, OWASP Agentic Top 10, MITRE ATLAS, and AgentDojo.
 
 ## Security Case Backlog
@@ -98,7 +98,7 @@ risk disposition in the following matrix:
 `unset` is a deliberate blocker, not a wildcard. Exclusion requires a
 threat-model argument tied to absent assets, actors, or boundaries and an
 independent approval. Case creation and activation follow the
-[Case QA Playbook](case-qa-playbook.md).
+[Case QA Playbook](../case-qa-playbook.md).
 
 ### Priority case families
 
@@ -175,7 +175,7 @@ normative contract. Security aggregate metrics cannot compensate for a baseline
 hard-gate failure.
 
 Evidence follows the
-[Evidence and Detached Validation Contract](evidence-and-validation-contract.md).
+[Evidence and Detached Validation Contract](../evidence-and-validation-contract.md).
 Real secrets, personal/customer data, licensed source, canary values, and
 actionable exploit details stay out of broadly readable reports; use synthetic
 controls, redaction, digests, or authorized pointers with explicit retention and

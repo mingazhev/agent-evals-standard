@@ -13,7 +13,7 @@
       "id": "agent-evals-standard-requirements",
       "version": "0.1.0",
       "uri": "../../standard/requirement-registry.json",
-      "digest": "sha256:77f294e5b693091ea6e9cfa1fffa351f66d35287578894046d9bd4d102c57b3e"
+      "digest": "sha256:5695942baf073e06eb8f5a9285f3c24b20fb4eb3b874f30d7d06bb3ddd52ee48"
     },
     "verdict": "compatible_no_weakening"
   },
@@ -48,7 +48,7 @@
       "id": "workspace-change-v1",
       "version": "0.1.0",
       "uri": "outcome-profile.json",
-      "digest": "sha256:e9e150a209ad3750a2a079a9c62cca76d03109ca20cba6c1ccf4b87ce339a4e8"
+      "digest": "sha256:1043ba0e551c0fe5888e81d1be7c49e44b8f4bf0a617424c34130eb367d0a861"
     }
   ],
   "caseContract": {
@@ -67,7 +67,7 @@
     "id": "repo-change-case-qa-contract",
     "version": "0.1.0",
     "uri": "case-qa-contract.json",
-    "digest": "sha256:344bc44916563dad011fed03ee0dd6afb29c4e7b2b82272038c3efc6f476721a"
+    "digest": "sha256:9f547a318fa855376ba1b139e92f2322b2ef17439357511d7a400e91e349c6e1"
   },
   "metrics": [
     {
@@ -120,17 +120,17 @@
     {
       "id": "repo-change-positive",
       "manifestUri": "../../examples/manifest.json",
-      "manifestDigest": "sha256:a9d2cab7b650f69d42eb6266f6a015495a00ea201830aba96ff27c24baa2d865",
+      "manifestDigest": "sha256:f610496bf13b2bacbcca2af31c2c20f3d98279cf3f395373d0bfbd1d7592a7b8",
       "manifestExpectationId": "evaluation-profile.valid",
       "expectedVerdict": "pass"
     },
     {
       "id": "reject-general-agent-capability",
       "manifestUri": "../../examples/manifest.json",
-      "manifestDigest": "sha256:a9d2cab7b650f69d42eb6266f6a015495a00ea201830aba96ff27c24baa2d865",
+      "manifestDigest": "sha256:f610496bf13b2bacbcca2af31c2c20f3d98279cf3f395373d0bfbd1d7592a7b8",
       "manifestExpectationId": "evaluation-profile.general-agent-capability",
       "expectedVerdict": "fail"
     }
   ],
-  "digest": "sha256:db56a3210f02b6d5e4b28553e6679af267c47a15d7148a1a4004a69e3b15db91"
+  "digest": "sha256:870dda1aaafd9f5bbd4fce4791c8c044f0b4cbd1ffb19017bc09aea3bc7e31b8"
 }

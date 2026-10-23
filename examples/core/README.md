@@ -185,7 +185,7 @@ this sample size, and the claims are written so that it is enough.
 
 ## 6. Conformance statement — [`conformance-statement.json`](conformance-statement.json)
 
-The statement lists, in `requirementResults`, the 26 requirement IDs registered at
+The statement lists, in `requirementResults`, the 28 requirement IDs registered at
 minimum level A1 for the experiment claim (`SCOPE-001` through `CONF-003`), each with `pass`
 and evidence locations written as `path@commit#pointer`. `person-b` confirmed the subjects, requirement results, and restrictions at the
 `independent-review` commit; the final statement records that earlier review, so the derived verdict is

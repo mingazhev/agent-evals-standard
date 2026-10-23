@@ -54,14 +54,15 @@
           },
           "targets": {
             "type": "array",
-            "minItems": 1,
+            "minItems": 0,
             "items": {
               "enum": [
                 "experiment",
                 "decision"
               ]
             },
-            "uniqueItems": true
+            "uniqueItems": true,
+            "description": "Claim targets that must carry a result row for this requirement. An empty list means the requirement binds the maintainers of this standard, not a claimant, and never appears in a requirement-coverage matrix."
           },
           "verificationKind": {
             "enum": [

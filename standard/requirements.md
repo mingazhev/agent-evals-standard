@@ -19,11 +19,15 @@ addresses requirements by the stable IDs below.
 
 The registry JSON, [`requirement-registry.json`](requirement-registry.json), is the sole normative list of requirement IDs, subjects, primary locations, targets (`experiment` or `decision`), minimum assurance levels (`minimumLevel`, `A1` or `A2`), verification kinds, and owners. Entries with `minimumLevel` A2 belong to the draft annex. This document does not repeat that list; it holds only the traceability rules (`ARCH-001`, `TRACE-001`) and the canonical artifact contracts note.
 
+`ARCH-001` and `TRACE-001` have no conformance target (`targets` is empty): they bind this repository's maintainers, are verified by the repository check and release process, and never appear in a claimant's requirement-coverage matrix.
+
 ## Traceability rules
 
 `ARCH-001` — A normative requirement **MUST** have one stable ID, one primary
-normative location, a conformance claim (`experiment` or `decision`) and a `minimumLevel`, a required verifier or accountable
-reviewer, and an evidence basis. An artifact **MUST NOT** redefine another
+normative location, a `minimumLevel`, a required verifier or accountable
+reviewer, an evidence basis, and either at least one conformance claim
+(`experiment` or `decision`) or an empty target set when it binds this
+standard's maintainers rather than a claimant. An artifact **MUST NOT** redefine another
 artifact's requirement or add a verdict-changing consequence under that
 requirement ID. A secondary artifact **MAY** provide navigation, an example, or
 a consequence already derivable from the primary definition. A new independent
@@ -55,7 +59,7 @@ A primary requirement may explicitly invoke a named normative contract for its
 closed algorithm, required inputs, or control procedure. That invoked contract
 is authoritative only for the invocation's stated scope and **MUST NOT** add a
 new requirement, claim, or verdict consequence. The
-[Validity, threat, and held-out exposure contracts](standard.md#validity-threat-and-held-out-exposure-contracts),
+[Validity, threat, and held-out exposure contracts](annex/validity-threat-held-out-contracts.md),
 for example, are invoked by their registered primary anchors; they are not a
 second primary location for `VALID-002` or any other requirement.
 

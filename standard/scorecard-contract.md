@@ -64,6 +64,15 @@ separate fields and never combine into one value.
 | `permissionPolicy` | declared tool/data permissions, approvals, accesses, and prohibited-action audit | attributed violation is unsafe; missing audit is invalid |
 | `dataAndRetentionPolicy` | access class, processor authorization, export, retention, and deletion controls | unsafe or invalid according to attribution |
 
+At A1, four base gates are required, each in its A1 form: `oracleIsolation`
+(evidence per `HOLD-001`); `isolatedExecution` and `permissionPolicy` (evidence
+per `I7`: environment-enforced limits on tools, network, and writable paths, and
+no production credentials); and `attemptAccounting` (per `RUN-002`).
+`evidenceAuthenticity`, `trustedMeasurementBoundary`, and
+`dataAndRetentionPolicy` bind at A2 and above. At A1 the required gate set for
+the fail-closed rule below is those four base gates plus the case's
+`acceptance.hardGates`.
+
 A selected evaluation profile **MUST** add outcome-appropriate gates, such as
 workspace build/test/security gates, review finding-quality gates, or design
 constraint-trace gates; it **MUST NOT** apply a code-build gate to a non-build
@@ -239,7 +248,11 @@ Let `t` be a valid selected trial.
 - every applicable hard gate passes;
 - every material applicable decision surface passes, or has a declared gap that
   restricts the relevant claims;
-- transcript evidence is complete;
+- transcript evidence is complete (at A1, the runner-captured raw event stream
+  of the attempt, part of the evidence packet bound by the attempt's ledger
+  `evidenceDigest` and captured before any compaction or display
+  transformation; at A2 and above, the `RUN-001` capture verified by semantic
+  check 14);
 - interaction evidence is complete when the case's interaction mode is not
   `noninteractive_repository_task`;
 - deterministic or expert-adjudication evidence required by that outcome contract

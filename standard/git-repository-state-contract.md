@@ -95,9 +95,8 @@ only immutable Git input identity and closure, not material repository
 grounding, task validity, or outcome correctness.
 
 A repository URL, ticket link, copied code fragment, or output location alone is
-insufficient. The case contract **MUST** record each of the four tests as
-holding, with a rationale that an independent reviewer confirms during Case QA
-(`CASE-004`). Making bytes unavailable, citing an arbitrary repository blob, or
+insufficient. The obligation to record each of the four tests with a
+reviewed rationale is defined by `SCOPE-003` and `CONF-001`. Making bytes unavailable, citing an arbitrary repository blob, or
 adding a repository-dependent side condition **MUST NOT** bootstrap an otherwise
 general-agent claim into scope; a reviewer who cannot confirm a test records it
 as failed and the case stays `candidate`.
@@ -114,7 +113,7 @@ customer-support, embodied, or arbitrary-computer-use work; and open-ended web
 research without a repository-grounded deliverable. The breadth of the evaluated
 implementation and the channel through which it delivers a result do not decide
 applicability: only the bounded evaluated work and claim may enter scope, and
-both **MUST** pass the four `SCOPE-003` tests. Every case environment **MUST**
+both pass the four `SCOPE-003` tests. Every case environment **MUST**
 declare `evaluationMode: controlled_fixture` or
 `evaluationMode: simulation` and `productionActionAllowed: false`. Real
 production actions **MUST NOT** become evaluation cases, even under operational
