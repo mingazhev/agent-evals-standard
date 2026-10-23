@@ -41,11 +41,9 @@ versioned policy classifies them. An operational policy **MAY** authorize overri
 only from an explicit allowlist; free-text requirements are never implicitly
 overridable.
 
-Baseline hard gates are non-compensable and non-waivable for every tier. A
-failed or unevaluated baseline hard gate **MUST** block acceptance, ranking,
-autonomy expansion, and every positive governance claim. An independent Case
-QA invalidation **MAY** quarantine a defective case or evaluator, but it **MUST
-NOT** convert the original failed run into a pass; a new sealed run is REQUIRED.
+Baseline hard gates are non-compensable and non-waivable for every tier
+(`I1`, `GATE-001`). Invalidation of a defective case or evaluator is handled in
+the [Escalation and Stop Matrix](#escalation-and-stop-matrix).
 
 - `low` — a local, readily verifiable change with no sensitive data,
   authentication boundary, deployment, or security impact;
@@ -190,34 +188,38 @@ rises, `release` below `capability_claim`, or `autonomy`/`risk_acceptance` below
   policy says so. The required independent review renews, narrows, rejects, or
   lets the decision expire; neither timestamp is informational metadata.
 - Rollback and scope-reduction conditions are sealed in the pre-run decision
-  plan. A decision record **MAY** cite and apply them but **MUST NOT** invent them after
-  observing results.
-- Thresholds **MUST NOT** be selected or edited after inspecting the run output
-  they will judge.
-- The run scorecard is immutable at run close. Later status resolutions,
+  plan. A decision record cites and applies them and does not invent them after
+  observing results (`I3`).
+- Thresholds are fixed before the run output they judge exists (`I3`,
+  `CLAIM-001`).
+- The run scorecard is immutable at run close (see the [Scorecard Contract](../scorecard-contract.md#provenance)). Later status resolutions,
   waivers, expiry, narrowing, renewal, rollback, and supersession are appended
   to the adopter's version-controlled governance record under the
-  [integrity model](evidence-and-validation-contract.md#integrity-model).
+  [integrity model](../evidence-and-validation-contract.md#integrity-model).
   Decision records reference the immutable scorecard rather than mutating it.
 
 ## Escalation, Enforcement, and Resolution
 
+*Status: informative shape guidance until a schema exists; 0.1.0 publishes no schema for these records.*
+
 Every escalation trigger is one of the closed events in the
 [escalation-event registry](#escalation-and-stop-matrix). Its claim effect,
 governance status, stop action, scope action, and waivability are fixed by the
-registry; an operational policy assigns owner and SLA and **MUST NOT** change
-the tuple. A trigger **MUST** be recorded as an open event, committed before
+registry; an operational policy assigns owner and SLA and must not change
+the tuple. A trigger must be recorded as an open event, committed before
 any resolution, with its observed facts, evidence, affected scope, and owner.
-The stop and scope actions **MUST** be executed and their execution recorded
+The stop and scope actions must be executed and their execution recorded
 with executor, time, and outcome before the event may be resolved; asserted
 intent is not enforcement. A resolution is a later committed record that cites
 the open event, the corrective evidence, the authorized resolver, and the
 terminal disposition; it never rewrites the event. Events the registry marks
-non-waivable **MUST NOT** resolve as `waived`. Version 0.1.0 fixes these
+non-waivable must not resolve as `waived`. Version 0.1.0 fixes these
 semantics but publishes no event, receipt, or ledger schema; the adopter's
 governance record is a version-controlled directory of such records.
 
 ## Post-Decision Assurance
+
+*Status: informative shape guidance until a schema exists; 0.1.0 publishes no schema for these records.*
 
 Approval is conditional on the continued applicability of the evidence, not a
 permanent property of an agent label. The decision record binds the sealed
@@ -225,14 +227,14 @@ assurance plan and its exact approved envelope. A material change triggers
 revalidation or revocation for the affected scope; nominal version equality is
 not evidence that behavior is unchanged.
 
-The operational policy **MUST** define production monitoring that is observable
+The operational policy must define production monitoring that is observable
 without treating user harm as an experiment. Monitoring signals detect a
-breach or distribution change; by themselves they **MUST NOT** be described as
+breach or distribution change; by themselves they must not be described as
 offline-to-production concordance or as proof that the offline evaluation
 predicts production outcomes. Sampling, uncertainty, multiplicity, sequential
-looks, thresholds, and actions **MUST** be pre-registered.
+looks, thresholds, and actions must be pre-registered.
 
-A measured offline-to-production concordance claim additionally **MUST** define
+A measured offline-to-production concordance claim additionally must define
 its estimand; offline and production units; target and matched populations;
 linkage; observation lag; censoring, missingness, selection, and intervention
 treatment; estimator; uncertainty; calibration or drift rule; and validity
@@ -244,11 +246,11 @@ the affected approval. Every expected monitoring window is recorded as an
 observation in the governance record, including the plan hash, scope, signal,
 sample, estimate, uncertainty, sequential-look index, threshold, verdict,
 producer, reviewer, and canonical evidence references. Monitoring and later
-evidence **MUST NOT** rewrite the original run or decision rationale.
+evidence must not rewrite the original run or decision rationale.
 
 All evidence and validation references follow the
-[Evidence and Detached Validation Contract](evidence-and-validation-contract.md),
-including its [integrity model](evidence-and-validation-contract.md#integrity-model).
+[Evidence and Detached Validation Contract](../evidence-and-validation-contract.md),
+including its [integrity model](../evidence-and-validation-contract.md#integrity-model).
 
 ## Escalation and Stop Matrix
 
@@ -260,7 +262,7 @@ including its [integrity model](evidence-and-validation-contract.md#integrity-mo
   governance record in which events and their resolutions are committed.
 
 The canonical closed event registry is
-[`escalation-event-registry.json`](escalation-event-registry.json). Its 22
+[`escalation-event-registry.json`](../escalation-event-registry.json). Its 22
 records bind each event ID to exactly one claim effect, governance status, stop
 action, scope action, and waivability value. The table below supplies informative trigger, evidence, and resume guidance;
 the registry alone owns each tuple. An operational matrix or event with a
@@ -305,16 +307,15 @@ can cite this matrix.
 
 ### Event lifecycle
 
+*Status: informative shape guidance until a schema exists; 0.1.0 publishes no schema for these records.*
+
 Open event, enforced action, then resolution, each a separately committed
 record that cites its predecessor and never rewrites it. The complete rules are
 in the [Governance Policy](#escalation-enforcement-and-resolution).
 
-Baseline hard-gate events and every identifier declared non-waivable by the
-Governance Policy **MUST NOT** resolve as `waived`. Case or evaluator defects
-**MAY** be quarantined only through independent Case QA invalidation; the failed
-run remains immutable and a new sealed run is REQUIRED.
+Waiver limits follow `I1` and `GATE-001` and the registry `waivability` value; Case QA invalidation is the only route to quarantining a defective case or evaluator, and the original run stays immutable.
 
 Version 0.1.0 publishes no event or resolution schema; the registry fixes the
 tuples and the governance record holds the instances.
 Evidence and ledger ordering follow the
-[Evidence and Detached Validation Contract](evidence-and-validation-contract.md#integrity-model).
+[Evidence and Detached Validation Contract](../evidence-and-validation-contract.md#integrity-model).

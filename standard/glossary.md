@@ -10,36 +10,21 @@ but cannot change these meanings.
 
 ## Scope and Design
 
-- **Repository-grounded SDLC agent evaluation** — an evaluation whose
-  claim-bearing work passes the four `SCOPE-003` tests against a sealed Git
-  workspace manifest. This is the standard's conformance scope.
-- **Sealed repository snapshot** — an immutable, content-addressed
-  `workspace-manifest-1` selecting one of `tree_snapshot`, `bounded_ancestry`,
-  or `full_ancestry` for every repository root
-  ([Git boundary contract](git-repository-state-contract.md)).
-- **Materially repository-grounded** — all four `SCOPE-003` tests hold, each
-  with a rationale confirmed in Case QA. A link, ticket, or copied fragment
-  alone does not establish this.
-- **Base standard** — the requirements common to every repository-grounded SDLC
-  evaluation. **Evaluation profile** — a versioned, standalone narrowing of the base
-  ([PROFILE-001](standard.md#evaluation-profile-resolution)). **Outcome
-  profile** — the result-shape contract a case binds through its evaluation
-  profile ([CASE-002](standard.md#outcome-profiles)). Unqualified `profile` is
-  shorthand only when one kind is possible.
-- **SDLC capability family** — one of the seven closed `CAP.*` IDs
-  ([SCOPE-002](standard.md#sdlc-capability-taxonomy)). **Work-artifact
-  registry** — the closed mapping from work-artifact type to exactly one family.
-- **Interaction-mode ID** — one of the four closed IDs in `SCOPE-002`;
-  `interactive` and `non_interactive` are not aliases.
-- **Normalized primary outcome** — one of the seven base aggregation classes in
-  the [Scorecard Contract](scorecard-contract.md#primary-outcome-categories);
-  every trial also keeps its profile-native outcome and substatus.
+- **Repository-grounded SDLC agent evaluation** — claim-bearing work that
+  passes the four `SCOPE-003` tests ([SCOPE-003](standard.md#applicability-boundary-and-profiles)).
+- **Sealed repository snapshot** — an immutable `workspace-manifest-1`; see the
+  [Git boundary contract](git-repository-state-contract.md).
+- **Evaluation profile**, **outcome profile** — see
+  [PROFILE-001](standard.md#evaluation-profile-resolution) and
+  [CASE-002](standard.md#outcome-profiles).
+- **SDLC capability family**, **interaction-mode ID** — closed IDs under
+  [SCOPE-002](standard.md#sdlc-capability-taxonomy).
+- **Normalized primary outcome** —
+  [Scorecard Contract](scorecard-contract.md#primary-outcome-categories).
 - **Universal gate** — a `GATE-001` gate applying to every conforming
-  evaluation in this standard's boundary; not a claim about agents generally.
-- **Intended use** — the users, decisions, environment, assurance level, and
-  risk context for which evidence is designed. **Construct** — what the
-  evaluation intends to measure, distinct from a proxy metric. **Validity
-  argument** — the versioned claim-to-evidence argument under `VALID-002`.
+  evaluation; not a claim about agents generally.
+- **Intended use**, **construct**, **validity argument** —
+  [VALID-002](standard.md#intended-use-and-validity-argument).
 - **Material** — required by the selected contract, consumed by a named
   predicate, or able to change that predicate when removed. **Claim-bearing**
   and **decision-bearing** — material to a registered claim or to an
@@ -48,54 +33,32 @@ but cannot change these meanings.
 
 ## Suites and Cases
 
-- **Evaluation suite** — the case collection a run draws from; the run
-  manifest pins the selected cases.
-- **Case** — one repository-grounded task binding a workspace manifest, sealed
-  agent-visible projection, one evaluation profile, one outcome
-  profile, one interaction mode, capability families with material work
-  artifacts, the four applicability tests, environment, risk, QA evidence,
-  owner, and lifecycle ([CASE-001](standard.md#authoring)).
+- **Case** — one repository-grounded task ([CASE-001](standard.md#authoring)).
 - **Agent-visible projection** — the complete sealed input an arm can see;
   hidden requirements are not part of it.
 - **Oracle material** — reference solutions, hidden checks, grader fixtures,
   scoring internals, or derived state unavailable to an evaluated arm.
   **Leakage control** — a validated oracle-domain detector; a missing detection
   is not proof of cleanliness.
-- **Held-out slice** — cases reserved for release or autonomy evidence under
-  an **exposure budget** ([HOLD-002](standard.md#held-out-exposure-and-reuse)).
-- **Lifecycle state** — `candidate`, `active`, `quarantined`, or `retired`
-  ([CASE-003](standard.md#lifecycle-states)).
-- **Case QA record (`case-qa-1`)** — evidence that a case satisfies activation
-  requirements: controls, stability, and an independent review at A1, plus
-  stages 3–8 at A2 and above
-  ([CASE-004](standard.md#activation-and-maintenance)).
-- **Decision surface** — a pre-registered consequential decision not proven by
-  the terminal artifact ([CASE-005](standard.md#decision-surface-coverage)).
-  **Declared coverage gap** — an applicable surface without adequate
-  measurement; it restricts named claims and never becomes pass.
+- **Held-out slice**, **exposure budget** —
+  [HOLD-002](standard.md#held-out-exposure-and-reuse).
+- **Lifecycle state** — [CASE-003](standard.md#lifecycle-states).
+- **Case QA record** — [CASE-004](standard.md#activation-and-maintenance).
+- **Decision surface**, **declared coverage gap** —
+  [CASE-005](standard.md#decision-surface-coverage).
 
 ## Experiment and Execution
 
-- **Run / sealed experiment** — one pre-registered experiment, sealed in one
-  `run-manifest-1` that declares arms, cases, repetitions, replacement policy,
-  claims with decision rules, statistics, and at A2 and above the attached
-  references; the manifest is the one pre-registration artifact
-  ([EXP-001](standard.md#sealed-experiment-contract)).
-- **Arm** — one fully identified system-under-evaluation configuration, its
-  identity recorded in the run manifest; it excludes the measurement profile
-  ([EXP-002](standard.md#sealed-experiment-contract)).
+- **Run / sealed experiment**, **arm**, **comparative design** —
+  [EXP-001 to EXP-003](standard.md#sealed-experiment-contract).
 - **Measurement profile** — the evaluation-profile digest plus the
   outcome-profile identity bound to a case; comparator arms share it.
-- **Comparative design** — the sealed comparator, treatment-bundle, pairing,
-  and analysis definition ([EXP-003](standard.md#sealed-experiment-contract)).
-- **Scheduled cell** — one case, arm, and repetition; the
-  experimental observation. **Physical attempt** — one execution in a cell's
-  retry lineage; an accounting unit, not an observation. **Trial** — the valid
-  selected result that resolves a cell.
-- **Attempt ledger** — the runner-owned append-only record of every attempt
-  ([RUN-002](standard.md#i5-attribution-and-complete-attempt-accounting)).
-- **Interactive protocol** — the versioned actor, state, event, and
-  responsibility contract ([INT-001](standard.md#interactive-actors-and-simulators)).
+- **Scheduled cell** — one case, arm, and repetition; the experimental
+  observation. **Physical attempt** — one execution in a cell's retry lineage;
+  an accounting unit, not an observation. **Trial** — the valid selected result
+  that resolves a cell.
+- **Attempt ledger** — [RUN-002](standard.md#i5-attribution-and-complete-attempt-accounting).
+- **Interactive protocol** — [INT-001](standard.md#interactive-actors-and-simulators).
 - **Agent configuration** — the complete evaluated model-and-harness behavior,
   not a model label. **Evaluation harness** — runner infrastructure.
   **Agent harness** — the evaluated scaffold. **Adapter** — the integration
@@ -103,26 +66,18 @@ but cannot change these meanings.
 
 ## Evidence and Judgment
 
-- **Evidence artifact** — one `evidence-artifact-1` record
-  ([EVID-001](evidence-and-validation-contract.md#canonical-evidence-artifact)).
+- **Evidence artifact** — [EVID-001](evidence-and-validation-contract.md#canonical-evidence-artifact).
+  **Validation envelope** — [EVID-002](evidence-and-validation-contract.md#detached-validation-envelope).
 - **Authenticated** — resolved by exact ID, version, and recomputed SHA-256 from
-  a version-controlled source the verifier selects, by a producer an
-  evaluator-controlled authority permits. No signature is implied; see the
-  [integrity model](evidence-and-validation-contract.md#integrity-model).
+  a version-controlled source the verifier selects; no signature is implied
+  ([integrity model](evidence-and-validation-contract.md#integrity-model)).
 - **Sealed** — fixed by content digest and committed before the step that
   depends on it; the first containing commit is the seal point.
-- **A1** — the entry assurance level in [Conformance](conformance.md#baseline-a1):
-  bounded capability claims at low or medium risk that never support a
-  governance decision. **`stat-defaults-v1`** — the
+- **A1** — [Conformance](conformance.md#baseline-a1). **`stat-defaults-v1`** —
   [base statistical defaults](standard.md#base-statistical-defaults).
-- **Validation envelope** — a detached `validation-envelope-1`, required at A2
-  and above, binding a verdict to a subject digest ([EVID-002](evidence-and-validation-contract.md#detached-validation-envelope)).
-- **Measurement trust domain** — runner-owned components evaluated output
-  cannot modify ([RUN-003](standard.md#i13-trusted-measurement-boundary)).
-- **Deterministic verifier**, **expert adjudication**, **model-based grader**
-  — the three evidence sources ordered by
-  [JUDGE-001 to JUDGE-003](standard.md#evidence-hierarchy); a model grader is
-  never sole evidence for a hard gate or deterministic fact.
+- **Measurement trust domain** — [RUN-003](standard.md#i13-trusted-measurement-boundary).
+- **Deterministic verifier**, **expert adjudication**, **model-based grader** —
+  [JUDGE-001 to JUDGE-003](standard.md#evidence-hierarchy).
 - **Governance status** — an accountable review condition kept separate from
   gates, outcomes, and verdicts. **Automated hard gate** — a backed, stable,
   fail-closed condition whose failure is non-compensable. **Control proof** —
@@ -178,38 +133,21 @@ NOT** weaken it.
 
 ## Outcomes, Claims, and Statistics
 
-- **Primary outcome** — the Scorecard Contract's mutually exclusive trial
-  classification. **Successful outcome** — a trial satisfying
-  `functional-outcome-v1`. **Accepted outcome** — a successful trial satisfying
-  `accepted-outcome-v1`; not a release or autonomy decision.
-- **Claim** — one registered proposition with construct, estimand, population,
-  scope, predicate, analysis, threshold, and evidence status
-  ([CLAIM-001](scorecard-contract.md#claims)). **Claim status** —
-  `supported`, `not_supported`, `insufficient_evidence`, or `reported_only`,
-  computed per claim under the [Scorecard Contract](scorecard-contract.md#claims).
+- **Primary outcome**, **successful outcome**, **accepted outcome** —
+  [Scorecard Contract](scorecard-contract.md#primary-outcome-categories); an
+  accepted outcome is not a release or autonomy decision.
+- **Claim**, **claim status** — [CLAIM-001](scorecard-contract.md#claims).
 - **Validity** — whether measurement supports interpretation and attribution,
   distinct from success or acceptance.
-- **Assurance level** — `A0 diagnostic_run`, `A1 capability`,
-  `A2 controlled_decision`, or `A3 high_assurance`
-  ([ASSURE-001](standard.md#assurance-levels)); evidence depth, not a score.
-  **Assurance overlay** — the base-owned cumulative A1–A3 requirements plus
-  additive profile deltas. **A0 / `diagnostic_run`** — a run with no claims
-  and no conformance role.
+- **Assurance level**, **assurance overlay**, **A0** —
+  [ASSURE-001](standard.md#assurance-levels).
 - **Production telemetry** — evidence usable only for validity, concordance,
-  drift, and post-decision assurance; never task input, trial outcome
-  evidence, or a scheduled cell. **Input origin** — `synthetic` or `public`.
-  **Evaluation mode** — `controlled_fixture` or `simulation`, both with
-  `productionActionAllowed: false`.
+  drift, and post-decision assurance. **Input origin** — `synthetic` or
+  `public`. **Evaluation mode** — `controlled_fixture` or `simulation`.
 - **Inherent task hazard** — potential harm in the task content itself.
-  **Effective risk** — the policy-derived tier combining hazard, data,
-  autonomy, permissions, environment, blast radius, oversight, likelihood, and
-  uncertainty ([RISK-001](standard.md#risk-model)).
-- **pass@k** and **pass^k** — estimators of at least one, and of all, `k`
-  repetitions succeeding ([STAT-001](standard.md#statistics-and-missingness)).
-  The 0.1.0 machine contract supports pass@1 and pass^k (`pass_hat_k`), not
-  pass@k for `k > 1`.
-- **Identification bounds** — the range of claim values compatible with
-  resolved cells and sealed assumptions about unresolved cells
-  ([STAT-002](standard.md#statistics-and-missingness)).
+  **Effective risk** — [RISK-001](standard.md#risk-model).
+- **pass@k**, **pass^k**, **identification bounds** —
+  [STAT-001, STAT-002](standard.md#statistics-and-missingness); 0.1.0 supports
+  pass@1 and pass^k (`pass_hat_k`), not pass@k for `k > 1`.
 - **Composite score** — a diagnostic summary after gate and eligibility checks;
   not a claim or decision.

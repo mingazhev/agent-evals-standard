@@ -7,10 +7,7 @@
       "subject": "normative artifact and extension architecture",
       "normativeReference": "requirements.md#traceability-rules",
       "minimumLevel": "A1",
-      "targets": [
-        "experiment",
-        "decision"
-      ],
+      "targets": [],
       "verificationKind": "semantic",
       "verificationOwner": "conformance-validator",
       "accountableReviewer": "conformance-validator-owner",
@@ -28,10 +25,7 @@
       "subject": "requirement-to-source evidence mapping",
       "normativeReference": "requirements.md#traceability-rules",
       "minimumLevel": "A1",
-      "targets": [
-        "experiment",
-        "decision"
-      ],
+      "targets": [],
       "verificationKind": "semantic",
       "verificationOwner": "conformance-validator",
       "accountableReviewer": "conformance-validator-owner",
@@ -271,7 +265,7 @@
       "id": "SCOPE-002",
       "subject": "SDLC capability coverage",
       "normativeReference": "standard.md#sdlc-capability-taxonomy",
-      "minimumLevel": "A2",
+      "minimumLevel": "A1",
       "targets": [
         "experiment"
       ],
@@ -458,7 +452,7 @@
       "id": "CASE-001",
       "subject": "case contract and agent-visible projection",
       "normativeReference": "standard.md#authoring",
-      "minimumLevel": "A2",
+      "minimumLevel": "A1",
       "targets": [
         "experiment"
       ],
@@ -615,7 +609,7 @@
       "id": "EXP-001",
       "subject": "sealed experiment and scheduled cells",
       "normativeReference": "standard.md#sealed-experiment-contract",
-      "minimumLevel": "A2",
+      "minimumLevel": "A1",
       "targets": [
         "experiment"
       ],
@@ -635,7 +629,7 @@
       "id": "EXP-002",
       "subject": "complete arm identity",
       "normativeReference": "standard.md#sealed-experiment-contract",
-      "minimumLevel": "A2",
+      "minimumLevel": "A1",
       "targets": [
         "experiment"
       ],
@@ -1201,5 +1195,5 @@
       }
     }
   ],
-  "digest": "sha256:77f294e5b693091ea6e9cfa1fffa351f66d35287578894046d9bd4d102c57b3e"
+  "digest": "sha256:5695942baf073e06eb8f5a9285f3c24b20fb4eb3b874f30d7d06bb3ddd52ee48"
 }

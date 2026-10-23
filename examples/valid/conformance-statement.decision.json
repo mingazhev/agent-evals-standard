@@ -33,22 +33,6 @@
   },
   "requirementResults": [
     {
-      "requirementId": "ARCH-001",
-      "status": "pass",
-      "evidence": [
-        "examples/valid/governance-decision.json@9807bf4aec58",
-        "examples/valid/validation-envelope.json@9807bf4aec58#/checks"
-      ]
-    },
-    {
-      "requirementId": "TRACE-001",
-      "status": "pass",
-      "evidence": [
-        "examples/valid/governance-decision.json@9807bf4aec58",
-        "examples/valid/validation-envelope.json@9807bf4aec58#/checks"
-      ]
-    },
-    {
       "requirementId": "I1",
       "status": "pass",
       "evidence": [

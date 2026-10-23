@@ -42,7 +42,7 @@ depends on it:
 3. **Run manifest** (`run-manifest-1`,
    [`run-manifest.schema.json`](../schemas/run-manifest.schema.json)). Pin the
    active cases, identify every arm, and declare the no-action baseline, a
-   distinct non-agent control, trial schedule, replacement policy, claims and
+   distinct non-agent control (recommended; record the gap if omitted), trial schedule, replacement policy, claims and
    decision rules, and `stat-defaults-v1` or explicit statistical overrides.
    Commit the manifest before the first attempt; that commit is the seal point.
 4. **Attempt ledger** (`attempt-ledger-1`,
@@ -80,7 +80,7 @@ derived.
 | What obligations apply? | The registered primary requirement and its linked contract. The [Core Standard](standard.md) owns most requirements; [Scorecard](scorecard-contract.md), [Evidence and Validation](evidence-and-validation-contract.md), and [Conformance](conformance.md) own their registered requirements. |
 | Is the JSON document well-formed? | The matching JSON Schema in [`schemas/`](../schemas/). Schemas define accepted structure, not cross-document truth. |
 | Do references, hashes, Git order, ledger, scorecard, and verdict agree? | The invoked semantic contract: chiefly [Integrity and Semantic Validation](evidence-and-validation-contract.md#integrity-and-semantic-validation-contract), [Scorecard](scorecard-contract.md), and the [Git repository-state contract](git-repository-state-contract.md). A schema-valid document may still fail these checks. |
-| How is an A1 case activated? | `CASE-004` in the [Core Standard](standard.md#activation-and-maintenance) and the [A1 activation record](case-qa-playbook.md#activation-record). The playbook's stages 3–8 are A2/A3 requirements. |
+| How is an A1 case activated? | `CASE-004` in the [Core Standard](standard.md#activation-and-maintenance) and the [A1 activation record](case-qa-playbook.md#activation-record). The playbook's stages 1–6 are A2/A3 requirements. |
 | What do examples establish? | Nothing normative. [`examples/`](../examples/README.md) illustrates document shape and calculations; it cannot add or waive requirements. |
 
 At A1, independent review replaces the detached validation envelope, not the
@@ -98,7 +98,7 @@ attachments just to make an A1 capability claim.
 
 - **A2** adds evaluation- and outcome-profile bindings, a validity argument,
   risk assessment, operational policy, held-out budget and ledger, canonical
-  evidence-artifact records, Case QA stages 3–8, and detached validation of the
+  evidence-artifact records, Case QA stages 1–6, and detached validation of the
   conformance statement. Outcome profiles with `replayContract` also bind the shared executor
   through the run's `replayImplementation`. Multi-arm runs add a comparative design; governance
   runs also seal a decision plan before execution.
@@ -154,8 +154,8 @@ claim.
 
 For governance use, prepare the decision plan and controls before the run, then
 make a separate decision against validated experiment evidence. Use the
-[Governance Policy](governance-policy.md) and
-[decision-record template](../templates/governance-decision-record.md); keep
+[Governance Policy](annex/governance-policy.md) and
+[decision-record template](annex/governance-decision-record.md); keep
 decisions, renewals, waivers, and rollbacks in a version-controlled governance
 record. Record expected assurance-monitoring windows there as well. Missing or
 late monitoring evidence suspends the affected approval; this candidate does

@@ -227,7 +227,7 @@ reproducibly preserve an authorized replacement; it **MUST NOT** silently leave
 an unverifiable positive claim active.
 
 This requirement invokes the applicable data, privacy, IP, and retention rows of
-the [Security Threat Model and Coverage Contract](security-threat-model.md).
+the [Security Threat Model and Coverage Contract](annex/security-threat-model.md).
 
 Every artifact class **MUST** declare access roles, trust domain, encryption,
 external-export rule, retention period, legal-hold behavior, deletion verifier,
@@ -356,8 +356,8 @@ missing evidence.
 | 11 | Cost estimands | Both cost estimands are recomputed from every physical attempt record; the numerator, denominator predicate, success and attempt counts, and `telemetry` rows agree. Missing cost under a fail-closed policy yields `insufficient_evidence`. A zero success count forces `insufficient_evidence`, a null value, and the `zero_success_denominator` reason; the observed cost numerator remains. |
 | 12 | Decision surfaces | At A2 and above, decision-surface IDs, materialities, coverage modes, and declared-gap claim restrictions match the case's inventory exactly once in every Case QA `decisionSurfaceValidation`; applicability rules and final-state proofs resolve through deterministic verifiers. No material `declared_gap`, failure, or insufficient verdict supports an affected positive, comparative, or governance claim, and a listed material restriction requires that claim's status to be `insufficient_evidence`. |
 | 13 | Lifecycle transitions | A Case QA record with `decision` `quarantined` carries an `invalidation` (reason and nonempty evidence) and is the target of the case's `lifecycle.quarantineRecord`; a re-QA record for a quarantined case returns to `active` only when `active`, and to `candidate` when `rejected`. A QA record binds the case at its candidate commit (the case document without `lifecycle`), and the active case differs from it only by `lifecycle`, so `lifecycle.qaRecord` → QA record → candidate case is acyclic. |
-| 14 | Transcript evidence | Transcript evidence is complete for every valid trial, resolves to the raw runner-produced event stream, verifies its append-only root, proves pre-transform capture, and preserves context-management events. A compacted view, summary, cleared tool output, or agent-authored memory cannot satisfy this requirement. |
-| 15 | Interaction evidence | Interaction evidence is complete for every valid trial whose case `interactionModeId` is not `noninteractive_repository_task` and `not_applicable` only for that exact mode; it binds the case protocol, attributes every event and shared-state mutation, verifies initial and final state hashes, and has zero unattributed mutations. |
+| 14 | Transcript evidence | Transcript evidence is complete for every valid trial. At A1 it resolves, through the attempt's ledger `evidenceDigest`, to the raw runner-captured event stream captured before any compaction or display transformation. At A2 and above it also verifies its append-only root, proves pre-transform capture, and preserves context-management events. A compacted view, summary, cleared tool output, or agent-authored memory cannot satisfy this requirement. |
+| 15 | Interaction evidence | Interaction evidence is complete for every valid trial whose case `interactionModeId` is not `noninteractive_repository_task` and `not_applicable` only for that exact mode. At A1 it is the recorded interaction events resolved through the attempt's ledger `evidenceDigest`; at A2 and above it binds the case protocol, attributes every event and shared-state mutation, verifies initial and final state hashes, and has zero unattributed mutations. |
 | 16 | Run manifest statistics | The statistics sealed in the run manifest (`stat-defaults-v1` plus overrides) recompute the target population, estimators, intervals, dependence, missingness and retry handling, and multiplicity adjustment. At A2 and above they also cover the held-out exposure and reuse budget. Unregistered looks, post-observation threshold changes, exhausted reuse, or an exploratory result used as a hard gate yield `insufficient_evidence`. |
 | 17 | Evidence lifecycle | Every evidence artifact's access, privacy/IP, retention, and expiry metadata agree with the pinned policy. Unlawful, unauthorized, expired, or disposition-inconsistent evidence cannot support a claim. |
 
@@ -487,7 +487,7 @@ Version 0.1.0 defines the governance decision record and the post-decision
 assurance plan it binds, but no ledger, escalation-event, enforcement-receipt,
 or assurance-observation schema. Adopters record post-decision state in their
 own version-controlled governance records under the
-[Governance Policy](governance-policy.md); those records are outside the
+[Governance Policy](annex/governance-policy.md); those records are outside the
 semantic checks of this contract.
 
 ### Validator provenance

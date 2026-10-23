@@ -42,10 +42,10 @@ requirements when implementing those levels.
 ## Maturity
 
 Version 0.1.0 is normative for assurance levels A0 and A1. A2 and A3 are
-published as a **draft annex**: stable in intent, unvalidated by any run, and
+published as a **draft annex** (in [`standard/annex/`](standard/annex/README.md)): stable in intent, unvalidated by any run, and
 may change incompatibly in a later 0.1.x without a major version bump. A
 conformance claim at A2 or A3 is permitted but is a claim against the draft
-annex and MUST say so in its restrictions.
+annex and states so in its restrictions ([Conformance](standard/conformance.md) defines the obligation).
 
 Normative at A1: the six run-family schemas, the registries, and the A1
 requirement set. Draft annex: the A2/A3 attachments (validity argument, threat
@@ -102,17 +102,17 @@ explicitly invokes it; it is not a second definition.
 | Primary requirements | [Evidence and Detached Validation](standard/evidence-and-validation-contract.md) | Primary definitions of `DATA-002`, `EVID-001`, and `EVID-002`. |
 | Primary requirements | [Conformance](standard/conformance.md) | Primary definitions of `CONF-001`, `CONF-002`, and `CONF-003`: two claims (experiment and decision), the A1 baseline, authority, and contradiction handling. |
 | Invoked normative contract | [Case QA Playbook](standard/case-qa-playbook.md) | Complete activation and revalidation procedure invoked by `CASE-004`. |
-| Invoked normative contract | [Validity, threat, and held-out exposure contracts](standard/standard.md#validity-threat-and-held-out-exposure-contracts) | Validity-argument, baseline, threat-model, and held-out budget and ledger contracts invoked by `VALID-002`, `VALID-003`, and `HOLD-002`. |
+| Invoked normative contract | [Validity, threat, and held-out exposure contracts](standard/annex/validity-threat-held-out-contracts.md) | Validity-argument, baseline, threat-model, and held-out budget and ledger contracts invoked by `VALID-002`, `VALID-003`, and `HOLD-002`. |
 | Invoked normative contract | [Integrity and Semantic Validation](standard/evidence-and-validation-contract.md#integrity-and-semantic-validation-contract) | Named canonical, cross-document, ledger, and verdict reproduction algorithms invoked by primary requirements. |
 | Invoked normative contract | [Git repository-state contract](standard/git-repository-state-contract.md) | Repository-state modes, closure, path and gitlink rules invoked by `SCOPE-003`. |
-| Invoked normative contract | [Security Threat Model](standard/security-threat-model.md) | Threat-coverage rules invoked by `RISK-001`, `RUN-003`, `DATA-001`, and `DATA-002`. |
-| Invoked normative templates | [Governance Policy](standard/governance-policy.md) and [Escalation and Stop Matrix](standard/governance-policy.md#escalation-and-stop-matrix) | Required adopter-owned policy and response shapes invoked by governance requirements; the bundled instances remain non-operational. |
+| Invoked normative contract | [Security Threat Model](standard/annex/security-threat-model.md) | Threat-coverage rules invoked by `RISK-001`, `RUN-003`, `DATA-001`, and `DATA-002`. |
+| Invoked normative templates | [Governance Policy](standard/annex/governance-policy.md) and [Escalation and Stop Matrix](standard/annex/governance-policy.md#escalation-and-stop-matrix) | Required adopter-owned policy and response shapes invoked by governance requirements; the bundled instances remain non-operational. |
 | Normative shape | [Schemas](schemas/) and authenticated JSON registries | Closed JSON structure and registered machine identities; schema annotations are informative. |
 | Informative instances | [`examples/`](examples/README.md) | One valid example per schema, a few schema-level invalid examples, and the A1 worked example; examples cannot create obligations. Digests inside examples are illustrative. |
 | Informative references | [references.md](standard/references.md) | Cited sources and the requirement IDs they inform; informative only. |
 
 The governance decision template is in
-[templates/governance-decision-record.md](templates/governance-decision-record.md).
+[standard/annex/governance-decision-record.md](standard/annex/governance-decision-record.md).
 
 ## Publication discipline
 
@@ -127,7 +127,7 @@ commit. A
 raw version string or Git tag by itself is not evidence that this candidate was
 published.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the release obligations.
 
 ## Validation
 
@@ -143,9 +143,10 @@ runs in CI on every pull request, on `main`, and on version tags.
 
 ## Adoption
 
-While the draft is unpublished, a claimant asserting draft conformance MUST
-pin version `0.1.0` and the exact commit. After publication it MUST additionally
-pin the protected annotated release tag. Saying “based on” this standard is not a
+While the draft is unpublished, a claimant asserting draft conformance pins
+version `0.1.0` and the exact commit, and after publication also the protected
+annotated release tag; [Conformance](standard/conformance.md) defines the
+obligation. Saying “based on” this standard is not a
 conformance claim. Unknown extensions, omitted mandatory evidence, and
 undocumented deviations fail closed for the affected claim.
 

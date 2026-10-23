@@ -164,7 +164,7 @@
       "path": "valid/case-qa.a2.json",
       "schema": "schemas/case-qa.schema.json",
       "valid": true,
-      "illustrates": "an A2 Case QA record passes stages 3-8 (stage 7 with an alternative-valid-result probe), fixes a defect, and binds a grader validation and a decision-surface validation"
+      "illustrates": "an A2 Case QA record passes stages 1-6 (stage 5 with an alternative-valid-result probe), fixes a defect, and binds a grader validation and a decision-surface validation"
     },
     {
       "id": "scorecard.a2.valid",

@@ -16,22 +16,6 @@
   },
   "checks": [
     {
-      "requirementId": "ARCH-001",
-      "result": "pass",
-      "findingIds": [],
-      "evidenceIds": [
-        "fixture-evidence-1"
-      ]
-    },
-    {
-      "requirementId": "TRACE-001",
-      "result": "pass",
-      "findingIds": [],
-      "evidenceIds": [
-        "fixture-evidence-1"
-      ]
-    },
-    {
       "requirementId": "I1",
       "result": "pass",
       "findingIds": [],

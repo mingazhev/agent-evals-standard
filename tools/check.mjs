@@ -338,6 +338,12 @@ for (const absolute of allFiles.filter((file) => file.endsWith(".md"))) {
   }
 }
 
+// ARCH-001: informative documents must not carry uppercase RFC 2119 keywords (a second definition).
+for (const file of ["README.md", "standard/adoption-guide.md", "standard/references.md", "standard/annex/README.md", "examples/README.md", "examples/core/README.md", "profiles/repo-change-v1/README.md"]) {
+  const hit = (await readFile(path.join(root, file), "utf8")).match(/\b(MUST|REQUIRED|SHOULD|MAY)\b/);
+  if (hit) failures.push(`${file} is informative and contains the uppercase keyword ${hit[0]} (ARCH-001)`);
+}
+
 // 7. The worked example's ledger chain and point estimates recompute.
 const worked = spawnSync(process.execPath, [path.join(root, "tools/verify-worked-example.mjs")], { encoding: "utf8" });
 if (worked.status !== 0) failures.push(`worked example: ${worked.stderr.trim()}`);

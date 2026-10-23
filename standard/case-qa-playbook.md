@@ -19,7 +19,7 @@ successes.
 
 The stages below are the A2/A3 procedure invoked by `CASE-004`. At A1, use
 its primary [activation definition](standard.md#activation-and-maintenance)
-and the A1 [record form](#activation-record); stages 3–8 and their attachment
+and the A1 [record form](#activation-record); stages 1–6 and their attachment
 requirements are not additional A1 obligations.
 
 A case proceeds through the stages in order. A failed stage returns the case to
@@ -27,13 +27,13 @@ A case proceeds through the stages in order. A failed stage returns the case to
 
 ```mermaid
 flowchart TD
-  s3[Stage 3: Independent QA Run]
-  s3 --> s4[Stage 4: Control Proofs]
-  s4 --> s5[Stage 5: Trivial-Strategy Battery]
-  s5 --> s6[Stage 6: Adversarial Exploit Pass]
-  s6 --> s7[Stage 7: Alternative-Valid-Result Probe]
-  s7 --> s8[Stage 8: Pilot Runs and Stability]
-  s8 --> active[Activation record / active]
+  s1[Stage 1: Independent QA Run]
+  s1 --> s2[Stage 2: Control Proofs]
+  s2 --> s3[Stage 3: Trivial-Strategy Battery]
+  s3 --> s4[Stage 4: Adversarial Exploit Pass]
+  s4 --> s5[Stage 5: Alternative-Valid-Result Probe]
+  s5 --> s6[Stage 6: Pilot Runs and Stability]
+  s6 --> active[Activation record / active]
 
   s3 -.->|fail| cand[Return to candidate]
   s4 -.->|fail| cand
@@ -55,7 +55,7 @@ system or agent system **MAY** assist, but a person is accountable, and choosing
 a tool never waives a check. A stage that invokes a deterministic recomputation
 or an independent human label still requires that evidence.
 
-The Stage 3, Stage 6, and Stage 7 reviewers **MUST** be
+The Stage 1, Stage 4, and Stage 5 reviewers **MUST** be
 [independent](glossary.md#independence) of the case author, the reference or
 primary-result producer, and the verdict-mechanism owner, and **MUST** differ
 from one another. Renaming a role without changing the underlying person does
@@ -65,7 +65,7 @@ fails closed.
 ### Before activation (informative)
 
 This checklist is guidance for authors and reviewers; it is not an activation
-stage, and the activation record does not require it. Stages 3-8 are the
+stage, and the activation record does not require it. Stages 1-6 are the
 complete activation procedure.
 
 - Case contract complete: task, acceptance, risk tier, ambiguity label, owner,
@@ -86,7 +86,7 @@ complete activation procedure.
 - `covered_by_final_state` assertions are challenged; a material `declared_gap`
   records its typed claim restriction.
 
-### Stage 3 — Independent QA Run
+### Stage 1 — Independent QA Run
 
 The reviewer exercising the `independent_case_execution` capability and
 satisfying the sealed independence baseline has not seen the protected reference
@@ -107,7 +107,7 @@ every affected stage. A model, prompt, policy, harness, or
 grader exposed to held-out QA outcomes **MUST** record that exposure and those
 cases **MUST NOT** remain its sole clean held-out evidence.
 
-### Stage 4 — Control Proofs
+### Stage 2 — Control Proofs
 
 - a reference result or other known-good result **MUST** pass a runner-owned
   control run. For a change result, the runner materializes the known-good
@@ -132,11 +132,11 @@ cases **MUST NOT** remain its sole clean held-out evidence.
 A rejected or quarantined QA record **MUST** retain a control's actual observed
 verdict even when it differs from the sealed expected verdict. Such a mismatch
 cannot support activation, a passed control stage, or a passing surface result.
-Stage 7 retains the independently known-valid control with `expected: pass`
+Stage 5 retains the independently known-valid control with `expected: pass`
 and its actual observed verdict when the alternative is rejected; a passed
-Stage 7 recorded as `not_applicable` still requires successful control proofs.
+Stage 5 recorded as `not_applicable` still requires successful control proofs.
 
-### Stage 5 — Trivial-Strategy Battery
+### Stage 3 — Trivial-Strategy Battery
 
 For a case that requires a change, each low-effort strategy below **MUST** fail to
 achieve a successful outcome:
@@ -161,7 +161,7 @@ and omission of a material required conclusion. The outcome profile determines
 which deterministic checks, expert adjudication, or hybrid verdict applies;
 the case author cannot replace that selection after observing QA results.
 
-### Stage 6 — Adversarial Exploit Pass
+### Stage 4 — Adversarial Exploit Pass
 
 The reviewer exercising the `adversarial_measurement_review` capability and
 satisfying the sealed independence baseline is tasked with achieving acceptance
@@ -171,7 +171,7 @@ addressed to a model-based grader through a diff, review artifact, comment,
 commit message, or log. Every discovered bypass is recorded as a defect and
 closed before activation.
 
-When a model grader is enabled, Stage 6 binds an unexpired
+When a model grader is enabled, Stage 4 binds an unexpired
 `grader-validation-1` record. The validation population and sampling frame
 **MUST** cover the case's task family, outcome classes, risk tier, languages,
 artifact formats, and adversarial conditions. The protocol **MUST** seal a
@@ -197,9 +197,9 @@ falls inside its sealed sampling frame and validity window and uses the exact
 grader, prompt, rubric, parser, and calculation digests. Reuse outside that
 scope or after tuning, drift, or expiry **MUST** fail closed.
 
-For every interactive model simulator, Stage 6 probes goal persistence,
+For every interactive model simulator, Stage 4 probes goal persistence,
 required disclosure, terminal behavior, refusal boundaries, and collusion with
-the evaluated agent. Stage 8 establishes simulator stability and variance with
+the evaluated agent. Stage 6 establishes simulator stability and variance with
 declared sampling units, strata, seeds, repetitions, estimates, uncertainty,
 thresholds, raw evidence, and versioned calculation contracts.
 Failure or insufficient evidence keeps the case `candidate`.
@@ -207,7 +207,7 @@ Every simulator actor has its own component-bound validation record.
 Interactive QA also verifies the evaluated-agent responsibility predicate and
 runs the no-op-agent/co-actor control; the control **MUST** fail to achieve success.
 
-### Stage 7 — Alternative-Valid-Result Probe
+### Stage 5 — Alternative-Valid-Result Probe
 
 By default, at least one independently produced material result that is valid under the
 bound outcome profile **MUST** receive an accepted verdict from every applicable
@@ -233,7 +233,7 @@ false-negative defect. The rejecting check or adjudication contract **MUST** be
 corrected until it enforces only requirements traceable to the sealed
 agent-visible projection and bound outcome profile.
 
-Stage 7 **MAY** instead record `not_applicable` with a rationale when no
+Stage 5 **MAY** instead record `not_applicable` with a rationale when no
 independently produced alternative valid result could be obtained — for
 example because the task admits one byte-identical answer. That stage records `status: not_applicable` and a nonempty
 `notApplicableRationale`; it does not add an `alternativeValidResult` field. It is a recorded gap, not a proof that only
@@ -245,11 +245,11 @@ rejects is still an `alternative_valid_result_rejected` severity-3 defect.
 One alternative valid result is an activation control, not an estimate of the
 false-negative rate. False-positive and false-negative rates used for
 governance or suite-health claims require the shared grader-validation protocol
-defined in Stage 6. The validation sample **MUST** be independent of grader
+defined in Stage 4. The validation sample **MUST** be independent of grader
 tuning and **MUST** include hard, boundary, ambiguous, adversarial, and ordinary
 examples from the declared frame.
 
-### Stage 8 — Pilot Runs and Stability
+### Stage 6 — Pilot Runs and Stability
 
 Run pilot trials with predeclared, diverse probe configurations chosen to
 exercise the case and measurement system's failure modes before including the
@@ -269,7 +269,7 @@ because that configuration was used as a probe:
 - for interactive cases, verify actor attribution, shared-state hashes,
   terminal rules, and zero unattributed mutations across repeated trials.
 
-Before pilot or validation outcomes are observed, Stage 8 **MUST** seal a QA
+Before pilot or validation outcomes are observed, Stage 6 **MUST** seal a QA
 statistics plan in its evidence, using the run-manifest statistics conventions
 for every quantitative QA claim. This is not the later evaluation run manifest,
 which cannot bind an active case until QA completes. They
@@ -370,7 +370,7 @@ and no other field may differ, so `case.lifecycle.qaRecord` → QA record →
 candidate case is acyclic. The normative machine-readable form is
 [`schemas/case-qa.schema.json`](../schemas/case-qa.schema.json).
 
-The A1 record carries exactly these fields, in addition to `id`, `version`,
+The A1 record carries these fields, in addition to `id`, `version`,
 `case`, `author`, and `reviewer`:
 
 - `knownGood` — the intended known-good result, its observed result, and evidence;
@@ -384,8 +384,12 @@ The A1 record carries exactly these fields, in addition to `id`, `version`,
   `hardcodedOutputs`, and `noOp`, with a rationale where one does not apply;
   `noOp.applicable: false` requires the known-good control to prove the
   pre-registered `already_satisfied` alternative;
-- `stability` — actual runs per control and stability; activation requires at
-  least three runs per control, all stable;
+- `stability` — actual runs per control and stability, per the `CASE-004`
+  minimum;
+- `constructFit` (optional) — `candidateModes`, `selectedMode`,
+  `dominanceArgument`, `reviewer`, and `recordedAtCommit`; present whenever the
+  case's acceptance uses a judgment-bound check, and not needed when every
+  check and hard gate is deterministic, per `I9`;
 - `inferabilityReview` — the verdict (`all_required_behavior_inferable` or
   `defects_found`), findings, and the commit at which it was recorded;
 - `scopeReview` — the verdict (`all_four_tests_hold` or `out_of_scope`) and
@@ -395,9 +399,9 @@ The A1 record carries exactly these fields, in addition to `id`, `version`,
 
 At A2 and above the record **MUST** additionally carry:
 
-- `stages` — `stage3` through `stage8`, each with `status` (`passed`,
+- `stages` — `stage1` through `stage6`, each with `status` (`passed`,
   `failed`, or `not_applicable`), `reviewer`, `recordedAtCommit`, `evidence`,
-  and `findings`; Stage 7 `not_applicable` requires `notApplicableRationale`;
+  and `findings`; Stage 5 `not_applicable` requires `notApplicableRationale`;
 - `defects` — each with `id`, `type` from the [Defect Taxonomy](#defect-taxonomy),
   `severity` 0–3, `status` (`open`, `fixed`, or `accepted_minor`), and
   `evidence`;
