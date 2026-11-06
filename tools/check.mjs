@@ -173,6 +173,42 @@ for (const run of [a2Run, a3Run]) {
   }
 }
 
+// A1 may omit a distinct non-agent control; A2/A3 still require it.
+const twoArmRun = await readJson(path.join(examplesDirectory, "core/run-manifest.json"));
+const twoArmScorecard = await readJson(path.join(examplesDirectory, "core/scorecard.json"));
+const withoutControl = (row) => row.armId !== "control-codemods" && row.comparatorArmId !== "control-codemods";
+twoArmRun.arms = twoArmRun.arms.filter((arm) => arm.kind !== "non_agent_control");
+twoArmRun.repetitions = twoArmRun.repetitions.filter(withoutControl);
+twoArmRun.claims = twoArmRun.claims.filter(withoutControl);
+twoArmRun.coverage.gaps.push("Non-agent automation was not measured; no improvement claim over it.");
+for (const field of ["accounting", "outcomes", "hardGateFailures", "metrics"]) {
+  twoArmScorecard[field] = twoArmScorecard[field].filter(withoutControl);
+}
+for (const row of twoArmScorecard.perCase) row.results = row.results.filter(withoutControl);
+twoArmScorecard.claims = twoArmScorecard.claims.filter((claim) => twoArmRun.claims.some(({ id }) => id === claim.id));
+for (const claim of twoArmScorecard.claims) claim.restrictions.push(twoArmRun.coverage.gaps.at(-1));
+assert.equal(validate("schemas/run-manifest.schema.json", twoArmRun).valid, true, "two-arm A1 run");
+assert.equal(validate("schemas/scorecard.schema.json", twoArmScorecard).valid, true, "two-arm A1 scorecard");
+for (const run of [a2Run, a3Run]) {
+  const missingControl = { ...run, arms: run.arms.filter((arm) => arm.kind !== "non_agent_control") };
+  assert.equal(validate("schemas/run-manifest.schema.json", missingControl).valid, false, `${run.assuranceLevel} missing control`);
+  const missingRepetition = { ...run, repetitions: run.repetitions.slice(0, 2) };
+  assert.equal(validate("schemas/run-manifest.schema.json", missingRepetition).valid, false, `${run.assuranceLevel} missing repetition`);
+}
+for (const kind of ["agent", "no_action_baseline"]) {
+  const missingArm = { ...twoArmRun, arms: twoArmRun.arms.filter((arm) => arm.kind !== kind) };
+  assert.equal(validate("schemas/run-manifest.schema.json", missingArm).valid, false, `A1 missing ${kind}`);
+}
+
+// A nonempty override has the same structured shape in both documents.
+const override = { parameter: "minimumCases", value: 60, rationale: "Require more independent cases." };
+for (const [schema, document] of [["run-manifest", twoArmRun], ["scorecard", twoArmScorecard]]) {
+  document.statistics.overrides = [override];
+  assert.equal(validate(`schemas/${schema}.schema.json`, document).valid, true, `${schema} structured override`);
+  document.statistics.overrides = ["minimumCases=60"];
+  assert.equal(validate(`schemas/${schema}.schema.json`, document).valid, false, `${schema} string override`);
+}
+
 // A complete approval must remain representable, with every trigger present once.
 const approval = await readJson(path.join(examplesDirectory, "valid/governance-decision.approve.json"));
 const decisionSchema = "schemas/governance-decision.schema.json";

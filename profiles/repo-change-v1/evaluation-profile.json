@@ -13,7 +13,7 @@
       "id": "agent-evals-standard-requirements",
       "version": "0.1.0",
       "uri": "../../standard/requirement-registry.json",
-      "digest": "sha256:5695942baf073e06eb8f5a9285f3c24b20fb4eb3b874f30d7d06bb3ddd52ee48"
+      "digest": "sha256:1f5ad1a3d08a3db4500d242ad1d77819b801cf88ad53e07bbbad6b9d1e4213b0"
     },
     "verdict": "compatible_no_weakening"
   },
@@ -48,7 +48,7 @@
       "id": "workspace-change-v1",
       "version": "0.1.0",
       "uri": "outcome-profile.json",
-      "digest": "sha256:1043ba0e551c0fe5888e81d1be7c49e44b8f4bf0a617424c34130eb367d0a861"
+      "digest": "sha256:a612b825e8f53cd0149db3b2c19d0db4065ab387ac78332c5cb81dd4d26bdb5d"
     }
   ],
   "caseContract": {
@@ -132,5 +132,5 @@
       "expectedVerdict": "fail"
     }
   ],
-  "digest": "sha256:870dda1aaafd9f5bbd4fce4791c8c044f0b4cbd1ffb19017bc09aea3bc7e31b8"
+  "digest": "sha256:2fa728b21ed25ce81632c24338a2be06f3c576889c4da0fb90ee65126736e577"
 }

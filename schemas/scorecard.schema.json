@@ -45,28 +45,11 @@
       }
     },
     "statistics": {
-      "type": "object",
-      "required": [
-        "defaults",
-        "overrides"
-      ],
-      "properties": {
-        "defaults": {
-          "const": "stat-defaults-v1"
-        },
-        "overrides": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "minLength": 1
-          }
-        }
-      },
-      "additionalProperties": false
+      "$ref": "urn:agent-evals-standard:schema:run-manifest:1#/properties/statistics"
     },
     "accounting": {
       "type": "array",
-      "minItems": 3,
+      "minItems": 2,
       "items": {
         "type": "object",
         "required": [
@@ -106,7 +89,7 @@
     },
     "outcomes": {
       "type": "array",
-      "minItems": 3,
+      "minItems": 2,
       "items": {
         "type": "object",
         "required": [

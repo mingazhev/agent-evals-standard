@@ -74,7 +74,7 @@ Three arms, all scored with the same checks (`VALID-003`):
 
 | Arm | Kind | Trials per case | Identity |
 | --- | --- | --- | --- |
-| `agent-x` | agent | 3 | model, harness config, prompt, tools, permissions, and budget by version or digest (`SCOPE-001`) |
+| `agent-x` | agent | 3 | complete identity bindings under `SCOPE-001` and `EXP-002` |
 | `control-codemods` | non-agent control | 1 | six deterministic rewrite rules |
 | `no-action` | no-action baseline | 1 | the unchanged snapshot |
 

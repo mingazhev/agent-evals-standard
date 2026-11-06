@@ -161,7 +161,7 @@
     },
     "arms": {
       "type": "array",
-      "minItems": 3,
+      "minItems": 2,
       "items": {
         "$ref": "#/$defs/arm"
       },
@@ -244,7 +244,7 @@
     },
     "repetitions": {
       "type": "array",
-      "minItems": 3,
+      "minItems": 2,
       "items": {
         "type": "object",
         "required": [
@@ -815,6 +815,10 @@
           "riskAssessment": {},
           "policy": {},
           "heldOut": {},
+          "repetitions": {
+            "type": "array",
+            "minItems": 3
+          },
           "arms": {
             "contains": {
               "type": "object",

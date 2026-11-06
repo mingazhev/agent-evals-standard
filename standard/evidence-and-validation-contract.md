@@ -37,8 +37,9 @@ three mechanisms that every conforming implementation **MUST** apply:
    claimant **MUST** disclose the hosting, branch-protection, and write-access
    settings on which the ordering relies.
 3. **Producer identity and authority.** Every evidence artifact names its
-   producer `id`, `role`, and `trustDomain`. Whether that producer may create
-   that kind of evidence is decided only by an evaluator-controlled authority
+   producer `id`, `role`, and `trustDomain`. Authorization of evidence producers
+   and conformance-statement issuers for their artifact type, scope, and role
+   is decided only by an evaluator-controlled authority
    registry or contract established outside evaluated input, never by the
    evidence itself. Where a requirement demands independence, the producers
    **MUST** satisfy the [independence definition](glossary.md#independence).
@@ -330,6 +331,16 @@ terminal digest, retry lineage, and first-valid selection, reconciles one
 terminal entry per dispatch, and leaves undispatched cells unresolved. No
 separate state-transition event stream is required.
 
+The runner **MUST** publish an evidence index alongside the ledger, mapping every
+non-null `evidenceDigest` to exactly one `{path, commit, digest}` reference to a
+committed runner-owned evidence packet. The reference digest and SHA-256 of the
+packet's stored bytes **MUST** equal `evidenceDigest`. The packet binds the run,
+case, arm, cell, and attempt IDs and locates the raw transcript, work product,
+gate results, and any interaction evidence needed to replay that attempt.
+Payload references follow the level-specific `EVID-001` forms. The index and
+packet use adopter-defined formats; missing or ambiguous resolution fails the
+affected path closed. A null digest on an invalid attempt supplies no evidence.
+
 Ordering and rewrite resistance come from the
 [integrity model](#integrity-model): the
 ledger's commit history, not a recomputed hash, is what a verifier inspects.
@@ -446,8 +457,9 @@ commit to bytes matching its digest and validates against its schema
 decision claim). It also checks `restrictions.governanceUse`: `prohibited` at
 A1, and for a decision claim `eligible` on the statement and on each supporting
 experiment statement. A statement
-whose bytes do not reproduce its published digest, or whose issuer is not an
-authorized identity, is an unauthenticated self-assertion and is not conforming.
+whose bytes do not reproduce its published digest, or whose issuer lacks
+authorization under the [integrity model](#integrity-model), is an
+unauthenticated self-assertion and is not conforming.
 At A2 and above it also verifies the detached envelope published alongside the
 statement (found by publication location, not by a statement field), whose
 subject digest equals the statement digest; at A1 independent review replaces
