@@ -283,7 +283,7 @@
     },
     {
       "id": "SCOPE-003",
-      "subject": "repository-grounded applicability and profile selection",
+      "subject": "repository-grounded applicability, level-specific snapshots, and profile selection",
       "normativeReference": "standard.md#applicability-boundary-and-profiles",
       "minimumLevel": "A1",
       "targets": [
@@ -297,7 +297,7 @@
         "threatRationale": "bounded standard architecture"
       },
       "applicability": {
-        "rule": "Applies when repository-grounded applicability and profile selection can affect the declared suite, case, experiment target or any claim derived from it.",
+        "rule": "Applies when repository-grounded applicability, level-specific snapshots, and profile selection can affect the declared suite, case, experiment target or any claim derived from it.",
         "unknownEffect": "insufficient_evidence"
       }
     },
@@ -607,7 +607,7 @@
     },
     {
       "id": "EXP-001",
-      "subject": "sealed experiment and scheduled cells",
+      "subject": "sealed experiment, level-specific baselines, and scheduled cells",
       "normativeReference": "standard.md#sealed-experiment-contract",
       "minimumLevel": "A1",
       "targets": [
@@ -621,7 +621,7 @@
         "threatRationale": "reproducibility and pre-registration"
       },
       "applicability": {
-        "rule": "Applies when sealed experiment and scheduled cells can affect the declared experiment target or any claim derived from it.",
+        "rule": "Applies when sealed experiment, level-specific baselines, and scheduled cells can affect the declared experiment target or any claim derived from it.",
         "unknownEffect": "insufficient_evidence"
       }
     },
@@ -909,7 +909,7 @@
     },
     {
       "id": "CLAIM-001",
-      "subject": "primary threshold claims and exploratory reporting",
+      "subject": "deterministic primary threshold statuses and exploratory reporting",
       "normativeReference": "scorecard-contract.md#claims",
       "minimumLevel": "A1",
       "targets": [
@@ -924,7 +924,7 @@
         "threatRationale": "claim-bounded reporting"
       },
       "applicability": {
-        "rule": "Applies when primary threshold claims and exploratory reporting can affect the declared suite, evaluator, experiment, decision target or any claim derived from it.",
+        "rule": "Applies when deterministic primary threshold statuses and exploratory reporting can affect the declared suite, evaluator, experiment, decision target or any claim derived from it.",
         "unknownEffect": "insufficient_evidence"
       }
     },
@@ -996,7 +996,7 @@
     },
     {
       "id": "STAT-003",
-      "subject": "comparison, multiplicity, scheduled repeatability, and supported uncertainty methods",
+      "subject": "comparison, multiplicity, repeatability, and supported inference",
       "normativeReference": "standard.md#statistics-and-missingness",
       "minimumLevel": "A1",
       "targets": [
@@ -1013,7 +1013,7 @@
         ]
       },
       "applicability": {
-        "rule": "Applies when comparison, multiplicity, scheduled repeatability, and supported uncertainty methods can affect the declared experiment target or any claim derived from it. For pass_hat_k, the named arm's sealed trialsPerCase equals the claim's k; all scheduled cells enter its case indicator.",
+        "rule": "Applies when comparison, multiplicity, repeatability, and supported inference can affect the declared experiment target or any claim derived from it. For pass_hat_k, the named arm's sealed trialsPerCase equals the claim's k; all scheduled cells enter its case indicator. Supported interval methods require equal case weights; scorecard statistics reproduce the manifest overrides.",
         "unknownEffect": "insufficient_evidence"
       }
     },
@@ -1089,7 +1089,7 @@
     },
     {
       "id": "GOV-002",
-      "subject": "post-decision assurance and expiry",
+      "subject": "post-decision assurance, review, and expiry",
       "normativeReference": "standard.md#governance-decisions-and-post-decision-assurance",
       "minimumLevel": "A2",
       "targets": [
@@ -1106,7 +1106,7 @@
         ]
       },
       "applicability": {
-        "rule": "Applies when post-decision assurance and expiry can affect the declared decision target or any claim derived from it.",
+        "rule": "Applies when post-decision assurance, review, and expiry can affect the declared decision target or any claim derived from it.",
         "unknownEffect": "insufficient_evidence"
       }
     },
@@ -1133,7 +1133,7 @@
     },
     {
       "id": "CONF-001",
-      "subject": "target-specific conformance",
+      "subject": "authorized target-specific conformance and resolvable attempt evidence",
       "normativeReference": "conformance.md#applicability-boundary",
       "minimumLevel": "A1",
       "targets": [
@@ -1148,7 +1148,7 @@
         "threatRationale": "independently reviewable claims"
       },
       "applicability": {
-        "rule": "Applies when target-specific conformance can affect the declared suite, case, evaluator, experiment, decision target or any claim derived from it.",
+        "rule": "Applies when authorized target-specific conformance and resolvable attempt evidence can affect the declared suite, case, evaluator, experiment, decision target or any claim derived from it.",
         "unknownEffect": "insufficient_evidence"
       }
     },
@@ -1195,5 +1195,5 @@
       }
     }
   ],
-  "digest": "sha256:5695942baf073e06eb8f5a9285f3c24b20fb4eb3b874f30d7d06bb3ddd52ee48"
+  "digest": "sha256:1f5ad1a3d08a3db4500d242ad1d77819b801cf88ad53e07bbbad6b9d1e4213b0"
 }

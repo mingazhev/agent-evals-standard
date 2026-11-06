@@ -50,7 +50,9 @@ depends on it:
    Record every dispatched attempt, including invalid and replacement
    attempts, in the hash chain. Reconcile never-dispatched cells against the
    sealed schedule as unresolved, without inventing attempts. Commit ledger updates to Git; the
-   manifest seal commit must be an ancestor of the first attempt.
+   manifest seal commit must be an ancestor of the first attempt. Publish the
+   evidence index with the ledger so each `evidenceDigest` resolves to its
+   committed raw evidence packet.
 5. **Scorecard** (`scorecard-1`,
    [`scorecard.schema.json`](../schemas/scorecard.schema.json)). Derive counts,
    outcomes, gate failures, per-case results, identification bounds, and

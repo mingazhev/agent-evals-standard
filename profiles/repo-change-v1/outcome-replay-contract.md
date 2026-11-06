@@ -74,8 +74,13 @@ executor **MUST**:
    reconstruction yield `insufficient_evidence`.
 4. Require a nonempty base-to-result state difference for `workspace_changed`,
    using the same capture rules and exclusions for both states,
-   then evaluate the registered outcome conditions and hard gates. Merely
-   changing a file is not evidence that the task is satisfied.
+   then evaluate the registered outcome conditions and hard gates. Checks that
+   depend on repository state **MUST** run against the reconstruction; any
+   excluded generated files they need **MUST** be recreated from that state and
+   sealed inputs by the pinned runner process, never copied from the evaluated
+   workspace.
+   Trajectory gates use authenticated attempt evidence. Merely changing a file
+   is not evidence that the task is satisfied.
 
 For example, Git's `diff --binary --full-index --no-ext-diff --no-textconv`
 can serialize text and binary changes after all solution files have been

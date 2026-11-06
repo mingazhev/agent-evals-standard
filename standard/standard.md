@@ -69,13 +69,13 @@ materially repository-grounded only when all four tests pass:
 4. removing repository state would materially change the task, valid result,
    evidence, or verdict.
 
-For this requirement, a sealed repository snapshot is an immutable,
-content-addressed workspace manifest identifying every repository root, its
-selected Git repository-state mode and base object, and every repository-
-governed non-code input needed by the case. It may bind one repository or a
-coordinated multi-repository workspace. An artifact's storage location inside
-or outside a repository neither establishes nor defeats scope; the four tests
-above do.
+For this requirement, a sealed repository snapshot is immutable Git state
+bound under the [Git repository-state contract](git-repository-state-contract.md):
+at A1 by `case.repository` (URI, base commit, and visible-history mode); at A2
+and above by a content-addressed workspace manifest identifying every repository
+root, its state mode and base object, and required repository-governed non-code
+inputs. The manifest may bind one repository or a coordinated multi-repository
+workspace. Artifact storage location alone neither establishes nor defeats scope.
 
 Version 0.1.0 defines executable repository-state semantics for Git repositories
 only. A non-Git VCS evaluation is outside executable conformance until a
@@ -786,9 +786,10 @@ This section adds no second definition.
 
 ### Sealed Experiment Contract
 
-`EXP-001` — A run is one sealed experiment containing an agent arm, a no-action baseline,
-and a distinct non-agent control, with optional additional arms and a
-fixed schedule derived from `cases`, `arms`, and `repetitions`. Each case has
+`EXP-001` — A run is one sealed experiment containing an agent arm, a no-action
+baseline, and the level-specific reference baselines required by `VALID-003`,
+with optional additional arms and a fixed schedule derived from `cases`, `arms`,
+and `repetitions`. Each case has
 trials `1..trialsPerCase` for each arm; the tuple `(caseId, armId, trial)`
 identifies a cell, whose runner-assigned `cellId` remains stable in the ledger.
 Cell IDs and `(case, arm, repetition)` tuples
@@ -984,7 +985,7 @@ populations each claim describes.
 | Interval, repeated-trial pass@1 | approximate `mean ± t(1 - α/2, n - 1) · s / √n` over per-case fractions, clipped to `[0, 1]`; requires a justified case-level approximation |
 | Interval, paired contrast | approximate `t` interval over per-case differences, clipped to `[-1, 1]`; requires a justified case-level approximation |
 | Missingness | identification bounds that assign every unresolved cell failure, then success; the reported interval runs from the lower limit at the failure endpoint to the upper limit at the success endpoint |
-| Decision rule | an at-least claim is `supported` only when the reported interval's lower limit exceeds the sealed threshold; an at-most (harm) claim only when its upper limit falls below it |
+| Decision rule | an at-least claim is `supported` only when the reported interval's lower limit exceeds the sealed threshold; an at-most claim only when its upper limit falls below it |
 | Replacement attempts | at most one per cell, only after a measurement-invalid attempt |
 
 When a `t` interval has zero sample variance or its case-level approximation
@@ -992,6 +993,10 @@ is unsupported, that interval is uncomputable; the claim yields
 `insufficient_evidence` unless a supported method justified by the sealed design
 was selected before execution. Wilson is not applied to fractional or signed
 case observations.
+
+All supported interval methods use equal case weights. An unequally weighted
+result has no supported interval in 0.1.0 and yields `insufficient_evidence`;
+computable identification bounds **MUST** still be reported.
 
 For a `pass_hat_k` claim, the named arm's sealed `trialsPerCase` **MUST** equal
 the claim's `k`, including after pre-execution overrides. All `k` scheduled
@@ -1030,10 +1035,12 @@ this requirement are defined in the
 `GOV-002` — Approval **MUST** bind the exact arm identity, task and repository
 scope, effective risk, permissions, environment, target population, assurance
 level, exclusions, effective date, review date, expiry, and post-decision
-assurance plan. Material changes, production-concordance breach, missing
-assurance evidence, or expired review **MUST** narrow, suspend, revoke, or require
-revalidation under the sealed rule. Later evidence **MUST NOT** rewrite the
-experiment or scorecard.
+assurance plan. Material changes, production-concordance breach, or missing
+assurance evidence **MUST** narrow, suspend, revoke, or require revalidation
+under the sealed rule. Review and expiry **MUST** apply the
+[policy eligibility rules](annex/governance-policy.md#eligibility-rules): review
+blocks new acceptance, renewal, and expansion; expiry ends authorization.
+Later evidence **MUST NOT** rewrite the experiment or scorecard.
 
 ## Suite Health
 

@@ -35,12 +35,12 @@ flowchart TD
   s5 --> s6[Stage 6: Pilot Runs and Stability]
   s6 --> active[Activation record / active]
 
-  s3 -.->|fail| cand[Return to candidate]
+  s1 -.->|fail| cand[Return to candidate]
+  s2 -.->|fail| cand
+  s3 -.->|fail| cand
   s4 -.->|fail| cand
   s5 -.->|fail| cand
   s6 -.->|fail| cand
-  s7 -.->|fail| cand
-  s8 -.->|fail| cand
 ```
 
 Any change to the task description, agent-visible projection, checks, graders,

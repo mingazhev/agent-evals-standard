@@ -20,7 +20,9 @@ scorecard represents one sealed experiment. Its identity and bindings are
 reference a `{path, commit, digest}` triple, and `statistics`
 (`stat-defaults-v1` plus the overrides sealed in the run manifest). Arms,
 cases, repetitions, retry policy, claim contracts, and statistics are sealed in
-the run manifest and are not echoed here. The measurement fields are:
+the run manifest. The scorecard's `statistics` **MUST** equal the manifest's
+complete `statistics` object, including ordered `{parameter, value, rationale}`
+overrides; other sealed inputs are not echoed here. The measurement fields are:
 
 | Field | Content |
 | --- | --- |
@@ -151,7 +153,10 @@ claim predicate selected through an undeclared field.
 The decision rule consumes the reported interval limit: the lower limit at the
 failure endpoint for an at-least claim (`lower_limit_above`), the upper limit at
 the success endpoint for an at-most claim (`upper_limit_below`), under
-`stat-defaults-v1`. An exploratory claim **MUST** have status `reported_only`
+`stat-defaults-v1`. When the metric is computed and no applicable restriction
+requires `insufficient_evidence`, a primary claim **MUST** be `supported` if its
+sealed decision rule passes and `not_supported` otherwise.
+An exploratory claim **MUST** have status `reported_only`
 when its metric is computed and no applicable restriction requires
 `insufficient_evidence`; it cannot be `supported` or `not_supported`.
 An uncomputable metric yields `insufficient_evidence` for either classification.

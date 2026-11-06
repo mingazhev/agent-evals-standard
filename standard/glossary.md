@@ -12,8 +12,8 @@ but cannot change these meanings.
 
 - **Repository-grounded SDLC agent evaluation** — claim-bearing work that
   passes the four `SCOPE-003` tests ([SCOPE-003](standard.md#applicability-boundary-and-profiles)).
-- **Sealed repository snapshot** — an immutable `workspace-manifest-1`; see the
-  [Git boundary contract](git-repository-state-contract.md).
+- **Sealed repository snapshot** — immutable Git state with the level-specific
+  binding in the [Git boundary contract](git-repository-state-contract.md).
 - **Evaluation profile**, **outcome profile** — see
   [PROFILE-001](standard.md#evaluation-profile-resolution) and
   [CASE-002](standard.md#outcome-profiles).
